@@ -1,10 +1,9 @@
 /*
- *		SIR Lab - Laboratório de Sistemas Inteligentes e Robótica
- *		SirSoccer - Sistema dedicado a categoria IEEE Very Small Size Soccer
+ * This file is part of the VSS-Vision project.
  *
- *		Orientadores: Alberto Angonese e Eduardo Krempser
- *		Membros (2014): Johnathan Fercher, Oscar Neiva, Lucas Borsatto, Lucas Marques e Hebert Luiz.
- *		Membros (2015): Johnathan Fercher, Oscar Neiva, Lucas Borsatto, Hebert Luiz, Felipe Amaral, Manoel Stilpen e Samantha Vilaça.
+ * This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
+ * v. 3.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
  
 #ifndef HEADERS_H_
