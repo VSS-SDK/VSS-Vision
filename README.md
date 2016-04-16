@@ -1,6 +1,6 @@
 VSS-Vision 
 ==========
-
+Esse é o protótipo de um programa de Visão Computacional global para a competição de futebol de robôs [IEEE Very Small Size (VSS)][vss], começou a ser desenvolvido pelo [Laboratório de Sistemas Inteligentes de Robótica (SIRLab)][sirface].
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
 
 Description
@@ -48,4 +48,8 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 
 [gpl3]: http://www.gnu.org/licenses/gpl-3.0/
 [sirface]: https://www.facebook.com/sirlab.faeterj/
+[siryou]: https://www.youtube.com/channel/UCLXQhza5oA2EJYsYDbr41ZQ
+[sirlink]: https://www.linkedin.com/company/sir-lab
+[vss]: http://www.cbrobotica.org/
+
 
