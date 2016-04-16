@@ -31,6 +31,13 @@ $ sudo apt-get install g++ cmake git libopencv-dev x11-xserver-utils libglfw2 li
 
 ```
 
+Developing
+----------
+```
+make && make run
+```
+
+
 Release
 -------
 ```
