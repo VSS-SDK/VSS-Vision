@@ -7,12 +7,6 @@ Description
 -----------
 
 
-Requirements
-------------
-```
-G++, Cmake, Git, OpenCV, X11, Glfw, Glew, Glut, Imgui, Uvcdynctrl, Arduino, Putty, Bullet-Physics, ZMQ, Protobuf
-```
-
 **Install** Ubuntu (14.04 LTS)
 ------------------------------
 ```
