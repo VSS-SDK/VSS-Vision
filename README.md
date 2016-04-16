@@ -1,5 +1,8 @@
-# VSS-Vision #
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+VSS-Vision 
+==========
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
+
 # Description
 
 
@@ -43,7 +46,15 @@ O PROJETO ESTA EM CONSTRUCAO. AINDA NAO E POSSIVEL UTILIZA-LO
 
 ```
 
-# TODO
+License
+-------
 
+This code is licensed under the [Mozilla Public License 2.0][mpl2], of which a textual copy is available at [LICENSE.txt](LICENSE.txt).
 
-# DOING
+You are allowed and encouraged to use this software on the RoboCup competitions.  If you do, please let us know.
+
+Although not required, we think it's best for all if improvements are shared.
+
+[gpl3]: http://www.gnu.org/licenses/gpl-3.0/
+[sirface]: https://www.facebook.com/sirlab.faeterj/
+
