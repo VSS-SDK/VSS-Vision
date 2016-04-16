@@ -1,6 +1,7 @@
 VSS-Vision 
 ==========
 Esse é o protótipo de um programa de Visão Computacional global para a competição de futebol de robôs [IEEE Very Small Size (VSS)][vss], começou a ser desenvolvido pelo [Laboratório de Sistemas Inteligentes de Robótica (SIRLab)][sirface].
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
 
 Description
