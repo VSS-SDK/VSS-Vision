@@ -1,0 +1,3 @@
+all:	
+	@echo Protos ...
+	@protoc -I=. --cpp_out=. sirlab.proto
