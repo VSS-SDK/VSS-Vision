@@ -49,7 +49,7 @@ O PROJETO ESTA EM CONSTRUCAO. AINDA NAO E POSSIVEL UTILIZA-LO
 License
 -------
 
-This code is licensed under the [Mozilla Public License 2.0][mpl2], of which a textual copy is available at [LICENSE.txt](LICENSE.txt).
+This code is licensed under the [GNU GENERAL PUBLIC LICENSE Version 3][gpl3], of which a textual copy is available at [LICENSE.txt](LICENSE.txt).
 
 You are allowed and encouraged to use this software on the RoboCup competitions.  If you do, please let us know.
 
