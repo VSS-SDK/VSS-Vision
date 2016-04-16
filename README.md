@@ -1,12 +1,6 @@
-# Server-SirSoccer #
-
-* **Laboratório:** SIRLab - Laboratório de Sistemas Inteligentes e Robótica
-* **Instituição:** Faculdade de Educação Tecnológica do Estado do Rio de Janeiro - **FAETERJ-Brasil**
-* **Graduação Tecnologia da Informação e da Comunicação:** Tecnólogo 
-
+# VSS-Vision #
+[![GPL License](http://www.gnu.org/licenses/gpl-3.0.en.html)][gpl3]
 # Description
-
-Esse é um dos repositórios oficiais da equipe **SirSoccer**, o projeto é divido em quatro partes: *Server*, *Strategies*, *Simulator* e *Firmware*. O **Server** é responsável por fornecer as posições, orientações e velocidades de todos os objetos em campo.
 
 
 # Requirements
