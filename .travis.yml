@@ -27,6 +27,7 @@ addons:
       - libopencv-dev
       - x11-xserver-utils
       - libglfw2
+      - libglfw-dev
       - libglew1.10
       - libglew-dev
       - freeglut3
