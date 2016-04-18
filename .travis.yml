@@ -27,11 +27,13 @@ addons:
       - libopencv-dev
       - x11-xserver-utils
       - libglfw2
+      - libglew1.10
       - libglew-dev
       - freeglut3
       - freeglut3-dev
       - libzmq3
       - libzmq3-dev
 script:
+  - sudo ldconfig
   - make -j8
   - ./VSS-Vision
