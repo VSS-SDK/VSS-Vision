@@ -38,8 +38,8 @@ addons:
       - libzmq3
       - libzmq3-dev
 script:
-  - git clone https://github.com/glfw/glfw.git/tmp/glfw
-  - cd /tmp/glfw
+  - git clone https://github.com/glfw/glfw
+  - cd glfw
   - git checkout latest
   - cmake . -DBUILD_SHARED_LIBS=ON
   - make
