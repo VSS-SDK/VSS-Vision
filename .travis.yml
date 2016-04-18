@@ -56,4 +56,3 @@ script:
   - cd ..
 
   - make -j8
-  # - ./VSS-Vision this is not a test yet.

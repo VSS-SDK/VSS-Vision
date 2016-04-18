@@ -31,7 +31,6 @@ CFLAGS = $(CXXFLAGS)
 all: calibration protobuf $(EXE)
 	@echo Build complete for $(ECHO_MESSAGE)
 	
-
 run:
 	./VSS-Vision
 
