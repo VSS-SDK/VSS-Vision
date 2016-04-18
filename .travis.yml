@@ -46,5 +46,8 @@ script:
   - sudo make install
   - sudo ldconfig
   - cd ..
+  - sudo modprobe raw1394
+  - ls -la /dev/raw1394
+  - sudo chmod a+rw /dev/raw1394
   - make -j8
   - ./VSS-Vision
