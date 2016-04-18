@@ -1,6 +1,7 @@
 VSS-Vision 
 ==========
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
+[![Build Status](https://travis-ci.org/SIRLab/VSS-Vision.svg?branch=master)][travis]
 
 Description
 -----------
@@ -48,6 +49,7 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [opencv]: http://opencv.org/
 [glfw]: http://www.glfw.org/
 [imgui]: https://github.com/ocornut/imgui/
+[travis]: https://travis-ci.org/SIRLab/VSS-Vision
 
 
 
