@@ -12,7 +12,7 @@
 #include "iostream"
 #include <opencv2/highgui/highgui.hpp>	// Visão Computacional
 #include <opencv2/imgproc/imgproc.hpp>
-//#include "opencv2/videoio.hpp"
+#include "opencv2/videoio.hpp"
 
 using namespace std;
 using namespace cv;

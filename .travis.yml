@@ -42,7 +42,7 @@ script:
   - cd glfw
   - git checkout latest
   - cmake . -DBUILD_SHARED_LIBS=ON
-  - make
+  - make -j8
   - sudo make install
   - sudo ldconfig
   - cd ..
@@ -50,10 +50,10 @@ script:
   - git clone https://github.com/Itseez/opencv.git
   - cd opencv
   - cmake .
-  - make
+  - make -j8
   - sudo make install
   - sudo ldconfig
   - cd ..
-  
+
   - make -j8
   - ./VSS-Vision
