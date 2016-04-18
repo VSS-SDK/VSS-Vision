@@ -20,14 +20,17 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
+      - build-essential
+      - git
+      - cmake
+      - xorg-dev
+      - libglu1-mesa-dev
       - gcc-4.8
       - g++-4.8
       - protobuf-compiler
       - libprotobuf-dev
       - libopencv-dev
       - x11-xserver-utils
-      - libglfw2
-      - libglfw-dev
       - libglew1.10
       - libglew-dev
       - freeglut3
@@ -35,6 +38,12 @@ addons:
       - libzmq3
       - libzmq3-dev
 script:
+  - git clone https://github.com/glfw/glfw.git/tmp/glfw
+  - cd /tmp/glfw
+  - git checkout latest
+  - cmake . -DBUILD_SHARED_LIBS=ON
+  - make
+  - sudo make install
   - sudo ldconfig
   - make -j8
   - ./VSS-Vision
