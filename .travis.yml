@@ -1,4 +1,7 @@
+# Ubuntu 14.04 Trusty support
 sudo: true
+
+dist: trusty
 
 language: cpp
 
