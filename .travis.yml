@@ -38,7 +38,7 @@ addons:
       - libzmq3
       - libzmq3-dev
 script:
-  - git clone https://github.com/glfw/glfw
+  - git clone https://github.com/glfw/glfw.git
   - cd glfw
   - git checkout latest
   - cmake . -DBUILD_SHARED_LIBS=ON
@@ -46,8 +46,14 @@ script:
   - sudo make install
   - sudo ldconfig
   - cd ..
-  - sudo modprobe raw1394
-  - ls -la /dev/raw1394
-  - sudo chmod a+rw /dev/raw1394
+
+  - git clone https://github.com/Itseez/opencv.git
+  - cd opencv
+  - cmake .
+  - make
+  - sudo make install
+  - sudo ldconfig
+  - cd ..
+  
   - make -j8
   - ./VSS-Vision
