@@ -1,0 +1,22 @@
+language: cpp
+compiler:
+  - gcc
+sudo: false
+addons:
+  apt:
+    packages:
+      - protobuf-compiler
+      - libprotobuf-dev
+      - libstdc++-4.8-dev
+      - libopencv-dev
+      - x11-xserver-utils
+      - libglfw2
+      - libglew1.10
+      - libglew-dev
+      - freeglut3
+      - freeglut3-dev
+      - libzmq3
+      - libzmq3-dev
+script:
+  - make -j8
+  - ./VSS-Vision
