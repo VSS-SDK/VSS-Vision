@@ -7,7 +7,6 @@ addons:
     packages:
       - protobuf-compiler
       - libprotobuf-dev
-      - libstdc++-4.8-dev
       - libopencv-dev
       - x11-xserver-utils
       - libglfw2
