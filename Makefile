@@ -28,14 +28,21 @@ CFLAGS = $(CXXFLAGS)
 .cpp.o:
 	$(CXX) $(CXXFLAGS) -c -o $@ $< -w
 
-all: $(EXE)
+all: calibration protobuf $(EXE)
 	@echo Build complete for $(ECHO_MESSAGE)
+	
 
 run:
 	./VSS-Vision
 
 $(EXE): $(OBJS)
 	$(CXX) -o $(EXE) $(OBJS) $(CXXFLAGS) $(LIBS)
+
+calibration:
+	cd Calibration && make -f calibration.make
+
+protobuf:
+	cd Utils/Zocket/Protos/ && make -f protos.make
 
 clean:
 	rm $(EXE) $(OBJS)

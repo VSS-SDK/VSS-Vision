@@ -7,6 +7,7 @@
 #include <algorithm>
 
 #include <google/protobuf/stubs/common.h>
+#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
@@ -58,16 +59,16 @@ void protobuf_AssignDesc_sirlab_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(State, message_),
   };
   State_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       State_descriptor_,
       State::default_instance_,
       State_offsets_,
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(State, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(State, _unknown_fields_),
       -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(State));
+      -1,
+      sizeof(State),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(State, _internal_metadata_),
+      -1);
 }
 
 namespace {
@@ -81,7 +82,7 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    State_descriptor_, &State::default_instance());
+      State_descriptor_, &State::default_instance());
 }
 
 }  // namespace
@@ -122,9 +123,19 @@ struct StaticDescriptorInitializer_sirlab_2eproto {
   }
 } static_descriptor_initializer_sirlab_2eproto_;
 
+namespace {
+
+static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
+static void MergeFromFail(int line) {
+  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+}
+
+}  // namespace
+
+
 // ===================================================================
 
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int State::kSir1XFieldNumber;
 const int State::kSir1YFieldNumber;
 const int State::kSir1ThetaFieldNumber;
@@ -146,20 +157,23 @@ const int State::kAdv3ThetaFieldNumber;
 const int State::kBallXFieldNumber;
 const int State::kBallYFieldNumber;
 const int State::kMessageFieldNumber;
-#endif  // !_MSC_VER
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 State::State()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:sirlab.State)
 }
 
 void State::InitAsDefaultInstance() {
 }
 
 State::State(const State& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:sirlab.State)
 }
 
 void State::SharedCtor() {
@@ -189,6 +203,7 @@ void State::SharedCtor() {
 }
 
 State::~State() {
+  // @@protoc_insertion_point(destructor:sirlab.State)
   SharedDtor();
 }
 
@@ -214,58 +229,61 @@ const State& State::default_instance() {
 
 State* State::default_instance_ = NULL;
 
-State* State::New() const {
-  return new State;
+State* State::New(::google::protobuf::Arena* arena) const {
+  State* n = new State;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
 }
 
 void State::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    sir1_x_ = 0;
-    sir1_y_ = 0;
-    sir1_theta_ = 0;
-    sir2_x_ = 0;
-    sir2_y_ = 0;
-    sir2_theta_ = 0;
-    sir3_x_ = 0;
-    sir3_y_ = 0;
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<State*>(16)->f)
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  if (_has_bits_[0 / 32] & 255u) {
+    ZR_(sir1_x_, sir3_y_);
   }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    sir3_theta_ = 0;
-    adv1_x_ = 0;
-    adv1_y_ = 0;
-    adv1_theta_ = 0;
-    adv2_x_ = 0;
-    adv2_y_ = 0;
-    adv2_theta_ = 0;
-    adv3_x_ = 0;
+  if (_has_bits_[8 / 32] & 65280u) {
+    ZR_(sir3_theta_, adv3_x_);
   }
-  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-    adv3_y_ = 0;
-    adv3_theta_ = 0;
-    ball_x_ = 0;
-    ball_y_ = 0;
-    message_ = 0;
+  if (_has_bits_[16 / 32] & 2031616u) {
+    ZR_(adv3_y_, message_);
   }
+
+#undef ZR_HELPER_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
+  if (_internal_metadata_.have_unknown_fields()) {
+    mutable_unknown_fields()->Clear();
+  }
 }
 
 bool State::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:sirlab.State)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required int32 sir1_x = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &sir1_x_)));
           set_has_sir1_x();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(16)) goto parse_sir1_y;
         break;
@@ -273,15 +291,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 sir1_y = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 16) {
          parse_sir1_y:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &sir1_y_)));
           set_has_sir1_y();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(29)) goto parse_sir1_theta;
         break;
@@ -289,15 +306,14 @@ bool State::MergePartialFromCodedStream(
 
       // required float sir1_theta = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 29) {
          parse_sir1_theta:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &sir1_theta_)));
           set_has_sir1_theta();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(32)) goto parse_sir2_x;
         break;
@@ -305,15 +321,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 sir2_x = 4;
       case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 32) {
          parse_sir2_x:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &sir2_x_)));
           set_has_sir2_x();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(40)) goto parse_sir2_y;
         break;
@@ -321,15 +336,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 sir2_y = 5;
       case 5: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 40) {
          parse_sir2_y:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &sir2_y_)));
           set_has_sir2_y();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(53)) goto parse_sir2_theta;
         break;
@@ -337,15 +351,14 @@ bool State::MergePartialFromCodedStream(
 
       // required float sir2_theta = 6;
       case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 53) {
          parse_sir2_theta:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &sir2_theta_)));
           set_has_sir2_theta();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(56)) goto parse_sir3_x;
         break;
@@ -353,15 +366,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 sir3_x = 7;
       case 7: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 56) {
          parse_sir3_x:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &sir3_x_)));
           set_has_sir3_x();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(64)) goto parse_sir3_y;
         break;
@@ -369,15 +381,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 sir3_y = 8;
       case 8: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 64) {
          parse_sir3_y:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &sir3_y_)));
           set_has_sir3_y();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(77)) goto parse_sir3_theta;
         break;
@@ -385,15 +396,14 @@ bool State::MergePartialFromCodedStream(
 
       // required float sir3_theta = 9;
       case 9: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 77) {
          parse_sir3_theta:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &sir3_theta_)));
           set_has_sir3_theta();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(80)) goto parse_adv1_x;
         break;
@@ -401,15 +411,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 adv1_x = 10;
       case 10: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 80) {
          parse_adv1_x:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &adv1_x_)));
           set_has_adv1_x();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(88)) goto parse_adv1_y;
         break;
@@ -417,15 +426,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 adv1_y = 11;
       case 11: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 88) {
          parse_adv1_y:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &adv1_y_)));
           set_has_adv1_y();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(101)) goto parse_adv1_theta;
         break;
@@ -433,15 +441,14 @@ bool State::MergePartialFromCodedStream(
 
       // optional float adv1_theta = 12;
       case 12: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 101) {
          parse_adv1_theta:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &adv1_theta_)));
           set_has_adv1_theta();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(104)) goto parse_adv2_x;
         break;
@@ -449,15 +456,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 adv2_x = 13;
       case 13: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 104) {
          parse_adv2_x:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &adv2_x_)));
           set_has_adv2_x();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(112)) goto parse_adv2_y;
         break;
@@ -465,15 +471,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 adv2_y = 14;
       case 14: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 112) {
          parse_adv2_y:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &adv2_y_)));
           set_has_adv2_y();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(125)) goto parse_adv2_theta;
         break;
@@ -481,15 +486,14 @@ bool State::MergePartialFromCodedStream(
 
       // optional float adv2_theta = 15;
       case 15: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 125) {
          parse_adv2_theta:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &adv2_theta_)));
           set_has_adv2_theta();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(128)) goto parse_adv3_x;
         break;
@@ -497,15 +501,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 adv3_x = 16;
       case 16: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 128) {
          parse_adv3_x:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &adv3_x_)));
           set_has_adv3_x();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(136)) goto parse_adv3_y;
         break;
@@ -513,15 +516,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 adv3_y = 17;
       case 17: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 136) {
          parse_adv3_y:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &adv3_y_)));
           set_has_adv3_y();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(149)) goto parse_adv3_theta;
         break;
@@ -529,15 +531,14 @@ bool State::MergePartialFromCodedStream(
 
       // optional float adv3_theta = 18;
       case 18: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 149) {
          parse_adv3_theta:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &adv3_theta_)));
           set_has_adv3_theta();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(152)) goto parse_ball_x;
         break;
@@ -545,15 +546,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 ball_x = 19;
       case 19: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 152) {
          parse_ball_x:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &ball_x_)));
           set_has_ball_x();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(160)) goto parse_ball_y;
         break;
@@ -561,15 +561,14 @@ bool State::MergePartialFromCodedStream(
 
       // required int32 ball_y = 20;
       case 20: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 160) {
          parse_ball_y:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &ball_y_)));
           set_has_ball_y();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(168)) goto parse_message;
         break;
@@ -577,25 +576,25 @@ bool State::MergePartialFromCodedStream(
 
       // optional int32 message = 21;
       case 21: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 168) {
          parse_message:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &message_)));
           set_has_message();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -603,12 +602,18 @@ bool State::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:sirlab.State)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:sirlab.State)
+  return false;
 #undef DO_
 }
 
 void State::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:sirlab.State)
   // required int32 sir1_x = 1;
   if (has_sir1_x()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->sir1_x(), output);
@@ -714,14 +719,16 @@ void State::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(21, this->message(), output);
   }
 
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:sirlab.State)
 }
 
 ::google::protobuf::uint8* State::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sirlab.State)
   // required int32 sir1_x = 1;
   if (has_sir1_x()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->sir1_x(), target);
@@ -827,107 +834,222 @@ void State::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(21, this->message(), target);
   }
 
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:sirlab.State)
   return target;
 }
 
+int State::RequiredFieldsByteSizeFallback() const {
+  int total_size = 0;
+
+  if (has_sir1_x()) {
+    // required int32 sir1_x = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir1_x());
+  }
+
+  if (has_sir1_y()) {
+    // required int32 sir1_y = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir1_y());
+  }
+
+  if (has_sir1_theta()) {
+    // required float sir1_theta = 3;
+    total_size += 1 + 4;
+  }
+
+  if (has_sir2_x()) {
+    // required int32 sir2_x = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir2_x());
+  }
+
+  if (has_sir2_y()) {
+    // required int32 sir2_y = 5;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir2_y());
+  }
+
+  if (has_sir2_theta()) {
+    // required float sir2_theta = 6;
+    total_size += 1 + 4;
+  }
+
+  if (has_sir3_x()) {
+    // required int32 sir3_x = 7;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir3_x());
+  }
+
+  if (has_sir3_y()) {
+    // required int32 sir3_y = 8;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir3_y());
+  }
+
+  if (has_sir3_theta()) {
+    // required float sir3_theta = 9;
+    total_size += 1 + 4;
+  }
+
+  if (has_adv1_x()) {
+    // required int32 adv1_x = 10;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv1_x());
+  }
+
+  if (has_adv1_y()) {
+    // required int32 adv1_y = 11;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv1_y());
+  }
+
+  if (has_adv2_x()) {
+    // required int32 adv2_x = 13;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv2_x());
+  }
+
+  if (has_adv2_y()) {
+    // required int32 adv2_y = 14;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv2_y());
+  }
+
+  if (has_adv3_x()) {
+    // required int32 adv3_x = 16;
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv3_x());
+  }
+
+  if (has_adv3_y()) {
+    // required int32 adv3_y = 17;
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv3_y());
+  }
+
+  if (has_ball_x()) {
+    // required int32 ball_x = 19;
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->ball_x());
+  }
+
+  if (has_ball_y()) {
+    // required int32 ball_y = 20;
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->ball_y());
+  }
+
+  return total_size;
+}
 int State::ByteSize() const {
   int total_size = 0;
 
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+  if (((_has_bits_[0] & 0x000db7ff) ^ 0x000db7ff) == 0) {  // All required fields are present.
     // required int32 sir1_x = 1;
-    if (has_sir1_x()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->sir1_x());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir1_x());
 
     // required int32 sir1_y = 2;
-    if (has_sir1_y()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->sir1_y());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir1_y());
 
     // required float sir1_theta = 3;
-    if (has_sir1_theta()) {
-      total_size += 1 + 4;
-    }
+    total_size += 1 + 4;
 
     // required int32 sir2_x = 4;
-    if (has_sir2_x()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->sir2_x());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir2_x());
 
     // required int32 sir2_y = 5;
-    if (has_sir2_y()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->sir2_y());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir2_y());
 
     // required float sir2_theta = 6;
-    if (has_sir2_theta()) {
-      total_size += 1 + 4;
-    }
+    total_size += 1 + 4;
 
     // required int32 sir3_x = 7;
-    if (has_sir3_x()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->sir3_x());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir3_x());
 
     // required int32 sir3_y = 8;
-    if (has_sir3_y()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->sir3_y());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sir3_y());
 
-  }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     // required float sir3_theta = 9;
-    if (has_sir3_theta()) {
-      total_size += 1 + 4;
-    }
+    total_size += 1 + 4;
 
     // required int32 adv1_x = 10;
-    if (has_adv1_x()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->adv1_x());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv1_x());
 
     // required int32 adv1_y = 11;
-    if (has_adv1_y()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->adv1_y());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv1_y());
 
+    // required int32 adv2_x = 13;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv2_x());
+
+    // required int32 adv2_y = 14;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv2_y());
+
+    // required int32 adv3_x = 16;
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv3_x());
+
+    // required int32 adv3_y = 17;
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->adv3_y());
+
+    // required int32 ball_x = 19;
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->ball_x());
+
+    // required int32 ball_y = 20;
+    total_size += 2 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->ball_y());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  if (_has_bits_[11 / 32] & 18432u) {
     // optional float adv1_theta = 12;
     if (has_adv1_theta()) {
       total_size += 1 + 4;
-    }
-
-    // required int32 adv2_x = 13;
-    if (has_adv2_x()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->adv2_x());
-    }
-
-    // required int32 adv2_y = 14;
-    if (has_adv2_y()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->adv2_y());
     }
 
     // optional float adv2_theta = 15;
@@ -935,39 +1057,11 @@ int State::ByteSize() const {
       total_size += 1 + 4;
     }
 
-    // required int32 adv3_x = 16;
-    if (has_adv3_x()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->adv3_x());
-    }
-
   }
-  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-    // required int32 adv3_y = 17;
-    if (has_adv3_y()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->adv3_y());
-    }
-
+  if (_has_bits_[17 / 32] & 1179648u) {
     // optional float adv3_theta = 18;
     if (has_adv3_theta()) {
       total_size += 2 + 4;
-    }
-
-    // required int32 ball_x = 19;
-    if (has_ball_x()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->ball_x());
-    }
-
-    // required int32 ball_y = 20;
-    if (has_ball_y()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->ball_y());
     }
 
     // optional int32 message = 21;
@@ -978,7 +1072,7 @@ int State::ByteSize() const {
     }
 
   }
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         unknown_fields());
@@ -990,10 +1084,10 @@ int State::ByteSize() const {
 }
 
 void State::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const State* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const State*>(
-      &from);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const State* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const State>(
+          &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -1002,7 +1096,7 @@ void State::MergeFrom(const ::google::protobuf::Message& from) {
 }
 
 void State::MergeFrom(const State& from) {
-  GOOGLE_CHECK_NE(&from, this);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_sir1_x()) {
       set_sir1_x(from.sir1_x());
@@ -1072,7 +1166,9 @@ void State::MergeFrom(const State& from) {
       set_message(from.message());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+  if (from._internal_metadata_.have_unknown_fields()) {
+    mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+  }
 }
 
 void State::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1094,32 +1190,34 @@ bool State::IsInitialized() const {
 }
 
 void State::Swap(State* other) {
-  if (other != this) {
-    std::swap(sir1_x_, other->sir1_x_);
-    std::swap(sir1_y_, other->sir1_y_);
-    std::swap(sir1_theta_, other->sir1_theta_);
-    std::swap(sir2_x_, other->sir2_x_);
-    std::swap(sir2_y_, other->sir2_y_);
-    std::swap(sir2_theta_, other->sir2_theta_);
-    std::swap(sir3_x_, other->sir3_x_);
-    std::swap(sir3_y_, other->sir3_y_);
-    std::swap(sir3_theta_, other->sir3_theta_);
-    std::swap(adv1_x_, other->adv1_x_);
-    std::swap(adv1_y_, other->adv1_y_);
-    std::swap(adv1_theta_, other->adv1_theta_);
-    std::swap(adv2_x_, other->adv2_x_);
-    std::swap(adv2_y_, other->adv2_y_);
-    std::swap(adv2_theta_, other->adv2_theta_);
-    std::swap(adv3_x_, other->adv3_x_);
-    std::swap(adv3_y_, other->adv3_y_);
-    std::swap(adv3_theta_, other->adv3_theta_);
-    std::swap(ball_x_, other->ball_x_);
-    std::swap(ball_y_, other->ball_y_);
-    std::swap(message_, other->message_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
+  if (other == this) return;
+  InternalSwap(other);
+}
+void State::InternalSwap(State* other) {
+  std::swap(sir1_x_, other->sir1_x_);
+  std::swap(sir1_y_, other->sir1_y_);
+  std::swap(sir1_theta_, other->sir1_theta_);
+  std::swap(sir2_x_, other->sir2_x_);
+  std::swap(sir2_y_, other->sir2_y_);
+  std::swap(sir2_theta_, other->sir2_theta_);
+  std::swap(sir3_x_, other->sir3_x_);
+  std::swap(sir3_y_, other->sir3_y_);
+  std::swap(sir3_theta_, other->sir3_theta_);
+  std::swap(adv1_x_, other->adv1_x_);
+  std::swap(adv1_y_, other->adv1_y_);
+  std::swap(adv1_theta_, other->adv1_theta_);
+  std::swap(adv2_x_, other->adv2_x_);
+  std::swap(adv2_y_, other->adv2_y_);
+  std::swap(adv2_theta_, other->adv2_theta_);
+  std::swap(adv3_x_, other->adv3_x_);
+  std::swap(adv3_y_, other->adv3_y_);
+  std::swap(adv3_theta_, other->adv3_theta_);
+  std::swap(ball_x_, other->ball_x_);
+  std::swap(ball_y_, other->ball_y_);
+  std::swap(message_, other->message_);
+  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata State::GetMetadata() const {
@@ -1130,6 +1228,514 @@ void State::Swap(State* other) {
   return metadata;
 }
 
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// State
+
+// required int32 sir1_x = 1;
+bool State::has_sir1_x() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+void State::set_has_sir1_x() {
+  _has_bits_[0] |= 0x00000001u;
+}
+void State::clear_has_sir1_x() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+void State::clear_sir1_x() {
+  sir1_x_ = 0;
+  clear_has_sir1_x();
+}
+ ::google::protobuf::int32 State::sir1_x() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir1_x)
+  return sir1_x_;
+}
+ void State::set_sir1_x(::google::protobuf::int32 value) {
+  set_has_sir1_x();
+  sir1_x_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir1_x)
+}
+
+// required int32 sir1_y = 2;
+bool State::has_sir1_y() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+void State::set_has_sir1_y() {
+  _has_bits_[0] |= 0x00000002u;
+}
+void State::clear_has_sir1_y() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+void State::clear_sir1_y() {
+  sir1_y_ = 0;
+  clear_has_sir1_y();
+}
+ ::google::protobuf::int32 State::sir1_y() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir1_y)
+  return sir1_y_;
+}
+ void State::set_sir1_y(::google::protobuf::int32 value) {
+  set_has_sir1_y();
+  sir1_y_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir1_y)
+}
+
+// required float sir1_theta = 3;
+bool State::has_sir1_theta() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+void State::set_has_sir1_theta() {
+  _has_bits_[0] |= 0x00000004u;
+}
+void State::clear_has_sir1_theta() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+void State::clear_sir1_theta() {
+  sir1_theta_ = 0;
+  clear_has_sir1_theta();
+}
+ float State::sir1_theta() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir1_theta)
+  return sir1_theta_;
+}
+ void State::set_sir1_theta(float value) {
+  set_has_sir1_theta();
+  sir1_theta_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir1_theta)
+}
+
+// required int32 sir2_x = 4;
+bool State::has_sir2_x() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+void State::set_has_sir2_x() {
+  _has_bits_[0] |= 0x00000008u;
+}
+void State::clear_has_sir2_x() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+void State::clear_sir2_x() {
+  sir2_x_ = 0;
+  clear_has_sir2_x();
+}
+ ::google::protobuf::int32 State::sir2_x() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir2_x)
+  return sir2_x_;
+}
+ void State::set_sir2_x(::google::protobuf::int32 value) {
+  set_has_sir2_x();
+  sir2_x_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir2_x)
+}
+
+// required int32 sir2_y = 5;
+bool State::has_sir2_y() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+void State::set_has_sir2_y() {
+  _has_bits_[0] |= 0x00000010u;
+}
+void State::clear_has_sir2_y() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+void State::clear_sir2_y() {
+  sir2_y_ = 0;
+  clear_has_sir2_y();
+}
+ ::google::protobuf::int32 State::sir2_y() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir2_y)
+  return sir2_y_;
+}
+ void State::set_sir2_y(::google::protobuf::int32 value) {
+  set_has_sir2_y();
+  sir2_y_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir2_y)
+}
+
+// required float sir2_theta = 6;
+bool State::has_sir2_theta() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+void State::set_has_sir2_theta() {
+  _has_bits_[0] |= 0x00000020u;
+}
+void State::clear_has_sir2_theta() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+void State::clear_sir2_theta() {
+  sir2_theta_ = 0;
+  clear_has_sir2_theta();
+}
+ float State::sir2_theta() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir2_theta)
+  return sir2_theta_;
+}
+ void State::set_sir2_theta(float value) {
+  set_has_sir2_theta();
+  sir2_theta_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir2_theta)
+}
+
+// required int32 sir3_x = 7;
+bool State::has_sir3_x() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+void State::set_has_sir3_x() {
+  _has_bits_[0] |= 0x00000040u;
+}
+void State::clear_has_sir3_x() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+void State::clear_sir3_x() {
+  sir3_x_ = 0;
+  clear_has_sir3_x();
+}
+ ::google::protobuf::int32 State::sir3_x() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir3_x)
+  return sir3_x_;
+}
+ void State::set_sir3_x(::google::protobuf::int32 value) {
+  set_has_sir3_x();
+  sir3_x_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir3_x)
+}
+
+// required int32 sir3_y = 8;
+bool State::has_sir3_y() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+void State::set_has_sir3_y() {
+  _has_bits_[0] |= 0x00000080u;
+}
+void State::clear_has_sir3_y() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+void State::clear_sir3_y() {
+  sir3_y_ = 0;
+  clear_has_sir3_y();
+}
+ ::google::protobuf::int32 State::sir3_y() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir3_y)
+  return sir3_y_;
+}
+ void State::set_sir3_y(::google::protobuf::int32 value) {
+  set_has_sir3_y();
+  sir3_y_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir3_y)
+}
+
+// required float sir3_theta = 9;
+bool State::has_sir3_theta() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+void State::set_has_sir3_theta() {
+  _has_bits_[0] |= 0x00000100u;
+}
+void State::clear_has_sir3_theta() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+void State::clear_sir3_theta() {
+  sir3_theta_ = 0;
+  clear_has_sir3_theta();
+}
+ float State::sir3_theta() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.sir3_theta)
+  return sir3_theta_;
+}
+ void State::set_sir3_theta(float value) {
+  set_has_sir3_theta();
+  sir3_theta_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.sir3_theta)
+}
+
+// required int32 adv1_x = 10;
+bool State::has_adv1_x() const {
+  return (_has_bits_[0] & 0x00000200u) != 0;
+}
+void State::set_has_adv1_x() {
+  _has_bits_[0] |= 0x00000200u;
+}
+void State::clear_has_adv1_x() {
+  _has_bits_[0] &= ~0x00000200u;
+}
+void State::clear_adv1_x() {
+  adv1_x_ = 0;
+  clear_has_adv1_x();
+}
+ ::google::protobuf::int32 State::adv1_x() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv1_x)
+  return adv1_x_;
+}
+ void State::set_adv1_x(::google::protobuf::int32 value) {
+  set_has_adv1_x();
+  adv1_x_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv1_x)
+}
+
+// required int32 adv1_y = 11;
+bool State::has_adv1_y() const {
+  return (_has_bits_[0] & 0x00000400u) != 0;
+}
+void State::set_has_adv1_y() {
+  _has_bits_[0] |= 0x00000400u;
+}
+void State::clear_has_adv1_y() {
+  _has_bits_[0] &= ~0x00000400u;
+}
+void State::clear_adv1_y() {
+  adv1_y_ = 0;
+  clear_has_adv1_y();
+}
+ ::google::protobuf::int32 State::adv1_y() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv1_y)
+  return adv1_y_;
+}
+ void State::set_adv1_y(::google::protobuf::int32 value) {
+  set_has_adv1_y();
+  adv1_y_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv1_y)
+}
+
+// optional float adv1_theta = 12;
+bool State::has_adv1_theta() const {
+  return (_has_bits_[0] & 0x00000800u) != 0;
+}
+void State::set_has_adv1_theta() {
+  _has_bits_[0] |= 0x00000800u;
+}
+void State::clear_has_adv1_theta() {
+  _has_bits_[0] &= ~0x00000800u;
+}
+void State::clear_adv1_theta() {
+  adv1_theta_ = 0;
+  clear_has_adv1_theta();
+}
+ float State::adv1_theta() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv1_theta)
+  return adv1_theta_;
+}
+ void State::set_adv1_theta(float value) {
+  set_has_adv1_theta();
+  adv1_theta_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv1_theta)
+}
+
+// required int32 adv2_x = 13;
+bool State::has_adv2_x() const {
+  return (_has_bits_[0] & 0x00001000u) != 0;
+}
+void State::set_has_adv2_x() {
+  _has_bits_[0] |= 0x00001000u;
+}
+void State::clear_has_adv2_x() {
+  _has_bits_[0] &= ~0x00001000u;
+}
+void State::clear_adv2_x() {
+  adv2_x_ = 0;
+  clear_has_adv2_x();
+}
+ ::google::protobuf::int32 State::adv2_x() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv2_x)
+  return adv2_x_;
+}
+ void State::set_adv2_x(::google::protobuf::int32 value) {
+  set_has_adv2_x();
+  adv2_x_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv2_x)
+}
+
+// required int32 adv2_y = 14;
+bool State::has_adv2_y() const {
+  return (_has_bits_[0] & 0x00002000u) != 0;
+}
+void State::set_has_adv2_y() {
+  _has_bits_[0] |= 0x00002000u;
+}
+void State::clear_has_adv2_y() {
+  _has_bits_[0] &= ~0x00002000u;
+}
+void State::clear_adv2_y() {
+  adv2_y_ = 0;
+  clear_has_adv2_y();
+}
+ ::google::protobuf::int32 State::adv2_y() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv2_y)
+  return adv2_y_;
+}
+ void State::set_adv2_y(::google::protobuf::int32 value) {
+  set_has_adv2_y();
+  adv2_y_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv2_y)
+}
+
+// optional float adv2_theta = 15;
+bool State::has_adv2_theta() const {
+  return (_has_bits_[0] & 0x00004000u) != 0;
+}
+void State::set_has_adv2_theta() {
+  _has_bits_[0] |= 0x00004000u;
+}
+void State::clear_has_adv2_theta() {
+  _has_bits_[0] &= ~0x00004000u;
+}
+void State::clear_adv2_theta() {
+  adv2_theta_ = 0;
+  clear_has_adv2_theta();
+}
+ float State::adv2_theta() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv2_theta)
+  return adv2_theta_;
+}
+ void State::set_adv2_theta(float value) {
+  set_has_adv2_theta();
+  adv2_theta_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv2_theta)
+}
+
+// required int32 adv3_x = 16;
+bool State::has_adv3_x() const {
+  return (_has_bits_[0] & 0x00008000u) != 0;
+}
+void State::set_has_adv3_x() {
+  _has_bits_[0] |= 0x00008000u;
+}
+void State::clear_has_adv3_x() {
+  _has_bits_[0] &= ~0x00008000u;
+}
+void State::clear_adv3_x() {
+  adv3_x_ = 0;
+  clear_has_adv3_x();
+}
+ ::google::protobuf::int32 State::adv3_x() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv3_x)
+  return adv3_x_;
+}
+ void State::set_adv3_x(::google::protobuf::int32 value) {
+  set_has_adv3_x();
+  adv3_x_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv3_x)
+}
+
+// required int32 adv3_y = 17;
+bool State::has_adv3_y() const {
+  return (_has_bits_[0] & 0x00010000u) != 0;
+}
+void State::set_has_adv3_y() {
+  _has_bits_[0] |= 0x00010000u;
+}
+void State::clear_has_adv3_y() {
+  _has_bits_[0] &= ~0x00010000u;
+}
+void State::clear_adv3_y() {
+  adv3_y_ = 0;
+  clear_has_adv3_y();
+}
+ ::google::protobuf::int32 State::adv3_y() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv3_y)
+  return adv3_y_;
+}
+ void State::set_adv3_y(::google::protobuf::int32 value) {
+  set_has_adv3_y();
+  adv3_y_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv3_y)
+}
+
+// optional float adv3_theta = 18;
+bool State::has_adv3_theta() const {
+  return (_has_bits_[0] & 0x00020000u) != 0;
+}
+void State::set_has_adv3_theta() {
+  _has_bits_[0] |= 0x00020000u;
+}
+void State::clear_has_adv3_theta() {
+  _has_bits_[0] &= ~0x00020000u;
+}
+void State::clear_adv3_theta() {
+  adv3_theta_ = 0;
+  clear_has_adv3_theta();
+}
+ float State::adv3_theta() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.adv3_theta)
+  return adv3_theta_;
+}
+ void State::set_adv3_theta(float value) {
+  set_has_adv3_theta();
+  adv3_theta_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.adv3_theta)
+}
+
+// required int32 ball_x = 19;
+bool State::has_ball_x() const {
+  return (_has_bits_[0] & 0x00040000u) != 0;
+}
+void State::set_has_ball_x() {
+  _has_bits_[0] |= 0x00040000u;
+}
+void State::clear_has_ball_x() {
+  _has_bits_[0] &= ~0x00040000u;
+}
+void State::clear_ball_x() {
+  ball_x_ = 0;
+  clear_has_ball_x();
+}
+ ::google::protobuf::int32 State::ball_x() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.ball_x)
+  return ball_x_;
+}
+ void State::set_ball_x(::google::protobuf::int32 value) {
+  set_has_ball_x();
+  ball_x_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.ball_x)
+}
+
+// required int32 ball_y = 20;
+bool State::has_ball_y() const {
+  return (_has_bits_[0] & 0x00080000u) != 0;
+}
+void State::set_has_ball_y() {
+  _has_bits_[0] |= 0x00080000u;
+}
+void State::clear_has_ball_y() {
+  _has_bits_[0] &= ~0x00080000u;
+}
+void State::clear_ball_y() {
+  ball_y_ = 0;
+  clear_has_ball_y();
+}
+ ::google::protobuf::int32 State::ball_y() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.ball_y)
+  return ball_y_;
+}
+ void State::set_ball_y(::google::protobuf::int32 value) {
+  set_has_ball_y();
+  ball_y_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.ball_y)
+}
+
+// optional int32 message = 21;
+bool State::has_message() const {
+  return (_has_bits_[0] & 0x00100000u) != 0;
+}
+void State::set_has_message() {
+  _has_bits_[0] |= 0x00100000u;
+}
+void State::clear_has_message() {
+  _has_bits_[0] &= ~0x00100000u;
+}
+void State::clear_message() {
+  message_ = 0;
+  clear_has_message();
+}
+ ::google::protobuf::int32 State::message() const {
+  // @@protoc_insertion_point(field_get:sirlab.State.message)
+  return message_;
+}
+ void State::set_message(::google::protobuf::int32 value) {
+  set_has_message();
+  message_ = value;
+  // @@protoc_insertion_point(field_set:sirlab.State.message)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)
 
