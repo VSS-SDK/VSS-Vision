@@ -3,6 +3,7 @@
 *.lo
 *.o
 *.obj
+Calibration/*.o
 
 # Precompiled Headers
 *.gch
@@ -26,3 +27,5 @@
 *.exe
 *.out
 *.app
+VSS-Vision
+Calibration/Calibration
