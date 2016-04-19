@@ -10,7 +10,7 @@
 CXX = g++ -std=c++11 -w
 
 EXE = VSS-Vision
-OBJS_CPP = $(shell find / -name *.cpp)
+OBJS_CPP = $(shell find -name '*.cpp')
 OBJS = $(OBJS_CPP:.cpp=.o)
 
 UNAME_S := $(shell uname -s)
