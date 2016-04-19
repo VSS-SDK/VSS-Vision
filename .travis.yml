@@ -55,4 +55,4 @@ script:
   - sudo ldconfig
   - cd ..
 
-  - make j8
+  - make
