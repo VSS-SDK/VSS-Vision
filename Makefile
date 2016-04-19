@@ -10,8 +10,10 @@
 CXX = g++ -std=c++11 -w
 
 EXE = VSS-Vision
-OBJS_CPP = $(shell find -name '*.cpp')
-OBJS = $(OBJS_CPP:.cpp=.o)
+
+OBJS = Main.o GUI.o Robot.o Core.o Vision.o
+OBJS += Utils/Imgui/imgui_impl_glfw.o Utils/Draw/Draw.o Utils/CRUD/CRUD.o Utils/Zocket/Zocket.o Utils/Zocket/Protos/sirlab.pb.o
+OBJS += Utils/Imgui/imgui.o Utils/Imgui/imgui_draw.o Utils/Commons/Commons.o Utils/Imgui/imgui_demo.o
 
 UNAME_S := $(shell uname -s)
 
