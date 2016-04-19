@@ -1,0 +1,58 @@
+# Ubuntu 14.04 Trusty support
+sudo: true
+
+dist: trusty
+
+language: cpp
+
+compiler:
+  - gcc
+
+before_install:
+  - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+  - sudo apt-get update -qq
+
+install:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - build-essential
+      - git
+      - cmake
+      - xorg-dev
+      - libglu1-mesa-dev
+      - gcc-4.8
+      - g++-4.8
+      - protobuf-compiler
+      - libprotobuf-dev
+      - libopencv-dev
+      - x11-xserver-utils
+      - libglew1.10
+      - libglew-dev
+      - freeglut3
+      - freeglut3-dev
+      - libzmq3
+      - libzmq3-dev
+script:
+  - git clone https://github.com/glfw/glfw.git
+  - cd glfw
+  - git checkout latest
+  - cmake . -DBUILD_SHARED_LIBS=ON
+  - make -j8
+  - sudo make install
+  - sudo ldconfig
+  - cd ..
+
+  - git clone https://github.com/Itseez/opencv.git
+  - cd opencv
+  - cmake .
+  - make -j8
+  - sudo make install
+  - sudo ldconfig
+  - cd ..
+
+  - make -j8
