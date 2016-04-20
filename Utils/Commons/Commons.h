@@ -246,14 +246,21 @@ namespace common{
 
 	void clearSS(stringstream &ss);
 
-	string toString(int a);
-	string toString(float a);
-	string toString(double a);
-	string toString(long long int a);
-	string toString(bool a);
-
-	int toInt(char c);
-	int toInt(string a);
+	template <typename T>
+	string toString (T parameter){
+		stringstream ss;
+		ss << parameter;
+		return ss.str();
+	}
+	
+	template <typename T>
+	int toInt (T parameter){
+		int aa;
+		stringstream ss;
+		ss << parameter;
+		ss >> aa;
+		return aa; 
+	}
 	
 	float toFloat(string a);
 	double toDouble(string a);

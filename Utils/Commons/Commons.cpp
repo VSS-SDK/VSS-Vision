@@ -14,53 +14,6 @@ namespace common{
         ss.clear();
 	}
 
-	string toString(int a){
-		stringstream ss;
-		ss << a;
-		return ss.str();
-	}
-
-	string toString(float a){
-		stringstream ss;
-		ss << a;
-		return ss.str();
-	}
-
-	string toString(double a){
-		stringstream ss;
-		ss << a;
-		return ss.str();
-	}
-
-	string toString(long long int a){
-		stringstream ss;
-		ss << a;
-		return ss.str();
-	}
-
-	string toString(bool a){
-		string s;
-		if(a) s = "1";
-		else s = "0";
-		return s;
-	}
-
-	int toInt(char a){
-		int aa;
-		stringstream ss;
-		ss << a;
-		ss >> aa;
-		return aa; 
-	}
-
-	int toInt(string a){
-		int aa;
-		stringstream ss;
-		ss << a;
-		ss >> aa;
-		return aa; 
-	}
-
 	float toFloat(string a){
 		float aa;
 		stringstream ss;
