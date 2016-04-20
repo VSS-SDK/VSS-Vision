@@ -878,7 +878,7 @@ void GUI::guiWindowConfigTeam(int team){
 
             ImGui::Begin("ADV Team", &show_configteam_window, ImVec2(500, 270), 0.65, ImGuiWindowFlags_NoResize);
 
-            ImGui::Text("Configurações do nosso time:");
+            ImGui::Text("Configurações do adversário:");
             ImGui::Spacing();
             ImGui::Spacing();
             ImGui::Combo("Cor do Time", &team1, "Azul\0Amarelo\0\0"); ImGui::NextColumn();
