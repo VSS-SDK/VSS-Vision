@@ -7,7 +7,7 @@ Description
 -----------
 Esse é um protótipo de um programa de Visão Computacional global para a competição de futebol de robôs [IEEE Very Small Size (VSS)][vss], começou a ser desenvolvido em 01/2016 pelo [Laboratório de Sistemas Inteligentes de Robótica (SIRLab)][sirface] e aberto 04/2016 sob a licença GLP versão 3.0. O programa utiliza o protocolo [Protobuf][protobuf] para enviar e receber dados via socket utilizando a biblioteca [ZMQ][zmq], oferece uma maneira simples de calibragem utilizando a biblioteca [OpenCV][opencv] e um ambiente gráfico 3D utilizando a biblioteca [glfw][glfw], além de telas interativas criadas com auxílio da biblioteca [ImGui][imgui].
 
-> TODO: Disponibilizar um exemplo de estratégia que obtenha os dados do VSS-Vision utilizando [Protobuf][protobuf].
+> Um exemplo de estratégia que obtem os dados do VSS-Vision encontra-se em [VSS-SampleStrategy][samplestrategy].
 
 
 **Install** Ubuntu (14.04 LTS)
@@ -50,6 +50,7 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [glfw]: http://www.glfw.org/
 [imgui]: https://github.com/ocornut/imgui/
 [travis]: https://travis-ci.org/SIRLab/VSS-Vision
+[samplestrategy]: https://github.com/SIRLab/VSS-SampleStrategy
 
 
 
