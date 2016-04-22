@@ -581,7 +581,7 @@ void GUI::guiWindowStatus(){
 
     ImGui::Columns(5, "mycolumns");
     ImGui::Separator();
-    ImGui::Text("SIR Robô");    ImGui::NextColumn();
+    ImGui::Text("OUR Robô");    ImGui::NextColumn();
     ImGui::Text("Posição");     ImGui::NextColumn();
     ImGui::Text("Orientação");  ImGui::NextColumn();
     ImGui::Text("Vel .L");      ImGui::NextColumn();
@@ -723,7 +723,7 @@ void GUI::guiWindowConfigTeam(int team){
                robot.at(i).setPosition(btVector3(robot.at(i).getPosition().x, robot.at(i).getPosition().y, -10)); 
             }
 
-            ImGui::Begin("SIR Team", &show_configteam_window, ImVec2(500, 270), 0.65, ImGuiWindowFlags_NoResize);
+            ImGui::Begin("OUR Team", &show_configteam_window, ImVec2(500, 270), 0.65, ImGuiWindowFlags_NoResize);
 
             ImGui::Text("Configurações do nosso time:");
             ImGui::Spacing();
