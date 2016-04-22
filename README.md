@@ -40,6 +40,23 @@ Gallery
 > Calibragem de cores
 ![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/calibration.png)
 
+> Calibragem de rotação
+![screenshot 3](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/rotation.png)
+
+> Calibragem de corte
+![screenshot 4](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/corte.png)
+
+> Tela de status
+![screenshot 5](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/status.png)
+
+> Tela de warnings
+![screenshot 6](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/warnings.png)
+
+> Tela de configuração de times
+![screenshot 7](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/status.png)
+
+
+
 License
 -------
 
