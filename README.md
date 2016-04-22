@@ -53,7 +53,7 @@ Gallery
 ![screenshot 6](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/warnings.png)
 
 > Tela de configuração de times
-![screenshot 7](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/status.png)
+![screenshot 7](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/team.png)
 
 
 
