@@ -34,8 +34,10 @@ O projeto está em construção. Ainda não é possível utilizá-lo.
 
 Gallery
 -------
-
+Imagem geral
 ![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/top.png)
+
+Calibragem de cores
 ![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/calibration.png)
 
 License
