@@ -54,8 +54,9 @@ void protobuf_AssignDesc_command_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Robot_Command));
   Global_Commands_descriptor_ = file->message_type(1);
-  static const int Global_Commands_offsets_[2] = {
+  static const int Global_Commands_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_Commands, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_Commands, is_team_yellow_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_Commands, robot_commands_),
   };
   Global_Commands_reflection_ =
@@ -105,9 +106,10 @@ void protobuf_AddDesc_command_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rcommand.proto\022\013vss_command\"@\n\rRobot_Co"
     "mmand\022\n\n\002id\030\001 \002(\r\022\020\n\010left_vel\030\002 \002(\002\022\021\n\tr"
-    "ight_vel\030\003 \002(\002\"Q\n\017Global_Commands\022\n\n\002id\030"
-    "\001 \001(\r\0222\n\016robot_commands\030\002 \003(\0132\032.vss_comm"
-    "and.Robot_Command", 177);
+    "ight_vel\030\003 \002(\002\"i\n\017Global_Commands\022\n\n\002id\030"
+    "\001 \001(\r\022\026\n\016is_team_yellow\030\002 \002(\010\0222\n\016robot_c"
+    "ommands\030\003 \003(\0132\032.vss_command.Robot_Comman"
+    "d", 201);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "command.proto", &protobuf_RegisterTypes);
   Robot_Command::default_instance_ = new Robot_Command();
@@ -413,6 +415,7 @@ void Robot_Command::Swap(Robot_Command* other) {
 
 #ifndef _MSC_VER
 const int Global_Commands::kIdFieldNumber;
+const int Global_Commands::kIsTeamYellowFieldNumber;
 const int Global_Commands::kRobotCommandsFieldNumber;
 #endif  // !_MSC_VER
 
@@ -433,6 +436,7 @@ Global_Commands::Global_Commands(const Global_Commands& from)
 void Global_Commands::SharedCtor() {
   _cached_size_ = 0;
   id_ = 0u;
+  is_team_yellow_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -469,6 +473,7 @@ Global_Commands* Global_Commands::New() const {
 void Global_Commands::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     id_ = 0u;
+    is_team_yellow_ = false;
   }
   robot_commands_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -492,12 +497,28 @@ bool Global_Commands::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_robot_commands;
+        if (input->ExpectTag(16)) goto parse_is_team_yellow;
         break;
       }
 
-      // repeated .vss_command.Robot_Command robot_commands = 2;
+      // required bool is_team_yellow = 2;
       case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_is_team_yellow:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &is_team_yellow_)));
+          set_has_is_team_yellow();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_robot_commands;
+        break;
+      }
+
+      // repeated .vss_command.Robot_Command robot_commands = 3;
+      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_robot_commands:
@@ -506,7 +527,7 @@ bool Global_Commands::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(18)) goto parse_robot_commands;
+        if (input->ExpectTag(26)) goto parse_robot_commands;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -534,10 +555,15 @@ void Global_Commands::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
   }
 
-  // repeated .vss_command.Robot_Command robot_commands = 2;
+  // required bool is_team_yellow = 2;
+  if (has_is_team_yellow()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->is_team_yellow(), output);
+  }
+
+  // repeated .vss_command.Robot_Command robot_commands = 3;
   for (int i = 0; i < this->robot_commands_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->robot_commands(i), output);
+      3, this->robot_commands(i), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -553,11 +579,16 @@ void Global_Commands::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
   }
 
-  // repeated .vss_command.Robot_Command robot_commands = 2;
+  // required bool is_team_yellow = 2;
+  if (has_is_team_yellow()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->is_team_yellow(), target);
+  }
+
+  // repeated .vss_command.Robot_Command robot_commands = 3;
   for (int i = 0; i < this->robot_commands_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        2, this->robot_commands(i), target);
+        3, this->robot_commands(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -578,8 +609,13 @@ int Global_Commands::ByteSize() const {
           this->id());
     }
 
+    // required bool is_team_yellow = 2;
+    if (has_is_team_yellow()) {
+      total_size += 1 + 1;
+    }
+
   }
-  // repeated .vss_command.Robot_Command robot_commands = 2;
+  // repeated .vss_command.Robot_Command robot_commands = 3;
   total_size += 1 * this->robot_commands_size();
   for (int i = 0; i < this->robot_commands_size(); i++) {
     total_size +=
@@ -617,6 +653,9 @@ void Global_Commands::MergeFrom(const Global_Commands& from) {
     if (from.has_id()) {
       set_id(from.id());
     }
+    if (from.has_is_team_yellow()) {
+      set_is_team_yellow(from.is_team_yellow());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -634,6 +673,7 @@ void Global_Commands::CopyFrom(const Global_Commands& from) {
 }
 
 bool Global_Commands::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
 
   for (int i = 0; i < robot_commands_size(); i++) {
     if (!this->robot_commands(i).IsInitialized()) return false;
@@ -644,6 +684,7 @@ bool Global_Commands::IsInitialized() const {
 void Global_Commands::Swap(Global_Commands* other) {
   if (other != this) {
     std::swap(id_, other->id_);
+    std::swap(is_team_yellow_, other->is_team_yellow_);
     robot_commands_.Swap(&other->robot_commands_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

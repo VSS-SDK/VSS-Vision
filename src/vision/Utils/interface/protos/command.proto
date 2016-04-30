@@ -16,5 +16,7 @@ message Robot_Command{
 
 message Global_Commands{
 	optional uint32			id = 1;
-	repeated Robot_Command	robot_commands = 2;
+	required bool			is_team_yellow = 2;
+	repeated Robot_Command	robot_commands = 3;
 }
+

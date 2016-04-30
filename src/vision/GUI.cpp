@@ -79,7 +79,7 @@ void GUI::checkThings(){
     }
 
     // Verifica se todos os arquivos de cores em HSV estão disponíveis
-    response = cmdTerminal("find src/Data/Vision -name *HSV*");
+    response = cmdTerminal("find src/vision/Data/Vision -name *HSV*");
     sp = "";
 
     qtdFiles = 0;
@@ -103,7 +103,7 @@ void GUI::checkThings(){
 
 
     // Verifica se todos os arquivos de cores em RGB estão disponíveis
-    response = cmdTerminal("find src/Data/Draw -name *RGB*");
+    response = cmdTerminal("find src/vision/Data/Draw -name *RGB*");
     sp = "";
 
     qtdFiles = 0;
@@ -126,13 +126,13 @@ void GUI::checkThings(){
 
 
     // Verifica se o arquivo de rotação está disponível
-    response = cmdTerminal("find src/Data -name *rotation*");
+    response = cmdTerminal("find src/vision/Data -name *rotation*");
     if(response.size() == 0){
         errors.push_back("Não foi possível detectar o arquivo de rotação;");
     }
 
     // Verifica se o arquivo de corte está disponível
-    response = cmdTerminal("find src/Data -name *rotation*");
+    response = cmdTerminal("find src/vision/Data -name *rotation*");
     if(response.size() == 0){
         errors.push_back("Não foi possível detectar o arquivo de corte de imagem;");
     }
@@ -177,14 +177,14 @@ void GUI::loadAllColors(){
     visionColors.clear();
 
     vector<string> pathColors;
-    pathColors.push_back("src/Data/Draw/orangeRGB.csv");
-    pathColors.push_back("src/Data/Draw/blueRGB.csv");
-    pathColors.push_back("src/Data/Draw/redRGB.csv");
-    pathColors.push_back("src/Data/Draw/pinkRGB.csv");
-    pathColors.push_back("src/Data/Draw/purpleRGB.csv");
-    pathColors.push_back("src/Data/Draw/greenRGB.csv");
-    pathColors.push_back("src/Data/Draw/brownRGB.csv");
-    pathColors.push_back("src/Data/Draw/yellowRGB.csv");
+    pathColors.push_back("src/vision/Data/Draw/orangeRGB.csv");
+    pathColors.push_back("src/vision/Data/Draw/blueRGB.csv");
+    pathColors.push_back("src/vision/Data/Draw/redRGB.csv");
+    pathColors.push_back("src/vision/Data/Draw/pinkRGB.csv");
+    pathColors.push_back("src/vision/Data/Draw/purpleRGB.csv");
+    pathColors.push_back("src/vision/Data/Draw/greenRGB.csv");
+    pathColors.push_back("src/vision/Data/Draw/brownRGB.csv");
+    pathColors.push_back("src/vision/Data/Draw/yellowRGB.csv");
 
     // Carrega as cores em RGB
     for(int i = 0 ; i < 8 ; i++){
@@ -192,16 +192,16 @@ void GUI::loadAllColors(){
     }
 
     pathColors.clear();
-    pathColors.push_back("src/Data/Vision/orangeHSV.csv");
-    pathColors.push_back("src/Data/Vision/blueHSV.csv");
-    pathColors.push_back("src/Data/Vision/redHSV.csv");
-    pathColors.push_back("src/Data/Vision/pinkHSV.csv");
-    pathColors.push_back("src/Data/Vision/purpleHSV.csv");
-    pathColors.push_back("src/Data/Vision/greenHSV.csv");
-    pathColors.push_back("src/Data/Vision/brownHSV.csv");
-    pathColors.push_back("src/Data/Vision/yellowHSV.csv");
-    pathColors.push_back("src/Data/Vision/cut.csv");
-    pathColors.push_back("src/Data/Vision/rotation.csv");
+    pathColors.push_back("src/vision/Data/Vision/orangeHSV.csv");
+    pathColors.push_back("src/vision/Data/Vision/blueHSV.csv");
+    pathColors.push_back("src/vision/Data/Vision/redHSV.csv");
+    pathColors.push_back("src/vision/Data/Vision/pinkHSV.csv");
+    pathColors.push_back("src/vision/Data/Vision/purpleHSV.csv");
+    pathColors.push_back("src/vision/Data/Vision/greenHSV.csv");
+    pathColors.push_back("src/vision/Data/Vision/brownHSV.csv");
+    pathColors.push_back("src/vision/Data/Vision/yellowHSV.csv");
+    pathColors.push_back("src/vision/Data/Vision/cut.csv");
+    pathColors.push_back("src/vision/Data/Vision/rotation.csv");
 
     // Carrega as cores em HSV
     for(int i = 0 ; i < 8 ; i++){
@@ -1119,7 +1119,7 @@ void GUI::getAllDevices(){
 void GUI::getAllImages(){
     images.clear();
 
-    string response = cmdTerminal("find src/Utils/Images/ -name *jpg");
+    string response = cmdTerminal("find src/vision/Utils/Images/ -name *jpg");
     string sp = "";
     for(int i = 0 ; i < response.size() ; i++){
         if(response[i] == '\n'){

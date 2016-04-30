@@ -23,14 +23,33 @@ class Interface{
 private:
 	vss_state::Global_State *global_state;
 	vss_command::Global_Commands *global_commands;
+
 	
+	// Simulator and VSS -> Strategys
+	const char *addr_server_multicast = "tcp://*:5555";
+	const char *addr_client_multicast = "tcp://localhost:5555";
+
+	// Strategy Yellow -> Simulator
+	const char *addr_server_simulator_yellow = "tcp://*:5556";
+	const char *addr_client_simulator_yellow = "tcp://localhost:5556";
+
+	// Strategy Blue -> Simulator
+	const char *addr_server_simulator_blue = "tcp://*:5557";
+	const char *addr_client_simulator_blue = "tcp://localhost:5557";
 public:
 	Interface();
 
-	/*void createLoopSendState(vss_state::Global_State*);
+	void createLoopSendState(vss_state::Global_State*);
 	void createLoopReceiveState(vss_state::Global_State*);
-	void createLoopSendCommands(vss_state::Global_Commands*);
-	void createLoopReceiveCommands(vss_state::Global_Commands*);*/	
+
+	void createLoopSendCommandsYellow(vss_command::Global_Commands*);
+	void createLoopReceiveCommandsYellow(vss_command::Global_Commands*);
+
+	void createLoopSendCommandsBlue(vss_command::Global_Commands*);
+	void createLoopReceiveCommandsBlue(vss_command::Global_Commands*);	
+	
+	void printState();
+	void printCommand();
 };
 
 #endif // _INTERFACE_H_

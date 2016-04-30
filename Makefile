@@ -12,5 +12,7 @@ all: vision
 vision:
 	cd src/vision && make -f vision.make
 
+clean:
+	cd src/vision && make -f vision.make clean
 run:
-	./VSS-Vision
+	./src/vision/VSS-Vision

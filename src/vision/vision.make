@@ -32,7 +32,7 @@ FILE_NAMES = $(FILE_NAMES_SRC) $(FILE_NAMES_PROTOS)
 
 
 
-EXEC = MPP
+EXEC = VSS-Vision
 
 .cpp.o:
 	@$(CCX) $(INCLUDES) $(LIBRARIES) -Wall -Wformat -c -o $@ $< -w

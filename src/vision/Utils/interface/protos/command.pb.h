@@ -201,10 +201,17 @@ class Global_Commands : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 id() const;
   inline void set_id(::google::protobuf::uint32 value);
 
-  // repeated .vss_command.Robot_Command robot_commands = 2;
+  // required bool is_team_yellow = 2;
+  inline bool has_is_team_yellow() const;
+  inline void clear_is_team_yellow();
+  static const int kIsTeamYellowFieldNumber = 2;
+  inline bool is_team_yellow() const;
+  inline void set_is_team_yellow(bool value);
+
+  // repeated .vss_command.Robot_Command robot_commands = 3;
   inline int robot_commands_size() const;
   inline void clear_robot_commands();
-  static const int kRobotCommandsFieldNumber = 2;
+  static const int kRobotCommandsFieldNumber = 3;
   inline const ::vss_command::Robot_Command& robot_commands(int index) const;
   inline ::vss_command::Robot_Command* mutable_robot_commands(int index);
   inline ::vss_command::Robot_Command* add_robot_commands();
@@ -217,14 +224,17 @@ class Global_Commands : public ::google::protobuf::Message {
  private:
   inline void set_has_id();
   inline void clear_has_id();
+  inline void set_has_is_team_yellow();
+  inline void clear_has_is_team_yellow();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::google::protobuf::RepeatedPtrField< ::vss_command::Robot_Command > robot_commands_;
   ::google::protobuf::uint32 id_;
+  bool is_team_yellow_;
+  ::google::protobuf::RepeatedPtrField< ::vss_command::Robot_Command > robot_commands_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
 
   friend void  protobuf_AddDesc_command_2eproto();
   friend void protobuf_AssignDesc_command_2eproto();
@@ -332,7 +342,29 @@ inline void Global_Commands::set_id(::google::protobuf::uint32 value) {
   id_ = value;
 }
 
-// repeated .vss_command.Robot_Command robot_commands = 2;
+// required bool is_team_yellow = 2;
+inline bool Global_Commands::has_is_team_yellow() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Global_Commands::set_has_is_team_yellow() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Global_Commands::clear_has_is_team_yellow() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Global_Commands::clear_is_team_yellow() {
+  is_team_yellow_ = false;
+  clear_has_is_team_yellow();
+}
+inline bool Global_Commands::is_team_yellow() const {
+  return is_team_yellow_;
+}
+inline void Global_Commands::set_is_team_yellow(bool value) {
+  set_has_is_team_yellow();
+  is_team_yellow_ = value;
+}
+
+// repeated .vss_command.Robot_Command robot_commands = 3;
 inline int Global_Commands::robot_commands_size() const {
   return robot_commands_.size();
 }
