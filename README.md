@@ -12,9 +12,8 @@ Esse é um protótipo de um programa de Visão Computacional global para a compe
 
 Installation
 ------------
-```
 [INSTALL][install]
-```
+
 
 
 Release
