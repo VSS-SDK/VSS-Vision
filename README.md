@@ -10,18 +10,10 @@ Esse é um protótipo de um programa de Visão Computacional global para a compe
 > Um exemplo de estratégia que obtem os dados do VSS-Vision encontra-se em [VSS-SampleStrategy][samplestrategy].
 
 
-**Install** Ubuntu (14.04 LTS)
-------------------------------
+Installation
+------------
 ```
-$ sudo apt-get install g++ cmake git libopencv-dev x11-xserver-utils libglfw2 libglew1.10 libglew-dev freeglut3 freeglut3-dev uvcdynctrl arduino putty libbullet-dev libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
-```
-
-> TODO: Install para Debian e Fedora.
-
-Developing
-----------
-```
-make && make run
+[INSTALL](INSTALL.md)
 ```
 
 
