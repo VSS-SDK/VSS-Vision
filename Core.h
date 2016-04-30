@@ -12,13 +12,13 @@
 #include "unistd.h"
 #include "thread"
 #include "Vision.h"
-#include "Utils/Zocket/Zocket.h"
+#include "Utils/interface/interface.h"
 
 class Core{
 private:
     Vision vision;
 
-    sirlab::State protoState;
+    //sirlab::State protoState;
     int idData;
     bool hasNewState;
     

@@ -61,7 +61,7 @@ void Core::finishVSS(){
 }
 
 void Core::updateState(){
-	protoState.set_sir1_x(robot->at(0).getPosition().x);
+	/*protoState.set_sir1_x(robot->at(0).getPosition().x);
     protoState.set_sir1_y(robot->at(0).getPosition().y);
     protoState.set_sir1_theta(robot->at(0).getOrientation().y);
 
@@ -87,7 +87,7 @@ void Core::updateState(){
 
     protoState.set_ball_x(ball->getPosition().x);
     protoState.set_ball_y(ball->getPosition().y);
-    hasNewState = true;
+    hasNewState = true;*/
 }
 
 void Core::vision_thread(){
@@ -113,7 +113,7 @@ void Core::vision_thread(){
 }
 
 void Core::strategy_thread(){
-	Zocket zocket;
+	/*Zocket zocket;
 	zocket.connectServer();
 	
 	while(strategyStatus != ENDING){
@@ -128,7 +128,7 @@ void Core::strategy_thread(){
 			usleep(33333);
 		}
 	}
-	strategyStatus = FINISHED;
+	strategyStatus = FINISHED;*/
 }
 
 void Core::setDevice(bool* device){

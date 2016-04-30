@@ -1,0 +1,19 @@
+package vss_state;
+
+message Robot_State{
+  required float x = 1;
+  required float y = 2;
+  optional float yaw = 3;
+}
+
+message Ball_State{
+  required float x = 1;
+  required float y = 2;
+}
+
+message Global_State{
+  optional uint32       id = 1;
+  repeated Ball_State   balls = 2;
+  repeated Robot_State  robots_yellow = 3;
+  repeated Robot_State  robots_blue = 4;
+}

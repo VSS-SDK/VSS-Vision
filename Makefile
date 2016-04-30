@@ -12,7 +12,7 @@ CXX = g++ -std=c++11 -w
 EXE = VSS-Vision
 
 OBJS = Main.o GUI.o Robot.o Core.o Vision.o
-OBJS += Utils/Imgui/imgui_impl_glfw.o Utils/Draw/Draw.o Utils/CRUD/CRUD.o Utils/Zocket/Zocket.o Utils/Zocket/Protos/sirlab.pb.o
+OBJS += Utils/Imgui/imgui_impl_glfw.o Utils/Draw/Draw.o Utils/CRUD/CRUD.o Utils/interface/interface.o Utils/interface/protos/state.pb.o Utils/interface/protos/command.pb.o
 OBJS += Utils/Imgui/imgui.o Utils/Imgui/imgui_draw.o Utils/Commons/Commons.o Utils/Imgui/imgui_demo.o
 
 UNAME_S := $(shell uname -s)
@@ -29,7 +29,7 @@ CFLAGS = $(CXXFLAGS)
 .cpp.o:
 	$(CXX) $(CXXFLAGS) -c -o $@ $< -w
 
-all: calibration protobuf $(EXE)
+all: $(EXE)
 	@echo Build complete for $(ECHO_MESSAGE)
 	
 run:
@@ -42,7 +42,7 @@ calibration:
 	cd Calibration && make -f calibration.make
 
 protobuf:
-	cd Utils/Zocket/Protos/ && make -f protos.make
+	cd Utils/interface/protos/ && make -f protos.make
 
 clean:
 	rm $(EXE) $(OBJS)

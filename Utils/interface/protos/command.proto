@@ -1,0 +1,12 @@
+package vss_command;
+
+message Robot_Command{
+	required uint32	id = 1;
+	required float left_vel = 2;
+	required float right_vel = 3;
+}
+
+message Global_Commands{
+	optional uint32			id = 1;
+	repeated Robot_Command	robot_commands = 2;
+}
