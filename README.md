@@ -26,25 +26,25 @@ O projeto está em construção. Ainda não é possível utilizá-lo.
 Gallery
 -------
 > Imagem geral
-![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/top.png)
+![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/top.png)
 
 > Calibragem de cores
-![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/calibration.png)
+![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/calibration.png)
 
 > Calibragem de rotação
-![screenshot 3](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/rotation.png)
+![screenshot 3](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/rotation.png)
 
 > Calibragem de corte
-![screenshot 4](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/corte.png)
+![screenshot 4](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/corte.png)
 
 > Tela de status
-![screenshot 5](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/status.png)
+![screenshot 5](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/status.png)
 
 > Tela de warnings
-![screenshot 6](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/warnings.png)
+![screenshot 6](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/warnings.png)
 
 > Tela de configuração de times
-![screenshot 7](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/Others/Images/team.png)
+![screenshot 7](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/team.png)
 
 
 
