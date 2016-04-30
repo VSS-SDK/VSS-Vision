@@ -26,7 +26,7 @@
 #define PROPORTION_MIN	0.70	// constante que define o quanto a figura pode sair do padrao de quadrado
 #define PROPORTION_MAX	1.35 	// constante que define o quanto a figura pode sair do padrao de quadrado
 #define DISTANCE_MIN  	35		// constante que define a distancia minima entre as cores para ser considerado um robo 
-//#define DEBUG 					// Desenho na Visão
+#define DEBUG 					// Desenho na Visão
 
 // Debug valgrind --leak-check=yes ./SirSoccer
 

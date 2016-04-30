@@ -10,7 +10,7 @@
 
 Core::Core(){
 	guiStatus = RUNNING;
-    visionStatus = strategyStatus = systemStatus = STOPPED;
+    visionStatus = interfaceStatus = systemStatus = STOPPED;
     typeRun = NONE;
     idData = 0;
     hasNewState = false;
@@ -24,10 +24,10 @@ void Core::init(){
 		}
 
 		visionStatus = STARTING;
-		strategyStatus = STARTING;
+		interfaceStatus = STARTING;
 
 		visionThread = new thread(bind(&Core::vision_thread, this));
-		strategyThread = new thread(bind(&Core::strategy_thread, this));
+		interfaceThread = new thread(bind(&Core::interface_thread, this));
 
 		while(systemStatus == STARTING){
 			//cout << "STARTING" << endl;
@@ -41,10 +41,10 @@ void Core::init(){
 
 		if(systemStatus == ENDING){
 			visionStatus = ENDING;
-			strategyStatus = ENDING;
+			interfaceStatus = ENDING;
 
 			visionThread->join();
-			strategyThread->join();
+			interfaceThread->join();
 
 			systemStatus = STOPPED;
 		}
@@ -61,33 +61,30 @@ void Core::finishVSS(){
 }
 
 void Core::updateState(){
-	/*protoState.set_sir1_x(robot->at(0).getPosition().x);
-    protoState.set_sir1_y(robot->at(0).getPosition().y);
-    protoState.set_sir1_theta(robot->at(0).getOrientation().y);
+	cout << "teste" << endl;
+	global_state.clear();
+	global_state.set_id(0);
 
-    protoState.set_sir2_x(robot->at(1).getPosition().x);
-    protoState.set_sir2_y(robot->at(1).getPosition().y);
-    protoState.set_sir2_theta(robot->at(1).getOrientation().y);
+	vss_state::Ball_State *ball_s = global_state.add_balls();
+	ball_s->set_x(ball->getPosition().x);
+	ball_s->set_y(ball->getPosition().y);
 
-    protoState.set_sir3_x(robot->at(2).getPosition().x);
-    protoState.set_sir3_y(robot->at(2).getPosition().y);
-    protoState.set_sir3_theta(robot->at(2).getPosition().y);
+	for(int i = 0 ; i < 3 ; i++){
+		vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
+		robot_s->set_x(robot->at(i).getPosition().x);
+		robot_s->set_y(robot->at(i).getPosition().y);
+		robot_s->set_yaw(robot->at(i).getOrientation().y);
+	}
 
-    protoState.set_adv1_x(robot->at(3).getPosition().x);
-    protoState.set_adv1_y(robot->at(3).getPosition().y);
-    protoState.set_adv1_theta(robot->at(3).getOrientation().y);
+	for(int i = 0 ; i < 3 ; i++){
+		vss_state::Robot_State *robot_s = global_state.add_robots_blue();
+		robot_s->set_x(robot->at(i+3).getPosition().x);
+		robot_s->set_y(robot->at(i+3).getPosition().y);
+		robot_s->set_yaw(robot->at(i+3).getOrientation().y);
+	}
 
-    protoState.set_adv2_x(robot->at(4).getPosition().x);
-    protoState.set_adv2_y(robot->at(4).getPosition().y);
-    protoState.set_adv2_theta(robot->at(4).getOrientation().y);
-
-    protoState.set_adv3_x(robot->at(5).getPosition().x);
-    protoState.set_adv3_y(robot->at(5).getPosition().y);
-    protoState.set_adv3_theta(robot->at(5).getOrientation().y);
-
-    protoState.set_ball_x(ball->getPosition().x);
-    protoState.set_ball_y(ball->getPosition().y);
-    hasNewState = true;*/
+	interface.printState();
+    hasNewState = true;
 }
 
 void Core::vision_thread(){
@@ -112,23 +109,20 @@ void Core::vision_thread(){
 	visionStatus = FINISHED;
 }
 
-void Core::strategy_thread(){
-	/*Zocket zocket;
-	zocket.connectServer();
-	
-	while(strategyStatus != ENDING){
+void Core::interface_thread(){
+	interface.createSocketSendState(&global_state);
+
+	while(interfaceStatus != ENDING){
 		if(hasNewState){
-			strategyStatus = RUNNING;
-			zocket.setState(protoState);
-			//zocket.showState();
-			zocket.sendState();
+			interfaceStatus = RUNNING;
+			interface.sendState();
 			hasNewState = false;
 		}else{
-			strategyStatus = PAUSED;
+			interfaceStatus = PAUSED;
 			usleep(33333);
 		}
 	}
-	strategyStatus = FINISHED;*/
+	interfaceStatus = FINISHED;
 }
 
 void Core::setDevice(bool* device){
@@ -208,8 +202,8 @@ int Core::getVisionStatus(){
 	return visionStatus;
 }
 
-int Core::getStrategyStatus(){
-	return strategyStatus;
+int Core::getInterfaceStatus(){
+	return interfaceStatus;
 }
 
 int Core::getTypeRun(){

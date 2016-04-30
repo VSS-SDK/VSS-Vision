@@ -95,7 +95,7 @@ void Vision::recognize(){
 	#endif
 
 	//fillLabels();
-	//recognizeObjects();
+	recognizeObjects();
 	//fakeObjects();
 
 	if(!*device)

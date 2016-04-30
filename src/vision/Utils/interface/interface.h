@@ -21,6 +21,10 @@
 
 class Interface{
 private:
+	zmq::message_t request;
+	zmq::context_t *context;
+    zmq::socket_t *socket;
+    
 	vss_state::Global_State *global_state;
 	vss_command::Global_Commands *global_commands;
 
@@ -39,7 +43,8 @@ private:
 public:
 	Interface();
 
-	void createLoopSendState(vss_state::Global_State*);
+	void createSocketSendState(vss_state::Global_State*);
+	void sendState();
 	void createLoopReceiveState(vss_state::Global_State*);
 
 	void createLoopSendCommandsYellow(vss_command::Global_Commands*);

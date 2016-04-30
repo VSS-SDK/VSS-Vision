@@ -17,18 +17,19 @@
 class Core{
 private:
     Vision vision;
-
-    //sirlab::State protoState;
+    Interface interface;
+    
+    vss_state::Global_State global_state;
     int idData;
     bool hasNewState;
     
     int guiStatus;
     int visionStatus;
-    int strategyStatus;
+    int interfaceStatus;
     int systemStatus;
 
     thread *visionThread;
-    thread *strategyThread;
+    thread *interfaceThread;
 
     vector<Robot> *robot;
     Robot *ball;
@@ -53,7 +54,7 @@ public:
     void updateState();     // Protobuf+ZMQ
 
     void vision_thread();
-    void strategy_thread();
+    void interface_thread();
 
     /*
 		- O usuário na GUI, quando clicar no botão Iniciar/Pausar jogo, as funções start/pause serão chamadas
@@ -63,19 +64,19 @@ public:
         (Johnathan)
     */
     int getVisionStatus();
-    int getStrategyStatus();
+    int getInterfaceStatus();
     int getVSSStatus();
     int getTypeRun();
 
     void startVision();
-    void startZocket();
+    void startInterface();
     void startSimulator();
     void startVSS();
 
     void finishVSS();
     
     void pauseVision();
-    void pauseZocket();
+    void pauseInterface();
     void pauseVSS();
 
     void getRealWorld();

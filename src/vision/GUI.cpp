@@ -667,14 +667,14 @@ void GUI::guiWindowStatus(){
     ImGui::Separator();
     ImGui::Text("GUI");                 ImGui::NextColumn();
     ImGui::Text("Core");                ImGui::NextColumn();
-    ImGui::Text("Strategy");              ImGui::NextColumn();
+    ImGui::Text("Interface");              ImGui::NextColumn();
     ImGui::Text("Vision");              ImGui::NextColumn();
     ImGui::Separator();
 
     ImGui::Text("Rodando");              ImGui::NextColumn();
     ImGui::Text("Rodando");              ImGui::NextColumn();
 
-    switch(core.getStrategyStatus()){
+    switch(core.getInterfaceStatus()){
         case STOPPED:{ ImGui::Text("Parado");  ImGui::NextColumn(); }  break;
         case STARTING:{ ImGui::Text("Iniciando");  ImGui::NextColumn(); }  break;
         case RUNNING:{ ImGui::Text("Rodando");  ImGui::NextColumn(); }  break;
