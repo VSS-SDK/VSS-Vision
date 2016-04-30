@@ -62,7 +62,7 @@ void Core::finishVSS(){
 
 void Core::updateState(){
 	cout << "teste" << endl;
-	global_state.clear();
+	global_state = vss_state::Global_State();
 	global_state.set_id(0);
 
 	vss_state::Ball_State *ball_s = global_state.add_balls();

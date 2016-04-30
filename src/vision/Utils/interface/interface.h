@@ -45,7 +45,8 @@ public:
 
 	void createSocketSendState(vss_state::Global_State*);
 	void sendState();
-	void createLoopReceiveState(vss_state::Global_State*);
+	void createSocketReceiveState(vss_state::Global_State*);
+	void receiveState();
 
 	void createLoopSendCommandsYellow(vss_command::Global_Commands*);
 	void createLoopReceiveCommandsYellow(vss_command::Global_Commands*);
