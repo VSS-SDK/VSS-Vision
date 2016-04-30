@@ -52,14 +52,14 @@ message_cleaning:
 run:
 	./MPP
 
-$(EXEC): $(FILE_NAMES)
+$(EXEC): proto $(FILE_NAMES)
 	@$(CCX) -o $(EXEC) $(FILE_NAMES) $(LIBRARIES) $(INCLUDES)
 
 clean: message_cleaning
 	@rm $(EXEC) $(FILE_NAMES)
 
 proto:
-	cd utils/protos && make -f protos.make
+	cd Utils/interface/protos && make -f protos.make
 
 teste: 
 	$(SRC)
