@@ -16,7 +16,7 @@ GUI::GUI(){
     timePlay = device = false;
     useCamera = teamSelected = teamSirOk = teamAdvOk = -1;
 
-    show_window_play = show_warning_window = show_configteam_window = show_status_window =  show_credits_window = false;
+    show_window_play = show_warning_window = show_configteam_window = show_status_window = false;
     show_test_window = false;
 
     setCalibrationPosition = false;
@@ -99,7 +99,6 @@ void GUI::checkThings(){
         ss << "Não foi possível detectar " << QTD_COLORS-qtdFiles << " arquivo(s) de cor(es) em HSV;";
         errors.push_back(ss.str().c_str());
     }
-
 
 
     // Verifica se todos os arquivos de cores em RGB estão disponíveis
@@ -473,10 +472,6 @@ void GUI::guiMainMenu(){
                 } 
             }
 
-            if(ImGui::MenuItem("Créditos")){
-                show_credits_window = !show_credits_window;  
-            }
-
             ImGui::EndMenu();
         }
 
@@ -505,49 +500,6 @@ void GUI::guiWindowPlay(){
         core.finishVSS();
         show_window_play = !show_window_play;
     }
-    ImGui::End();
-}
-
-void GUI::guiWindowCredits(){
-    ImGui::Begin("Créditos", &show_credits_window, ImVec2(450, 300), 0.65, ImGuiWindowFlags_NoResize);
-
-    ImGui::TextWrapped("2013");
-    ImGui::Spacing();
-
-    ImGui::BulletText("Johnathan Fercher da Rosa (VSS-C)");
-    ImGui::BulletText("Oscar Neiva Eulálio Neto (VSS)");
-    ImGui::BulletText("Lucas Marques Moreira (VSS)");
-
-    ImGui::Spacing();
-    ImGui::Spacing();
-    ImGui::TextWrapped("2014");
-    ImGui::Spacing();
-
-    ImGui::BulletText("Johnathan Fercher da Rosa (VSS-C)");
-    ImGui::BulletText("Oscar Neiva Eulálio Neto (VSS)");
-    ImGui::BulletText("Lucas Borsatto Simão (VSS)");
-    ImGui::BulletText("Hebert Luiz Cabral da Silva (VSS)");
-    
-    ImGui::BulletText("Lucas Marques Moreira (2D-C)");
-    ImGui::BulletText("Marlon Ferreira (2D)");
-
-    ImGui::Spacing();
-    ImGui::Spacing();
-    ImGui::TextWrapped("2015");
-    ImGui::Spacing();
-
-    ImGui::BulletText("Oscar Neiva Eulálio Neto (VSS-C)");
-    ImGui::BulletText("Lucas Borsatto Simão (VSS)");
-    ImGui::BulletText("Hebert Luiz Cabral da Silva (VSS)");
-    ImGui::BulletText("Johnathan Fercher da Rosa (VSS)");
-    ImGui::BulletText("Manoel Stilpen (VSS)");
-    ImGui::BulletText("Alexandre S Thiago (VSS)");
-    ImGui::BulletText("Felipe Amaral (VSS)");
-    ImGui::BulletText("Samantha Vilaça (VSS)");
-
-    ImGui::BulletText("Marlon Ferreira (2D-C)");
-    ImGui::BulletText("Pedro Sol (2D)");
-
     ImGui::End();
 }
 
@@ -1079,10 +1031,6 @@ void GUI::guiShowWindows(){
 
     if(show_status_window){
         guiWindowStatus();
-    }
-
-    if(show_credits_window){
-        guiWindowCredits();
     }
 }
 

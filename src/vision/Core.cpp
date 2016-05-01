@@ -70,20 +70,20 @@ void Core::updateState(){
 	ball_s->set_y(ball->getPosition().y);
 
 	for(int i = 0 ; i < 3 ; i++){
-		vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
+		vss_state::Robot_State *robot_s = global_state.add_robots_blue();
 		robot_s->set_x(robot->at(i).getPosition().x);
 		robot_s->set_y(robot->at(i).getPosition().y);
 		robot_s->set_yaw(robot->at(i).getOrientation().y);
 	}
 
 	for(int i = 0 ; i < 3 ; i++){
-		vss_state::Robot_State *robot_s = global_state.add_robots_blue();
+		vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
 		robot_s->set_x(robot->at(i+3).getPosition().x);
 		robot_s->set_y(robot->at(i+3).getPosition().y);
 		robot_s->set_yaw(robot->at(i+3).getOrientation().y);
 	}
 
-	interface.printState();
+	//interface.printState();
     hasNewState = true;
 }
 
@@ -155,19 +155,6 @@ void Core::setCut(Rect *cut){
 
 void Core::setRotation(float *rotation){
 	this->rotation = rotation;
-}
-
-void Core::setStrategies(vector<string> *strategies){
-	this->strategies = strategies;
-}
-
-void Core::setStrategySir(string *strategySir){
-	this->strategySir = strategySir;
-	cout << *strategySir << endl;
-}
-
-void Core::setStrategyAdv(string *strategyAdv){
-	this->strategyAdv = strategyAdv;
 }
 
 bool* Core::getDevice(){

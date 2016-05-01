@@ -25,13 +25,6 @@ $ make run
 ```
 
 
-Release
--------
-```
-O projeto está em construção. Ainda não é possível utilizá-lo.
-
-```
-
 Gallery
 -------
 > Imagem geral

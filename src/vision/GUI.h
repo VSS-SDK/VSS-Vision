@@ -41,7 +41,7 @@ private:
     string name;
     int width, height;
 
-    bool show_window_play, show_test_window, show_warning_window, show_configteam_window, show_status_window, show_credits_window;
+    bool show_window_play, show_test_window, show_warning_window, show_configteam_window, show_status_window;
 
     ImVec4 clear_color;
     GLFWwindow* window;

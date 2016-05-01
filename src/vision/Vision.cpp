@@ -67,10 +67,12 @@ int* Vision::getVisionStatus(){
 void Vision::recognize(){
 	labels.clear();
 	
-	if(*device)
+	if(*device){
 		cam >> input;
-	else
+	}else{
 		input = response.clone();
+		usleep(33333);
+	}
 
 	applyRotation(); // Rotação do campo
 	cutImage();

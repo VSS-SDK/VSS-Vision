@@ -36,10 +36,6 @@ private:
     Rect *cut;
     float *rotation;
 
-    vector<string> *strategies;
-    string *strategySir;
-    string *strategyAdv;
-
     int *idCam;
     bool *device;
     string *imagePath;
@@ -90,9 +86,6 @@ public:
     void setRotation(float*);
     void setCut(Rect*);
     void setTypeRun(int);
-    void setStrategies(vector<string>*);
-    void setStrategySir(string*);
-    void setStrategyAdv(string*);
 
     bool* getDevice();
     int* getIdCamera();
