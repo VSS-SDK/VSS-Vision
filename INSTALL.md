@@ -6,9 +6,32 @@ VSS-Vision
 
 **Install** Ubuntu (14.04 LTS)
 ------------------------------
+**Install Standard Packages:**
 ```
 $ sudo apt-get update && apt-get upgrade
-$ sudo apt-get install g++ cmake git libopencv-dev x11-xserver-utils libglfw2 libglew1.10 libglew-dev freeglut3 freeglut3-dev uvcdynctrl arduino putty libbullet-dev libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
+$ sudo apt-get install pkg-config
+$ sudo apt-get install g++ cmake git install x11-xserver-utils libglew1.10 libglew-dev freeglut3 freeglut3-dev uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
+```
+
+**Install GLFW 3:**
+```
+$ git clone https://github.com/glfw/glfw.git
+$ cd glfw
+$ git checkout latest
+$ cmake . -DBUILD_SHARED_LIBS=ON
+$ make -j8
+$ sudo make install
+$ sudo ldconfig
+```
+
+**Install OpenCV:**
+```
+$ git clone https://github.com/Itseez/opencv.git
+$ cd opencv
+$ cmake .
+$ make -j8
+$ sudo make install
+$ sudo ldconfig
 ```
 
 License
