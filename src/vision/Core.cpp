@@ -61,7 +61,7 @@ void Core::finishVSS(){
 }
 
 void Core::updateState(){
-	cout << "teste" << endl;
+	//cout << "teste" << endl;
 	global_state = vss_state::Global_State();
 	global_state.set_id(0);
 
