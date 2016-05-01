@@ -7,7 +7,9 @@
 #
 
 
-all: vision proto calibration
+all: vision
+
+all_vss: calibration proto calibration
 
 vision:
 	cd src/vision && make -f vision.make
