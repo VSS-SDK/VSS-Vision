@@ -55,5 +55,4 @@ script:
   - sudo ldconfig
   - cd ..
 
-  - cd make proto
-  - make
+  - make all_vss
