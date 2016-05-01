@@ -7,12 +7,19 @@
 #
 
 
-all: vision
+all: vision proto calibration
 
 vision:
 	cd src/vision && make -f vision.make
 
+proto:
+	cd src/vision && make -f vision.make proto
+
+calibration:
+	cd src/calibration && make -f calibration.make
+
 clean:
 	cd src/vision && make -f vision.make clean
+
 run:
-	./src/vision/VSS-Vision
+	cd src/vision && make -f vision.make run

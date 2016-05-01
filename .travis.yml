@@ -55,4 +55,5 @@ script:
   - sudo ldconfig
   - cd ..
 
+  - cd make proto
   - make

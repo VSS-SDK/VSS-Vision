@@ -50,9 +50,9 @@ message_cleaning:
 	@echo Cleaning VSS-Vision ...
 
 run:
-	./MPP
+	./$(EXEC)
 
-$(EXEC): proto $(FILE_NAMES)
+$(EXEC): $(FILE_NAMES)
 	@$(CCX) -o $(EXEC) $(FILE_NAMES) $(LIBRARIES) $(INCLUDES)
 
 clean: message_cleaning

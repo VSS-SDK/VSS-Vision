@@ -15,6 +15,15 @@ Installation
 [INSTALL][install]
 
 
+Development and Use
+-------------------
+```
+$ cd VSS-Vision
+$ make proto
+$ make calibration
+$ make && make run
+```
+
 
 Release
 -------
