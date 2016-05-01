@@ -11,7 +11,7 @@
 
 #define CALIBRATION
 
-#define PATHSAVE			"../Data/"
+#define PATHSAVE			"../vision/Data/"
 
 #include <iostream>
 #include <cstdlib>

@@ -317,13 +317,13 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << ORANGE << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << ORANGE << " &";
                         cout << ss.str() << endl;
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << ORANGE << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << ORANGE << " &";
                         cout << ss.str() << endl;
                         system(ss.str().c_str());
                     } 
@@ -332,12 +332,12 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << BLUE << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << BLUE << " &";
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << BLUE << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << BLUE << " &";
                         system(ss.str().c_str());
                     }
                 }
@@ -345,12 +345,12 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << YELLOW << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << YELLOW << " &";
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << YELLOW << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << YELLOW << " &";
                         system(ss.str().c_str());
                     }
                 }
@@ -358,12 +358,12 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << RED << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << RED << " &";
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << RED << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << RED << " &";
                         system(ss.str().c_str());
                     }
                 }
@@ -371,12 +371,12 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << PINK << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << PINK << " &";
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << PINK << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << PINK << " &";
                         system(ss.str().c_str());
                     }
                 }
@@ -384,12 +384,12 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << PURPLE << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << PURPLE << " &";
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << PURPLE << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << PURPLE << " &";
                         system(ss.str().c_str());
                     }
                 }
@@ -397,12 +397,12 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << GREEN << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << GREEN << " &";
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << GREEN << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << GREEN << " &";
                         system(ss.str().c_str());
                     }
                 }
@@ -410,12 +410,12 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << BROWN << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << BROWN << " &";
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << BROWN << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << BROWN << " &";
                         system(ss.str().c_str());
                     }
                 }
@@ -423,12 +423,12 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << ROTATION << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << ROTATION << " &";
                         system(ss.str().c_str());
                     }else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << ROTATION << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << ROTATION << " &";
                         system(ss.str().c_str());
                     }
                 }
@@ -436,13 +436,13 @@ void GUI::guiMainMenu(){
                     if(useCamera == 0){
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 0 " << "../" << pathImage << " " << CUT << " &";
+                        ss << "cd ../calibration && ./Calibration 0 " << "../vision/" << pathImage << " " << CUT << " &";
                         system(ss.str().c_str());
                     }
                     else{
                         stringstream ss;
 
-                        ss << "cd Calibration && ./Calibration 1 " << idCamera << " " << CUT << " &";
+                        ss << "cd ../calibration && ./Calibration 1 " << idCamera << " " << CUT << " &";
                         system(ss.str().c_str());
                     }
                 }
