@@ -13,7 +13,7 @@
 #include <opencv2/highgui/highgui.hpp>	// Visão Computacional
 #include <opencv2/imgproc/imgproc.hpp>
 #include "opencv2/videoio.hpp"
-#include "btVector3.h"
+#include "../LinearMath/btVector3.h"
 
 using namespace std;
 using namespace cv;

@@ -7,6 +7,7 @@
 #include <algorithm>
 
 #include <google/protobuf/stubs/common.h>
+#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/wire_format_lite_inl.h>
@@ -43,16 +44,16 @@ void protobuf_AssignDesc_command_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Robot_Command, right_vel_),
   };
   Robot_Command_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       Robot_Command_descriptor_,
       Robot_Command::default_instance_,
       Robot_Command_offsets_,
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Robot_Command, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Robot_Command, _unknown_fields_),
       -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(Robot_Command));
+      -1,
+      sizeof(Robot_Command),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Robot_Command, _internal_metadata_),
+      -1);
   Global_Commands_descriptor_ = file->message_type(1);
   static const int Global_Commands_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_Commands, id_),
@@ -60,16 +61,16 @@ void protobuf_AssignDesc_command_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_Commands, robot_commands_),
   };
   Global_Commands_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
       Global_Commands_descriptor_,
       Global_Commands::default_instance_,
       Global_Commands_offsets_,
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_Commands, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_Commands, _unknown_fields_),
       -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(Global_Commands));
+      -1,
+      sizeof(Global_Commands),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_Commands, _internal_metadata_),
+      -1);
 }
 
 namespace {
@@ -83,9 +84,9 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    Robot_Command_descriptor_, &Robot_Command::default_instance());
+      Robot_Command_descriptor_, &Robot_Command::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    Global_Commands_descriptor_, &Global_Commands::default_instance());
+      Global_Commands_descriptor_, &Global_Commands::default_instance());
 }
 
 }  // namespace
@@ -126,16 +127,26 @@ struct StaticDescriptorInitializer_command_2eproto {
   }
 } static_descriptor_initializer_command_2eproto_;
 
+namespace {
+
+static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
+static void MergeFromFail(int line) {
+  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+}
+
+}  // namespace
+
+
 // ===================================================================
 
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Robot_Command::kIdFieldNumber;
 const int Robot_Command::kLeftVelFieldNumber;
 const int Robot_Command::kRightVelFieldNumber;
-#endif  // !_MSC_VER
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Robot_Command::Robot_Command()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:vss_command.Robot_Command)
 }
@@ -144,7 +155,8 @@ void Robot_Command::InitAsDefaultInstance() {
 }
 
 Robot_Command::Robot_Command(const Robot_Command& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:vss_command.Robot_Command)
@@ -185,28 +197,32 @@ const Robot_Command& Robot_Command::default_instance() {
 
 Robot_Command* Robot_Command::default_instance_ = NULL;
 
-Robot_Command* Robot_Command::New() const {
-  return new Robot_Command;
+Robot_Command* Robot_Command::New(::google::protobuf::Arena* arena) const {
+  Robot_Command* n = new Robot_Command;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
 }
 
 void Robot_Command::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<Robot_Command*>(16)->f) - \
-   reinterpret_cast<char*>(16))
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<Robot_Command*>(16)->f)
 
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
 
   ZR_(id_, right_vel_);
 
-#undef OFFSET_OF_FIELD_
+#undef ZR_HELPER_
 #undef ZR_
 
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
+  if (_internal_metadata_.have_unknown_fields()) {
+    mutable_unknown_fields()->Clear();
+  }
 }
 
 bool Robot_Command::MergePartialFromCodedStream(
@@ -303,7 +319,7 @@ void Robot_Command::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->right_vel(), output);
   }
 
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
@@ -328,7 +344,7 @@ void Robot_Command::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->right_vel(), target);
   }
 
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
@@ -336,29 +352,47 @@ void Robot_Command::SerializeWithCachedSizes(
   return target;
 }
 
+int Robot_Command::RequiredFieldsByteSizeFallback() const {
+  int total_size = 0;
+
+  if (has_id()) {
+    // required uint32 id = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->id());
+  }
+
+  if (has_left_vel()) {
+    // required float left_vel = 2;
+    total_size += 1 + 4;
+  }
+
+  if (has_right_vel()) {
+    // required float right_vel = 3;
+    total_size += 1 + 4;
+  }
+
+  return total_size;
+}
 int Robot_Command::ByteSize() const {
   int total_size = 0;
 
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required uint32 id = 1;
-    if (has_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->id());
-    }
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->id());
 
     // required float left_vel = 2;
-    if (has_left_vel()) {
-      total_size += 1 + 4;
-    }
+    total_size += 1 + 4;
 
     // required float right_vel = 3;
-    if (has_right_vel()) {
-      total_size += 1 + 4;
-    }
+    total_size += 1 + 4;
 
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
   }
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         unknown_fields());
@@ -370,10 +404,10 @@ int Robot_Command::ByteSize() const {
 }
 
 void Robot_Command::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const Robot_Command* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const Robot_Command*>(
-      &from);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const Robot_Command* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const Robot_Command>(
+          &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -382,7 +416,7 @@ void Robot_Command::MergeFrom(const ::google::protobuf::Message& from) {
 }
 
 void Robot_Command::MergeFrom(const Robot_Command& from) {
-  GOOGLE_CHECK_NE(&from, this);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_id()) {
       set_id(from.id());
@@ -394,7 +428,9 @@ void Robot_Command::MergeFrom(const Robot_Command& from) {
       set_right_vel(from.right_vel());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+  if (from._internal_metadata_.have_unknown_fields()) {
+    mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+  }
 }
 
 void Robot_Command::CopyFrom(const ::google::protobuf::Message& from) {
@@ -416,14 +452,16 @@ bool Robot_Command::IsInitialized() const {
 }
 
 void Robot_Command::Swap(Robot_Command* other) {
-  if (other != this) {
-    std::swap(id_, other->id_);
-    std::swap(left_vel_, other->left_vel_);
-    std::swap(right_vel_, other->right_vel_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Robot_Command::InternalSwap(Robot_Command* other) {
+  std::swap(id_, other->id_);
+  std::swap(left_vel_, other->left_vel_);
+  std::swap(right_vel_, other->right_vel_);
+  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Robot_Command::GetMetadata() const {
@@ -434,17 +472,93 @@ void Robot_Command::Swap(Robot_Command* other) {
   return metadata;
 }
 
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Robot_Command
+
+// required uint32 id = 1;
+bool Robot_Command::has_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+void Robot_Command::set_has_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+void Robot_Command::clear_has_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+void Robot_Command::clear_id() {
+  id_ = 0u;
+  clear_has_id();
+}
+ ::google::protobuf::uint32 Robot_Command::id() const {
+  // @@protoc_insertion_point(field_get:vss_command.Robot_Command.id)
+  return id_;
+}
+ void Robot_Command::set_id(::google::protobuf::uint32 value) {
+  set_has_id();
+  id_ = value;
+  // @@protoc_insertion_point(field_set:vss_command.Robot_Command.id)
+}
+
+// required float left_vel = 2;
+bool Robot_Command::has_left_vel() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+void Robot_Command::set_has_left_vel() {
+  _has_bits_[0] |= 0x00000002u;
+}
+void Robot_Command::clear_has_left_vel() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+void Robot_Command::clear_left_vel() {
+  left_vel_ = 0;
+  clear_has_left_vel();
+}
+ float Robot_Command::left_vel() const {
+  // @@protoc_insertion_point(field_get:vss_command.Robot_Command.left_vel)
+  return left_vel_;
+}
+ void Robot_Command::set_left_vel(float value) {
+  set_has_left_vel();
+  left_vel_ = value;
+  // @@protoc_insertion_point(field_set:vss_command.Robot_Command.left_vel)
+}
+
+// required float right_vel = 3;
+bool Robot_Command::has_right_vel() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+void Robot_Command::set_has_right_vel() {
+  _has_bits_[0] |= 0x00000004u;
+}
+void Robot_Command::clear_has_right_vel() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+void Robot_Command::clear_right_vel() {
+  right_vel_ = 0;
+  clear_has_right_vel();
+}
+ float Robot_Command::right_vel() const {
+  // @@protoc_insertion_point(field_get:vss_command.Robot_Command.right_vel)
+  return right_vel_;
+}
+ void Robot_Command::set_right_vel(float value) {
+  set_has_right_vel();
+  right_vel_ = value;
+  // @@protoc_insertion_point(field_set:vss_command.Robot_Command.right_vel)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Global_Commands::kIdFieldNumber;
 const int Global_Commands::kIsTeamYellowFieldNumber;
 const int Global_Commands::kRobotCommandsFieldNumber;
-#endif  // !_MSC_VER
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Global_Commands::Global_Commands()
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
   // @@protoc_insertion_point(constructor:vss_command.Global_Commands)
 }
@@ -453,7 +567,8 @@ void Global_Commands::InitAsDefaultInstance() {
 }
 
 Global_Commands::Global_Commands(const Global_Commands& from)
-  : ::google::protobuf::Message() {
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:vss_command.Global_Commands)
@@ -493,29 +608,33 @@ const Global_Commands& Global_Commands::default_instance() {
 
 Global_Commands* Global_Commands::default_instance_ = NULL;
 
-Global_Commands* Global_Commands::New() const {
-  return new Global_Commands;
+Global_Commands* Global_Commands::New(::google::protobuf::Arena* arena) const {
+  Global_Commands* n = new Global_Commands;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
 }
 
 void Global_Commands::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<Global_Commands*>(16)->f) - \
-   reinterpret_cast<char*>(16))
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<Global_Commands*>(16)->f)
 
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
 
   ZR_(id_, is_team_yellow_);
 
-#undef OFFSET_OF_FIELD_
+#undef ZR_HELPER_
 #undef ZR_
 
   robot_commands_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
+  if (_internal_metadata_.have_unknown_fields()) {
+    mutable_unknown_fields()->Clear();
+  }
 }
 
 bool Global_Commands::MergePartialFromCodedStream(
@@ -561,12 +680,15 @@ bool Global_Commands::MergePartialFromCodedStream(
       case 3: {
         if (tag == 26) {
          parse_robot_commands:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_robot_commands:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_robot_commands()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_robot_commands;
+        if (input->ExpectTag(26)) goto parse_loop_robot_commands;
+        input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -607,12 +729,12 @@ void Global_Commands::SerializeWithCachedSizes(
   }
 
   // repeated .vss_command.Robot_Command robot_commands = 3;
-  for (int i = 0; i < this->robot_commands_size(); i++) {
+  for (unsigned int i = 0, n = this->robot_commands_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->robot_commands(i), output);
   }
 
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
@@ -633,13 +755,13 @@ void Global_Commands::SerializeWithCachedSizes(
   }
 
   // repeated .vss_command.Robot_Command robot_commands = 3;
-  for (int i = 0; i < this->robot_commands_size(); i++) {
+  for (unsigned int i = 0, n = this->robot_commands_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, this->robot_commands(i), target);
   }
 
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
@@ -650,20 +772,17 @@ void Global_Commands::SerializeWithCachedSizes(
 int Global_Commands::ByteSize() const {
   int total_size = 0;
 
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional uint32 id = 1;
-    if (has_id()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->id());
-    }
-
-    // required bool is_team_yellow = 2;
-    if (has_is_team_yellow()) {
-      total_size += 1 + 1;
-    }
-
+  // required bool is_team_yellow = 2;
+  if (has_is_team_yellow()) {
+    total_size += 1 + 1;
   }
+  // optional uint32 id = 1;
+  if (has_id()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->id());
+  }
+
   // repeated .vss_command.Robot_Command robot_commands = 3;
   total_size += 1 * this->robot_commands_size();
   for (int i = 0; i < this->robot_commands_size(); i++) {
@@ -672,7 +791,7 @@ int Global_Commands::ByteSize() const {
         this->robot_commands(i));
   }
 
-  if (!unknown_fields().empty()) {
+  if (_internal_metadata_.have_unknown_fields()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         unknown_fields());
@@ -684,10 +803,10 @@ int Global_Commands::ByteSize() const {
 }
 
 void Global_Commands::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const Global_Commands* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const Global_Commands*>(
-      &from);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const Global_Commands* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const Global_Commands>(
+          &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -696,7 +815,7 @@ void Global_Commands::MergeFrom(const ::google::protobuf::Message& from) {
 }
 
 void Global_Commands::MergeFrom(const Global_Commands& from) {
-  GOOGLE_CHECK_NE(&from, this);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   robot_commands_.MergeFrom(from.robot_commands_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_id()) {
@@ -706,7 +825,9 @@ void Global_Commands::MergeFrom(const Global_Commands& from) {
       set_is_team_yellow(from.is_team_yellow());
     }
   }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+  if (from._internal_metadata_.have_unknown_fields()) {
+    mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+  }
 }
 
 void Global_Commands::CopyFrom(const ::google::protobuf::Message& from) {
@@ -729,14 +850,16 @@ bool Global_Commands::IsInitialized() const {
 }
 
 void Global_Commands::Swap(Global_Commands* other) {
-  if (other != this) {
-    std::swap(id_, other->id_);
-    std::swap(is_team_yellow_, other->is_team_yellow_);
-    robot_commands_.Swap(&other->robot_commands_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Global_Commands::InternalSwap(Global_Commands* other) {
+  std::swap(id_, other->id_);
+  std::swap(is_team_yellow_, other->is_team_yellow_);
+  robot_commands_.UnsafeArenaSwap(&other->robot_commands_);
+  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Global_Commands::GetMetadata() const {
@@ -747,6 +870,88 @@ void Global_Commands::Swap(Global_Commands* other) {
   return metadata;
 }
 
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Global_Commands
+
+// optional uint32 id = 1;
+bool Global_Commands::has_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+void Global_Commands::set_has_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+void Global_Commands::clear_has_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+void Global_Commands::clear_id() {
+  id_ = 0u;
+  clear_has_id();
+}
+ ::google::protobuf::uint32 Global_Commands::id() const {
+  // @@protoc_insertion_point(field_get:vss_command.Global_Commands.id)
+  return id_;
+}
+ void Global_Commands::set_id(::google::protobuf::uint32 value) {
+  set_has_id();
+  id_ = value;
+  // @@protoc_insertion_point(field_set:vss_command.Global_Commands.id)
+}
+
+// required bool is_team_yellow = 2;
+bool Global_Commands::has_is_team_yellow() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+void Global_Commands::set_has_is_team_yellow() {
+  _has_bits_[0] |= 0x00000002u;
+}
+void Global_Commands::clear_has_is_team_yellow() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+void Global_Commands::clear_is_team_yellow() {
+  is_team_yellow_ = false;
+  clear_has_is_team_yellow();
+}
+ bool Global_Commands::is_team_yellow() const {
+  // @@protoc_insertion_point(field_get:vss_command.Global_Commands.is_team_yellow)
+  return is_team_yellow_;
+}
+ void Global_Commands::set_is_team_yellow(bool value) {
+  set_has_is_team_yellow();
+  is_team_yellow_ = value;
+  // @@protoc_insertion_point(field_set:vss_command.Global_Commands.is_team_yellow)
+}
+
+// repeated .vss_command.Robot_Command robot_commands = 3;
+int Global_Commands::robot_commands_size() const {
+  return robot_commands_.size();
+}
+void Global_Commands::clear_robot_commands() {
+  robot_commands_.Clear();
+}
+const ::vss_command::Robot_Command& Global_Commands::robot_commands(int index) const {
+  // @@protoc_insertion_point(field_get:vss_command.Global_Commands.robot_commands)
+  return robot_commands_.Get(index);
+}
+::vss_command::Robot_Command* Global_Commands::mutable_robot_commands(int index) {
+  // @@protoc_insertion_point(field_mutable:vss_command.Global_Commands.robot_commands)
+  return robot_commands_.Mutable(index);
+}
+::vss_command::Robot_Command* Global_Commands::add_robot_commands() {
+  // @@protoc_insertion_point(field_add:vss_command.Global_Commands.robot_commands)
+  return robot_commands_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::vss_command::Robot_Command >*
+Global_Commands::mutable_robot_commands() {
+  // @@protoc_insertion_point(field_mutable_list:vss_command.Global_Commands.robot_commands)
+  return &robot_commands_;
+}
+const ::google::protobuf::RepeatedPtrField< ::vss_command::Robot_Command >&
+Global_Commands::robot_commands() const {
+  // @@protoc_insertion_point(field_list:vss_command.Global_Commands.robot_commands)
+  return robot_commands_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)
 
