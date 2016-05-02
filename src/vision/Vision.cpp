@@ -275,25 +275,25 @@ void Vision::recognizeObjects(){
 				
 				//Vetor diferença real entre os pontos da cor do time e a cor do player
 				btVector3 vecFront;
-				vecFront.x = labels.at(idM0).at(idM).x - labels.at(1).at(k).x;
-				vecFront.y = labels.at(idM0).at(idM).y - labels.at(1).at(k).y;
+				vecFront.setX(labels.at(idM0).at(idM).x - labels.at(1).at(k).x);
+				vecFront.setY(labels.at(idM0).at(idM).y - labels.at(1).at(k).y);
 
 				//Vetor unitário entre os pontos da cor do time e a cor do player para ajustar o eixo X(é sempre 45° do eixo X por conta das tags das cores)
 				btVector3 vecZero(sqrt(2.f)/2.f,sqrt(2.f)/2.f,0);
 
 				//Vetor unitário real entre os pontos da cor do time e a cor do player
-				float modVecFront = sqrt(vecFront.x*vecFront.x + vecFront.y*vecFront.y);
+				float modVecFront = sqrt(vecFront.getX()*vecFront.getX() + vecFront.getY()*vecFront.getY());
 				if(modVecFront == 0) modVecFront = 0.00001;
-				btVector3 uVecFront(vecFront.x/modVecFront,vecFront.y/modVecFront,0);
+				btVector3 uVecFront(vecFront.getX()/modVecFront,vecFront.getY()/modVecFront,0);
 
 				//Arco cosseno do ângulo
-				float arcAng = uVecFront.x*vecZero.x + uVecFront.y*vecZero.y;
+				float arcAng = uVecFront.getX()*vecZero.getX() + uVecFront.getY()*vecZero.getY();
 
 				//Transformação para graus
 				float angAux = 180*acos(arcAng)/CV_PI;
 
 				//Se o vetor unitário Y estiver apontando para o eixo negativo, adiciona-se 360° para se oter ângulos entre 0 e 360°
-				if(uVecFront.y < 0) angAux = 360 - angAux;
+				if(uVecFront.getY() < 0) angAux = 360 - angAux;
 
 				ang = angAux;
 				robot->at(idM0-3).setPosition(btVector3(mid.x, mid.y, 0));

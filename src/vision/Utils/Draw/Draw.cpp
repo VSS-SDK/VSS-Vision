@@ -111,9 +111,9 @@ Draw::Draw(){
 btVector3 Draw::handlePosition(btVector3 openCV){
     btVector3 openGL;
 
-    openGL.x = (openCV.x - (CAM_WIDTH/2.0))/20.0;
-    openGL.y = openCV.z;
-    openGL.z = (openCV.y - (CAM_HEIGHT/2.0))/20.0;
+    openGL.setX((openCV.getX() - (CAM_WIDTH/2.0))/20.0);
+    openGL.setY(openCV.getZ());
+    openGL.setZ((openCV.getY() - (CAM_HEIGHT/2.0))/20.0);
 
     return openGL;
 }
@@ -164,10 +164,10 @@ void Draw::setCamera(int idCamera){
 }
 
 void Draw::positionCam(){
-	glRotatef(glCam.orientation.x, 1, 0, 0);
-    glRotatef(glCam.orientation.y, 0, 1, 0);
-    glRotatef(glCam.orientation.z, 0, 0, 1);
-    glTranslatef(glCam.position.x, glCam.position.y, glCam.position.z);
+	glRotatef(glCam.orientation.getX(), 1, 0, 0);
+    glRotatef(glCam.orientation.getY(), 0, 1, 0);
+    glRotatef(glCam.orientation.getZ(), 0, 0, 1);
+    glTranslatef(glCam.position.getX(), glCam.position.getY(), glCam.position.getZ());
 }
 
 void Draw::drawWorld(vector<Robot> robot, btVector3 b){
@@ -231,11 +231,11 @@ void Draw::drawCube(glRigidBody pos){
     }
 
     glPushMatrix();
-        glRotatef(pos.orientation.x, 1, 0, 0);
-        glRotatef(pos.orientation.y, 0, 1, 0);
-        glRotatef(pos.orientation.z, 0, 0, 1);
-        glTranslatef(pos.position.x, pos.position.y, pos.position.z);
-        glScalef(pos.scale.x, pos.scale.y, pos.scale.z);
+        glRotatef(pos.orientation.getX(), 1, 0, 0);
+        glRotatef(pos.orientation.getY(), 0, 1, 0);
+        glRotatef(pos.orientation.getZ(), 0, 0, 1);
+        glTranslatef(pos.position.getX(), pos.position.getY(), pos.position.getZ());
+        glScalef(pos.scale.getX(), pos.scale.getY(), pos.scale.getZ());
         
         //We have a color array and a vertex array 
         glEnableClientState(GL_VERTEX_ARRAY);
@@ -285,7 +285,7 @@ void Draw::drawBall(btVector3 b){
     btVector3 position = handlePosition(b);
     //position.show();
     glPushMatrix();
-        glTranslatef(position.x, position.y+0.15, position.z);
+        glTranslatef(position.getX(), position.getY()+0.15, position.getZ());
         glScalef(0.47, 0.47, 0.47);
         drawSphere(1, 10, 10);
     glPopMatrix();
@@ -319,11 +319,11 @@ void Draw::drawRobot(Robot robot){
 
     glPushMatrix();
 
-        glTranslatef(position.x, position.y+0.8, position.z);
-        glRotatef(orientation.x, 1, 0, 0);
-        glRotatef(orientation.y, 0, 1, 0);
-        glRotatef(orientation.z, 0, 0, 1);
-        glScalef(scale.x, scale.y, scale.z);
+        glTranslatef(position.getX(), position.getY()+0.8, position.getZ());
+        glRotatef(orientation.getX(), 1, 0, 0);
+        glRotatef(orientation.getY(), 0, 1, 0);
+        glRotatef(orientation.getZ(), 0, 0, 1);
+        glScalef(scale.getX(), scale.getY(), scale.getZ());
         
         //We have a color array and a vertex array 
         glEnableClientState(GL_VERTEX_ARRAY);
@@ -349,8 +349,8 @@ void Draw::drawRobot(Robot robot){
                 colors[i+2] = colorTeam.rgb[2]/255.0;
             }
 
-            glTranslatef(position.x, position.y, position.z);
-            glScalef(scale.x, scale.y, scale.z);
+            glTranslatef(position.getX(), position.getY(), position.getZ());
+            glScalef(scale.getX(), scale.getY(), scale.getZ());
             
             //We have a color array and a vertex array 
             glEnableClientState(GL_VERTEX_ARRAY);
@@ -375,8 +375,8 @@ void Draw::drawRobot(Robot robot){
                 colors[i+2] = colorRobot.rgb[2]/255.0;
             }
 
-            glTranslatef(position.x, position.y, position.z);
-            glScalef(scale.x, scale.y, scale.z);
+            glTranslatef(position.getX(), position.getY(), position.getZ());
+            glScalef(scale.getX(), scale.getY(), scale.getZ());
             
             //We have a color array and a vertex array 
             glEnableClientState(GL_VERTEX_ARRAY);

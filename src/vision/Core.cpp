@@ -66,21 +66,21 @@ void Core::updateState(){
 	global_state.set_id(0);
 
 	vss_state::Ball_State *ball_s = global_state.add_balls();
-	ball_s->set_x(ball->getPosition().x);
-	ball_s->set_y(ball->getPosition().y);
+	ball_s->set_x(ball->getPosition().getX());
+	ball_s->set_y(ball->getPosition().getY());
 
 	for(int i = 0 ; i < 3 ; i++){
 		vss_state::Robot_State *robot_s = global_state.add_robots_blue();
-		robot_s->set_x(robot->at(i).getPosition().x);
-		robot_s->set_y(robot->at(i).getPosition().y);
-		robot_s->set_yaw(robot->at(i).getOrientation().y);
+		robot_s->set_x(robot->at(i).getPosition().getX());
+		robot_s->set_y(robot->at(i).getPosition().getY());
+		robot_s->set_yaw(robot->at(i).getOrientation().getY());
 	}
 
 	for(int i = 0 ; i < 3 ; i++){
 		vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
-		robot_s->set_x(robot->at(i+3).getPosition().x);
-		robot_s->set_y(robot->at(i+3).getPosition().y);
-		robot_s->set_yaw(robot->at(i+3).getOrientation().y);
+		robot_s->set_x(robot->at(i+3).getPosition().getX());
+		robot_s->set_y(robot->at(i+3).getPosition().getY());
+		robot_s->set_yaw(robot->at(i+3).getOrientation().getY());
 	}
 
 	//interface.printState();

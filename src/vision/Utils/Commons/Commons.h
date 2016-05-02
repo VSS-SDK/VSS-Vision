@@ -13,6 +13,7 @@
 #include <opencv2/highgui/highgui.hpp>	// Visão Computacional
 #include <opencv2/imgproc/imgproc.hpp>
 #include "opencv2/videoio.hpp"
+#include "btVector3.h"
 
 using namespace std;
 using namespace cv;
@@ -80,31 +81,6 @@ namespace common{
 	// Roda de um robô
 	enum{ LEFT = 0, RIGHT = 1 };
 
-	struct btVector3{
-		float x, y, z;
-		btVector3(){
-			x = y = z = 0;
-		};
-		btVector3(float x, float y, float z){
-			this->x = x;
-			this->y = y;
-			this->z = z;
-		};
-		btVector3(btVector3 *b){
-			x = b->x;
-			y = b->y;
-			z = b->z;
-		};
-		btVector3(Point *b){
-			x = b->x;
-			y = b->y;
-			z = 0;
-		};
-		void show(){
-			printf("btVector3(%f, %f, %f)\n", x, y, z);
-		};
-	};
-
 	struct Pixel{
 	    float rgb[3];  
 	    Pixel(){
@@ -128,9 +104,9 @@ namespace common{
 	        }
 	    };
 	    Pixel(btVector3 *p){
-	    	rgb[0] = p->x;
-	    	rgb[1] = p->y;
-	    	rgb[2] = p->z;
+	    	rgb[0] = p->getX();
+	    	rgb[1] = p->getY();
+	    	rgb[2] = p->getZ();
 	    };
 	    void show(){
 	    	printf("Pixel(%.2f, %.2f, %.2f)\n", rgb[0], rgb[1], rgb[2]);

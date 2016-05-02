@@ -11,7 +11,7 @@ CCX = g++ -std=c++11 -w
 
 
 
-INCLUDES = -I -ICalibration -IUtils -IUtils/CRUD -IUtils/Commons -IUtils/Draw -IUtils/Imgui -IUtils/interface
+INCLUDES = -I -ICalibration -IUtils -IUtils/LinearMath -IUtils/CRUD -IUtils/Commons -IUtils/Draw -IUtils/Imgui -IUtils/interface
 
 LIBRARIES_OPENCV = -lopencv_calib3d -lopencv_contrib -lopencv_objdetect -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml 
 LIBRARIES_OPENCV += -lopencv_objdetect -lopencv_ocl -lopencv_photo -lopencv_stitching -lopencv_superres -lopencv_ts -lopencv_video -lopencv_videoio -lopencv_imgcodecs -lopencv_videostab

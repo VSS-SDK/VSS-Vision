@@ -546,19 +546,19 @@ void GUI::guiWindowStatus(){
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
 
         clearSS(ss);
-        ss << "(" << robot.at(i).getPosition().x << ", " << robot.at(i).getPosition().y << ")";
+        ss << "(" << robot.at(i).getPosition().getX() << ", " << robot.at(i).getPosition().getY() << ")";
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
         
         clearSS(ss);
-        ss << robot.at(i).getOrientation().y << "°";
+        ss << robot.at(i).getOrientation().getY() << "°";
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
 
         clearSS(ss);
-        ss << "(" << robot.at(i).getLinearVelocity().x << ", " << robot.at(i).getLinearVelocity().y << ")";
+        ss << "(" << robot.at(i).getLinearVelocity().getX() << ", " << robot.at(i).getLinearVelocity().getY() << ")";
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
 
         clearSS(ss);
-        ss << robot.at(i).getOrientation().y << "°";
+        ss << robot.at(i).getOrientation().getY() << "°";
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
     }
 
@@ -589,19 +589,19 @@ void GUI::guiWindowStatus(){
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
 
         clearSS(ss);
-        ss << "(" << robot.at(i).getPosition().x << ", " << robot.at(i).getPosition().y << ")";
+        ss << "(" << robot.at(i).getPosition().getX() << ", " << robot.at(i).getPosition().getY() << ")";
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
         
         clearSS(ss);
-        ss << robot.at(i).getOrientation().y << "°";
+        ss << robot.at(i).getOrientation().getY() << "°";
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
 
         clearSS(ss);
-        ss << "(" << robot.at(i).getLinearVelocity().x << ", " << robot.at(i).getLinearVelocity().y << ")";
+        ss << "(" << robot.at(i).getLinearVelocity().getX() << ", " << robot.at(i).getLinearVelocity().getY() << ")";
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
 
         clearSS(ss);
-        ss << robot.at(i).getOrientation().y << "°";
+        ss << robot.at(i).getOrientation().getY() << "°";
         ImGui::Text(ss.str().c_str());              ImGui::NextColumn();
     }
 
@@ -668,11 +668,11 @@ void GUI::guiWindowConfigTeam(int team){
             static int transmission = 0;
 
             for(int i = 0 ; i < 3 ; i++){
-               robot.at(i).setPosition(btVector3(robot.at(i).getPosition().x, robot.at(i).getPosition().y, 10)); 
-               robot.at(i).setOrientation(btVector3(robot.at(i).getOrientation().x, robot.at(i).getOrientation().y+1, robot.at(i).getOrientation().z));
+               robot.at(i).setPosition(btVector3(robot.at(i).getPosition().getX(), robot.at(i).getPosition().getY(), 10)); 
+               robot.at(i).setOrientation(btVector3(robot.at(i).getOrientation().getX(), robot.at(i).getOrientation().getY()+1, robot.at(i).getOrientation().getZ()));
             }
             for(int i = 3 ; i < 6 ; i++){
-               robot.at(i).setPosition(btVector3(robot.at(i).getPosition().x, robot.at(i).getPosition().y, -10)); 
+               robot.at(i).setPosition(btVector3(robot.at(i).getPosition().getX(), robot.at(i).getPosition().getY(), -10)); 
             }
 
             ImGui::Begin("OUR Team", &show_configteam_window, ImVec2(500, 270), 0.65, ImGuiWindowFlags_NoResize);
@@ -821,11 +821,11 @@ void GUI::guiWindowConfigTeam(int team){
             static int transmission = 0;
 
             for(int i = 3 ; i < 6 ; i++){
-               robot.at(i).setPosition(btVector3(robot.at(i).getPosition().x, robot.at(i).getPosition().y, 10)); 
-               robot.at(i).setOrientation(btVector3(robot.at(i).getOrientation().x, robot.at(i).getOrientation().y+1, robot.at(i).getOrientation().z));
+               robot.at(i).setPosition(btVector3(robot.at(i).getPosition().getX(), robot.at(i).getPosition().getY(), 10)); 
+               robot.at(i).setOrientation(btVector3(robot.at(i).getOrientation().getX(), robot.at(i).getOrientation().getY()+1, robot.at(i).getOrientation().getZ()));
             }
             for(int i = 0 ; i < 3 ; i++){
-               robot.at(i).setPosition(btVector3(robot.at(i).getPosition().x, robot.at(i).getPosition().y, -10)); 
+               robot.at(i).setPosition(btVector3(robot.at(i).getPosition().getX(), robot.at(i).getPosition().getY(), -10)); 
             }
 
             ImGui::Begin("ADV Team", &show_configteam_window, ImVec2(500, 270), 0.65, ImGuiWindowFlags_NoResize);
