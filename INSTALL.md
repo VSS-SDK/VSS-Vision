@@ -3,25 +3,27 @@ VSS-Vision
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
 [![Build Status](https://travis-ci.org/SIRLab/VSS-Vision.svg?branch=master)][travis]
 
-> **Pay Attention and Follow All The Steps Bellow to Install VSS-Vision on Ubuntu (14.04 LTS) and Debian 8**
+> **Pay Attention and Follow All The Steps Bellow to Install VSS-Vision on Ubuntu 14.04 LTS and Debian 8**
 
-**Only Ubuntu (14.04 LTS)** 
+**Only Ubuntu 14.04 LTS** 
 ---------------------------
 **Install Standard Packages:**
 ```
 $ sudo apt-get update && apt-get upgrade
 $ sudo apt-get install pkg-config
-$ sudo apt-get install g++ cmake git install x11-xserver-utils libglew1.10 libglew-dev freeglut3 freeglut3-dev uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
+$ sudo apt-get install g++ cmake git x11-xserver-utils libglew1.10 libglew-dev freeglut3 freeglut3-dev uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
 ```
 
-**Only Debian (14.04 LTS)** 
+**Only Debian 8** 
 ---------------------------
 **Install Standard Packages:**
 ```
 $ sudo apt-get update && apt-get upgrade
+$ sudo apt-get install pkgconf
+$ sudo apt-get install g++ cmake git x11-xserver-utils libglew1.10 libglew-dev freeglut3 freeglut3-dev uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
 ```
 
-**All distros** 
+**All Distros** 
 ---------------------------
 
 **Install GLFW 3:**
