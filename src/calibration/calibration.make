@@ -8,7 +8,7 @@
 
 all:
 	@echo Compilando Calibration ...
-	@g++ -std=c++11 ../vision/Utils/Commons/Commons.cpp ../vision/Utils/CRUD/CRUD.cpp Calibration.cpp Main.cpp -o app `pkg-config --cflags --libs opencv` -o Calibration -w
+	@g++ -std=c++11	Commons/Commons.cpp ../vision/Utils/CRUD/CRUD.cpp Calibration.cpp Main.cpp -o app `pkg-config --cflags --libs opencv` -o Calibration -w
 
 clean:
 	rm -rf *o Calibration

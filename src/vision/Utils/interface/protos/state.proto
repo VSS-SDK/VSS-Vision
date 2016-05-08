@@ -8,10 +8,17 @@
 
 package vss_state;
 
+message RGB{
+  required uint32   r = 1;
+  required uint32   g = 2;
+  required uint32   b = 3;
+}
+
 message Robot_State{
-  required float x = 1;
-  required float y = 2;
-  optional float yaw = 3;
+  required float 		x = 1;
+  required float 		y = 2;
+  optional RGB		  color = 3;		// COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
+  optional float 		yaw = 4;
 }
 
 message Ball_State{
@@ -21,7 +28,8 @@ message Ball_State{
 
 message Global_State{
   optional uint32       id = 1;
-  repeated Ball_State   balls = 2;
-  repeated Robot_State  robots_yellow = 3;
-  repeated Robot_State  robots_blue = 4;
+  required bool			    origin = 2;		// true = VSS-Vision, false = VSS-Simulator
+  repeated Ball_State   balls = 3;
+  repeated Robot_State  robots_yellow = 4;
+  repeated Robot_State  robots_blue = 5;
 }

@@ -13,8 +13,7 @@
 #include <opencv2/highgui/highgui.hpp>	// Visão Computacional
 #include <opencv2/imgproc/imgproc.hpp>
 #include "opencv2/videoio.hpp"
-#include "../LinearMath/btVector3.h"
-#include "../interface/interface.h"
+#include "../../vision/Utils/LinearMath/btVector3.h"
 
 using namespace std;
 using namespace cv;
@@ -114,67 +113,6 @@ namespace common{
 	    };
 	};
 
-	struct VisionColor{
-		Pixel min;
-		Pixel max;
-
-		VisionColor(){
-			min = Pixel(0, 0, 0);
-			max = Pixel(255, 255, 255);
-		};
-		VisionColor(Pixel min, Pixel max){
-			this->min = min;
-			this->max = max;
-		};
-		VisionColor(VisionColor *color){
-			min = color->min;
-			max = color->max;
-		};
-		void show(){
-			printf("VisionColor\nMin");
-			min.show();
-			printf("Max");
-			max.show();
-		}
-	};
-
-	struct glRigidBody{
-		btVector3 position;
-		btVector3 orientation;
-		btVector3 scale;
-		Pixel color;
-		glRigidBody(){
-			position = btVector3(0, 0, 0);
-			orientation = btVector3(0, 0, 0);
-			scale = btVector3(1, 1, 1);
-			color = Pixel(0, 0, 0);
-		};
-		void setPosition(btVector3 p){
-			position = p;
-		};
-		void setScale(btVector3 p){
-			scale = p;
-		};
-		void setOrientation(btVector3 p){
-			orientation = p;
-		};
-		void setColor(Pixel p){
-			color = p;
-		}
-		void show(){
-			cout << "glRigidBody" << endl;
-			cout << " ------ " << endl;
-			cout << "position" << endl;
-			position.show();
-			cout << "orientation" << endl;
-			orientation.show();
-			cout << "scale" << endl;
-			scale.show();
-			cout << "color" << endl;
-			color.show();
-		}
-	};
-
 	struct TeamConfiguration{
 		string name;
 		int id[3];
@@ -221,6 +159,30 @@ namespace common{
 		}
 	};
 
+	struct VisionColor{
+		Pixel min;
+		Pixel max;
+
+		VisionColor(){
+			min = Pixel(0, 0, 0);
+			max = Pixel(255, 255, 255);
+		};
+		VisionColor(Pixel min, Pixel max){
+			this->min = min;
+			this->max = max;
+		};
+		VisionColor(VisionColor *color){
+			min = color->min;
+			max = color->max;
+		};
+		void show(){
+			printf("VisionColor\nMin");
+			min.show();
+			printf("Max");
+			max.show();
+		}
+	};
+
 	void clearSS(stringstream &ss);
 
 	template <typename T>
@@ -253,8 +215,6 @@ namespace common{
 	btVector3 midpoint(btVector3, btVector3);
 
 	float angulation(Point, Point);
-
-	vss_state::RGB toVSSRGB(Pixel);
 }
 
 #endif	

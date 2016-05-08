@@ -64,6 +64,7 @@ void Core::updateState(){
 	//cout << "teste" << endl;
 	global_state = vss_state::Global_State();
 	global_state.set_id(0);
+	global_state.set_origin(true);
 
 	vss_state::Ball_State *ball_s = global_state.add_balls();
 	ball_s->set_x(ball->getPosition().getX());
@@ -74,6 +75,11 @@ void Core::updateState(){
 		robot_s->set_x(robot->at(i).getPosition().getX());
 		robot_s->set_y(robot->at(i).getPosition().getY());
 		robot_s->set_yaw(robot->at(i).getOrientation().getY());
+
+		vss_state::RGB *color = robot_s->mutable_color();
+		color->set_r(robot->at(i).getColorRobot().rgb[0]);
+		color->set_g(robot->at(i).getColorRobot().rgb[1]);
+		color->set_b(robot->at(i).getColorRobot().rgb[2]);
 	}
 
 	for(int i = 0 ; i < 3 ; i++){
@@ -81,6 +87,11 @@ void Core::updateState(){
 		robot_s->set_x(robot->at(i+3).getPosition().getX());
 		robot_s->set_y(robot->at(i+3).getPosition().getY());
 		robot_s->set_yaw(robot->at(i+3).getOrientation().getY());
+
+		vss_state::RGB *color = robot_s->mutable_color();
+		color->set_r(robot->at(i+3).getColorRobot().rgb[0]);
+		color->set_g(robot->at(i+3).getColorRobot().rgb[1]);
+		color->set_b(robot->at(i+3).getColorRobot().rgb[2]);
 	}
 
 	//interface.printState();

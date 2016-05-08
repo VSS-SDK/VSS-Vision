@@ -24,7 +24,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#include "../vision/Utils/Commons/Commons.h"
+#include "Commons/Commons.h"
  
 using namespace std;
 using namespace cv;

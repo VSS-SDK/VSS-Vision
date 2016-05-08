@@ -71,14 +71,4 @@ namespace common{
 		return (atan2(a.y - b.y, a.x - b.x) * (180/CV_PI));
 		// TODO: Talvez isso esteja errado
 	}
-
-	vss_state::RGB toVSSRGB(Pixel p){
-		vss_state::RGB resp;
-		
-		resp.set_r(p.rgb[0]);
-		resp.set_g(p.rgb[1]);
-		resp.set_b(p.rgb[2]);
-
-		return resp;
-	}
 }
