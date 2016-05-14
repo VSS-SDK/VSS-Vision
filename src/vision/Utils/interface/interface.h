@@ -27,19 +27,18 @@ private:
     
 	vss_state::Global_State *global_state;
 	vss_command::Global_Commands *global_commands;
-
 	
 	// Simulator and VSS -> Strategys
 	const char *addr_server_multicast = "tcp://*:5555";
 	const char *addr_client_multicast = "tcp://localhost:5555";
 
-	// Strategy Yellow -> Simulator
-	const char *addr_server_simulator_yellow = "tcp://*:5556";
-	const char *addr_client_simulator_yellow = "tcp://localhost:5556";
+	// Strategy Team 1 -> Simulator
+	const char *addr_server_simulator_team1 = "tcp://*:5556";
+	const char *addr_client_simulator_team1 = "tcp://localhost:5556";
 
-	// Strategy Blue -> Simulator
-	const char *addr_server_simulator_blue = "tcp://*:5557";
-	const char *addr_client_simulator_blue = "tcp://localhost:5557";
+	// Strategy Team 2 -> Simulator
+	const char *addr_server_simulator_team2 = "tcp://*:5557";
+	const char *addr_client_simulator_team2 = "tcp://localhost:5557";
 public:
 	Interface();
 
@@ -48,11 +47,11 @@ public:
 	void createSocketReceiveState(vss_state::Global_State*);
 	void receiveState();
 
-	void createLoopSendCommandsYellow(vss_command::Global_Commands*);
-	void createLoopReceiveCommandsYellow(vss_command::Global_Commands*);
+	void createLoopSendCommandsTeam1(vss_command::Global_Commands*);
+	void createLoopReceiveCommandsTeam1(vss_command::Global_Commands*);
 
-	void createLoopSendCommandsBlue(vss_command::Global_Commands*);
-	void createLoopReceiveCommandsBlue(vss_command::Global_Commands*);	
+	void createLoopSendCommandsTeam2(vss_command::Global_Commands*);
+	void createLoopReceiveCommandsTeam2(vss_command::Global_Commands*);	
 	
 	void printState();
 	void printCommand();

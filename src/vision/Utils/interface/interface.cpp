@@ -75,14 +75,14 @@ void Interface::receiveState(){
 	printState();
 }
 
-void Interface::createLoopSendCommandsYellow(vss_command::Global_Commands* global_commands){
+void Interface::createLoopSendCommandsTeam1(vss_command::Global_Commands* global_commands){
 	this->global_commands = global_commands;
 	
 	zmq::context_t context(1);
 	zmq::socket_t socket (context, ZMQ_PAIR);
 
-	std::cout << "Connecting Client Sender Yellow: " << addr_client_simulator_yellow << std::endl;
-	socket.connect(addr_client_simulator_yellow);
+	std::cout << "Connecting Client Sender Team 1: " << addr_client_simulator_team1 << std::endl;
+	socket.connect(addr_client_simulator_team1);
 
 	while (true) {
 		usleep (100000);
@@ -97,14 +97,14 @@ void Interface::createLoopSendCommandsYellow(vss_command::Global_Commands* globa
 	}
 }
 
-void Interface::createLoopSendCommandsBlue(vss_command::Global_Commands* global_commands){
+void Interface::createLoopSendCommandsTeam2(vss_command::Global_Commands* global_commands){
 	this->global_commands = global_commands;
 	
 	zmq::context_t context(1);
 	zmq::socket_t socket (context, ZMQ_PAIR);
 
-	std::cout << "Connecting Client Sender Blue: " << addr_client_simulator_blue << std::endl;
-	socket.connect(addr_client_simulator_blue);
+	std::cout << "Connecting Client Sender Team 2: " << addr_client_simulator_team2 << std::endl;
+	socket.connect(addr_client_simulator_team2);
 
 	while (true) {
 		usleep (100000);
@@ -119,14 +119,14 @@ void Interface::createLoopSendCommandsBlue(vss_command::Global_Commands* global_
 	}
 }
 
-void Interface::createLoopReceiveCommandsYellow(vss_command::Global_Commands* global_commands){
+void Interface::createLoopReceiveCommandsTeam1(vss_command::Global_Commands* global_commands){
 	this->global_commands = global_commands;
 
 	zmq::context_t context (1);
 	zmq::socket_t socket (context, ZMQ_PAIR);
 
-	std::cout << "Connecting Server Receiver Yellow: " << addr_server_simulator_yellow << std::endl;
-	socket.bind(addr_server_simulator_yellow);
+	std::cout << "Connecting Server Receiver Team 1: " << addr_server_simulator_team1 << std::endl;
+	socket.bind(addr_server_simulator_team1);
 
 
 	int request_nbr;
@@ -141,14 +141,14 @@ void Interface::createLoopReceiveCommandsYellow(vss_command::Global_Commands* gl
 	socket.close();
 }
 
-void Interface::createLoopReceiveCommandsBlue(vss_command::Global_Commands* global_commands){
+void Interface::createLoopReceiveCommandsTeam2(vss_command::Global_Commands* global_commands){
 	this->global_commands = global_commands;
 
 	zmq::context_t context (1);
 	zmq::socket_t socket (context, ZMQ_PAIR);
 
-	std::cout << "Connecting Server Receiver Blue: " << addr_server_simulator_blue << std::endl;
-	socket.bind(addr_server_simulator_blue);
+	std::cout << "Connecting Server Receiver Team 2: " << addr_server_simulator_team2 << std::endl;
+	socket.bind(addr_server_simulator_team2);
 
 
 	int request_nbr;
