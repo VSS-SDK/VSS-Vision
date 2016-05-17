@@ -5,7 +5,7 @@ VSS-Vision
 
 > **Pay Attention and Follow All The Steps Bellow to Install VSS-Vision on Ubuntu 14.04 LTS 3, Ubuntu 16.04 LTS and Debian 8**
 
-**Only Ubuntu 14.04 LTS** 
+**Only Ubuntu 14.04 LTS 3** 
 ---------------------------
 **Install Standard Packages:**
 ```
