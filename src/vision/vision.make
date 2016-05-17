@@ -13,9 +13,8 @@ CCX = g++ -std=c++11 -w
 
 INCLUDES = -IUtils/LinearMath -IUtils/CRUD -IUtils/Commons -IUtils/Draw -IUtils/Imgui -IUtils/interface -IUtils
 
-LIBRARIES_OPENCV = -lopencv_calib3d -lopencv_contrib -lopencv_objdetect -lopencv_core -lopencv_features2d -lopencv_flann -lopencv_gpu -lopencv_highgui -lopencv_imgproc -lopencv_legacy -lopencv_ml 
-LIBRARIES_OPENCV += -lopencv_objdetect -lopencv_ocl -lopencv_photo -lopencv_stitching -lopencv_superres -lopencv_ts -lopencv_video -lopencv_videoio -lopencv_imgcodecs -lopencv_videostab
-LIBRARIES_GLFW = `pkg-config --static --libs glfw3` -lGLU -lglut -lGL -lX11 -lXxf86vm -lXrandr -lXi
+LIBRARIES_OPENCV = `pkg-config --cflags --libs opencv`
+LIBRARIES_GLFW = `pkg-config --static --libs glfw3` -lGLU -lglut -lGL -lX11 -lXxf86vm -lXrandr
 LIBRARIES_PROTO = `pkg-config --cflags --libs protobuf`
 
 LIBRARIES = $(LIBRARIES_OPENCV) $(LIBRARIES_PROTO) $(LIBRARIES_GLFW) -lzmq  -pthread -lm -w
