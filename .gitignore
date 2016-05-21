@@ -23,6 +23,10 @@ Calibration/*.o
 *.a
 *.lib
 
+# Junk files
+*.md~
+*.md.swp
+
 # Executables
 *.exe
 *.out
