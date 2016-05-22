@@ -40,7 +40,8 @@ $ sudo apt-get install g++ cmake git x11-xserver-utils libglew1.10 libglew-dev f
 $ git clone https://github.com/glfw/glfw.git
 $ cd glfw
 $ git checkout latest
-$ cmake . -DBUILD_SHARED_LIBS=ON
+$ mkdir build && cd build
+$ cmake .. -DBUILD_SHARED_LIBS=ON
 $ make -j8
 $ sudo make install
 $ sudo ldconfig
@@ -50,7 +51,8 @@ $ sudo ldconfig
 ```
 $ git clone https://github.com/Itseez/opencv.git
 $ cd opencv
-$ cmake .
+$ mkdir build && cd build
+$ cmake ..
 $ make -j8
 $ sudo make install
 $ sudo ldconfig
