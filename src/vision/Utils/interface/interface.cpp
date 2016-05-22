@@ -39,7 +39,7 @@ void Interface::sendState(){
 
     zmq::message_t request (msg_str.size());
     memcpy ((void *) request.data (), msg_str.c_str(), msg_str.size());
-    std::cout << "Sending State data ..." << std::endl;
+    //std::cout << "Sending State data ..." << std::endl;
     socket->send(request);
 }
 

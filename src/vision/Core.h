@@ -14,6 +14,7 @@
 #include "Vision.h"
 #include "Utils/interface/interface.h"
 
+//! This class is responsible for control the Vision thread and the Interface thread.
 class Core{
 private:
     Vision vision;
@@ -43,56 +44,73 @@ private:
 
     vector<string> logs;
 public:
+    //! Construtor
     Core();
-    void init();
-    void start();
 
+    //! Method responsible for initialize the software: control variables and threads.
+    void init();
+
+    //! Method responsible for handle the thread of computer Vision, getting new states of robots and ball.
+    void vision_thread();
+
+    //! Method responsible for handle the thread of Interface, sending data to VSS-SampleStrategy and VSS-Viewer.
+    void interface_thread();
+   
+    //! Method responsible for update de vss_state::Global_State with new states tracking from Vision thread.
     void updateState();     // Protobuf+ZMQ
 
-    void vision_thread();
-    void interface_thread();
-
-    /*
-		- O usuário na GUI, quando clicar no botão Iniciar/Pausar jogo, as funções start/pause serão chamadas
-			- Para evitar que o sistema fique processando algo mesmo pausado, a função pause utilizará o artifício thread.block
-			- Para retomar a thread será utilizado a função thread.unblock
-
-        (Johnathan)
-    */
+    //! Method responsible for return the state of Vision thread: STOPPED, STARTING, RUNNING, PAUSING, PAUSED, ENDING, FINISHED, CRASHED.
     int getVisionStatus();
+
+    //! Method responsible for return the state of Interface thread: STOPPED, STARTING, RUNNING, PAUSING, PAUSED, ENDING, FINISHED, CRASHED.
     int getInterfaceStatus();
-    int getVSSStatus();
-    int getTypeRun();
 
-    void startVision();
-    void startInterface();
-    void startSimulator();
-    void startVSS();
+    //! Method responsible for start the core via GUI.
+    void start();
 
-    void finishVSS();
-    
-    void pauseVision();
-    void pauseInterface();
-    void pauseVSS();
+    //! Method responsible for finish the core via GUI.
+    void finish();
 
-    void getRealWorld();
-    void getSimuladorWorld();
-
+    //! Method responsible for set a pointer of device, if the software use a camera of an image.
     void setDevice(bool *device);
-    void setIdCamera(int *id);
-    void setImagePath(string *imagePath);
-    void setRobots(vector<Robot>*);
-    void setBall(Robot*);
-    void setRotation(float*);
-    void setCut(Rect*);
-    void setTypeRun(int);
 
+    //! Method responsible for set a pointer of idCamera, which camera use.
+    void setIdCamera(int *id);
+
+    //! Method responsible for set a pointer of imagePath, which image use.
+    void setImagePath(string *imagePath);
+
+    //! Method responsible for set a pointer of the vector of robots, all the robots.
+    void setRobots(vector<Robot>*);
+
+    //! Method responsible for set a pointer of ball.
+    void setBall(Robot*);
+
+    //! Method responsible for set a pointer of rotation, the rotation in Z of input image.
+    void setRotation(float*);
+
+    //! Method responsible for set a pointer of cut, the points of cut of input image.
+    void setCut(Rect*);
+
+    //! Method responsible for get a pointer of device, if the software use a camera of an image.
     bool* getDevice();
+
+    //! Method responsible for get a pointer of idCamera, which camera use.
     int* getIdCamera();
+
+    //! Method responsible for get a pointer of imagePath, which image use.
     string* getImagePath();
+
+    //! Method responsible for get a pointer of the vector of robots, all the robots.
     vector<Robot>* getRobots();
+
+    //! Method responsible for get a pointer of ball.
     Robot* getBall();
+
+    //! Method responsible for get a pointer of rotation, the rotation in Z of input image.
     float* getRotation();
+
+    //! Method responsible for get a pointer of cut, the points of cut of input image.
     Rect* getCut();
 
 };

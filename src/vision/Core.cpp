@@ -8,6 +8,10 @@
 
 #include "Core.h"
 
+//! Addendum
+//! --------
+//! 
+//! > Initialize control variables
 Core::Core(){
 	guiStatus = RUNNING;
     visionStatus = interfaceStatus = systemStatus = STOPPED;
@@ -16,6 +20,19 @@ Core::Core(){
     hasNewState = false;
 }
 
+
+//! Addendum
+//! --------
+//! 
+//! > Initialize beyond all threads, all threads status:
+//! > - STOPPED
+//! > - STARTING (Select this)
+//! > - RUNNING
+//! > - PAUSING
+//! > - PAUSED
+//! > - ENDING
+//! > - FINISHED
+//! > - CRASHED
 void Core::init(){
 	while(systemStatus != ENDING){
 		while(systemStatus == STOPPED){
@@ -51,19 +68,37 @@ void Core::init(){
 	}	
 }
 
+//! Addendum
+//! --------
+//! 
+//! > Must have this method, cause GUI instance Core.
 void Core::start(){
 	systemStatus = STARTING;
 }
 
-void Core::finishVSS(){
+//! Addendum
+//! --------
+//! 
+//! > Must have this method, cause GUI instance Core.
+void Core::finish(){
 	systemStatus = STOPPED;
 	visionStatus = ENDING;
 }
 
+//! Addendum
+//! --------
+//! 
+//! > The data vss_state::Global_State states carry all states "Poses" of robots and ball.
+//! 
+//! > It's a data of Interface that allows the communication between VSS-SampleStrategy, VSS-Vision, VSS-Simulator and VSS-Viewer.
+//! 
+//! Was created by a compilation of proto file.  See: [Protobuf](https://developers.google.com/protocol-buffers/).
 void Core::updateState(){
+	idData++;
+	cout << idData << endl;
 	//cout << "teste" << endl;
 	global_state = vss_state::Global_State();
-	global_state.set_id(0);
+	global_state.set_id(idData);
 	global_state.set_origin(true);
 
 	vss_state::Ball_State *ball_s = global_state.add_balls();
@@ -98,7 +133,13 @@ void Core::updateState(){
     hasNewState = true;
 }
 
+
+//! Addendum
+//! --------
+//!
+//!
 void Core::vision_thread(){
+	//! > Initializes the configuration of execution made by user in GUI
 	vision.setVisionStatus(&visionStatus);
 	vision.setIdCamera(idCam);
 	vision.setDevice(device);
@@ -109,6 +150,7 @@ void Core::vision_thread(){
     vision.setCut(cut);
 	vision.init();
 
+	//! > Test the input device for 1 second after start the thread loop.
 	visionStatus = RUNNING;
 	while(visionStatus != ENDING){
 		//cout << "VISION" << endl;
@@ -120,9 +162,15 @@ void Core::vision_thread(){
 	visionStatus = FINISHED;
 }
 
+//! Addendum
+//! --------
+//!
+//!
 void Core::interface_thread(){
+	//! > Create a socket using [ZMQ](http://zeromq.org/).
 	interface.createSocketSendState(&global_state);
 
+	//! > Only send data if have a new one.
 	while(interfaceStatus != ENDING){
 		if(hasNewState){
 			interfaceStatus = RUNNING;
@@ -130,6 +178,7 @@ void Core::interface_thread(){
 			hasNewState = false;
 		}else{
 			interfaceStatus = PAUSED;
+			//! > Works with 30Hz (30Fps)
 			usleep(33333);
 		}
 	}
@@ -154,10 +203,6 @@ void Core::setRobots(vector<Robot> *robot){
 
 void Core::setBall(Robot *ball){
 	this->ball = ball;
-}
-
-void Core::setTypeRun(int typeRun){
-	this->typeRun = typeRun;
 }
 
 void Core::setCut(Rect *cut){
@@ -202,8 +247,4 @@ int Core::getVisionStatus(){
 
 int Core::getInterfaceStatus(){
 	return interfaceStatus;
-}
-
-int Core::getTypeRun(){
-	return typeRun;
 }

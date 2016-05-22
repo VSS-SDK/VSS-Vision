@@ -9,6 +9,8 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
+//! This file contains all the constants used in all software
+
 #define RELEASE			"VSS-Vision"
 
 #define CAM_WIDTH 		640		// Pixels

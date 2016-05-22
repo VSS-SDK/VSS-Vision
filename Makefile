@@ -25,3 +25,6 @@ clean:
 
 run:
 	cd src/vision && make -f vision.make run
+
+docm:
+	cd doc && doxygen

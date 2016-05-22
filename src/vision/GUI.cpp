@@ -230,8 +230,6 @@ void GUI::guiMainMenu(){
                 ImGui::MenuItem("Jogar", "!OK");
             }else{
                 if (ImGui::MenuItem("Jogar")){
-                    core.setTypeRun(VSS);
-                    
                     // Tem que ser ponteiro, pois isso deixará o fluxo de informação no programa BEM MAIS LEVE.
                     {
                         core.setRobots(&robot);
@@ -497,7 +495,7 @@ void GUI::guiWindowPlay(){
         draw.setTimePlay(timePlay);
     }
     if(ImGui::Button("Finalizar")){
-        core.finishVSS();
+        core.finish();
         show_window_play = !show_window_play;
     }
     ImGui::End();

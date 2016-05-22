@@ -71,7 +71,6 @@ void Vision::recognize(){
 		cam >> input;
 	}else{
 		input = response.clone();
-		usleep(33333);
 	}
 
 	applyRotation(); // Rotação do campo

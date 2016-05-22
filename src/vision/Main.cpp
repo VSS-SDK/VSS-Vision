@@ -8,9 +8,9 @@
 
 #include "GUI.h"
 
-#include "thread"
-
+//! main function
 int main(int, char**){
+	//! Verification of protobuf version
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
 	/*Interface interface;
