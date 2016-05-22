@@ -23,6 +23,7 @@ using namespace common;
 
 static void error_callback(int error, const char* description);
 
+//! This class is responsible for interact with the user and run the 3D World representation created on Draw. 
 class GUI{
 private:
     Core core;

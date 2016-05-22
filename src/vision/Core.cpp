@@ -139,7 +139,9 @@ void Core::updateState(){
 //!
 //!
 void Core::vision_thread(){
-	//! > Initializes the configuration of execution made by user in GUI
+	//! > Initializes the configuration of execution made by user in GUI, like:
+	//! > - If user select camera or image
+	//! > - Which camera or image the user selected
 	vision.setVisionStatus(&visionStatus);
 	vision.setIdCamera(idCam);
 	vision.setDevice(device);

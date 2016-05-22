@@ -17,6 +17,7 @@
 
 using namespace common;
 
+//! This class is responsible for draw the entire 3D World. (DEPRECATED, in future only VSS-Viewer will be used)
 class Draw{
 protected:
 	int idCamera;
