@@ -1,11 +1,13 @@
 var searchData=
 [
-  ['setball',['setBall',['../classCore.html#a1bbfbe956eae2c47b5b9de1c3cbde581',1,'Core']]],
-  ['setcut',['setCut',['../classCore.html#a7df5adead57f62b411d7651b4fe5ed04',1,'Core']]],
-  ['setdevice',['setDevice',['../classCore.html#acb3bbac470e8a70644029ff761d27f7b',1,'Core']]],
-  ['setidcamera',['setIdCamera',['../classCore.html#adbd3ce42a284a1fe231d37ad4cf35fac',1,'Core']]],
-  ['setimagepath',['setImagePath',['../classCore.html#ab4498bc9d2b4ce2543159ba2a1f103f9',1,'Core']]],
-  ['setrobots',['setRobots',['../classCore.html#a3589818429173d7795f5bf7136c0e0bc',1,'Core']]],
-  ['setrotation',['setRotation',['../classCore.html#a441d1228b2533b62112ffe994e5339bd',1,'Core']]],
-  ['start',['start',['../classCore.html#a0e1d6754f6c2cabd2cd2862d541fe127',1,'Core']]]
+  ['getball',['getBall',['../classCore.html#a44848782dad91b82d890b166e3a72f4a',1,'Core']]],
+  ['getcut',['getCut',['../classCore.html#add69fcd4a06b293645413c0c58271cea',1,'Core']]],
+  ['getdevice',['getDevice',['../classCore.html#a45f0215c095cf3d318671c4daa4d7cab',1,'Core']]],
+  ['getidcamera',['getIdCamera',['../classCore.html#ada506dde946f47086215474472586c4c',1,'Core']]],
+  ['getimagepath',['getImagePath',['../classCore.html#aa3cb171b7cac403abdb652d512b890ea',1,'Core']]],
+  ['getinterfacestatus',['getInterfaceStatus',['../classCore.html#a5aecb1d71b2df5b4d9176a654c3b9f0f',1,'Core']]],
+  ['getrobots',['getRobots',['../classCore.html#a50a4a6633f383f6fb7dae2dfe4483854',1,'Core']]],
+  ['getrotation',['getRotation',['../classCore.html#a5aaa805970dd8830f891fe686ad9de1f',1,'Core']]],
+  ['getvisionstatus',['getVisionStatus',['../classCore.html#af949567de604895c33f03211f1017418',1,'Core']]],
+  ['glrigidbody',['glRigidBody',['../structcommon_1_1glRigidBody.html#a8010e290062b416868109f20483704d2',1,'common::glRigidBody']]]
 ];

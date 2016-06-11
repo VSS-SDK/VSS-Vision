@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['core',['Core',['../classCore.html',1,'Core'],['../classCore.html#a14e63188e0aa7c4a6f72d5501384d1f9',1,'Core::Core()']]],
-  ['crud',['CRUD',['../classCRUD.html',1,'']]]
+  ['angulation',['angulation',['../namespacecommon.html#a8c1ef8d4ce3fdb3e30af47c9c11bf04a',1,'common']]]
 ];

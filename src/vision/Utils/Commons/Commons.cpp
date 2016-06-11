@@ -44,18 +44,25 @@ namespace common{
 		else return true;
 	}
 
+	//! Addendum
+	//! --------
+	//! 
 	string cmdTerminal(string s){
 		char buffer[1024];
 	    std::string result = "";
 
+	    //! > Get the exit of pipe
 	    FILE* pipe = popen(s.c_str(), "r");
 	    if (!pipe) return "ERROR";
 	    
+	    //! > Read all pipe
 	    while(!feof(pipe)) {
 	    	if(fgets(buffer, 1024, pipe) != NULL)
 	    		result += buffer;
 	    }
+
 	    pclose(pipe);
+
 	    return result;
 	}
 
@@ -67,7 +74,11 @@ namespace common{
 		return Point(((a.x + b.x) / 2), ((a.y + b.y) / 2));
 	}
 
+	//! Addendum
+	//! --------
+	//! 
 	float angulation(Point a, Point b){
+		//! > Atan2
 		return (atan2(a.y - b.y, a.x - b.x) * (180/CV_PI));
 		// TODO: Talvez isso esteja errado
 	}

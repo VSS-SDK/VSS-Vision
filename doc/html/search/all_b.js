@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['vision',['Vision',['../classVision.html',1,'']]],
-  ['vision_5fthread',['vision_thread',['../classCore.html#a3509cd5d7a5d363105f8ec2053f2167b',1,'Core']]],
-  ['visioncolor',['VisionColor',['../structcommon_1_1VisionColor.html',1,'common']]]
+  ['rgb',['rgb',['../structcommon_1_1Pixel.html#abf3e7070359fa300aeed9af22c74f118',1,'common::Pixel']]],
+  ['robot',['Robot',['../classRobot.html',1,'']]]
 ];
