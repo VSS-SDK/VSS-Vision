@@ -16,7 +16,7 @@
 
 //! This class is responsible for control the Vision thread and the Interface thread.
 class Core{
-private:
+protected:
     Vision vision;
     Interface interface;
     

@@ -15,7 +15,7 @@
 #include "unistd.h"
 
 class Vision{
-private:
+protected:
 	CRUD crud;
 	vector<Robot>* robot;
 	Robot *ball;

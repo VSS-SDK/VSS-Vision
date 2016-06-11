@@ -14,7 +14,7 @@
 using namespace common;
 
 class Robot{
-private:
+protected:
 	int id, team;
 
 	// Kinematics

@@ -83,6 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classCore-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Core Class Reference</div>  </div>
@@ -93,6 +94,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="classCore.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Core_8h_source.html">Core.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for Core:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCore__coll__graph.png" border="0" usemap="#Core_coll__map" alt="Collaboration graph"/></div>
+<map name="Core_coll__map" id="Core_coll__map">
+<area shape="rect" id="node2" href="classRobot.html" title="Robot" alt="" coords="102,216,159,243"/><area shape="rect" id="node5" href="classVision.html" title="Vision" alt="" coords="35,307,92,333"/><area shape="rect" id="node3" href="structcommon_1_1Pixel.html" title="This struct represents a Pixel, can be: RGB and HSV. It&#39;s used float because is possible to represent..." alt="" coords="105,5,215,32"/><area shape="rect" id="node4" href="structcommon_1_1VisionColor.html" title="This struct represents a Color that can be calibrated: made by 2 Pixels that represents a range of co..." alt="" coords="199,111,345,137"/><area shape="rect" id="node6" href="classCRUD.html" title="This class is responsible for create, read, update and delete all data used on the software..." alt="" coords="5,216,67,243"/><area shape="rect" id="node7" href="classInterface.html" title="Interface" alt="" coords="191,307,264,333"/></map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -181,6 +189,69 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#add69fcd4a06b293645413c0c58271cea">getCut</a> ()</td></tr>
 <tr class="memdesc:add69fcd4a06b293645413c0c58271cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for get a pointer of cut, the points of cut of input image. <br/></td></tr>
 <tr class="separator:add69fcd4a06b293645413c0c58271cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a34fd7c6d1b7ff4fcc64cc9498387cfb1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34fd7c6d1b7ff4fcc64cc9498387cfb1"></a>
+<a class="el" href="classVision.html">Vision</a>&#160;</td><td class="memItemRight" valign="bottom"><b>vision</b></td></tr>
+<tr class="separator:a34fd7c6d1b7ff4fcc64cc9498387cfb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d2a2f913b4a1832516e5752c655c97"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69d2a2f913b4a1832516e5752c655c97"></a>
+<a class="el" href="classInterface.html">Interface</a>&#160;</td><td class="memItemRight" valign="bottom"><b>interface</b></td></tr>
+<tr class="separator:a69d2a2f913b4a1832516e5752c655c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4678aed908e6666ab7e4017b7dcb706c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4678aed908e6666ab7e4017b7dcb706c"></a>
+vss_state::Global_State&#160;</td><td class="memItemRight" valign="bottom"><b>global_state</b></td></tr>
+<tr class="separator:a4678aed908e6666ab7e4017b7dcb706c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefd7fe27eefa08aed712d09c1c085e25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aefd7fe27eefa08aed712d09c1c085e25"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>idData</b></td></tr>
+<tr class="separator:aefd7fe27eefa08aed712d09c1c085e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac73eb8e742f978209a2b84a45c9456d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac73eb8e742f978209a2b84a45c9456d8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasNewState</b></td></tr>
+<tr class="separator:ac73eb8e742f978209a2b84a45c9456d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63f637f4fb5b18a489b02989b10d3802"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63f637f4fb5b18a489b02989b10d3802"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>guiStatus</b></td></tr>
+<tr class="separator:a63f637f4fb5b18a489b02989b10d3802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdd67cc499b44a5b27e256df6c9f5427"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acdd67cc499b44a5b27e256df6c9f5427"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>visionStatus</b></td></tr>
+<tr class="separator:acdd67cc499b44a5b27e256df6c9f5427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5af64d1b42c67940f9487a0fa4f6b75"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad5af64d1b42c67940f9487a0fa4f6b75"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>interfaceStatus</b></td></tr>
+<tr class="separator:ad5af64d1b42c67940f9487a0fa4f6b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983757f7c47f1c2c82adff06e085338f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a983757f7c47f1c2c82adff06e085338f"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>systemStatus</b></td></tr>
+<tr class="separator:a983757f7c47f1c2c82adff06e085338f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a963317fc2c628c9d7e69f3f4a9a9ca2c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a963317fc2c628c9d7e69f3f4a9a9ca2c"></a>
+thread *&#160;</td><td class="memItemRight" valign="bottom"><b>visionThread</b></td></tr>
+<tr class="separator:a963317fc2c628c9d7e69f3f4a9a9ca2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8bd31bfbda279a7529eb6f59c394e1b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae8bd31bfbda279a7529eb6f59c394e1b"></a>
+thread *&#160;</td><td class="memItemRight" valign="bottom"><b>interfaceThread</b></td></tr>
+<tr class="separator:ae8bd31bfbda279a7529eb6f59c394e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab35fac78b24c55184c2c7b088c238371"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab35fac78b24c55184c2c7b088c238371"></a>
+vector&lt; <a class="el" href="classRobot.html">Robot</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>robot</b></td></tr>
+<tr class="separator:ab35fac78b24c55184c2c7b088c238371"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c5822b45be731850814df925bfde6f3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c5822b45be731850814df925bfde6f3"></a>
+<a class="el" href="classRobot.html">Robot</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>ball</b></td></tr>
+<tr class="separator:a9c5822b45be731850814df925bfde6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a58e2f73269ecae4a610717d926b771"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a58e2f73269ecae4a610717d926b771"></a>
+Rect *&#160;</td><td class="memItemRight" valign="bottom"><b>cut</b></td></tr>
+<tr class="separator:a7a58e2f73269ecae4a610717d926b771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b776a2e94a5ee8d405c6eb1d77f868b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6b776a2e94a5ee8d405c6eb1d77f868b"></a>
+float *&#160;</td><td class="memItemRight" valign="bottom"><b>rotation</b></td></tr>
+<tr class="separator:a6b776a2e94a5ee8d405c6eb1d77f868b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa53409a22b8b666036d1696916330aa1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa53409a22b8b666036d1696916330aa1"></a>
+int *&#160;</td><td class="memItemRight" valign="bottom"><b>idCam</b></td></tr>
+<tr class="separator:aa53409a22b8b666036d1696916330aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba8ab3c8f4f7e2332f41c6b08d8319b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ba8ab3c8f4f7e2332f41c6b08d8319b"></a>
+bool *&#160;</td><td class="memItemRight" valign="bottom"><b>device</b></td></tr>
+<tr class="separator:a1ba8ab3c8f4f7e2332f41c6b08d8319b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac6d4974ec4164595c8369bbf30756f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acac6d4974ec4164595c8369bbf30756f"></a>
+string *&#160;</td><td class="memItemRight" valign="bottom"><b>imagePath</b></td></tr>
+<tr class="separator:acac6d4974ec4164595c8369bbf30756f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13a1eb93ab8246f02ea9509d1cc7407a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13a1eb93ab8246f02ea9509d1cc7407a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>typeRun</b></td></tr>
+<tr class="separator:a13a1eb93ab8246f02ea9509d1cc7407a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2aca6b78cae9ada19a4690e241b8a55"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2aca6b78cae9ada19a4690e241b8a55"></a>
+vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>logs</b></td></tr>
+<tr class="separator:ac2aca6b78cae9ada19a4690e241b8a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class is responsible for control the <a class="el" href="classVision.html">Vision</a> thread and the <a class="el" href="classInterface.html">Interface</a> thread. </p>

@@ -17,7 +17,7 @@ using namespace common;
 
 //! This class is responsible for create, read, update and delete all data used on the software.
 class CRUD{
-private:
+protected:
 	ofstream write;
 	ifstream read;
 

@@ -1,0 +1,12 @@
+<map id="GUI" name="GUI">
+<area shape="rect" id="node2" href="$classDraw.html" title="This class is responsible for draw the entire 3D World. (DEPRECATED, in future only VSS&#45;Viewer will b..." alt="" coords="53,328,107,355"/>
+<area shape="rect" id="node3" href="$structcommon_1_1glRigidBody.html" title="This struct represents a RigidBody, see: RigidBody. Position, orientation, scale and color..." alt="" coords="5,164,155,191"/>
+<area shape="rect" id="node4" href="$structcommon_1_1Pixel.html" title="This struct represents a Pixel, can be: RGB and HSV. It&#39;s used float because is possible to represent..." alt="" coords="121,5,231,32"/>
+<area shape="rect" id="node5" href="$classRobot.html" title="Robot" alt="" coords="230,247,287,273"/>
+<area shape="rect" id="node6" href="$structcommon_1_1VisionColor.html" title="This struct represents a Color that can be calibrated: made by 2 Pixels that represents a range of co..." alt="" coords="265,111,412,137"/>
+<area shape="rect" id="node8" href="$classCore.html" title="This class is responsible for control the Vision thread and the Interface thread. ..." alt="" coords="397,469,448,496"/>
+<area shape="rect" id="node9" href="$classVision.html" title="Vision" alt="" coords="308,379,365,405"/>
+<area shape="rect" id="node7" href="$structcommon_1_1TeamConfiguration.html" title="This struct represents a Configuration that a team can save and load. " alt="" coords="182,469,372,496"/>
+<area shape="rect" id="node10" href="$classCRUD.html" title="This class is responsible for create, read, update and delete all data used on the software..." alt="" coords="431,247,493,273"/>
+<area shape="rect" id="node11" href="$classInterface.html" title="Interface" alt="" coords="391,379,464,405"/>
+</map>

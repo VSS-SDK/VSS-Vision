@@ -83,6 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classInterface-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Interface Class Reference</div>  </div>
@@ -121,6 +122,42 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>printState</b> ()</td
 <tr class="memitem:aaa4e713b2b72649d5253c83bf9e2416a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa4e713b2b72649d5253c83bf9e2416a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printCommand</b> ()</td></tr>
 <tr class="separator:aaa4e713b2b72649d5253c83bf9e2416a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a99822a3bea1a0cb8c72670db0f797689"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a99822a3bea1a0cb8c72670db0f797689"></a>
+zmq::message_t&#160;</td><td class="memItemRight" valign="bottom"><b>request</b></td></tr>
+<tr class="separator:a99822a3bea1a0cb8c72670db0f797689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a2bda6046550893e9454930636e76d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a2bda6046550893e9454930636e76d5"></a>
+zmq::context_t *&#160;</td><td class="memItemRight" valign="bottom"><b>context</b></td></tr>
+<tr class="separator:a7a2bda6046550893e9454930636e76d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af38139f534f08df8b3dc9f29001e9584"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af38139f534f08df8b3dc9f29001e9584"></a>
+zmq::socket_t *&#160;</td><td class="memItemRight" valign="bottom"><b>socket</b></td></tr>
+<tr class="separator:af38139f534f08df8b3dc9f29001e9584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac488bcc6708103cb36d132c895efa7a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac488bcc6708103cb36d132c895efa7a0"></a>
+vss_state::Global_State *&#160;</td><td class="memItemRight" valign="bottom"><b>global_state</b></td></tr>
+<tr class="separator:ac488bcc6708103cb36d132c895efa7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0109a54da68b3e7cd0c652f6cdd75abe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0109a54da68b3e7cd0c652f6cdd75abe"></a>
+vss_command::Global_Commands *&#160;</td><td class="memItemRight" valign="bottom"><b>global_commands</b></td></tr>
+<tr class="separator:a0109a54da68b3e7cd0c652f6cdd75abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13af5d0710e73dc30603c7fd13e763c9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13af5d0710e73dc30603c7fd13e763c9"></a>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_server_multicast</b> = &quot;tcp://*:5555&quot;</td></tr>
+<tr class="separator:a13af5d0710e73dc30603c7fd13e763c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8215c1845687c3bceb55d2ab21f7f1ff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8215c1845687c3bceb55d2ab21f7f1ff"></a>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_client_multicast</b> = &quot;tcp://localhost:5555&quot;</td></tr>
+<tr class="separator:a8215c1845687c3bceb55d2ab21f7f1ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4315a24cd5d7156ccb6da180cc5a825e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4315a24cd5d7156ccb6da180cc5a825e"></a>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_server_simulator_team1</b> = &quot;tcp://*:5556&quot;</td></tr>
+<tr class="separator:a4315a24cd5d7156ccb6da180cc5a825e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa05d667c54fc41c5dc6fe7aa8a85ef5d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa05d667c54fc41c5dc6fe7aa8a85ef5d"></a>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_client_simulator_team1</b> = &quot;tcp://localhost:5556&quot;</td></tr>
+<tr class="separator:aa05d667c54fc41c5dc6fe7aa8a85ef5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae358e6d8cb691934a5dc23c4a718082b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae358e6d8cb691934a5dc23c4a718082b"></a>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_server_simulator_team2</b> = &quot;tcp://*:5557&quot;</td></tr>
+<tr class="separator:ae358e6d8cb691934a5dc23c4a718082b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adad17a36b3382235441861a3648bd807"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adad17a36b3382235441861a3648bd807"></a>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_client_simulator_team2</b> = &quot;tcp://localhost:5557&quot;</td></tr>
+<tr class="separator:adad17a36b3382235441861a3648bd807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/sirlab/Repositorios/VSS/VSS-Vision/src/vision/Utils/interface/<a class="el" href="interface_8h_source.html">interface.h</a></li>

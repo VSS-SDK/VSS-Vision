@@ -20,7 +20,7 @@
 #include "protos/command.pb.h"
 
 class Interface{
-private:
+protected:
 	zmq::message_t request;
 	zmq::context_t *context;
     zmq::socket_t *socket;
