@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -89,32 +90,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Interface Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey.  
+ <a href="classInterface.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="interface_8h_source.html">interface.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for Interface:</div>
+<div class="dyncontent">
+<div class="center"><img src="classInterface__coll__graph.png" border="0" usemap="#Interface_coll__map" alt="Collaboration graph"/></div>
+<map name="Interface_coll__map" id="Interface_coll__map">
+<area shape="rect" id="node2" href="classvss__state_1_1Global__State.html" title="vss_state::Global_State" alt="" coords="5,91,168,117"/><area shape="rect" id="node4" href="classvss__command_1_1Global__Commands.html" title="vss_command::Global\l_Commands" alt="" coords="192,83,344,125"/></map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a76752c5d305865777405fd8f36e4b9fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76752c5d305865777405fd8f36e4b9fd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>createSocketSendState</b> (vss_state::Global_State *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createSocketSendState</b> (<a class="el" href="classvss__state_1_1Global__State.html">vss_state::Global_State</a> *)</td></tr>
 <tr class="separator:a76752c5d305865777405fd8f36e4b9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9de875408d6ec60ef952d167ab244819"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9de875408d6ec60ef952d167ab244819"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sendState</b> ()</td></tr>
 <tr class="separator:a9de875408d6ec60ef952d167ab244819"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7466b43bc53a4cd5225c280cf81b2cc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad7466b43bc53a4cd5225c280cf81b2cc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>createSocketReceiveState</b> (vss_state::Global_State *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createSocketReceiveState</b> (<a class="el" href="classvss__state_1_1Global__State.html">vss_state::Global_State</a> *)</td></tr>
 <tr class="separator:ad7466b43bc53a4cd5225c280cf81b2cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abba50a9d10639aa5b2f4a45be31b4062"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abba50a9d10639aa5b2f4a45be31b4062"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>receiveState</b> ()</td></tr>
 <tr class="separator:abba50a9d10639aa5b2f4a45be31b4062"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a856aa7ba2462cb787bff454998ac03fa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a856aa7ba2462cb787bff454998ac03fa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>createLoopSendCommandsTeam1</b> (vss_command::Global_Commands *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createLoopSendCommandsTeam1</b> (<a class="el" href="classvss__command_1_1Global__Commands.html">vss_command::Global_Commands</a> *)</td></tr>
 <tr class="separator:a856aa7ba2462cb787bff454998ac03fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9421fb07f3190cff0ab4198587de4b87"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9421fb07f3190cff0ab4198587de4b87"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>createLoopReceiveCommandsTeam1</b> (vss_command::Global_Commands *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createLoopReceiveCommandsTeam1</b> (<a class="el" href="classvss__command_1_1Global__Commands.html">vss_command::Global_Commands</a> *)</td></tr>
 <tr class="separator:a9421fb07f3190cff0ab4198587de4b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59f5b2b5043433cbd42729baf84533e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59f5b2b5043433cbd42729baf84533e1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>createLoopSendCommandsTeam2</b> (vss_command::Global_Commands *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createLoopSendCommandsTeam2</b> (<a class="el" href="classvss__command_1_1Global__Commands.html">vss_command::Global_Commands</a> *)</td></tr>
 <tr class="separator:a59f5b2b5043433cbd42729baf84533e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff3b574fe1147f93011c1deef6ec5505"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff3b574fe1147f93011c1deef6ec5505"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>createLoopReceiveCommandsTeam2</b> (vss_command::Global_Commands *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createLoopReceiveCommandsTeam2</b> (<a class="el" href="classvss__command_1_1Global__Commands.html">vss_command::Global_Commands</a> *)</td></tr>
 <tr class="separator:aff3b574fe1147f93011c1deef6ec5505"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8f9122465d78b9e41bfde9ea560a657"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8f9122465d78b9e41bfde9ea560a657"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printState</b> ()</td></tr>
@@ -135,10 +148,10 @@ zmq::context_t *&#160;</td><td class="memItemRight" valign="bottom"><b>context</
 zmq::socket_t *&#160;</td><td class="memItemRight" valign="bottom"><b>socket</b></td></tr>
 <tr class="separator:af38139f534f08df8b3dc9f29001e9584"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac488bcc6708103cb36d132c895efa7a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac488bcc6708103cb36d132c895efa7a0"></a>
-vss_state::Global_State *&#160;</td><td class="memItemRight" valign="bottom"><b>global_state</b></td></tr>
+<a class="el" href="classvss__state_1_1Global__State.html">vss_state::Global_State</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>global_state</b></td></tr>
 <tr class="separator:ac488bcc6708103cb36d132c895efa7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0109a54da68b3e7cd0c652f6cdd75abe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0109a54da68b3e7cd0c652f6cdd75abe"></a>
-vss_command::Global_Commands *&#160;</td><td class="memItemRight" valign="bottom"><b>global_commands</b></td></tr>
+<a class="el" href="classvss__command_1_1Global__Commands.html">vss_command::Global_Commands</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>global_commands</b></td></tr>
 <tr class="separator:a0109a54da68b3e7cd0c652f6cdd75abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13af5d0710e73dc30603c7fd13e763c9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13af5d0710e73dc30603c7fd13e763c9"></a>
 const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_server_multicast</b> = &quot;tcp://*:5555&quot;</td></tr>
@@ -159,7 +172,9 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_server_s
 const char *&#160;</td><td class="memItemRight" valign="bottom"><b>addr_client_simulator_team2</b> = &quot;tcp://localhost:5557&quot;</td></tr>
 <tr class="separator:adad17a36b3382235441861a3648bd807"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/sirlab/Repositorios/VSS/VSS-Vision/src/vision/Utils/interface/<a class="el" href="interface_8h_source.html">interface.h</a></li>
 <li>/home/sirlab/Repositorios/VSS/VSS-Vision/src/vision/Utils/interface/interface.cpp</li>
 </ul>

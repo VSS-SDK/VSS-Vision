@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['core',['Core',['../classCore.html',1,'']]],
-  ['crud',['CRUD',['../classCRUD.html',1,'']]]
+  ['ball_5fstate',['Ball_State',['../classvss__state_1_1Ball__State.html',1,'vss_state']]]
 ];

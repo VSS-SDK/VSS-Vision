@@ -19,6 +19,7 @@
 #include "protos/state.pb.h"
 #include "protos/command.pb.h"
 
+//! This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey.
 class Interface{
 protected:
 	zmq::message_t request;

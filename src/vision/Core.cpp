@@ -150,9 +150,10 @@ void Core::vision_thread(){
     vision.setBall(ball);
     vision.setRotation(rotation);
     vision.setCut(cut);
+
+    //! > Test the input device for 1 second after start the thread loop.
 	vision.init();
 
-	//! > Test the input device for 1 second after start the thread loop.
 	visionStatus = RUNNING;
 	while(visionStatus != ENDING){
 		//cout << "VISION" << endl;

@@ -62,6 +62,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -90,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>This class is responsible for control the <a class="el" href="classVision.html">Vision</a> thread and the <a class="el" href="classInterface.html">Interface</a> thread.  
+<p>This class is responsible for control the <a class="el" href="classVision.html">Vision</a> thread and the <a class="el" href="classInterface.html" title="This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey. ">Interface</a> thread.  
  <a href="classCore.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Core_8h_source.html">Core.h</a>&gt;</code></p>
@@ -99,7 +100,7 @@ Collaboration diagram for Core:</div>
 <div class="dyncontent">
 <div class="center"><img src="classCore__coll__graph.png" border="0" usemap="#Core_coll__map" alt="Collaboration graph"/></div>
 <map name="Core_coll__map" id="Core_coll__map">
-<area shape="rect" id="node2" href="classRobot.html" title="Robot" alt="" coords="102,216,159,243"/><area shape="rect" id="node5" href="classVision.html" title="Vision" alt="" coords="35,307,92,333"/><area shape="rect" id="node3" href="structcommon_1_1Pixel.html" title="This struct represents a Pixel, can be: RGB and HSV. It&#39;s used float because is possible to represent..." alt="" coords="105,5,215,32"/><area shape="rect" id="node4" href="structcommon_1_1VisionColor.html" title="This struct represents a Color that can be calibrated: made by 2 Pixels that represents a range of co..." alt="" coords="199,111,345,137"/><area shape="rect" id="node6" href="classCRUD.html" title="This class is responsible for create, read, update and delete all data used on the software..." alt="" coords="5,216,67,243"/><area shape="rect" id="node7" href="classInterface.html" title="Interface" alt="" coords="191,307,264,333"/></map>
+<area shape="rect" id="node2" href="classvss__state_1_1Global__State.html" title="vss_state::Global_State" alt="" coords="5,224,168,251"/><area shape="rect" id="node9" href="classInterface.html" title="This class is responsible for handle the communicatio between VSS&#45;Vision, VSS&#45;Simulator, VSS&#45;Viewer and VSS&#45;SampleStratey. " alt="" coords="223,323,296,349"/><area shape="rect" id="node10" href="classvss__command_1_1Global__Commands.html" title="vss_command::Global\l_Commands" alt="" coords="192,217,344,258"/><area shape="rect" id="node4" href="classRobot.html" title="Robot" alt="" coords="466,224,523,251"/><area shape="rect" id="node7" href="classVision.html" title="Vision" alt="" coords="371,323,428,349"/><area shape="rect" id="node5" href="structcommon_1_1Pixel.html" title="This struct represents a Pixel, can be: RGB and HSV. It&#39;s used float because is possible to represent..." alt="" coords="336,5,445,32"/><area shape="rect" id="node6" href="structcommon_1_1VisionColor.html" title="This struct represents a Color that can be calibrated: made by 2 Pixels that represents a range of co..." alt="" coords="429,111,576,137"/><area shape="rect" id="node8" href="classCRUD.html" title="This class is responsible for create, read, update and delete all data used on the software..." alt="" coords="369,224,431,251"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -114,10 +115,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3509cd5d7a5d363105f8ec2053f2167b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for handle the thread of computer <a class="el" href="classVision.html">Vision</a>, getting new states of robots and ball.  <a href="#a3509cd5d7a5d363105f8ec2053f2167b">More...</a><br/></td></tr>
 <tr class="separator:a3509cd5d7a5d363105f8ec2053f2167b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abde3aec3f59323e87352dbca0eef1d1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#abde3aec3f59323e87352dbca0eef1d1e">interface_thread</a> ()</td></tr>
-<tr class="memdesc:abde3aec3f59323e87352dbca0eef1d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for handle the thread of <a class="el" href="classInterface.html">Interface</a>, sending data to VSS-SampleStrategy and VSS-Viewer.  <a href="#abde3aec3f59323e87352dbca0eef1d1e">More...</a><br/></td></tr>
+<tr class="memdesc:abde3aec3f59323e87352dbca0eef1d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for handle the thread of <a class="el" href="classInterface.html" title="This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey. ">Interface</a>, sending data to VSS-SampleStrategy and VSS-Viewer.  <a href="#abde3aec3f59323e87352dbca0eef1d1e">More...</a><br/></td></tr>
 <tr class="separator:abde3aec3f59323e87352dbca0eef1d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6da663ed6bca116b4311ef714468691"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#aa6da663ed6bca116b4311ef714468691">updateState</a> ()</td></tr>
-<tr class="memdesc:aa6da663ed6bca116b4311ef714468691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for update de vss_state::Global_State with new states tracking from <a class="el" href="classVision.html">Vision</a> thread.  <a href="#aa6da663ed6bca116b4311ef714468691">More...</a><br/></td></tr>
+<tr class="memdesc:aa6da663ed6bca116b4311ef714468691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for update de <a class="el" href="classvss__state_1_1Global__State.html">vss_state::Global_State</a> with new states tracking from <a class="el" href="classVision.html">Vision</a> thread.  <a href="#aa6da663ed6bca116b4311ef714468691">More...</a><br/></td></tr>
 <tr class="separator:aa6da663ed6bca116b4311ef714468691"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af949567de604895c33f03211f1017418"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af949567de604895c33f03211f1017418"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#af949567de604895c33f03211f1017418">getVisionStatus</a> ()</td></tr>
@@ -125,7 +126,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="separator:af949567de604895c33f03211f1017418"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5aecb1d71b2df5b4d9176a654c3b9f0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5aecb1d71b2df5b4d9176a654c3b9f0f"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a5aecb1d71b2df5b4d9176a654c3b9f0f">getInterfaceStatus</a> ()</td></tr>
-<tr class="memdesc:a5aecb1d71b2df5b4d9176a654c3b9f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for return the state of <a class="el" href="classInterface.html">Interface</a> thread: STOPPED, STARTING, RUNNING, PAUSING, PAUSED, ENDING, FINISHED, CRASHED. <br/></td></tr>
+<tr class="memdesc:a5aecb1d71b2df5b4d9176a654c3b9f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for return the state of <a class="el" href="classInterface.html" title="This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey. ">Interface</a> thread: STOPPED, STARTING, RUNNING, PAUSING, PAUSED, ENDING, FINISHED, CRASHED. <br/></td></tr>
 <tr class="separator:a5aecb1d71b2df5b4d9176a654c3b9f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e1d6754f6c2cabd2cd2862d541fe127"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a0e1d6754f6c2cabd2cd2862d541fe127">start</a> ()</td></tr>
 <tr class="memdesc:a0e1d6754f6c2cabd2cd2862d541fe127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method responsible for start the core via <a class="el" href="classGUI.html" title="This class is responsible for interact with the user and run the 3D World representation created on D...">GUI</a>.  <a href="#a0e1d6754f6c2cabd2cd2862d541fe127">More...</a><br/></td></tr>
@@ -199,7 +200,7 @@ Protected Attributes</h2></td></tr>
 <a class="el" href="classInterface.html">Interface</a>&#160;</td><td class="memItemRight" valign="bottom"><b>interface</b></td></tr>
 <tr class="separator:a69d2a2f913b4a1832516e5752c655c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4678aed908e6666ab7e4017b7dcb706c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4678aed908e6666ab7e4017b7dcb706c"></a>
-vss_state::Global_State&#160;</td><td class="memItemRight" valign="bottom"><b>global_state</b></td></tr>
+<a class="el" href="classvss__state_1_1Global__State.html">vss_state::Global_State</a>&#160;</td><td class="memItemRight" valign="bottom"><b>global_state</b></td></tr>
 <tr class="separator:a4678aed908e6666ab7e4017b7dcb706c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefd7fe27eefa08aed712d09c1c085e25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aefd7fe27eefa08aed712d09c1c085e25"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>idData</b></td></tr>
@@ -254,7 +255,7 @@ vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>log
 <tr class="separator:ac2aca6b78cae9ada19a4690e241b8a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class is responsible for control the <a class="el" href="classVision.html">Vision</a> thread and the <a class="el" href="classInterface.html">Interface</a> thread. </p>
+<div class="textblock"><p>This class is responsible for control the <a class="el" href="classVision.html">Vision</a> thread and the <a class="el" href="classInterface.html" title="This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey. ">Interface</a> thread. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a14e63188e0aa7c4a6f72d5501384d1f9"></a>
 <div class="memitem">
@@ -343,7 +344,7 @@ vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>log
       </table>
 </div><div class="memdoc">
 
-<p>Method responsible for handle the thread of <a class="el" href="classInterface.html">Interface</a>, sending data to VSS-SampleStrategy and VSS-Viewer. </p>
+<p>Method responsible for handle the thread of <a class="el" href="classInterface.html" title="This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey. ">Interface</a>, sending data to VSS-SampleStrategy and VSS-Viewer. </p>
 <h2>Addendum </h2>
 <blockquote class="doxtable">
 <p>Create a socket using <a href="http://zeromq.org/">ZMQ</a>. </p>
@@ -391,14 +392,14 @@ vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>log
       </table>
 </div><div class="memdoc">
 
-<p>Method responsible for update de vss_state::Global_State with new states tracking from <a class="el" href="classVision.html">Vision</a> thread. </p>
+<p>Method responsible for update de <a class="el" href="classvss__state_1_1Global__State.html">vss_state::Global_State</a> with new states tracking from <a class="el" href="classVision.html">Vision</a> thread. </p>
 <h2>Addendum </h2>
 <blockquote class="doxtable">
-<p>The data vss_state::Global_State states carry all states "Poses" of robots and ball.</p>
+<p>The data <a class="el" href="classvss__state_1_1Global__State.html">vss_state::Global_State</a> states carry all states "Poses" of robots and ball.</p>
 <p></p>
 </blockquote>
 <blockquote class="doxtable">
-<p>It's a data of <a class="el" href="classInterface.html">Interface</a> that allows the communication between VSS-SampleStrategy, VSS-Vision, VSS-Simulator and VSS-Viewer.</p>
+<p>It's a data of <a class="el" href="classInterface.html" title="This class is responsible for handle the communicatio between VSS-Vision, VSS-Simulator, VSS-Viewer and VSS-SampleStratey. ">Interface</a> that allows the communication between VSS-SampleStrategy, VSS-Vision, VSS-Simulator and VSS-Viewer.</p>
 <p></p>
 </blockquote>
 <p>Was created by a compilation of proto file. See: <a href="https://developers.google.com/protocol-buffers/">Protobuf</a>. </p>

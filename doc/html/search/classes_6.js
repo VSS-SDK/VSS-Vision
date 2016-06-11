@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['robot',['Robot',['../classRobot.html',1,'']]]
+  ['pixel',['Pixel',['../structcommon_1_1Pixel.html',1,'common']]]
 ];
