@@ -13,8 +13,6 @@
 
 #define RELEASE			"VSS-Vision"
 
-#define CAM_WIDTH 		640		// Pixels
-#define CAM_HEIGHT 		480		// Pixels
 #define FIELD_WIDTH 	150		// Centimetros
 #define FIELD_HEIGHT	130		// Centimetros
 #define MASS_ROBOT		200		// Gramas

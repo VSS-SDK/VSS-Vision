@@ -14,8 +14,8 @@
 
 #include "Utils/Imgui/imgui.h"            
 #include "Utils/Imgui/imgui_impl_glfw.h"  
-            
-#include "Utils/Draw/Draw.h"
+#include <GLFW/glfw3.h>
+
 #include "Core.h"
 #include "Utils/CRUD/CRUD.h"
 
@@ -23,12 +23,11 @@ using namespace common;
 
 static void error_callback(int error, const char* description);
 
-//! This class is responsible for interact with the user and run the 3D World representation created on Draw. 
+//! This class is responsible for interact with the user.
 class GUI{
 protected:
     Core core;
     CRUD crud;
-    Draw draw;
 
     thread *coreThread;
     thread *guiThread;

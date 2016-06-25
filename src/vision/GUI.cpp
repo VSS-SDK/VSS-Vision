@@ -450,16 +450,6 @@ void GUI::guiMainMenu(){
         }
         
         if (ImGui::BeginMenu("Configurações")){
-            if(ImGui::BeginMenu("CameraGL")){
-                if(ImGui::MenuItem("Topo")){
-                    draw.setCamera(TOP);
-                }
-                if(ImGui::MenuItem("TV1")){
-                    draw.setCamera(TV1);
-                }
-                ImGui::EndMenu();
-            }
-
             if(report){
                 if (ImGui::MenuItem("Relatório", "ON")) {
                     report = false;
@@ -492,7 +482,6 @@ void GUI::guiWindowPlay(){
     }
     if(ImGui::Button("Trocar Campo")){
         timePlay = !timePlay;
-        draw.setTimePlay(timePlay);
     }
     if(ImGui::Button("Finalizar")){
         core.finish();
@@ -768,15 +757,10 @@ void GUI::guiWindowConfigTeam(int team){
                     robot.at(i).setColorTeam(colors.at(BLUE));
                     robot.at(i).setVisionColorTeam(visionColors.at(BLUE));
                     robot.at(i).setIdColorTeam(BLUE);
-
-                    
-                    draw.setColorGoal(0, colors.at(BLUE));
                 }else{
                     robot.at(i).setColorTeam(colors.at(YELLOW));
                     robot.at(i).setVisionColorTeam(visionColors.at(YELLOW));
                     robot.at(i).setIdColorTeam(YELLOW);
-
-                    draw.setColorGoal(0, colors.at(YELLOW));
                 }          
             }
 
@@ -921,14 +905,10 @@ void GUI::guiWindowConfigTeam(int team){
                     robot.at(i).setColorTeam(colors.at(BLUE));
                     robot.at(i).setVisionColorTeam(visionColors.at(BLUE));
                     robot.at(i).setIdColorTeam(BLUE);
-
-                    draw.setColorGoal(1, colors.at(BLUE));
                 }else{
                     robot.at(i).setColorTeam(colors.at(YELLOW));
                     robot.at(i).setVisionColorTeam(visionColors.at(YELLOW));
                     robot.at(i).setIdColorTeam(YELLOW);
-
-                    draw.setColorGoal(1, colors.at(YELLOW));
                 }           
             }
 
@@ -985,16 +965,9 @@ void GUI::loop(){
         glViewport(0, 0, width, height);
 
         glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-
-        gluPerspective(60, (double)width / (double)height, 0.1, 3000);
-
-        glMatrixMode(GL_MODELVIEW);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
-
-        draw.drawWorld(robot, ball.getPosition());
         
         ImGui::Render();
 

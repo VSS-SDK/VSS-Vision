@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['teamconfiguration',['TeamConfiguration',['../structcommon_1_1TeamConfiguration.html',1,'common']]]
+  ['vision',['Vision',['../classVision.html',1,'']]],
+  ['visioncolor',['VisionColor',['../structcommon_1_1VisionColor.html',1,'common']]]
 ];

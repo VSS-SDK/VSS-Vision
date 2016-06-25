@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['rgb',['RGB',['../classvss__state_1_1RGB.html',1,'vss_state']]],
-  ['robot',['Robot',['../classRobot.html',1,'']]],
-  ['robot_5fcommand',['Robot_Command',['../classvss__command_1_1Robot__Command.html',1,'vss_command']]],
-  ['robot_5fstate',['Robot_State',['../classvss__state_1_1Robot__State.html',1,'vss_state']]]
+  ['staticdescriptorinitializer_5fcommand_5f2eproto',['StaticDescriptorInitializer_command_2eproto',['../structvss__command_1_1StaticDescriptorInitializer__command__2eproto.html',1,'vss_command']]],
+  ['staticdescriptorinitializer_5fstate_5f2eproto',['StaticDescriptorInitializer_state_2eproto',['../structvss__state_1_1StaticDescriptorInitializer__state__2eproto.html',1,'vss_state']]]
 ];
