@@ -7,8 +7,14 @@
 #
 
 
-all: vision
+all: vision proto
 
 vision:
-	cd src/vision && make -f vision.make
+	cd src && make -f Makefile
+
+proto:
+	cd src/protos && make -f protos.make
+
+run:
+	cd src && ./VSS-Vision
 
