@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource>
+        <file>icons/blockdevice.png</file>
+        <file>icons/ksame.png</file>
+        <file>icons/kdf.png</file>
+        <file>icons/package.png</file>
+        <file>images/model.jpg</file>
+    </qresource>
+</RCC>

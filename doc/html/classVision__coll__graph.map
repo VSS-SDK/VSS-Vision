@@ -1,6 +1,0 @@
-<map id="Vision" name="Vision">
-<area shape="rect" id="node2" href="$classRobot.html" title="Robot" alt="" coords="5,216,61,243"/>
-<area shape="rect" id="node3" href="$structcommon_1_1Pixel.html" title="This struct represents a Pixel, can be: RGB and HSV. It&#39;s used float because is possible to represent..." alt="" coords="8,5,117,32"/>
-<area shape="rect" id="node4" href="$structcommon_1_1VisionColor.html" title="This struct represents a Color that can be calibrated: made by 2 Pixels that represents a range of co..." alt="" coords="101,111,248,137"/>
-<area shape="rect" id="node5" href="$classCRUD.html" title="This class is responsible for create, read, update and delete all data used on the software..." alt="" coords="86,216,148,243"/>
-</map>
