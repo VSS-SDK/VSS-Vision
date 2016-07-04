@@ -17,8 +17,8 @@ vision::vision(){
     vision_reception = false;
     id_camera = 0;
     start_finish = false;
-    path_image = "/home/johnathan/Repositories/SIRLab/alpha/vss-vision/src/images/model.jpg";
-    path_video = "/home/johnathan/Repositories/SIRLab/alpha/vss-vision/src/videos/ball_move.mp4";
+    path_image = "/home/johnathan/Repositories/SIRLab/VSS-Vision/src/images/model.jpg";
+    path_video = "/home/johnathan/Repositories/SIRLab/VSS-Vision/src/videos/ball_move.mp4";
 }
 
 void vision::run(){

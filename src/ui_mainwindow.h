@@ -74,8 +74,8 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(1119, 730);
-        MainWindow->setMinimumSize(QSize(1000, 730));
-        MainWindow->setMaximumSize(QSize(1366, 768));
+        MainWindow->setMinimumSize(QSize(1119, 730));
+        MainWindow->setMaximumSize(QSize(1119, 730));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayoutWidget = new QWidget(centralWidget);
