@@ -23,30 +23,14 @@ addons:
       - build-essential
       - git
       - cmake
-      - xorg-dev
-      - libglu1-mesa-dev
       - gcc-4.8
       - g++-4.8
       - protobuf-compiler
       - libprotobuf-dev
       - libopencv-dev
-      - x11-xserver-utils
-      - libglew1.10
-      - libglew-dev
-      - freeglut3
-      - freeglut3-dev
       - libzmq3
       - libzmq3-dev
 script:
-  - git clone https://github.com/glfw/glfw.git
-  - cd glfw
-  - git checkout latest
-  - cmake . -DBUILD_SHARED_LIBS=ON
-  - make -j8
-  - sudo make install
-  - sudo ldconfig
-  - cd ..
-
   - git clone https://github.com/Itseez/opencv.git
   - cd opencv
   - cmake .
@@ -55,4 +39,4 @@ script:
   - sudo ldconfig
   - cd ..
 
-  - make all_vss
+  - make
