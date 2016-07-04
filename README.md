@@ -27,20 +27,9 @@ $ make run
 
 Gallery
 -------
-![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/top.png)
+![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/top.png)
 
-![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/calibration.png)
-
-![screenshot 3](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/rotation.png)
-
-![screenshot 4](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/corte.png)
-
-![screenshot 5](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/status.png)
-
-![screenshot 6](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/warnings.png)
-
-![screenshot 7](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/src/vision/Others/Images/team.png)
-
+![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/calibration.png)
 
 
 License
