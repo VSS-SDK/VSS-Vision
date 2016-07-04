@@ -9,22 +9,6 @@
 
 all: vision
 
-all_vss: proto calibration vision
-
 vision:
 	cd src/vision && make -f vision.make
 
-proto:
-	cd src/vision && make -f vision.make proto
-
-calibration:
-	cd src/calibration && make -f calibration.make
-
-clean:
-	cd src/vision && make -f vision.make clean
-
-run:
-	cd src/vision && make -f vision.make run
-
-docm:
-	cd doc && doxygen
