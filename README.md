@@ -5,7 +5,7 @@ VSS-Vision
 
 [Documentation][documentation]
 
-Esse é um protótipo de um programa de Visão Computacional global para a competição de futebol de robôs [IEEE Very Small Size (VSS)][vss], começou a ser desenvolvido em 01/2016 pelo [Laboratório de Sistemas Inteligentes de Robótica (SIRLab)][sirface] e aberto 04/2016 sob a licença GLP versão 3.0. O programa utiliza o protocolo [Protobuf][protobuf] para enviar e receber dados via socket utilizando a biblioteca [ZMQ][zmq], oferece uma maneira simples de calibragem utilizando a biblioteca [OpenCV][opencv], além de telas interativas criadas com auxílio da biblioteca [Qt][qt].
+O VSS-Vision faz parte de um framework que está sendo desenvolvido para a categoria de futebol de robôs [IEEE Very Small Size Soccer (VSSS)][vss], mais informações podem ser encontradas em [sirlab.github.io][sirlab_site], esse projeto é um protótipo de um programa de Visão Computacional global para a categoria VSSS, que começou a ser desenvolvido em 01/2016 pelo [Laboratório de Sistemas Inteligentes de Robótica (SIRLab)][sirface] e aberto 04/2016 sob a licença GLP versão 3.0. O programa utiliza o protocolo [Protobuf][protobuf] para enviar e receber dados via socket utilizando a biblioteca [ZMQ][zmq], oferece uma maneira simples de calibragem utilizando a biblioteca [OpenCV][opencv], além de telas interativas criadas com auxílio da biblioteca [Qt][qt].
 
 > Um exemplo de estratégia que obtem os dados do VSS-Vision encontra-se em [VSS-SampleStrategy][samplestrategy].
 
@@ -19,8 +19,7 @@ Development and Use
 -------------------
 ```
 $ cd VSS-Vision
-$ make all_vss (Compile Protos, Calibration and Vision)
-$ make (Compile only Vision)
+$ make
 $ make run
 ```
 
@@ -43,6 +42,7 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [sirface]: https://www.facebook.com/sirlab.faeterj/
 [siryou]: https://www.youtube.com/channel/UCLXQhza5oA2EJYsYDbr41ZQ
 [sirlink]: https://www.linkedin.com/company/sir-lab
+[sirlab_site]: http://sirlab.github.io/vss.html
 [vss]: http://www.cbrobotica.org/
 [protobuf]: https://developers.google.com/protocol-buffers/
 [zmq]: http://zeromq.org/
