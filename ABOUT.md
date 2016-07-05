@@ -20,13 +20,18 @@ O sistema automáticamente reconhece qualquer camera USB conectada a qualquer di
 #### Calibrate Colors (Calibrar Cores) ####
 O sistema possibilita a calibragem de 8 cores, Laranja, Amarelo, Azul, Vermelho, Verde, Rosa, Roxo, Marrom. Após o usuário escolher uma cor para calibrar o mesmo deve encontrar um intervalo de cor, no espaço de cores HSV, que represente-a. Ao clicar na tela com o botão direito o sistema da um zoom na área para ajuste fino. Um exemplo de calibragem pode ser visto abaixo.
 
-![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/calibrate.png)
+![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/calibrate.png)
 
-TODO
+#### Execution Config (Configuração dos Times) ####
+Nessa seção é escolhido a configuração de cores dos times, ou seja, as cores primarias: Azul e Amarelo, e as cores secundárias de cada robôs, se existente. Um exemplo de configuração pode ser visto abaixo.
+
+![screenshot 3](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/exec_conf.png)
+
+TODO	
 ----
 * Re-Adicionar calibragem de corte e rotação.
-* Re-Adicionar a Interface ZMQ + Protobuf ao sistema
 * Re-Adicionar o salvamento de calibragens ao sistema
+* Re-Adicionar a Interface ZMQ + Protobuf ao sistema
 * Adicionar filtro de kalman no algoritmo de visão
 * Adicionar otimização de secção no algoritmo de visão
 
