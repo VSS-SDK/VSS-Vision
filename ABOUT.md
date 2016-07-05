@@ -11,11 +11,11 @@ Technical Aspects
 Aspectos técnicos do funcionamento do sistema.
 
 #### Input Data (Entrada de Dados) ####
-Nessa seção é escolhido a entrada de dados do sistema, existem três opções: Camera, Imagem salva e Video Salvo. Como pode ser visto na figura abaixo.
+Nessa seção é escolhido a entrada de dados do sistema, ou seja, as imagens que iram alimentar o algorimo de visão computacional, existem três opções: Camera, Imagem salva e Video Salvo. Como pode ser visto na figura abaixo.
 
 ![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/input_data.png)
 
-O sistema automáticamente reconhece qualquer camera USB conectada a qualquer distro Linux (Testado em Ubuntu 14.04, Ubuntu 16.04, Debian 8, Fedora 21 e Raspbian), caso não haja nenhuma camera o mesmo desabilita a opção de escolha. O mesmo funciona para as imagens salvas e videos salvos, o programa procura imagens no diretório VSS-Vision/src/images e videos em VSS-Vision/src/videos.
+O sistema automáticamente reconhece qualquer camera USB conectada a qualquer distro Linux (Testado em Ubuntu 14.04, Ubuntu 16.04, Debian 8, Fedora 21 e Raspbian), caso não haja nenhuma camera o mesmo desabilita a opção de escolha. O mesmo funciona para as imagens salvas e videos salvos, o programa procura imagens no diretório **VSS-Vision/src/images** e videos em **VSS-Vision/src/videos**.
 
 TODO
 ----
