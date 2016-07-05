@@ -63,11 +63,12 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [gpl3]: http://www.gnu.org/licenses/gpl-3.0/
 [documentation]: http://sirlab.github.io/assets/docs/doc_vision/html/index.html
 [vss]: http://www.cbrobotica.org/
+[travis]: https://travis-ci.org/SIRLab/VSS-Vision
 
 [install]: https://github.com/SIRLab/VSS-Vision/blob/master/INSTALL.md
 [about]: https://github.com/SIRLab/VSS-Vision/blob/master/ABOUT.md
 
-[travis]: https://travis-ci.org/SIRLab/VSS-Vision
+
 
 
 
