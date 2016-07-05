@@ -5,8 +5,13 @@ VSS-Vision
 
 Mais informações sobre o framework podem ser encontradas em [sirlab.github.io][sirlab_site].
 
+
 Technical Aspects
 -----------------
+Aspectos técnicos do funcionamento do sistema.
+
+### Calibragem ###
+
 
 TODO
 ----
