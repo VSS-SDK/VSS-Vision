@@ -3,15 +3,18 @@ VSS-Vision
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
 [![Build Status](https://travis-ci.org/SIRLab/VSS-Vision.svg?branch=master)][travis]
 
-[Documentation][documentation]
 
 O VSS-Vision é uma das partes de um framework que está sendo desenvolvido para a categoria de futebol de robôs [IEEE Very Small Size Soccer (VSSS)][vss], que consiste em:
+
 > Um programa de Visão Computacional global para a categoria, o [VSS-Vision][vss-vision];
+
 > Um simulador para a categoria, o [VSS-Simulator][vss-simulator];
+
 > Um visualizador de estados em 3D para categoria, o [VSS-Viewer][vss-viewer];
+
 > Uma base de estratégia que pode ser utilizada para obter e enviar dados dos três projetos citados, o [VSS-SampleStrategy][vss-sample].
 
-mais informações podem ser encontradas em [sirlab.github.io][sirlab_site].
+Mais informações podem ser encontradas em [sirlab.github.io][sirlab_site].
 
 Esse projeto é um protótipo de um programa de Visão Computacional global para a categoria VSSS, que começou a ser desenvolvido em 01/2016 pelo [Laboratório de Sistemas Inteligentes de Robótica (SIRLab)][sirface] e aberto 04/2016 sob a licença GLP versão 3.0. O programa utiliza o protocolo [Protobuf][protobuf] para enviar e receber dados via socket utilizando a biblioteca [ZMQ][zmq], oferece uma maneira simples de calibragem utilizando a biblioteca [OpenCV][opencv], além de telas interativas criadas com auxílio da biblioteca [Qt][qt].
 
