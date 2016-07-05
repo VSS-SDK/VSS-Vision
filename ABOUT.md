@@ -6,10 +6,10 @@ VSS-Vision
 Mais informações sobre o framework podem ser encontradas em [sirlab.github.io][sirlab_site].
 
 Technical Aspects
-=================
+-----------------
 
 TODO
-====
+----
 * Adicionar a Interface ZMQ + Protobuf ao sistema
 * Adicionar filtro de kalman no algoritmo de visão
 * Adicionar otimização de secção no algoritmo de visão
