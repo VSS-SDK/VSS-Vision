@@ -3,11 +3,18 @@ VSS-Vision
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
 [![Build Status](https://travis-ci.org/SIRLab/VSS-Vision.svg?branch=master)][travis]
 
+Mais informações sobre o framework podem ser encontradas em [sirlab.github.io][sirlab_site].
+
 Technical Aspects
 =================
 
-Backlog
-=======
+TODO
+====
+* Adicionar a Interface ZMQ + Protobuf ao sistema
+* Adicionar filtro de kalman no algoritmo de visão
+* Adicionar otimização de secção no algoritmo de visão
+
+
 
 [protobuf]: https://developers.google.com/protocol-buffers/
 [zmq]: http://zeromq.org/
@@ -20,3 +27,4 @@ Backlog
 [documentation]: http://sirlab.github.io/assets/docs/doc_vision/html/index.html
 [vss]: http://www.cbrobotica.org/
 [travis]: https://travis-ci.org/SIRLab/VSS-Vision
+[sirlab_site]: http://sirlab.github.io/vss.html
