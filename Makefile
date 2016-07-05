@@ -18,3 +18,6 @@ proto:
 run:
 	cd src && ./VSS-Vision
 
+qt:
+	cd src && qmake -qt=qt5
+
