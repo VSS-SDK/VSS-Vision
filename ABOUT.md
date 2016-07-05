@@ -17,11 +17,19 @@ Nessa seção é escolhido a entrada de dados do sistema, ou seja, as imagens qu
 
 O sistema automáticamente reconhece qualquer camera USB conectada a qualquer distro Linux (Testado em Ubuntu 14.04, Ubuntu 16.04, Debian 8, Fedora 21 e Raspbian), caso não haja nenhuma camera o mesmo desabilita a opção de escolha. O mesmo funciona para as imagens salvas e videos salvos, o programa procura imagens no diretório **VSS-Vision/src/images** e videos em **VSS-Vision/src/videos**.
 
+#### Calibrate Colors (Calibrar Cores) ####
+O sistema possibilita a calibragem de 8 cores, Laranja, Amarelo, Azul, Vermelho, Verde, Rosa, Roxo, Marrom. Após o usuário escolher uma cor para calibrar o mesmo deve encontrar um intervalo de cor, no espaço de cores HSV, que represente-a. Ao clicar na tela com o botão direito o sistema da um zoom na área para ajuste fino. Um exemplo de calibragem pode ser visto abaixo.
+
+![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/calibrate.png)
+
 TODO
 ----
-* Adicionar a Interface ZMQ + Protobuf ao sistema
+* Re-Adicionar calibragem de corte e rotação.
+* Re-Adicionar a Interface ZMQ + Protobuf ao sistema
+* Re-Adicionar o salvamento de calibragens ao sistema
 * Adicionar filtro de kalman no algoritmo de visão
 * Adicionar otimização de secção no algoritmo de visão
+
 
 
 
