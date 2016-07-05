@@ -216,7 +216,7 @@ namespace common{
         };
         void show(){
             printf("ExecConfiguration:\n");
-            printf("Comment: %s\n", comment);
+            //printf("Comment: %s\n", comment);
             printf("Ball_color: %d\n", ball_color);
             printf("Team_color_1: %d\n", team_color[0]);
             printf("Config_labels_1: %d\n", config_labels[0]);
@@ -261,7 +261,7 @@ namespace common{
         };
         void show(){
             printf("Calibration:\n");
-            printf("Comment: %s", comment);
+            //printf("Comment: %s", comment);
             for(int i = 0 ; i < colors.size() ; i++){
                 colors.at(i).show();
             }
@@ -269,7 +269,7 @@ namespace common{
             for(int i = 0 ; i < cut.size() ; i++){
                 printf("Point(%d, %d)", cut.at(i).x, cut.at(i).y);
             }
-            printf("Data: %s", data);
+            //printf("Data: %s", data);
         };
     };
 
