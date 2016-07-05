@@ -10,7 +10,9 @@ Technical Aspects
 -----------------
 Aspectos técnicos do funcionamento do sistema.
 
-#### Calibragem ####
+#### Input Data (Entrada de Dados) ####
+Nessa seção é escolhido a entrada de dados do sistema, existem três opções: Camera, Imagem salva e Video Salvo. Como pode ser visto na figura abaixo.
+![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/input_data.png)
 
 
 TODO
