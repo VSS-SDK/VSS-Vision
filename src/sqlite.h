@@ -19,6 +19,7 @@
 using namespace std;
 
 class SQLite{
+protected:
     sqlite3 *db;
 
     string path_database;

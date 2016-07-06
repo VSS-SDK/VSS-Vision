@@ -34,7 +34,7 @@ using namespace QtOcv;
 using namespace common;
 
 class calibration : public QThread{
-private:
+protected:
     // Control
     bool run_it;
     int device_used;

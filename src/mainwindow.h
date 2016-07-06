@@ -65,7 +65,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
+public slots:
     // QCustomLabel
     void mouseCurrentPos();
     void mouseLeftPressed();
@@ -92,7 +92,7 @@ private slots:
     void updateSmax(int);
     void updateVmax(int);
 
-private:
+protected:
     calibration calib;
     vision vi;
     SQLite *sql;

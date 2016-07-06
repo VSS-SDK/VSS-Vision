@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "VSS-Vision"
+PROJECT_NAME           = "My Project"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -771,7 +771,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../src/vision/Core.h ../src/vision/Core.cpp ../src/vision/GUI.h ../src/vision/GUI.cpp ../src/vision/Robot.h ../src/vision/Robot.cpp ../src/vision/Vision.h ../src/vision/Vision.cpp ../src/vision/Utils/LinearMath/linearmath.h ../src/vision/Utils/CRUD/CRUD.h ../src/vision/Utils/CRUD/CRUD.cpp ../src/vision/Utils/Commons/Commons.h ../src/vision/Utils/Commons/Commons.cpp ../src/vision/Utils/Imgui/doc_imgui.h ../src/vision/Utils/interface/interface.h ../src/vision/Utils/interface/interface.cpp ../src/vision/Utils/interface/protos/command.pb.h ../src/vision/Utils/interface/protos/command.pb.cc ../src/vision/Utils/interface/protos/state.pb.h ../src/vision/Utils/interface/protos/state.pb.cc ../src/vision/Main.cpp ../src/vision/Constants.h
+INPUT                  = ../src/QtOpenCV.h ../src/QtOpenCV.cpp ../src/calibration.h ../src/calibration.cpp ../src/commons.h ../src/commons.cpp ../src/interface.h ../src/interface.cpp ../src/main.cpp ../src/mainwindow.h ../src/mainwindow.cpp ../src/qcustomlabel.h ../src/qcustomlabel.cpp ../src/sqlite.h ../src/sqlite.cpp  ../src/vision.h ../src/vision.cpp ../src/protos/command.pb.h ../src/protos/command.pb.cc ../src/protos/command.proto ../src/protos/state.pb.h ../src/protos/state.pb.cc ../src/protos/state.proto
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1604,7 +1604,7 @@ EXTRA_SEARCH_MAPPINGS  =
 # If the GENERATE_LATEX tag is set to YES, doxygen will generate LaTeX output.
 # The default value is: YES.
 
-GENERATE_LATEX         = NO
+GENERATE_LATEX         = YES
 
 # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
