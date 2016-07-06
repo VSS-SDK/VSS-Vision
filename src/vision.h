@@ -19,6 +19,7 @@
 using namespace common;
 using namespace QtOcv;
 
+//! This class is responsible for track all objects in field
 class vision : public QThread{
 protected:
     bool run_it;

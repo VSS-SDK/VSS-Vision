@@ -33,6 +33,7 @@ using namespace cv;
 using namespace QtOcv;
 using namespace common;
 
+//! This class is responsible for calibrate all common::VisionColor, cut points and rotation
 class calibration : public QThread{
 protected:
     // Control

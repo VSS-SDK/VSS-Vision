@@ -20,6 +20,7 @@
 
 using namespace std;
 
+//! This class is a modification of QLabel, QCustomLabel handle events like: mouse click, mouse move, scrool wheel move and etc.
 class QCustomLabel : public QLabel
 {
     Q_OBJECT

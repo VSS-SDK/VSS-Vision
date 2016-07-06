@@ -52,12 +52,13 @@ using namespace common;
 
 namespace Ui {
 
+
 class MainWindow;
 }
 
 using namespace std;
 
-
+//! This class is the main window of the software
 class MainWindow : public QMainWindow{
     Q_OBJECT
 

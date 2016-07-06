@@ -18,6 +18,7 @@
 
 using namespace std;
 
+//! This class is responsible for create, read, update and delete common::Calibration 's and common::ExecConfiguration 's 
 class SQLite{
 protected:
     sqlite3 *db;
