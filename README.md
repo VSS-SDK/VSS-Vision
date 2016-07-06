@@ -31,7 +31,7 @@ Development and Use
 -------------------
 ```
 $ cd VSS-Vision
-$ make qt && mqke proto
+$ make qt && make proto
 $ make
 $ make run
 ```
