@@ -332,7 +332,7 @@ namespace common{
         }
     };
 
-    //! This struct represents the state that the workspace can hnadle.
+    //! This struct represents the state that the workspace can handle.
     struct State{
         //! All robots by vision
         Robot robots[6];
@@ -373,30 +373,61 @@ namespace common{
         };
     };
 
+    //! This function clean a stringstream 
     void clearSS(stringstream &ss);
 
+    //! Get int and convert to string.
     string toString(int a);
+
+    //! Get float and convert to string.
     string toString(float a);
+
+    //! Get double and convert to string.
     string toString(double a);
+
+    //! Get long long int and convert to string.
     string toString(long long int a);
+
+    //! Get boolean and convert to string.
     string toString(bool a);
 
+    //! Get string and convert to Int.
     int toInt(string a);
+
+    //! Get string and convert to float.
     float toFloat(string a);
+
+    //! Get string and convert to double.
     double toDouble(string a);
+
+    //! Get string and convert to long long int.
     long long int toLongLongInt(string a);
+
+    //! Get string and convert to bool.
     bool toBool(string a);
 
+    //! Send string to terminal and get the returned value.
     string cmdTerminal(string s);
 
+    //! Estimate distance between a set of points.
     double distancePoint(btVector3, btVector3);
+
+    //! Estimate distance between two points.
     double distancePoint(Point, Point);
 
+    //! Estimate midpoint between two points.
     Point midpoint(Point, Point);
+
+    //! Estimate gravity center in a quadrilateral.
     Point midpoint(Rect);
+
+    //! Estimate midpoint between a set of points.
     btVector3 midpoint(btVector3, btVector3);
 
+    //! Estimate angle between two straight lines.
     float angulation(Point, Point);
+
+    //! Estimate angle between two straight lines in radian.
     double radian(Point, Point);
 }
 

@@ -109,7 +109,16 @@ namespace common{
         return Point(testLabel.x + (testLabel.width/2.0), testLabel.y  + (testLabel.height/2.0));
     }
 
+    //! Addendum
+    //! --------
+    //! 
     float angulation(Point a, Point b){
+        //! > Estimate angle between two straight lines. 
+        //! > One line formed by the two points in the function and 
+        //! > the other line is formed by the point in the center of
+        //! > the robot (estimated using midpoint() function) and for
+        //! > a point in the pitch where the line must form a ninety 
+        //! > degree angle with the pitch side.
         return (atan2(a.y - b.y, a.x - b.x) * (180/CV_PI));
     }
 
