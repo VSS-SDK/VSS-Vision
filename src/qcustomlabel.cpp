@@ -40,8 +40,12 @@ void QCustomLabel::leaveEvent(QEvent *ev){
     emit Mouse_Left();
 }
 
+//! Addendum
+//! --------
+//! 
 void QCustomLabel::wheelEvent(QWheelEvent *ev){
-    int volatil = ev->delta()/120;
+    volatil = ev->delta()/120;
+    //! > Get the variation of the mouse scroll and set a gain to the scroll velocity.
     if(delta + volatil >= 0 && delta + volatil <= 75){
         delta += volatil;
     }
