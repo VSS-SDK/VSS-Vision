@@ -68,29 +68,57 @@ public:
 
 public slots:
     // QCustomLabel
+    //! Method that get the signal from move the mouse inside QCustomLabel input image
     void mouseCurrentPos();
+
+    //! Method that get the signal from left click inside QCustomLabel input image
     void mouseLeftPressed();
+
+    //! Method that get the signal from right click inside QCustomLabel input image
     void mouseRightPressed();
+
+    //! Method that get the signal from release left click inside QCustomLabel input image
     void mouseReleased();
+
+    //! Method that get the signal from release the mouse from QCustomLabel input image
     void mouseLeave();
     //void mouseScroll();
-    void keyPressed();
+    //void keyPressed();
 
     // QPushButtons
+    //! Method that get the signal from click on QPushButton Do Calibration
     void evtCalibration();
+
+    //! Method that get the signal from click on QPushButton Run Vision
     void evtVision();
 
     // QCheckboxs
+    //! Method that get the signal from click on QCheckbox of use camera
     void checkboxCamera(int);
+
+    //! Method that get the signal from click on QCheckbox of use image
     void checkboxImage(int);
+
+    //! Method that get the signal from click on QCheckbox of use video
     void checkboxVideo(int);
 
     // QSliders
+    //! Method that get the signal from slide on HSV-Hmin
     void updateHmin(int);
+
+    //! Method that get the signal from slide on HSV-SMin
     void updateSmin(int);
+
+    //! Method that get the signal from slide on HSV-Vmin
     void updateVmin(int);
+
+    //! Method that get the signal from slide on HSV-Hmax
     void updateHmax(int);
+
+    //! Method that get the signal from slide on HSV-Smax
     void updateSmax(int);
+
+    //! Method that get the signal from slide on HSV-Vmax
     void updateVmax(int);
 
 protected:
@@ -101,17 +129,39 @@ protected:
     QIcon blockdevice, ksame, kdf, package;
 
     // QTree
+    //! Method responsible for build all the left tab
     void buildTrees();
+
+    //! Method responsible for add the main item "Yellow box"
     void addMainItem();
+
+    //! Method responsible for add the item of choose input data
     void addInputDataItem();
+
+    //! Method reponsible for add the item of calibrate camera, cut points and rotation
     void addCameraCalibrationItem();
+
+    //! Method responsible for add the item of set parameters of vision, like for blobs: area-min, area-max, proportion-max, proportion-min
     void addBlobFindingItem();
+
+    //! Method responsible for add the item of set visualization (DEPRECATED)
     void addVisualizationItem();
+
+    //! Method responsible for add the item that defines the type of pattern of colors (TODO)
     void addDefinePatternsItem();
+
+    //! Method responsible for add the item of define the configuration of colors of each team 
     void addExecutionConfig();
+
+    //! Method responsible for add the item of calibration of colors
     void addCalibrateColors();
+
     void addVisionOptions();
+    
+    //! Method responsible for add the item of define IP and PORT for interface
     void addNetOptions();
+
+    //! Method reponsible form add the item of initializes the vision tracking
     void addExecutionOptions();
 
     QTreeWidgetItem* mainItem;
@@ -142,19 +192,33 @@ protected:
     QCustomLabel *image;
     QLabel *coordinate_mouse, *zoom_image;
 
+    //! Method responsible for update the layout for turn on the calibration
     void initCalibrationColors();
+
+    //! Method responsible for update the layout for turn off the calibration
     void finishCalibrationColors();
+
+    //! Method responsible for update the layout for turn on the vision
     void initPlotValues();
+
+    //! Method responsible for update the layout for turn off the vision
     void finishPlotValues();
+
+    //! Method responsible for update de commom::VisionColor of calibration, depends of id_color in common::TableColor
     void updateValuesHSV();
+
+    //! Method responsible for update the slide HSV-Smin and HSV-Smax, with the id_color in common::TableColor
     void update_hsv_s();
-    char calcHex(float);
 
     QImage *in;
 
-    // Others
+    //! Method responsible for get all cameras on PC
     void getAllDevices();
+
+    //! Method responsible for define the colors that gonna be used on vision
     void defineColors();
+
+    //! Method responsible for translate the colors on QCheckbox to vector
     int translateColor(QString);
 
     vector<string> devices;
