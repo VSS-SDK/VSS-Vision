@@ -14,7 +14,7 @@ TEMPLATE = app
 CONFIG += console
 
 
-INCLUDEPATH += /usr/local/include/opencv
+INCLUDEPATH += /usr/local/include
 LIBS += -L/usr/local/lib \
     -lopencv_core \
     -lopencv_imgproc \
