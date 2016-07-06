@@ -32,12 +32,17 @@ protected:
     char *error_query;
     const char* data;
 
+    //! Print the data result from query in database
     static int callback(void *NotUsed, int argc, char **argv, char **azColName);
-    void clean_query();
 public:
+    
     //! Default constructor: SQLite sql("name db", "pswd")
     SQLite(string, string);
+
+    //! This method open the connection with the database
     void open();
+
+    //! This metohd close the connection with the database
     void close();
 
     void insert_calibration();

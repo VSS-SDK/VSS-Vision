@@ -8,6 +8,10 @@
 
 #include "calibration.h"
 
+//! Addendum
+//! --------
+//! 
+//! > Initializes all control variables 
 calibration::calibration(){
     run_it = true;
     device_used = IMAGE;
@@ -15,19 +19,29 @@ calibration::calibration(){
     start_finish = false;
     mouse_click_left = mouse_click_right = 0;
     id_camera = 0;
+    //! > TODO: resolt the path, we need to use relative paths
     path_image = "/home/johnathan/Repositories/SIRLab/VSS-Vision/src/images/model.jpg";
     path_video = "/home/johnathan/Repositories/SIRLab/VSS-Vision/src/videos/ball_move.mp4";
     id_calib = -1;
 }
 
+//! Addendum
+//! --------
+//! 
+//! > loop from thread calibration
 void calibration::run(){
+    //! > load the saved image
     saved = imread(path_image);
+    //! > default imagem, blue screen
     in = Mat(480, 770, CV_8UC3, Scalar(130, 70, 40));
 
+    //! > set the screen on MainWindow
     lbl_input->setPixmap(QPixmap::fromImage(mat2Image(in)));
 
     while(run_it){
+        //! > If vision reception must be used
         if(vision_reception){
+            //! Check devices and get image from them
             if(device_used == CAMERA){
                 if(cap.isOpened()){
                     cap >> in;
@@ -39,6 +53,7 @@ void calibration::run(){
             }else
             if(device_used == IMAGE){
                 in = saved.clone();
+                //! > if IMAGE it's used, usleep(33333) its needed to limit fps in 30.
                 usleep(33333);
             }else
             if(device_used == VIDEO){
@@ -50,6 +65,7 @@ void calibration::run(){
                         in = storage.clone();
                     }
 
+                    //! > if VIDEO it's used, and the video end, we reinititialize it
                     if(in.rows < 1)
                         cap.set(0, 0);
                 }else{
@@ -58,8 +74,10 @@ void calibration::run(){
                     cap >> in;
                 }
 
+
                 if(mouse_click_right >= 2)
                     mouse_click_right = 0;
+                //! > if VIDEO it's used, usleep(33333) it's needed to limit fps in 30
                 usleep(33333);
             }
 
@@ -68,16 +86,23 @@ void calibration::run(){
 
             raw_in = in.clone();
 
+            //! > Apply filters
             applyFilters();
+            
+            //! > Apply Zoom, if needed
             zoom();
+
+            //! > update the image in MainWindow
             lbl_input->setPixmap(QPixmap::fromImage(mat2Image(raw_in)));
         }else{
+            //! > If the vision reception was set false, we set the blue screen and release cv::VideoCapture
             if(start_finish){
                 start_finish = false;
                 lbl_input->setPixmap(QPixmap::fromImage(mat2Image( Mat(480, 770, CV_8UC3, Scalar(130, 70, 40)) )));
                 cap.release();
                 mouse_click_right = 0;
             }
+            //! > If the vision reception it's false, usleep(100000) to relieve the CPU
             usleep(100000);
         }
     }
@@ -85,20 +110,28 @@ void calibration::run(){
     quit();
 }
 
+//! Addendum
+//! --------
+//! 
 void calibration::applyFilters(){
     labels.clear();
     contours.clear();
     hierarchy.clear();
 
+    //! > convert image, RGB -> HSV
     cvtColor(in, in, COLOR_RGB2HSV);
 
+    //! > get the blobs
     inRange(in,
             Scalar(_calib->colors.at(id_calib).min.rgb[h], _calib->colors.at(id_calib).min.rgb[s], _calib->colors.at(id_calib).min.rgb[v]),
             Scalar(_calib->colors.at(id_calib).max.rgb[h], _calib->colors.at(id_calib).max.rgb[s], _calib->colors.at(id_calib).max.rgb[v]),
             out);
 
+    //! > filter very small blobs
     medianBlur(out, out, 3);
+
     if(out.cols > 0){
+        //! > find the contour of all blobs
         findContours(out, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0));
 
         vector<vector<Point> > contours_poly( contours.size() );
@@ -109,15 +142,22 @@ void calibration::applyFilters(){
             boundRect[i] = boundingRect( Mat(contours_poly[i]) );
         }
 
+        //! > paint all blobs
         paint_output();
 
+        //! > Draw a with rectangle on all blobs
         for( int i = 0; i < contours.size(); i++ ){
             rectangle(raw_in, Rect(Point(boundRect[i].x, boundRect[i].y), Point(boundRect[i].x + boundRect[i].width, boundRect[i].y + boundRect[i].height)), Scalar(255, 255, 255), 1, 1, 0);
         }
     }
 }
 
+//! Addendum
+//! --------
+//! 
 void calibration::zoom(){
+    //! > If the user click one time, the zoom it's turned on
+    //! > If the user click one second time, the zoom it's turned off
     if(mouse_click_left == 1){
         zoom_blob = Point(lbl_input->x, lbl_input->y);
         mouse_click_left++;
@@ -131,6 +171,7 @@ void calibration::zoom(){
             bool min_x, min_y, max_x, max_y;
             min_x = min_y = max_x = max_y = false;
 
+            //! > security, prevents that the zoom get out of image
             if(zoom_blob.x > delta){
                 bottom.x = zoom_blob.x - delta ;
             }else{
@@ -138,6 +179,7 @@ void calibration::zoom(){
                 min_x = true;
             }
 
+            //! > security, prevents that the zoom get out of image
             if(zoom_blob.y  > delta){
                 bottom.y = zoom_blob.y -delta;
             }else{
@@ -145,6 +187,7 @@ void calibration::zoom(){
                 min_y = true;
             }
 
+            //! > security, prevents that the zoom get out of image
             if(zoom_blob.x < raw_in.cols - delta){
                 top.x = zoom_blob.x + delta;
             }else{
@@ -152,6 +195,7 @@ void calibration::zoom(){
                 max_x = true;
             }
 
+            //! > security, prevents that the zoom get out of image
             if(zoom_blob.y  < raw_in.rows - delta){
                 top.y = zoom_blob.y + delta;
             }else{
@@ -159,6 +203,7 @@ void calibration::zoom(){
                 max_y = true;
             }
 
+            //! > Apply de Zoom
             if(min_x){
                 top.x = delta*2.0;
             }else
@@ -201,14 +246,19 @@ void calibration::zoom(){
         }
     }else
     if(mouse_click_left >= 3){
+        //! > Restart de count of clicks
         mouse_click_left = 0;
     }
 }
 
+//! Addendum
+//! --------
+//! 
 void calibration::paint_output(){
     for(int i = 0 ; i < in.cols ; i++){
         for(int j = 0 ; j < in.rows ; j++){
             Vec3b p = in.at<Vec3b>(j, i);
+            //! > If the HSV values its on range, paint with color: common::TableColor.
             if(
                 (p[0] > _calib->colors.at(id_calib).min.rgb[h] && p[0] < _calib->colors.at(id_calib).max.rgb[h]) &&
                 (p[1] > _calib->colors.at(id_calib).min.rgb[s] && p[1] < _calib->colors.at(id_calib).max.rgb[s]) &&
@@ -240,9 +290,13 @@ void calibration::set_path_image(string path_image){
     this->path_image = path_image;
 }
 
+//! Addendum
+//! --------
+//! 
 void calibration::set_vision_reception(bool){
     start_finish = true;
     vision_reception ? vision_reception = false : vision_reception = true;
+    //! > If device_used == common::CAMERA or common::VIDEO, start de VideoCapture
     if(vision_reception){
         if(device_used == CAMERA)
             cap = VideoCapture(id_camera);
@@ -297,10 +351,18 @@ int calibration::get_mouse_click_right(){
     return mouse_click_right;
 }
 
+//! Addendum
+//! --------
+//! 
 void calibration::alloc_label_input(QCustomLabel *lbl_input){
+    //! > It must be pointer, because calibration it's unrecheable and MainWindow too.
     this->lbl_input = lbl_input;
 }
 
+//! Addendum
+//! --------
+//! 
 void calibration::alloc_calibration(Calibration *_calib){
+    //! > It must be pointer, because calibration it's unrecheable and MainWindow too.
     this->_calib = _calib;
 }

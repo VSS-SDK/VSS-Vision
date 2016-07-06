@@ -66,33 +66,73 @@ protected:
     TableColor table_color;
 
 public:
+    //! Default constructor: calibration c;
     calibration();
 
+    //! Virtual method from QThread, MainWindow call this method in a CONNECT
     void run();
+
+    //! Virtual method from QThread, MainWindow call this method in its destrcutor
     void finish();
 
+    //! Apply all filters needed to find one blob
     void applyFilters();
+
+    //! Apply Zoom on image, if needed
     void zoom();
+
+    //! Paint the blob founded
     void paint_output();
 
+    //! Set the device time used, common::IMAGE, common::CAMERA or common::VIDEO
     void set_device(int);
+
+    //! Set the id from camera used
     void set_id_camera(int);
+
+    //! Set the path of image used
     void set_path_image(string);
+
+    //! Set the path of video used
     void set_path_video(string);
+
+    //! Turn ON and OFF the vision reception and calcs
     void set_vision_reception(bool);
+
+    //! Set the id_color to calibrate, like: common::ORANGE, common::YELLOW ...
     void set_id_color(int);
+
+    //! Set the qtd of left clicks
     void set_mouse_click_left(int);
+
+    //! Set the qtd of right clicks
     void set_mouse_click_right(int);
 
+    //! get the device used
     int get_device();
+
+    //! get the id from camera used
     int get_id_camera();
+
+    //! get the path of image used
     string get_path_image();
+
+    //! get the path of video used
     bool get_vision_reception();
+
+    //! get the id color calibrate
     int get_id_color();
+
+    //! get the qtd of left clicks
     int get_mouse_click_left();
+
+    //! get the qtd of right clicks
     int get_mouse_click_right();
 
+    //! alloc the label of input image, image from VideoCapture
     void alloc_label_input(QCustomLabel*);
+
+    //! alloc the labels of pose from objects in workspace
     void alloc_calibration(Calibration*);
 };
 
