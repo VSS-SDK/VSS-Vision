@@ -132,8 +132,12 @@ private:
     QPushButton *btnDoColorCalib, *btnRunVision;
 
     QWidget *contLayoutH3;
-    QSlider *sliderHmin, *sliderSmin, *sliderVmin, *sliderHmax, *sliderSmax, *sliderVmax;
-    QLabel *lblH, *lblS, *lblV;
+    vector<QLabel*> lblHeadersHSV;
+    vector<QSlider*> sliderHSV;
+
+    //QSlider *sliderHmin, *sliderSmin, *sliderVmin, *sliderHmax, *sliderSmax, *sliderVmax;
+
+
     QLabel *val_ball, *val_robot1, *val_robot2, *val_robot3, *val_robot4, *val_robot5, *val_robot6;
     QLabel *h_val_ball, *h_val_robot1, *h_val_robot2, *h_val_robot3, *h_val_robot4, *h_val_robot5, *h_val_robot6;
     QLabel *lbl_val;

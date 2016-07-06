@@ -24,7 +24,10 @@ using namespace cv;
 
 namespace common{
     enum{ r = 0, g = 1, b = 2 };
+    enum{ rmin = 0, gmin = 1, bmin = 2, rmax = 3, gmax = 4, bmax = 5};
+
     enum{ h = 0, s = 1, v = 2 };
+    enum{ hmin = 0, smin = 1, vmin = 2, hmax = 3, smax = 4, vmax = 5};
 
     /*
         Estados pelo qual um processo pode estar passando (Máquina Simples de Estados)

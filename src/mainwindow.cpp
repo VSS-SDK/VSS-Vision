@@ -96,9 +96,10 @@ MainWindow::MainWindow(QWidget *parent) :
         checkUseVideo->setChecked(false);
     }
 
-    lblH = new QLabel("H (0 - 180)");
-    lblS = new QLabel("S (0 - 255)");
-    lblV = new QLabel("V (0 - 255)");
+    for(int i = 0 ; i < 3 ; i++){
+        lblHeadersHSV.push_back(new QLabel("(0 - N)"));
+        lblHeadersHSV.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
+    }
 
     lbl_val = new QLabel("Pos\nVel\nKPos\nKVel");
 
@@ -128,63 +129,46 @@ MainWindow::MainWindow(QWidget *parent) :
     h_val_robot5->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
     h_val_robot6->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
 
-    sliderHmin = new QSlider(Qt::Orientation(VerticalTabs));
-    sliderHmax = new QSlider(Qt::Orientation(VerticalTabs));
-    sliderSmin = new QSlider(Qt::Orientation(VerticalTabs));
-    sliderSmax = new QSlider(Qt::Orientation(VerticalTabs));
-    sliderVmin = new QSlider(Qt::Orientation(VerticalTabs));
-    sliderVmax = new QSlider(Qt::Orientation(VerticalTabs));
+    for(int i = 0 ; i < 6 ; i++){
+        sliderHSV.push_back(new QSlider(Qt::Orientation(VerticalTabs)));
+        sliderHSV.at(i)->setMinimumHeight(130);
+    }
 
-    sliderHmin->setMaximum(179);
-    sliderSmin->setMaximum(254);
-    sliderVmin->setMaximum(254);
-    sliderHmax->setMaximum(180);
-    sliderSmax->setMaximum(255);
-    sliderVmax->setMaximum(255);
+    sliderHSV.at(hmin)->setMaximum(179);
+    sliderHSV.at(smin)->setMaximum(254);
+    sliderHSV.at(vmin)->setMaximum(254);
+    sliderHSV.at(hmax)->setMaximum(180);
+    sliderHSV.at(smax)->setMaximum(255);
+    sliderHSV.at(vmax)->setMaximum(255);
 
-    sliderHmin->setMinimum(0);
-    sliderSmin->setMinimum(0);
-    sliderVmin->setMinimum(0);
-    sliderHmax->setMinimum(1);
-    sliderSmax->setMinimum(1);
-    sliderVmax->setMinimum(1);
+    sliderHSV.at(hmin)->setMinimum(0);
+    sliderHSV.at(smin)->setMinimum(0);
+    sliderHSV.at(vmin)->setMinimum(0);
+    sliderHSV.at(hmax)->setMinimum(1);
+    sliderHSV.at(smax)->setMinimum(1);
+    sliderHSV.at(vmax)->setMinimum(1);
 
-    sliderHmin->setMinimumHeight(140);
-    sliderSmin->setMinimumHeight(140);
-    sliderVmin->setMinimumHeight(140);
-    sliderHmax->setMinimumHeight(140);
-    sliderSmax->setMinimumHeight(140);
-    sliderVmax->setMinimumHeight(140);
+    sliderHSV.at(hmin)->setValue(_calib.colors.at(0).min.rgb[h]);
+    sliderHSV.at(smin)->setValue(_calib.colors.at(0).min.rgb[s]);
+    sliderHSV.at(vmin)->setValue(_calib.colors.at(0).min.rgb[v]);
+    sliderHSV.at(hmax)->setValue(_calib.colors.at(0).max.rgb[h]);
+    sliderHSV.at(smax)->setValue(_calib.colors.at(0).max.rgb[s]);
+    sliderHSV.at(hmax)->setValue(_calib.colors.at(0).max.rgb[v]);
 
-    sliderHmin->setValue(_calib.colors.at(0).min.rgb[h]);
-    sliderSmin->setValue(_calib.colors.at(0).min.rgb[s]);
-    sliderVmin->setValue(_calib.colors.at(0).min.rgb[v]);
-    sliderHmax->setValue(_calib.colors.at(0).max.rgb[h]);
-    sliderSmax->setValue(_calib.colors.at(0).max.rgb[s]);
-    sliderVmax->setValue(_calib.colors.at(0).max.rgb[v]);
-
-    connect(sliderHmin, SIGNAL(valueChanged(int)), this, SLOT(updateHmin(int)));
-    connect(sliderSmin, SIGNAL(valueChanged(int)), this, SLOT(updateSmin(int)));
-    connect(sliderVmin, SIGNAL(valueChanged(int)), this, SLOT(updateVmin(int)));
-    connect(sliderHmax, SIGNAL(valueChanged(int)), this, SLOT(updateHmax(int)));
-    connect(sliderSmax, SIGNAL(valueChanged(int)), this, SLOT(updateSmax(int)));
-    connect(sliderVmax, SIGNAL(valueChanged(int)), this, SLOT(updateVmax(int)));
+    connect(sliderHSV.at(hmin), SIGNAL(valueChanged(int)), this, SLOT(updateHmin(int)));
+    connect(sliderHSV.at(smin), SIGNAL(valueChanged(int)), this, SLOT(updateSmin(int)));
+    connect(sliderHSV.at(vmin), SIGNAL(valueChanged(int)), this, SLOT(updateVmin(int)));
+    connect(sliderHSV.at(hmax), SIGNAL(valueChanged(int)), this, SLOT(updateHmax(int)));
+    connect(sliderHSV.at(smax), SIGNAL(valueChanged(int)), this, SLOT(updateSmax(int)));
+    connect(sliderHSV.at(vmax), SIGNAL(valueChanged(int)), this, SLOT(updateVmax(int)));
 
     updateValuesHSV();
     update_hsv_s();
 
-    lblH->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
-    lblS->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
-    lblV->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
-
-    sliderHmax->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #00f, stop: 0.167 #f0f, stop: 0.334 #f00, stop: 0.501 #ff0, stop: 0.668 #0f0, stop: 0.835 #0ff, stop: 1.0 #00f)}");
-    sliderHmin->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #00f, stop: 0.167 #f0f, stop: 0.334 #f00, stop: 0.501 #ff0, stop: 0.668 #0f0, stop: 0.835 #0ff, stop: 1.0 #00f)}");
-
-    sliderSmin->setStyleSheet(hsv_s.c_str());
-    sliderSmax->setStyleSheet(hsv_s.c_str());
-
-    sliderVmin->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fff, stop: 1 #000)}");
-    sliderVmax->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fff, stop: 1 #000)}");
+    sliderHSV.at(hmax)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #00f, stop: 0.167 #f0f, stop: 0.334 #f00, stop: 0.501 #ff0, stop: 0.668 #0f0, stop: 0.835 #0ff, stop: 1.0 #00f)}");
+    sliderHSV.at(hmin)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #00f, stop: 0.167 #f0f, stop: 0.334 #f00, stop: 0.501 #ff0, stop: 0.668 #0f0, stop: 0.835 #0ff, stop: 1.0 #00f)}");
+    sliderHSV.at(vmax)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fff, stop: 1 #000)}");
+    sliderHSV.at(vmin)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fff, stop: 1 #000)}");
 
     ui->layoutH3->setContentsMargins(2, 0, 2, 0);
     ui->layoutH4->setContentsMargins(2, 0, 2, 0);
@@ -820,51 +804,45 @@ void MainWindow::evtVision(){
 }
 
 void MainWindow::initCalibrationColors(){
-    ui->layoutH3->addWidget(sliderHmin);
-    ui->layoutH3->addWidget(sliderHmax);
-    ui->layoutH4->addWidget(sliderSmin);
-    ui->layoutH4->addWidget(sliderSmax);
-    ui->layoutH5->addWidget(sliderVmin);
-    ui->layoutH5->addWidget(sliderVmax);
+    ui->layoutH3->addWidget(sliderHSV.at(hmin));
+    ui->layoutH3->addWidget(sliderHSV.at(hmax));
+    ui->layoutH4->addWidget(sliderHSV.at(smin));
+    ui->layoutH4->addWidget(sliderHSV.at(smax));
+    ui->layoutH5->addWidget(sliderHSV.at(vmin));
+    ui->layoutH5->addWidget(sliderHSV.at(vmax));
 
-    sliderHmin->show();
-    sliderHmax->show();
-    sliderSmin->show();
-    sliderSmax->show();
-    sliderVmin->show();
-    sliderVmax->show();
+    for(int i = 0 ; i < 6 ; i++)
+        sliderHSV.at(i)->show();
 
-    ui->layoutH3H->addWidget(lblH);
-    ui->layoutH4H->addWidget(lblS);
-    ui->layoutH5H->addWidget(lblV);
+    ui->layoutH3H->addWidget(lblHeadersHSV.at(h));
+    ui->layoutH4H->addWidget(lblHeadersHSV.at(s));
+    ui->layoutH5H->addWidget(lblHeadersHSV.at(v));
 
-    lblH->show();
-    lblS->show();
-    lblV->show();
+    for(int i = 0 ; i < 3 ; i++)
+        lblHeadersHSV.at(i)->show();
+
+    update_hsv_s();
 }
 
 void MainWindow::finishCalibrationColors(){
-    ui->layoutH3->removeWidget(sliderHmin);
-    ui->layoutH3->removeWidget(sliderHmax);
-    ui->layoutH4->removeWidget(sliderSmin);
-    ui->layoutH4->removeWidget(sliderSmax);
-    ui->layoutH5->removeWidget(sliderVmin);
-    ui->layoutH5->removeWidget(sliderVmax);
+    ui->layoutH3->removeWidget(sliderHSV.at(hmin));
+    ui->layoutH3->removeWidget(sliderHSV.at(hmax));
+    ui->layoutH4->removeWidget(sliderHSV.at(smin));
+    ui->layoutH4->removeWidget(sliderHSV.at(smax));
+    ui->layoutH5->removeWidget(sliderHSV.at(vmin));
+    ui->layoutH5->removeWidget(sliderHSV.at(vmax));
 
-    sliderHmin->hide();
-    sliderHmax->hide();
-    sliderSmin->hide();
-    sliderSmax->hide();
-    sliderVmin->hide();
-    sliderVmax->hide();
+    for(int i = 0 ; i < 6 ; i++)
+        sliderHSV.at(i)->hide();
 
-    ui->layoutH3H->removeWidget(lblH);
-    ui->layoutH4H->removeWidget(lblS);
-    ui->layoutH5H->removeWidget(lblV);
+    ui->layoutH3H->removeWidget(lblHeadersHSV.at(h));
+    ui->layoutH4H->removeWidget(lblHeadersHSV.at(s));
+    ui->layoutH5H->removeWidget(lblHeadersHSV.at(v));
 
-    lblH->hide();
-    lblS->hide();
-    lblV->hide();
+    for(int i = 0 ; i < 3 ; i++)
+        lblHeadersHSV.at(i)->hide();
+
+     update_hsv_s();
 }
 
 void MainWindow::initPlotValues(){
@@ -970,15 +948,15 @@ void MainWindow::updateValuesHSV(){
 
 void MainWindow::updateHmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[h] = value;
-    sliderHmin->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[h]);
+    sliderHSV.at(hmin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[h]);
 
     /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[h]){
         sliderHmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h] + 1);
     }*/
 
     clearSS(ss);
-    ss << "H(" << sliderHmin->value() << ", " << sliderHmax->value() << ")";
-    lblH->setText(QString(ss.str().c_str()));
+    ss << "H(" << sliderHSV.at(hmin)->value() << ", " << sliderHSV.at(hmax)->value() << ")";
+    lblHeadersHSV.at(h)->setText(QString(ss.str().c_str()));
 
     //update_hsv_s();
 
@@ -987,45 +965,45 @@ void MainWindow::updateHmin(int value){
 
 void MainWindow::updateSmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[s] = value;
-    sliderSmin->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[s]);
+    sliderHSV.at(smin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[s]);
 
     /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[s]){
         sliderSmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s] + 1);
     }*/
 
     clearSS(ss);
-    ss << "S(" << sliderSmin->value() << ", " << sliderSmax->value() << ")";
-    lblS->setText(QString(ss.str().c_str()));
+    ss << "S(" << sliderHSV.at(smin)->value() << ", " << sliderHSV.at(smax)->value() << ")";
+    lblHeadersHSV.at(s)->setText(QString(ss.str().c_str()));
 
     //sliderSmin->show();
 }
 
 void MainWindow::updateVmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[v] = value;
-    sliderVmin->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[v]);
+    sliderHSV.at(vmin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[v]);
 
     /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[v]){
         sliderVmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v] + 1);
     }*/
 
     clearSS(ss);
-    ss << "V(" << sliderVmin->value() << ", " << sliderVmax->value() << ")";
-    lblV->setText(QString(ss.str().c_str()));
+    ss << "V(" << sliderHSV.at(vmin)->value() << ", " << sliderHSV.at(vmax)->value() << ")";
+    lblHeadersHSV.at(v)->setText(QString(ss.str().c_str()));
 
     //sliderVmin->show();
 }
 
 void MainWindow::updateHmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[h] = value;
-    sliderHmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h]);
+    sliderHSV.at(hmax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h]);
 
     /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[h]){
         sliderHmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h] - 1);
     }*/
 
     clearSS(ss);
-    ss << "H(" << sliderHmin->value() << ", " << sliderHmax->value() << ")";
-    lblH->setText(QString(ss.str().c_str()));
+    ss << "H(" << sliderHSV.at(hmin)->value() << ", " << sliderHSV.at(hmax)->value() << ")";
+    lblHeadersHSV.at(h)->setText(QString(ss.str().c_str()));
 
     //update_hsv_s();
 
@@ -1034,92 +1012,64 @@ void MainWindow::updateHmax(int value){
 
 void MainWindow::updateSmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[s] = value;
-    sliderSmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s]);
+    sliderHSV.at(smax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s]);
 
     /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[s]){
         sliderSmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s] - 1);
     }*/
 
     clearSS(ss);
-    ss << "S(" << sliderSmin->value() << ", " << sliderSmax->value() << ")";
-    lblS->setText(QString(ss.str().c_str()));
+    ss << "S(" << sliderHSV.at(smin)->value() << ", " << sliderHSV.at(smax)->value() << ")";
+    lblHeadersHSV.at(s)->setText(QString(ss.str().c_str()));
 
     //sliderSmax->show();
 }
 
 void MainWindow::updateVmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[v] = value;
-    sliderVmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v]);
+    sliderHSV.at(vmax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v]);
 
     /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[v]){
         sliderVmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v] - 1);
     }*/
 
     clearSS(ss);
-    ss << "V(" << sliderVmin->value() << ", " << sliderVmax->value() << ")";
-    lblV->setText(QString(ss.str().c_str()));
+    ss << "V(" << sliderHSV.at(vmin)->value() << ", " << sliderHSV.at(vmax)->value() << ")";
+    lblHeadersHSV.at(v)->setText(QString(ss.str().c_str()));
 
     //sliderVmax->show();
 }
 
 void MainWindow::update_hsv_s(){
-    string s_s;
-    float val = _calib.colors.at(cmbColors->currentIndex()).min.rgb[h];
-    val = val/180.0;
-
-    s_s = "#";
-    if(val > 0.97){
-        s_s += "f";
-        s_s += "0";
-        s_s += "0";
-    }else
-    if(val > 0.87 && val <= 0.97){
-        s_s += "a";
-        s_s += "0";
-        s_s += "c";
-    }else
-    if(val > 0.78 && val <= 0.87){
-        s_s += "f";
-        s_s += "0";
-        s_s += "f";
-    }else
-    if(val > 0.61 && val <= 0.78){
-        s_s += "f";
-        s_s += "0";
-        s_s += "0";
-    }else
-    if(val > 0.50 && val <= 0.61){
-        s_s += "f";
-        s_s += "a";
-        s_s += "0";
-    }else
-    if(val > 0.42 && val <= 0.50){
-        s_s += "f";
-        s_s += "f";
-        s_s += "0";
-    }else
-    if(val > 0.15 && val <= 0.42){
-        s_s += "0";
-        s_s += "f";
-        s_s += "0";
-    }else
-    if(val > 0.06 && val <= 0.15){
-        s_s += "0";
-        s_s += "f";
-        s_s += "f";
-    }else
-    if(val >= 0 && val <= 0.06){
-        s_s += "0";
-        s_s += "0";
-        s_s += "f";
+    switch(cmbColors->currentIndex()){
+        case ORANGE:{
+            hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fa1, stop: 1 #000)}";
+        }break;
+        case BLUE:{
+            hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #00f, stop: 1 #000)}";
+        }break;
+        case YELLOW:{
+            hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ff0, stop: 1 #000)}";
+        }break;
+        case RED:{
+            hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f00, stop: 1 #000)}";
+        }break;
+        case GREEN:{
+            hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #0f0, stop: 1 #000)}";
+        }break;
+        case PURPLE:{
+            hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #71c, stop: 1 #000)}";
+        }break;
+        case PINK:{
+            hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f87, stop: 1 #000)}";
+        }break;
+        case BROWN:{
+            hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #603, stop: 1 #000)}";
+        }break;
     }
 
-    hsv_s = "QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 ";
-    hsv_s += s_s;
-    hsv_s += ", stop: 1 #000)}";
-
-    sliderSmin->setStyleSheet(QString(hsv_s.c_str()));
-    sliderSmax->setStyleSheet(QString(hsv_s.c_str()));
+    sliderHSV.at(smax)->setStyleSheet(QString(hsv_s.c_str()));
+    sliderHSV.at(smin)->setStyleSheet(QString(hsv_s.c_str()));
 }
 
 void MainWindow::defineColors(){
@@ -1182,9 +1132,6 @@ void MainWindow::defineColors(){
         execConfig.secundary_color_2[2] = c;
     }
 
-    /*for(int i = 0 ; i < 8 ; i++){
-        qDebug() << colors.at(i);
-    }*/
 }
 
 int MainWindow::translateColor(QString s){
@@ -1216,8 +1163,6 @@ int MainWindow::translateColor(QString s){
     }else{
         c = UNKNOWN;
     }
-
-    //qDebug() << c;
 
     return c;
 }
