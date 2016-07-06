@@ -19,7 +19,7 @@ run:
 	cd src && ./VSS-Vision
 
 docm:
-	cd doc && doxygen
+	cd doc && doxygen Doxygen
 
 qt:
 	cd src && qmake -qt=qt5
