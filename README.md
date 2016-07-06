@@ -21,6 +21,9 @@ VSS-Vision Wiki
 ---------------
 [WIKI][wiki]
 
+Documentation
+-------------
+[Doxygen][doxygen]
 
 Installation
 ------------
@@ -79,6 +82,7 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 
 [install]: https://github.com/SIRLab/VSS-Vision/blob/master/INSTALL.md
 [wiki]: https://github.com/SIRLab/VSS-Vision/wiki
+[doxygen]: http://sirlab.github.io/assets/docs/doc_vision/html/index.html
 
 
 
