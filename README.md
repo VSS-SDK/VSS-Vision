@@ -19,7 +19,7 @@ Mais informações sobre o framework podem ser encontradas em [sirlab.github.io]
 
 VSS-Vision Wiki
 ---------------
-[Wiki][wiki]
+[WIKI][wiki]
 
 
 Installation
@@ -78,7 +78,7 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [travis]: https://travis-ci.org/SIRLab/VSS-Vision
 
 [install]: https://github.com/SIRLab/VSS-Vision/blob/master/INSTALL.md
-[wiki]: https://github.com/SIRLab/VSS-Vision/wiki/Technical-Aspects
+[wiki]: https://github.com/SIRLab/VSS-Vision/wiki
 
 
 
