@@ -306,7 +306,9 @@ namespace common{
         Robot robots[6];
         Robot robots_kalman[6];
         btVector3 ball;
+        btVector3 v_ball;
         btVector3 ball_kalman;
+        btVector3 v_ball_kalman;
         State(){};
         /* TODO: outros construtores*/
         void show(){

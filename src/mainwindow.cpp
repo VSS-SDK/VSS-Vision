@@ -86,6 +86,14 @@ MainWindow::MainWindow(QWidget *parent) :
         lblPlots.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
     }
 
+    lblHeadersPlot.at(0)->setText("Robot 1A");
+    lblHeadersPlot.at(1)->setText("Robot 2A");
+    lblHeadersPlot.at(2)->setText("Robot 3A");
+    lblHeadersPlot.at(3)->setText("Robot 1B");
+    lblHeadersPlot.at(4)->setText("Robot 2B");
+    lblHeadersPlot.at(5)->setText("Robot 3B");
+    lblHeadersPlot.at(6)->setText("Ball");
+
     lbl_val->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;");
 
     for(int i = 0 ; i < 6 ; i++){
@@ -831,13 +839,13 @@ void MainWindow::initPlotValues(){
     ui->layoutH10->addWidget(lbl_val);
     lbl_val->show();
 
-    ui->layoutH9H->addWidget(lblHeadersPlot.at(0));
-    ui->layoutH3H->addWidget(lblHeadersPlot.at(1));
-    ui->layoutH4H->addWidget(lblHeadersPlot.at(2));
-    ui->layoutH5H->addWidget(lblHeadersPlot.at(3));
-    ui->layoutH6H->addWidget(lblHeadersPlot.at(4));
-    ui->layoutH7H->addWidget(lblHeadersPlot.at(5));
-    ui->layoutH8H->addWidget(lblHeadersPlot.at(6));
+    ui->layoutH3H->addWidget(lblHeadersPlot.at(0));
+    ui->layoutH4H->addWidget(lblHeadersPlot.at(1));
+    ui->layoutH5H->addWidget(lblHeadersPlot.at(2));
+    ui->layoutH6H->addWidget(lblHeadersPlot.at(3));
+    ui->layoutH7H->addWidget(lblHeadersPlot.at(4));
+    ui->layoutH8H->addWidget(lblHeadersPlot.at(5));
+    ui->layoutH9H->addWidget(lblHeadersPlot.at(6));
 
     ui->layoutH3->addWidget(lblPlots.at(0));
     ui->layoutH4->addWidget(lblPlots.at(1));
@@ -857,13 +865,13 @@ void MainWindow::finishPlotValues(){
     ui->layoutH10->removeWidget(lbl_val);
     lbl_val->hide();
 
-    ui->layoutH9H->removeWidget(lblHeadersPlot.at(0));
-    ui->layoutH3H->removeWidget(lblHeadersPlot.at(1));
-    ui->layoutH4H->removeWidget(lblHeadersPlot.at(2));
-    ui->layoutH5H->removeWidget(lblHeadersPlot.at(3));
-    ui->layoutH6H->removeWidget(lblHeadersPlot.at(4));
-    ui->layoutH7H->removeWidget(lblHeadersPlot.at(5));
-    ui->layoutH8H->removeWidget(lblHeadersPlot.at(6));
+    ui->layoutH3H->removeWidget(lblHeadersPlot.at(0));
+    ui->layoutH4H->removeWidget(lblHeadersPlot.at(1));
+    ui->layoutH5H->removeWidget(lblHeadersPlot.at(2));
+    ui->layoutH6H->removeWidget(lblHeadersPlot.at(3));
+    ui->layoutH7H->removeWidget(lblHeadersPlot.at(4));
+    ui->layoutH8H->removeWidget(lblHeadersPlot.at(5));
+    ui->layoutH9H->removeWidget(lblHeadersPlot.at(6));
 
     ui->layoutH3->removeWidget(lblPlots.at(0));
     ui->layoutH4->removeWidget(lblPlots.at(1));

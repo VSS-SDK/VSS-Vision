@@ -127,10 +127,49 @@ void vision::alloc_label_plots(vector<QLabel*> *lbl_plots){
 }
 
  void vision::updatePlot(){
-    for(int i = 0 ; i < lbl_plots->size() ; i++){
-        lbl_plots->at(i)->setText("baaaa");
+    stringstream ss;
+    int ang;
+
+    for(int i = 0 ; i < 3 ; i++){
+        clearSS(ss);
+        ang = state->robots[i].pose.z*180/M_PI;
+        ss << state->robots[i].pose.x << ", " << state->robots[i].pose.y << ", " << ang << "°" << endl;
+
+        ang = state->robots[i].v_pose.z*180/M_PI;
+        ss << state->robots[i].v_pose.x << ", " << state->robots[i].v_pose.y << ", " << ang << "°" << endl;
+
+        ang = state->robots_kalman[i].pose.z*180/M_PI;
+        ss << state->robots_kalman[i].pose.x << ", " << state->robots_kalman[i].pose.y << ", " << ang << "°" << endl;
+
+        ang = state->robots_kalman[i].v_pose.z*180/M_PI;
+        ss << state->robots_kalman[i].v_pose.x << ", " << state->robots_kalman[i].v_pose.y << ", " << ang << "°";
+        lbl_plots->at(i)->setText(ss.str().c_str());
     }
- }
+
+    for(int i = 0 ; i < 3 ; i++){
+        clearSS(ss);
+        ang = state->robots[i+3].pose.z*180/M_PI;
+        ss << state->robots[i+3].pose.x << ", " << state->robots[i+3].pose.y << ", " << ang << "°" << endl;
+
+        ang = state->robots[i+3].v_pose.z*180/M_PI;
+        ss << state->robots[i+3].v_pose.x << ", " << state->robots[i+3].v_pose.y << ", " << ang << "°" << endl;
+
+        ang = state->robots_kalman[i+3].pose.z*180/M_PI;
+        ss << state->robots_kalman[i+3].pose.x << ", " << state->robots_kalman[i+3].pose.y << ", " << ang << "°" << endl;
+
+        ang = state->robots_kalman[i+3].v_pose.z*180/M_PI;
+        ss << state->robots_kalman[i+3].v_pose.x << ", " << state->robots_kalman[i+3].v_pose.y << ", " << ang << "°";
+        lbl_plots->at(i+3)->setText(ss.str().c_str());
+    }
+
+    clearSS(ss);
+    ss << state->ball.x << ", " << state->ball.y << endl;
+    ss << state->v_ball.x << ", " << state->v_ball.y << endl;
+    ss << state->ball_kalman.x << ", " << state->ball_kalman.y << endl;
+    ss << state->v_ball_kalman.x << ", " << state->v_ball_kalman.y;
+
+    lbl_plots->at(6)->setText(ss.str().c_str());
+}
 
 void vision::search_color(int id_color){
     labels.clear();
@@ -283,9 +322,12 @@ void vision::recognizeObjects(){
     int max = 0;
     for(int i = 0 ; i < coordinate_old.at(exec_config->team_color[1]).size() && max < 3; i++){
         if(isValidPoint(coordinate_old.at(exec_config->team_color[1]).at(i))){
+            stringstream ss;
+            ss << i+1;
             state->robots[i+3].pose.x = coordinate_old.at(exec_config->team_color[1]).at(i).x;
             state->robots[i+3].pose.y = coordinate_old.at(exec_config->team_color[1]).at(i).y;
             max++;
+            putText(raw_in, ss.str().c_str(), Point(state->robots[i+3].pose.x + 15, state->robots[i+3].pose.y + 25), 1, 1, Scalar(255, 255, 255), 1, 1, false);
         }
     }
 
@@ -308,11 +350,14 @@ void vision::recognizeObjects(){
         }
 
         if(i_min >= 0 && j_min >= 0){
+            stringstream ss;
             double radius = 8;
             Point center = midpoint(coordinate_old.at(exec_config->secundary_color_1[k]).at(i_min), coordinate_old.at(exec_config->team_color[0]).at(j_min));
             double radians = radian(coordinate_old.at(exec_config->secundary_color_1[k]).at(i_min), coordinate_old.at(exec_config->team_color[0]).at(j_min));
 
+            ss << k+1;
             line(raw_in, Point(center.x + radius*cos(radians), center.y + radius*sin(radians)), Point(center.x - radius*cos(radians), center.y - radius*sin(radians)), Scalar(255, 255, 255), 1, 1, 0);
+            putText(raw_in, ss.str().c_str(), Point(center.x + 10, center.y + 20), 1, 1, Scalar(255, 255, 255), 1, 1, false);
 
             state->robots[k].pose.x = center.x;
             state->robots[k].pose.y = center.y;

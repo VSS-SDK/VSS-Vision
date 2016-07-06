@@ -136,8 +136,6 @@ private:
     vector<QSlider*> slidersHSV;
     vector<QLabel*> lblHeadersPlot;
     vector<QLabel*> lblPlots;
-
-    //QLabel *h_val_ball, *h_val_robot1, *h_val_robot2, *h_val_robot3, *h_val_robot4, *h_val_robot5, *h_val_robot6;
     QLabel *lbl_val;
 
     QCustomLabel *image;
