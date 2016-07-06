@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.5.26)  6 JUL 2016 14:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.5.26)  6 JUL 2016 18:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1185,13 +1185,18 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 8.99994pt on input line 1.
-)
+ [3
+
+]
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 66.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 6.29996pt on input line 66.
+ [4])
 \tf@toc=\write5
 \openout5 = `refman.toc'.
 
- [3
-
-] [4
+ [5] [6
 
 ]
 Package hyperref Info: Option `pageanchor' set `true' on input line 137.
@@ -1205,7 +1210,7 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 18.66588pt on input line 140.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
 (Font)              scaled to size 18.66588pt on input line 140.
-(./hierarchy.tex
+(./namespaces.tex
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
@@ -1214,318 +1219,409 @@ LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
 (Font)              scaled to size 12.9599pt on input line 1.
 ) [1
 
-]
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 142.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 6.29996pt on input line 142.
- [2
+] [2
 
 ]
 Chapter 2.
-(./annotated.tex) [3] [4
+(./hierarchy.tex) [3] [4
 
 ]
 Chapter 3.
-(./classvss__state_1_1Ball__State.tex
-LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 6.29996pt on input line 1.
+(./annotated.tex
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 12.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
+File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
+)
+LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 12.
 
-<classvss__state_1_1Ball__State__inherit__graph.pdf, id=202, 190.7125pt x 156.5
+[5]) [6]
+Chapter 4.
+(./namespacecommon.tex
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 8.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 10.79993pt on input line 8.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 10.79993pt on input line 8.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.09995pt on input line 12.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 12.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 8.09995pt on input line 12.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 18.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 6.29996pt on input line 18.
+LaTeX Font Info:    Font shape `TS1/phv/m/it' in size <9> not available
+(Font)              Font shape `TS1/phv/m/sl' tried instead on input line 18.
+LaTeX Font Info:    Font shape `TS1/phv/m/sl' will be
+(Font)              scaled to size 8.09995pt on input line 18.
+ [7
+
+] [8]
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 8.99994pt on input line 185.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 6.29996pt on input line 185.
+LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <10> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 185.
+LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
+(Font)              scaled to size 8.99994pt on input line 185.
+) [9] [10
+
+]
+Chapter 5.
+(./classvss__state_1_1Ball__State.tex
+<classvss__state_1_1Ball__State__inherit__graph.pdf, id=662, 190.7125pt x 156.5
 85pt>
 File: classvss__state_1_1Ball__State__inherit__graph.pdf Graphic file (type pdf
 )
  <use classvss__state_1_1Ball__State__inherit__graph.pdf>
 Package pdftex.def Info: classvss__state_1_1Ball__State__inherit__graph.pdf use
-d on input line 10.
+d on input line 9.
 (pdftex.def)             Requested size: 190.0pt x 156.0064pt.
 
-<classvss__state_1_1Ball__State__coll__graph.pdf, id=203, 190.7125pt x 156.585p
+<classvss__state_1_1Ball__State__coll__graph.pdf, id=663, 190.7125pt x 156.585p
 t>
 File: classvss__state_1_1Ball__State__coll__graph.pdf Graphic file (type pdf)
  <use classvss__state_1_1Ball__State__coll__graph.pdf>
 Package pdftex.def Info: classvss__state_1_1Ball__State__coll__graph.pdf used o
-n input line 20.
+n input line 18.
 (pdftex.def)             Requested size: 190.0pt x 156.0064pt.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 23.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 23.
-LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 10.79993pt on input line 23.
-LaTeX Font Info:    Try loading font information for TS1+phv on input line 26.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
-File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
-)
-LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 26.
- [5 <./classvss__state_1_1Ball__State__inherit__graph.pdf> <./classvss__state_1
-_1Ball__State__coll__graph.pdf
+ [11 <./classvss__state_1_1Ball__State__inherit__graph.pdf> <./classvss__state_
+1_1Ball__State__coll__graph.pdf
 
 pdfTeX warning: pdflatex (file ./classvss__state_1_1Ball__State__coll__graph.pd
 f): PDF inclusion: multiple pdfs with page group included in a single page
->]) (./classcalibration.tex
-<classcalibration__inherit__graph.pdf, id=231, 141.52875pt x 156.585pt>
+>]) (./structcommon_1_1btVector3.tex
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+) [12])
+(./classcalibration.tex
+<classcalibration__inherit__graph.pdf, id=746, 141.52875pt x 156.585pt>
 File: classcalibration__inherit__graph.pdf Graphic file (type pdf)
 
 <use classcalibration__inherit__graph.pdf>
 Package pdftex.def Info: classcalibration__inherit__graph.pdf used on input lin
-e 10.
+e 18.
 (pdftex.def)             Requested size: 141.0pt x 156.01357pt.
- [6]
-<classcalibration__coll__graph.pdf, id=274, 234.8775pt x 224.84pt>
+
+<classcalibration__coll__graph.pdf, id=747, 487.8225pt x 224.84pt>
 File: classcalibration__coll__graph.pdf Graphic file (type pdf)
 
 <use classcalibration__coll__graph.pdf>
 Package pdftex.def Info: classcalibration__coll__graph.pdf used on input line 2
-0.
-(pdftex.def)             Requested size: 234.0pt x 223.9989pt.
- [7 <./classcalibration__inherit__graph.pdf> <./classcalibration__coll__graph.p
-df
+7.
+(pdftex.def)             Requested size: 350.0pt x 161.31859pt.
+ [13] [14 <./classcalibration__inherit__graph.pdf> <./classcalibration__coll__g
+raph.pdf
 
 pdfTeX warning: pdflatex (file ./classcalibration__coll__graph.pdf): PDF inclus
 ion: multiple pdfs with page group included in a single page
->]) (./classvss__command_1_1Global__Commands.tex
-<classvss__command_1_1Global__Commands__inherit__graph.pdf, id=307, 194.7275pt 
+>] [15]
+LaTeX Font Info:    Font shape `T1/phv/bc/it' in size <7> not available
+(Font)              Font shape `T1/phv/bc/sl' tried instead on input line 207.
+LaTeX Font Info:    Font shape `T1/phv/bc/sl' will be
+(Font)              scaled to size 6.29996pt on input line 207.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 207.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 220.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 220.
+
+[16]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 266.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 342.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 342.
+
+[17]) (./structcommon_1_1Calibration.tex [18])
+(./structcommon_1_1ExecConfiguration.tex [19])
+(./classvss__command_1_1Global__Commands.tex
+<classvss__command_1_1Global__Commands__inherit__graph.pdf, id=937, 194.7275pt 
 x 167.62625pt>
 File: classvss__command_1_1Global__Commands__inherit__graph.pdf Graphic file (t
 ype pdf)
  <use classvss__command_1_1Global__Commands__inherit__graph.pdf>
 Package pdftex.def Info: classvss__command_1_1Global__Commands__inherit__graph.
-pdf used on input line 10.
+pdf used on input line 9.
 (pdftex.def)             Requested size: 194.0pt x 167.00684pt.
 
-[8]
-<classvss__command_1_1Global__Commands__coll__graph.pdf, id=351, 194.7275pt x 1
+<classvss__command_1_1Global__Commands__coll__graph.pdf, id=938, 194.7275pt x 1
 67.62625pt>
 File: classvss__command_1_1Global__Commands__coll__graph.pdf Graphic file (type
  pdf)
  <use classvss__command_1_1Global__Commands__coll__graph.pdf>
 Package pdftex.def Info: classvss__command_1_1Global__Commands__coll__graph.pdf
- used on input line 20.
+ used on input line 18.
 (pdftex.def)             Requested size: 194.0pt x 167.00684pt.
 
-[9 <./classvss__command_1_1Global__Commands__inherit__graph.pdf> <./classvss__c
-ommand_1_1Global__Commands__coll__graph.pdf
-
-pdfTeX warning: pdflatex (file ./classvss__command_1_1Global__Commands__coll__g
-raph.pdf): PDF inclusion: multiple pdfs with page group included in a single pa
-ge
->]
-Underfull \hbox (badness 3312) in paragraph at lines 122--123
+[20 <./classvss__command_1_1Global__Commands__inherit__graph.pdf>]
+Underfull \hbox (badness 3312) in paragraph at lines 120--121
 []\T1/phv/m/n/10 inline[]::google[]::protobuf[]::[]Repeated[]Ptr[]Field$\OML/cm
 m/m/it/10 <$ []\T1/phv/m/n/10 ::[][]vss[]_[]command[]::[]Robot[]_[][]Command[][
 ] $\OML/cmm/m/it/10 >$ $\OMS/cmsy/m/n/10 ^^C$ \T1/phv/b/n/10 mutable[]_[]robot[
 ]_[]
  []
 
-) (./classvss__state_1_1Global__State.tex
-<classvss__state_1_1Global__State__inherit__graph.pdf, id=397, 202.7575pt x 156
-.585pt>
+[21 <./classvss__command_1_1Global__Commands__coll__graph.pdf>])
+(./classvss__state_1_1Global__State.tex
+<classvss__state_1_1Global__State__inherit__graph.pdf, id=1014, 202.7575pt x 15
+6.585pt>
 File: classvss__state_1_1Global__State__inherit__graph.pdf Graphic file (type p
 df)
  <use classvss__state_1_1Global__State__inherit__graph.pdf>
 Package pdftex.def Info: classvss__state_1_1Global__State__inherit__graph.pdf u
-sed on input line 10.
+sed on input line 9.
 (pdftex.def)             Requested size: 202.0pt x 156.004pt.
- [10]
-<classvss__state_1_1Global__State__coll__graph.pdf, id=432, 202.7575pt x 156.58
-5pt>
+
+<classvss__state_1_1Global__State__coll__graph.pdf, id=1015, 202.7575pt x 156.5
+85pt>
 File: classvss__state_1_1Global__State__coll__graph.pdf Graphic file (type pdf)
 
  <use classvss__state_1_1Global__State__coll__graph.pdf>
 Package pdftex.def Info: classvss__state_1_1Global__State__coll__graph.pdf used
- on input line 20.
+ on input line 18.
 (pdftex.def)             Requested size: 202.0pt x 156.004pt.
- [11 <./classvss__state_1_1Global__State__inherit__graph.pdf> <./classvss__stat
+ [22 <./classvss__state_1_1Global__State__inherit__graph.pdf> <./classvss__stat
 e_1_1Global__State__coll__graph.pdf
 
 pdfTeX warning: pdflatex (file ./classvss__state_1_1Global__State__coll__graph.
 pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]) (./classInterface.tex
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [12]
-<classInterface__coll__graph.pdf, id=533, 335.2525pt x 235.88126pt>
+>] [23]) (./classInterface.tex
+<classInterface__coll__graph.pdf, id=1117, 335.2525pt x 235.88126pt>
 File: classInterface__coll__graph.pdf Graphic file (type pdf)
 
 <use classInterface__coll__graph.pdf>
-Package pdftex.def Info: classInterface__coll__graph.pdf used on input line 19.
+Package pdftex.def Info: classInterface__coll__graph.pdf used on input line 18.
 
 (pdftex.def)             Requested size: 334.0pt x 234.99886pt.
- [13 <./classInterface__coll__graph.pdf>]) (./classMainWindow.tex
-<classMainWindow__inherit__graph.pdf, id=577, 160.6pt x 156.585pt>
+ [24 <./classInterface__coll__graph.pdf>]) (./classMainWindow.tex
+<classMainWindow__inherit__graph.pdf, id=1147, 160.6pt x 156.585pt>
 File: classMainWindow__inherit__graph.pdf Graphic file (type pdf)
 
 <use classMainWindow__inherit__graph.pdf>
 Package pdftex.def Info: classMainWindow__inherit__graph.pdf used on input line
- 10.
+ 18.
 (pdftex.def)             Requested size: 160.0pt x 156.004pt.
 
-<classMainWindow__coll__graph.pdf, id=578, 432.61626pt x 292.09125pt>
+<classMainWindow__coll__graph.pdf, id=1148, 887.315pt x 529.98pt>
 File: classMainWindow__coll__graph.pdf Graphic file (type pdf)
 
 <use classMainWindow__coll__graph.pdf>
-Package pdftex.def Info: classMainWindow__coll__graph.pdf used on input line 20
+Package pdftex.def Info: classMainWindow__coll__graph.pdf used on input line 27
 .
-(pdftex.def)             Requested size: 350.0pt x 236.32072pt.
- [14 <./classMainWindow__inherit__graph.pdf> <./classMainWindow__coll__graph.pd
-f
+(pdftex.def)             Requested size: 350.0pt x 209.04462pt.
+ [25] [26 <./classMainWindow__inherit__graph.pdf> <./classMainWindow__coll__gra
+ph.pdf
 
 pdfTeX warning: pdflatex (file ./classMainWindow__coll__graph.pdf): PDF inclusi
 on: multiple pdfs with page group included in a single page
->] [15] [16]) (./classQCustomLabel.tex
-<classQCustomLabel__inherit__graph.pdf, id=708, 162.6075pt x 156.585pt>
+>] [27] [28]
+
+LaTeX Font Warning: Font shape `T1/pcr/bc/it' undefined
+(Font)              using `T1/pcr/m/n' instead on input line 324.
+
+
+LaTeX Font Warning: Font shape `T1/pcr/bc/n' undefined
+(Font)              using `T1/pcr/m/n' instead on input line 324.
+
+[29] [30] [31]) (./structcommon_1_1Pixel.tex [32]) (./classQCustomLabel.tex
+<classQCustomLabel__inherit__graph.pdf, id=1406, 162.6075pt x 156.585pt>
 File: classQCustomLabel__inherit__graph.pdf Graphic file (type pdf)
 
 <use classQCustomLabel__inherit__graph.pdf>
 Package pdftex.def Info: classQCustomLabel__inherit__graph.pdf used on input li
-ne 10.
+ne 18.
 (pdftex.def)             Requested size: 162.0pt x 156.01117pt.
 
-<classQCustomLabel__coll__graph.pdf, id=709, 162.6075pt x 156.585pt>
+<classQCustomLabel__coll__graph.pdf, id=1407, 162.6075pt x 156.585pt>
 File: classQCustomLabel__coll__graph.pdf Graphic file (type pdf)
 
 <use classQCustomLabel__coll__graph.pdf>
 Package pdftex.def Info: classQCustomLabel__coll__graph.pdf used on input line 
-20.
+27.
 (pdftex.def)             Requested size: 162.0pt x 156.01117pt.
- [17 <./classQCustomLabel__inherit__graph.pdf> <./classQCustomLabel__coll__grap
-h.pdf
-
-pdfTeX warning: pdflatex (file ./classQCustomLabel__coll__graph.pdf): PDF inclu
-sion: multiple pdfs with page group included in a single page
->]) (./classvss__state_1_1RGB.tex
-<classvss__state_1_1RGB__inherit__graph.pdf, id=738, 212.795pt x 156.585pt>
+ [33 <./classQCustomLabel__inherit__graph.pdf>] [34 <./classQCustomLabel__coll_
+_graph.pdf>])
+(./classvss__state_1_1RGB.tex
+<classvss__state_1_1RGB__inherit__graph.pdf, id=1478, 212.795pt x 156.585pt>
 File: classvss__state_1_1RGB__inherit__graph.pdf Graphic file (type pdf)
 
 <use classvss__state_1_1RGB__inherit__graph.pdf>
 Package pdftex.def Info: classvss__state_1_1RGB__inherit__graph.pdf used on inp
-ut line 10.
+ut line 9.
 (pdftex.def)             Requested size: 212.0pt x 156.00879pt.
 
-<classvss__state_1_1RGB__coll__graph.pdf, id=739, 212.795pt x 156.585pt>
+<classvss__state_1_1RGB__coll__graph.pdf, id=1479, 212.795pt x 156.585pt>
 File: classvss__state_1_1RGB__coll__graph.pdf Graphic file (type pdf)
 
 <use classvss__state_1_1RGB__coll__graph.pdf>
 Package pdftex.def Info: classvss__state_1_1RGB__coll__graph.pdf used on input 
-line 20.
+line 18.
 (pdftex.def)             Requested size: 212.0pt x 156.00879pt.
- [18 <./classvss__state_1_1RGB__inherit__graph.pdf>] [19 <./classvss__state_1_1
+ [35 <./classvss__state_1_1RGB__inherit__graph.pdf>] [36 <./classvss__state_1_1
 RGB__coll__graph.pdf>])
-(./classvss__command_1_1Robot__Command.tex
-<classvss__command_1_1Robot__Command__inherit__graph.pdf, id=821, 193.72375pt x
- 167.62625pt>
+(./structcommon_1_1Robot.tex
+<structcommon_1_1Robot__coll__graph.pdf, id=1555, 182.6825pt x 178.6675pt>
+File: structcommon_1_1Robot__coll__graph.pdf Graphic file (type pdf)
+
+<use structcommon_1_1Robot__coll__graph.pdf>
+Package pdftex.def Info: structcommon_1_1Robot__coll__graph.pdf used on input l
+ine 18.
+(pdftex.def)             Requested size: 182.0pt x 178.0073pt.
+ [37 <./structcommon_1_1Robot__coll__graph.pdf>]) (./classvss__command_1_1Robot
+__Command.tex
+<classvss__command_1_1Robot__Command__inherit__graph.pdf, id=1599, 193.72375pt 
+x 167.62625pt>
 File: classvss__command_1_1Robot__Command__inherit__graph.pdf Graphic file (typ
 e pdf)
  <use classvss__command_1_1Robot__Command__inherit__graph.pdf>
 Package pdftex.def Info: classvss__command_1_1Robot__Command__inherit__graph.pd
-f used on input line 10.
+f used on input line 9.
 (pdftex.def)             Requested size: 193.0pt x 167.00172pt.
 
-<classvss__command_1_1Robot__Command__coll__graph.pdf, id=822, 193.72375pt x 16
-7.62625pt>
+<classvss__command_1_1Robot__Command__coll__graph.pdf, id=1600, 193.72375pt x 1
+67.62625pt>
 File: classvss__command_1_1Robot__Command__coll__graph.pdf Graphic file (type p
 df)
  <use classvss__command_1_1Robot__Command__coll__graph.pdf>
 Package pdftex.def Info: classvss__command_1_1Robot__Command__coll__graph.pdf u
-sed on input line 20.
+sed on input line 18.
 (pdftex.def)             Requested size: 193.0pt x 167.00172pt.
- [20 <./classvss__command_1_1Robot__Command__inherit__graph.pdf> <./classvss__c
+ [38 <./classvss__command_1_1Robot__Command__inherit__graph.pdf> <./classvss__c
 ommand_1_1Robot__Command__coll__graph.pdf
 
 pdfTeX warning: pdflatex (file ./classvss__command_1_1Robot__Command__coll__gra
 ph.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
 >]) (./classvss__state_1_1Robot__State.tex
-<classvss__state_1_1Robot__State__inherit__graph.pdf, id=856, 200.75pt x 156.58
-5pt>
+<classvss__state_1_1Robot__State__inherit__graph.pdf, id=1627, 200.75pt x 156.5
+85pt>
 File: classvss__state_1_1Robot__State__inherit__graph.pdf Graphic file (type pd
 f)
  <use classvss__state_1_1Robot__State__inherit__graph.pdf>
 Package pdftex.def Info: classvss__state_1_1Robot__State__inherit__graph.pdf us
-ed on input line 10.
+ed on input line 9.
 (pdftex.def)             Requested size: 200.0pt x 156.01117pt.
- [21]
-<classvss__state_1_1Robot__State__coll__graph.pdf, id=904, 200.75pt x 156.585pt
->
+ [39]
+<classvss__state_1_1Robot__State__coll__graph.pdf, id=1675, 200.75pt x 156.585p
+t>
 File: classvss__state_1_1Robot__State__coll__graph.pdf Graphic file (type pdf)
  <use classvss__state_1_1Robot__State__coll__graph.pdf>
 Package pdftex.def Info: classvss__state_1_1Robot__State__coll__graph.pdf used 
-on input line 20.
+on input line 18.
 (pdftex.def)             Requested size: 200.0pt x 156.01117pt.
- [22 <./classvss__state_1_1Robot__State__inherit__graph.pdf> <./classvss__state
+ [40 <./classvss__state_1_1Robot__State__inherit__graph.pdf> <./classvss__state
 _1_1Robot__State__coll__graph.pdf
 
 pdfTeX warning: pdflatex (file ./classvss__state_1_1Robot__State__coll__graph.p
 df): PDF inclusion: multiple pdfs with page group included in a single page
->]) (./classSQLite.tex [23])
+>]) (./classSQLite.tex [41]) (./structcommon_1_1State.tex [42]
+<structcommon_1_1State__coll__graph.pdf, id=1789, 277.035pt x 281.05pt>
+File: structcommon_1_1State__coll__graph.pdf Graphic file (type pdf)
+
+<use structcommon_1_1State__coll__graph.pdf>
+Package pdftex.def Info: structcommon_1_1State__coll__graph.pdf used on input l
+ine 18.
+(pdftex.def)             Requested size: 276.0pt x 280.0029pt.
+ [43 <./structcommon_1_1State__coll__graph.pdf>])
 (./structvss__command_1_1StaticDescriptorInitializer__command__2eproto.tex)
 (./structvss__state_1_1StaticDescriptorInitializer__state__2eproto.tex)
-(./classvision.tex
-<classvision__inherit__graph.pdf, id=992, 134.5025pt x 156.585pt>
+(./structcommon_1_1TableColor.tex [44]) (./classvision.tex
+<classvision__inherit__graph.pdf, id=1840, 134.5025pt x 156.585pt>
 File: classvision__inherit__graph.pdf Graphic file (type pdf)
 
 <use classvision__inherit__graph.pdf>
-Package pdftex.def Info: classvision__inherit__graph.pdf used on input line 10.
+Package pdftex.def Info: classvision__inherit__graph.pdf used on input line 18.
 
 (pdftex.def)             Requested size: 134.0pt x 156.00162pt.
 
-<classvision__coll__graph.pdf, id=993, 234.8775pt x 224.84pt>
+<classvision__coll__graph.pdf, id=1841, 715.67375pt x 291.0875pt>
 File: classvision__coll__graph.pdf Graphic file (type pdf)
 
 <use classvision__coll__graph.pdf>
-Package pdftex.def Info: classvision__coll__graph.pdf used on input line 20.
-(pdftex.def)             Requested size: 234.0pt x 223.9989pt.
- [24] [25 <./classvision__inherit__graph.pdf> <./classvision__coll__graph.pdf
+Package pdftex.def Info: classvision__coll__graph.pdf used on input line 27.
+(pdftex.def)             Requested size: 350.0pt x 142.35873pt.
+ [45 <./classvision__inherit__graph.pdf> <./classvision__coll__graph.pdf
 
 pdfTeX warning: pdflatex (file ./classvision__coll__graph.pdf): PDF inclusion: 
 multiple pdfs with page group included in a single page
->] [26]) [27] [28
-
-] (./refman.ind
-Underfull \hbox (badness 10000) in paragraph at lines 26--28
+>] [46]) (./structcommon_1_1VisionColor.tex
+<structcommon_1_1VisionColor__coll__graph.pdf, id=1924, 190.7125pt x 178.6675pt
+>
+File: structcommon_1_1VisionColor__coll__graph.pdf Graphic file (type pdf)
+ <use structcommon_1_1VisionColor__coll__graph.pdf>
+Package pdftex.def Info: structcommon_1_1VisionColor__coll__graph.pdf used on i
+nput line 18.
+(pdftex.def)             Requested size: 190.0pt x 178.0073pt.
+ [47 <./structcommon_1_1VisionColor__coll__graph.pdf>]) [48] (./refman.ind
+Underfull \hbox (badness 10000) in paragraph at lines 120--122
 []\T1/phv/m/n/10 vss[]_[]command[]::[]Static[]Descriptor[]Initializer[]_[]comma
 nd[]_[]
  []
 
-[29
+[49
 
 
+
+] [50
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 169.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 169.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 181.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 181.
  (./refman.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 169.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 169.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 181.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 181.
 Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: 0A6EC1677585C401FC6EAD8946464679;4834.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 169.
+(rerunfilecheck)             Checksum: D24113A0E617C64F4A0C7985605C49F8;17338.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 181.
  ) 
 Here is how much of TeX's memory you used:
- 16028 strings out of 494488
- 275099 string characters out of 6172348
- 340879 words of memory out of 5000000
- 18523 multiletter control sequences out of 15000+600000
- 46427 words of font info for 56 fonts, out of 8000000 for 9000
+ 16471 strings out of 494488
+ 289246 string characters out of 6172348
+ 348255 words of memory out of 5000000
+ 18714 multiletter control sequences out of 15000+600000
+ 64145 words of font info for 80 fonts, out of 8000000 for 9000
  266 hyphenation exceptions out of 8191
- 53i,16n,92p,1316b,422s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,16n,92p,1316b,532s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
-rw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/u
-hvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on refman.pdf (33 pages, 210714 bytes).
+type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cour
+ier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on refman.pdf (56 pages, 312338 bytes).
 PDF statistics:
- 1285 PDF objects out of 1440 (max. 8388607)
- 1188 compressed objects within 12 object streams
- 642 named destinations out of 1000 (max. 500000)
- 274 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2281 PDF objects out of 2487 (max. 8388607)
+ 2142 compressed objects within 22 object streams
+ 855 named destinations out of 1000 (max. 500000)
+ 745 words of extra memory for PDF output out of 10000 (max. 10000000)
 

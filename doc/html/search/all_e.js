@@ -1,12 +1,13 @@
 var searchData=
 [
-  ['tablecolor',['TableColor',['../structcommon_1_1TableColor.html',1,'common']]],
-  ['tablecolor',['TableColor',['../structcommon_1_1TableColor.html#a08d8a7adc0b6462e2f78843dfd2e9b49',1,'common::TableColor']]],
-  ['team_5fcolor',['team_color',['../structcommon_1_1ExecConfiguration.html#a2f8748f7ea7c3b21a580b9116efc5593',1,'common::ExecConfiguration']]],
-  ['tobool',['toBool',['../namespacecommon.html#aed690e352783334b551a1c74947cb101',1,'common']]],
-  ['todouble',['toDouble',['../namespacecommon.html#adeca0735c7b49feb339967ada8cde286',1,'common']]],
-  ['tofloat',['toFloat',['../namespacecommon.html#affd5ec1cd7889f6e63c8fde2c1db389d',1,'common']]],
-  ['toint',['toInt',['../namespacecommon.html#a31cd86456425bdd976cc622c5828e17f',1,'common']]],
-  ['tolonglongint',['toLongLongInt',['../namespacecommon.html#a9f91668221fb6afe69e9f8f517a4fe7c',1,'common']]],
-  ['tostring',['toString',['../namespacecommon.html#ab967afcc3037e24ee78ecf6dd92688d5',1,'common::toString(int a)'],['../namespacecommon.html#aadec8c454eaea8a3f16e153f9770552d',1,'common::toString(float a)'],['../namespacecommon.html#ae206634061c636d23c21e2b86e6f4f47',1,'common::toString(double a)'],['../namespacecommon.html#aa41a5dacf4897a60f6d4251d57a8404a',1,'common::toString(long long int a)'],['../namespacecommon.html#ad4970622daef780374effb8e47cf8134',1,'common::toString(bool a)']]]
+  ['radian',['radian',['../namespacecommon.html#ac58a1918510dc4dbc7b65255593df38e',1,'common']]],
+  ['rgb',['RGB',['../classvss__state_1_1RGB.html',1,'vss_state']]],
+  ['rgb',['rgb',['../structcommon_1_1Pixel.html#abf3e7070359fa300aeed9af22c74f118',1,'common::Pixel']]],
+  ['robot',['Robot',['../structcommon_1_1Robot.html',1,'common']]],
+  ['robot',['Robot',['../structcommon_1_1Robot.html#a41ba088fd67d929808e381126f7b6c2e',1,'common::Robot::Robot()'],['../structcommon_1_1Robot.html#a32c611a544e879cf59d66bd87e3884d9',1,'common::Robot::Robot(btVector3 pose, btVector3 v_pose)'],['../structcommon_1_1Robot.html#a3df83e11a40060ea9d3553384dcdaaa3',1,'common::Robot::Robot(Robot *r)']]],
+  ['robot_5fcommand',['Robot_Command',['../classvss__command_1_1Robot__Command.html',1,'vss_command']]],
+  ['robot_5fstate',['Robot_State',['../classvss__state_1_1Robot__State.html',1,'vss_state']]],
+  ['robots',['robots',['../structcommon_1_1State.html#a675b02202e4cc1c08408ea4d348ae84b',1,'common::State']]],
+  ['robots_5fkalman',['robots_kalman',['../structcommon_1_1State.html#aac577c6d23eb389042327ca7026ab1c1',1,'common::State']]],
+  ['run',['run',['../classcalibration.html#a4b435b278f024e919b733627884ba0d2',1,'calibration']]]
 ];
