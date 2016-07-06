@@ -36,7 +36,7 @@ DISTNAME      = VSS-Vision1.0.0
 DISTDIR = /home/johnathan/Repositories/SIRLab/VSS-Vision/src/.tmp/VSS-Vision1.0.0
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -L/usr/local/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_flann -lopencv_shape -lopencv_stitching -lopencv_videostab -lopencv_videoio -lopencv_imgcodecs -lm -l sqlite3 -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -L/usr/local/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_flann -lopencv_shape -lopencv_stitching -lopencv_videostab -lopencv_videoio -lopencv_imgcodecs -lm -l sqlite3 -lprotobuf -pthread -lzmq -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -55,7 +55,10 @@ SOURCES       = main.cpp \
 		calibration.cpp \
 		sqlite.cpp \
 		vision.cpp \
-		qcustomlabel.cpp qrc_resources.cpp \
+		qcustomlabel.cpp \
+		protos/state.pb.cc \
+		protos/command.pb.cc \
+		interface.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_qcustomlabel.cpp
 OBJECTS       = main.o \
@@ -66,10 +69,16 @@ OBJECTS       = main.o \
 		sqlite.o \
 		vision.o \
 		qcustomlabel.o \
+		state.pb.o \
+		command.pb.o \
+		interface.o \
 		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_qcustomlabel.o
-DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
+DIST          = protos/state.proto \
+		protos/protos.make \
+		protos/command.proto \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf \
@@ -137,14 +146,20 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		calibration.h \
 		sqlite.h \
 		vision.h \
-		qcustomlabel.h main.cpp \
+		qcustomlabel.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
+		interface.h main.cpp \
 		mainwindow.cpp \
 		QtOpenCV.cpp \
 		common.cpp \
 		calibration.cpp \
 		sqlite.cpp \
 		vision.cpp \
-		qcustomlabel.cpp
+		qcustomlabel.cpp \
+		protos/state.pb.cc \
+		protos/command.pb.cc \
+		interface.cpp
 QMAKE_TARGET  = VSS-Vision
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = VSS-Vision
@@ -325,8 +340,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h QtOpenCV.h common.h calibration.h sqlite.h vision.h qcustomlabel.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp QtOpenCV.cpp common.cpp calibration.cpp sqlite.cpp vision.cpp qcustomlabel.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h QtOpenCV.h common.h calibration.h sqlite.h vision.h qcustomlabel.h protos/state.pb.h protos/command.pb.h interface.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp QtOpenCV.cpp common.cpp calibration.cpp sqlite.cpp vision.cpp qcustomlabel.cpp protos/state.pb.cc protos/command.pb.cc interface.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -434,6 +449,17 @@ vision.o: vision.cpp vision.h \
 
 qcustomlabel.o: qcustomlabel.cpp qcustomlabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomlabel.o qcustomlabel.cpp
+
+state.pb.o: protos/state.pb.cc protos/state.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o state.pb.o protos/state.pb.cc
+
+command.pb.o: protos/command.pb.cc protos/command.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o command.pb.o protos/command.pb.cc
+
+interface.o: interface.cpp interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o interface.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

@@ -31,7 +31,12 @@ LIBS += -L/usr/local/lib \
     -lopencv_videoio \
     -lopencv_imgcodecs \
     -lm \
-    -l sqlite3
+    -l sqlite3 \
+    -lprotobuf \
+    -pthread \
+    -lpthread \
+    -lzmq
+
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -40,7 +45,10 @@ SOURCES += main.cpp\
     calibration.cpp \
     sqlite.cpp \
     vision.cpp \
-    qcustomlabel.cpp
+    qcustomlabel.cpp \
+    protos/state.pb.cc \
+    protos/command.pb.cc \
+    interface.cpp
 
 HEADERS  += mainwindow.h \
     QtOpenCV.h \
@@ -48,7 +56,10 @@ HEADERS  += mainwindow.h \
     calibration.h \
     sqlite.h \
     vision.h \
-    qcustomlabel.h
+    qcustomlabel.h \
+    protos/state.pb.h \
+    protos/command.pb.h \
+    interface.h
 
 FORMS    += mainwindow.ui
 
@@ -86,3 +97,8 @@ OTHER_FILES += \
     icons/package.png \
     icons/view-fullscreen.png \
     images/model.jpg
+
+DISTFILES += \
+    protos/state.proto \
+    protos/protos.make \
+    protos/command.proto
