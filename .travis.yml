@@ -42,4 +42,5 @@ script:
   - cd ..
 
   - make qt
+  - make proto
   - make
