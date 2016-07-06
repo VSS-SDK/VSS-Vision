@@ -11,7 +11,7 @@ VSS-Vision
 ```
 $ sudo apt-get update && apt-get upgrade
 $ sudo apt-get install pkg-config
-$ sudo apt-get install g++ cmake git x11-xserver-utils libglew1.10 libglew-dev freeglut3 freeglut3-dev uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
+$ sudo apt-get install g++ cmake git uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev 
 ```
 
 **Only Ubuntu 16.04 LTS** 
@@ -20,7 +20,7 @@ $ sudo apt-get install g++ cmake git x11-xserver-utils libglew1.10 libglew-dev f
 ```
 $ sudo apt-get update && apt-get upgrade
 $ sudo apt-get install pkg-config
-$ sudo apt-get install g++ cmake git x11-xserver-utils libglew1.13 libglew-dev freeglut3 freeglut3-dev uvcdynctrl libzmqpp3 libzmqpp-dev protobuf-compiler libprotobuf-dev libxrandr-dev libxrandr-dev libxinerama-dev libxinerama1 libxcursor-dev libxcursor1
+$ sudo apt-get install g++ cmake git uvcdynctrl libzmqpp3 libzmqpp-dev protobuf-compiler libprotobuf-dev qt5-qmake qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
 ```
 
 **Only Debian 8** 
@@ -29,24 +29,11 @@ $ sudo apt-get install g++ cmake git x11-xserver-utils libglew1.13 libglew-dev f
 ```
 $ sudo apt-get update && apt-get upgrade
 $ sudo apt-get install pkgconf
-$ sudo apt-get install g++ cmake git x11-xserver-utils libglew1.10 libglew-dev freeglut3 freeglut3-dev uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
+$ sudo apt-get install g++ cmake git uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
 ```
 
 **All Distros** 
 ---------------------------
-
-**Install GLFW 3:**
-```
-$ git clone https://github.com/glfw/glfw.git
-$ cd glfw
-$ git checkout latest
-$ mkdir build && cd build
-$ cmake .. -DBUILD_SHARED_LIBS=ON
-$ make -j8
-$ sudo make install
-$ sudo ldconfig
-```
-
 **Install OpenCV:**
 ```
 $ git clone https://github.com/Itseez/opencv.git
