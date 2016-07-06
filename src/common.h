@@ -22,127 +22,115 @@
 using namespace std;
 using namespace cv;
 
+//! This namespace is responsible to implement all global functions and custom datatypes used in the software, like: ENUMS, btVector3, Pixel, TableColor, VisionColor, ExecConfiguration, Calibration, Robot and State
 namespace common{
+    //! This enum implements a abstraction of a RGB array.
     enum{ r = 0, g = 1, b = 2 };
+
+    //! This enum implements a abstraction of a range of RGB array.
     enum{ rmin = 0, gmin = 1, bmin = 2, rmax = 3, gmax = 4, bmax = 5};
 
+    //! This enum implements a abstraction of a HSV array.
     enum{ h = 0, s = 1, v = 2 };
+
+    //! This enum implements a abstraction of a range of  HSV array.
     enum{ hmin = 0, smin = 1, vmin = 2, hmax = 3, smax = 4, vmax = 5};
 
-    /*
-        Estados pelo qual um processo pode estar passando (Máquina Simples de Estados)
-
-        STOPPED (Estado de não iniciado)
-            * STOPPED -> STARTING
-            * STOPPED -> PAUSING
-            * STOPPED -> CRASHED
-
-        STARTING (Estado de iniciando)
-            * STARTING -> RUNNING
-            * STARTING -> PAUSING
-            * STARTING -> ENDING
-            * STARTING -> CRASHED
-
-        RUNNING (Estado de rodando)
-            * RUNNING -> PAUSING
-            * RUNNING -> ENDING
-            * RUNNING -> CRASHED
-
-        PAUSING (Estado de iniciando uma pausa)
-            * PAUSING -> PAUSED
-            * PAUSING -> CRASHED
-
-        PAUSED (Estado de pausado)
-            * PAUSED -> STARTING
-            * PAUSED -> ENDING
-            * PAUSED -> CRASHED
-
-        ENDING (Estado de terminando)
-            * ENDING -> FINISHED
-            * ENDING -> CRASHED
-
-        FINISHED (Estado de terminado)
-            * FINISHED -> STOPPED
-            * FINISHED -> CRASHED
-    */
-    enum{ STOPPED = 0, STARTING = 1, RUNNING = 2, PAUSING = 3, PAUSED = 4, ENDING = 5, FINISHED = 6, CRASHED = -1 };
-
-    // Times
+    //! This enum implements a abstraction of teams.
     enum{ OUR_TEAM = 0, ADVERSARY_TEAM = 1 };
 
-    // Possiveis coisas para se calibrar na visão computacional
+    ///! This enum represents all data that can be calibrated.
     enum{ ORANGE = 0, BLUE = 1, YELLOW = 2, RED = 3, PINK = 4, PURPLE = 5, GREEN = 6, BROWN = 7, ROTATION = 8, CUT = 9 };
 
-    // Possiveis formatos de label
+    //! This enum represents all types of blob that can be used.
     enum{ SQUARES = 0, RECTANGLES = 1, CIRCLES = 2 };
 
-    // Default error
+    //! This enum represents all unknown things.
     enum{ UNKNOWN = -1 };
 
-    // Input of data
+    //! This enum represents all types of input datas.
     enum { CAMERA = 0, IMAGE = 1, VIDEO = 2 };
 
+    //! This enum represents all objects in a State
     enum { BALL = 0, TEAM1_ROBOT1 = 1, TEAM1_ROBOT2 = 2, TEAM1_ROBOT3 = 3, TEAM2_ROBOT1 = 4, TEAM2_ROBOT2 = 5, TEAM2_ROBOT3 = 6 };
 
+    //! This struct represents a Vector in R^3.
     struct btVector3{
+        //! Data: x, y, z.
         float x, y, z;
+        //! Default constructor: btVector3 bt3;
         btVector3(){
             x = y = z = 0;
         };
+        //! Construtor XYZ: btVector3 bt3(x, y, z);
         btVector3(float x, float y, float z){
             this->x = x;
             this->y = y;
             this->z = z;
         };
+        //! Constructor copy: btVector3 bt3(btVector3(x, y, z));
         btVector3(btVector3 *b){
             x = b->x;
             y = b->y;
             z = b->z;
         };
+        //! Constructor parse of point: btVector3 bt3(Point(x, y));
         btVector3(Point *b){
             x = b->x;
             y = b->y;
             z = 0;
         };
+        //! Default function: prints all variables.
         void show(){
             printf("btVector3(%f, %f, %f)\n", x, y, z);
         };
     };
 
+    //! This struct represents a Pixel, can be: RGB and HSV. It's used float because is possible to represent color in systems, like: 0 to 1, and 0 to 255.
     struct Pixel{
+        //! Data: array[3] of RGB.
         float rgb[3];
+        //! Constructor default: Pixel p;
         Pixel(){
             rgb[0] = 0;
             rgb[1] = 0;
             rgb[2] = 0;
         };
+        //! Constructor RGB1: Pixel p(r, g, b);
         Pixel(float r, float g, float b){
             rgb[0] = r;
             rgb[1] = g;
             rgb[2] = b;
         };
+        //! Constructor RGB2: Pixel p(rgb[3]);
         Pixel(float rgb[3]){
             for(int i = 0 ; i < 3 ; i++){
                 this->rgb[i] = rgb[i];
             }
         };
+        //! Constructor copy: Pixel p(Pixel(r, g, b));
         Pixel(Pixel *p){
             for(int i = 0 ; i < 3 ; i++){
                 rgb[i] = p->rgb[i];
             }
         };
+        //! Constructor btVector3: Pixel p(btVector(r, g, b));
         Pixel(btVector3 *p){
             rgb[0] = p->x;
             rgb[1] = p->y;
             rgb[2] = p->z;
         };
+        //! Default function: prints all variables.
         void show(){
             printf("Pixel(%.2f, %.2f, %.2f)\n", rgb[0], rgb[1], rgb[2]);
         };
     };
 
+    //! This struct represents all colors in RGB that can be used.
     struct TableColor{
+        //! Data: vector of Pixel.
         vector<Pixel> colors;
+        //! Default constructor: TableColor tb;
         TableColor(){
             colors.push_back(Pixel(255, 128, 0));
             colors.push_back(Pixel(0, 0, 255));
@@ -155,22 +143,32 @@ namespace common{
         };
     };
 
+    //! This struct represents a Color that can be calibrated: made by 2 Pixels that represents a range of color, Bottom Pixel Limit and Top Pixel Limit.
     struct VisionColor{
+        //! Data: Bottom Pixel Limit 
         Pixel min;
+        //! Data: Top Pixel Limit 
         Pixel max;
 
+        //! Constructor default: VisionColor c;
         VisionColor(){
             min = Pixel(0, 0, 0);
             max = Pixel(255, 255, 255);
         };
+
+        //! Constructor Pixels: VisionColor c( Pixel (r, g, b), Pixel (r, g, b));
         VisionColor(Pixel min, Pixel max){
             this->min = min;
             this->max = max;
         };
+
+        //! Constructor copy: VisionColor c( VisionColor );
         VisionColor(VisionColor *color){
             min = color->min;
             max = color->max;
         };
+
+        //! Default function: prints all variables.
         void show(){
             printf("VisionColor\nMin");
             min.show();
@@ -179,14 +177,22 @@ namespace common{
         }
     };
 
+    //! This struct represents a configuration of colors of objects in workspace.
     struct ExecConfiguration{
+        //! Data: comment of configuration. used to save in db
         string comment;
+        //! Data: ENUM id_color
         int ball_color;
+        //! Data: ENUM id_color
         int team_color[2];
+        //! Data: ENUM id_color
         int config_labels[2];
+        //! Data: ENUM id_color
         int secundary_color_1[3];
+        //! Data: ENUM id_color
         int secundary_color_2[3];
 
+        //! Default constructor: ExecConfiguration exex;
         ExecConfiguration(){
             comment = "";
 
@@ -203,6 +209,8 @@ namespace common{
                 secundary_color_2[i] = UNKNOWN;
             }
         };
+
+        //! Constructor copy: ExexConfiguration exex(ExecConfiguration());
         ExecConfiguration(ExecConfiguration *g){
             comment = g->comment;
 
@@ -219,6 +227,8 @@ namespace common{
                 secundary_color_2[i] = UNKNOWN;
             }
         };
+
+        //! Default function: prints all variables.
         void show(){
             printf("ExecConfiguration:\n");
             //printf("Comment: %s\n", comment);
@@ -234,12 +244,18 @@ namespace common{
         }
     };
 
+    //! This struct represents a calibration of colors
     struct Calibration{
+        //! Data: comment of calibration. used to save in db
         string comment;
+        //! Data: vector of VisionColor
         vector<VisionColor> colors;
+        //! Data: vector of Point
         vector<Point> cut;
+        //! Data: day of calibration. used ti save in db
         string data;
 
+        //! Default constructor: Calibration c; initialize the vector with range of colors in HSV to track the objects with Saved Video and Saved Image. 
         Calibration(){
             comment = "";
 
@@ -258,12 +274,15 @@ namespace common{
 
             data = "2016-12-30";
         };
+        //! Constructor copy: Calibration c(Calibration());
         Calibration(Calibration *c){
             comment = c->comment;
             colors = c->colors;
             cut = c->cut;
             data = c->data;
         };
+
+        //! Default function: prints all variables.
         void show(){
             printf("Calibration:\n");
             //printf("Comment: %s", comment);
@@ -278,21 +297,32 @@ namespace common{
         };
     };
 
+    //! This strcut represets the pose that one robot can handle. Pos and Vel.
     struct Robot{
+        //! Data: Pose
         btVector3 pose;
+        //! Data: V_Pose
         btVector3 v_pose;
+
+        //! Default constructor: Robot t;
         Robot(){
             pose = btVector3(0, 0, 0);
             v_pose = btVector3(0, 0, 0);
         };
+
+        //! Constructor 2: Robot t(btVector3(x, y, yaw), btVector3(x, y, yaw))
         Robot(btVector3 pose, btVector3 v_pose){
             this->pose = pose;
             this->v_pose = v_pose;
         };
+
+        //! Constructor copy: Robot t(Robot());
         Robot(Robot *r){
             pose = r->pose;
             v_pose = r->v_pose;
         };
+
+        //! Default function: prints all variables.
         void show(){
             printf("Robot:\n");
             printf("Pose:\n");
@@ -302,15 +332,24 @@ namespace common{
         }
     };
 
+    //! This struct represents the state that the workspace can hnadle.
     struct State{
+        //! All robots by vision
         Robot robots[6];
+        //! All robots by kalman
         Robot robots_kalman[6];
+        //! Pos ball by vision
         btVector3 ball;
+        //! Vel ball by vision
         btVector3 v_ball;
+        //! Pos ball by kalman
         btVector3 ball_kalman;
+        //! Vel ball by kalman
         btVector3 v_ball_kalman;
+        //! Default constructor: State s;
         State(){};
         /* TODO: outros construtores*/
+        //! Default function: prints all variables.
         void show(){
             cout << "Robots Team 1:" << endl;
             for(int i = 0 ; i < 3 ; i++){

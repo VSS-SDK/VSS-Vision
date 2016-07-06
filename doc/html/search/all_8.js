@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vision',['vision',['../classvision.html',1,'']]]
+  ['qcustomlabel',['QCustomLabel',['../classQCustomLabel.html',1,'']]]
 ];

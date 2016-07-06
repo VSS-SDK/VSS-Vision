@@ -38,6 +38,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,6 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
       <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -94,15 +96,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for vision:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvision__inherit__graph.png" border="0" usemap="#vision_inherit__map" alt="Inheritance graph"/></div>
-<map name="vision_inherit__map" id="vision_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for vision:</div>
 <div class="dyncontent">
 <div class="center"><img src="classvision__coll__graph.png" border="0" usemap="#vision_coll__map" alt="Collaboration graph"/></div>
 <map name="vision_coll__map" id="vision_coll__map">
-<area shape="rect" id="node3" href="classQCustomLabel.html" title="QCustomLabel" alt="" coords="101,81,211,108"/>
+<area shape="rect" id="node3" href="structcommon_1_1Calibration.html" title="This struct represents a calibration of colors. " alt="" coords="506,56,649,83"/>
+<area shape="rect" id="node4" href="structcommon_1_1State.html" title="This struct represents the state that the workspace can hnadle. " alt="" coords="522,107,633,133"/>
+<area shape="rect" id="node5" href="structcommon_1_1btVector3.html" title="This struct represents a Vector in R^3. " alt="" coords="5,101,141,128"/>
+<area shape="rect" id="node6" href="structcommon_1_1Robot.html" title="This strcut represets the pose that one robot can handle. Pos and Vel. " alt="" coords="232,135,347,161"/>
+<area shape="rect" id="node7" href="structcommon_1_1ExecConfiguration.html" title="This struct represents a configuration of colors of objects in workspace. " alt="" coords="484,157,671,184"/>
+<area shape="rect" id="node8" href="classQCustomLabel.html" title="QCustomLabel" alt="" coords="523,208,632,235"/>
+<area shape="rect" id="node10" href="structcommon_1_1TableColor.html" title="This struct represents all colors in RGB that can be used. " alt="" coords="506,259,649,285"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -115,10 +121,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> ()</td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>search_color</b> (int)</td></tr>
 <tr class="separator:a908d37e077c8844e2bfd5b38a1f65577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81fd57a35d8e331f844e1d276d8272f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81fd57a35d8e331f844e1d276d8272f6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_calibration</b> (Calibration *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_calibration</b> (<a class="el" href="structcommon_1_1Calibration.html">Calibration</a> *)</td></tr>
 <tr class="separator:a81fd57a35d8e331f844e1d276d8272f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f8eec2ffc63e3a2b3e76c347b13f537"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f8eec2ffc63e3a2b3e76c347b13f537"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_state</b> (State *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_state</b> (<a class="el" href="structcommon_1_1State.html">State</a> *)</td></tr>
 <tr class="separator:a4f8eec2ffc63e3a2b3e76c347b13f537"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5951eb6e1bb8582b3f01dec96d3ad3ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5951eb6e1bb8582b3f01dec96d3ad3ac"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_label_input</b> (<a class="el" href="classQCustomLabel.html">QCustomLabel</a> *)</td></tr>
@@ -127,7 +133,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_label_input</b>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_colors</b> (vector&lt; int &gt; *)</td></tr>
 <tr class="separator:a5d366b880029815afed304c1d2d29bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d623a2e736f204716f1d44bf496823f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d623a2e736f204716f1d44bf496823f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_execution_config</b> (ExecConfiguration *)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_execution_config</b> (<a class="el" href="structcommon_1_1ExecConfiguration.html">ExecConfiguration</a> *)</td></tr>
 <tr class="separator:a3d623a2e736f204716f1d44bf496823f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75142dd50f6818ae2d954a1070b7e721"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75142dd50f6818ae2d954a1070b7e721"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>alloc_label_plots</b> (vector&lt; QLabel * &gt; *)</td></tr>
@@ -235,16 +241,16 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>propc_min</b></td></
 float&#160;</td><td class="memItemRight" valign="bottom"><b>propc_max</b></td></tr>
 <tr class="separator:a6aeb3bfbd1eebe0a8e1d722eb8c21891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e5420798a60cb8b48e8a29b786f1683"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e5420798a60cb8b48e8a29b786f1683"></a>
-Calibration *&#160;</td><td class="memItemRight" valign="bottom"><b>calib</b></td></tr>
+<a class="el" href="structcommon_1_1Calibration.html">Calibration</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>calib</b></td></tr>
 <tr class="separator:a7e5420798a60cb8b48e8a29b786f1683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66846efba8a3de237d1a3c153ff1b812"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66846efba8a3de237d1a3c153ff1b812"></a>
-State *&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
+<a class="el" href="structcommon_1_1State.html">State</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
 <tr class="separator:a66846efba8a3de237d1a3c153ff1b812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7929fc67b174048c25f34c064e6931ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7929fc67b174048c25f34c064e6931ea"></a>
-ExecConfiguration *&#160;</td><td class="memItemRight" valign="bottom"><b>exec_config</b></td></tr>
+<a class="el" href="structcommon_1_1ExecConfiguration.html">ExecConfiguration</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>exec_config</b></td></tr>
 <tr class="separator:a7929fc67b174048c25f34c064e6931ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a992a907eaa83feaa4fdec5eec0a3c978"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a992a907eaa83feaa4fdec5eec0a3c978"></a>
-TableColor&#160;</td><td class="memItemRight" valign="bottom"><b>table_color</b></td></tr>
+<a class="el" href="structcommon_1_1TableColor.html">TableColor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>table_color</b></td></tr>
 <tr class="separator:a992a907eaa83feaa4fdec5eec0a3c978"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a628e5f4db4cf2b380fa9849b1c7c6ede"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a628e5f4db4cf2b380fa9849b1c7c6ede"></a>
 Mat&#160;</td><td class="memItemRight" valign="bottom"><b>in</b></td></tr>

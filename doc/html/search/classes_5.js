@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['qcustomlabel',['QCustomLabel',['../classQCustomLabel.html',1,'']]]
+  ['mainwindow',['MainWindow',['../classMainWindow.html',1,'']]]
 ];
