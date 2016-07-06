@@ -35,6 +35,7 @@ protected:
     static int callback(void *NotUsed, int argc, char **argv, char **azColName);
     void clean_query();
 public:
+    //! Default constructor: SQLite sql("name db", "pswd")
     SQLite(string, string);
     void open();
     void close();
