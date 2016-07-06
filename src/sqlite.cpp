@@ -8,14 +8,19 @@
 
 #include "sqlite.h"
 
+
 SQLite::SQLite(string path_database, string password){
     this->path_database = path_database;
     this->password = password;
 }
 
+//! Addendum
+//! --------
+//! 
 void SQLite::open(){
     status_db = sqlite3_open(path_database.c_str(), &db);
 
+    //! > Return any error, if something happen when try to open the database
     if(status_db){
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
     }
@@ -25,8 +30,13 @@ void SQLite::close(){
     sqlite3_close(db);
 }
 
+//! Addendum
+//! --------
+//! 
 int SQLite::callback(void *NotUsed, int argc, char **argv, char **azColName){
    int i;
+
+   //! > Print the info like on the table in database
    for(i=0; i<argc; i++){
       printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
    }
@@ -34,10 +44,6 @@ int SQLite::callback(void *NotUsed, int argc, char **argv, char **azColName){
    return 0;
 }
 
-void SQLite::clean_query(){
-    query.str(string());
-    query.clear();
-}
 
 void SQLite::insert_calibration(){
 
