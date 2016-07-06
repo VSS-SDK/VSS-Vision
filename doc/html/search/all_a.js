@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['secundary_5fcolor_5f1',['secundary_color_1',['../structcommon_1_1ExecConfiguration.html#a5485a96fed9500bddfd4a8ce81d9032c',1,'common::ExecConfiguration']]],
-  ['secundary_5fcolor_5f2',['secundary_color_2',['../structcommon_1_1ExecConfiguration.html#aea1aed941fceb299c6766e6330ec802e',1,'common::ExecConfiguration']]],
-  ['show',['show',['../structcommon_1_1btVector3.html#ad182266905d95459f9ca03da9af47f35',1,'common::btVector3::show()'],['../structcommon_1_1Pixel.html#a384d642e3fb610b38c813ff6fd8c50e1',1,'common::Pixel::show()'],['../structcommon_1_1VisionColor.html#ab566eab8f4f6dda505e423bdaffc7d27',1,'common::VisionColor::show()'],['../structcommon_1_1ExecConfiguration.html#a428c6689fbc17376db7304dd61f3d69b',1,'common::ExecConfiguration::show()'],['../structcommon_1_1Calibration.html#aaec2830170bbb7dbce05c9e3139549a6',1,'common::Calibration::show()'],['../structcommon_1_1Robot.html#a224e3f9997e44c5edf67fd0989aee5cf',1,'common::Robot::show()'],['../structcommon_1_1State.html#af0a474961bf0f3afe274ce27da0f28a3',1,'common::State::show()']]],
-  ['sqlite',['SQLite',['../classSQLite.html',1,'SQLite'],['../classSQLite.html#aec016ee26d918bb715383b7578118166',1,'SQLite::SQLite()']]],
-  ['state',['State',['../structcommon_1_1State.html',1,'common']]],
-  ['state',['State',['../structcommon_1_1State.html#ac8dcfb15646bb310c85161de2900c8c6',1,'common::State']]],
-  ['staticdescriptorinitializer_5fcommand_5f2eproto',['StaticDescriptorInitializer_command_2eproto',['../structvss__command_1_1StaticDescriptorInitializer__command__2eproto.html',1,'vss_command']]],
-  ['staticdescriptorinitializer_5fstate_5f2eproto',['StaticDescriptorInitializer_state_2eproto',['../structvss__state_1_1StaticDescriptorInitializer__state__2eproto.html',1,'vss_state']]]
+  ['paint_5foutput',['paint_output',['../classcalibration.html#a9d29a622f2412fcf5cb654444d1bd43e',1,'calibration']]],
+  ['pixel',['Pixel',['../structcommon_1_1Pixel.html',1,'common']]],
+  ['pixel',['Pixel',['../structcommon_1_1Pixel.html#ad8c36da59c20dd2b6f547e6dcbc7f273',1,'common::Pixel::Pixel()'],['../structcommon_1_1Pixel.html#aea7b41418980e0696fb78870d42abbe3',1,'common::Pixel::Pixel(float r, float g, float b)'],['../structcommon_1_1Pixel.html#a4a3df22498da4d45cbd0295e223470ed',1,'common::Pixel::Pixel(float rgb[3])'],['../structcommon_1_1Pixel.html#a7d987f23631f0695a2c8c8d5274842e0',1,'common::Pixel::Pixel(Pixel *p)'],['../structcommon_1_1Pixel.html#a9dee5ee0fb0500210b304630e7596de5',1,'common::Pixel::Pixel(btVector3 *p)']]],
+  ['pose',['pose',['../structcommon_1_1Robot.html#a31960c8ccd21cde1ca66e263851b83ad',1,'common::Robot']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['visioncolor',['VisionColor',['../structcommon_1_1VisionColor.html#a5c458feb1d92c624dff7e83a4bfa50e5',1,'common::VisionColor::VisionColor()'],['../structcommon_1_1VisionColor.html#a3552e22bbdf84cecdcfbe39d729be767',1,'common::VisionColor::VisionColor(Pixel min, Pixel max)'],['../structcommon_1_1VisionColor.html#a547481e4da9d02d44c2687c36a7de4b9',1,'common::VisionColor::VisionColor(VisionColor *color)']]]
+  ['midpoint',['midpoint',['../namespacecommon.html#a2968370f29c08892258794b87bac33fb',1,'common::midpoint(Point, Point)'],['../namespacecommon.html#a820e29c932b1f0b6a865772239beeb57',1,'common::midpoint(Rect)'],['../namespacecommon.html#a8018da38b6ea9b1dfa514730ad24ab2b',1,'common::midpoint(btVector3, btVector3)']]]
 ];

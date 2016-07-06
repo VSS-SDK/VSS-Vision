@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['calibration',['calibration',['../classcalibration.html',1,'calibration'],['../structcommon_1_1Calibration.html#a5c5c85c1e1ff7b5f1e5272deb8bf04b2',1,'common::Calibration::Calibration()'],['../structcommon_1_1Calibration.html#a4c79aae796dd932808e8e009643164d7',1,'common::Calibration::Calibration(Calibration *c)']]],
-  ['calibration',['Calibration',['../structcommon_1_1Calibration.html',1,'common']]],
-  ['colors',['colors',['../structcommon_1_1TableColor.html#a8ce253b484c9054445fcd4b3adc4726d',1,'common::TableColor::colors()'],['../structcommon_1_1Calibration.html#a219ffe804bda864b9757bc5d32ee49c4',1,'common::Calibration::colors()']]],
-  ['comment',['comment',['../structcommon_1_1ExecConfiguration.html#a98f8739d11ff3ab4e9e6f61a1d8084a4',1,'common::ExecConfiguration::comment()'],['../structcommon_1_1Calibration.html#af7faad7cda5adfffefa44006cdecea85',1,'common::Calibration::comment()']]],
-  ['common',['common',['../namespacecommon.html',1,'']]],
-  ['config_5flabels',['config_labels',['../structcommon_1_1ExecConfiguration.html#aa8dcf45e57d1a2e2264d75e2568e33bf',1,'common::ExecConfiguration']]],
-  ['cut',['cut',['../structcommon_1_1Calibration.html#adb64222af92367a220f889876324edbc',1,'common::Calibration']]]
+  ['ball',['ball',['../structcommon_1_1State.html#ac4c33250cf2ef39fd319a64f0d51c7bd',1,'common::State']]],
+  ['ball_5fcolor',['ball_color',['../structcommon_1_1ExecConfiguration.html#a08b7bbd7185afc2f9050850771af86c8',1,'common::ExecConfiguration']]],
+  ['ball_5fkalman',['ball_kalman',['../structcommon_1_1State.html#ab6b6487077c6bf6fd8f308ad592c6470',1,'common::State']]],
+  ['ball_5fstate',['Ball_State',['../classvss__state_1_1Ball__State.html',1,'vss_state']]],
+  ['btvector3',['btVector3',['../structcommon_1_1btVector3.html',1,'common']]],
+  ['btvector3',['btVector3',['../structcommon_1_1btVector3.html#a18054312f8905cc98697fe4b5918b92a',1,'common::btVector3::btVector3()'],['../structcommon_1_1btVector3.html#a966ab1cbf7a9f4661ff9ab574466ad9f',1,'common::btVector3::btVector3(float x, float y, float z)'],['../structcommon_1_1btVector3.html#aaed6af5e7b2e6217483dffa991ecffd4',1,'common::btVector3::btVector3(btVector3 *b)'],['../structcommon_1_1btVector3.html#a276502eb04ec63d64566fa32c67f96fe',1,'common::btVector3::btVector3(Point *b)']]]
 ];

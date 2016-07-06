@@ -1,28 +1,27 @@
-\hypertarget{classcalibration}{\section{calibration Class Reference}
+\hypertarget{classcalibration}{}\section{calibration Class Reference}
 \label{classcalibration}\index{calibration@{calibration}}
-}
 
 
-This class is responsible for calibrate all \hyperlink{structcommon_1_1VisionColor}{common\-::\-Vision\-Color}, cut points and rotation.  
-
-
-
-
-{\ttfamily \#include $<$calibration.\-h$>$}
+This class is responsible for calibrate all \hyperlink{structcommon_1_1VisionColor}{common\+::\+Vision\+Color}, cut points and rotation.  
 
 
 
-Inheritance diagram for calibration\-:
+
+{\ttfamily \#include $<$calibration.\+h$>$}
+
+
+
+Inheritance diagram for calibration\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=140pt]{classcalibration__inherit__graph}
+\includegraphics[width=141pt]{classcalibration__inherit__graph}
 \end{center}
 \end{figure}
 
 
-Collaboration diagram for calibration\-:
+Collaboration diagram for calibration\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -33,159 +32,362 @@ Collaboration diagram for calibration\-:
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classcalibration_a4b435b278f024e919b733627884ba0d2}{void {\bfseries run} ()}\label{classcalibration_a4b435b278f024e919b733627884ba0d2}
+\hyperlink{classcalibration_a00cd91462ef148dad0e44c5d644861ea}{calibration} ()
+\begin{DoxyCompactList}\small\item\em Default constructor\+: calibration c;. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_a4b435b278f024e919b733627884ba0d2}{run} ()
+\begin{DoxyCompactList}\small\item\em Virtual method from Q\+Thread, \hyperlink{classMainWindow}{Main\+Window} call this method in a C\+O\+N\+N\+E\+CT. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_a01c20860fb99a2370c191b0228e82af4}{finish} ()\hypertarget{classcalibration_a01c20860fb99a2370c191b0228e82af4}{}\label{classcalibration_a01c20860fb99a2370c191b0228e82af4}
 
-\item 
-\hypertarget{classcalibration_a01c20860fb99a2370c191b0228e82af4}{void {\bfseries finish} ()}\label{classcalibration_a01c20860fb99a2370c191b0228e82af4}
+\begin{DoxyCompactList}\small\item\em Virtual method from Q\+Thread, \hyperlink{classMainWindow}{Main\+Window} call this method in its destrcutor. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_a17edbce9454069eaa50cc84aa1cb34fd}{apply\+Filters} ()
+\begin{DoxyCompactList}\small\item\em Apply all filters needed to find one blob. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_af2cc271619bd9d5c0e72ebbbf1b83f39}{zoom} ()
+\begin{DoxyCompactList}\small\item\em Apply Zoom on image, if needed. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_a9d29a622f2412fcf5cb654444d1bd43e}{paint\+\_\+output} ()
+\begin{DoxyCompactList}\small\item\em Paint the blob founded. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_adba399584f906544ce09309e5539bb84}{set\+\_\+device} (int)\hypertarget{classcalibration_adba399584f906544ce09309e5539bb84}{}\label{classcalibration_adba399584f906544ce09309e5539bb84}
 
-\item 
-\hypertarget{classcalibration_a17edbce9454069eaa50cc84aa1cb34fd}{void {\bfseries apply\-Filters} ()}\label{classcalibration_a17edbce9454069eaa50cc84aa1cb34fd}
+\begin{DoxyCompactList}\small\item\em Set the device time used, common\+::\+I\+M\+A\+GE, common\+::\+C\+A\+M\+E\+RA or common\+::\+V\+I\+D\+EO. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_aee45977e438474eb1111964a827a8ff9}{set\+\_\+id\+\_\+camera} (int)\hypertarget{classcalibration_aee45977e438474eb1111964a827a8ff9}{}\label{classcalibration_aee45977e438474eb1111964a827a8ff9}
 
-\item 
-\hypertarget{classcalibration_af2cc271619bd9d5c0e72ebbbf1b83f39}{void {\bfseries zoom} ()}\label{classcalibration_af2cc271619bd9d5c0e72ebbbf1b83f39}
+\begin{DoxyCompactList}\small\item\em Set the id from camera used. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_a2eacc8d2c839f71182d3ec0440056ee7}{set\+\_\+path\+\_\+image} (string)\hypertarget{classcalibration_a2eacc8d2c839f71182d3ec0440056ee7}{}\label{classcalibration_a2eacc8d2c839f71182d3ec0440056ee7}
 
-\item 
-\hypertarget{classcalibration_a9d29a622f2412fcf5cb654444d1bd43e}{void {\bfseries paint\-\_\-output} ()}\label{classcalibration_a9d29a622f2412fcf5cb654444d1bd43e}
+\begin{DoxyCompactList}\small\item\em Set the path of image used. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_ac4b64b95163be3bfdfb13c2d23592756}{set\+\_\+path\+\_\+video} (string)\hypertarget{classcalibration_ac4b64b95163be3bfdfb13c2d23592756}{}\label{classcalibration_ac4b64b95163be3bfdfb13c2d23592756}
 
-\item 
-\hypertarget{classcalibration_adba399584f906544ce09309e5539bb84}{void {\bfseries set\-\_\-device} (int)}\label{classcalibration_adba399584f906544ce09309e5539bb84}
+\begin{DoxyCompactList}\small\item\em Set the path of video used. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_a5a1d0ee04511fc9a61767d3bb3f4e357}{set\+\_\+vision\+\_\+reception} (bool)
+\begin{DoxyCompactList}\small\item\em Turn ON and O\+FF the vision reception and calcs. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_a6e2c50598a4f5d49c6d7bda23b69ddf3}{set\+\_\+id\+\_\+color} (int)\hypertarget{classcalibration_a6e2c50598a4f5d49c6d7bda23b69ddf3}{}\label{classcalibration_a6e2c50598a4f5d49c6d7bda23b69ddf3}
 
-\item 
-\hypertarget{classcalibration_aee45977e438474eb1111964a827a8ff9}{void {\bfseries set\-\_\-id\-\_\-camera} (int)}\label{classcalibration_aee45977e438474eb1111964a827a8ff9}
+\begin{DoxyCompactList}\small\item\em Set the id\+\_\+color to calibrate, like\+: common\+::\+O\+R\+A\+N\+GE, common\+::\+Y\+E\+L\+L\+OW ... \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_aaaf40baef708cb370c468ea0799ffaf6}{set\+\_\+mouse\+\_\+click\+\_\+left} (int)\hypertarget{classcalibration_aaaf40baef708cb370c468ea0799ffaf6}{}\label{classcalibration_aaaf40baef708cb370c468ea0799ffaf6}
 
-\item 
-\hypertarget{classcalibration_a2eacc8d2c839f71182d3ec0440056ee7}{void {\bfseries set\-\_\-path\-\_\-image} (string)}\label{classcalibration_a2eacc8d2c839f71182d3ec0440056ee7}
+\begin{DoxyCompactList}\small\item\em Set the qtd of left clicks. \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_a788f9207f8641b1c3d3a74760e636bb3}{set\+\_\+mouse\+\_\+click\+\_\+right} (int)\hypertarget{classcalibration_a788f9207f8641b1c3d3a74760e636bb3}{}\label{classcalibration_a788f9207f8641b1c3d3a74760e636bb3}
 
-\item 
-\hypertarget{classcalibration_ac4b64b95163be3bfdfb13c2d23592756}{void {\bfseries set\-\_\-path\-\_\-video} (string)}\label{classcalibration_ac4b64b95163be3bfdfb13c2d23592756}
+\begin{DoxyCompactList}\small\item\em Set the qtd of right clicks. \end{DoxyCompactList}\item 
+int \hyperlink{classcalibration_a4c62df2cfea03276dde05134fd234b2c}{get\+\_\+device} ()\hypertarget{classcalibration_a4c62df2cfea03276dde05134fd234b2c}{}\label{classcalibration_a4c62df2cfea03276dde05134fd234b2c}
 
-\item 
-\hypertarget{classcalibration_a5a1d0ee04511fc9a61767d3bb3f4e357}{void {\bfseries set\-\_\-vision\-\_\-reception} (bool)}\label{classcalibration_a5a1d0ee04511fc9a61767d3bb3f4e357}
+\begin{DoxyCompactList}\small\item\em get the device used \end{DoxyCompactList}\item 
+int \hyperlink{classcalibration_a94b344ed8858fcb8509ba313d101d9c2}{get\+\_\+id\+\_\+camera} ()\hypertarget{classcalibration_a94b344ed8858fcb8509ba313d101d9c2}{}\label{classcalibration_a94b344ed8858fcb8509ba313d101d9c2}
 
-\item 
-\hypertarget{classcalibration_a6e2c50598a4f5d49c6d7bda23b69ddf3}{void {\bfseries set\-\_\-id\-\_\-color} (int)}\label{classcalibration_a6e2c50598a4f5d49c6d7bda23b69ddf3}
+\begin{DoxyCompactList}\small\item\em get the id from camera used \end{DoxyCompactList}\item 
+string \hyperlink{classcalibration_aa607fee8c37d34cf3d812063ca7fb626}{get\+\_\+path\+\_\+image} ()\hypertarget{classcalibration_aa607fee8c37d34cf3d812063ca7fb626}{}\label{classcalibration_aa607fee8c37d34cf3d812063ca7fb626}
 
-\item 
-\hypertarget{classcalibration_aaaf40baef708cb370c468ea0799ffaf6}{void {\bfseries set\-\_\-mouse\-\_\-click\-\_\-left} (int)}\label{classcalibration_aaaf40baef708cb370c468ea0799ffaf6}
+\begin{DoxyCompactList}\small\item\em get the path of image used \end{DoxyCompactList}\item 
+bool \hyperlink{classcalibration_a567ceb5a68243624b3240955fdbfc50e}{get\+\_\+vision\+\_\+reception} ()\hypertarget{classcalibration_a567ceb5a68243624b3240955fdbfc50e}{}\label{classcalibration_a567ceb5a68243624b3240955fdbfc50e}
 
-\item 
-\hypertarget{classcalibration_a788f9207f8641b1c3d3a74760e636bb3}{void {\bfseries set\-\_\-mouse\-\_\-click\-\_\-right} (int)}\label{classcalibration_a788f9207f8641b1c3d3a74760e636bb3}
+\begin{DoxyCompactList}\small\item\em get the path of video used \end{DoxyCompactList}\item 
+int \hyperlink{classcalibration_a284e8a7b65d67601bd8d7bef949524df}{get\+\_\+id\+\_\+color} ()\hypertarget{classcalibration_a284e8a7b65d67601bd8d7bef949524df}{}\label{classcalibration_a284e8a7b65d67601bd8d7bef949524df}
 
-\item 
-\hypertarget{classcalibration_a4c62df2cfea03276dde05134fd234b2c}{int {\bfseries get\-\_\-device} ()}\label{classcalibration_a4c62df2cfea03276dde05134fd234b2c}
+\begin{DoxyCompactList}\small\item\em get the id color calibrate \end{DoxyCompactList}\item 
+int \hyperlink{classcalibration_a45d0e76b3f360c7b198166cf7ccc638d}{get\+\_\+mouse\+\_\+click\+\_\+left} ()\hypertarget{classcalibration_a45d0e76b3f360c7b198166cf7ccc638d}{}\label{classcalibration_a45d0e76b3f360c7b198166cf7ccc638d}
 
-\item 
-\hypertarget{classcalibration_a94b344ed8858fcb8509ba313d101d9c2}{int {\bfseries get\-\_\-id\-\_\-camera} ()}\label{classcalibration_a94b344ed8858fcb8509ba313d101d9c2}
+\begin{DoxyCompactList}\small\item\em get the qtd of left clicks \end{DoxyCompactList}\item 
+int \hyperlink{classcalibration_a8053c43e483faf127e20e16ff4ee6d8a}{get\+\_\+mouse\+\_\+click\+\_\+right} ()\hypertarget{classcalibration_a8053c43e483faf127e20e16ff4ee6d8a}{}\label{classcalibration_a8053c43e483faf127e20e16ff4ee6d8a}
 
-\item 
-\hypertarget{classcalibration_aa607fee8c37d34cf3d812063ca7fb626}{string {\bfseries get\-\_\-path\-\_\-image} ()}\label{classcalibration_aa607fee8c37d34cf3d812063ca7fb626}
-
-\item 
-\hypertarget{classcalibration_a567ceb5a68243624b3240955fdbfc50e}{bool {\bfseries get\-\_\-vision\-\_\-reception} ()}\label{classcalibration_a567ceb5a68243624b3240955fdbfc50e}
-
-\item 
-\hypertarget{classcalibration_a284e8a7b65d67601bd8d7bef949524df}{int {\bfseries get\-\_\-id\-\_\-color} ()}\label{classcalibration_a284e8a7b65d67601bd8d7bef949524df}
-
-\item 
-\hypertarget{classcalibration_a45d0e76b3f360c7b198166cf7ccc638d}{int {\bfseries get\-\_\-mouse\-\_\-click\-\_\-left} ()}\label{classcalibration_a45d0e76b3f360c7b198166cf7ccc638d}
-
-\item 
-\hypertarget{classcalibration_a8053c43e483faf127e20e16ff4ee6d8a}{int {\bfseries get\-\_\-mouse\-\_\-click\-\_\-right} ()}\label{classcalibration_a8053c43e483faf127e20e16ff4ee6d8a}
-
-\item 
-\hypertarget{classcalibration_ab0b5f5514c665852aa63830121622518}{void {\bfseries alloc\-\_\-label\-\_\-input} (\hyperlink{classQCustomLabel}{Q\-Custom\-Label} $\ast$)}\label{classcalibration_ab0b5f5514c665852aa63830121622518}
-
-\item 
-\hypertarget{classcalibration_ac5e4cd1cead7176b0f34586112aaa918}{void {\bfseries alloc\-\_\-calibration} (\hyperlink{structcommon_1_1Calibration}{Calibration} $\ast$)}\label{classcalibration_ac5e4cd1cead7176b0f34586112aaa918}
-
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em get the qtd of right clicks \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_ab0b5f5514c665852aa63830121622518}{alloc\+\_\+label\+\_\+input} (\hyperlink{classQCustomLabel}{Q\+Custom\+Label} $\ast$)
+\begin{DoxyCompactList}\small\item\em alloc the label of input image, image from Video\+Capture \end{DoxyCompactList}\item 
+void \hyperlink{classcalibration_ac5e4cd1cead7176b0f34586112aaa918}{alloc\+\_\+calibration} (\hyperlink{structcommon_1_1Calibration}{Calibration} $\ast$)
+\begin{DoxyCompactList}\small\item\em alloc the labels of pose from objects in workspace \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classcalibration_a3b4703e9670b0c80359bae2747878245}{bool {\bfseries run\-\_\-it}}\label{classcalibration_a3b4703e9670b0c80359bae2747878245}
+bool {\bfseries run\+\_\+it}\hypertarget{classcalibration_a3b4703e9670b0c80359bae2747878245}{}\label{classcalibration_a3b4703e9670b0c80359bae2747878245}
 
 \item 
-\hypertarget{classcalibration_a5f6ca76dc8c0fbf33f1c6a604b72cdc0}{int {\bfseries device\-\_\-used}}\label{classcalibration_a5f6ca76dc8c0fbf33f1c6a604b72cdc0}
+int {\bfseries device\+\_\+used}\hypertarget{classcalibration_a5f6ca76dc8c0fbf33f1c6a604b72cdc0}{}\label{classcalibration_a5f6ca76dc8c0fbf33f1c6a604b72cdc0}
 
 \item 
-\hypertarget{classcalibration_a9606829157d28f46f87febceb67ba14c}{bool {\bfseries vision\-\_\-reception}}\label{classcalibration_a9606829157d28f46f87febceb67ba14c}
+bool {\bfseries vision\+\_\+reception}\hypertarget{classcalibration_a9606829157d28f46f87febceb67ba14c}{}\label{classcalibration_a9606829157d28f46f87febceb67ba14c}
 
 \item 
-\hypertarget{classcalibration_aa3b093eb7694fdcb78408efdeb331e01}{bool {\bfseries start\-\_\-finish}}\label{classcalibration_aa3b093eb7694fdcb78408efdeb331e01}
+bool {\bfseries start\+\_\+finish}\hypertarget{classcalibration_aa3b093eb7694fdcb78408efdeb331e01}{}\label{classcalibration_aa3b093eb7694fdcb78408efdeb331e01}
 
 \item 
-\hypertarget{classcalibration_abb71e83b1caac73be1f8a5ec9ff85f5f}{int {\bfseries id\-\_\-camera}}\label{classcalibration_abb71e83b1caac73be1f8a5ec9ff85f5f}
+int {\bfseries id\+\_\+camera}\hypertarget{classcalibration_abb71e83b1caac73be1f8a5ec9ff85f5f}{}\label{classcalibration_abb71e83b1caac73be1f8a5ec9ff85f5f}
 
 \item 
-\hypertarget{classcalibration_ab5b38c34686e2d0ef790f5ea1bf022d2}{string {\bfseries path\-\_\-image}}\label{classcalibration_ab5b38c34686e2d0ef790f5ea1bf022d2}
+string {\bfseries path\+\_\+image}\hypertarget{classcalibration_ab5b38c34686e2d0ef790f5ea1bf022d2}{}\label{classcalibration_ab5b38c34686e2d0ef790f5ea1bf022d2}
 
 \item 
-\hypertarget{classcalibration_ac3b22d58acc42fb7c8217518f6ea4846}{string {\bfseries path\-\_\-video}}\label{classcalibration_ac3b22d58acc42fb7c8217518f6ea4846}
+string {\bfseries path\+\_\+video}\hypertarget{classcalibration_ac3b22d58acc42fb7c8217518f6ea4846}{}\label{classcalibration_ac3b22d58acc42fb7c8217518f6ea4846}
 
 \item 
-\hypertarget{classcalibration_ada27036ba780db458e9dc14f13f0809a}{int {\bfseries mouse\-\_\-click\-\_\-left}}\label{classcalibration_ada27036ba780db458e9dc14f13f0809a}
+int {\bfseries mouse\+\_\+click\+\_\+left}\hypertarget{classcalibration_ada27036ba780db458e9dc14f13f0809a}{}\label{classcalibration_ada27036ba780db458e9dc14f13f0809a}
 
 \item 
-\hypertarget{classcalibration_a40702565952927ef98184ddeb27d5581}{int {\bfseries mouse\-\_\-click\-\_\-right}}\label{classcalibration_a40702565952927ef98184ddeb27d5581}
+int {\bfseries mouse\+\_\+click\+\_\+right}\hypertarget{classcalibration_a40702565952927ef98184ddeb27d5581}{}\label{classcalibration_a40702565952927ef98184ddeb27d5581}
 
 \item 
-\hypertarget{classcalibration_a574fce12317e7968bd7553fbf715ab64}{int {\bfseries id\-\_\-calib}}\label{classcalibration_a574fce12317e7968bd7553fbf715ab64}
+int {\bfseries id\+\_\+calib}\hypertarget{classcalibration_a574fce12317e7968bd7553fbf715ab64}{}\label{classcalibration_a574fce12317e7968bd7553fbf715ab64}
 
 \item 
-\hypertarget{classcalibration_af15b11ca11726a106ce3581d28ae2fe2}{Point {\bfseries zoom\-\_\-blob}}\label{classcalibration_af15b11ca11726a106ce3581d28ae2fe2}
+Point {\bfseries zoom\+\_\+blob}\hypertarget{classcalibration_af15b11ca11726a106ce3581d28ae2fe2}{}\label{classcalibration_af15b11ca11726a106ce3581d28ae2fe2}
 
 \item 
-\hypertarget{classcalibration_a5381436b7a018d1bd969198a6ee84309}{Mat {\bfseries in}}\label{classcalibration_a5381436b7a018d1bd969198a6ee84309}
+Mat {\bfseries in}\hypertarget{classcalibration_a5381436b7a018d1bd969198a6ee84309}{}\label{classcalibration_a5381436b7a018d1bd969198a6ee84309}
 
 \item 
-\hypertarget{classcalibration_a683520c2e997f8acf95d0c3cad6290b9}{Mat {\bfseries out}}\label{classcalibration_a683520c2e997f8acf95d0c3cad6290b9}
+Mat {\bfseries out}\hypertarget{classcalibration_a683520c2e997f8acf95d0c3cad6290b9}{}\label{classcalibration_a683520c2e997f8acf95d0c3cad6290b9}
 
 \item 
-\hypertarget{classcalibration_a992ee8c844d808217befd60c10c02980}{Mat {\bfseries saved}}\label{classcalibration_a992ee8c844d808217befd60c10c02980}
+Mat {\bfseries saved}\hypertarget{classcalibration_a992ee8c844d808217befd60c10c02980}{}\label{classcalibration_a992ee8c844d808217befd60c10c02980}
 
 \item 
-\hypertarget{classcalibration_aa72b48a8e046d6409517e418335fb45b}{Mat {\bfseries raw\-\_\-in}}\label{classcalibration_aa72b48a8e046d6409517e418335fb45b}
+Mat {\bfseries raw\+\_\+in}\hypertarget{classcalibration_aa72b48a8e046d6409517e418335fb45b}{}\label{classcalibration_aa72b48a8e046d6409517e418335fb45b}
 
 \item 
-\hypertarget{classcalibration_af12fa7781d0b718f408b6cae7a25704e}{Mat {\bfseries raw\-\_\-out}}\label{classcalibration_af12fa7781d0b718f408b6cae7a25704e}
+Mat {\bfseries raw\+\_\+out}\hypertarget{classcalibration_af12fa7781d0b718f408b6cae7a25704e}{}\label{classcalibration_af12fa7781d0b718f408b6cae7a25704e}
 
 \item 
-\hypertarget{classcalibration_a6eab74dcffae5bd8449df9b79b2d8ebc}{Mat {\bfseries storage}}\label{classcalibration_a6eab74dcffae5bd8449df9b79b2d8ebc}
+Mat {\bfseries storage}\hypertarget{classcalibration_a6eab74dcffae5bd8449df9b79b2d8ebc}{}\label{classcalibration_a6eab74dcffae5bd8449df9b79b2d8ebc}
 
 \item 
-\hypertarget{classcalibration_a10327f11f7951f4282ada6c354e62522}{Point {\bfseries size}}\label{classcalibration_a10327f11f7951f4282ada6c354e62522}
+Point {\bfseries size}\hypertarget{classcalibration_a10327f11f7951f4282ada6c354e62522}{}\label{classcalibration_a10327f11f7951f4282ada6c354e62522}
 
 \item 
-\hypertarget{classcalibration_a4fbb8e4cac6239dc7135963c0f500105}{Video\-Capture {\bfseries cap}}\label{classcalibration_a4fbb8e4cac6239dc7135963c0f500105}
+Video\+Capture {\bfseries cap}\hypertarget{classcalibration_a4fbb8e4cac6239dc7135963c0f500105}{}\label{classcalibration_a4fbb8e4cac6239dc7135963c0f500105}
 
 \item 
-\hypertarget{classcalibration_ac1a1606070bf5b667f1e7a07e3e08d1d}{vector$<$ vector$<$ Point $>$ $>$ {\bfseries labels}}\label{classcalibration_ac1a1606070bf5b667f1e7a07e3e08d1d}
+vector$<$ vector$<$ Point $>$ $>$ {\bfseries labels}\hypertarget{classcalibration_ac1a1606070bf5b667f1e7a07e3e08d1d}{}\label{classcalibration_ac1a1606070bf5b667f1e7a07e3e08d1d}
 
 \item 
-\hypertarget{classcalibration_a81c7edbfe89f8f1692193bc81309a55d}{vector$<$ vector$<$ Point $>$ $>$ {\bfseries contours}}\label{classcalibration_a81c7edbfe89f8f1692193bc81309a55d}
+vector$<$ vector$<$ Point $>$ $>$ {\bfseries contours}\hypertarget{classcalibration_a81c7edbfe89f8f1692193bc81309a55d}{}\label{classcalibration_a81c7edbfe89f8f1692193bc81309a55d}
 
 \item 
-\hypertarget{classcalibration_a818940843ae109ee2e7bd3cb202c4704}{vector$<$ Vec4i $>$ {\bfseries hierarchy}}\label{classcalibration_a818940843ae109ee2e7bd3cb202c4704}
+vector$<$ Vec4i $>$ {\bfseries hierarchy}\hypertarget{classcalibration_a818940843ae109ee2e7bd3cb202c4704}{}\label{classcalibration_a818940843ae109ee2e7bd3cb202c4704}
 
 \item 
-\hypertarget{classcalibration_abb31447445117b52af6865628355a76a}{Q\-Image {\bfseries img}}\label{classcalibration_abb31447445117b52af6865628355a76a}
+Q\+Image {\bfseries img}\hypertarget{classcalibration_abb31447445117b52af6865628355a76a}{}\label{classcalibration_abb31447445117b52af6865628355a76a}
 
 \item 
-\hypertarget{classcalibration_ade63c6e2fc49e68c15514133f30cbc65}{\hyperlink{classQCustomLabel}{Q\-Custom\-Label} $\ast$ {\bfseries lbl\-\_\-input}}\label{classcalibration_ade63c6e2fc49e68c15514133f30cbc65}
+\hyperlink{classQCustomLabel}{Q\+Custom\+Label} $\ast$ {\bfseries lbl\+\_\+input}\hypertarget{classcalibration_ade63c6e2fc49e68c15514133f30cbc65}{}\label{classcalibration_ade63c6e2fc49e68c15514133f30cbc65}
 
 \item 
-\hypertarget{classcalibration_ad523b82addd861c31202b3d0d152f848}{\hyperlink{structcommon_1_1Calibration}{Calibration} $\ast$ {\bfseries \-\_\-calib}}\label{classcalibration_ad523b82addd861c31202b3d0d152f848}
+\hyperlink{structcommon_1_1Calibration}{Calibration} $\ast$ {\bfseries \+\_\+calib}\hypertarget{classcalibration_ad523b82addd861c31202b3d0d152f848}{}\label{classcalibration_ad523b82addd861c31202b3d0d152f848}
 
 \item 
-\hypertarget{classcalibration_a941d98916460576b4bb2bfe9dd7c8f85}{\hyperlink{structcommon_1_1TableColor}{Table\-Color} {\bfseries table\-\_\-color}}\label{classcalibration_a941d98916460576b4bb2bfe9dd7c8f85}
+\hyperlink{structcommon_1_1TableColor}{Table\+Color} {\bfseries table\+\_\+color}\hypertarget{classcalibration_a941d98916460576b4bb2bfe9dd7c8f85}{}\label{classcalibration_a941d98916460576b4bb2bfe9dd7c8f85}
 
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-This class is responsible for calibrate all \hyperlink{structcommon_1_1VisionColor}{common\-::\-Vision\-Color}, cut points and rotation. 
+This class is responsible for calibrate all \hyperlink{structcommon_1_1VisionColor}{common\+::\+Vision\+Color}, cut points and rotation. 
 
-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\subsection{Constructor \& Destructor Documentation}
+\index{calibration@{calibration}!calibration@{calibration}}
+\index{calibration@{calibration}!calibration@{calibration}}
+\subsubsection[{\texorpdfstring{calibration()}{calibration()}}]{\setlength{\rightskip}{0pt plus 5cm}calibration\+::calibration (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcalibration_a00cd91462ef148dad0e44c5d644861ea}{}\label{classcalibration_a00cd91462ef148dad0e44c5d644861ea}
+
+
+Default constructor\+: calibration c;. 
+
+\subsubsection*{Addendum }
+
+\begin{quote}
+Initializes all control variables \end{quote}
+\begin{quote}
+T\+O\+DO\+: resolt the path, we need to use relative paths \end{quote}
+
+
+\subsection{Member Function Documentation}
+\index{calibration@{calibration}!alloc\+\_\+calibration@{alloc\+\_\+calibration}}
+\index{alloc\+\_\+calibration@{alloc\+\_\+calibration}!calibration@{calibration}}
+\subsubsection[{\texorpdfstring{alloc\+\_\+calibration(\+Calibration $\ast$)}{alloc_calibration(Calibration *)}}]{\setlength{\rightskip}{0pt plus 5cm}void calibration\+::alloc\+\_\+calibration (
+\begin{DoxyParamCaption}
+\item[{{\bf Calibration} $\ast$}]{\+\_\+calib}
+\end{DoxyParamCaption}
+)}\hypertarget{classcalibration_ac5e4cd1cead7176b0f34586112aaa918}{}\label{classcalibration_ac5e4cd1cead7176b0f34586112aaa918}
+
+
+alloc the labels of pose from objects in workspace 
+
+\subsubsection*{Addendum }\begin{quote}
+It must be pointer, because calibration it\textquotesingle{}s unrecheable and \hyperlink{classMainWindow}{Main\+Window} too. \end{quote}
+\index{calibration@{calibration}!alloc\+\_\+label\+\_\+input@{alloc\+\_\+label\+\_\+input}}
+\index{alloc\+\_\+label\+\_\+input@{alloc\+\_\+label\+\_\+input}!calibration@{calibration}}
+\subsubsection[{\texorpdfstring{alloc\+\_\+label\+\_\+input(\+Q\+Custom\+Label $\ast$)}{alloc_label_input(QCustomLabel *)}}]{\setlength{\rightskip}{0pt plus 5cm}void calibration\+::alloc\+\_\+label\+\_\+input (
+\begin{DoxyParamCaption}
+\item[{{\bf Q\+Custom\+Label} $\ast$}]{lbl\+\_\+input}
+\end{DoxyParamCaption}
+)}\hypertarget{classcalibration_ab0b5f5514c665852aa63830121622518}{}\label{classcalibration_ab0b5f5514c665852aa63830121622518}
+
+
+alloc the label of input image, image from Video\+Capture 
+
+\subsubsection*{Addendum }\begin{quote}
+It must be pointer, because calibration it\textquotesingle{}s unrecheable and \hyperlink{classMainWindow}{Main\+Window} too. \end{quote}
+\index{calibration@{calibration}!apply\+Filters@{apply\+Filters}}
+\index{apply\+Filters@{apply\+Filters}!calibration@{calibration}}
+\subsubsection[{\texorpdfstring{apply\+Filters()}{applyFilters()}}]{\setlength{\rightskip}{0pt plus 5cm}void calibration\+::apply\+Filters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcalibration_a17edbce9454069eaa50cc84aa1cb34fd}{}\label{classcalibration_a17edbce9454069eaa50cc84aa1cb34fd}
+
+
+Apply all filters needed to find one blob. 
+
+\subsubsection*{Addendum }\begin{quote}
+convert image, R\+GB -\/$>$ H\+SV \end{quote}
+
+
+\begin{quote}
+get the blobs \end{quote}
+
+
+\begin{quote}
+filter very small blobs \end{quote}
+
+
+\begin{quote}
+find the contour of all blobs \end{quote}
+
+
+\begin{quote}
+paint all blobs \end{quote}
+
+
+\begin{quote}
+Draw a with rectangle on all blobs \end{quote}
+\index{calibration@{calibration}!paint\+\_\+output@{paint\+\_\+output}}
+\index{paint\+\_\+output@{paint\+\_\+output}!calibration@{calibration}}
+\subsubsection[{\texorpdfstring{paint\+\_\+output()}{paint_output()}}]{\setlength{\rightskip}{0pt plus 5cm}void calibration\+::paint\+\_\+output (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcalibration_a9d29a622f2412fcf5cb654444d1bd43e}{}\label{classcalibration_a9d29a622f2412fcf5cb654444d1bd43e}
+
+
+Paint the blob founded. 
+
+\subsubsection*{Addendum }\begin{quote}
+If the H\+SV values its on range, paint with color\+: \hyperlink{structcommon_1_1TableColor}{common\+::\+Table\+Color}. \end{quote}
+\index{calibration@{calibration}!run@{run}}
+\index{run@{run}!calibration@{calibration}}
+\subsubsection[{\texorpdfstring{run()}{run()}}]{\setlength{\rightskip}{0pt plus 5cm}void calibration\+::run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcalibration_a4b435b278f024e919b733627884ba0d2}{}\label{classcalibration_a4b435b278f024e919b733627884ba0d2}
+
+
+Virtual method from Q\+Thread, \hyperlink{classMainWindow}{Main\+Window} call this method in a C\+O\+N\+N\+E\+CT. 
+
+\subsubsection*{Addendum }
+
+\begin{quote}
+loop from thread calibration \end{quote}
+\begin{quote}
+load the saved image \end{quote}
+
+
+\begin{quote}
+default imagem, blue screen \end{quote}
+
+
+\begin{quote}
+set the screen on \hyperlink{classMainWindow}{Main\+Window} \end{quote}
+
+
+\begin{quote}
+If vision reception must be used \end{quote}
+
+
+Check devices and get image from them
+
+\begin{quote}
+if I\+M\+A\+GE it\textquotesingle{}s used, usleep(33333) its needed to limit fps in 30. \end{quote}
+
+
+\begin{quote}
+if V\+I\+D\+EO it\textquotesingle{}s used, and the video end, we reinititialize it \end{quote}
+
+
+\begin{quote}
+if V\+I\+D\+EO it\textquotesingle{}s used, usleep(33333) it\textquotesingle{}s needed to limit fps in 30 \end{quote}
+
+
+\begin{quote}
+Apply filters \end{quote}
+
+
+\begin{quote}
+Apply Zoom, if needed \end{quote}
+
+
+\begin{quote}
+update the image in \hyperlink{classMainWindow}{Main\+Window} \end{quote}
+
+
+\begin{quote}
+If the vision reception was set false, we set the blue screen and release cv\+::\+Video\+Capture \end{quote}
+
+
+\begin{quote}
+If the vision reception it\textquotesingle{}s false, usleep(100000) to relieve the C\+PU \end{quote}
+\index{calibration@{calibration}!set\+\_\+vision\+\_\+reception@{set\+\_\+vision\+\_\+reception}}
+\index{set\+\_\+vision\+\_\+reception@{set\+\_\+vision\+\_\+reception}!calibration@{calibration}}
+\subsubsection[{\texorpdfstring{set\+\_\+vision\+\_\+reception(bool)}{set_vision_reception(bool)}}]{\setlength{\rightskip}{0pt plus 5cm}void calibration\+::set\+\_\+vision\+\_\+reception (
+\begin{DoxyParamCaption}
+\item[{bool}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcalibration_a5a1d0ee04511fc9a61767d3bb3f4e357}{}\label{classcalibration_a5a1d0ee04511fc9a61767d3bb3f4e357}
+
+
+Turn ON and O\+FF the vision reception and calcs. 
+
+\subsubsection*{Addendum }\begin{quote}
+If device\+\_\+used == common\+::\+C\+A\+M\+E\+RA or common\+::\+V\+I\+D\+EO, start de Video\+Capture \end{quote}
+\index{calibration@{calibration}!zoom@{zoom}}
+\index{zoom@{zoom}!calibration@{calibration}}
+\subsubsection[{\texorpdfstring{zoom()}{zoom()}}]{\setlength{\rightskip}{0pt plus 5cm}void calibration\+::zoom (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcalibration_af2cc271619bd9d5c0e72ebbbf1b83f39}{}\label{classcalibration_af2cc271619bd9d5c0e72ebbbf1b83f39}
+
+
+Apply Zoom on image, if needed. 
+
+\subsubsection*{Addendum }\begin{quote}
+If the user click one time, the zoom it\textquotesingle{}s turned on If the user click one second time, the zoom it\textquotesingle{}s turned off \end{quote}
+
+
+\begin{quote}
+security, prevents that the zoom get out of image \end{quote}
+
+
+\begin{quote}
+security, prevents that the zoom get out of image \end{quote}
+
+
+\begin{quote}
+security, prevents that the zoom get out of image \end{quote}
+
+
+\begin{quote}
+security, prevents that the zoom get out of image \end{quote}
+
+
+\begin{quote}
+Apply de Zoom \end{quote}
+
+
+\begin{quote}
+Restart de count of clicks \end{quote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/home/oscar/\-Desktop/meu\-Fork/\-V\-S\-S-\/\-Vision/src/calibration.\-h\item 
-/home/oscar/\-Desktop/meu\-Fork/\-V\-S\-S-\/\-Vision/src/calibration.\-cpp\end{DoxyCompactItemize}
+/home/johnathan/\+Repositories/\+S\+I\+R\+Lab/\+V\+S\+S-\/\+Vision/src/calibration.\+h\item 
+/home/johnathan/\+Repositories/\+S\+I\+R\+Lab/\+V\+S\+S-\/\+Vision/src/calibration.\+cpp\end{DoxyCompactItemize}

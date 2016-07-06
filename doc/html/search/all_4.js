@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['global_5fcommands',['Global_Commands',['../classvss__command_1_1Global__Commands.html',1,'vss_command']]],
-  ['global_5fstate',['Global_State',['../classvss__state_1_1Global__State.html',1,'vss_state']]]
+  ['execconfiguration',['ExecConfiguration',['../structcommon_1_1ExecConfiguration.html',1,'common']]],
+  ['execconfiguration',['ExecConfiguration',['../structcommon_1_1ExecConfiguration.html#ae71329df20ba52327f33287c50663ac1',1,'common::ExecConfiguration::ExecConfiguration()'],['../structcommon_1_1ExecConfiguration.html#acdd086538b27972751b0b18f78a45e01',1,'common::ExecConfiguration::ExecConfiguration(ExecConfiguration *g)']]]
 ];
