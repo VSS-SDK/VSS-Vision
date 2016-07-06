@@ -12,6 +12,9 @@
 const int ROWS = 2;
 const int COLUMNS = 3;
 
+//! Addendum
+//! --------
+//! 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -19,12 +22,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     calib_vs_vision = false;
 
+    //! > Define the connection to SQLite
     sql = new SQLite("../data/main.db", "passwd");
 
     for(int i = 0 ; i < 8 ; i++){
         colors.push_back(0);
     }
 
+    //! > Create all QThings
     coordinate_mouse = new QLabel("M(0, 0)");
 
     mainItem = new QTreeWidgetItem;
@@ -51,26 +56,34 @@ MainWindow::MainWindow(QWidget *parent) :
     btnDoColorCalib = new QPushButton("Do", this);
     btnRunVision = new QPushButton("Run", this);
 
+    //! > Define icons used
     blockdevice = QIcon(":icons/blockdevice.png");
     ksame = QIcon(":icons/ksame.png");
     kdf = QIcon(":icons/kdf.png");
     package = QIcon(":icons/package.png");
 
+    //! > Get all cameras connected to PC
     getAllDevices();
+
+    //! > Build the left tab
     buildTrees();
 
+    //! > Disable camera option, if any camera it's connected
     if(devices.size() < 1){
         checkUseCamera->setChecked(false);
         checkUseImage->setChecked(true);
         checkUseVideo->setChecked(false);
-        cmbCameraIds->setDisabled(true);
 
+        cmbCameraIds->setDisabled(true);
+        checkUseCamera->setDisabled(true);
     }else{
         checkUseCamera->setChecked(true);
         checkUseImage->setChecked(false);
         checkUseVideo->setChecked(false);
     }
 
+    //! > Begin Define styles
+    //! *********************
     for(int i = 0 ; i < 3 ; i++){
         lblHeadersHSV.push_back(new QLabel("(0 - N)"));
         lblHeadersHSV.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
@@ -154,10 +167,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->layoutH2->addWidget(image);
 
+    //! > End Define styles
+    //! *******************
+
+    //! > Initializes the calibration thread
     QObject::connect(&calib, SIGNAL(finished()), this, SLOT(quit()));
     calib.alloc_label_input(image);
     calib.alloc_calibration(&_calib);
 
+    //! Initializes the vision thread
     QObject::connect(&vi, SIGNAL(finished()), this, SLOT(quit()));
     vi.alloc_label_input(image);
     vi.alloc_calibration(&_calib);
@@ -172,12 +190,16 @@ MainWindow::MainWindow(QWidget *parent) :
     image->show();
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::getAllDevices(){
     devices.clear();
 
     string response = cmdTerminal("find /dev/ -name video*");
     string sp = "";
 
+    //! > Trait the exit or common::cmdTerminal();
     for(int i = 0 ; i < response.size() ; i++){
         if(response[i] == '\n'){
             devices.push_back(sp);
@@ -188,12 +210,17 @@ void MainWindow::getAllDevices(){
     }
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::addMainItem(){
+    //! >  Create the entire tab
     mainItem->setIcon(0, package);
     mainItem->setText(0, "Vision System");
 
     ui->treeMain->addTopLevelItem(mainItem);
 }
+
 
 void MainWindow::addInputDataItem(){
     int qtd = 7;
@@ -624,27 +651,42 @@ void MainWindow::addExecutionOptions(){
     ui->treeMain->insertTopLevelItems(0, executionOptions);
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::checkboxCamera(int a){
+    //> If camera it's true, image and video it's false
     if(checkUseCamera->isChecked()){
         checkUseImage->setChecked(false);
         checkUseVideo->setChecked(false);
     }
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::checkboxImage(int a){
+    //!> If image it's true, video and camera it's false
     if(checkUseImage->isChecked()){
         checkUseCamera->setChecked(false);
         checkUseVideo->setChecked(false);
     }
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::checkboxVideo(int a){
+    //! > If video it's true, iamge and camera it's false
     if(checkUseVideo->isChecked()){
         checkUseImage->setChecked(false);
         checkUseCamera->setChecked(false);
     }
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::buildTrees(){
     QStringList headers;
 
@@ -663,23 +705,36 @@ void MainWindow::buildTrees(){
     //addNetOptions();
     addExecutionOptions();
 
+    //! > Set the number os columns and the size of them
     ui->treeMain->setColumnCount(2);
     ui->treeMain->setHeaderLabels(headers);
     ui->treeMain->setColumnWidth(0, 220);
     ui->treeMain->expandItem(mainItem);
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::mouseCurrentPos(){
+    //!> Update the plot values on layout
     clearSS(ss);
     ss << "M(" << image->x << ", " << image->y << ")";
     coordinate_mouse->setText(QString(ss.str().c_str()));
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::mouseLeftPressed(){
+    //! > Update the qtd of left clicks on vision
     calib.set_mouse_click_left(calib.get_mouse_click_left()+1);
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::mouseRightPressed(){
+    //! > Update the qtd of right clicks on vision
     calib.set_mouse_click_right(calib.get_mouse_click_right()+1);
 }
 
@@ -697,29 +752,39 @@ void MainWindow::mouseLeave(){
     zoom_image->setText(QString(ss.str().c_str()));
 }*/
 
-void MainWindow::keyPressed(){
+/*void MainWindow::keyPressed(){
 
-}
+}*/
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::evtCalibration(){
+    //! > Toggle between ON/OFF calibration
     if(!calib.get_vision_reception()){
+        //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             calib.set_device(CAMERA);
             calib.set_id_camera(0);
         }else
+        //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){
             calib.set_device(IMAGE);
         }else
+        //! > If video it's used, set device common::VIDEO
         if(checkUseVideo->isChecked()){
             calib.set_device(VIDEO);
 
         }
 
+        //! > Send which color will be calibrate
         calib.set_id_color(cmbColors->currentIndex());
+        //! > Turn ON the calibration thread
         calib.set_vision_reception(true);
 
         btnDoColorCalib->setText("Done");
 
+        //! > Disable options of input data
         cmbColors->setDisabled(true);
         cmbCameraIds->setDisabled(true);
         cmbSavedImages->setDisabled(true);
@@ -729,6 +794,7 @@ void MainWindow::evtCalibration(){
         checkUseImage->setDisabled(true);
         checkUseVideo->setDisabled(true);
 
+        //! > Update the values of HSV that will be plot on sliders
         updateValuesHSV();
         initCalibrationColors();
         ui->layoutH9H->addWidget(coordinate_mouse);
@@ -736,7 +802,7 @@ void MainWindow::evtCalibration(){
         btnRunVision->setDisabled(true);
     }else{
         btnDoColorCalib->setText("Do");
-
+        //! > Enable options of input data
         cmbColors->setDisabled(false);
         cmbCameraIds->setDisabled(false);
         cmbSavedImages->setDisabled(false);
@@ -748,6 +814,7 @@ void MainWindow::evtCalibration(){
 
         btnRunVision->setDisabled(false);
 
+        //! > Turn OFF the calibration thread
         calib.set_vision_reception(false);
 
         finishCalibrationColors();
@@ -756,25 +823,35 @@ void MainWindow::evtCalibration(){
     }
 }
 
+//! Addendum
+//! --------
+//! 
 void MainWindow::evtVision(){
+    //! > Toggle between ON/OFF calibration
     if(!vi.get_vision_reception()){
+        //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             vi.set_device(CAMERA);
             vi.set_id_camera(0);
         }else
+        //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){
             vi.set_device(IMAGE);
         }else
+        //! > If video it's used, set device common::VIDEO
         if(checkUseVideo->isChecked()){
             vi.set_device(VIDEO);
         }
 
+        //! > Disable options of input data
         btnRunVision->setText("Pause");
         cmbColors->setDisabled(true);
         checkUseCamera->setDisabled(true);
         checkUseImage->setDisabled(true);
         cmbCameraIds->setDisabled(true);
         cmbSavedImages->setDisabled(true);
+
+        //! > Turn ON the vision thread
         vi.set_vision_reception(true);
 
         defineColors();
@@ -783,6 +860,7 @@ void MainWindow::evtVision(){
     }else{
         btnRunVision->setText("Run");
 
+        //! > Enable options of input data
         cmbColors->setDisabled(false);
         checkUseCamera->setDisabled(false);
         checkUseImage->setDisabled(false);
@@ -790,6 +868,7 @@ void MainWindow::evtVision(){
         cmbSavedImages->setDisabled(false);
         btnDoColorCalib->setDisabled(false);
 
+        //! > Turn OFF the vision thread
         vi.set_vision_reception(false);
         finishPlotValues();
     }
