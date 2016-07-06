@@ -25,31 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
         colors.push_back(0);
     }
 
-    image = new QCustomLabel();
-    image->setMouseTracking(true);
-    QObject::connect(image, SIGNAL(Mouse_Pos()), this, SLOT(mouseCurrentPos()));
-    QObject::connect(image, SIGNAL(Mouse_Left_Pressed()), this, SLOT(mouseLeftPressed()));
-    QObject::connect(image, SIGNAL(Mouse_Right_Pressed()), this, SLOT(mouseRightPressed()));
-
-    ui->layoutH2->addWidget(image);
-
-    QObject::connect(&calib, SIGNAL(finished()), this, SLOT(quit()));
-    calib.alloc_label_input(image);
-    calib.alloc_calibration(&_calib);
-
-    QObject::connect(&vi, SIGNAL(finished()), this, SLOT(quit()));
-    vi.alloc_label_input(image);
-    vi.alloc_calibration(&_calib);
-    vi.alloc_state(&state);
-    vi.alloc_colors(&colors);
-    vi.alloc_execution_config(&execConfig);
-
-    calib.start();
-    vi.start();
-
-    image->show();
-
-
     coordinate_mouse = new QLabel("M(0, 0)");
 
     mainItem = new QTreeWidgetItem;
@@ -103,72 +78,56 @@ MainWindow::MainWindow(QWidget *parent) :
 
     lbl_val = new QLabel("Pos\nVel\nKPos\nKVel");
 
-    val_ball = new QLabel("Ball");
-    val_robot1 = new QLabel("Robot 1");
-    val_robot2 = new QLabel("Robot 2");
-    val_robot3 = new QLabel("Robot 3");
-    val_robot4 = new QLabel("Robot 4");
-    val_robot5 = new QLabel("Robot 5");
-    val_robot6 = new QLabel("Robot 6");
+    for(int i = 0 ; i < 7 ; i++){
+        lblHeadersPlot.push_back(new QLabel("Header"));
+        lblHeadersPlot.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
 
-    h_val_ball = new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n");
-    h_val_robot1 = new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n");
-    h_val_robot2 = new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n");
-    h_val_robot3 = new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n");
-    h_val_robot4 = new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n");
-    h_val_robot5 = new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n");
-    h_val_robot6 = new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n");
+        lblPlots.push_back(new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n"));
+        lblPlots.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
+    }
 
     lbl_val->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;");
 
-    h_val_ball->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
-    h_val_robot1->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
-    h_val_robot2->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
-    h_val_robot3->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
-    h_val_robot4->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
-    h_val_robot5->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
-    h_val_robot6->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
-
     for(int i = 0 ; i < 6 ; i++){
-        sliderHSV.push_back(new QSlider(Qt::Orientation(VerticalTabs)));
-        sliderHSV.at(i)->setMinimumHeight(130);
+        slidersHSV.push_back(new QSlider(Qt::Orientation(VerticalTabs)));
+        slidersHSV.at(i)->setMinimumHeight(130);
     }
 
-    sliderHSV.at(hmin)->setMaximum(179);
-    sliderHSV.at(smin)->setMaximum(254);
-    sliderHSV.at(vmin)->setMaximum(254);
-    sliderHSV.at(hmax)->setMaximum(180);
-    sliderHSV.at(smax)->setMaximum(255);
-    sliderHSV.at(vmax)->setMaximum(255);
+    slidersHSV.at(hmin)->setMaximum(179);
+    slidersHSV.at(smin)->setMaximum(254);
+    slidersHSV.at(vmin)->setMaximum(254);
+    slidersHSV.at(hmax)->setMaximum(180);
+    slidersHSV.at(smax)->setMaximum(255);
+    slidersHSV.at(vmax)->setMaximum(255);
 
-    sliderHSV.at(hmin)->setMinimum(0);
-    sliderHSV.at(smin)->setMinimum(0);
-    sliderHSV.at(vmin)->setMinimum(0);
-    sliderHSV.at(hmax)->setMinimum(1);
-    sliderHSV.at(smax)->setMinimum(1);
-    sliderHSV.at(vmax)->setMinimum(1);
+    slidersHSV.at(hmin)->setMinimum(0);
+    slidersHSV.at(smin)->setMinimum(0);
+    slidersHSV.at(vmin)->setMinimum(0);
+    slidersHSV.at(hmax)->setMinimum(1);
+    slidersHSV.at(smax)->setMinimum(1);
+    slidersHSV.at(vmax)->setMinimum(1);
 
-    sliderHSV.at(hmin)->setValue(_calib.colors.at(0).min.rgb[h]);
-    sliderHSV.at(smin)->setValue(_calib.colors.at(0).min.rgb[s]);
-    sliderHSV.at(vmin)->setValue(_calib.colors.at(0).min.rgb[v]);
-    sliderHSV.at(hmax)->setValue(_calib.colors.at(0).max.rgb[h]);
-    sliderHSV.at(smax)->setValue(_calib.colors.at(0).max.rgb[s]);
-    sliderHSV.at(hmax)->setValue(_calib.colors.at(0).max.rgb[v]);
+    slidersHSV.at(hmin)->setValue(_calib.colors.at(0).min.rgb[h]);
+    slidersHSV.at(smin)->setValue(_calib.colors.at(0).min.rgb[s]);
+    slidersHSV.at(vmin)->setValue(_calib.colors.at(0).min.rgb[v]);
+    slidersHSV.at(hmax)->setValue(_calib.colors.at(0).max.rgb[h]);
+    slidersHSV.at(smax)->setValue(_calib.colors.at(0).max.rgb[s]);
+    slidersHSV.at(hmax)->setValue(_calib.colors.at(0).max.rgb[v]);
 
-    connect(sliderHSV.at(hmin), SIGNAL(valueChanged(int)), this, SLOT(updateHmin(int)));
-    connect(sliderHSV.at(smin), SIGNAL(valueChanged(int)), this, SLOT(updateSmin(int)));
-    connect(sliderHSV.at(vmin), SIGNAL(valueChanged(int)), this, SLOT(updateVmin(int)));
-    connect(sliderHSV.at(hmax), SIGNAL(valueChanged(int)), this, SLOT(updateHmax(int)));
-    connect(sliderHSV.at(smax), SIGNAL(valueChanged(int)), this, SLOT(updateSmax(int)));
-    connect(sliderHSV.at(vmax), SIGNAL(valueChanged(int)), this, SLOT(updateVmax(int)));
+    connect(slidersHSV.at(hmin), SIGNAL(valueChanged(int)), this, SLOT(updateHmin(int)));
+    connect(slidersHSV.at(smin), SIGNAL(valueChanged(int)), this, SLOT(updateSmin(int)));
+    connect(slidersHSV.at(vmin), SIGNAL(valueChanged(int)), this, SLOT(updateVmin(int)));
+    connect(slidersHSV.at(hmax), SIGNAL(valueChanged(int)), this, SLOT(updateHmax(int)));
+    connect(slidersHSV.at(smax), SIGNAL(valueChanged(int)), this, SLOT(updateSmax(int)));
+    connect(slidersHSV.at(vmax), SIGNAL(valueChanged(int)), this, SLOT(updateVmax(int)));
 
     updateValuesHSV();
     update_hsv_s();
 
-    sliderHSV.at(hmax)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #00f, stop: 0.167 #f0f, stop: 0.334 #f00, stop: 0.501 #ff0, stop: 0.668 #0f0, stop: 0.835 #0ff, stop: 1.0 #00f)}");
-    sliderHSV.at(hmin)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #00f, stop: 0.167 #f0f, stop: 0.334 #f00, stop: 0.501 #ff0, stop: 0.668 #0f0, stop: 0.835 #0ff, stop: 1.0 #00f)}");
-    sliderHSV.at(vmax)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fff, stop: 1 #000)}");
-    sliderHSV.at(vmin)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fff, stop: 1 #000)}");
+    slidersHSV.at(hmax)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #00f, stop: 0.167 #f0f, stop: 0.334 #f00, stop: 0.501 #ff0, stop: 0.668 #0f0, stop: 0.835 #0ff, stop: 1.0 #00f)}");
+    slidersHSV.at(hmin)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #00f, stop: 0.167 #f0f, stop: 0.334 #f00, stop: 0.501 #ff0, stop: 0.668 #0f0, stop: 0.835 #0ff, stop: 1.0 #00f)}");
+    slidersHSV.at(vmax)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fff, stop: 1 #000)}");
+    slidersHSV.at(vmin)->setStyleSheet("QSlider{ background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #fff, stop: 1 #000)}");
 
     ui->layoutH3->setContentsMargins(2, 0, 2, 0);
     ui->layoutH4->setContentsMargins(2, 0, 2, 0);
@@ -178,6 +137,31 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->layoutH8->setContentsMargins(2, 0, 2, 0);
     ui->layoutH9->setContentsMargins(2, 0, 2, 0);
     ui->layoutH10->setContentsMargins(2, 0, 2, 0);
+
+    image = new QCustomLabel();
+    image->setMouseTracking(true);
+    QObject::connect(image, SIGNAL(Mouse_Pos()), this, SLOT(mouseCurrentPos()));
+    QObject::connect(image, SIGNAL(Mouse_Left_Pressed()), this, SLOT(mouseLeftPressed()));
+    QObject::connect(image, SIGNAL(Mouse_Right_Pressed()), this, SLOT(mouseRightPressed()));
+
+    ui->layoutH2->addWidget(image);
+
+    QObject::connect(&calib, SIGNAL(finished()), this, SLOT(quit()));
+    calib.alloc_label_input(image);
+    calib.alloc_calibration(&_calib);
+
+    QObject::connect(&vi, SIGNAL(finished()), this, SLOT(quit()));
+    vi.alloc_label_input(image);
+    vi.alloc_calibration(&_calib);
+    vi.alloc_state(&state);
+    vi.alloc_colors(&colors);
+    vi.alloc_execution_config(&execConfig);
+    vi.alloc_label_plots(&lblPlots);
+
+    calib.start();
+    vi.start();
+
+    image->show();
 }
 
 void MainWindow::getAllDevices(){
@@ -804,137 +788,95 @@ void MainWindow::evtVision(){
 }
 
 void MainWindow::initCalibrationColors(){
-    ui->layoutH3->addWidget(sliderHSV.at(hmin));
-    ui->layoutH3->addWidget(sliderHSV.at(hmax));
-    ui->layoutH4->addWidget(sliderHSV.at(smin));
-    ui->layoutH4->addWidget(sliderHSV.at(smax));
-    ui->layoutH5->addWidget(sliderHSV.at(vmin));
-    ui->layoutH5->addWidget(sliderHSV.at(vmax));
-
-    for(int i = 0 ; i < 6 ; i++)
-        sliderHSV.at(i)->show();
+    ui->layoutH3->addWidget(slidersHSV.at(hmin));
+    ui->layoutH3->addWidget(slidersHSV.at(hmax));
+    ui->layoutH4->addWidget(slidersHSV.at(smin));
+    ui->layoutH4->addWidget(slidersHSV.at(smax));
+    ui->layoutH5->addWidget(slidersHSV.at(vmin));
+    ui->layoutH5->addWidget(slidersHSV.at(vmax));
 
     ui->layoutH3H->addWidget(lblHeadersHSV.at(h));
     ui->layoutH4H->addWidget(lblHeadersHSV.at(s));
     ui->layoutH5H->addWidget(lblHeadersHSV.at(v));
 
-    for(int i = 0 ; i < 3 ; i++)
+    for(int i = 0 ; i < 3 ; i++){
+        slidersHSV.at(i)->show();
         lblHeadersHSV.at(i)->show();
+    }
 
     update_hsv_s();
 }
 
 void MainWindow::finishCalibrationColors(){
-    ui->layoutH3->removeWidget(sliderHSV.at(hmin));
-    ui->layoutH3->removeWidget(sliderHSV.at(hmax));
-    ui->layoutH4->removeWidget(sliderHSV.at(smin));
-    ui->layoutH4->removeWidget(sliderHSV.at(smax));
-    ui->layoutH5->removeWidget(sliderHSV.at(vmin));
-    ui->layoutH5->removeWidget(sliderHSV.at(vmax));
-
-    for(int i = 0 ; i < 6 ; i++)
-        sliderHSV.at(i)->hide();
+    ui->layoutH3->removeWidget(slidersHSV.at(hmin));
+    ui->layoutH3->removeWidget(slidersHSV.at(hmax));
+    ui->layoutH4->removeWidget(slidersHSV.at(smin));
+    ui->layoutH4->removeWidget(slidersHSV.at(smax));
+    ui->layoutH5->removeWidget(slidersHSV.at(vmin));
+    ui->layoutH5->removeWidget(slidersHSV.at(vmax));
 
     ui->layoutH3H->removeWidget(lblHeadersHSV.at(h));
     ui->layoutH4H->removeWidget(lblHeadersHSV.at(s));
     ui->layoutH5H->removeWidget(lblHeadersHSV.at(v));
 
-    for(int i = 0 ; i < 3 ; i++)
+    for(int i = 0 ; i < 3 ; i++){
+        slidersHSV.at(i)->hide();
         lblHeadersHSV.at(i)->hide();
+    }
 
      update_hsv_s();
 }
 
 void MainWindow::initPlotValues(){
-    val_ball->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #d40;}");
-
-    if(execConfig.team_color[0] == BLUE){
-        val_robot1->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #00d;}");
-        val_robot2->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #00d;}");
-        val_robot3->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #00d;}");
-        val_robot4->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #f90;}");
-        val_robot5->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #f90;}");
-        val_robot6->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #f90;}");
-    }else{
-        val_robot1->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #f90;}");
-        val_robot2->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #f90;}");
-        val_robot3->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #f90;}");
-        val_robot4->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #00d;}");
-        val_robot5->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #00d;}");
-        val_robot6->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold; color: #00d;}");
-    }
-
     ui->layoutH10->addWidget(lbl_val);
     lbl_val->show();
 
-    ui->layoutH9H->addWidget(val_ball);
-    ui->layoutH3H->addWidget(val_robot1);
-    ui->layoutH4H->addWidget(val_robot2);
-    ui->layoutH5H->addWidget(val_robot3);
-    ui->layoutH6H->addWidget(val_robot4);
-    ui->layoutH7H->addWidget(val_robot5);
-    ui->layoutH8H->addWidget(val_robot6);
+    ui->layoutH9H->addWidget(lblHeadersPlot.at(0));
+    ui->layoutH3H->addWidget(lblHeadersPlot.at(1));
+    ui->layoutH4H->addWidget(lblHeadersPlot.at(2));
+    ui->layoutH5H->addWidget(lblHeadersPlot.at(3));
+    ui->layoutH6H->addWidget(lblHeadersPlot.at(4));
+    ui->layoutH7H->addWidget(lblHeadersPlot.at(5));
+    ui->layoutH8H->addWidget(lblHeadersPlot.at(6));
 
-    val_ball->show();
-    val_robot1->show();
-    val_robot2->show();
-    val_robot3->show();
-    val_robot4->show();
-    val_robot5->show();
-    val_robot6->show();
+    ui->layoutH3->addWidget(lblPlots.at(0));
+    ui->layoutH4->addWidget(lblPlots.at(1));
+    ui->layoutH5->addWidget(lblPlots.at(2));
+    ui->layoutH6->addWidget(lblPlots.at(3));
+    ui->layoutH7->addWidget(lblPlots.at(4));
+    ui->layoutH8->addWidget(lblPlots.at(5));
+    ui->layoutH9->addWidget(lblPlots.at(6));
 
-    ui->layoutH3->addWidget(h_val_ball);
-    ui->layoutH4->addWidget(h_val_robot1);
-    ui->layoutH5->addWidget(h_val_robot2);
-    ui->layoutH6->addWidget(h_val_robot3);
-    ui->layoutH7->addWidget(h_val_robot4);
-    ui->layoutH8->addWidget(h_val_robot5);
-    ui->layoutH9->addWidget(h_val_robot6);
-
-    h_val_ball->show();
-    h_val_robot1->show();
-    h_val_robot2->show();
-    h_val_robot3->show();
-    h_val_robot4->show();
-    h_val_robot5->show();
-    h_val_robot6->show();
+    for(int i = 0 ; i < 7 ; i++){
+        lblPlots.at(i)->show();
+        lblHeadersPlot.at(i)->show();
+    }
 }
 
 void MainWindow::finishPlotValues(){
     ui->layoutH10->removeWidget(lbl_val);
     lbl_val->hide();
 
-    ui->layoutH9H->removeWidget(val_ball);
-    ui->layoutH3H->removeWidget(val_robot1);
-    ui->layoutH4H->removeWidget(val_robot2);
-    ui->layoutH5H->removeWidget(val_robot3);
-    ui->layoutH6H->removeWidget(val_robot4);
-    ui->layoutH7H->removeWidget(val_robot5);
-    ui->layoutH8H->removeWidget(val_robot6);
+    ui->layoutH9H->removeWidget(lblHeadersPlot.at(0));
+    ui->layoutH3H->removeWidget(lblHeadersPlot.at(1));
+    ui->layoutH4H->removeWidget(lblHeadersPlot.at(2));
+    ui->layoutH5H->removeWidget(lblHeadersPlot.at(3));
+    ui->layoutH6H->removeWidget(lblHeadersPlot.at(4));
+    ui->layoutH7H->removeWidget(lblHeadersPlot.at(5));
+    ui->layoutH8H->removeWidget(lblHeadersPlot.at(6));
 
-    val_ball->hide();
-    val_robot1->hide();
-    val_robot2->hide();
-    val_robot3->hide();
-    val_robot4->hide();
-    val_robot5->hide();
-    val_robot6->hide();
+    ui->layoutH3->removeWidget(lblPlots.at(0));
+    ui->layoutH4->removeWidget(lblPlots.at(1));
+    ui->layoutH5->removeWidget(lblPlots.at(2));
+    ui->layoutH6->removeWidget(lblPlots.at(3));
+    ui->layoutH7->removeWidget(lblPlots.at(4));
+    ui->layoutH8->removeWidget(lblPlots.at(5));
+    ui->layoutH9->removeWidget(lblPlots.at(6));
 
-    ui->layoutH3->removeWidget(h_val_ball);
-    ui->layoutH4->removeWidget(h_val_robot1);
-    ui->layoutH5->removeWidget(h_val_robot2);
-    ui->layoutH6->removeWidget(h_val_robot3);
-    ui->layoutH7->removeWidget(h_val_robot4);
-    ui->layoutH8->removeWidget(h_val_robot5);
-    ui->layoutH9->removeWidget(h_val_robot6);
-
-    h_val_ball->hide();
-    h_val_robot1->hide();
-    h_val_robot2->hide();
-    h_val_robot3->hide();
-    h_val_robot4->hide();
-    h_val_robot5->hide();
-    h_val_robot6->hide();
+    for(int i = 0 ; i < 7 ; i++){
+        lblPlots.at(i)->hide();
+        lblHeadersPlot.at(i)->hide();
+    }
 }
 
 void MainWindow::updateValuesHSV(){
@@ -948,14 +890,14 @@ void MainWindow::updateValuesHSV(){
 
 void MainWindow::updateHmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[h] = value;
-    sliderHSV.at(hmin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[h]);
+    slidersHSV.at(hmin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[h]);
 
     /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[h]){
         sliderHmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h] + 1);
     }*/
 
     clearSS(ss);
-    ss << "H(" << sliderHSV.at(hmin)->value() << ", " << sliderHSV.at(hmax)->value() << ")";
+    ss << "H(" << slidersHSV.at(hmin)->value() << ", " << slidersHSV.at(hmax)->value() << ")";
     lblHeadersHSV.at(h)->setText(QString(ss.str().c_str()));
 
     //update_hsv_s();
@@ -965,14 +907,14 @@ void MainWindow::updateHmin(int value){
 
 void MainWindow::updateSmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[s] = value;
-    sliderHSV.at(smin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[s]);
+    slidersHSV.at(smin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[s]);
 
     /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[s]){
         sliderSmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s] + 1);
     }*/
 
     clearSS(ss);
-    ss << "S(" << sliderHSV.at(smin)->value() << ", " << sliderHSV.at(smax)->value() << ")";
+    ss << "S(" << slidersHSV.at(smin)->value() << ", " << slidersHSV.at(smax)->value() << ")";
     lblHeadersHSV.at(s)->setText(QString(ss.str().c_str()));
 
     //sliderSmin->show();
@@ -980,14 +922,14 @@ void MainWindow::updateSmin(int value){
 
 void MainWindow::updateVmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[v] = value;
-    sliderHSV.at(vmin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[v]);
+    slidersHSV.at(vmin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[v]);
 
     /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[v]){
         sliderVmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v] + 1);
     }*/
 
     clearSS(ss);
-    ss << "V(" << sliderHSV.at(vmin)->value() << ", " << sliderHSV.at(vmax)->value() << ")";
+    ss << "V(" << slidersHSV.at(vmin)->value() << ", " << slidersHSV.at(vmax)->value() << ")";
     lblHeadersHSV.at(v)->setText(QString(ss.str().c_str()));
 
     //sliderVmin->show();
@@ -995,14 +937,14 @@ void MainWindow::updateVmin(int value){
 
 void MainWindow::updateHmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[h] = value;
-    sliderHSV.at(hmax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h]);
+    slidersHSV.at(hmax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h]);
 
     /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[h]){
         sliderHmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h] - 1);
     }*/
 
     clearSS(ss);
-    ss << "H(" << sliderHSV.at(hmin)->value() << ", " << sliderHSV.at(hmax)->value() << ")";
+    ss << "H(" << slidersHSV.at(hmin)->value() << ", " << slidersHSV.at(hmax)->value() << ")";
     lblHeadersHSV.at(h)->setText(QString(ss.str().c_str()));
 
     //update_hsv_s();
@@ -1012,14 +954,14 @@ void MainWindow::updateHmax(int value){
 
 void MainWindow::updateSmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[s] = value;
-    sliderHSV.at(smax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s]);
+    slidersHSV.at(smax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s]);
 
     /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[s]){
         sliderSmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s] - 1);
     }*/
 
     clearSS(ss);
-    ss << "S(" << sliderHSV.at(smin)->value() << ", " << sliderHSV.at(smax)->value() << ")";
+    ss << "S(" << slidersHSV.at(smin)->value() << ", " << slidersHSV.at(smax)->value() << ")";
     lblHeadersHSV.at(s)->setText(QString(ss.str().c_str()));
 
     //sliderSmax->show();
@@ -1027,14 +969,14 @@ void MainWindow::updateSmax(int value){
 
 void MainWindow::updateVmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[v] = value;
-    sliderHSV.at(vmax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v]);
+    slidersHSV.at(vmax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v]);
 
     /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[v]){
         sliderVmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v] - 1);
     }*/
 
     clearSS(ss);
-    ss << "V(" << sliderHSV.at(vmin)->value() << ", " << sliderHSV.at(vmax)->value() << ")";
+    ss << "V(" << slidersHSV.at(vmin)->value() << ", " << slidersHSV.at(vmax)->value() << ")";
     lblHeadersHSV.at(v)->setText(QString(ss.str().c_str()));
 
     //sliderVmax->show();
@@ -1068,8 +1010,8 @@ void MainWindow::update_hsv_s(){
         }break;
     }
 
-    sliderHSV.at(smax)->setStyleSheet(QString(hsv_s.c_str()));
-    sliderHSV.at(smin)->setStyleSheet(QString(hsv_s.c_str()));
+    slidersHSV.at(smax)->setStyleSheet(QString(hsv_s.c_str()));
+    slidersHSV.at(smin)->setStyleSheet(QString(hsv_s.c_str()));
 }
 
 void MainWindow::defineColors(){

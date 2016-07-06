@@ -82,6 +82,8 @@ namespace common{
     // Input of data
     enum { CAMERA = 0, IMAGE = 1, VIDEO = 2 };
 
+    enum { BALL = 0, TEAM1_ROBOT1 = 1, TEAM1_ROBOT2 = 2, TEAM1_ROBOT3 = 3, TEAM2_ROBOT1 = 4, TEAM2_ROBOT2 = 5, TEAM2_ROBOT3 = 6 };
+
     struct btVector3{
         float x, y, z;
         btVector3(){

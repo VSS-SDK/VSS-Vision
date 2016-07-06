@@ -65,6 +65,7 @@ void vision::run(){
             }
 
             raw_in = in.clone();
+            updatePlot();
 
             if(in.rows > 0){                        // Qt it's assync, and is possible this loop exec something after the GUI send a sign to stop, and this crash the software.;
                 cvtColor(in, in, COLOR_RGB2HSV);
@@ -120,6 +121,16 @@ void vision::alloc_colors(vector<int> *colors){
 void vision::alloc_execution_config(ExecConfiguration *exec_config){
     this->exec_config = exec_config;
 }
+
+void vision::alloc_label_plots(vector<QLabel*> *lbl_plots){
+    this->lbl_plots = lbl_plots;
+}
+
+ void vision::updatePlot(){
+    for(int i = 0 ; i < lbl_plots->size() ; i++){
+        lbl_plots->at(i)->setText("baaaa");
+    }
+ }
 
 void vision::search_color(int id_color){
     labels.clear();

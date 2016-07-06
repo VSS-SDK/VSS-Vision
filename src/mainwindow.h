@@ -133,13 +133,11 @@ private:
 
     QWidget *contLayoutH3;
     vector<QLabel*> lblHeadersHSV;
-    vector<QSlider*> sliderHSV;
+    vector<QSlider*> slidersHSV;
+    vector<QLabel*> lblHeadersPlot;
+    vector<QLabel*> lblPlots;
 
-    //QSlider *sliderHmin, *sliderSmin, *sliderVmin, *sliderHmax, *sliderSmax, *sliderVmax;
-
-
-    QLabel *val_ball, *val_robot1, *val_robot2, *val_robot3, *val_robot4, *val_robot5, *val_robot6;
-    QLabel *h_val_ball, *h_val_robot1, *h_val_robot2, *h_val_robot3, *h_val_robot4, *h_val_robot5, *h_val_robot6;
+    //QLabel *h_val_ball, *h_val_robot1, *h_val_robot2, *h_val_robot3, *h_val_robot4, *h_val_robot5, *h_val_robot6;
     QLabel *lbl_val;
 
     QCustomLabel *image;

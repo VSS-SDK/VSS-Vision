@@ -54,6 +54,7 @@ protected:
     KalmanFilter kfs[13];
 
     QCustomLabel *lbl_input;
+    vector<QLabel*> *lbl_plots;
 
     vector<Rect> orderByArea(vector<Rect>);
 
@@ -62,6 +63,7 @@ protected:
     bool itsAwayFromLimits(Point);
     void recognizeObjects();
     bool isValidPoint(Point);
+    void updatePlot();
 
 public:
     vision();
@@ -73,6 +75,7 @@ public:
     void alloc_label_input(QCustomLabel*);
     void alloc_colors(vector<int>*);
     void alloc_execution_config(ExecConfiguration*);
+    void alloc_label_plots(vector<QLabel*>*);
 
     void set_device(int);
     void set_id_camera(int);
