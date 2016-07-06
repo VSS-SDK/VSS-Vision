@@ -20,7 +20,7 @@ $ sudo apt-get install g++ cmake git uvcdynctrl libzmq3 libzmq3-dev protobuf-com
 ```
 $ sudo apt-get update && apt-get upgrade
 $ sudo apt-get install pkg-config
-$ sudo apt-get install g++ cmake git uvcdynctrl libzmqpp3 libzmqpp-dev protobuf-compiler libprotobuf-dev qt5-qmake qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
+$ sudo apt-get install g++ cmake git uvcdynctrl libzmqpp3 libzmqpp-dev protobuf-compiler libprotobuf-dev qt5-qmake qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev doxygen graphviz graphviz graphviz-dev
 ```
 
 **Only Debian 8** 

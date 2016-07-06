@@ -47,7 +47,6 @@ Gallery
 
 TODO	
 ----
-* Re-Adicionar documentação Doxygen
 * Re-Adicionar calibragem de corte e rotação.
 * Re-Adicionar o salvamento de calibragens ao sistema
 * Re-Adicionar a Interface ZMQ + Protobuf ao sistema
