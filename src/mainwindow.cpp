@@ -83,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent) :
         lblHeadersPlot.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
 
         lblPlots.push_back(new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n"));
-        lblPlots.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;}");
+        lblPlots.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb; margin-bottom: 50px;}");
     }
 
     lblHeadersPlot.at(0)->setText("Robot 1A");
@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
     lblHeadersPlot.at(5)->setText("Robot 3B");
     lblHeadersPlot.at(6)->setText("Ball");
 
-    lbl_val->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb;");
+    lbl_val->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px;  margin-bottom: 50px;}");
 
     for(int i = 0 ; i < 6 ; i++){
         slidersHSV.push_back(new QSlider(Qt::Orientation(VerticalTabs)));

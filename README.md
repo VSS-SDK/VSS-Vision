@@ -17,9 +17,9 @@ O VSS-Vision é uma das partes de um framework que está sendo desenvolvido para
 Mais informações sobre o framework podem ser encontradas em [sirlab.github.io][sirlab_site].
 
 
-More About VSS-Vision
----------------------
-[ABOUT][about]
+VSS-Vision Wiki
+---------------
+[Wiki][wiki]
 
 
 Installation
@@ -41,6 +41,18 @@ Gallery
 ![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/top.png)
 
 ![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/calibration.png)
+
+
+
+TODO	
+----
+* Re-Adicionar documentação Doxygen
+* Re-Adicionar calibragem de corte e rotação.
+* Re-Adicionar o salvamento de calibragens ao sistema
+* Re-Adicionar a Interface ZMQ + Protobuf ao sistema
+* Adicionar filtro de kalman no algoritmo de visão
+* Adicionar otimização de secção no algoritmo de visão
+
 
 
 License
@@ -66,7 +78,7 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [travis]: https://travis-ci.org/SIRLab/VSS-Vision
 
 [install]: https://github.com/SIRLab/VSS-Vision/blob/master/INSTALL.md
-[about]: https://github.com/SIRLab/VSS-Vision/blob/master/ABOUT.md
+[wiki]: https://github.com/SIRLab/VSS-Vision/wiki/Technical-Aspects
 
 
 
