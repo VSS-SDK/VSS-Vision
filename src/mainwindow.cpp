@@ -886,10 +886,11 @@ void MainWindow::initCalibrationColors(){
     ui->layoutH4H->addWidget(lblHeadersHSV.at(s));
     ui->layoutH5H->addWidget(lblHeadersHSV.at(v));
 
-    for(int i = 0 ; i < 3 ; i++){
-        slidersHSV.at(i)->show();
+    for(int i = 0 ; i < 3 ; i++)
         lblHeadersHSV.at(i)->show();
-    }
+
+    for(int i = 0 ; i < 6 ; i++)
+        slidersHSV.at(i)->show();
 
     update_hsv_s();
 }
@@ -906,12 +907,13 @@ void MainWindow::finishCalibrationColors(){
     ui->layoutH4H->removeWidget(lblHeadersHSV.at(s));
     ui->layoutH5H->removeWidget(lblHeadersHSV.at(v));
 
-    for(int i = 0 ; i < 3 ; i++){
-        slidersHSV.at(i)->hide();
+    for(int i = 0 ; i < 3 ; i++)
         lblHeadersHSV.at(i)->hide();
-    }
 
-     update_hsv_s();
+    for(int i = 0 ; i < 6 ; i++)
+        slidersHSV.at(i)->hide();
+
+    update_hsv_s();
 }
 
 void MainWindow::initPlotValues(){
