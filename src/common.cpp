@@ -129,6 +129,62 @@ namespace common{
     vss_state::Global_State State2Global_State(State state){
         vss_state::Global_State global_state;
 
+        global_state = vss_state::Global_State();
+        global_state.set_id(0);
+        global_state.set_origin(true);
+
+        vss_state::Pose *ball_s = global_state.add_balls();
+        ball_s->set_x(0);
+        ball_s->set_y(0);
+
+        for(int i = 0 ; i < 3 ; i++){
+            vss_state::Robot_State *robot_s = global_state.add_robots_blue();
+
+            robot_s->mutable_pose()->set_x(0.0);
+            robot_s->mutable_pose()->set_y(0.0);
+            robot_s->mutable_pose()->set_yaw(0.0);
+
+            robot_s->mutable_v_pose()->set_x(0.0);
+            robot_s->mutable_v_pose()->set_y(0.0);
+            robot_s->mutable_v_pose()->set_yaw(0.0);
+
+            robot_s->mutable_k_pose()->set_x(0.0);
+            robot_s->mutable_k_pose()->set_y(0.0);
+            robot_s->mutable_k_pose()->set_yaw(0.0);
+
+            robot_s->mutable_k_v_pose()->set_x(0.0);
+            robot_s->mutable_k_v_pose()->set_y(0.0);
+            robot_s->mutable_k_v_pose()->set_yaw(0.0);
+
+            robot_s->mutable_color()->set_r(1);
+            robot_s->mutable_color()->set_g(1);
+            robot_s->mutable_color()->set_b(1);
+        }
+
+        for(int i = 0 ; i < 3 ; i++){
+            vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
+
+            robot_s->mutable_pose()->set_x(0.0);
+            robot_s->mutable_pose()->set_y(0.0);
+            robot_s->mutable_pose()->set_yaw(0.0);
+
+            robot_s->mutable_v_pose()->set_x(0.0);
+            robot_s->mutable_v_pose()->set_y(0.0);
+            robot_s->mutable_v_pose()->set_yaw(0.0);
+
+            robot_s->mutable_k_pose()->set_x(0.0);
+            robot_s->mutable_k_pose()->set_y(0.0);
+            robot_s->mutable_k_pose()->set_yaw(0.0);
+
+            robot_s->mutable_k_v_pose()->set_x(0.0);
+            robot_s->mutable_k_v_pose()->set_y(0.0);
+            robot_s->mutable_k_v_pose()->set_yaw(0.0);
+
+            robot_s->mutable_color()->set_r(1);
+            robot_s->mutable_color()->set_g(1);
+            robot_s->mutable_color()->set_b(1);
+        }
+
         return global_state;
     }
 }
