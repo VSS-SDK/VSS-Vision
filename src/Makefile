@@ -553,6 +553,9 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		calibration.h \
 		/usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtCore/QtCoreDepends \
@@ -660,9 +663,6 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		QtOpenCV.h \
 		vision.h \
 		sqlite.h \
-		interface.h \
-		protos/state.pb.h \
-		protos/command.pb.h \
 		mainwindow.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
@@ -937,6 +937,9 @@ moc_calibration.cpp: /usr/include/qt5/QtCore/QtCore \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		calibration.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include calibration.h -o moc_calibration.cpp
 
@@ -1207,6 +1210,9 @@ moc_vision.cpp: /usr/include/qt5/QtCore/QtCore \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		QtOpenCV.h \
 		vision.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include vision.h -o moc_vision.cpp
@@ -1560,6 +1566,9 @@ main.o: main.cpp mainwindow.h \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		calibration.h \
 		/usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtCore/QtCoreDepends \
@@ -1667,9 +1676,6 @@ main.o: main.cpp mainwindow.h \
 		QtOpenCV.h \
 		vision.h \
 		sqlite.h \
-		interface.h \
-		protos/state.pb.h \
-		protos/command.pb.h \
 		/usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/qapplication.h \
 		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
@@ -1890,6 +1896,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		calibration.h \
 		/usr/include/qt5/QtCore/QtCore \
 		/usr/include/qt5/QtCore/QtCoreDepends \
@@ -1997,9 +2006,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		QtOpenCV.h \
 		vision.h \
 		sqlite.h \
-		interface.h \
-		protos/state.pb.h \
-		protos/command.pb.h \
 		ui_mainwindow.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtWidgets/QAction \
@@ -2276,7 +2282,10 @@ common.o: common.cpp common.h \
 		/usr/local/include/opencv2/video.hpp \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
-		/usr/local/include/opencv2/video/tracking_c.h
+		/usr/local/include/opencv2/video/tracking_c.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o common.o common.cpp
 
 calibration.o: calibration.cpp calibration.h \
@@ -2550,7 +2559,10 @@ calibration.o: calibration.cpp calibration.h \
 		/usr/local/include/opencv2/video.hpp \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
-		/usr/local/include/opencv2/video/tracking_c.h
+		/usr/local/include/opencv2/video/tracking_c.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calibration.o calibration.cpp
 
 sqlite.o: sqlite.cpp sqlite.h
@@ -2824,6 +2836,9 @@ vision.o: vision.cpp vision.h \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		QtOpenCV.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vision.o vision.cpp
 
