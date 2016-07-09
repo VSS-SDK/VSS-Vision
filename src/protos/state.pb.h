@@ -34,8 +34,8 @@ void protobuf_AssignDesc_state_2eproto();
 void protobuf_ShutdownFile_state_2eproto();
 
 class RGB;
+class Pose;
 class Robot_State;
-class Ball_State;
 class Global_State;
 
 // ===================================================================
@@ -142,6 +142,108 @@ class RGB : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class Pose : public ::google::protobuf::Message {
+ public:
+  Pose();
+  virtual ~Pose();
+
+  Pose(const Pose& from);
+
+  inline Pose& operator=(const Pose& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Pose& default_instance();
+
+  void Swap(Pose* other);
+
+  // implements Message ----------------------------------------------
+
+  Pose* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Pose& from);
+  void MergeFrom(const Pose& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required float x = 1;
+  inline bool has_x() const;
+  inline void clear_x();
+  static const int kXFieldNumber = 1;
+  inline float x() const;
+  inline void set_x(float value);
+
+  // required float y = 2;
+  inline bool has_y() const;
+  inline void clear_y();
+  static const int kYFieldNumber = 2;
+  inline float y() const;
+  inline void set_y(float value);
+
+  // optional float yaw = 3;
+  inline bool has_yaw() const;
+  inline void clear_yaw();
+  static const int kYawFieldNumber = 3;
+  inline float yaw() const;
+  inline void set_yaw(float value);
+
+  // @@protoc_insertion_point(class_scope:vss_state.Pose)
+ private:
+  inline void set_has_x();
+  inline void clear_has_x();
+  inline void set_has_y();
+  inline void clear_has_y();
+  inline void set_has_yaw();
+  inline void clear_has_yaw();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  float x_;
+  float y_;
+  float yaw_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_state_2eproto();
+  friend void protobuf_AssignDesc_state_2eproto();
+  friend void protobuf_ShutdownFile_state_2eproto();
+
+  void InitAsDefaultInstance();
+  static Pose* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class Robot_State : public ::google::protobuf::Message {
  public:
   Robot_State();
@@ -196,56 +298,74 @@ class Robot_State : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required float x = 1;
-  inline bool has_x() const;
-  inline void clear_x();
-  static const int kXFieldNumber = 1;
-  inline float x() const;
-  inline void set_x(float value);
+  // required .vss_state.Pose pose = 1;
+  inline bool has_pose() const;
+  inline void clear_pose();
+  static const int kPoseFieldNumber = 1;
+  inline const ::vss_state::Pose& pose() const;
+  inline ::vss_state::Pose* mutable_pose();
+  inline ::vss_state::Pose* release_pose();
+  inline void set_allocated_pose(::vss_state::Pose* pose);
 
-  // required float y = 2;
-  inline bool has_y() const;
-  inline void clear_y();
-  static const int kYFieldNumber = 2;
-  inline float y() const;
-  inline void set_y(float value);
+  // optional .vss_state.Pose v_pose = 2;
+  inline bool has_v_pose() const;
+  inline void clear_v_pose();
+  static const int kVPoseFieldNumber = 2;
+  inline const ::vss_state::Pose& v_pose() const;
+  inline ::vss_state::Pose* mutable_v_pose();
+  inline ::vss_state::Pose* release_v_pose();
+  inline void set_allocated_v_pose(::vss_state::Pose* v_pose);
 
-  // optional .vss_state.RGB color = 3;
+  // optional .vss_state.Pose k_pose = 3;
+  inline bool has_k_pose() const;
+  inline void clear_k_pose();
+  static const int kKPoseFieldNumber = 3;
+  inline const ::vss_state::Pose& k_pose() const;
+  inline ::vss_state::Pose* mutable_k_pose();
+  inline ::vss_state::Pose* release_k_pose();
+  inline void set_allocated_k_pose(::vss_state::Pose* k_pose);
+
+  // optional .vss_state.Pose k_v_pose = 4;
+  inline bool has_k_v_pose() const;
+  inline void clear_k_v_pose();
+  static const int kKVPoseFieldNumber = 4;
+  inline const ::vss_state::Pose& k_v_pose() const;
+  inline ::vss_state::Pose* mutable_k_v_pose();
+  inline ::vss_state::Pose* release_k_v_pose();
+  inline void set_allocated_k_v_pose(::vss_state::Pose* k_v_pose);
+
+  // optional .vss_state.RGB color = 5;
   inline bool has_color() const;
   inline void clear_color();
-  static const int kColorFieldNumber = 3;
+  static const int kColorFieldNumber = 5;
   inline const ::vss_state::RGB& color() const;
   inline ::vss_state::RGB* mutable_color();
   inline ::vss_state::RGB* release_color();
   inline void set_allocated_color(::vss_state::RGB* color);
 
-  // optional float yaw = 4;
-  inline bool has_yaw() const;
-  inline void clear_yaw();
-  static const int kYawFieldNumber = 4;
-  inline float yaw() const;
-  inline void set_yaw(float value);
-
   // @@protoc_insertion_point(class_scope:vss_state.Robot_State)
  private:
-  inline void set_has_x();
-  inline void clear_has_x();
-  inline void set_has_y();
-  inline void clear_has_y();
+  inline void set_has_pose();
+  inline void clear_has_pose();
+  inline void set_has_v_pose();
+  inline void clear_has_v_pose();
+  inline void set_has_k_pose();
+  inline void clear_has_k_pose();
+  inline void set_has_k_v_pose();
+  inline void clear_has_k_v_pose();
   inline void set_has_color();
   inline void clear_has_color();
-  inline void set_has_yaw();
-  inline void clear_has_yaw();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  float x_;
-  float y_;
+  ::vss_state::Pose* pose_;
+  ::vss_state::Pose* v_pose_;
+  ::vss_state::Pose* k_pose_;
+  ::vss_state::Pose* k_v_pose_;
   ::vss_state::RGB* color_;
-  float yaw_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
   friend void  protobuf_AddDesc_state_2eproto();
   friend void protobuf_AssignDesc_state_2eproto();
@@ -253,98 +373,6 @@ class Robot_State : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Robot_State* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class Ball_State : public ::google::protobuf::Message {
- public:
-  Ball_State();
-  virtual ~Ball_State();
-
-  Ball_State(const Ball_State& from);
-
-  inline Ball_State& operator=(const Ball_State& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Ball_State& default_instance();
-
-  void Swap(Ball_State* other);
-
-  // implements Message ----------------------------------------------
-
-  Ball_State* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Ball_State& from);
-  void MergeFrom(const Ball_State& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required float x = 1;
-  inline bool has_x() const;
-  inline void clear_x();
-  static const int kXFieldNumber = 1;
-  inline float x() const;
-  inline void set_x(float value);
-
-  // required float y = 2;
-  inline bool has_y() const;
-  inline void clear_y();
-  static const int kYFieldNumber = 2;
-  inline float y() const;
-  inline void set_y(float value);
-
-  // @@protoc_insertion_point(class_scope:vss_state.Ball_State)
- private:
-  inline void set_has_x();
-  inline void clear_has_x();
-  inline void set_has_y();
-  inline void clear_has_y();
-
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
-  float x_;
-  float y_;
-
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
-
-  friend void  protobuf_AddDesc_state_2eproto();
-  friend void protobuf_AssignDesc_state_2eproto();
-  friend void protobuf_ShutdownFile_state_2eproto();
-
-  void InitAsDefaultInstance();
-  static Ball_State* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -416,16 +444,16 @@ class Global_State : public ::google::protobuf::Message {
   inline bool origin() const;
   inline void set_origin(bool value);
 
-  // repeated .vss_state.Ball_State balls = 3;
+  // repeated .vss_state.Pose balls = 3;
   inline int balls_size() const;
   inline void clear_balls();
   static const int kBallsFieldNumber = 3;
-  inline const ::vss_state::Ball_State& balls(int index) const;
-  inline ::vss_state::Ball_State* mutable_balls(int index);
-  inline ::vss_state::Ball_State* add_balls();
-  inline const ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State >&
+  inline const ::vss_state::Pose& balls(int index) const;
+  inline ::vss_state::Pose* mutable_balls(int index);
+  inline ::vss_state::Pose* add_balls();
+  inline const ::google::protobuf::RepeatedPtrField< ::vss_state::Pose >&
       balls() const;
-  inline ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State >*
+  inline ::google::protobuf::RepeatedPtrField< ::vss_state::Pose >*
       mutable_balls();
 
   // repeated .vss_state.Robot_State robots_yellow = 4;
@@ -463,7 +491,7 @@ class Global_State : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 id_;
   bool origin_;
-  ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State > balls_;
+  ::google::protobuf::RepeatedPtrField< ::vss_state::Pose > balls_;
   ::google::protobuf::RepeatedPtrField< ::vss_state::Robot_State > robots_yellow_;
   ::google::protobuf::RepeatedPtrField< ::vss_state::Robot_State > robots_blue_;
 
@@ -552,61 +580,239 @@ inline void RGB::set_b(::google::protobuf::uint32 value) {
 
 // -------------------------------------------------------------------
 
-// Robot_State
+// Pose
 
 // required float x = 1;
-inline bool Robot_State::has_x() const {
+inline bool Pose::has_x() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Robot_State::set_has_x() {
+inline void Pose::set_has_x() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Robot_State::clear_has_x() {
+inline void Pose::clear_has_x() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void Robot_State::clear_x() {
+inline void Pose::clear_x() {
   x_ = 0;
   clear_has_x();
 }
-inline float Robot_State::x() const {
+inline float Pose::x() const {
   return x_;
 }
-inline void Robot_State::set_x(float value) {
+inline void Pose::set_x(float value) {
   set_has_x();
   x_ = value;
 }
 
 // required float y = 2;
-inline bool Robot_State::has_y() const {
+inline bool Pose::has_y() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Robot_State::set_has_y() {
+inline void Pose::set_has_y() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void Robot_State::clear_has_y() {
+inline void Pose::clear_has_y() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void Robot_State::clear_y() {
+inline void Pose::clear_y() {
   y_ = 0;
   clear_has_y();
 }
-inline float Robot_State::y() const {
+inline float Pose::y() const {
   return y_;
 }
-inline void Robot_State::set_y(float value) {
+inline void Pose::set_y(float value) {
   set_has_y();
   y_ = value;
 }
 
-// optional .vss_state.RGB color = 3;
-inline bool Robot_State::has_color() const {
+// optional float yaw = 3;
+inline bool Pose::has_yaw() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void Robot_State::set_has_color() {
+inline void Pose::set_has_yaw() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void Robot_State::clear_has_color() {
+inline void Pose::clear_has_yaw() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void Pose::clear_yaw() {
+  yaw_ = 0;
+  clear_has_yaw();
+}
+inline float Pose::yaw() const {
+  return yaw_;
+}
+inline void Pose::set_yaw(float value) {
+  set_has_yaw();
+  yaw_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// Robot_State
+
+// required .vss_state.Pose pose = 1;
+inline bool Robot_State::has_pose() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Robot_State::set_has_pose() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Robot_State::clear_has_pose() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Robot_State::clear_pose() {
+  if (pose_ != NULL) pose_->::vss_state::Pose::Clear();
+  clear_has_pose();
+}
+inline const ::vss_state::Pose& Robot_State::pose() const {
+  return pose_ != NULL ? *pose_ : *default_instance_->pose_;
+}
+inline ::vss_state::Pose* Robot_State::mutable_pose() {
+  set_has_pose();
+  if (pose_ == NULL) pose_ = new ::vss_state::Pose;
+  return pose_;
+}
+inline ::vss_state::Pose* Robot_State::release_pose() {
+  clear_has_pose();
+  ::vss_state::Pose* temp = pose_;
+  pose_ = NULL;
+  return temp;
+}
+inline void Robot_State::set_allocated_pose(::vss_state::Pose* pose) {
+  delete pose_;
+  pose_ = pose;
+  if (pose) {
+    set_has_pose();
+  } else {
+    clear_has_pose();
+  }
+}
+
+// optional .vss_state.Pose v_pose = 2;
+inline bool Robot_State::has_v_pose() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Robot_State::set_has_v_pose() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Robot_State::clear_has_v_pose() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Robot_State::clear_v_pose() {
+  if (v_pose_ != NULL) v_pose_->::vss_state::Pose::Clear();
+  clear_has_v_pose();
+}
+inline const ::vss_state::Pose& Robot_State::v_pose() const {
+  return v_pose_ != NULL ? *v_pose_ : *default_instance_->v_pose_;
+}
+inline ::vss_state::Pose* Robot_State::mutable_v_pose() {
+  set_has_v_pose();
+  if (v_pose_ == NULL) v_pose_ = new ::vss_state::Pose;
+  return v_pose_;
+}
+inline ::vss_state::Pose* Robot_State::release_v_pose() {
+  clear_has_v_pose();
+  ::vss_state::Pose* temp = v_pose_;
+  v_pose_ = NULL;
+  return temp;
+}
+inline void Robot_State::set_allocated_v_pose(::vss_state::Pose* v_pose) {
+  delete v_pose_;
+  v_pose_ = v_pose;
+  if (v_pose) {
+    set_has_v_pose();
+  } else {
+    clear_has_v_pose();
+  }
+}
+
+// optional .vss_state.Pose k_pose = 3;
+inline bool Robot_State::has_k_pose() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void Robot_State::set_has_k_pose() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void Robot_State::clear_has_k_pose() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void Robot_State::clear_k_pose() {
+  if (k_pose_ != NULL) k_pose_->::vss_state::Pose::Clear();
+  clear_has_k_pose();
+}
+inline const ::vss_state::Pose& Robot_State::k_pose() const {
+  return k_pose_ != NULL ? *k_pose_ : *default_instance_->k_pose_;
+}
+inline ::vss_state::Pose* Robot_State::mutable_k_pose() {
+  set_has_k_pose();
+  if (k_pose_ == NULL) k_pose_ = new ::vss_state::Pose;
+  return k_pose_;
+}
+inline ::vss_state::Pose* Robot_State::release_k_pose() {
+  clear_has_k_pose();
+  ::vss_state::Pose* temp = k_pose_;
+  k_pose_ = NULL;
+  return temp;
+}
+inline void Robot_State::set_allocated_k_pose(::vss_state::Pose* k_pose) {
+  delete k_pose_;
+  k_pose_ = k_pose;
+  if (k_pose) {
+    set_has_k_pose();
+  } else {
+    clear_has_k_pose();
+  }
+}
+
+// optional .vss_state.Pose k_v_pose = 4;
+inline bool Robot_State::has_k_v_pose() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void Robot_State::set_has_k_v_pose() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Robot_State::clear_has_k_v_pose() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void Robot_State::clear_k_v_pose() {
+  if (k_v_pose_ != NULL) k_v_pose_->::vss_state::Pose::Clear();
+  clear_has_k_v_pose();
+}
+inline const ::vss_state::Pose& Robot_State::k_v_pose() const {
+  return k_v_pose_ != NULL ? *k_v_pose_ : *default_instance_->k_v_pose_;
+}
+inline ::vss_state::Pose* Robot_State::mutable_k_v_pose() {
+  set_has_k_v_pose();
+  if (k_v_pose_ == NULL) k_v_pose_ = new ::vss_state::Pose;
+  return k_v_pose_;
+}
+inline ::vss_state::Pose* Robot_State::release_k_v_pose() {
+  clear_has_k_v_pose();
+  ::vss_state::Pose* temp = k_v_pose_;
+  k_v_pose_ = NULL;
+  return temp;
+}
+inline void Robot_State::set_allocated_k_v_pose(::vss_state::Pose* k_v_pose) {
+  delete k_v_pose_;
+  k_v_pose_ = k_v_pose;
+  if (k_v_pose) {
+    set_has_k_v_pose();
+  } else {
+    clear_has_k_v_pose();
+  }
+}
+
+// optional .vss_state.RGB color = 5;
+inline bool Robot_State::has_color() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void Robot_State::set_has_color() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void Robot_State::clear_has_color() {
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void Robot_State::clear_color() {
   if (color_ != NULL) color_->::vss_state::RGB::Clear();
@@ -634,76 +840,6 @@ inline void Robot_State::set_allocated_color(::vss_state::RGB* color) {
   } else {
     clear_has_color();
   }
-}
-
-// optional float yaw = 4;
-inline bool Robot_State::has_yaw() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void Robot_State::set_has_yaw() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void Robot_State::clear_has_yaw() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void Robot_State::clear_yaw() {
-  yaw_ = 0;
-  clear_has_yaw();
-}
-inline float Robot_State::yaw() const {
-  return yaw_;
-}
-inline void Robot_State::set_yaw(float value) {
-  set_has_yaw();
-  yaw_ = value;
-}
-
-// -------------------------------------------------------------------
-
-// Ball_State
-
-// required float x = 1;
-inline bool Ball_State::has_x() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void Ball_State::set_has_x() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void Ball_State::clear_has_x() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void Ball_State::clear_x() {
-  x_ = 0;
-  clear_has_x();
-}
-inline float Ball_State::x() const {
-  return x_;
-}
-inline void Ball_State::set_x(float value) {
-  set_has_x();
-  x_ = value;
-}
-
-// required float y = 2;
-inline bool Ball_State::has_y() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void Ball_State::set_has_y() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void Ball_State::clear_has_y() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void Ball_State::clear_y() {
-  y_ = 0;
-  clear_has_y();
-}
-inline float Ball_State::y() const {
-  return y_;
-}
-inline void Ball_State::set_y(float value) {
-  set_has_y();
-  y_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -754,27 +890,27 @@ inline void Global_State::set_origin(bool value) {
   origin_ = value;
 }
 
-// repeated .vss_state.Ball_State balls = 3;
+// repeated .vss_state.Pose balls = 3;
 inline int Global_State::balls_size() const {
   return balls_.size();
 }
 inline void Global_State::clear_balls() {
   balls_.Clear();
 }
-inline const ::vss_state::Ball_State& Global_State::balls(int index) const {
+inline const ::vss_state::Pose& Global_State::balls(int index) const {
   return balls_.Get(index);
 }
-inline ::vss_state::Ball_State* Global_State::mutable_balls(int index) {
+inline ::vss_state::Pose* Global_State::mutable_balls(int index) {
   return balls_.Mutable(index);
 }
-inline ::vss_state::Ball_State* Global_State::add_balls() {
+inline ::vss_state::Pose* Global_State::add_balls() {
   return balls_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State >&
+inline const ::google::protobuf::RepeatedPtrField< ::vss_state::Pose >&
 Global_State::balls() const {
   return balls_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State >*
+inline ::google::protobuf::RepeatedPtrField< ::vss_state::Pose >*
 Global_State::mutable_balls() {
   return &balls_;
 }

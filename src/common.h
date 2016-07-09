@@ -19,6 +19,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/video/video.hpp>
+#include "interface.h"
 
 #define PATH_IMAGE "/home/sirlab/Repositorios/john/VSS-Vision/src/images/model.jpg"
 #define PATH_VIDEO "/home/sirlab/Repositorios/john/VSS-Vision/src/videos/ball_move.mp4";
@@ -433,6 +434,8 @@ namespace common{
 
     //! Estimate angle between two straight lines in radian.
     double radian(Point, Point);
+
+    vss_state::Global_State State2Global_State(State);
 }
 
 #endif

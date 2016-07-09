@@ -48,6 +48,7 @@
 #include "vision.h"
 #include "sqlite.h"
 #include "QtOpenCV.h"
+#include "interface.h"
 
 using namespace common;
 using namespace QtOcv;
@@ -125,13 +126,15 @@ public slots:
 
     void getNewImageCalib();
 
-    void getNewImageVision();
+    void getNewStateVision();
 
 protected:
+    Interface inter;
     calibration *calib;
     vision *vi;
     SQLite *sql;
     Ui::MainWindow *ui;
+    vss_state::Global_State *global_state;
     QIcon blockdevice, ksame, kdf, package;
 
     // QTree

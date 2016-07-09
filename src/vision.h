@@ -39,6 +39,7 @@ protected:
     int side_cut;
     float area_min, area_max, distc_min, distc_max, propc_min, propc_max;
 
+
     Calibration *calib;
     State *state;
     ExecConfiguration *exec_config;
@@ -98,7 +99,7 @@ public:
     void finish();
 
 signals:
-    void has_new_image();
+    void has_new_state();
 };
 
 #endif // VISION_H

@@ -57,7 +57,7 @@ QT_MOC_LITERAL(19, 239, 17)
     "checkboxVideo\0updateHmin\0updateSmin\0"
     "updateVmin\0updateHmax\0updateSmax\0"
     "updateVmax\0getNewImageCalib\0"
-    "getNewImageVision\0"
+    "getNewStateVision\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -139,7 +139,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 14: _t->updateSmax((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 15: _t->updateVmax((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 16: _t->getNewImageCalib(); break;
-        case 17: _t->getNewImageVision(); break;
+        case 17: _t->getNewStateVision(); break;
         default: ;
         }
     }
