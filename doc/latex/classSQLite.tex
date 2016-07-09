@@ -1,98 +1,99 @@
-\hypertarget{classSQLite}{}\section{S\+Q\+Lite Class Reference}
-\label{classSQLite}\index{S\+Q\+Lite@{S\+Q\+Lite}}
+\hypertarget{classSQLite}{\section{S\-Q\-Lite Class Reference}
+\label{classSQLite}\index{S\-Q\-Lite@{S\-Q\-Lite}}
+}
 
 
-This class is responsible for create, read, update and delete \hyperlink{structcommon_1_1Calibration}{common\+::\+Calibration} \textquotesingle{}s and \hyperlink{structcommon_1_1ExecConfiguration}{common\+::\+Exec\+Configuration} \textquotesingle{}s.  
+This class is responsible for create, read, update and delete \hyperlink{structcommon_1_1Calibration}{common\-::\-Calibration} 's and \hyperlink{structcommon_1_1ExecConfiguration}{common\-::\-Exec\-Configuration} 's.  
 
 
 
 
-{\ttfamily \#include $<$sqlite.\+h$>$}
+{\ttfamily \#include $<$sqlite.\-h$>$}
 
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classSQLite_aec016ee26d918bb715383b7578118166}{S\+Q\+Lite} (string, string)\hypertarget{classSQLite_aec016ee26d918bb715383b7578118166}{}\label{classSQLite_aec016ee26d918bb715383b7578118166}
+\hypertarget{classSQLite_aec016ee26d918bb715383b7578118166}{\hyperlink{classSQLite_aec016ee26d918bb715383b7578118166}{S\-Q\-Lite} (string, string)}\label{classSQLite_aec016ee26d918bb715383b7578118166}
 
-\begin{DoxyCompactList}\small\item\em Default constructor\+: \hyperlink{classSQLite}{S\+Q\+Lite} sql(\char`\"{}name db\char`\"{}, \char`\"{}pswd\char`\"{}) \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Default constructor\-: \hyperlink{classSQLite}{S\-Q\-Lite} sql(\char`\"{}name db\char`\"{}, \char`\"{}pswd\char`\"{}) \end{DoxyCompactList}\item 
 void \hyperlink{classSQLite_a2ba6d61d356aac7b2a0d7323ba997279}{open} ()
 \begin{DoxyCompactList}\small\item\em This method open the connection with the database. \end{DoxyCompactList}\item 
-void \hyperlink{classSQLite_aac5338faf7580f6adb3560c91d58b54a}{close} ()\hypertarget{classSQLite_aac5338faf7580f6adb3560c91d58b54a}{}\label{classSQLite_aac5338faf7580f6adb3560c91d58b54a}
+\hypertarget{classSQLite_aac5338faf7580f6adb3560c91d58b54a}{void \hyperlink{classSQLite_aac5338faf7580f6adb3560c91d58b54a}{close} ()}\label{classSQLite_aac5338faf7580f6adb3560c91d58b54a}
 
 \begin{DoxyCompactList}\small\item\em This metohd close the connection with the database. \end{DoxyCompactList}\item 
-void {\bfseries insert\+\_\+calibration} ()\hypertarget{classSQLite_ae145e41fed72678f0e2900ec093ad323}{}\label{classSQLite_ae145e41fed72678f0e2900ec093ad323}
+\hypertarget{classSQLite_ae145e41fed72678f0e2900ec093ad323}{void {\bfseries insert\-\_\-calibration} ()}\label{classSQLite_ae145e41fed72678f0e2900ec093ad323}
 
 \item 
-void {\bfseries select\+\_\+calibration} (string s=\char`\"{}\char`\"{})\hypertarget{classSQLite_aeb720971a449cc51d124251fa995cb5c}{}\label{classSQLite_aeb720971a449cc51d124251fa995cb5c}
+\hypertarget{classSQLite_aeb720971a449cc51d124251fa995cb5c}{void {\bfseries select\-\_\-calibration} (string s=\char`\"{}\char`\"{})}\label{classSQLite_aeb720971a449cc51d124251fa995cb5c}
 
 \end{DoxyCompactItemize}
 \subsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static int \hyperlink{classSQLite_a2cdec2824226fb74b9c5f53fb2eb9c52}{callback} (void $\ast$Not\+Used, int argc, char $\ast$$\ast$argv, char $\ast$$\ast$az\+Col\+Name)
+static int \hyperlink{classSQLite_a2cdec2824226fb74b9c5f53fb2eb9c52}{callback} (void $\ast$Not\-Used, int argc, char $\ast$$\ast$argv, char $\ast$$\ast$az\-Col\-Name)
 \begin{DoxyCompactList}\small\item\em Print the data result from query in database. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-sqlite3 $\ast$ {\bfseries db}\hypertarget{classSQLite_a1d24b48aa333500d31dd1741c474ee77}{}\label{classSQLite_a1d24b48aa333500d31dd1741c474ee77}
+\hypertarget{classSQLite_a1d24b48aa333500d31dd1741c474ee77}{sqlite3 $\ast$ {\bfseries db}}\label{classSQLite_a1d24b48aa333500d31dd1741c474ee77}
 
 \item 
-string {\bfseries path\+\_\+database}\hypertarget{classSQLite_a35c90bc05faa587c66031661a365db20}{}\label{classSQLite_a35c90bc05faa587c66031661a365db20}
+\hypertarget{classSQLite_a35c90bc05faa587c66031661a365db20}{string {\bfseries path\-\_\-database}}\label{classSQLite_a35c90bc05faa587c66031661a365db20}
 
 \item 
-string {\bfseries password}\hypertarget{classSQLite_a5db7ea6ca4da520fb5125631b081acb9}{}\label{classSQLite_a5db7ea6ca4da520fb5125631b081acb9}
+\hypertarget{classSQLite_a5db7ea6ca4da520fb5125631b081acb9}{string {\bfseries password}}\label{classSQLite_a5db7ea6ca4da520fb5125631b081acb9}
 
 \item 
-stringstream {\bfseries query}\hypertarget{classSQLite_a524b7fb749c55eae9076981de81f6576}{}\label{classSQLite_a524b7fb749c55eae9076981de81f6576}
+\hypertarget{classSQLite_a524b7fb749c55eae9076981de81f6576}{stringstream {\bfseries query}}\label{classSQLite_a524b7fb749c55eae9076981de81f6576}
 
 \item 
-int {\bfseries status\+\_\+db}\hypertarget{classSQLite_ab54d46b70b16ac3d91631c926d633d42}{}\label{classSQLite_ab54d46b70b16ac3d91631c926d633d42}
+\hypertarget{classSQLite_ab54d46b70b16ac3d91631c926d633d42}{int {\bfseries status\-\_\-db}}\label{classSQLite_ab54d46b70b16ac3d91631c926d633d42}
 
 \item 
-char $\ast$ {\bfseries error\+\_\+query}\hypertarget{classSQLite_a641bc6c63769eee5ab03dfd0cd26f0bc}{}\label{classSQLite_a641bc6c63769eee5ab03dfd0cd26f0bc}
+\hypertarget{classSQLite_a641bc6c63769eee5ab03dfd0cd26f0bc}{char $\ast$ {\bfseries error\-\_\-query}}\label{classSQLite_a641bc6c63769eee5ab03dfd0cd26f0bc}
 
 \item 
-const char $\ast$ {\bfseries data}\hypertarget{classSQLite_a7c608c690c08fce28810d549ab488074}{}\label{classSQLite_a7c608c690c08fce28810d549ab488074}
+\hypertarget{classSQLite_a7c608c690c08fce28810d549ab488074}{const char $\ast$ {\bfseries data}}\label{classSQLite_a7c608c690c08fce28810d549ab488074}
 
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-This class is responsible for create, read, update and delete \hyperlink{structcommon_1_1Calibration}{common\+::\+Calibration} \textquotesingle{}s and \hyperlink{structcommon_1_1ExecConfiguration}{common\+::\+Exec\+Configuration} \textquotesingle{}s. 
+This class is responsible for create, read, update and delete \hyperlink{structcommon_1_1Calibration}{common\-::\-Calibration} 's and \hyperlink{structcommon_1_1ExecConfiguration}{common\-::\-Exec\-Configuration} 's. 
 
 \subsection{Member Function Documentation}
-\index{S\+Q\+Lite@{S\+Q\+Lite}!callback@{callback}}
-\index{callback@{callback}!S\+Q\+Lite@{S\+Q\+Lite}}
-\subsubsection[{\texorpdfstring{callback(void $\ast$\+Not\+Used, int argc, char $\ast$$\ast$argv, char $\ast$$\ast$az\+Col\+Name)}{callback(void *NotUsed, int argc, char **argv, char **azColName)}}]{\setlength{\rightskip}{0pt plus 5cm}int S\+Q\+Lite\+::callback (
+\hypertarget{classSQLite_a2cdec2824226fb74b9c5f53fb2eb9c52}{\index{S\-Q\-Lite@{S\-Q\-Lite}!callback@{callback}}
+\index{callback@{callback}!SQLite@{S\-Q\-Lite}}
+\subsubsection[{callback}]{\setlength{\rightskip}{0pt plus 5cm}int S\-Q\-Lite\-::callback (
 \begin{DoxyParamCaption}
-\item[{void $\ast$}]{Not\+Used, }
+\item[{void $\ast$}]{Not\-Used, }
 \item[{int}]{argc, }
 \item[{char $\ast$$\ast$}]{argv, }
-\item[{char $\ast$$\ast$}]{az\+Col\+Name}
+\item[{char $\ast$$\ast$}]{az\-Col\-Name}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}\hypertarget{classSQLite_a2cdec2824226fb74b9c5f53fb2eb9c52}{}\label{classSQLite_a2cdec2824226fb74b9c5f53fb2eb9c52}
+)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}}\label{classSQLite_a2cdec2824226fb74b9c5f53fb2eb9c52}
 
 
 Print the data result from query in database. 
 
-\subsubsection*{Addendum }\begin{quote}
-Print the info like on the table in database \end{quote}
-\index{S\+Q\+Lite@{S\+Q\+Lite}!open@{open}}
-\index{open@{open}!S\+Q\+Lite@{S\+Q\+Lite}}
-\subsubsection[{\texorpdfstring{open()}{open()}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+Q\+Lite\+::open (
+\subsubsection*{Addendum }\begin{quotation}
+Print the info like on the table in database \end{quotation}
+\hypertarget{classSQLite_a2ba6d61d356aac7b2a0d7323ba997279}{\index{S\-Q\-Lite@{S\-Q\-Lite}!open@{open}}
+\index{open@{open}!SQLite@{S\-Q\-Lite}}
+\subsubsection[{open}]{\setlength{\rightskip}{0pt plus 5cm}void S\-Q\-Lite\-::open (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\hypertarget{classSQLite_a2ba6d61d356aac7b2a0d7323ba997279}{}\label{classSQLite_a2ba6d61d356aac7b2a0d7323ba997279}
+)}}\label{classSQLite_a2ba6d61d356aac7b2a0d7323ba997279}
 
 
 This method open the connection with the database. 
 
-\subsubsection*{Addendum }\begin{quote}
-Return any error, if something happen when try to open the database \end{quote}
+\subsubsection*{Addendum }\begin{quotation}
+Return any error, if something happen when try to open the database \end{quotation}
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-/home/johnathan/\+Repositories/\+S\+I\+R\+Lab/\+V\+S\+S-\/\+Vision/src/sqlite.\+h\item 
-/home/johnathan/\+Repositories/\+S\+I\+R\+Lab/\+V\+S\+S-\/\+Vision/src/sqlite.\+cpp\end{DoxyCompactItemize}
+/home/sirlab/\-Repositorios/\-S\-I\-R\-Lab/\-V\-S\-S-\/\-Vision/src/sqlite.\-h\item 
+/home/sirlab/\-Repositorios/\-S\-I\-R\-Lab/\-V\-S\-S-\/\-Vision/src/sqlite.\-cpp\end{DoxyCompactItemize}
