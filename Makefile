@@ -7,7 +7,7 @@
 #
 
 
-all: vision proto
+all: vision
 
 vision:
 	cd src && make -f Makefile

@@ -8,7 +8,7 @@
 
 #include "vision.h"
 
-vision::vision(){
+vision::vision(QObject *parent) : QThread(parent){
     /*for(int i = 0 ; i < 13 ; i++){
         find_old_labels[i] = false;
     }*/
@@ -25,8 +25,8 @@ vision::vision(){
     vision_reception = false;
     id_camera = 0;
     start_finish = false;
-    path_image = "/home/johnathan/Repositories/SIRLab/VSS-Vision/src/images/model.jpg";
-    path_video = "/home/johnathan/Repositories/SIRLab/VSS-Vision/src/videos/ball_move.mp4";
+    path_image = PATH_IMAGE;
+    path_video = PATH_VIDEO;
 }
 
 void vision::run(){
@@ -87,7 +87,7 @@ void vision::run(){
                 recognizeObjects();
             }
 
-            lbl_input->setPixmap(QPixmap::fromImage(mat2Image(raw_in)));
+            emit has_new_image();
         }else{
             if(start_finish){
                 start_finish = false;

@@ -12,7 +12,7 @@
 //! --------
 //! 
 //! > Initializes all control variables 
-calibration::calibration(){
+/*calibration::calibration(){
     run_it = true;
     device_used = IMAGE;
     vision_reception = false;
@@ -20,8 +20,21 @@ calibration::calibration(){
     mouse_click_left = mouse_click_right = 0;
     id_camera = 0;
     //! > TODO: resolt the path, we need to use relative paths
-    path_image = "/home/johnathan/Repositories/SIRLab/VSS-Vision/src/images/model.jpg";
-    path_video = "/home/johnathan/Repositories/SIRLab/VSS-Vision/src/videos/ball_move.mp4";
+    path_image = PATH_IMAGE;
+    path_video = PATH_VIDEO;
+    id_calib = -1;
+}*/
+
+calibration::calibration(QObject *parent) : QThread(parent){
+    run_it = true;
+    device_used = IMAGE;
+    vision_reception = false;
+    start_finish = false;
+    mouse_click_left = mouse_click_right = 0;
+    id_camera = 0;
+    //! > TODO: resolt the path, we need to use relative paths
+    path_image = PATH_IMAGE;
+    path_video = PATH_VIDEO;
     id_calib = -1;
 }
 
@@ -93,7 +106,10 @@ void calibration::run(){
             zoom();
 
             //! > update the image in MainWindow
-            lbl_input->setPixmap(QPixmap::fromImage(mat2Image(raw_in)));
+            /*if(raw_in.rows > 0 && raw_in.cols > 0){
+                lbl_input->setPixmap(QPixmap::fromImage(Mat2QImage(raw_in)));
+            }*/
+            emit has_new_image();
         }else{
             //! > If the vision reception was set false, we set the blue screen and release cv::VideoCapture
             if(start_finish){

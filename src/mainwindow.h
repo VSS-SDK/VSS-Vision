@@ -47,8 +47,10 @@
 #include "calibration.h"
 #include "vision.h"
 #include "sqlite.h"
+#include "QtOpenCV.h"
 
 using namespace common;
+using namespace QtOcv;
 
 namespace Ui {
 
@@ -121,9 +123,13 @@ public slots:
     //! Method that get the signal from slide on HSV-Vmax
     void updateVmax(int);
 
+    void getNewImageCalib();
+
+    void getNewImageVision();
+
 protected:
-    calibration calib;
-    vision vi;
+    calibration *calib;
+    vision *vi;
     SQLite *sql;
     Ui::MainWindow *ui;
     QIcon blockdevice, ksame, kdf, package;

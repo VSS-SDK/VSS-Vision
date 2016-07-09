@@ -17,6 +17,7 @@
 #include "QPixmap"
 #include "qcustomlabel.h"
 #include "QDebug"
+#include "QThread"
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -35,6 +36,9 @@ using namespace common;
 
 //! This class is responsible for calibrate all common::VisionColor, cut points and rotation
 class calibration : public QThread{
+     Q_OBJECT
+public:
+    Mat in, out, saved, raw_in, raw_out, storage, last_in;
 protected:
     // Control
     bool run_it;
@@ -49,7 +53,7 @@ protected:
     Point zoom_blob;
 
     // OpenCV
-    Mat in, out, saved, raw_in, raw_out, storage;
+
     Point size;
     VideoCapture cap;
     vector<vector<Point> > labels;
@@ -67,7 +71,7 @@ protected:
 
 public:
     //! Default constructor: calibration c;
-    calibration();
+    explicit calibration(QObject *parent = 0);
 
     //! Virtual method from QThread, MainWindow call this method in a CONNECT
     void run();
@@ -134,6 +138,9 @@ public:
 
     //! alloc the labels of pose from objects in workspace
     void alloc_calibration(Calibration*);
+
+signals:
+    void has_new_image();
 };
 
 #endif // VISION_H

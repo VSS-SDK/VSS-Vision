@@ -11,6 +11,7 @@
 
 #include "QtCore"
 #include "QLabel"
+#include "QThread"
 #include "qcustomlabel.h"
 
 #include "common.h"
@@ -20,7 +21,11 @@ using namespace common;
 using namespace QtOcv;
 
 //! This class is responsible for track all objects in field
-class vision : public QThread{
+class vision : public QThread
+{
+    Q_OBJECT
+public:
+    Mat in, out, saved, raw_out, raw_in, storage;
 protected:
     bool run_it;
     bool start_finish;
@@ -39,7 +44,7 @@ protected:
     ExecConfiguration *exec_config;
     TableColor table_color;
 
-    Mat in, out, saved, raw_out, raw_in, storage;
+
     VideoCapture cap;
 
     // Optimization
@@ -67,7 +72,8 @@ protected:
     void updatePlot();
 
 public:
-    vision();
+    explicit vision(QObject *parent = 0);
+
     void run();
     void search_color(int);
 
@@ -91,6 +97,8 @@ public:
     string get_path_video();
     void finish();
 
+signals:
+    void has_new_image();
 };
 
 #endif // VISION_H
