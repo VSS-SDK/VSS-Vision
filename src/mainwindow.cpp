@@ -170,10 +170,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //! > End Define styles
     //! *******************
 
+    calib = new calibration();
     //! > Initializes the calibration thread
-    QObject::connect(&calib, SIGNAL(finished()), this, SLOT(quit()));
-    calib.alloc_label_input(image);
-    calib.alloc_calibration(&_calib);
+    QObject::connect(calib, SIGNAL(finished()), this, SLOT(quit()));
+    QObject::connect(calib, SIGNAL(has_new_image()), this, SLOT(getNewImageCalib()));
+    calib->alloc_label_input(image);
+    calib->alloc_calibration(&_calib);
 
     //! Initializes the vision thread
     QObject::connect(&vi, SIGNAL(finished()), this, SLOT(quit()));
@@ -184,7 +186,7 @@ MainWindow::MainWindow(QWidget *parent) :
     vi.alloc_execution_config(&execConfig);
     vi.alloc_label_plots(&lblPlots);
 
-    calib.start();
+    calib->start();
     vi.start();
 
     image->show();
@@ -727,7 +729,7 @@ void MainWindow::mouseCurrentPos(){
 //! 
 void MainWindow::mouseLeftPressed(){
     //! > Update the qtd of left clicks on vision
-    calib.set_mouse_click_left(calib.get_mouse_click_left()+1);
+    calib->set_mouse_click_left(calib->get_mouse_click_left()+1);
 }
 
 //! Addendum
@@ -735,7 +737,7 @@ void MainWindow::mouseLeftPressed(){
 //! 
 void MainWindow::mouseRightPressed(){
     //! > Update the qtd of right clicks on vision
-    calib.set_mouse_click_right(calib.get_mouse_click_right()+1);
+    calib->set_mouse_click_right(calib->get_mouse_click_right()+1);
 }
 
 void MainWindow::mouseReleased(){
@@ -761,26 +763,26 @@ void MainWindow::mouseLeave(){
 //! 
 void MainWindow::evtCalibration(){
     //! > Toggle between ON/OFF calibration
-    if(!calib.get_vision_reception()){
+    if(!calib->get_vision_reception()){
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
-            calib.set_device(CAMERA);
-            calib.set_id_camera(0);
+            calib->set_device(CAMERA);
+            calib->set_id_camera(0);
         }else
         //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){
-            calib.set_device(IMAGE);
+            calib->set_device(IMAGE);
         }else
         //! > If video it's used, set device common::VIDEO
         if(checkUseVideo->isChecked()){
-            calib.set_device(VIDEO);
+            calib->set_device(VIDEO);
 
         }
 
         //! > Send which color will be calibrate
-        calib.set_id_color(cmbColors->currentIndex());
+        calib->set_id_color(cmbColors->currentIndex());
         //! > Turn ON the calibration thread
-        calib.set_vision_reception(true);
+        calib->set_vision_reception(true);
 
         btnDoColorCalib->setText("Done");
 
@@ -815,7 +817,7 @@ void MainWindow::evtCalibration(){
         btnRunVision->setDisabled(false);
 
         //! > Turn OFF the calibration thread
-        calib.set_vision_reception(false);
+        calib->set_vision_reception(false);
 
         finishCalibrationColors();
         ui->layoutH9H->removeWidget(coordinate_mouse);
@@ -981,8 +983,8 @@ void MainWindow::updateHmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[h] = value;
     slidersHSV.at(hmin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[h]);
 
-    /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[h]){
-        sliderHmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h] + 1);
+    /*if(value >= _calib->colors.at(cmbColors->currentIndex()).max.rgb[h]){
+        sliderHmax->setValue(_calib->colors.at(cmbColors->currentIndex()).max.rgb[h] + 1);
     }*/
 
     clearSS(ss);
@@ -998,8 +1000,8 @@ void MainWindow::updateSmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[s] = value;
     slidersHSV.at(smin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[s]);
 
-    /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[s]){
-        sliderSmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s] + 1);
+    /*if(value >= _calib->colors.at(cmbColors->currentIndex()).max.rgb[s]){
+        sliderSmax->setValue(_calib->colors.at(cmbColors->currentIndex()).max.rgb[s] + 1);
     }*/
 
     clearSS(ss);
@@ -1013,8 +1015,8 @@ void MainWindow::updateVmin(int value){
     _calib.colors.at(cmbColors->currentIndex()).min.rgb[v] = value;
     slidersHSV.at(vmin)->setValue(_calib.colors.at(cmbColors->currentIndex()).min.rgb[v]);
 
-    /*if(value >= _calib.colors.at(cmbColors->currentIndex()).max.rgb[v]){
-        sliderVmax->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v] + 1);
+    /*if(value >= _calib->colors.at(cmbColors->currentIndex()).max.rgb[v]){
+        sliderVmax->setValue(_calib->colors.at(cmbColors->currentIndex()).max.rgb[v] + 1);
     }*/
 
     clearSS(ss);
@@ -1028,8 +1030,8 @@ void MainWindow::updateHmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[h] = value;
     slidersHSV.at(hmax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h]);
 
-    /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[h]){
-        sliderHmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[h] - 1);
+    /*if(value <= _calib->colors.at(cmbColors->currentIndex()).min.rgb[h]){
+        sliderHmin->setValue(_calib->colors.at(cmbColors->currentIndex()).max.rgb[h] - 1);
     }*/
 
     clearSS(ss);
@@ -1045,8 +1047,8 @@ void MainWindow::updateSmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[s] = value;
     slidersHSV.at(smax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s]);
 
-    /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[s]){
-        sliderSmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[s] - 1);
+    /*if(value <= _calib->colors.at(cmbColors->currentIndex()).min.rgb[s]){
+        sliderSmin->setValue(_calib->colors.at(cmbColors->currentIndex()).max.rgb[s] - 1);
     }*/
 
     clearSS(ss);
@@ -1060,8 +1062,8 @@ void MainWindow::updateVmax(int value){
     _calib.colors.at(cmbColors->currentIndex()).max.rgb[v] = value;
     slidersHSV.at(vmax)->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v]);
 
-    /*if(value <= _calib.colors.at(cmbColors->currentIndex()).min.rgb[v]){
-        sliderVmin->setValue(_calib.colors.at(cmbColors->currentIndex()).max.rgb[v] - 1);
+    /*if(value <= _calib->colors.at(cmbColors->currentIndex()).min.rgb[v]){
+        sliderVmin->setValue(_calib->colors.at(cmbColors->currentIndex()).max.rgb[v] - 1);
     }*/
 
     clearSS(ss);
@@ -1069,6 +1071,10 @@ void MainWindow::updateVmax(int value){
     lblHeadersHSV.at(v)->setText(QString(ss.str().c_str()));
 
     //sliderVmax->show();
+}
+
+void MainWindow::getNewImageCalib(){
+    image->setPixmap(QPixmap::fromImage(mat2Image(calib->raw_in)));
 }
 
 void MainWindow::update_hsv_s(){
@@ -1201,7 +1207,7 @@ int MainWindow::translateColor(QString s){
 
 MainWindow::~MainWindow()
 {
-    calib.finish();
+    calib->finish();
     vi.finish();
     delete ui;
 }
