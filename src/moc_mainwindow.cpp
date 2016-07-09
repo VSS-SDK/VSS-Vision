@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[19];
-    char stringdata[240];
+    QByteArrayData data[20];
+    char stringdata[258];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -47,7 +47,8 @@ QT_MOC_LITERAL(14, 178, 10),
 QT_MOC_LITERAL(15, 189, 10),
 QT_MOC_LITERAL(16, 200, 10),
 QT_MOC_LITERAL(17, 211, 10),
-QT_MOC_LITERAL(18, 222, 16)
+QT_MOC_LITERAL(18, 222, 16),
+QT_MOC_LITERAL(19, 239, 17)
     },
     "MainWindow\0mouseCurrentPos\0\0"
     "mouseLeftPressed\0mouseRightPressed\0"
@@ -56,6 +57,7 @@ QT_MOC_LITERAL(18, 222, 16)
     "checkboxVideo\0updateHmin\0updateSmin\0"
     "updateVmin\0updateHmax\0updateSmax\0"
     "updateVmax\0getNewImageCalib\0"
+    "getNewImageVision\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,7 +67,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      17,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -73,23 +75,24 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   99,    2, 0x0a,
-       3,    0,  100,    2, 0x0a,
-       4,    0,  101,    2, 0x0a,
-       5,    0,  102,    2, 0x0a,
-       6,    0,  103,    2, 0x0a,
-       7,    0,  104,    2, 0x0a,
-       8,    0,  105,    2, 0x0a,
-       9,    1,  106,    2, 0x0a,
-      10,    1,  109,    2, 0x0a,
-      11,    1,  112,    2, 0x0a,
-      12,    1,  115,    2, 0x0a,
-      13,    1,  118,    2, 0x0a,
-      14,    1,  121,    2, 0x0a,
-      15,    1,  124,    2, 0x0a,
-      16,    1,  127,    2, 0x0a,
-      17,    1,  130,    2, 0x0a,
-      18,    0,  133,    2, 0x0a,
+       1,    0,  104,    2, 0x0a,
+       3,    0,  105,    2, 0x0a,
+       4,    0,  106,    2, 0x0a,
+       5,    0,  107,    2, 0x0a,
+       6,    0,  108,    2, 0x0a,
+       7,    0,  109,    2, 0x0a,
+       8,    0,  110,    2, 0x0a,
+       9,    1,  111,    2, 0x0a,
+      10,    1,  114,    2, 0x0a,
+      11,    1,  117,    2, 0x0a,
+      12,    1,  120,    2, 0x0a,
+      13,    1,  123,    2, 0x0a,
+      14,    1,  126,    2, 0x0a,
+      15,    1,  129,    2, 0x0a,
+      16,    1,  132,    2, 0x0a,
+      17,    1,  135,    2, 0x0a,
+      18,    0,  138,    2, 0x0a,
+      19,    0,  139,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void,
@@ -108,6 +111,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,    2,
     QMetaType::Void, QMetaType::Int,    2,
     QMetaType::Void, QMetaType::Int,    2,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -135,6 +139,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 14: _t->updateSmax((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 15: _t->updateVmax((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 16: _t->getNewImageCalib(); break;
+        case 17: _t->getNewImageVision(); break;
         default: ;
         }
     }
@@ -165,13 +170,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 18;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 17)
+        if (_id < 18)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 17;
+        _id -= 18;
     }
     return _id;
 }

@@ -125,9 +125,11 @@ public slots:
 
     void getNewImageCalib();
 
+    void getNewImageVision();
+
 protected:
     calibration *calib;
-    vision vi;
+    vision *vi;
     SQLite *sql;
     Ui::MainWindow *ui;
     QIcon blockdevice, ksame, kdf, package;

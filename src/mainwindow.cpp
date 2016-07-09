@@ -171,23 +171,27 @@ MainWindow::MainWindow(QWidget *parent) :
     //! *******************
 
     calib = new calibration();
+
     //! > Initializes the calibration thread
     QObject::connect(calib, SIGNAL(finished()), this, SLOT(quit()));
     QObject::connect(calib, SIGNAL(has_new_image()), this, SLOT(getNewImageCalib()));
     calib->alloc_label_input(image);
     calib->alloc_calibration(&_calib);
 
+    vi = new vision();
+
     //! Initializes the vision thread
-    QObject::connect(&vi, SIGNAL(finished()), this, SLOT(quit()));
-    vi.alloc_label_input(image);
-    vi.alloc_calibration(&_calib);
-    vi.alloc_state(&state);
-    vi.alloc_colors(&colors);
-    vi.alloc_execution_config(&execConfig);
-    vi.alloc_label_plots(&lblPlots);
+    QObject::connect(vi, SIGNAL(finished()), this, SLOT(quit()));
+    QObject::connect(vi, SIGNAL(has_new_image()), this, SLOT(getNewImageVision()));
+    vi->alloc_label_input(image);
+    vi->alloc_calibration(&_calib);
+    vi->alloc_state(&state);
+    vi->alloc_colors(&colors);
+    vi->alloc_execution_config(&execConfig);
+    vi->alloc_label_plots(&lblPlots);
 
     calib->start();
-    vi.start();
+    vi->start();
 
     image->show();
 }
@@ -830,19 +834,19 @@ void MainWindow::evtCalibration(){
 //! 
 void MainWindow::evtVision(){
     //! > Toggle between ON/OFF calibration
-    if(!vi.get_vision_reception()){
+    if(!vi->get_vision_reception()){
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
-            vi.set_device(CAMERA);
-            vi.set_id_camera(0);
+            vi->set_device(CAMERA);
+            vi->set_id_camera(0);
         }else
         //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){
-            vi.set_device(IMAGE);
+            vi->set_device(IMAGE);
         }else
         //! > If video it's used, set device common::VIDEO
         if(checkUseVideo->isChecked()){
-            vi.set_device(VIDEO);
+            vi->set_device(VIDEO);
         }
 
         //! > Disable options of input data
@@ -854,7 +858,7 @@ void MainWindow::evtVision(){
         cmbSavedImages->setDisabled(true);
 
         //! > Turn ON the vision thread
-        vi.set_vision_reception(true);
+        vi->set_vision_reception(true);
 
         defineColors();
         btnDoColorCalib->setDisabled(true);
@@ -871,7 +875,7 @@ void MainWindow::evtVision(){
         btnDoColorCalib->setDisabled(false);
 
         //! > Turn OFF the vision thread
-        vi.set_vision_reception(false);
+        vi->set_vision_reception(false);
         finishPlotValues();
     }
 }
@@ -1077,6 +1081,11 @@ void MainWindow::getNewImageCalib(){
     image->setPixmap(QPixmap::fromImage(mat2Image(calib->raw_in)));
 }
 
+void MainWindow::getNewImageVision(){
+    image->setPixmap(QPixmap::fromImage(mat2Image(vi->raw_in)));
+}
+
+
 void MainWindow::update_hsv_s(){
     switch(cmbColors->currentIndex()){
         case ORANGE:{
@@ -1208,6 +1217,6 @@ int MainWindow::translateColor(QString s){
 MainWindow::~MainWindow()
 {
     calib->finish();
-    vi.finish();
+    vi->finish();
     delete ui;
 }

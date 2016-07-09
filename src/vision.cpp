@@ -8,7 +8,7 @@
 
 #include "vision.h"
 
-vision::vision(){
+vision::vision(QObject *parent) : QThread(parent){
     /*for(int i = 0 ; i < 13 ; i++){
         find_old_labels[i] = false;
     }*/
@@ -87,7 +87,7 @@ void vision::run(){
                 recognizeObjects();
             }
 
-            lbl_input->setPixmap(QPixmap::fromImage(mat2Image(raw_in)));
+            emit has_new_image();
         }else{
             if(start_finish){
                 start_finish = false;
