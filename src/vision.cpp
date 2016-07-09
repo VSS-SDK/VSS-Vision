@@ -61,7 +61,8 @@ void vision::run(){
 
                 if(in.rows < 1)     // Reset video
                     cap.set(0, 0);
-                //usleep(33333);
+                
+                usleep(33333);
             }
 
             raw_in = in.clone();
@@ -87,7 +88,7 @@ void vision::run(){
                 recognizeObjects();
             }
 
-            emit has_new_image();
+            emit has_new_state();
         }else{
             if(start_finish){
                 start_finish = false;

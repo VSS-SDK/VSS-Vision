@@ -125,4 +125,10 @@ namespace common{
     double radian(Point a, Point b){
         return atan2(a.y - b.y, a.x - b.x);
     }
+
+    vss_state::Global_State State2Global_State(State state){
+        vss_state::Global_State global_state;
+
+        return global_state;
+    }
 }

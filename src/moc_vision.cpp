@@ -33,7 +33,7 @@ QT_MOC_LITERAL(0, 0, 6),
 QT_MOC_LITERAL(1, 7, 13),
 QT_MOC_LITERAL(2, 21, 0)
     },
-    "vision\0has_new_image\0\0"
+    "vision\0has_new_state\0\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,7 +64,7 @@ void vision::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
     if (_c == QMetaObject::InvokeMetaMethod) {
         vision *_t = static_cast<vision *>(_o);
         switch (_id) {
-        case 0: _t->has_new_image(); break;
+        case 0: _t->has_new_state(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -72,7 +72,7 @@ void vision::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (vision::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&vision::has_new_image)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&vision::has_new_state)) {
                 *result = 0;
             }
         }
@@ -117,7 +117,7 @@ int vision::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void vision::has_new_image()
+void vision::has_new_state()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }

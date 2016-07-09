@@ -331,11 +331,11 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
-		images/model.jpg \
+		icons/ksame.png \
 		icons/kdf.png \
 		icons/package.png \
-		icons/ksame.png \
-		icons/blockdevice.png
+		icons/blockdevice.png \
+		images/model.jpg
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_calibration.cpp moc_vision.cpp moc_qcustomlabel.cpp
@@ -660,6 +660,9 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		QtOpenCV.h \
 		vision.h \
 		sqlite.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		mainwindow.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
@@ -1664,6 +1667,9 @@ main.o: main.cpp mainwindow.h \
 		QtOpenCV.h \
 		vision.h \
 		sqlite.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		/usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/qapplication.h \
 		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
@@ -1991,6 +1997,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		QtOpenCV.h \
 		vision.h \
 		sqlite.h \
+		interface.h \
+		protos/state.pb.h \
+		protos/command.pb.h \
 		ui_mainwindow.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtWidgets/QAction \

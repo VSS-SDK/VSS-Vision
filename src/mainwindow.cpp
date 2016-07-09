@@ -182,7 +182,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //! Initializes the vision thread
     QObject::connect(vi, SIGNAL(finished()), this, SLOT(quit()));
-    QObject::connect(vi, SIGNAL(has_new_image()), this, SLOT(getNewImageVision()));
+    QObject::connect(vi, SIGNAL(has_new_state()), this, SLOT(getNewStateVision()));
     vi->alloc_label_input(image);
     vi->alloc_calibration(&_calib);
     vi->alloc_state(&state);
@@ -1081,7 +1081,7 @@ void MainWindow::getNewImageCalib(){
     image->setPixmap(QPixmap::fromImage(mat2Image(calib->raw_in)));
 }
 
-void MainWindow::getNewImageVision(){
+void MainWindow::getNewStateVision(){
     image->setPixmap(QPixmap::fromImage(mat2Image(vi->raw_in)));
 }
 
