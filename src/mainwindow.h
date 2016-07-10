@@ -205,6 +205,9 @@ protected:
     vector<QLabel*> lblPlots;
     QLabel *lbl_val;
 
+    QSlider *sliderRotation;
+    
+
     QCustomLabel *image;
     QLabel *coordinate_mouse, *zoom_image;
 

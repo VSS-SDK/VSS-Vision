@@ -257,6 +257,8 @@ namespace common{
         vector<VisionColor> colors;
         //! Data: vector of Point
         vector<Point> cut;
+        //! Data: value of rotation i Z
+        float rotation;
         //! Data: day of calibration. used ti save in db
         string data;
 
@@ -277,6 +279,8 @@ namespace common{
             cut.push_back(Point(0, 0));
             cut.push_back(Point(0, 0));
 
+            rotation = 0.0;
+
             data = "2016-12-30";
         };
         //! Constructor copy: Calibration c(Calibration());
@@ -284,6 +288,7 @@ namespace common{
             comment = c->comment;
             colors = c->colors;
             cut = c->cut;
+            rotation = c->rotation;
             data = c->data;
         };
 

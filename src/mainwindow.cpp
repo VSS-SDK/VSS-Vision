@@ -170,6 +170,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->layoutH2->addWidget(image);
 
+    sliderRotation = new QSlider();
+    sliderRotation->setMinimumHeight(130);
+    sliderRotation->setMaximum(5);
+    sliderRotation->setMinimum(-5);
+
     //! > End Define styles
     //! *******************
 
@@ -789,8 +794,6 @@ void MainWindow::evtCalibrationColors(){
         //! > Turn ON the calibration thread
         calib->set_vision_reception(true);
 
-        btnDoColorCalib->setText("Done");
-
         //! > Disable options of input data
         cmbColors->setDisabled(true);
         
@@ -810,9 +813,11 @@ void MainWindow::evtCalibrationColors(){
         initCalibrationColors();
         ui->layoutH9H->addWidget(coordinate_mouse);
         coordinate_mouse->show();
+
         btnRunVision->setDisabled(true);
+        btnDoCameraCalib->setDisabled(true);
+        btnDoColorCalib->setText("Done");
     }else{
-        btnDoColorCalib->setText("Do");
         //! > Enable options of input data
         cmbColors->setDisabled(false);
 
@@ -835,6 +840,10 @@ void MainWindow::evtCalibrationColors(){
         finishCalibrationColors();
         ui->layoutH9H->removeWidget(coordinate_mouse);
         coordinate_mouse->hide();
+
+        btnRunVision->setDisabled(false);
+        btnDoCameraCalib->setDisabled(false);
+        btnDoColorCalib->setText("Do");
     }
 }
 
@@ -862,12 +871,20 @@ void MainWindow::evtCalibrationCam(){
         //! > Turn ON the calibration thread
         calib->set_vision_reception(false);
 
+        cmbColors->setDisabled(true);
+
         btnDoCameraCalib->setText("Done");
+        btnDoColorCalib->setDisabled(true);
+        btnRunVision->setDisabled(true);
     }else{
         //! > Turn OFF the calibration thread
         calib->set_vision_reception(false);
+
+        cmbColors->setDisabled(false);
         
         btnDoCameraCalib->setText("Do");
+        btnDoColorCalib->setDisabled(false);
+        btnRunVision->setDisabled(false);
     }
 }
 
@@ -892,7 +909,6 @@ void MainWindow::evtVision(){
         }
 
         //! > Disable options of input data
-        btnRunVision->setText("Pause");
         cmbColors->setDisabled(true);
 
         cmbSavedImages->setDisabled(true);
@@ -910,11 +926,12 @@ void MainWindow::evtVision(){
         vi->set_vision_reception(true);
 
         defineColors();
-        btnDoColorCalib->setDisabled(true);
         initPlotValues();
-    }else{
-        btnRunVision->setText("Run");
 
+        btnDoCameraCalib->setDisabled(true);
+        btnDoColorCalib->setDisabled(true);
+        btnRunVision->setText("Pause");
+    }else{
         //! > Enable options of input data
         cmbColors->setDisabled(false);
 
@@ -929,11 +946,13 @@ void MainWindow::evtVision(){
         cmbSavedVideos->setDisabled(false);
         checkUseVideo->setDisabled(false);
 
-        btnRunVision->setDisabled(false);
-
         //! > Turn OFF the vision thread
         vi->set_vision_reception(false);
         finishPlotValues();
+
+        btnDoCameraCalib->setDisabled(false);
+        btnDoColorCalib->setDisabled(false);
+        btnRunVision->setText("Run");
     }
 }
 
