@@ -768,6 +768,7 @@ void MainWindow::mouseLeave(){
 void MainWindow::evtCalibrationColors(){
     //! > Toggle between ON/OFF calibration
     if(!calib->get_vision_reception()){
+        calib->set_type_calibration(true);
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             calib->set_device(CAMERA);
@@ -843,6 +844,7 @@ void MainWindow::evtCalibrationColors(){
 void MainWindow::evtCalibrationCam(){
     //! > Toggle between ON/OFF calibration
     if(!calib->get_vision_reception()){
+        calib->set_type_calibration(false);
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             calib->set_device(CAMERA);
@@ -915,7 +917,7 @@ void MainWindow::evtVision(){
 
         //! > Enable options of input data
         cmbColors->setDisabled(false);
-        
+
         if(has_a_camera){
             cmbCameraIds->setDisabled(false);
             checkUseCamera->setDisabled(false);

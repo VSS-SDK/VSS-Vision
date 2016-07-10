@@ -92,11 +92,13 @@ void calibration::run(){
 
             raw_in = in.clone();
 
-            //! > Apply filters
-            applyFilters();
-            
-            //! > Apply Zoom, if needed
-            zoom();
+            if(type_calibration){
+                //! > Apply filters
+                applyFilters();
+                
+                //! > Apply Zoom, if needed
+                zoom();
+            }
 
             //! > emit a signal for MainWindow update its image
             emit has_new_image();
@@ -329,6 +331,10 @@ void calibration::set_path_video(string path_video){
     this->path_video = path_video;
 }
 
+void calibration::set_type_calibration(bool type_calibration){
+    this->type_calibration = type_calibration;
+}
+
 int calibration::get_device(){
     return device_used;
 }
@@ -355,6 +361,10 @@ int calibration::get_mouse_click_left(){
 
 int calibration::get_mouse_click_right(){
     return mouse_click_right;
+}
+
+bool calibration::get_type_calibration(){
+    return type_calibration;
 }
 
 //! Addendum
