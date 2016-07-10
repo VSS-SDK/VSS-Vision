@@ -868,6 +868,17 @@ void MainWindow::evtCalibrationCam(){
             calib->set_device(VIDEO);
         }
 
+        cmbSavedImages->setDisabled(true);
+        checkUseImage->setDisabled(true);
+
+        cmbSavedVideos->setDisabled(true);
+        checkUseVideo->setDisabled(true);
+
+        if(has_a_camera){
+            cmbCameraIds->setDisabled(true);
+            checkUseCamera->setDisabled(true);
+        }
+
         //! > Turn ON the calibration thread
         calib->set_vision_reception(false);
 
@@ -879,6 +890,17 @@ void MainWindow::evtCalibrationCam(){
     }else{
         //! > Turn OFF the calibration thread
         calib->set_vision_reception(false);
+
+        if(has_a_camera){
+            cmbCameraIds->setDisabled(false);
+            checkUseCamera->setDisabled(false);
+        }
+
+        cmbSavedImages->setDisabled(false);
+        checkUseImage->setDisabled(false);
+
+        cmbSavedVideos->setDisabled(false);
+        checkUseVideo->setDisabled(false);
 
         cmbColors->setDisabled(false);
         
@@ -999,6 +1021,7 @@ void MainWindow::finishCalibrationColors(){
 }
 
 void MainWindow::initPlotValues(){
+    state = State();
     ui->layoutH10->addWidget(lbl_val);
     lbl_val->show();
 
