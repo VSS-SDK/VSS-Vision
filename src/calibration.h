@@ -18,6 +18,7 @@
 #include "qcustomlabel.h"
 #include "QDebug"
 #include "QThread"
+#include "QDir"
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -46,19 +47,21 @@ protected:
     bool vision_reception;
     bool start_finish;
     int id_camera;
+    string user_path;
     string path_image;
     string path_video;
     int mouse_click_left, mouse_click_right;
     int id_calib;
-    Point zoom_blob;
+    bool type_calibration;
+    
 
     // OpenCV
-
     Point size;
     VideoCapture cap;
     vector<vector<Point> > labels;
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
+    Point zoom_blob;
 
     // Qt
     QImage img;
@@ -112,6 +115,9 @@ public:
     //! Set the qtd of right clicks
     void set_mouse_click_right(int);
 
+    //! Set the type of calibration, COLORS = true, CAM = false;
+    void set_type_calibration(bool);
+
     //! get the device used
     int get_device();
 
@@ -132,6 +138,9 @@ public:
 
     //! get the qtd of right clicks
     int get_mouse_click_right();
+
+    //! get the type of calibraiton, COLORS = true, CAM = false;
+    bool get_type_calibration();
 
     //! alloc the label of input image, image from VideoCapture
     void alloc_label_input(QCustomLabel*);

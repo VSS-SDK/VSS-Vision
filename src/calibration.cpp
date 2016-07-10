@@ -12,19 +12,6 @@
 //! --------
 //! 
 //! > Initializes all control variables 
-/*calibration::calibration(){
-    run_it = true;
-    device_used = IMAGE;
-    vision_reception = false;
-    start_finish = false;
-    mouse_click_left = mouse_click_right = 0;
-    id_camera = 0;
-    //! > TODO: resolt the path, we need to use relative paths
-    path_image = PATH_IMAGE;
-    path_video = PATH_VIDEO;
-    id_calib = -1;
-}*/
-
 calibration::calibration(QObject *parent) : QThread(parent){
     run_it = true;
     device_used = IMAGE;
@@ -32,9 +19,15 @@ calibration::calibration(QObject *parent) : QThread(parent){
     start_finish = false;
     mouse_click_left = mouse_click_right = 0;
     id_camera = 0;
-    //! > TODO: resolt the path, we need to use relative paths
-    path_image = PATH_IMAGE;
-    path_video = PATH_VIDEO;
+
+    path_image = "/images/model.jpg";
+    path_video = "/videos/ball_move.mp4";
+
+    user_path = QCoreApplication::applicationDirPath().toUtf8().constData();
+
+    path_image = user_path + path_image;
+    path_video = user_path + path_video;
+
     id_calib = -1;
 }
 
@@ -50,7 +43,7 @@ void calibration::run(){
 
     //! > set the screen on MainWindow
     lbl_input->setPixmap(QPixmap::fromImage(mat2Image(in)));
-
+    //qDebug() << QCoreApplication::applicationDirPath();
     while(run_it){
         //! > If vision reception must be used
         if(vision_reception){
@@ -99,16 +92,15 @@ void calibration::run(){
 
             raw_in = in.clone();
 
-            //! > Apply filters
-            applyFilters();
-            
-            //! > Apply Zoom, if needed
-            zoom();
+            if(type_calibration){
+                //! > Apply filters
+                applyFilters();
+                
+                //! > Apply Zoom, if needed
+                zoom();
+            }
 
-            //! > update the image in MainWindow
-            /*if(raw_in.rows > 0 && raw_in.cols > 0){
-                lbl_input->setPixmap(QPixmap::fromImage(Mat2QImage(raw_in)));
-            }*/
+            //! > emit a signal for MainWindow update its image
             emit has_new_image();
         }else{
             //! > If the vision reception was set false, we set the blue screen and release cv::VideoCapture
@@ -339,6 +331,10 @@ void calibration::set_path_video(string path_video){
     this->path_video = path_video;
 }
 
+void calibration::set_type_calibration(bool type_calibration){
+    this->type_calibration = type_calibration;
+}
+
 int calibration::get_device(){
     return device_used;
 }
@@ -365,6 +361,10 @@ int calibration::get_mouse_click_left(){
 
 int calibration::get_mouse_click_right(){
     return mouse_click_right;
+}
+
+bool calibration::get_type_calibration(){
+    return type_calibration;
 }
 
 //! Addendum

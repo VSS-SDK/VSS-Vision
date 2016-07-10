@@ -137,6 +137,7 @@ const int Robot_Command::kRightVelFieldNumber;
 Robot_Command::Robot_Command()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:vss_command.Robot_Command)
 }
 
 void Robot_Command::InitAsDefaultInstance() {
@@ -146,6 +147,7 @@ Robot_Command::Robot_Command(const Robot_Command& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:vss_command.Robot_Command)
 }
 
 void Robot_Command::SharedCtor() {
@@ -157,6 +159,7 @@ void Robot_Command::SharedCtor() {
 }
 
 Robot_Command::~Robot_Command() {
+  // @@protoc_insertion_point(destructor:vss_command.Robot_Command)
   SharedDtor();
 }
 
@@ -187,31 +190,44 @@ Robot_Command* Robot_Command::New() const {
 }
 
 void Robot_Command::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    id_ = 0u;
-    left_vel_ = 0;
-    right_vel_ = 0;
-  }
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<Robot_Command*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(id_, right_vel_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
 bool Robot_Command::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:vss_command.Robot_Command)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required uint32 id = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &id_)));
           set_has_id();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(21)) goto parse_left_vel;
         break;
@@ -219,15 +235,14 @@ bool Robot_Command::MergePartialFromCodedStream(
 
       // required float left_vel = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 21) {
          parse_left_vel:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &left_vel_)));
           set_has_left_vel();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(29)) goto parse_right_vel;
         break;
@@ -235,25 +250,25 @@ bool Robot_Command::MergePartialFromCodedStream(
 
       // required float right_vel = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 29) {
          parse_right_vel:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &right_vel_)));
           set_has_right_vel();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -261,12 +276,18 @@ bool Robot_Command::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:vss_command.Robot_Command)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:vss_command.Robot_Command)
+  return false;
 #undef DO_
 }
 
 void Robot_Command::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:vss_command.Robot_Command)
   // required uint32 id = 1;
   if (has_id()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
@@ -286,10 +307,12 @@ void Robot_Command::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:vss_command.Robot_Command)
 }
 
 ::google::protobuf::uint8* Robot_Command::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vss_command.Robot_Command)
   // required uint32 id = 1;
   if (has_id()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
@@ -309,6 +332,7 @@ void Robot_Command::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:vss_command.Robot_Command)
   return target;
 }
 
@@ -422,6 +446,7 @@ const int Global_Commands::kRobotCommandsFieldNumber;
 Global_Commands::Global_Commands()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:vss_command.Global_Commands)
 }
 
 void Global_Commands::InitAsDefaultInstance() {
@@ -431,6 +456,7 @@ Global_Commands::Global_Commands(const Global_Commands& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:vss_command.Global_Commands)
 }
 
 void Global_Commands::SharedCtor() {
@@ -441,6 +467,7 @@ void Global_Commands::SharedCtor() {
 }
 
 Global_Commands::~Global_Commands() {
+  // @@protoc_insertion_point(destructor:vss_command.Global_Commands)
   SharedDtor();
 }
 
@@ -471,10 +498,21 @@ Global_Commands* Global_Commands::New() const {
 }
 
 void Global_Commands::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    id_ = 0u;
-    is_team_yellow_ = false;
-  }
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<Global_Commands*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(id_, is_team_yellow_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   robot_commands_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -482,20 +520,23 @@ void Global_Commands::Clear() {
 
 bool Global_Commands::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:vss_command.Global_Commands)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // optional uint32 id = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &id_)));
           set_has_id();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(16)) goto parse_is_team_yellow;
         break;
@@ -503,15 +544,14 @@ bool Global_Commands::MergePartialFromCodedStream(
 
       // required bool is_team_yellow = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 16) {
          parse_is_team_yellow:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &is_team_yellow_)));
           set_has_is_team_yellow();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(26)) goto parse_robot_commands;
         break;
@@ -519,24 +559,24 @@ bool Global_Commands::MergePartialFromCodedStream(
 
       // repeated .vss_command.Robot_Command robot_commands = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 26) {
          parse_robot_commands:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                 input, add_robot_commands()));
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(26)) goto parse_robot_commands;
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -544,12 +584,18 @@ bool Global_Commands::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:vss_command.Global_Commands)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:vss_command.Global_Commands)
+  return false;
 #undef DO_
 }
 
 void Global_Commands::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:vss_command.Global_Commands)
   // optional uint32 id = 1;
   if (has_id()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
@@ -570,10 +616,12 @@ void Global_Commands::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:vss_command.Global_Commands)
 }
 
 ::google::protobuf::uint8* Global_Commands::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vss_command.Global_Commands)
   // optional uint32 id = 1;
   if (has_id()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
@@ -595,6 +643,7 @@ void Global_Commands::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:vss_command.Global_Commands)
   return target;
 }
 
@@ -675,9 +724,7 @@ void Global_Commands::CopyFrom(const Global_Commands& from) {
 bool Global_Commands::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
 
-  for (int i = 0; i < robot_commands_size(); i++) {
-    if (!this->robot_commands(i).IsInitialized()) return false;
-  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->robot_commands())) return false;
   return true;
 }
 
