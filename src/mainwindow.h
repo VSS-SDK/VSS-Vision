@@ -127,6 +127,8 @@ public slots:
     //! Method that get the signal from slide on HSV-Vmax
     void updateVmax(int);
 
+    //! Method that get the signal from slide on Rotation
+    void updateRotation(int);
 
     // QThreads
     //! Method that get the signal has_new_image() from calibration
@@ -206,7 +208,7 @@ protected:
     QLabel *lbl_val;
 
     QSlider *sliderRotation;
-    
+    QLabel *lbl_h_rotation;
 
     QCustomLabel *image;
     QLabel *coordinate_mouse, *zoom_image;
@@ -216,6 +218,10 @@ protected:
 
     //! Method responsible for update the layout for turn off the calibration
     void finishCalibrationColors();
+
+    void initCalibrationCamera();
+
+    void finishCalibrationCamera();
 
     //! Method responsible for update the layout for turn on the vision
     void initPlotValues();

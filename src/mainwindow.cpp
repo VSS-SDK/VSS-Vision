@@ -172,8 +172,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     sliderRotation = new QSlider();
     sliderRotation->setMinimumHeight(130);
-    sliderRotation->setMaximum(5);
-    sliderRotation->setMinimum(-5);
+    sliderRotation->setMaximum(100);
+    sliderRotation->setMinimum(-100);
+    sliderRotation->setStyleSheet("QSlider {background: white; border: 1px solid #bbb;}");
+
+    lbl_h_rotation = new QLabel("Rotation");
+    lbl_h_rotation->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
+    QObject::connect(sliderRotation, SIGNAL(valueChanged(int)), this, SLOT(updateRotation(int)));
+
 
     //! > End Define styles
     //! *******************
@@ -327,6 +333,8 @@ void MainWindow::addCameraCalibrationItem(){
     btnDoCameraCalib->setMaximumHeight(20);
     connect(btnDoCameraCalib, SIGNAL (clicked()), this, SLOT (evtCalibrationCam()));
 
+    cameraCalibration.at(1)->setText(1, "0º");        
+    cameraCalibration.at(2)->setText(1, "00, 00, 000, 000");
     ui->treeMain->setItemWidget(cameraCalibration.value(3), 1, btnDoCameraCalib);
 
     ui->treeMain->insertTopLevelItems(0, cameraCalibration);
@@ -747,16 +755,34 @@ void MainWindow::mouseCurrentPos(){
 //! --------
 //! 
 void MainWindow::mouseLeftPressed(){
-    //! > Update the qtd of left clicks on vision
-    calib->set_mouse_click_left(calib->get_mouse_click_left()+1);
+    if(calib->get_type_calibration()){
+        //! > Update the qtd of left clicks on vision zoom
+        calib->set_mouse_click_left(calib->get_mouse_click_left()+1);
+    }else{
+        _calib.cut.at(0).x = image->x;
+        _calib.cut.at(0).y = image->y-10;
+
+        stringstream ss;
+        ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y; 
+        cameraCalibration.at(2)->setText(1, ss.str().c_str());   
+    }
 }
 
 //! Addendum
 //! --------
 //! 
 void MainWindow::mouseRightPressed(){
-    //! > Update the qtd of right clicks on vision
-    calib->set_mouse_click_right(calib->get_mouse_click_right()+1);
+    if(calib->get_type_calibration()){
+        //! > Update the qtd of right clicks on vision
+        calib->set_mouse_click_right(calib->get_mouse_click_right()+1);
+    }else{
+        _calib.cut.at(1).x = image->x;
+        _calib.cut.at(1).y = image->y-10;
+
+        stringstream ss;
+        ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y; 
+        cameraCalibration.at(2)->setText(1, ss.str().c_str());  
+    }
 }
 
 void MainWindow::mouseReleased(){
@@ -853,6 +879,7 @@ void MainWindow::evtCalibrationColors(){
 void MainWindow::evtCalibrationCam(){
     //! > Toggle between ON/OFF calibration
     if(!calib->get_vision_reception()){
+        initCalibrationCamera();
         calib->set_type_calibration(false);
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
@@ -888,6 +915,7 @@ void MainWindow::evtCalibrationCam(){
         btnDoColorCalib->setDisabled(true);
         btnRunVision->setDisabled(true);
     }else{
+        finishCalibrationCamera();
         //! > Turn OFF the calibration thread
         calib->set_vision_reception(false);
 
@@ -1018,6 +1046,22 @@ void MainWindow::finishCalibrationColors(){
         slidersHSV.at(i)->hide();
 
     update_hsv_s();
+}
+
+void MainWindow::initCalibrationCamera(){
+    ui->layoutH3->addWidget(sliderRotation);
+    ui->layoutH3H->addWidget(lbl_h_rotation);
+
+    sliderRotation->show();
+    lbl_h_rotation->show();
+}
+
+void MainWindow::finishCalibrationCamera(){
+    ui->layoutH3->removeWidget(sliderRotation);
+    ui->layoutH3H->removeWidget(lbl_h_rotation);
+
+    sliderRotation->hide();
+    lbl_h_rotation->hide();
 }
 
 void MainWindow::initPlotValues(){
@@ -1174,6 +1218,16 @@ void MainWindow::updateVmax(int value){
     lblHeadersHSV.at(v)->setText(QString(ss.str().c_str()));
 
     //sliderVmax->show();
+}
+
+void MainWindow::updateRotation(int value){
+    float new_value = value/10.0;
+    sliderRotation->setValue(value);
+    _calib.rotation = new_value;
+
+    stringstream ss;
+    ss << new_value << "º";
+    cameraCalibration.at(1)->setText(1, ss.str().c_str());        
 }
 
 void MainWindow::getNewImageCalib(){
