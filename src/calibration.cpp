@@ -98,6 +98,11 @@ void calibration::run(){
                 
                 //! > Apply Zoom, if needed
                 zoom();
+            }else{
+                if(raw_in.cols > 0 && raw_in.rows > 0){
+                    rotate_image();
+                    cut_image();
+                }
             }
 
             //! > emit a signal for MainWindow update its image
@@ -257,6 +262,16 @@ void calibration::zoom(){
         //! > Restart de count of clicks
         mouse_click_left = 0;
     }
+}
+
+void calibration::rotate_image(){
+    Mat aux;
+	warpAffine(raw_in, aux, getRotationMatrix2D(Point2f(raw_in.cols/2, raw_in.rows/2), _calib->rotation, 1.0), raw_in.size());
+	raw_in = aux;
+}
+
+void calibration::cut_image(){
+    rectangle(raw_in, Rect(_calib->cut.at(0), _calib->cut.at(1)), Scalar(255, 255, 255), 1, 1, 0);
 }
 
 //! Addendum

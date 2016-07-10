@@ -88,6 +88,12 @@ public:
     //! Apply Zoom on image, if needed
     void zoom();
 
+    //! rotate image
+    void rotate_image();
+
+    //! cur image
+    void cut_image();
+
     //! Paint the blob founded
     void paint_output();
 
