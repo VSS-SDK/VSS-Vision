@@ -1,38 +1,38 @@
-\hypertarget{namespacecommon}{\section{common Namespace Reference}
+\hypertarget{namespacecommon}{}\section{common Namespace Reference}
 \label{namespacecommon}\index{common@{common}}
-}
 
 
-This namespace is responsible to implement all global functions and custom datatypes used in the software, like\-: E\-N\-U\-M\-S, \hyperlink{structcommon_1_1btVector3}{bt\-Vector3}, \hyperlink{structcommon_1_1Pixel}{Pixel}, \hyperlink{structcommon_1_1TableColor}{Table\-Color}, \hyperlink{structcommon_1_1VisionColor}{Vision\-Color}, \hyperlink{structcommon_1_1ExecConfiguration}{Exec\-Configuration}, \hyperlink{structcommon_1_1Calibration}{Calibration}, \hyperlink{structcommon_1_1Robot}{Robot} and \hyperlink{structcommon_1_1State}{State}.  
+This namespace is responsible to implement all global functions and custom datatypes used in the software, like\+: E\+N\+U\+MS, \hyperlink{structcommon_1_1btVector3}{bt\+Vector3}, \hyperlink{structcommon_1_1Pixel}{Pixel}, \hyperlink{structcommon_1_1TableColor}{Table\+Color}, \hyperlink{structcommon_1_1VisionColor}{Vision\+Color}, \hyperlink{structcommon_1_1ExecConfiguration}{Exec\+Configuration}, \hyperlink{structcommon_1_1Calibration}{Calibration}, \hyperlink{structcommon_1_1Robot}{Robot} and \hyperlink{structcommon_1_1State}{State}.  
 
 
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structcommon_1_1btVector3}{bt\-Vector3}
+struct \hyperlink{structcommon_1_1btVector3}{bt\+Vector3}
 \begin{DoxyCompactList}\small\item\em This struct represents a Vector in R$^\wedge$3. \end{DoxyCompactList}\item 
-struct \hyperlink{structcommon_1_1Pixel}{Pixel}
-\begin{DoxyCompactList}\small\item\em This struct represents a \hyperlink{structcommon_1_1Pixel}{Pixel}, can be\-: R\-G\-B and H\-S\-V. It's used float because is possible to represent color in systems, like\-: 0 to 1, and 0 to 255. \end{DoxyCompactList}\item 
-struct \hyperlink{structcommon_1_1TableColor}{Table\-Color}
-\begin{DoxyCompactList}\small\item\em This struct represents all colors in R\-G\-B that can be used. \end{DoxyCompactList}\item 
-struct \hyperlink{structcommon_1_1VisionColor}{Vision\-Color}
-\begin{DoxyCompactList}\small\item\em This struct represents a Color that can be calibrated\-: made by 2 Pixels that represents a range of color, Bottom \hyperlink{structcommon_1_1Pixel}{Pixel} Limit and Top \hyperlink{structcommon_1_1Pixel}{Pixel} Limit. \end{DoxyCompactList}\item 
-struct \hyperlink{structcommon_1_1ExecConfiguration}{Exec\-Configuration}
-\begin{DoxyCompactList}\small\item\em This struct represents a configuration of colors of objects in workspace. \end{DoxyCompactList}\item 
 struct \hyperlink{structcommon_1_1Calibration}{Calibration}
 \begin{DoxyCompactList}\small\item\em This struct represents a calibration of colors. \end{DoxyCompactList}\item 
+struct \hyperlink{structcommon_1_1ExecConfiguration}{Exec\+Configuration}
+\begin{DoxyCompactList}\small\item\em This struct represents a configuration of colors of objects in workspace. \end{DoxyCompactList}\item 
+struct \hyperlink{structcommon_1_1Pixel}{Pixel}
+\begin{DoxyCompactList}\small\item\em This struct represents a \hyperlink{structcommon_1_1Pixel}{Pixel}, can be\+: R\+GB and H\+SV. It\textquotesingle{}s used float because is possible to represent color in systems, like\+: 0 to 1, and 0 to 255. \end{DoxyCompactList}\item 
 struct \hyperlink{structcommon_1_1Robot}{Robot}
 \begin{DoxyCompactList}\small\item\em This strcut represets the pose that one robot can handle. Pos and Vel. \end{DoxyCompactList}\item 
 struct \hyperlink{structcommon_1_1State}{State}
-\begin{DoxyCompactList}\small\item\em This struct represents the state that the workspace can handle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em This struct represents the state that the workspace can handle. \end{DoxyCompactList}\item 
+struct \hyperlink{structcommon_1_1TableColor}{Table\+Color}
+\begin{DoxyCompactList}\small\item\em This struct represents all colors in R\+GB that can be used. \end{DoxyCompactList}\item 
+struct \hyperlink{structcommon_1_1VisionColor}{Vision\+Color}
+\begin{DoxyCompactList}\small\item\em This struct represents a Color that can be calibrated\+: made by 2 Pixels that represents a range of color, Bottom \hyperlink{structcommon_1_1Pixel}{Pixel} Limit and Top \hyperlink{structcommon_1_1Pixel}{Pixel} Limit. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \{ {\bfseries r} = 0, 
 {\bfseries g} = 1, 
 {\bfseries b} = 2
- \}
-\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of a R\-G\-B array. \end{DoxyCompactList}\item 
+ \}\hypertarget{namespacecommon_a491fb143df4d6e143a19de8d5863ef28}{}\label{namespacecommon_a491fb143df4d6e143a19de8d5863ef28}
+\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of a R\+GB array. \end{DoxyCompactList}
+\item 
 enum \{ \\*
 {\bfseries rmin} = 0, 
 {\bfseries gmin} = 1, 
@@ -41,13 +41,15 @@ enum \{ \\*
 \\*
 {\bfseries gmax} = 4, 
 {\bfseries bmax} = 5
- \}
-\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of a range of R\-G\-B array. \end{DoxyCompactList}\item 
+ \}\hypertarget{namespacecommon_a497fe38f750672b3984a9099aa7b7eed}{}\label{namespacecommon_a497fe38f750672b3984a9099aa7b7eed}
+\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of a range of R\+GB array. \end{DoxyCompactList}
+\item 
 enum \{ {\bfseries h} = 0, 
 {\bfseries s} = 1, 
 {\bfseries v} = 2
- \}
-\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of a H\-S\-V array. \end{DoxyCompactList}\item 
+ \}\hypertarget{namespacecommon_ad19e2da0c005a20bb6e218b5393d0994}{}\label{namespacecommon_ad19e2da0c005a20bb6e218b5393d0994}
+\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of a H\+SV array. \end{DoxyCompactList}
+\item 
 enum \{ \\*
 {\bfseries hmin} = 0, 
 {\bfseries smin} = 1, 
@@ -56,131 +58,141 @@ enum \{ \\*
 \\*
 {\bfseries smax} = 4, 
 {\bfseries vmax} = 5
- \}
-\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of a range of H\-S\-V array. \end{DoxyCompactList}\item 
-enum \{ {\bfseries O\-U\-R\-\_\-\-T\-E\-A\-M} = 0, 
-{\bfseries A\-D\-V\-E\-R\-S\-A\-R\-Y\-\_\-\-T\-E\-A\-M} = 1
- \}
-\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of teams. \end{DoxyCompactList}\item 
+ \}\hypertarget{namespacecommon_aca4dbe5edbfb61860448876cc31ea0d6}{}\label{namespacecommon_aca4dbe5edbfb61860448876cc31ea0d6}
+\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of a range of H\+SV array. \end{DoxyCompactList}
+\item 
+enum \{ {\bfseries O\+U\+R\+\_\+\+T\+E\+AM} = 0, 
+{\bfseries A\+D\+V\+E\+R\+S\+A\+R\+Y\+\_\+\+T\+E\+AM} = 1
+ \}\hypertarget{namespacecommon_a9282a476d6b9d03ef99617079881fa46}{}\label{namespacecommon_a9282a476d6b9d03ef99617079881fa46}
+\begin{DoxyCompactList}\small\item\em This enum implements a abstraction of teams. \end{DoxyCompactList}
+\item 
 enum \{ \\*
-{\bfseries O\-R\-A\-N\-G\-E} = 0, 
-{\bfseries B\-L\-U\-E} = 1, 
-{\bfseries Y\-E\-L\-L\-O\-W} = 2, 
-{\bfseries R\-E\-D} = 3, 
+{\bfseries O\+R\+A\+N\+GE} = 0, 
+{\bfseries B\+L\+UE} = 1, 
+{\bfseries Y\+E\+L\+L\+OW} = 2, 
+{\bfseries R\+ED} = 3, 
 \\*
-{\bfseries P\-I\-N\-K} = 4, 
-{\bfseries P\-U\-R\-P\-L\-E} = 5, 
-{\bfseries G\-R\-E\-E\-N} = 6, 
-{\bfseries B\-R\-O\-W\-N} = 7, 
+{\bfseries P\+I\+NK} = 4, 
+{\bfseries P\+U\+R\+P\+LE} = 5, 
+{\bfseries G\+R\+E\+EN} = 6, 
+{\bfseries B\+R\+O\+WN} = 7, 
 \\*
-{\bfseries R\-O\-T\-A\-T\-I\-O\-N} = 8, 
-{\bfseries C\-U\-T} = 9
- \}
-\begin{DoxyCompactList}\small\item\em ! This enum represents all data that can be calibrated. \end{DoxyCompactList}\item 
-enum \{ {\bfseries S\-Q\-U\-A\-R\-E\-S} = 0, 
-{\bfseries R\-E\-C\-T\-A\-N\-G\-L\-E\-S} = 1, 
-{\bfseries C\-I\-R\-C\-L\-E\-S} = 2
- \}
-\begin{DoxyCompactList}\small\item\em This enum represents all types of blob that can be used. \end{DoxyCompactList}\item 
-enum \{ {\bfseries U\-N\-K\-N\-O\-W\-N} = -\/1
- \}
-\begin{DoxyCompactList}\small\item\em This enum represents all unknown things. \end{DoxyCompactList}\item 
-enum \{ {\bfseries C\-A\-M\-E\-R\-A} = 0, 
-{\bfseries I\-M\-A\-G\-E} = 1, 
-{\bfseries V\-I\-D\-E\-O} = 2
- \}
-\begin{DoxyCompactList}\small\item\em This enum represents all types of input datas. \end{DoxyCompactList}\item 
+{\bfseries R\+O\+T\+A\+T\+I\+ON} = 8, 
+{\bfseries C\+UT} = 9
+ \}\hypertarget{namespacecommon_a8993f678d3732043cfd91d1ecff7aee9}{}\label{namespacecommon_a8993f678d3732043cfd91d1ecff7aee9}
+\begin{DoxyCompactList}\small\item\em ! This enum represents all data that can be calibrated. \end{DoxyCompactList}
+\item 
+enum \{ {\bfseries S\+Q\+U\+A\+R\+ES} = 0, 
+{\bfseries R\+E\+C\+T\+A\+N\+G\+L\+ES} = 1, 
+{\bfseries C\+I\+R\+C\+L\+ES} = 2
+ \}\hypertarget{namespacecommon_a8714be2ce7f79e894ea222f8b6c6192d}{}\label{namespacecommon_a8714be2ce7f79e894ea222f8b6c6192d}
+\begin{DoxyCompactList}\small\item\em This enum represents all types of blob that can be used. \end{DoxyCompactList}
+\item 
+enum \{ {\bfseries U\+N\+K\+N\+O\+WN} = -\/1
+ \}\hypertarget{namespacecommon_a778707b5ddd121964dfde87ca9412cdd}{}\label{namespacecommon_a778707b5ddd121964dfde87ca9412cdd}
+\begin{DoxyCompactList}\small\item\em This enum represents all unknown things. \end{DoxyCompactList}
+\item 
+enum \{ {\bfseries C\+A\+M\+E\+RA} = 0, 
+{\bfseries I\+M\+A\+GE} = 1, 
+{\bfseries V\+I\+D\+EO} = 2
+ \}\hypertarget{namespacecommon_aa3ff310c0126c187a017a24df9b33bb0}{}\label{namespacecommon_aa3ff310c0126c187a017a24df9b33bb0}
+\begin{DoxyCompactList}\small\item\em This enum represents all types of input datas. \end{DoxyCompactList}
+\item 
 enum \{ \\*
-{\bfseries B\-A\-L\-L} = 0, 
-{\bfseries T\-E\-A\-M1\-\_\-\-R\-O\-B\-O\-T1} = 1, 
-{\bfseries T\-E\-A\-M1\-\_\-\-R\-O\-B\-O\-T2} = 2, 
-{\bfseries T\-E\-A\-M1\-\_\-\-R\-O\-B\-O\-T3} = 3, 
+{\bfseries B\+A\+LL} = 0, 
+{\bfseries T\+E\+A\+M1\+\_\+\+R\+O\+B\+O\+T1} = 1, 
+{\bfseries T\+E\+A\+M1\+\_\+\+R\+O\+B\+O\+T2} = 2, 
+{\bfseries T\+E\+A\+M1\+\_\+\+R\+O\+B\+O\+T3} = 3, 
 \\*
-{\bfseries T\-E\-A\-M2\-\_\-\-R\-O\-B\-O\-T1} = 4, 
-{\bfseries T\-E\-A\-M2\-\_\-\-R\-O\-B\-O\-T2} = 5, 
-{\bfseries T\-E\-A\-M2\-\_\-\-R\-O\-B\-O\-T3} = 6
- \}
-\begin{DoxyCompactList}\small\item\em This enum represents all objects in a State. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\bfseries T\+E\+A\+M2\+\_\+\+R\+O\+B\+O\+T1} = 4, 
+{\bfseries T\+E\+A\+M2\+\_\+\+R\+O\+B\+O\+T2} = 5, 
+{\bfseries T\+E\+A\+M2\+\_\+\+R\+O\+B\+O\+T3} = 6
+ \}\hypertarget{namespacecommon_a621a02b7b7574c1037f6e656ad8646e5}{}\label{namespacecommon_a621a02b7b7574c1037f6e656ad8646e5}
+\begin{DoxyCompactList}\small\item\em This enum represents all objects in a State. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{namespacecommon_aa388eb4aec4a6c1fc25e4af17bcd35b6}{void \hyperlink{namespacecommon_aa388eb4aec4a6c1fc25e4af17bcd35b6}{clear\-S\-S} (stringstream \&ss)}\label{namespacecommon_aa388eb4aec4a6c1fc25e4af17bcd35b6}
+void \hyperlink{namespacecommon_aa388eb4aec4a6c1fc25e4af17bcd35b6}{clear\+SS} (stringstream \&ss)\hypertarget{namespacecommon_aa388eb4aec4a6c1fc25e4af17bcd35b6}{}\label{namespacecommon_aa388eb4aec4a6c1fc25e4af17bcd35b6}
 
 \begin{DoxyCompactList}\small\item\em This function clean a stringstream. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_ab967afcc3037e24ee78ecf6dd92688d5}{string \hyperlink{namespacecommon_ab967afcc3037e24ee78ecf6dd92688d5}{to\-String} (int a)}\label{namespacecommon_ab967afcc3037e24ee78ecf6dd92688d5}
+string \hyperlink{namespacecommon_ab967afcc3037e24ee78ecf6dd92688d5}{to\+String} (int a)\hypertarget{namespacecommon_ab967afcc3037e24ee78ecf6dd92688d5}{}\label{namespacecommon_ab967afcc3037e24ee78ecf6dd92688d5}
 
 \begin{DoxyCompactList}\small\item\em Get int and convert to string. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_aadec8c454eaea8a3f16e153f9770552d}{string \hyperlink{namespacecommon_aadec8c454eaea8a3f16e153f9770552d}{to\-String} (float a)}\label{namespacecommon_aadec8c454eaea8a3f16e153f9770552d}
+string \hyperlink{namespacecommon_aadec8c454eaea8a3f16e153f9770552d}{to\+String} (float a)\hypertarget{namespacecommon_aadec8c454eaea8a3f16e153f9770552d}{}\label{namespacecommon_aadec8c454eaea8a3f16e153f9770552d}
 
 \begin{DoxyCompactList}\small\item\em Get float and convert to string. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_ae206634061c636d23c21e2b86e6f4f47}{string \hyperlink{namespacecommon_ae206634061c636d23c21e2b86e6f4f47}{to\-String} (double a)}\label{namespacecommon_ae206634061c636d23c21e2b86e6f4f47}
+string \hyperlink{namespacecommon_ae206634061c636d23c21e2b86e6f4f47}{to\+String} (double a)\hypertarget{namespacecommon_ae206634061c636d23c21e2b86e6f4f47}{}\label{namespacecommon_ae206634061c636d23c21e2b86e6f4f47}
 
 \begin{DoxyCompactList}\small\item\em Get double and convert to string. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_aa41a5dacf4897a60f6d4251d57a8404a}{string \hyperlink{namespacecommon_aa41a5dacf4897a60f6d4251d57a8404a}{to\-String} (long long int a)}\label{namespacecommon_aa41a5dacf4897a60f6d4251d57a8404a}
+string \hyperlink{namespacecommon_aa41a5dacf4897a60f6d4251d57a8404a}{to\+String} (long long int a)\hypertarget{namespacecommon_aa41a5dacf4897a60f6d4251d57a8404a}{}\label{namespacecommon_aa41a5dacf4897a60f6d4251d57a8404a}
 
 \begin{DoxyCompactList}\small\item\em Get long long int and convert to string. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_ad4970622daef780374effb8e47cf8134}{string \hyperlink{namespacecommon_ad4970622daef780374effb8e47cf8134}{to\-String} (bool a)}\label{namespacecommon_ad4970622daef780374effb8e47cf8134}
+string \hyperlink{namespacecommon_ad4970622daef780374effb8e47cf8134}{to\+String} (bool a)\hypertarget{namespacecommon_ad4970622daef780374effb8e47cf8134}{}\label{namespacecommon_ad4970622daef780374effb8e47cf8134}
 
 \begin{DoxyCompactList}\small\item\em Get boolean and convert to string. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_a31cd86456425bdd976cc622c5828e17f}{int \hyperlink{namespacecommon_a31cd86456425bdd976cc622c5828e17f}{to\-Int} (string a)}\label{namespacecommon_a31cd86456425bdd976cc622c5828e17f}
+int \hyperlink{namespacecommon_a31cd86456425bdd976cc622c5828e17f}{to\+Int} (string a)\hypertarget{namespacecommon_a31cd86456425bdd976cc622c5828e17f}{}\label{namespacecommon_a31cd86456425bdd976cc622c5828e17f}
 
 \begin{DoxyCompactList}\small\item\em Get string and convert to Int. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_affd5ec1cd7889f6e63c8fde2c1db389d}{float \hyperlink{namespacecommon_affd5ec1cd7889f6e63c8fde2c1db389d}{to\-Float} (string a)}\label{namespacecommon_affd5ec1cd7889f6e63c8fde2c1db389d}
+float \hyperlink{namespacecommon_affd5ec1cd7889f6e63c8fde2c1db389d}{to\+Float} (string a)\hypertarget{namespacecommon_affd5ec1cd7889f6e63c8fde2c1db389d}{}\label{namespacecommon_affd5ec1cd7889f6e63c8fde2c1db389d}
 
 \begin{DoxyCompactList}\small\item\em Get string and convert to float. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_adeca0735c7b49feb339967ada8cde286}{double \hyperlink{namespacecommon_adeca0735c7b49feb339967ada8cde286}{to\-Double} (string a)}\label{namespacecommon_adeca0735c7b49feb339967ada8cde286}
+double \hyperlink{namespacecommon_adeca0735c7b49feb339967ada8cde286}{to\+Double} (string a)\hypertarget{namespacecommon_adeca0735c7b49feb339967ada8cde286}{}\label{namespacecommon_adeca0735c7b49feb339967ada8cde286}
 
 \begin{DoxyCompactList}\small\item\em Get string and convert to double. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_a9f91668221fb6afe69e9f8f517a4fe7c}{long long int \hyperlink{namespacecommon_a9f91668221fb6afe69e9f8f517a4fe7c}{to\-Long\-Long\-Int} (string a)}\label{namespacecommon_a9f91668221fb6afe69e9f8f517a4fe7c}
+long long int \hyperlink{namespacecommon_a9f91668221fb6afe69e9f8f517a4fe7c}{to\+Long\+Long\+Int} (string a)\hypertarget{namespacecommon_a9f91668221fb6afe69e9f8f517a4fe7c}{}\label{namespacecommon_a9f91668221fb6afe69e9f8f517a4fe7c}
 
 \begin{DoxyCompactList}\small\item\em Get string and convert to long long int. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_aed690e352783334b551a1c74947cb101}{bool \hyperlink{namespacecommon_aed690e352783334b551a1c74947cb101}{to\-Bool} (string a)}\label{namespacecommon_aed690e352783334b551a1c74947cb101}
+bool \hyperlink{namespacecommon_aed690e352783334b551a1c74947cb101}{to\+Bool} (string a)\hypertarget{namespacecommon_aed690e352783334b551a1c74947cb101}{}\label{namespacecommon_aed690e352783334b551a1c74947cb101}
 
 \begin{DoxyCompactList}\small\item\em Get string and convert to bool. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_a5899229353a9bcf1570191eb9acea137}{string \hyperlink{namespacecommon_a5899229353a9bcf1570191eb9acea137}{cmd\-Terminal} (string s)}\label{namespacecommon_a5899229353a9bcf1570191eb9acea137}
+string \hyperlink{namespacecommon_a5899229353a9bcf1570191eb9acea137}{cmd\+Terminal} (string s)\hypertarget{namespacecommon_a5899229353a9bcf1570191eb9acea137}{}\label{namespacecommon_a5899229353a9bcf1570191eb9acea137}
 
 \begin{DoxyCompactList}\small\item\em Send string to terminal and get the returned value. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_ac8769b01d13707ef6598888005e643e9}{double \hyperlink{namespacecommon_ac8769b01d13707ef6598888005e643e9}{distance\-Point} (\hyperlink{structcommon_1_1btVector3}{bt\-Vector3}, \hyperlink{structcommon_1_1btVector3}{bt\-Vector3})}\label{namespacecommon_ac8769b01d13707ef6598888005e643e9}
+double \hyperlink{namespacecommon_ac8769b01d13707ef6598888005e643e9}{distance\+Point} (\hyperlink{structcommon_1_1btVector3}{bt\+Vector3}, \hyperlink{structcommon_1_1btVector3}{bt\+Vector3})\hypertarget{namespacecommon_ac8769b01d13707ef6598888005e643e9}{}\label{namespacecommon_ac8769b01d13707ef6598888005e643e9}
 
 \begin{DoxyCompactList}\small\item\em Estimate distance between a set of points. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_a0319cc29ee430ecb0ca77d0f95cdc309}{double \hyperlink{namespacecommon_a0319cc29ee430ecb0ca77d0f95cdc309}{distance\-Point} (Point, Point)}\label{namespacecommon_a0319cc29ee430ecb0ca77d0f95cdc309}
+double \hyperlink{namespacecommon_a0319cc29ee430ecb0ca77d0f95cdc309}{distance\+Point} (Point, Point)\hypertarget{namespacecommon_a0319cc29ee430ecb0ca77d0f95cdc309}{}\label{namespacecommon_a0319cc29ee430ecb0ca77d0f95cdc309}
 
 \begin{DoxyCompactList}\small\item\em Estimate distance between two points. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_a2968370f29c08892258794b87bac33fb}{Point \hyperlink{namespacecommon_a2968370f29c08892258794b87bac33fb}{midpoint} (Point, Point)}\label{namespacecommon_a2968370f29c08892258794b87bac33fb}
+Point \hyperlink{namespacecommon_a2968370f29c08892258794b87bac33fb}{midpoint} (Point, Point)\hypertarget{namespacecommon_a2968370f29c08892258794b87bac33fb}{}\label{namespacecommon_a2968370f29c08892258794b87bac33fb}
 
 \begin{DoxyCompactList}\small\item\em Estimate midpoint between two points. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_a820e29c932b1f0b6a865772239beeb57}{Point \hyperlink{namespacecommon_a820e29c932b1f0b6a865772239beeb57}{midpoint} (Rect)}\label{namespacecommon_a820e29c932b1f0b6a865772239beeb57}
+Point \hyperlink{namespacecommon_a820e29c932b1f0b6a865772239beeb57}{midpoint} (Rect)\hypertarget{namespacecommon_a820e29c932b1f0b6a865772239beeb57}{}\label{namespacecommon_a820e29c932b1f0b6a865772239beeb57}
 
 \begin{DoxyCompactList}\small\item\em Estimate gravity center in a quadrilateral. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_a8018da38b6ea9b1dfa514730ad24ab2b}{\hyperlink{structcommon_1_1btVector3}{bt\-Vector3} \hyperlink{namespacecommon_a8018da38b6ea9b1dfa514730ad24ab2b}{midpoint} (\hyperlink{structcommon_1_1btVector3}{bt\-Vector3}, \hyperlink{structcommon_1_1btVector3}{bt\-Vector3})}\label{namespacecommon_a8018da38b6ea9b1dfa514730ad24ab2b}
+\hyperlink{structcommon_1_1btVector3}{bt\+Vector3} \hyperlink{namespacecommon_a8018da38b6ea9b1dfa514730ad24ab2b}{midpoint} (\hyperlink{structcommon_1_1btVector3}{bt\+Vector3}, \hyperlink{structcommon_1_1btVector3}{bt\+Vector3})\hypertarget{namespacecommon_a8018da38b6ea9b1dfa514730ad24ab2b}{}\label{namespacecommon_a8018da38b6ea9b1dfa514730ad24ab2b}
 
 \begin{DoxyCompactList}\small\item\em Estimate midpoint between a set of points. \end{DoxyCompactList}\item 
 float \hyperlink{namespacecommon_a8c1ef8d4ce3fdb3e30af47c9c11bf04a}{angulation} (Point, Point)
 \begin{DoxyCompactList}\small\item\em Estimate angle between two straight lines. \end{DoxyCompactList}\item 
-\hypertarget{namespacecommon_ac58a1918510dc4dbc7b65255593df38e}{double \hyperlink{namespacecommon_ac58a1918510dc4dbc7b65255593df38e}{radian} (Point, Point)}\label{namespacecommon_ac58a1918510dc4dbc7b65255593df38e}
+double \hyperlink{namespacecommon_ac58a1918510dc4dbc7b65255593df38e}{radian} (Point, Point)\hypertarget{namespacecommon_ac58a1918510dc4dbc7b65255593df38e}{}\label{namespacecommon_ac58a1918510dc4dbc7b65255593df38e}
 
-\begin{DoxyCompactList}\small\item\em Estimate angle between two straight lines in radian. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Estimate angle between two straight lines in radian. \end{DoxyCompactList}\item 
+\hyperlink{classvss__state_1_1Global__State}{vss\+\_\+state\+::\+Global\+\_\+\+State} {\bfseries State2\+Global\+\_\+\+State} (\hyperlink{structcommon_1_1State}{State})\hypertarget{namespacecommon_a1bbdd9ba2d86c2836628baceefa1a4df}{}\label{namespacecommon_a1bbdd9ba2d86c2836628baceefa1a4df}
+
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-This namespace is responsible to implement all global functions and custom datatypes used in the software, like\-: E\-N\-U\-M\-S, \hyperlink{structcommon_1_1btVector3}{bt\-Vector3}, \hyperlink{structcommon_1_1Pixel}{Pixel}, \hyperlink{structcommon_1_1TableColor}{Table\-Color}, \hyperlink{structcommon_1_1VisionColor}{Vision\-Color}, \hyperlink{structcommon_1_1ExecConfiguration}{Exec\-Configuration}, \hyperlink{structcommon_1_1Calibration}{Calibration}, \hyperlink{structcommon_1_1Robot}{Robot} and \hyperlink{structcommon_1_1State}{State}. 
+This namespace is responsible to implement all global functions and custom datatypes used in the software, like\+: E\+N\+U\+MS, \hyperlink{structcommon_1_1btVector3}{bt\+Vector3}, \hyperlink{structcommon_1_1Pixel}{Pixel}, \hyperlink{structcommon_1_1TableColor}{Table\+Color}, \hyperlink{structcommon_1_1VisionColor}{Vision\+Color}, \hyperlink{structcommon_1_1ExecConfiguration}{Exec\+Configuration}, \hyperlink{structcommon_1_1Calibration}{Calibration}, \hyperlink{structcommon_1_1Robot}{Robot} and \hyperlink{structcommon_1_1State}{State}. 
 
 \subsection{Function Documentation}
-\hypertarget{namespacecommon_a8c1ef8d4ce3fdb3e30af47c9c11bf04a}{\index{common@{common}!angulation@{angulation}}
+\index{common@{common}!angulation@{angulation}}
 \index{angulation@{angulation}!common@{common}}
-\subsubsection[{angulation}]{\setlength{\rightskip}{0pt plus 5cm}float common\-::angulation (
+\subsubsection[{\texorpdfstring{angulation(\+Point, Point)}{angulation(Point, Point)}}]{\setlength{\rightskip}{0pt plus 5cm}float common\+::angulation (
 \begin{DoxyParamCaption}
 \item[{Point}]{a, }
 \item[{Point}]{b}
 \end{DoxyParamCaption}
-)}}\label{namespacecommon_a8c1ef8d4ce3fdb3e30af47c9c11bf04a}
+)}\hypertarget{namespacecommon_a8c1ef8d4ce3fdb3e30af47c9c11bf04a}{}\label{namespacecommon_a8c1ef8d4ce3fdb3e30af47c9c11bf04a}
 
 
 Estimate angle between two straight lines. 
 
-\subsubsection*{Addendum }\begin{quotation}
-Estimate angle between two straight lines. One line formed by the two points in the function and the other line is formed by the point in the center of the robot (estimated using \hyperlink{namespacecommon_a2968370f29c08892258794b87bac33fb}{midpoint()} function) and for a point in the pitch where the line must form a ninety degree angle with the pitch side. \end{quotation}
+\subsubsection*{Addendum }\begin{quote}
+Estimate angle between two straight lines. One line formed by the two points in the function and the other line is formed by the point in the center of the robot (estimated using \hyperlink{namespacecommon_a2968370f29c08892258794b87bac33fb}{midpoint()} function) and for a point in the pitch where the line must form a ninety degree angle with the pitch side. \end{quote}
 
 
-\begin{quotation}
-Estimate angle between two straight lines. One line formed by the two points in the function and the other line is formed by the point in the center of the robot (estimated using \hyperlink{namespacecommon_a2968370f29c08892258794b87bac33fb}{midpoint()} function) and for a point in the pitch where the line must form a ninety degree angle with the pitch side. \end{quotation}
+\begin{quote}
+Estimate angle between two straight lines. One line formed by the two points in the function and the other line is formed by the point in the center of the robot (estimated using \hyperlink{namespacecommon_a2968370f29c08892258794b87bac33fb}{midpoint()} function) and for a point in the pitch where the line must form a ninety degree angle with the pitch side. \end{quote}

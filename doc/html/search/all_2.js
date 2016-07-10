@@ -13,5 +13,6 @@ var searchData=
   ['comment',['comment',['../structcommon_1_1ExecConfiguration.html#a98f8739d11ff3ab4e9e6f61a1d8084a4',1,'common::ExecConfiguration::comment()'],['../structcommon_1_1Calibration.html#af7faad7cda5adfffefa44006cdecea85',1,'common::Calibration::comment()']]],
   ['common',['common',['../namespacecommon.html',1,'']]],
   ['config_5flabels',['config_labels',['../structcommon_1_1ExecConfiguration.html#aa8dcf45e57d1a2e2264d75e2568e33bf',1,'common::ExecConfiguration']]],
-  ['cut',['cut',['../structcommon_1_1Calibration.html#adb64222af92367a220f889876324edbc',1,'common::Calibration']]]
+  ['cut',['cut',['../structcommon_1_1Calibration.html#adb64222af92367a220f889876324edbc',1,'common::Calibration']]],
+  ['cut_5fimage',['cut_image',['../classcalibration.html#ab1df3634bf6a485815310d1e2b7aa971',1,'calibration']]]
 ];

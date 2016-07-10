@@ -7,5 +7,6 @@ var searchData=
   ['checkboxvideo',['checkboxVideo',['../classMainWindow.html#a33f858356490a2440246af76ca922392',1,'MainWindow']]],
   ['clearss',['clearSS',['../namespacecommon.html#aa388eb4aec4a6c1fc25e4af17bcd35b6',1,'common']]],
   ['close',['close',['../classSQLite.html#aac5338faf7580f6adb3560c91d58b54a',1,'SQLite']]],
-  ['cmdterminal',['cmdTerminal',['../namespacecommon.html#a5899229353a9bcf1570191eb9acea137',1,'common']]]
+  ['cmdterminal',['cmdTerminal',['../namespacecommon.html#a5899229353a9bcf1570191eb9acea137',1,'common']]],
+  ['cut_5fimage',['cut_image',['../classcalibration.html#ab1df3634bf6a485815310d1e2b7aa971',1,'calibration']]]
 ];
