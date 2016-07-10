@@ -34,6 +34,7 @@ protected:
     bool vision_reception;
     string path_image;
     string path_video;
+    string user_path;
 
     // Parameters
     int side_cut;

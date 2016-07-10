@@ -25,8 +25,14 @@ vision::vision(QObject *parent) : QThread(parent){
     vision_reception = false;
     id_camera = 0;
     start_finish = false;
-    path_image = PATH_IMAGE;
-    path_video = PATH_VIDEO;
+
+    path_image = "/images/model.jpg";
+    path_video = "/videos/ball_move.mp4";
+
+    user_path = QCoreApplication::applicationDirPath().toUtf8().constData();
+
+    path_image = user_path + path_image;
+    path_video = user_path + path_video;
 }
 
 void vision::run(){

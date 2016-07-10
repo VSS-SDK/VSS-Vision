@@ -18,6 +18,7 @@
 #include "qcustomlabel.h"
 #include "QDebug"
 #include "QThread"
+#include "QDir"
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -46,6 +47,7 @@ protected:
     bool vision_reception;
     bool start_finish;
     int id_camera;
+    string user_path;
     string path_image;
     string path_video;
     int mouse_click_left, mouse_click_right;

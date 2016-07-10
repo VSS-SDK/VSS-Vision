@@ -85,15 +85,17 @@ public slots:
 
     //! Method that get the signal from release the mouse from QCustomLabel input image
     void mouseLeave();
-    //void mouseScroll();
-    //void keyPressed();
+
 
     // QPushButtons
-    //! Method that get the signal from click on QPushButton Do Calibration
-    void evtCalibration();
+    //! Method that get the signal from click on QPushButton Do Calibration Colors
+    void evtCalibrationColors();
 
     //! Method that get the signal from click on QPushButton Run Vision
     void evtVision();
+
+    //! Method that get the signal from click on QPushButton Do Calibration Camera
+    void evtCalibrationCam();
 
     // QCheckboxs
     //! Method that get the signal from click on QCheckbox of use camera
@@ -104,6 +106,7 @@ public slots:
 
     //! Method that get the signal from click on QCheckbox of use video
     void checkboxVideo(int);
+
 
     // QSliders
     //! Method that get the signal from slide on HSV-Hmin
@@ -124,8 +127,12 @@ public slots:
     //! Method that get the signal from slide on HSV-Vmax
     void updateVmax(int);
 
+
+    // QThreads
+    //! Method that get the signal has_new_image() from calibration
     void getNewImageCalib();
 
+    //! Method that get the signal has_new_state() from vision
     void getNewStateVision();
 
 protected:
@@ -189,7 +196,7 @@ protected:
     QComboBox *cmbColors, *cmbMainColors_1, *cmbMainColors_2, *cmbSecColors_1, *cmbSecColors_2, *cmbSecColors_3, *cmbSecColors_4, *cmbSecColors_5, *cmbSecColors_6, *cmbBallColors;
     QCheckBox *checkUseCamera, *checkUseImage, *checkUseVideo;
 
-    QPushButton *btnDoColorCalib, *btnRunVision;
+    QPushButton *btnDoColorCalib, *btnRunVision, *btnDoCameraCalib; 
 
     QWidget *contLayoutH3;
     vector<QLabel*> lblHeadersHSV;
@@ -239,6 +246,7 @@ protected:
     string hsv_s;
     bool calib_vs_vision;
     bool init;
+    bool has_a_camera;
 };
 
 #endif // MAINWINDOW_H

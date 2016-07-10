@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    calib_vs_vision = false;
+    calib_vs_vision = has_a_camera = false;
 
     //! > Define the connection to SQLite
     sql = new SQLite("../data/main.db", "passwd");
@@ -55,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     btnDoColorCalib = new QPushButton("Do", this);
     btnRunVision = new QPushButton("Run", this);
+    btnDoCameraCalib = new QPushButton("Do", this);
 
     //! > Define icons used
     blockdevice = QIcon(":icons/blockdevice.png");
@@ -76,10 +77,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
         cmbCameraIds->setDisabled(true);
         checkUseCamera->setDisabled(true);
+        has_a_camera = false;
     }else{
         checkUseCamera->setChecked(true);
         checkUseImage->setChecked(false);
         checkUseVideo->setChecked(false);
+        has_a_camera = true;
     }
 
     //! > Begin Define styles
@@ -294,7 +297,7 @@ void MainWindow::addInputDataItem(){
 }
 
 void MainWindow::addCameraCalibrationItem(){
-    int qtd = 3;
+    int qtd = 4;
     for(int i = 0 ; i < qtd ; i++){
         cameraCalibration.append(new QTreeWidgetItem);
     }
@@ -308,10 +311,18 @@ void MainWindow::addCameraCalibrationItem(){
     cameraCalibration.at(2)->setIcon(0, ksame);
     cameraCalibration.at(2)->setText(0, "Bounds");
 
+    cameraCalibration.at(3)->setIcon(0, ksame);
+    cameraCalibration.at(3)->setText(0, "Calibrate");
+
     mainItem->addChild(cameraCalibration.at(0));
     for(int i = 1 ; i < qtd ; i++){
         cameraCalibration.at(0)->addChild(cameraCalibration.at(i));
     }
+
+    btnDoCameraCalib->setMaximumHeight(20);
+    connect(btnDoCameraCalib, SIGNAL (clicked()), this, SLOT (evtCalibrationCam()));
+
+    ui->treeMain->setItemWidget(cameraCalibration.value(3), 1, btnDoCameraCalib);
 
     ui->treeMain->insertTopLevelItems(0, cameraCalibration);
 }
@@ -572,9 +583,8 @@ void MainWindow::addCalibrateColors(){
     cmbColors->addItem("Green");
     cmbColors->addItem("Brown");
 
-
     btnDoColorCalib->setMaximumHeight(20);
-    connect(btnDoColorCalib, SIGNAL (clicked()), this, SLOT (evtCalibration()));
+    connect(btnDoColorCalib, SIGNAL (clicked()), this, SLOT (evtCalibrationColors()));
 
     ui->treeMain->setItemWidget(calibrateColors.value(1), 1, cmbColors);
     ui->treeMain->setItemWidget(calibrateColors.value(2), 1, btnDoColorCalib);
@@ -701,7 +711,7 @@ void MainWindow::buildTrees(){
 
     addMainItem();
     addInputDataItem();
-    //addCameraCalibrationItem();
+    addCameraCalibrationItem();
     //addBlobFindingItem();
     //addVisualizationItem();
     //addDefinePatternsItem();
@@ -752,20 +762,10 @@ void MainWindow::mouseLeave(){
 
 }
 
-/*void MainWindow::mouseScroll(){
-    clearSS(ss);
-    ss << "Zoom " << image->delta << "%";
-    zoom_image->setText(QString(ss.str().c_str()));
-}*/
-
-/*void MainWindow::keyPressed(){
-
-}*/
-
 //! Addendum
 //! --------
 //! 
-void MainWindow::evtCalibration(){
+void MainWindow::evtCalibrationColors(){
     //! > Toggle between ON/OFF calibration
     if(!calib->get_vision_reception()){
         //! > If camera it's used, set device common::CAMERA and its id
@@ -792,14 +792,18 @@ void MainWindow::evtCalibration(){
 
         //! > Disable options of input data
         cmbColors->setDisabled(true);
-        cmbCameraIds->setDisabled(true);
+        
         cmbSavedImages->setDisabled(true);
-        cmbSavedVideos->setDisabled(true);
-
-        checkUseCamera->setDisabled(true);
         checkUseImage->setDisabled(true);
+
+        cmbSavedVideos->setDisabled(true);
         checkUseVideo->setDisabled(true);
 
+        if(has_a_camera){
+            cmbCameraIds->setDisabled(true);
+            checkUseCamera->setDisabled(true);
+        }
+        
         //! > Update the values of HSV that will be plot on sliders
         updateValuesHSV();
         initCalibrationColors();
@@ -810,12 +814,16 @@ void MainWindow::evtCalibration(){
         btnDoColorCalib->setText("Do");
         //! > Enable options of input data
         cmbColors->setDisabled(false);
-        cmbCameraIds->setDisabled(false);
-        cmbSavedImages->setDisabled(false);
-        cmbSavedVideos->setDisabled(false);
 
-        checkUseCamera->setDisabled(false);
+        if(has_a_camera){
+            cmbCameraIds->setDisabled(false);
+            checkUseCamera->setDisabled(false);
+        }
+
+        cmbSavedImages->setDisabled(false);
         checkUseImage->setDisabled(false);
+
+        cmbSavedVideos->setDisabled(false);
         checkUseVideo->setDisabled(false);
 
         btnRunVision->setDisabled(false);
@@ -826,6 +834,38 @@ void MainWindow::evtCalibration(){
         finishCalibrationColors();
         ui->layoutH9H->removeWidget(coordinate_mouse);
         coordinate_mouse->hide();
+    }
+}
+
+//! Addendum
+//! --------
+//! 
+void MainWindow::evtCalibrationCam(){
+    //! > Toggle between ON/OFF calibration
+    if(!calib->get_vision_reception()){
+        //! > If camera it's used, set device common::CAMERA and its id
+        if(checkUseCamera->isChecked()){
+            calib->set_device(CAMERA);
+            calib->set_id_camera(0);
+        }else
+        //! > If image it's used, set device common::IMAGE
+        if(checkUseImage->isChecked()){
+            calib->set_device(IMAGE);
+        }else
+        //! > If video it's used, set device common::VIDEO
+        if(checkUseVideo->isChecked()){
+            calib->set_device(VIDEO);
+        }
+
+        //! > Turn ON the calibration thread
+        calib->set_vision_reception(false);
+
+        btnDoCameraCalib->setText("Done");
+    }else{
+        //! > Turn OFF the calibration thread
+        calib->set_vision_reception(false);
+        
+        btnDoCameraCalib->setText("Do");
     }
 }
 
@@ -852,10 +892,17 @@ void MainWindow::evtVision(){
         //! > Disable options of input data
         btnRunVision->setText("Pause");
         cmbColors->setDisabled(true);
-        checkUseCamera->setDisabled(true);
-        checkUseImage->setDisabled(true);
-        cmbCameraIds->setDisabled(true);
+
         cmbSavedImages->setDisabled(true);
+        checkUseImage->setDisabled(true);
+
+        cmbSavedVideos->setDisabled(true);
+        checkUseVideo->setDisabled(true);
+
+        if(has_a_camera){
+            cmbCameraIds->setDisabled(true);
+            checkUseCamera->setDisabled(true);
+        }
 
         //! > Turn ON the vision thread
         vi->set_vision_reception(true);
@@ -868,11 +915,19 @@ void MainWindow::evtVision(){
 
         //! > Enable options of input data
         cmbColors->setDisabled(false);
-        checkUseCamera->setDisabled(false);
-        checkUseImage->setDisabled(false);
-        cmbCameraIds->setDisabled(false);
+        
+        if(has_a_camera){
+            cmbCameraIds->setDisabled(false);
+            checkUseCamera->setDisabled(false);
+        }
+
         cmbSavedImages->setDisabled(false);
-        btnDoColorCalib->setDisabled(false);
+        checkUseImage->setDisabled(false);
+
+        cmbSavedVideos->setDisabled(false);
+        checkUseVideo->setDisabled(false);
+
+        btnRunVision->setDisabled(false);
 
         //! > Turn OFF the vision thread
         vi->set_vision_reception(false);
