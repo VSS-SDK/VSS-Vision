@@ -76,7 +76,7 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [vss-sample]: https://github.com/SIRLab/VSS-SampleStrategy
 
 [gpl3]: http://www.gnu.org/licenses/gpl-3.0/
-[documentation]: http://sirlab.github.io/assets/docs/doc_vision/html/index.html
+[documentation]: http://sirlab.github.io/VSS-Vision
 [vss]: http://www.cbrobotica.org/
 [travis]: https://travis-ci.org/SIRLab/VSS-Vision
 
