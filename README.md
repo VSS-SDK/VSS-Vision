@@ -47,12 +47,13 @@ Gallery
 ![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/top.png)
 
 
+DOING
+-----
+* Re-Adicionar o salvamento de calibragens ao sistema
+* Re-Adicionar o corte e rotação no RunVision
 
 TODO	
 ----
-* Re-Adicionar calibragem de corte e rotação.
-* Re-Adicionar o salvamento de calibragens ao sistema
-* Re-Adicionar a Interface ZMQ + Protobuf ao sistema
 * Adicionar filtro de kalman no algoritmo de visão
 * Adicionar otimização de secção no algoritmo de visão
 

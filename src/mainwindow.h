@@ -138,12 +138,12 @@ public slots:
     void getNewStateVision();
 
 protected:
-    Interface inter;
+    Interface interface;
     calibration *calib;
     vision *vi;
     SQLite *sql;
     Ui::MainWindow *ui;
-    vss_state::Global_State *global_state;
+    vss_state::Global_State global_state;
     QIcon blockdevice, ksame, kdf, package;
 
     // QTree

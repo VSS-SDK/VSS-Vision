@@ -25,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //! > Define the connection to SQLite
     sql = new SQLite("../data/main.db", "passwd");
 
+    //! Define the interface VSS
+    interface.createSocketSendState(&global_state);
+
     for(int i = 0 ; i < 8 ; i++){
         colors.push_back(0);
     }
@@ -1236,6 +1239,11 @@ void MainWindow::getNewImageCalib(){
 
 void MainWindow::getNewStateVision(){
     image->setPixmap(QPixmap::fromImage(mat2Image(vi->raw_in)));
+    
+    global_state = State2Global_State(state, execConfig);
+
+    interface.sendState();
+    //qDebug() << "send state";
 }
 
 
