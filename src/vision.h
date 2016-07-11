@@ -72,7 +72,9 @@ protected:
     void recognizeObjects();
     bool isValidPoint(Point);
     void updatePlot();
-
+    void cutImage();
+    void applyRotation();
+    
 public:
     explicit vision(QObject *parent = 0);
 

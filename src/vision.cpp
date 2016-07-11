@@ -9,9 +9,6 @@
 #include "vision.h"
 
 vision::vision(QObject *parent) : QThread(parent){
-    /*for(int i = 0 ; i < 13 ; i++){
-        find_old_labels[i] = false;
-    }*/
     side_cut = 15;     // inversamente proporcional a taxa de atualização da camera e proporcional a velocidade dos objetos
     area_min = 30;
     area_max = 700;
@@ -71,10 +68,15 @@ void vision::run(){
                 usleep(33333);
             }
 
-            raw_in = in.clone();
-            updatePlot();
+            
 
             if(in.rows > 0){                        // Qt it's assync, and is possible this loop exec something after the GUI send a sign to stop, and this crash the software.;
+                applyRotation();
+                cutImage();
+
+                raw_in = in.clone();
+                updatePlot();
+                
                 cvtColor(in, in, COLOR_RGB2HSV);
 
                 coordinate_old.clear();
@@ -90,7 +92,9 @@ void vision::run(){
                     }
                 }
 
+                
                 // Filtro de Kalman AQUI
+                //
                 recognizeObjects();
             }
 
@@ -133,7 +137,25 @@ void vision::alloc_label_plots(vector<QLabel*> *lbl_plots){
     this->lbl_plots = lbl_plots;
 }
 
- void vision::updatePlot(){
+void vision::cutImage(){
+   	// TODO: Pensar em uma regras melhor, pois pode existir uma config x ou y 0
+	if(calib->cut.at(0).x != 0 || calib->cut.at(0).y != 0 || calib->cut.at(1).x != 0 || calib->cut.at(1).y != 0){
+		Mat rep, rep2;
+
+		rep = in(Rect(calib->cut.at(0), calib->cut.at(1)));
+		
+		resize(rep, rep2, Size(640, 480), 0, 0, 0);
+		in = rep2.clone();
+	}
+}
+
+void vision::applyRotation(){
+    Mat aux;
+	warpAffine(in, aux, getRotationMatrix2D(Point2f(in.cols/2, in.rows/2), calib->rotation, 1.0), in.size());
+	in = aux;
+}
+
+void vision::updatePlot(){
     stringstream ss;
     int ang;
 

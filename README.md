@@ -34,7 +34,7 @@ Development and Use
 -------------------
 ```
 $ cd VSS-Vision
-$ make qt && make proto
+$ make proto && make qt
 $ make
 $ make run
 ```
@@ -50,7 +50,6 @@ Gallery
 DOING
 -----
 * Re-Adicionar o salvamento de calibragens ao sistema
-* Re-Adicionar o corte e rotação no RunVision
 
 TODO	
 ----
