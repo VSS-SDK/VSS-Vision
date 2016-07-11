@@ -2,6 +2,7 @@ VSS-Vision
 ==========
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
 [![Build Status](https://travis-ci.org/SIRLab/VSS-Vision.svg?branch=master)][travis]
+[![Link: Youtube](https://img.shields.io/badge/Link-Youtube-red.svg)][youtube]
 
 
 O VSS-Vision é uma das partes de um framework que está sendo desenvolvido para a categoria de futebol de robôs [IEEE Very Small Size Soccer (VSSS)][vss], que consiste em:
@@ -82,6 +83,7 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [install]: https://github.com/SIRLab/VSS-Vision/blob/master/INSTALL.md
 [wiki]: https://github.com/SIRLab/VSS-Vision/wiki
 [doxygen]: http://sirlab.github.io/VSS-Vision
+[youtube]: https://www.youtube.com/watch?v=LnWzAgE9Oqs
 
 
 
