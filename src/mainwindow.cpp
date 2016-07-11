@@ -1239,7 +1239,9 @@ void MainWindow::getNewImageCalib(){
 
 void MainWindow::getNewStateVision(){
     image->setPixmap(QPixmap::fromImage(mat2Image(vi->raw_in)));
-    global_state = State2Global_State(state);
+    
+    global_state = State2Global_State(state, execConfig);
+
     interface.sendState();
     //qDebug() << "send state";
 }

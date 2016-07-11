@@ -137,14 +137,14 @@ namespace common{
         vector<Pixel> colors;
         //! Default constructor: TableColor tb;
         TableColor(){
-            colors.push_back(Pixel(255, 128, 0));
-            colors.push_back(Pixel(0, 0, 255));
-            colors.push_back(Pixel(255, 255, 0));
-            colors.push_back(Pixel(255, 0, 0));
-            colors.push_back(Pixel(255, 51, 255));
-            colors.push_back(Pixel(127, 0, 255));
-            colors.push_back(Pixel(0, 255, 0));
-            colors.push_back(Pixel(153, 76, 0));
+            colors.push_back(Pixel(255, 128, 0));       // ORANGE = 0
+            colors.push_back(Pixel(0, 0, 255));         // BLUE = 1
+            colors.push_back(Pixel(255, 255, 0));       // YELLOW = 2
+            colors.push_back(Pixel(255, 0, 0));         // RED = 3
+            colors.push_back(Pixel(255, 51, 255));      // PINK = 4
+            colors.push_back(Pixel(127, 0, 255));       // PURPLE = 5
+            colors.push_back(Pixel(0, 255, 0));         // GREEN = 6
+            colors.push_back(Pixel(153, 76, 0));        // BROWN = 7
         };
     };
 
@@ -440,7 +440,7 @@ namespace common{
     //! Estimate angle between two straight lines in radian.
     double radian(Point, Point);
 
-    vss_state::Global_State State2Global_State(State);
+    vss_state::Global_State State2Global_State(State, ExecConfiguration);
 }
 
 #endif

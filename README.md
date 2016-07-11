@@ -50,6 +50,7 @@ Gallery
 DOING
 -----
 * Re-Adicionar o salvamento de calibragens ao sistema
+* Re-Adicionar o corte e rotação no RunVision
 
 TODO	
 ----
