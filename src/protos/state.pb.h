@@ -35,6 +35,7 @@ void protobuf_ShutdownFile_state_2eproto();
 
 class RGB;
 class Pose;
+class Ball_State;
 class Robot_State;
 class Global_State;
 
@@ -238,6 +239,123 @@ class Pose : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class Ball_State : public ::google::protobuf::Message {
+ public:
+  Ball_State();
+  virtual ~Ball_State();
+
+  Ball_State(const Ball_State& from);
+
+  inline Ball_State& operator=(const Ball_State& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Ball_State& default_instance();
+
+  void Swap(Ball_State* other);
+
+  // implements Message ----------------------------------------------
+
+  Ball_State* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Ball_State& from);
+  void MergeFrom(const Ball_State& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .vss_state.Pose pose = 1;
+  inline bool has_pose() const;
+  inline void clear_pose();
+  static const int kPoseFieldNumber = 1;
+  inline const ::vss_state::Pose& pose() const;
+  inline ::vss_state::Pose* mutable_pose();
+  inline ::vss_state::Pose* release_pose();
+  inline void set_allocated_pose(::vss_state::Pose* pose);
+
+  // optional .vss_state.Pose v_pose = 2;
+  inline bool has_v_pose() const;
+  inline void clear_v_pose();
+  static const int kVPoseFieldNumber = 2;
+  inline const ::vss_state::Pose& v_pose() const;
+  inline ::vss_state::Pose* mutable_v_pose();
+  inline ::vss_state::Pose* release_v_pose();
+  inline void set_allocated_v_pose(::vss_state::Pose* v_pose);
+
+  // optional .vss_state.Pose k_pose = 3;
+  inline bool has_k_pose() const;
+  inline void clear_k_pose();
+  static const int kKPoseFieldNumber = 3;
+  inline const ::vss_state::Pose& k_pose() const;
+  inline ::vss_state::Pose* mutable_k_pose();
+  inline ::vss_state::Pose* release_k_pose();
+  inline void set_allocated_k_pose(::vss_state::Pose* k_pose);
+
+  // optional .vss_state.Pose k_v_pose = 4;
+  inline bool has_k_v_pose() const;
+  inline void clear_k_v_pose();
+  static const int kKVPoseFieldNumber = 4;
+  inline const ::vss_state::Pose& k_v_pose() const;
+  inline ::vss_state::Pose* mutable_k_v_pose();
+  inline ::vss_state::Pose* release_k_v_pose();
+  inline void set_allocated_k_v_pose(::vss_state::Pose* k_v_pose);
+
+  // @@protoc_insertion_point(class_scope:vss_state.Ball_State)
+ private:
+  inline void set_has_pose();
+  inline void clear_has_pose();
+  inline void set_has_v_pose();
+  inline void clear_has_v_pose();
+  inline void set_has_k_pose();
+  inline void clear_has_k_pose();
+  inline void set_has_k_v_pose();
+  inline void clear_has_k_v_pose();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::vss_state::Pose* pose_;
+  ::vss_state::Pose* v_pose_;
+  ::vss_state::Pose* k_pose_;
+  ::vss_state::Pose* k_v_pose_;
+  friend void  protobuf_AddDesc_state_2eproto();
+  friend void protobuf_AssignDesc_state_2eproto();
+  friend void protobuf_ShutdownFile_state_2eproto();
+
+  void InitAsDefaultInstance();
+  static Ball_State* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class Robot_State : public ::google::protobuf::Message {
  public:
   Robot_State();
@@ -434,16 +552,16 @@ class Global_State : public ::google::protobuf::Message {
   inline bool origin() const;
   inline void set_origin(bool value);
 
-  // repeated .vss_state.Pose balls = 3;
+  // repeated .vss_state.Ball_State balls = 3;
   inline int balls_size() const;
   inline void clear_balls();
   static const int kBallsFieldNumber = 3;
-  inline const ::vss_state::Pose& balls(int index) const;
-  inline ::vss_state::Pose* mutable_balls(int index);
-  inline ::vss_state::Pose* add_balls();
-  inline const ::google::protobuf::RepeatedPtrField< ::vss_state::Pose >&
+  inline const ::vss_state::Ball_State& balls(int index) const;
+  inline ::vss_state::Ball_State* mutable_balls(int index);
+  inline ::vss_state::Ball_State* add_balls();
+  inline const ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State >&
       balls() const;
-  inline ::google::protobuf::RepeatedPtrField< ::vss_state::Pose >*
+  inline ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State >*
       mutable_balls();
 
   // repeated .vss_state.Robot_State robots_yellow = 4;
@@ -483,7 +601,7 @@ class Global_State : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::uint32 id_;
   bool origin_;
-  ::google::protobuf::RepeatedPtrField< ::vss_state::Pose > balls_;
+  ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State > balls_;
   ::google::protobuf::RepeatedPtrField< ::vss_state::Robot_State > robots_yellow_;
   ::google::protobuf::RepeatedPtrField< ::vss_state::Robot_State > robots_blue_;
   friend void  protobuf_AddDesc_state_2eproto();
@@ -646,6 +764,174 @@ inline void Pose::set_yaw(float value) {
   set_has_yaw();
   yaw_ = value;
   // @@protoc_insertion_point(field_set:vss_state.Pose.yaw)
+}
+
+// -------------------------------------------------------------------
+
+// Ball_State
+
+// required .vss_state.Pose pose = 1;
+inline bool Ball_State::has_pose() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Ball_State::set_has_pose() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Ball_State::clear_has_pose() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Ball_State::clear_pose() {
+  if (pose_ != NULL) pose_->::vss_state::Pose::Clear();
+  clear_has_pose();
+}
+inline const ::vss_state::Pose& Ball_State::pose() const {
+  // @@protoc_insertion_point(field_get:vss_state.Ball_State.pose)
+  return pose_ != NULL ? *pose_ : *default_instance_->pose_;
+}
+inline ::vss_state::Pose* Ball_State::mutable_pose() {
+  set_has_pose();
+  if (pose_ == NULL) pose_ = new ::vss_state::Pose;
+  // @@protoc_insertion_point(field_mutable:vss_state.Ball_State.pose)
+  return pose_;
+}
+inline ::vss_state::Pose* Ball_State::release_pose() {
+  clear_has_pose();
+  ::vss_state::Pose* temp = pose_;
+  pose_ = NULL;
+  return temp;
+}
+inline void Ball_State::set_allocated_pose(::vss_state::Pose* pose) {
+  delete pose_;
+  pose_ = pose;
+  if (pose) {
+    set_has_pose();
+  } else {
+    clear_has_pose();
+  }
+  // @@protoc_insertion_point(field_set_allocated:vss_state.Ball_State.pose)
+}
+
+// optional .vss_state.Pose v_pose = 2;
+inline bool Ball_State::has_v_pose() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Ball_State::set_has_v_pose() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Ball_State::clear_has_v_pose() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Ball_State::clear_v_pose() {
+  if (v_pose_ != NULL) v_pose_->::vss_state::Pose::Clear();
+  clear_has_v_pose();
+}
+inline const ::vss_state::Pose& Ball_State::v_pose() const {
+  // @@protoc_insertion_point(field_get:vss_state.Ball_State.v_pose)
+  return v_pose_ != NULL ? *v_pose_ : *default_instance_->v_pose_;
+}
+inline ::vss_state::Pose* Ball_State::mutable_v_pose() {
+  set_has_v_pose();
+  if (v_pose_ == NULL) v_pose_ = new ::vss_state::Pose;
+  // @@protoc_insertion_point(field_mutable:vss_state.Ball_State.v_pose)
+  return v_pose_;
+}
+inline ::vss_state::Pose* Ball_State::release_v_pose() {
+  clear_has_v_pose();
+  ::vss_state::Pose* temp = v_pose_;
+  v_pose_ = NULL;
+  return temp;
+}
+inline void Ball_State::set_allocated_v_pose(::vss_state::Pose* v_pose) {
+  delete v_pose_;
+  v_pose_ = v_pose;
+  if (v_pose) {
+    set_has_v_pose();
+  } else {
+    clear_has_v_pose();
+  }
+  // @@protoc_insertion_point(field_set_allocated:vss_state.Ball_State.v_pose)
+}
+
+// optional .vss_state.Pose k_pose = 3;
+inline bool Ball_State::has_k_pose() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void Ball_State::set_has_k_pose() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void Ball_State::clear_has_k_pose() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void Ball_State::clear_k_pose() {
+  if (k_pose_ != NULL) k_pose_->::vss_state::Pose::Clear();
+  clear_has_k_pose();
+}
+inline const ::vss_state::Pose& Ball_State::k_pose() const {
+  // @@protoc_insertion_point(field_get:vss_state.Ball_State.k_pose)
+  return k_pose_ != NULL ? *k_pose_ : *default_instance_->k_pose_;
+}
+inline ::vss_state::Pose* Ball_State::mutable_k_pose() {
+  set_has_k_pose();
+  if (k_pose_ == NULL) k_pose_ = new ::vss_state::Pose;
+  // @@protoc_insertion_point(field_mutable:vss_state.Ball_State.k_pose)
+  return k_pose_;
+}
+inline ::vss_state::Pose* Ball_State::release_k_pose() {
+  clear_has_k_pose();
+  ::vss_state::Pose* temp = k_pose_;
+  k_pose_ = NULL;
+  return temp;
+}
+inline void Ball_State::set_allocated_k_pose(::vss_state::Pose* k_pose) {
+  delete k_pose_;
+  k_pose_ = k_pose;
+  if (k_pose) {
+    set_has_k_pose();
+  } else {
+    clear_has_k_pose();
+  }
+  // @@protoc_insertion_point(field_set_allocated:vss_state.Ball_State.k_pose)
+}
+
+// optional .vss_state.Pose k_v_pose = 4;
+inline bool Ball_State::has_k_v_pose() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void Ball_State::set_has_k_v_pose() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Ball_State::clear_has_k_v_pose() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void Ball_State::clear_k_v_pose() {
+  if (k_v_pose_ != NULL) k_v_pose_->::vss_state::Pose::Clear();
+  clear_has_k_v_pose();
+}
+inline const ::vss_state::Pose& Ball_State::k_v_pose() const {
+  // @@protoc_insertion_point(field_get:vss_state.Ball_State.k_v_pose)
+  return k_v_pose_ != NULL ? *k_v_pose_ : *default_instance_->k_v_pose_;
+}
+inline ::vss_state::Pose* Ball_State::mutable_k_v_pose() {
+  set_has_k_v_pose();
+  if (k_v_pose_ == NULL) k_v_pose_ = new ::vss_state::Pose;
+  // @@protoc_insertion_point(field_mutable:vss_state.Ball_State.k_v_pose)
+  return k_v_pose_;
+}
+inline ::vss_state::Pose* Ball_State::release_k_v_pose() {
+  clear_has_k_v_pose();
+  ::vss_state::Pose* temp = k_v_pose_;
+  k_v_pose_ = NULL;
+  return temp;
+}
+inline void Ball_State::set_allocated_k_v_pose(::vss_state::Pose* k_v_pose) {
+  delete k_v_pose_;
+  k_v_pose_ = k_v_pose;
+  if (k_v_pose) {
+    set_has_k_v_pose();
+  } else {
+    clear_has_k_v_pose();
+  }
+  // @@protoc_insertion_point(field_set_allocated:vss_state.Ball_State.k_v_pose)
 }
 
 // -------------------------------------------------------------------
@@ -909,31 +1195,31 @@ inline void Global_State::set_origin(bool value) {
   // @@protoc_insertion_point(field_set:vss_state.Global_State.origin)
 }
 
-// repeated .vss_state.Pose balls = 3;
+// repeated .vss_state.Ball_State balls = 3;
 inline int Global_State::balls_size() const {
   return balls_.size();
 }
 inline void Global_State::clear_balls() {
   balls_.Clear();
 }
-inline const ::vss_state::Pose& Global_State::balls(int index) const {
+inline const ::vss_state::Ball_State& Global_State::balls(int index) const {
   // @@protoc_insertion_point(field_get:vss_state.Global_State.balls)
   return balls_.Get(index);
 }
-inline ::vss_state::Pose* Global_State::mutable_balls(int index) {
+inline ::vss_state::Ball_State* Global_State::mutable_balls(int index) {
   // @@protoc_insertion_point(field_mutable:vss_state.Global_State.balls)
   return balls_.Mutable(index);
 }
-inline ::vss_state::Pose* Global_State::add_balls() {
+inline ::vss_state::Ball_State* Global_State::add_balls() {
   // @@protoc_insertion_point(field_add:vss_state.Global_State.balls)
   return balls_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::vss_state::Pose >&
+inline const ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State >&
 Global_State::balls() const {
   // @@protoc_insertion_point(field_list:vss_state.Global_State.balls)
   return balls_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::vss_state::Pose >*
+inline ::google::protobuf::RepeatedPtrField< ::vss_state::Ball_State >*
 Global_State::mutable_balls() {
   // @@protoc_insertion_point(field_mutable_list:vss_state.Global_State.balls)
   return &balls_;
