@@ -26,6 +26,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Pose_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Pose_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Ball_State_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Ball_State_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Robot_State_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Robot_State_reflection_ = NULL;
@@ -76,7 +79,25 @@ void protobuf_AssignDesc_state_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Pose));
-  Robot_State_descriptor_ = file->message_type(2);
+  Ball_State_descriptor_ = file->message_type(2);
+  static const int Ball_State_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Ball_State, pose_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Ball_State, v_pose_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Ball_State, k_pose_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Ball_State, k_v_pose_),
+  };
+  Ball_State_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      Ball_State_descriptor_,
+      Ball_State::default_instance_,
+      Ball_State_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Ball_State, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Ball_State, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(Ball_State));
+  Robot_State_descriptor_ = file->message_type(3);
   static const int Robot_State_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Robot_State, pose_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Robot_State, v_pose_),
@@ -95,7 +116,7 @@ void protobuf_AssignDesc_state_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Robot_State));
-  Global_State_descriptor_ = file->message_type(3);
+  Global_State_descriptor_ = file->message_type(4);
   static const int Global_State_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_State, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Global_State, origin_),
@@ -131,6 +152,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Pose_descriptor_, &Pose::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    Ball_State_descriptor_, &Ball_State::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Robot_State_descriptor_, &Robot_State::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Global_State_descriptor_, &Global_State::default_instance());
@@ -143,6 +166,8 @@ void protobuf_ShutdownFile_state_2eproto() {
   delete RGB_reflection_;
   delete Pose::default_instance_;
   delete Pose_reflection_;
+  delete Ball_State::default_instance_;
+  delete Ball_State_reflection_;
   delete Robot_State::default_instance_;
   delete Robot_State_reflection_;
   delete Global_State::default_instance_;
@@ -158,24 +183,30 @@ void protobuf_AddDesc_state_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\013state.proto\022\tvss_state\"&\n\003RGB\022\t\n\001r\030\001 \002"
     "(\r\022\t\n\001g\030\002 \002(\r\022\t\n\001b\030\003 \002(\r\")\n\004Pose\022\t\n\001x\030\001 "
-    "\002(\002\022\t\n\001y\030\002 \002(\002\022\013\n\003yaw\030\003 \001(\002\"\260\001\n\013Robot_St"
-    "ate\022\035\n\004pose\030\001 \002(\0132\017.vss_state.Pose\022\037\n\006v_"
-    "pose\030\002 \001(\0132\017.vss_state.Pose\022\037\n\006k_pose\030\003 "
-    "\001(\0132\017.vss_state.Pose\022!\n\010k_v_pose\030\004 \001(\0132\017"
-    ".vss_state.Pose\022\035\n\005color\030\005 \001(\0132\016.vss_sta"
-    "te.RGB\"\246\001\n\014Global_State\022\n\n\002id\030\001 \001(\r\022\016\n\006o"
-    "rigin\030\002 \002(\010\022\036\n\005balls\030\003 \003(\0132\017.vss_state.P"
-    "ose\022-\n\rrobots_yellow\030\004 \003(\0132\026.vss_state.R"
-    "obot_State\022+\n\013robots_blue\030\005 \003(\0132\026.vss_st"
-    "ate.Robot_State", 455);
+    "\002(\002\022\t\n\001y\030\002 \002(\002\022\013\n\003yaw\030\003 \001(\002\"\220\001\n\nBall_Sta"
+    "te\022\035\n\004pose\030\001 \002(\0132\017.vss_state.Pose\022\037\n\006v_p"
+    "ose\030\002 \001(\0132\017.vss_state.Pose\022\037\n\006k_pose\030\003 \001"
+    "(\0132\017.vss_state.Pose\022!\n\010k_v_pose\030\004 \001(\0132\017."
+    "vss_state.Pose\"\260\001\n\013Robot_State\022\035\n\004pose\030\001"
+    " \002(\0132\017.vss_state.Pose\022\037\n\006v_pose\030\002 \001(\0132\017."
+    "vss_state.Pose\022\037\n\006k_pose\030\003 \001(\0132\017.vss_sta"
+    "te.Pose\022!\n\010k_v_pose\030\004 \001(\0132\017.vss_state.Po"
+    "se\022\035\n\005color\030\005 \001(\0132\016.vss_state.RGB\"\254\001\n\014Gl"
+    "obal_State\022\n\n\002id\030\001 \001(\r\022\016\n\006origin\030\002 \002(\010\022$"
+    "\n\005balls\030\003 \003(\0132\025.vss_state.Ball_State\022-\n\r"
+    "robots_yellow\030\004 \003(\0132\026.vss_state.Robot_St"
+    "ate\022+\n\013robots_blue\030\005 \003(\0132\026.vss_state.Rob"
+    "ot_State", 608);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "state.proto", &protobuf_RegisterTypes);
   RGB::default_instance_ = new RGB();
   Pose::default_instance_ = new Pose();
+  Ball_State::default_instance_ = new Ball_State();
   Robot_State::default_instance_ = new Robot_State();
   Global_State::default_instance_ = new Global_State();
   RGB::default_instance_->InitAsDefaultInstance();
   Pose::default_instance_->InitAsDefaultInstance();
+  Ball_State::default_instance_->InitAsDefaultInstance();
   Robot_State::default_instance_->InitAsDefaultInstance();
   Global_State::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_state_2eproto);
@@ -811,6 +842,380 @@ void Pose::Swap(Pose* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int Ball_State::kPoseFieldNumber;
+const int Ball_State::kVPoseFieldNumber;
+const int Ball_State::kKPoseFieldNumber;
+const int Ball_State::kKVPoseFieldNumber;
+#endif  // !_MSC_VER
+
+Ball_State::Ball_State()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:vss_state.Ball_State)
+}
+
+void Ball_State::InitAsDefaultInstance() {
+  pose_ = const_cast< ::vss_state::Pose*>(&::vss_state::Pose::default_instance());
+  v_pose_ = const_cast< ::vss_state::Pose*>(&::vss_state::Pose::default_instance());
+  k_pose_ = const_cast< ::vss_state::Pose*>(&::vss_state::Pose::default_instance());
+  k_v_pose_ = const_cast< ::vss_state::Pose*>(&::vss_state::Pose::default_instance());
+}
+
+Ball_State::Ball_State(const Ball_State& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:vss_state.Ball_State)
+}
+
+void Ball_State::SharedCtor() {
+  _cached_size_ = 0;
+  pose_ = NULL;
+  v_pose_ = NULL;
+  k_pose_ = NULL;
+  k_v_pose_ = NULL;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+Ball_State::~Ball_State() {
+  // @@protoc_insertion_point(destructor:vss_state.Ball_State)
+  SharedDtor();
+}
+
+void Ball_State::SharedDtor() {
+  if (this != default_instance_) {
+    delete pose_;
+    delete v_pose_;
+    delete k_pose_;
+    delete k_v_pose_;
+  }
+}
+
+void Ball_State::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Ball_State::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Ball_State_descriptor_;
+}
+
+const Ball_State& Ball_State::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_state_2eproto();
+  return *default_instance_;
+}
+
+Ball_State* Ball_State::default_instance_ = NULL;
+
+Ball_State* Ball_State::New() const {
+  return new Ball_State;
+}
+
+void Ball_State::Clear() {
+  if (_has_bits_[0 / 32] & 15) {
+    if (has_pose()) {
+      if (pose_ != NULL) pose_->::vss_state::Pose::Clear();
+    }
+    if (has_v_pose()) {
+      if (v_pose_ != NULL) v_pose_->::vss_state::Pose::Clear();
+    }
+    if (has_k_pose()) {
+      if (k_pose_ != NULL) k_pose_->::vss_state::Pose::Clear();
+    }
+    if (has_k_v_pose()) {
+      if (k_v_pose_ != NULL) k_v_pose_->::vss_state::Pose::Clear();
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Ball_State::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:vss_state.Ball_State)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .vss_state.Pose pose = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_pose()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_v_pose;
+        break;
+      }
+
+      // optional .vss_state.Pose v_pose = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_v_pose:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_v_pose()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_k_pose;
+        break;
+      }
+
+      // optional .vss_state.Pose k_pose = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_k_pose:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_k_pose()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_k_v_pose;
+        break;
+      }
+
+      // optional .vss_state.Pose k_v_pose = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_k_v_pose:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_k_v_pose()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:vss_state.Ball_State)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:vss_state.Ball_State)
+  return false;
+#undef DO_
+}
+
+void Ball_State::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:vss_state.Ball_State)
+  // required .vss_state.Pose pose = 1;
+  if (has_pose()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->pose(), output);
+  }
+
+  // optional .vss_state.Pose v_pose = 2;
+  if (has_v_pose()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->v_pose(), output);
+  }
+
+  // optional .vss_state.Pose k_pose = 3;
+  if (has_k_pose()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->k_pose(), output);
+  }
+
+  // optional .vss_state.Pose k_v_pose = 4;
+  if (has_k_v_pose()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->k_v_pose(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:vss_state.Ball_State)
+}
+
+::google::protobuf::uint8* Ball_State::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vss_state.Ball_State)
+  // required .vss_state.Pose pose = 1;
+  if (has_pose()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->pose(), target);
+  }
+
+  // optional .vss_state.Pose v_pose = 2;
+  if (has_v_pose()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->v_pose(), target);
+  }
+
+  // optional .vss_state.Pose k_pose = 3;
+  if (has_k_pose()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->k_pose(), target);
+  }
+
+  // optional .vss_state.Pose k_v_pose = 4;
+  if (has_k_v_pose()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->k_v_pose(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vss_state.Ball_State)
+  return target;
+}
+
+int Ball_State::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .vss_state.Pose pose = 1;
+    if (has_pose()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->pose());
+    }
+
+    // optional .vss_state.Pose v_pose = 2;
+    if (has_v_pose()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->v_pose());
+    }
+
+    // optional .vss_state.Pose k_pose = 3;
+    if (has_k_pose()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->k_pose());
+    }
+
+    // optional .vss_state.Pose k_v_pose = 4;
+    if (has_k_v_pose()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->k_v_pose());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Ball_State::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Ball_State* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Ball_State*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Ball_State::MergeFrom(const Ball_State& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_pose()) {
+      mutable_pose()->::vss_state::Pose::MergeFrom(from.pose());
+    }
+    if (from.has_v_pose()) {
+      mutable_v_pose()->::vss_state::Pose::MergeFrom(from.v_pose());
+    }
+    if (from.has_k_pose()) {
+      mutable_k_pose()->::vss_state::Pose::MergeFrom(from.k_pose());
+    }
+    if (from.has_k_v_pose()) {
+      mutable_k_v_pose()->::vss_state::Pose::MergeFrom(from.k_v_pose());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Ball_State::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Ball_State::CopyFrom(const Ball_State& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Ball_State::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (has_pose()) {
+    if (!this->pose().IsInitialized()) return false;
+  }
+  if (has_v_pose()) {
+    if (!this->v_pose().IsInitialized()) return false;
+  }
+  if (has_k_pose()) {
+    if (!this->k_pose().IsInitialized()) return false;
+  }
+  if (has_k_v_pose()) {
+    if (!this->k_v_pose().IsInitialized()) return false;
+  }
+  return true;
+}
+
+void Ball_State::Swap(Ball_State* other) {
+  if (other != this) {
+    std::swap(pose_, other->pose_);
+    std::swap(v_pose_, other->v_pose_);
+    std::swap(k_pose_, other->k_pose_);
+    std::swap(k_v_pose_, other->k_v_pose_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata Ball_State::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Ball_State_descriptor_;
+  metadata.reflection = Ball_State_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
 const int Robot_State::kPoseFieldNumber;
 const int Robot_State::kVPoseFieldNumber;
 const int Robot_State::kKPoseFieldNumber;
@@ -1355,7 +1760,7 @@ bool Global_State::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .vss_state.Pose balls = 3;
+      // repeated .vss_state.Ball_State balls = 3;
       case 3: {
         if (tag == 26) {
          parse_balls:
@@ -1432,7 +1837,7 @@ void Global_State::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->origin(), output);
   }
 
-  // repeated .vss_state.Pose balls = 3;
+  // repeated .vss_state.Ball_State balls = 3;
   for (int i = 0; i < this->balls_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->balls(i), output);
@@ -1470,7 +1875,7 @@ void Global_State::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->origin(), target);
   }
 
-  // repeated .vss_state.Pose balls = 3;
+  // repeated .vss_state.Ball_State balls = 3;
   for (int i = 0; i < this->balls_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -1516,7 +1921,7 @@ int Global_State::ByteSize() const {
     }
 
   }
-  // repeated .vss_state.Pose balls = 3;
+  // repeated .vss_state.Ball_State balls = 3;
   total_size += 1 * this->balls_size();
   for (int i = 0; i < this->balls_size(); i++) {
     total_size +=

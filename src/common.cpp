@@ -134,9 +134,18 @@ namespace common{
         global_state.set_id(0);
         global_state.set_origin(true);
 
-        vss_state::Pose *ball_s = global_state.add_balls();
-        ball_s->set_x(state.ball.x);
-        ball_s->set_y(state.ball.y);
+        vss_state::Ball_State *ball_s = global_state.add_balls();
+        ball_s->mutable_pose()->set_x(state.ball.x);
+        ball_s->mutable_pose()->set_y(state.ball.y);
+
+        ball_s->mutable_v_pose()->set_x(state.v_ball.x);
+        ball_s->mutable_v_pose()->set_y(state.v_ball.y);
+
+        ball_s->mutable_k_pose()->set_x(state.ball_kalman.x);
+        ball_s->mutable_k_pose()->set_y(state.ball_kalman.y);
+
+        ball_s->mutable_k_v_pose()->set_x(state.v_ball_kalman.x);
+        ball_s->mutable_k_v_pose()->set_y(state.v_ball_kalman.y);
 
         for(int i = 0 ; i < 3 ; i++){
             vss_state::Robot_State *robot_s = global_state.add_robots_blue();
