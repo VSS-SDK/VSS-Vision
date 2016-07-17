@@ -18,5 +18,16 @@ message Global_Commands{
 	optional uint32			id = 1;
 	required bool			is_team_yellow = 2;
 	repeated Robot_Command	robot_commands = 3;
+	required uint32			situation = 4;
+	/* SITUATIONS
+		0 = Normal Game
+		1 = Re-organize (GOAL_TEAM1)
+		2 = Re-organize (GOAL_TEAM2)
+		3 = Re-organize (FAULT_TEAM1)
+		4 = Re-organize (FAULT_TEAM2)
+		5 = Re-organize (PENALTY_TEAM1)
+		6 = Re-organize (PENALITY_TEAM2)
+		99 = Finish
+	*/
 }
 

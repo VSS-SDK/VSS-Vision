@@ -42,37 +42,30 @@ public final class State {
   /**
    * Protobuf type {@code vss_state.RGB}
    */
-  public static final class RGB extends
+  public  static final class RGB extends
       com.google.protobuf.GeneratedMessage implements
       // @@protoc_insertion_point(message_implements:vss_state.RGB)
       RGBOrBuilder {
     // Use RGB.newBuilder() to construct.
     private RGB(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private RGB(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RGB defaultInstance;
-    public static RGB getDefaultInstance() {
-      return defaultInstance;
+    private RGB() {
+      r_ = 0;
+      g_ = 0;
+      b_ = 0;
     }
 
-    public RGB getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private RGB(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -112,7 +105,7 @@ public final class State {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -128,21 +121,6 @@ public final class State {
       return vss_state.State.internal_static_vss_state_RGB_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               vss_state.State.RGB.class, vss_state.State.RGB.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<RGB> PARSER =
-        new com.google.protobuf.AbstractParser<RGB>() {
-      public RGB parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RGB(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RGB> getParserForType() {
-      return PARSER;
     }
 
     private int bitField0_;
@@ -191,11 +169,6 @@ public final class State {
       return b_;
     }
 
-    private void initFields() {
-      r_ = 0;
-      g_ = 0;
-      b_ = 0;
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -220,7 +193,6 @@ public final class State {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeUInt32(1, r_);
       }
@@ -230,12 +202,11 @@ public final class State {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeUInt32(3, b_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -251,16 +222,64 @@ public final class State {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(3, b_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof vss_state.State.RGB)) {
+        return super.equals(obj);
+      }
+      vss_state.State.RGB other = (vss_state.State.RGB) obj;
+
+      boolean result = true;
+      result = result && (hasR() == other.hasR());
+      if (hasR()) {
+        result = result && (getR()
+            == other.getR());
+      }
+      result = result && (hasG() == other.hasG());
+      if (hasG()) {
+        result = result && (getG()
+            == other.getG());
+      }
+      result = result && (hasB() == other.hasB());
+      if (hasB()) {
+        result = result && (getB()
+            == other.getB());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasR()) {
+        hash = (37 * hash) + R_FIELD_NUMBER;
+        hash = (53 * hash) + getR();
+      }
+      if (hasG()) {
+        hash = (37 * hash) + G_FIELD_NUMBER;
+        hash = (53 * hash) + getG();
+      }
+      if (hasB()) {
+        hash = (37 * hash) + B_FIELD_NUMBER;
+        hash = (53 * hash) + getB();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static vss_state.State.RGB parseFrom(
@@ -286,42 +305,53 @@ public final class State {
     }
     public static vss_state.State.RGB parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.RGB parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.RGB parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static vss_state.State.RGB parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.RGB parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.RGB parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(vss_state.State.RGB prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(vss_state.State.RGB prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -362,10 +392,6 @@ public final class State {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         r_ = 0;
@@ -375,10 +401,6 @@ public final class State {
         b_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -439,21 +461,19 @@ public final class State {
         if (other.hasB()) {
           setB(other.getB());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasR()) {
-          
           return false;
         }
         if (!hasG()) {
-          
           return false;
         }
         if (!hasB()) {
-          
           return false;
         }
         return true;
@@ -468,7 +488,7 @@ public final class State {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (vss_state.State.RGB) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -577,12 +597,39 @@ public final class State {
       // @@protoc_insertion_point(builder_scope:vss_state.RGB)
     }
 
+    // @@protoc_insertion_point(class_scope:vss_state.RGB)
+    private static final vss_state.State.RGB DEFAULT_INSTANCE;
     static {
-      defaultInstance = new RGB(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new vss_state.State.RGB();
     }
 
-    // @@protoc_insertion_point(class_scope:vss_state.RGB)
+    public static vss_state.State.RGB getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RGB>
+        PARSER = new com.google.protobuf.AbstractParser<RGB>() {
+      public RGB parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new RGB(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RGB> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RGB> getParserForType() {
+      return PARSER;
+    }
+
+    public vss_state.State.RGB getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface PoseOrBuilder extends
@@ -619,37 +666,30 @@ public final class State {
   /**
    * Protobuf type {@code vss_state.Pose}
    */
-  public static final class Pose extends
+  public  static final class Pose extends
       com.google.protobuf.GeneratedMessage implements
       // @@protoc_insertion_point(message_implements:vss_state.Pose)
       PoseOrBuilder {
     // Use Pose.newBuilder() to construct.
     private Pose(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Pose(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Pose defaultInstance;
-    public static Pose getDefaultInstance() {
-      return defaultInstance;
+    private Pose() {
+      x_ = 0F;
+      y_ = 0F;
+      yaw_ = 0F;
     }
 
-    public Pose getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private Pose(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -689,7 +729,7 @@ public final class State {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -705,21 +745,6 @@ public final class State {
       return vss_state.State.internal_static_vss_state_Pose_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               vss_state.State.Pose.class, vss_state.State.Pose.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<Pose> PARSER =
-        new com.google.protobuf.AbstractParser<Pose>() {
-      public Pose parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Pose(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Pose> getParserForType() {
-      return PARSER;
     }
 
     private int bitField0_;
@@ -768,11 +793,6 @@ public final class State {
       return yaw_;
     }
 
-    private void initFields() {
-      x_ = 0F;
-      y_ = 0F;
-      yaw_ = 0F;
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -793,7 +813,6 @@ public final class State {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeFloat(1, x_);
       }
@@ -803,12 +822,11 @@ public final class State {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeFloat(3, yaw_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -824,16 +842,73 @@ public final class State {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(3, yaw_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof vss_state.State.Pose)) {
+        return super.equals(obj);
+      }
+      vss_state.State.Pose other = (vss_state.State.Pose) obj;
+
+      boolean result = true;
+      result = result && (hasX() == other.hasX());
+      if (hasX()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getX())
+            == java.lang.Float.floatToIntBits(
+                other.getX()));
+      }
+      result = result && (hasY() == other.hasY());
+      if (hasY()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getY())
+            == java.lang.Float.floatToIntBits(
+                other.getY()));
+      }
+      result = result && (hasYaw() == other.hasYaw());
+      if (hasYaw()) {
+        result = result && (
+            java.lang.Float.floatToIntBits(getYaw())
+            == java.lang.Float.floatToIntBits(
+                other.getYaw()));
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasX()) {
+        hash = (37 * hash) + X_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getX());
+      }
+      if (hasY()) {
+        hash = (37 * hash) + Y_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getY());
+      }
+      if (hasYaw()) {
+        hash = (37 * hash) + YAW_FIELD_NUMBER;
+        hash = (53 * hash) + java.lang.Float.floatToIntBits(
+            getYaw());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static vss_state.State.Pose parseFrom(
@@ -859,42 +934,53 @@ public final class State {
     }
     public static vss_state.State.Pose parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.Pose parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.Pose parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static vss_state.State.Pose parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.Pose parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.Pose parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(vss_state.State.Pose prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(vss_state.State.Pose prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -935,10 +1021,6 @@ public final class State {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         x_ = 0F;
@@ -948,10 +1030,6 @@ public final class State {
         yaw_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -1012,17 +1090,16 @@ public final class State {
         if (other.hasYaw()) {
           setYaw(other.getYaw());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasX()) {
-          
           return false;
         }
         if (!hasY()) {
-          
           return false;
         }
         return true;
@@ -1037,7 +1114,7 @@ public final class State {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (vss_state.State.Pose) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1146,12 +1223,39 @@ public final class State {
       // @@protoc_insertion_point(builder_scope:vss_state.Pose)
     }
 
+    // @@protoc_insertion_point(class_scope:vss_state.Pose)
+    private static final vss_state.State.Pose DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Pose(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new vss_state.State.Pose();
     }
 
-    // @@protoc_insertion_point(class_scope:vss_state.Pose)
+    public static vss_state.State.Pose getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Pose>
+        PARSER = new com.google.protobuf.AbstractParser<Pose>() {
+      public Pose parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Pose(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Pose> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Pose> getParserForType() {
+      return PARSER;
+    }
+
+    public vss_state.State.Pose getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface Ball_StateOrBuilder extends
@@ -1213,37 +1317,27 @@ public final class State {
   /**
    * Protobuf type {@code vss_state.Ball_State}
    */
-  public static final class Ball_State extends
+  public  static final class Ball_State extends
       com.google.protobuf.GeneratedMessage implements
       // @@protoc_insertion_point(message_implements:vss_state.Ball_State)
       Ball_StateOrBuilder {
     // Use Ball_State.newBuilder() to construct.
     private Ball_State(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Ball_State(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Ball_State defaultInstance;
-    public static Ball_State getDefaultInstance() {
-      return defaultInstance;
+    private Ball_State() {
     }
 
-    public Ball_State getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private Ball_State(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -1320,7 +1414,7 @@ public final class State {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -1338,21 +1432,6 @@ public final class State {
               vss_state.State.Ball_State.class, vss_state.State.Ball_State.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Ball_State> PARSER =
-        new com.google.protobuf.AbstractParser<Ball_State>() {
-      public Ball_State parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Ball_State(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Ball_State> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
     public static final int POSE_FIELD_NUMBER = 1;
     private vss_state.State.Pose pose_;
@@ -1366,13 +1445,13 @@ public final class State {
      * <code>required .vss_state.Pose pose = 1;</code>
      */
     public vss_state.State.Pose getPose() {
-      return pose_;
+      return pose_ == null ? vss_state.State.Pose.getDefaultInstance() : pose_;
     }
     /**
      * <code>required .vss_state.Pose pose = 1;</code>
      */
     public vss_state.State.PoseOrBuilder getPoseOrBuilder() {
-      return pose_;
+      return pose_ == null ? vss_state.State.Pose.getDefaultInstance() : pose_;
     }
 
     public static final int V_POSE_FIELD_NUMBER = 2;
@@ -1387,13 +1466,13 @@ public final class State {
      * <code>optional .vss_state.Pose v_pose = 2;</code>
      */
     public vss_state.State.Pose getVPose() {
-      return vPose_;
+      return vPose_ == null ? vss_state.State.Pose.getDefaultInstance() : vPose_;
     }
     /**
      * <code>optional .vss_state.Pose v_pose = 2;</code>
      */
     public vss_state.State.PoseOrBuilder getVPoseOrBuilder() {
-      return vPose_;
+      return vPose_ == null ? vss_state.State.Pose.getDefaultInstance() : vPose_;
     }
 
     public static final int K_POSE_FIELD_NUMBER = 3;
@@ -1408,13 +1487,13 @@ public final class State {
      * <code>optional .vss_state.Pose k_pose = 3;</code>
      */
     public vss_state.State.Pose getKPose() {
-      return kPose_;
+      return kPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kPose_;
     }
     /**
      * <code>optional .vss_state.Pose k_pose = 3;</code>
      */
     public vss_state.State.PoseOrBuilder getKPoseOrBuilder() {
-      return kPose_;
+      return kPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kPose_;
     }
 
     public static final int K_V_POSE_FIELD_NUMBER = 4;
@@ -1429,21 +1508,15 @@ public final class State {
      * <code>optional .vss_state.Pose k_v_pose = 4;</code>
      */
     public vss_state.State.Pose getKVPose() {
-      return kVPose_;
+      return kVPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kVPose_;
     }
     /**
      * <code>optional .vss_state.Pose k_v_pose = 4;</code>
      */
     public vss_state.State.PoseOrBuilder getKVPoseOrBuilder() {
-      return kVPose_;
+      return kVPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kVPose_;
     }
 
-    private void initFields() {
-      pose_ = vss_state.State.Pose.getDefaultInstance();
-      vPose_ = vss_state.State.Pose.getDefaultInstance();
-      kPose_ = vss_state.State.Pose.getDefaultInstance();
-      kVPose_ = vss_state.State.Pose.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1482,54 +1555,109 @@ public final class State {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, pose_);
+        output.writeMessage(1, getPose());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, vPose_);
+        output.writeMessage(2, getVPose());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, kPose_);
+        output.writeMessage(3, getKPose());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(4, kVPose_);
+        output.writeMessage(4, getKVPose());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, pose_);
+          .computeMessageSize(1, getPose());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, vPose_);
+          .computeMessageSize(2, getVPose());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, kPose_);
+          .computeMessageSize(3, getKPose());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, kVPose_);
+          .computeMessageSize(4, getKVPose());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof vss_state.State.Ball_State)) {
+        return super.equals(obj);
+      }
+      vss_state.State.Ball_State other = (vss_state.State.Ball_State) obj;
+
+      boolean result = true;
+      result = result && (hasPose() == other.hasPose());
+      if (hasPose()) {
+        result = result && getPose()
+            .equals(other.getPose());
+      }
+      result = result && (hasVPose() == other.hasVPose());
+      if (hasVPose()) {
+        result = result && getVPose()
+            .equals(other.getVPose());
+      }
+      result = result && (hasKPose() == other.hasKPose());
+      if (hasKPose()) {
+        result = result && getKPose()
+            .equals(other.getKPose());
+      }
+      result = result && (hasKVPose() == other.hasKVPose());
+      if (hasKVPose()) {
+        result = result && getKVPose()
+            .equals(other.getKVPose());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasPose()) {
+        hash = (37 * hash) + POSE_FIELD_NUMBER;
+        hash = (53 * hash) + getPose().hashCode();
+      }
+      if (hasVPose()) {
+        hash = (37 * hash) + V_POSE_FIELD_NUMBER;
+        hash = (53 * hash) + getVPose().hashCode();
+      }
+      if (hasKPose()) {
+        hash = (37 * hash) + K_POSE_FIELD_NUMBER;
+        hash = (53 * hash) + getKPose().hashCode();
+      }
+      if (hasKVPose()) {
+        hash = (37 * hash) + K_V_POSE_FIELD_NUMBER;
+        hash = (53 * hash) + getKVPose().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static vss_state.State.Ball_State parseFrom(
@@ -1555,42 +1683,53 @@ public final class State {
     }
     public static vss_state.State.Ball_State parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.Ball_State parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.Ball_State parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static vss_state.State.Ball_State parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.Ball_State parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.Ball_State parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(vss_state.State.Ball_State prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(vss_state.State.Ball_State prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -1635,41 +1774,33 @@ public final class State {
           getKVPoseFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (poseBuilder_ == null) {
-          pose_ = vss_state.State.Pose.getDefaultInstance();
+          pose_ = null;
         } else {
           poseBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
         if (vPoseBuilder_ == null) {
-          vPose_ = vss_state.State.Pose.getDefaultInstance();
+          vPose_ = null;
         } else {
           vPoseBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         if (kPoseBuilder_ == null) {
-          kPose_ = vss_state.State.Pose.getDefaultInstance();
+          kPose_ = null;
         } else {
           kPoseBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
         if (kVPoseBuilder_ == null) {
-          kVPose_ = vss_state.State.Pose.getDefaultInstance();
+          kVPose_ = null;
         } else {
           kVPoseBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -1753,34 +1884,30 @@ public final class State {
         if (other.hasKVPose()) {
           mergeKVPose(other.getKVPose());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasPose()) {
-          
           return false;
         }
         if (!getPose().isInitialized()) {
-          
           return false;
         }
         if (hasVPose()) {
           if (!getVPose().isInitialized()) {
-            
             return false;
           }
         }
         if (hasKPose()) {
           if (!getKPose().isInitialized()) {
-            
             return false;
           }
         }
         if (hasKVPose()) {
           if (!getKVPose().isInitialized()) {
-            
             return false;
           }
         }
@@ -1796,7 +1923,7 @@ public final class State {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (vss_state.State.Ball_State) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -1806,8 +1933,8 @@ public final class State {
       }
       private int bitField0_;
 
-      private vss_state.State.Pose pose_ = vss_state.State.Pose.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.Pose pose_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> poseBuilder_;
       /**
        * <code>required .vss_state.Pose pose = 1;</code>
@@ -1820,7 +1947,7 @@ public final class State {
        */
       public vss_state.State.Pose getPose() {
         if (poseBuilder_ == null) {
-          return pose_;
+          return pose_ == null ? vss_state.State.Pose.getDefaultInstance() : pose_;
         } else {
           return poseBuilder_.getMessage();
         }
@@ -1861,6 +1988,7 @@ public final class State {
       public Builder mergePose(vss_state.State.Pose value) {
         if (poseBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              pose_ != null &&
               pose_ != vss_state.State.Pose.getDefaultInstance()) {
             pose_ =
               vss_state.State.Pose.newBuilder(pose_).mergeFrom(value).buildPartial();
@@ -1879,7 +2007,7 @@ public final class State {
        */
       public Builder clearPose() {
         if (poseBuilder_ == null) {
-          pose_ = vss_state.State.Pose.getDefaultInstance();
+          pose_ = null;
           onChanged();
         } else {
           poseBuilder_.clear();
@@ -1902,17 +2030,18 @@ public final class State {
         if (poseBuilder_ != null) {
           return poseBuilder_.getMessageOrBuilder();
         } else {
-          return pose_;
+          return pose_ == null ?
+              vss_state.State.Pose.getDefaultInstance() : pose_;
         }
       }
       /**
        * <code>required .vss_state.Pose pose = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> 
           getPoseFieldBuilder() {
         if (poseBuilder_ == null) {
-          poseBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          poseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder>(
                   getPose(),
                   getParentForChildren(),
@@ -1922,8 +2051,8 @@ public final class State {
         return poseBuilder_;
       }
 
-      private vss_state.State.Pose vPose_ = vss_state.State.Pose.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.Pose vPose_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> vPoseBuilder_;
       /**
        * <code>optional .vss_state.Pose v_pose = 2;</code>
@@ -1936,7 +2065,7 @@ public final class State {
        */
       public vss_state.State.Pose getVPose() {
         if (vPoseBuilder_ == null) {
-          return vPose_;
+          return vPose_ == null ? vss_state.State.Pose.getDefaultInstance() : vPose_;
         } else {
           return vPoseBuilder_.getMessage();
         }
@@ -1977,6 +2106,7 @@ public final class State {
       public Builder mergeVPose(vss_state.State.Pose value) {
         if (vPoseBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              vPose_ != null &&
               vPose_ != vss_state.State.Pose.getDefaultInstance()) {
             vPose_ =
               vss_state.State.Pose.newBuilder(vPose_).mergeFrom(value).buildPartial();
@@ -1995,7 +2125,7 @@ public final class State {
        */
       public Builder clearVPose() {
         if (vPoseBuilder_ == null) {
-          vPose_ = vss_state.State.Pose.getDefaultInstance();
+          vPose_ = null;
           onChanged();
         } else {
           vPoseBuilder_.clear();
@@ -2018,17 +2148,18 @@ public final class State {
         if (vPoseBuilder_ != null) {
           return vPoseBuilder_.getMessageOrBuilder();
         } else {
-          return vPose_;
+          return vPose_ == null ?
+              vss_state.State.Pose.getDefaultInstance() : vPose_;
         }
       }
       /**
        * <code>optional .vss_state.Pose v_pose = 2;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> 
           getVPoseFieldBuilder() {
         if (vPoseBuilder_ == null) {
-          vPoseBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          vPoseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder>(
                   getVPose(),
                   getParentForChildren(),
@@ -2038,8 +2169,8 @@ public final class State {
         return vPoseBuilder_;
       }
 
-      private vss_state.State.Pose kPose_ = vss_state.State.Pose.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.Pose kPose_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> kPoseBuilder_;
       /**
        * <code>optional .vss_state.Pose k_pose = 3;</code>
@@ -2052,7 +2183,7 @@ public final class State {
        */
       public vss_state.State.Pose getKPose() {
         if (kPoseBuilder_ == null) {
-          return kPose_;
+          return kPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kPose_;
         } else {
           return kPoseBuilder_.getMessage();
         }
@@ -2093,6 +2224,7 @@ public final class State {
       public Builder mergeKPose(vss_state.State.Pose value) {
         if (kPoseBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              kPose_ != null &&
               kPose_ != vss_state.State.Pose.getDefaultInstance()) {
             kPose_ =
               vss_state.State.Pose.newBuilder(kPose_).mergeFrom(value).buildPartial();
@@ -2111,7 +2243,7 @@ public final class State {
        */
       public Builder clearKPose() {
         if (kPoseBuilder_ == null) {
-          kPose_ = vss_state.State.Pose.getDefaultInstance();
+          kPose_ = null;
           onChanged();
         } else {
           kPoseBuilder_.clear();
@@ -2134,17 +2266,18 @@ public final class State {
         if (kPoseBuilder_ != null) {
           return kPoseBuilder_.getMessageOrBuilder();
         } else {
-          return kPose_;
+          return kPose_ == null ?
+              vss_state.State.Pose.getDefaultInstance() : kPose_;
         }
       }
       /**
        * <code>optional .vss_state.Pose k_pose = 3;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> 
           getKPoseFieldBuilder() {
         if (kPoseBuilder_ == null) {
-          kPoseBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          kPoseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder>(
                   getKPose(),
                   getParentForChildren(),
@@ -2154,8 +2287,8 @@ public final class State {
         return kPoseBuilder_;
       }
 
-      private vss_state.State.Pose kVPose_ = vss_state.State.Pose.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.Pose kVPose_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> kVPoseBuilder_;
       /**
        * <code>optional .vss_state.Pose k_v_pose = 4;</code>
@@ -2168,7 +2301,7 @@ public final class State {
        */
       public vss_state.State.Pose getKVPose() {
         if (kVPoseBuilder_ == null) {
-          return kVPose_;
+          return kVPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kVPose_;
         } else {
           return kVPoseBuilder_.getMessage();
         }
@@ -2209,6 +2342,7 @@ public final class State {
       public Builder mergeKVPose(vss_state.State.Pose value) {
         if (kVPoseBuilder_ == null) {
           if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              kVPose_ != null &&
               kVPose_ != vss_state.State.Pose.getDefaultInstance()) {
             kVPose_ =
               vss_state.State.Pose.newBuilder(kVPose_).mergeFrom(value).buildPartial();
@@ -2227,7 +2361,7 @@ public final class State {
        */
       public Builder clearKVPose() {
         if (kVPoseBuilder_ == null) {
-          kVPose_ = vss_state.State.Pose.getDefaultInstance();
+          kVPose_ = null;
           onChanged();
         } else {
           kVPoseBuilder_.clear();
@@ -2250,17 +2384,18 @@ public final class State {
         if (kVPoseBuilder_ != null) {
           return kVPoseBuilder_.getMessageOrBuilder();
         } else {
-          return kVPose_;
+          return kVPose_ == null ?
+              vss_state.State.Pose.getDefaultInstance() : kVPose_;
         }
       }
       /**
        * <code>optional .vss_state.Pose k_v_pose = 4;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> 
           getKVPoseFieldBuilder() {
         if (kVPoseBuilder_ == null) {
-          kVPoseBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          kVPoseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder>(
                   getKVPose(),
                   getParentForChildren(),
@@ -2273,12 +2408,39 @@ public final class State {
       // @@protoc_insertion_point(builder_scope:vss_state.Ball_State)
     }
 
+    // @@protoc_insertion_point(class_scope:vss_state.Ball_State)
+    private static final vss_state.State.Ball_State DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Ball_State(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new vss_state.State.Ball_State();
     }
 
-    // @@protoc_insertion_point(class_scope:vss_state.Ball_State)
+    public static vss_state.State.Ball_State getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Ball_State>
+        PARSER = new com.google.protobuf.AbstractParser<Ball_State>() {
+      public Ball_State parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Ball_State(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Ball_State> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Ball_State> getParserForType() {
+      return PARSER;
+    }
+
+    public vss_state.State.Ball_State getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface Robot_StateOrBuilder extends
@@ -2338,64 +2500,54 @@ public final class State {
     vss_state.State.PoseOrBuilder getKVPoseOrBuilder();
 
     /**
-     * <code>optional .vss_state.RGB color = 5;</code>
-     *
      * <pre>
      * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
      * </pre>
+     *
+     * <code>optional .vss_state.RGB color = 5;</code>
      */
     boolean hasColor();
     /**
-     * <code>optional .vss_state.RGB color = 5;</code>
-     *
      * <pre>
      * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
      * </pre>
+     *
+     * <code>optional .vss_state.RGB color = 5;</code>
      */
     vss_state.State.RGB getColor();
     /**
-     * <code>optional .vss_state.RGB color = 5;</code>
-     *
      * <pre>
      * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
      * </pre>
+     *
+     * <code>optional .vss_state.RGB color = 5;</code>
      */
     vss_state.State.RGBOrBuilder getColorOrBuilder();
   }
   /**
    * Protobuf type {@code vss_state.Robot_State}
    */
-  public static final class Robot_State extends
+  public  static final class Robot_State extends
       com.google.protobuf.GeneratedMessage implements
       // @@protoc_insertion_point(message_implements:vss_state.Robot_State)
       Robot_StateOrBuilder {
     // Use Robot_State.newBuilder() to construct.
     private Robot_State(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Robot_State(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Robot_State defaultInstance;
-    public static Robot_State getDefaultInstance() {
-      return defaultInstance;
+    private Robot_State() {
     }
 
-    public Robot_State getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private Robot_State(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -2485,7 +2637,7 @@ public final class State {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2503,21 +2655,6 @@ public final class State {
               vss_state.State.Robot_State.class, vss_state.State.Robot_State.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Robot_State> PARSER =
-        new com.google.protobuf.AbstractParser<Robot_State>() {
-      public Robot_State parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Robot_State(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Robot_State> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
     public static final int POSE_FIELD_NUMBER = 1;
     private vss_state.State.Pose pose_;
@@ -2531,13 +2668,13 @@ public final class State {
      * <code>required .vss_state.Pose pose = 1;</code>
      */
     public vss_state.State.Pose getPose() {
-      return pose_;
+      return pose_ == null ? vss_state.State.Pose.getDefaultInstance() : pose_;
     }
     /**
      * <code>required .vss_state.Pose pose = 1;</code>
      */
     public vss_state.State.PoseOrBuilder getPoseOrBuilder() {
-      return pose_;
+      return pose_ == null ? vss_state.State.Pose.getDefaultInstance() : pose_;
     }
 
     public static final int V_POSE_FIELD_NUMBER = 2;
@@ -2552,13 +2689,13 @@ public final class State {
      * <code>optional .vss_state.Pose v_pose = 2;</code>
      */
     public vss_state.State.Pose getVPose() {
-      return vPose_;
+      return vPose_ == null ? vss_state.State.Pose.getDefaultInstance() : vPose_;
     }
     /**
      * <code>optional .vss_state.Pose v_pose = 2;</code>
      */
     public vss_state.State.PoseOrBuilder getVPoseOrBuilder() {
-      return vPose_;
+      return vPose_ == null ? vss_state.State.Pose.getDefaultInstance() : vPose_;
     }
 
     public static final int K_POSE_FIELD_NUMBER = 3;
@@ -2573,13 +2710,13 @@ public final class State {
      * <code>optional .vss_state.Pose k_pose = 3;</code>
      */
     public vss_state.State.Pose getKPose() {
-      return kPose_;
+      return kPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kPose_;
     }
     /**
      * <code>optional .vss_state.Pose k_pose = 3;</code>
      */
     public vss_state.State.PoseOrBuilder getKPoseOrBuilder() {
-      return kPose_;
+      return kPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kPose_;
     }
 
     public static final int K_V_POSE_FIELD_NUMBER = 4;
@@ -2594,55 +2731,48 @@ public final class State {
      * <code>optional .vss_state.Pose k_v_pose = 4;</code>
      */
     public vss_state.State.Pose getKVPose() {
-      return kVPose_;
+      return kVPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kVPose_;
     }
     /**
      * <code>optional .vss_state.Pose k_v_pose = 4;</code>
      */
     public vss_state.State.PoseOrBuilder getKVPoseOrBuilder() {
-      return kVPose_;
+      return kVPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kVPose_;
     }
 
     public static final int COLOR_FIELD_NUMBER = 5;
     private vss_state.State.RGB color_;
     /**
-     * <code>optional .vss_state.RGB color = 5;</code>
-     *
      * <pre>
      * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
      * </pre>
+     *
+     * <code>optional .vss_state.RGB color = 5;</code>
      */
     public boolean hasColor() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional .vss_state.RGB color = 5;</code>
-     *
      * <pre>
      * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
      * </pre>
+     *
+     * <code>optional .vss_state.RGB color = 5;</code>
      */
     public vss_state.State.RGB getColor() {
-      return color_;
+      return color_ == null ? vss_state.State.RGB.getDefaultInstance() : color_;
     }
     /**
-     * <code>optional .vss_state.RGB color = 5;</code>
-     *
      * <pre>
      * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
      * </pre>
+     *
+     * <code>optional .vss_state.RGB color = 5;</code>
      */
     public vss_state.State.RGBOrBuilder getColorOrBuilder() {
-      return color_;
+      return color_ == null ? vss_state.State.RGB.getDefaultInstance() : color_;
     }
 
-    private void initFields() {
-      pose_ = vss_state.State.Pose.getDefaultInstance();
-      vPose_ = vss_state.State.Pose.getDefaultInstance();
-      kPose_ = vss_state.State.Pose.getDefaultInstance();
-      kVPose_ = vss_state.State.Pose.getDefaultInstance();
-      color_ = vss_state.State.RGB.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -2687,61 +2817,125 @@ public final class State {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, pose_);
+        output.writeMessage(1, getPose());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, vPose_);
+        output.writeMessage(2, getVPose());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, kPose_);
+        output.writeMessage(3, getKPose());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(4, kVPose_);
+        output.writeMessage(4, getKVPose());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeMessage(5, color_);
+        output.writeMessage(5, getColor());
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, pose_);
+          .computeMessageSize(1, getPose());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, vPose_);
+          .computeMessageSize(2, getVPose());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, kPose_);
+          .computeMessageSize(3, getKPose());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, kVPose_);
+          .computeMessageSize(4, getKVPose());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, color_);
+          .computeMessageSize(5, getColor());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof vss_state.State.Robot_State)) {
+        return super.equals(obj);
+      }
+      vss_state.State.Robot_State other = (vss_state.State.Robot_State) obj;
+
+      boolean result = true;
+      result = result && (hasPose() == other.hasPose());
+      if (hasPose()) {
+        result = result && getPose()
+            .equals(other.getPose());
+      }
+      result = result && (hasVPose() == other.hasVPose());
+      if (hasVPose()) {
+        result = result && getVPose()
+            .equals(other.getVPose());
+      }
+      result = result && (hasKPose() == other.hasKPose());
+      if (hasKPose()) {
+        result = result && getKPose()
+            .equals(other.getKPose());
+      }
+      result = result && (hasKVPose() == other.hasKVPose());
+      if (hasKVPose()) {
+        result = result && getKVPose()
+            .equals(other.getKVPose());
+      }
+      result = result && (hasColor() == other.hasColor());
+      if (hasColor()) {
+        result = result && getColor()
+            .equals(other.getColor());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasPose()) {
+        hash = (37 * hash) + POSE_FIELD_NUMBER;
+        hash = (53 * hash) + getPose().hashCode();
+      }
+      if (hasVPose()) {
+        hash = (37 * hash) + V_POSE_FIELD_NUMBER;
+        hash = (53 * hash) + getVPose().hashCode();
+      }
+      if (hasKPose()) {
+        hash = (37 * hash) + K_POSE_FIELD_NUMBER;
+        hash = (53 * hash) + getKPose().hashCode();
+      }
+      if (hasKVPose()) {
+        hash = (37 * hash) + K_V_POSE_FIELD_NUMBER;
+        hash = (53 * hash) + getKVPose().hashCode();
+      }
+      if (hasColor()) {
+        hash = (37 * hash) + COLOR_FIELD_NUMBER;
+        hash = (53 * hash) + getColor().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static vss_state.State.Robot_State parseFrom(
@@ -2767,42 +2961,53 @@ public final class State {
     }
     public static vss_state.State.Robot_State parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.Robot_State parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.Robot_State parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static vss_state.State.Robot_State parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.Robot_State parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.Robot_State parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(vss_state.State.Robot_State prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(vss_state.State.Robot_State prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -2848,47 +3053,39 @@ public final class State {
           getColorFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (poseBuilder_ == null) {
-          pose_ = vss_state.State.Pose.getDefaultInstance();
+          pose_ = null;
         } else {
           poseBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
         if (vPoseBuilder_ == null) {
-          vPose_ = vss_state.State.Pose.getDefaultInstance();
+          vPose_ = null;
         } else {
           vPoseBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         if (kPoseBuilder_ == null) {
-          kPose_ = vss_state.State.Pose.getDefaultInstance();
+          kPose_ = null;
         } else {
           kPoseBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
         if (kVPoseBuilder_ == null) {
-          kVPose_ = vss_state.State.Pose.getDefaultInstance();
+          kVPose_ = null;
         } else {
           kVPoseBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
         if (colorBuilder_ == null) {
-          color_ = vss_state.State.RGB.getDefaultInstance();
+          color_ = null;
         } else {
           colorBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000010);
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -2983,40 +3180,35 @@ public final class State {
         if (other.hasColor()) {
           mergeColor(other.getColor());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasPose()) {
-          
           return false;
         }
         if (!getPose().isInitialized()) {
-          
           return false;
         }
         if (hasVPose()) {
           if (!getVPose().isInitialized()) {
-            
             return false;
           }
         }
         if (hasKPose()) {
           if (!getKPose().isInitialized()) {
-            
             return false;
           }
         }
         if (hasKVPose()) {
           if (!getKVPose().isInitialized()) {
-            
             return false;
           }
         }
         if (hasColor()) {
           if (!getColor().isInitialized()) {
-            
             return false;
           }
         }
@@ -3032,7 +3224,7 @@ public final class State {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (vss_state.State.Robot_State) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -3042,8 +3234,8 @@ public final class State {
       }
       private int bitField0_;
 
-      private vss_state.State.Pose pose_ = vss_state.State.Pose.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.Pose pose_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> poseBuilder_;
       /**
        * <code>required .vss_state.Pose pose = 1;</code>
@@ -3056,7 +3248,7 @@ public final class State {
        */
       public vss_state.State.Pose getPose() {
         if (poseBuilder_ == null) {
-          return pose_;
+          return pose_ == null ? vss_state.State.Pose.getDefaultInstance() : pose_;
         } else {
           return poseBuilder_.getMessage();
         }
@@ -3097,6 +3289,7 @@ public final class State {
       public Builder mergePose(vss_state.State.Pose value) {
         if (poseBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              pose_ != null &&
               pose_ != vss_state.State.Pose.getDefaultInstance()) {
             pose_ =
               vss_state.State.Pose.newBuilder(pose_).mergeFrom(value).buildPartial();
@@ -3115,7 +3308,7 @@ public final class State {
        */
       public Builder clearPose() {
         if (poseBuilder_ == null) {
-          pose_ = vss_state.State.Pose.getDefaultInstance();
+          pose_ = null;
           onChanged();
         } else {
           poseBuilder_.clear();
@@ -3138,17 +3331,18 @@ public final class State {
         if (poseBuilder_ != null) {
           return poseBuilder_.getMessageOrBuilder();
         } else {
-          return pose_;
+          return pose_ == null ?
+              vss_state.State.Pose.getDefaultInstance() : pose_;
         }
       }
       /**
        * <code>required .vss_state.Pose pose = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> 
           getPoseFieldBuilder() {
         if (poseBuilder_ == null) {
-          poseBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          poseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder>(
                   getPose(),
                   getParentForChildren(),
@@ -3158,8 +3352,8 @@ public final class State {
         return poseBuilder_;
       }
 
-      private vss_state.State.Pose vPose_ = vss_state.State.Pose.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.Pose vPose_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> vPoseBuilder_;
       /**
        * <code>optional .vss_state.Pose v_pose = 2;</code>
@@ -3172,7 +3366,7 @@ public final class State {
        */
       public vss_state.State.Pose getVPose() {
         if (vPoseBuilder_ == null) {
-          return vPose_;
+          return vPose_ == null ? vss_state.State.Pose.getDefaultInstance() : vPose_;
         } else {
           return vPoseBuilder_.getMessage();
         }
@@ -3213,6 +3407,7 @@ public final class State {
       public Builder mergeVPose(vss_state.State.Pose value) {
         if (vPoseBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              vPose_ != null &&
               vPose_ != vss_state.State.Pose.getDefaultInstance()) {
             vPose_ =
               vss_state.State.Pose.newBuilder(vPose_).mergeFrom(value).buildPartial();
@@ -3231,7 +3426,7 @@ public final class State {
        */
       public Builder clearVPose() {
         if (vPoseBuilder_ == null) {
-          vPose_ = vss_state.State.Pose.getDefaultInstance();
+          vPose_ = null;
           onChanged();
         } else {
           vPoseBuilder_.clear();
@@ -3254,17 +3449,18 @@ public final class State {
         if (vPoseBuilder_ != null) {
           return vPoseBuilder_.getMessageOrBuilder();
         } else {
-          return vPose_;
+          return vPose_ == null ?
+              vss_state.State.Pose.getDefaultInstance() : vPose_;
         }
       }
       /**
        * <code>optional .vss_state.Pose v_pose = 2;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> 
           getVPoseFieldBuilder() {
         if (vPoseBuilder_ == null) {
-          vPoseBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          vPoseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder>(
                   getVPose(),
                   getParentForChildren(),
@@ -3274,8 +3470,8 @@ public final class State {
         return vPoseBuilder_;
       }
 
-      private vss_state.State.Pose kPose_ = vss_state.State.Pose.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.Pose kPose_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> kPoseBuilder_;
       /**
        * <code>optional .vss_state.Pose k_pose = 3;</code>
@@ -3288,7 +3484,7 @@ public final class State {
        */
       public vss_state.State.Pose getKPose() {
         if (kPoseBuilder_ == null) {
-          return kPose_;
+          return kPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kPose_;
         } else {
           return kPoseBuilder_.getMessage();
         }
@@ -3329,6 +3525,7 @@ public final class State {
       public Builder mergeKPose(vss_state.State.Pose value) {
         if (kPoseBuilder_ == null) {
           if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              kPose_ != null &&
               kPose_ != vss_state.State.Pose.getDefaultInstance()) {
             kPose_ =
               vss_state.State.Pose.newBuilder(kPose_).mergeFrom(value).buildPartial();
@@ -3347,7 +3544,7 @@ public final class State {
        */
       public Builder clearKPose() {
         if (kPoseBuilder_ == null) {
-          kPose_ = vss_state.State.Pose.getDefaultInstance();
+          kPose_ = null;
           onChanged();
         } else {
           kPoseBuilder_.clear();
@@ -3370,17 +3567,18 @@ public final class State {
         if (kPoseBuilder_ != null) {
           return kPoseBuilder_.getMessageOrBuilder();
         } else {
-          return kPose_;
+          return kPose_ == null ?
+              vss_state.State.Pose.getDefaultInstance() : kPose_;
         }
       }
       /**
        * <code>optional .vss_state.Pose k_pose = 3;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> 
           getKPoseFieldBuilder() {
         if (kPoseBuilder_ == null) {
-          kPoseBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          kPoseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder>(
                   getKPose(),
                   getParentForChildren(),
@@ -3390,8 +3588,8 @@ public final class State {
         return kPoseBuilder_;
       }
 
-      private vss_state.State.Pose kVPose_ = vss_state.State.Pose.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.Pose kVPose_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> kVPoseBuilder_;
       /**
        * <code>optional .vss_state.Pose k_v_pose = 4;</code>
@@ -3404,7 +3602,7 @@ public final class State {
        */
       public vss_state.State.Pose getKVPose() {
         if (kVPoseBuilder_ == null) {
-          return kVPose_;
+          return kVPose_ == null ? vss_state.State.Pose.getDefaultInstance() : kVPose_;
         } else {
           return kVPoseBuilder_.getMessage();
         }
@@ -3445,6 +3643,7 @@ public final class State {
       public Builder mergeKVPose(vss_state.State.Pose value) {
         if (kVPoseBuilder_ == null) {
           if (((bitField0_ & 0x00000008) == 0x00000008) &&
+              kVPose_ != null &&
               kVPose_ != vss_state.State.Pose.getDefaultInstance()) {
             kVPose_ =
               vss_state.State.Pose.newBuilder(kVPose_).mergeFrom(value).buildPartial();
@@ -3463,7 +3662,7 @@ public final class State {
        */
       public Builder clearKVPose() {
         if (kVPoseBuilder_ == null) {
-          kVPose_ = vss_state.State.Pose.getDefaultInstance();
+          kVPose_ = null;
           onChanged();
         } else {
           kVPoseBuilder_.clear();
@@ -3486,17 +3685,18 @@ public final class State {
         if (kVPoseBuilder_ != null) {
           return kVPoseBuilder_.getMessageOrBuilder();
         } else {
-          return kVPose_;
+          return kVPose_ == null ?
+              vss_state.State.Pose.getDefaultInstance() : kVPose_;
         }
       }
       /**
        * <code>optional .vss_state.Pose k_v_pose = 4;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder> 
           getKVPoseFieldBuilder() {
         if (kVPoseBuilder_ == null) {
-          kVPoseBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          kVPoseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.Pose, vss_state.State.Pose.Builder, vss_state.State.PoseOrBuilder>(
                   getKVPose(),
                   getParentForChildren(),
@@ -3506,39 +3706,39 @@ public final class State {
         return kVPoseBuilder_;
       }
 
-      private vss_state.State.RGB color_ = vss_state.State.RGB.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private vss_state.State.RGB color_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.RGB, vss_state.State.RGB.Builder, vss_state.State.RGBOrBuilder> colorBuilder_;
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
       public boolean hasColor() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
       public vss_state.State.RGB getColor() {
         if (colorBuilder_ == null) {
-          return color_;
+          return color_ == null ? vss_state.State.RGB.getDefaultInstance() : color_;
         } else {
           return colorBuilder_.getMessage();
         }
       }
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
       public Builder setColor(vss_state.State.RGB value) {
         if (colorBuilder_ == null) {
@@ -3554,11 +3754,11 @@ public final class State {
         return this;
       }
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
       public Builder setColor(
           vss_state.State.RGB.Builder builderForValue) {
@@ -3572,15 +3772,16 @@ public final class State {
         return this;
       }
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
       public Builder mergeColor(vss_state.State.RGB value) {
         if (colorBuilder_ == null) {
           if (((bitField0_ & 0x00000010) == 0x00000010) &&
+              color_ != null &&
               color_ != vss_state.State.RGB.getDefaultInstance()) {
             color_ =
               vss_state.State.RGB.newBuilder(color_).mergeFrom(value).buildPartial();
@@ -3595,15 +3796,15 @@ public final class State {
         return this;
       }
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
       public Builder clearColor() {
         if (colorBuilder_ == null) {
-          color_ = vss_state.State.RGB.getDefaultInstance();
+          color_ = null;
           onChanged();
         } else {
           colorBuilder_.clear();
@@ -3612,11 +3813,11 @@ public final class State {
         return this;
       }
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
       public vss_state.State.RGB.Builder getColorBuilder() {
         bitField0_ |= 0x00000010;
@@ -3624,31 +3825,32 @@ public final class State {
         return getColorFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
       public vss_state.State.RGBOrBuilder getColorOrBuilder() {
         if (colorBuilder_ != null) {
           return colorBuilder_.getMessageOrBuilder();
         } else {
-          return color_;
+          return color_ == null ?
+              vss_state.State.RGB.getDefaultInstance() : color_;
         }
       }
       /**
-       * <code>optional .vss_state.RGB color = 5;</code>
-       *
        * <pre>
        * COLOR: RED = 3, GREEN = 4, PURPLE = 5, PINK = 6, BROWN = 7
        * </pre>
+       *
+       * <code>optional .vss_state.RGB color = 5;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           vss_state.State.RGB, vss_state.State.RGB.Builder, vss_state.State.RGBOrBuilder> 
           getColorFieldBuilder() {
         if (colorBuilder_ == null) {
-          colorBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          colorBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               vss_state.State.RGB, vss_state.State.RGB.Builder, vss_state.State.RGBOrBuilder>(
                   getColor(),
                   getParentForChildren(),
@@ -3661,12 +3863,39 @@ public final class State {
       // @@protoc_insertion_point(builder_scope:vss_state.Robot_State)
     }
 
+    // @@protoc_insertion_point(class_scope:vss_state.Robot_State)
+    private static final vss_state.State.Robot_State DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Robot_State(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new vss_state.State.Robot_State();
     }
 
-    // @@protoc_insertion_point(class_scope:vss_state.Robot_State)
+    public static vss_state.State.Robot_State getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Robot_State>
+        PARSER = new com.google.protobuf.AbstractParser<Robot_State>() {
+      public Robot_State parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Robot_State(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Robot_State> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Robot_State> getParserForType() {
+      return PARSER;
+    }
+
+    public vss_state.State.Robot_State getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface Global_StateOrBuilder extends
@@ -3683,19 +3912,19 @@ public final class State {
     int getId();
 
     /**
-     * <code>required bool origin = 2;</code>
-     *
      * <pre>
      * true = VSS-Vision, false = VSS-Simulator
      * </pre>
+     *
+     * <code>required bool origin = 2;</code>
      */
     boolean hasOrigin();
     /**
-     * <code>required bool origin = 2;</code>
-     *
      * <pre>
      * true = VSS-Vision, false = VSS-Simulator
      * </pre>
+     *
+     * <code>required bool origin = 2;</code>
      */
     boolean getOrigin();
 
@@ -3770,41 +3999,70 @@ public final class State {
      */
     vss_state.State.Robot_StateOrBuilder getRobotsBlueOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     * SITUATIONS
+     *0 = Normal Game
+     *1 = Re-organize (GOAL_TEAM1)
+     *2 = Re-organize (GOAL_TEAM2)
+     *3 = Re-organize (FAULT_TEAM1)
+     *4 = Re-organize (FAULT_TEAM2)
+     *5 = Re-organize (PENALTY_TEAM1)
+     *6 = Re-organize (PENALITY_TEAM2)
+     *99 = Finish
+     * </pre>
+     *
+     * <code>required uint32 situation = 6;</code>
+     */
+    boolean hasSituation();
+    /**
+     * <pre>
+     * SITUATIONS
+     *0 = Normal Game
+     *1 = Re-organize (GOAL_TEAM1)
+     *2 = Re-organize (GOAL_TEAM2)
+     *3 = Re-organize (FAULT_TEAM1)
+     *4 = Re-organize (FAULT_TEAM2)
+     *5 = Re-organize (PENALTY_TEAM1)
+     *6 = Re-organize (PENALITY_TEAM2)
+     *99 = Finish
+     * </pre>
+     *
+     * <code>required uint32 situation = 6;</code>
+     */
+    int getSituation();
   }
   /**
    * Protobuf type {@code vss_state.Global_State}
    */
-  public static final class Global_State extends
+  public  static final class Global_State extends
       com.google.protobuf.GeneratedMessage implements
       // @@protoc_insertion_point(message_implements:vss_state.Global_State)
       Global_StateOrBuilder {
     // Use Global_State.newBuilder() to construct.
     private Global_State(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Global_State(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Global_State defaultInstance;
-    public static Global_State getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public Global_State getDefaultInstanceForType() {
-      return defaultInstance;
+    private Global_State() {
+      id_ = 0;
+      origin_ = false;
+      balls_ = java.util.Collections.emptyList();
+      robotsYellow_ = java.util.Collections.emptyList();
+      robotsBlue_ = java.util.Collections.emptyList();
+      situation_ = 0;
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private Global_State(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -3838,7 +4096,8 @@ public final class State {
                 balls_ = new java.util.ArrayList<vss_state.State.Ball_State>();
                 mutable_bitField0_ |= 0x00000004;
               }
-              balls_.add(input.readMessage(vss_state.State.Ball_State.PARSER, extensionRegistry));
+              balls_.add(
+                  input.readMessage(vss_state.State.Ball_State.PARSER, extensionRegistry));
               break;
             }
             case 34: {
@@ -3846,7 +4105,8 @@ public final class State {
                 robotsYellow_ = new java.util.ArrayList<vss_state.State.Robot_State>();
                 mutable_bitField0_ |= 0x00000008;
               }
-              robotsYellow_.add(input.readMessage(vss_state.State.Robot_State.PARSER, extensionRegistry));
+              robotsYellow_.add(
+                  input.readMessage(vss_state.State.Robot_State.PARSER, extensionRegistry));
               break;
             }
             case 42: {
@@ -3854,7 +4114,13 @@ public final class State {
                 robotsBlue_ = new java.util.ArrayList<vss_state.State.Robot_State>();
                 mutable_bitField0_ |= 0x00000010;
               }
-              robotsBlue_.add(input.readMessage(vss_state.State.Robot_State.PARSER, extensionRegistry));
+              robotsBlue_.add(
+                  input.readMessage(vss_state.State.Robot_State.PARSER, extensionRegistry));
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000004;
+              situation_ = input.readUInt32();
               break;
             }
           }
@@ -3863,7 +4129,7 @@ public final class State {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
           balls_ = java.util.Collections.unmodifiableList(balls_);
@@ -3890,21 +4156,6 @@ public final class State {
               vss_state.State.Global_State.class, vss_state.State.Global_State.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Global_State> PARSER =
-        new com.google.protobuf.AbstractParser<Global_State>() {
-      public Global_State parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Global_State(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Global_State> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
     private int id_;
@@ -3924,21 +4175,21 @@ public final class State {
     public static final int ORIGIN_FIELD_NUMBER = 2;
     private boolean origin_;
     /**
-     * <code>required bool origin = 2;</code>
-     *
      * <pre>
      * true = VSS-Vision, false = VSS-Simulator
      * </pre>
+     *
+     * <code>required bool origin = 2;</code>
      */
     public boolean hasOrigin() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required bool origin = 2;</code>
-     *
      * <pre>
      * true = VSS-Vision, false = VSS-Simulator
      * </pre>
+     *
+     * <code>required bool origin = 2;</code>
      */
     public boolean getOrigin() {
       return origin_;
@@ -4049,13 +4300,45 @@ public final class State {
       return robotsBlue_.get(index);
     }
 
-    private void initFields() {
-      id_ = 0;
-      origin_ = false;
-      balls_ = java.util.Collections.emptyList();
-      robotsYellow_ = java.util.Collections.emptyList();
-      robotsBlue_ = java.util.Collections.emptyList();
+    public static final int SITUATION_FIELD_NUMBER = 6;
+    private int situation_;
+    /**
+     * <pre>
+     * SITUATIONS
+     *0 = Normal Game
+     *1 = Re-organize (GOAL_TEAM1)
+     *2 = Re-organize (GOAL_TEAM2)
+     *3 = Re-organize (FAULT_TEAM1)
+     *4 = Re-organize (FAULT_TEAM2)
+     *5 = Re-organize (PENALTY_TEAM1)
+     *6 = Re-organize (PENALITY_TEAM2)
+     *99 = Finish
+     * </pre>
+     *
+     * <code>required uint32 situation = 6;</code>
+     */
+    public boolean hasSituation() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
+    /**
+     * <pre>
+     * SITUATIONS
+     *0 = Normal Game
+     *1 = Re-organize (GOAL_TEAM1)
+     *2 = Re-organize (GOAL_TEAM2)
+     *3 = Re-organize (FAULT_TEAM1)
+     *4 = Re-organize (FAULT_TEAM2)
+     *5 = Re-organize (PENALTY_TEAM1)
+     *6 = Re-organize (PENALITY_TEAM2)
+     *99 = Finish
+     * </pre>
+     *
+     * <code>required uint32 situation = 6;</code>
+     */
+    public int getSituation() {
+      return situation_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -4063,6 +4346,10 @@ public final class State {
       if (isInitialized == 0) return false;
 
       if (!hasOrigin()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSituation()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -4090,7 +4377,6 @@ public final class State {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeUInt32(1, id_);
       }
@@ -4106,12 +4392,14 @@ public final class State {
       for (int i = 0; i < robotsBlue_.size(); i++) {
         output.writeMessage(5, robotsBlue_.get(i));
       }
-      getUnknownFields().writeTo(output);
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeUInt32(6, situation_);
+      }
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -4135,16 +4423,87 @@ public final class State {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, robotsBlue_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(6, situation_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof vss_state.State.Global_State)) {
+        return super.equals(obj);
+      }
+      vss_state.State.Global_State other = (vss_state.State.Global_State) obj;
+
+      boolean result = true;
+      result = result && (hasId() == other.hasId());
+      if (hasId()) {
+        result = result && (getId()
+            == other.getId());
+      }
+      result = result && (hasOrigin() == other.hasOrigin());
+      if (hasOrigin()) {
+        result = result && (getOrigin()
+            == other.getOrigin());
+      }
+      result = result && getBallsList()
+          .equals(other.getBallsList());
+      result = result && getRobotsYellowList()
+          .equals(other.getRobotsYellowList());
+      result = result && getRobotsBlueList()
+          .equals(other.getRobotsBlueList());
+      result = result && (hasSituation() == other.hasSituation());
+      if (hasSituation()) {
+        result = result && (getSituation()
+            == other.getSituation());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
+      }
+      if (hasOrigin()) {
+        hash = (37 * hash) + ORIGIN_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getOrigin());
+      }
+      if (getBallsCount() > 0) {
+        hash = (37 * hash) + BALLS_FIELD_NUMBER;
+        hash = (53 * hash) + getBallsList().hashCode();
+      }
+      if (getRobotsYellowCount() > 0) {
+        hash = (37 * hash) + ROBOTS_YELLOW_FIELD_NUMBER;
+        hash = (53 * hash) + getRobotsYellowList().hashCode();
+      }
+      if (getRobotsBlueCount() > 0) {
+        hash = (37 * hash) + ROBOTS_BLUE_FIELD_NUMBER;
+        hash = (53 * hash) + getRobotsBlueList().hashCode();
+      }
+      if (hasSituation()) {
+        hash = (37 * hash) + SITUATION_FIELD_NUMBER;
+        hash = (53 * hash) + getSituation();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static vss_state.State.Global_State parseFrom(
@@ -4170,42 +4529,53 @@ public final class State {
     }
     public static vss_state.State.Global_State parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.Global_State parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.Global_State parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static vss_state.State.Global_State parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static vss_state.State.Global_State parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
     }
     public static vss_state.State.Global_State parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(vss_state.State.Global_State prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(vss_state.State.Global_State prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -4249,10 +4619,6 @@ public final class State {
           getRobotsBlueFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         id_ = 0;
@@ -4277,11 +4643,9 @@ public final class State {
         } else {
           robotsBlueBuilder_.clear();
         }
+        situation_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -4340,6 +4704,10 @@ public final class State {
         } else {
           result.robotsBlue_ = robotsBlueBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.situation_ = situation_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4440,30 +4808,33 @@ public final class State {
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        if (other.hasSituation()) {
+          setSituation(other.getSituation());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasOrigin()) {
-          
+          return false;
+        }
+        if (!hasSituation()) {
           return false;
         }
         for (int i = 0; i < getBallsCount(); i++) {
           if (!getBalls(i).isInitialized()) {
-            
             return false;
           }
         }
         for (int i = 0; i < getRobotsYellowCount(); i++) {
           if (!getRobotsYellow(i).isInitialized()) {
-            
             return false;
           }
         }
         for (int i = 0; i < getRobotsBlueCount(); i++) {
           if (!getRobotsBlue(i).isInitialized()) {
-            
             return false;
           }
         }
@@ -4479,7 +4850,7 @@ public final class State {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (vss_state.State.Global_State) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -4523,31 +4894,31 @@ public final class State {
 
       private boolean origin_ ;
       /**
-       * <code>required bool origin = 2;</code>
-       *
        * <pre>
        * true = VSS-Vision, false = VSS-Simulator
        * </pre>
+       *
+       * <code>required bool origin = 2;</code>
        */
       public boolean hasOrigin() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required bool origin = 2;</code>
-       *
        * <pre>
        * true = VSS-Vision, false = VSS-Simulator
        * </pre>
+       *
+       * <code>required bool origin = 2;</code>
        */
       public boolean getOrigin() {
         return origin_;
       }
       /**
-       * <code>required bool origin = 2;</code>
-       *
        * <pre>
        * true = VSS-Vision, false = VSS-Simulator
        * </pre>
+       *
+       * <code>required bool origin = 2;</code>
        */
       public Builder setOrigin(boolean value) {
         bitField0_ |= 0x00000002;
@@ -4556,11 +4927,11 @@ public final class State {
         return this;
       }
       /**
-       * <code>required bool origin = 2;</code>
-       *
        * <pre>
        * true = VSS-Vision, false = VSS-Simulator
        * </pre>
+       *
+       * <code>required bool origin = 2;</code>
        */
       public Builder clearOrigin() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -4578,7 +4949,7 @@ public final class State {
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           vss_state.State.Ball_State, vss_state.State.Ball_State.Builder, vss_state.State.Ball_StateOrBuilder> ballsBuilder_;
 
       /**
@@ -4794,11 +5165,11 @@ public final class State {
            getBallsBuilderList() {
         return getBallsFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           vss_state.State.Ball_State, vss_state.State.Ball_State.Builder, vss_state.State.Ball_StateOrBuilder> 
           getBallsFieldBuilder() {
         if (ballsBuilder_ == null) {
-          ballsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          ballsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               vss_state.State.Ball_State, vss_state.State.Ball_State.Builder, vss_state.State.Ball_StateOrBuilder>(
                   balls_,
                   ((bitField0_ & 0x00000004) == 0x00000004),
@@ -4818,7 +5189,7 @@ public final class State {
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           vss_state.State.Robot_State, vss_state.State.Robot_State.Builder, vss_state.State.Robot_StateOrBuilder> robotsYellowBuilder_;
 
       /**
@@ -5034,11 +5405,11 @@ public final class State {
            getRobotsYellowBuilderList() {
         return getRobotsYellowFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           vss_state.State.Robot_State, vss_state.State.Robot_State.Builder, vss_state.State.Robot_StateOrBuilder> 
           getRobotsYellowFieldBuilder() {
         if (robotsYellowBuilder_ == null) {
-          robotsYellowBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          robotsYellowBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               vss_state.State.Robot_State, vss_state.State.Robot_State.Builder, vss_state.State.Robot_StateOrBuilder>(
                   robotsYellow_,
                   ((bitField0_ & 0x00000008) == 0x00000008),
@@ -5058,7 +5429,7 @@ public final class State {
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           vss_state.State.Robot_State, vss_state.State.Robot_State.Builder, vss_state.State.Robot_StateOrBuilder> robotsBlueBuilder_;
 
       /**
@@ -5274,11 +5645,11 @@ public final class State {
            getRobotsBlueBuilderList() {
         return getRobotsBlueFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           vss_state.State.Robot_State, vss_state.State.Robot_State.Builder, vss_state.State.Robot_StateOrBuilder> 
           getRobotsBlueFieldBuilder() {
         if (robotsBlueBuilder_ == null) {
-          robotsBlueBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          robotsBlueBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               vss_state.State.Robot_State, vss_state.State.Robot_State.Builder, vss_state.State.Robot_StateOrBuilder>(
                   robotsBlue_,
                   ((bitField0_ & 0x00000010) == 0x00000010),
@@ -5289,40 +5660,147 @@ public final class State {
         return robotsBlueBuilder_;
       }
 
+      private int situation_ ;
+      /**
+       * <pre>
+       * SITUATIONS
+       *0 = Normal Game
+       *1 = Re-organize (GOAL_TEAM1)
+       *2 = Re-organize (GOAL_TEAM2)
+       *3 = Re-organize (FAULT_TEAM1)
+       *4 = Re-organize (FAULT_TEAM2)
+       *5 = Re-organize (PENALTY_TEAM1)
+       *6 = Re-organize (PENALITY_TEAM2)
+       *99 = Finish
+       * </pre>
+       *
+       * <code>required uint32 situation = 6;</code>
+       */
+      public boolean hasSituation() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <pre>
+       * SITUATIONS
+       *0 = Normal Game
+       *1 = Re-organize (GOAL_TEAM1)
+       *2 = Re-organize (GOAL_TEAM2)
+       *3 = Re-organize (FAULT_TEAM1)
+       *4 = Re-organize (FAULT_TEAM2)
+       *5 = Re-organize (PENALTY_TEAM1)
+       *6 = Re-organize (PENALITY_TEAM2)
+       *99 = Finish
+       * </pre>
+       *
+       * <code>required uint32 situation = 6;</code>
+       */
+      public int getSituation() {
+        return situation_;
+      }
+      /**
+       * <pre>
+       * SITUATIONS
+       *0 = Normal Game
+       *1 = Re-organize (GOAL_TEAM1)
+       *2 = Re-organize (GOAL_TEAM2)
+       *3 = Re-organize (FAULT_TEAM1)
+       *4 = Re-organize (FAULT_TEAM2)
+       *5 = Re-organize (PENALTY_TEAM1)
+       *6 = Re-organize (PENALITY_TEAM2)
+       *99 = Finish
+       * </pre>
+       *
+       * <code>required uint32 situation = 6;</code>
+       */
+      public Builder setSituation(int value) {
+        bitField0_ |= 0x00000020;
+        situation_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * SITUATIONS
+       *0 = Normal Game
+       *1 = Re-organize (GOAL_TEAM1)
+       *2 = Re-organize (GOAL_TEAM2)
+       *3 = Re-organize (FAULT_TEAM1)
+       *4 = Re-organize (FAULT_TEAM2)
+       *5 = Re-organize (PENALTY_TEAM1)
+       *6 = Re-organize (PENALITY_TEAM2)
+       *99 = Finish
+       * </pre>
+       *
+       * <code>required uint32 situation = 6;</code>
+       */
+      public Builder clearSituation() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        situation_ = 0;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:vss_state.Global_State)
     }
 
+    // @@protoc_insertion_point(class_scope:vss_state.Global_State)
+    private static final vss_state.State.Global_State DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Global_State(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new vss_state.State.Global_State();
     }
 
-    // @@protoc_insertion_point(class_scope:vss_state.Global_State)
+    public static vss_state.State.Global_State getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<Global_State>
+        PARSER = new com.google.protobuf.AbstractParser<Global_State>() {
+      public Global_State parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Global_State(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Global_State> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Global_State> getParserForType() {
+      return PARSER;
+    }
+
+    public vss_state.State.Global_State getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_vss_state_RGB_descriptor;
-  private static
+  private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_vss_state_RGB_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_vss_state_Pose_descriptor;
-  private static
+  private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_vss_state_Pose_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_vss_state_Ball_State_descriptor;
-  private static
+  private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_vss_state_Ball_State_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_vss_state_Robot_State_descriptor;
-  private static
+  private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_vss_state_Robot_State_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_vss_state_Global_State_descriptor;
-  private static
+  private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_vss_state_Global_State_fieldAccessorTable;
 
@@ -5330,7 +5808,7 @@ public final class State {
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -5344,12 +5822,12 @@ public final class State {
       " \002(\0132\017.vss_state.Pose\022\037\n\006v_pose\030\002 \001(\0132\017." +
       "vss_state.Pose\022\037\n\006k_pose\030\003 \001(\0132\017.vss_sta" +
       "te.Pose\022!\n\010k_v_pose\030\004 \001(\0132\017.vss_state.Po",
-      "se\022\035\n\005color\030\005 \001(\0132\016.vss_state.RGB\"\254\001\n\014Gl" +
+      "se\022\035\n\005color\030\005 \001(\0132\016.vss_state.RGB\"\277\001\n\014Gl" +
       "obal_State\022\n\n\002id\030\001 \001(\r\022\016\n\006origin\030\002 \002(\010\022$" +
       "\n\005balls\030\003 \003(\0132\025.vss_state.Ball_State\022-\n\r" +
       "robots_yellow\030\004 \003(\0132\026.vss_state.Robot_St" +
       "ate\022+\n\013robots_blue\030\005 \003(\0132\026.vss_state.Rob" +
-      "ot_State"
+      "ot_State\022\021\n\tsituation\030\006 \002(\r"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5392,7 +5870,7 @@ public final class State {
     internal_static_vss_state_Global_State_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_vss_state_Global_State_descriptor,
-        new java.lang.String[] { "Id", "Origin", "Balls", "RobotsYellow", "RobotsBlue", });
+        new java.lang.String[] { "Id", "Origin", "Balls", "RobotsYellow", "RobotsBlue", "Situation", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

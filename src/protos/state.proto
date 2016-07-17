@@ -41,4 +41,15 @@ message Global_State{
   repeated Ball_State   balls = 3;
   repeated Robot_State  robots_yellow = 4;
   repeated Robot_State  robots_blue = 5;
+  required uint32       situation = 6;
+  	/* SITUATIONS
+      0 = Normal Game
+      1 = Re-organize (GOAL_TEAM1)
+      2 = Re-organize (GOAL_TEAM2)
+      3 = Re-organize (FAULT_TEAM1)
+      4 = Re-organize (FAULT_TEAM2)
+      5 = Re-organize (PENALTY_TEAM1)
+      6 = Re-organize (PENALITY_TEAM2)
+      99 = Finish
+    */
 }

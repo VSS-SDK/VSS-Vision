@@ -132,6 +132,7 @@ namespace common{
 
         global_state = vss_state::Global_State();
         global_state.set_id(0);
+	global_state.set_situation(0);
         global_state.set_origin(true);
 
         vss_state::Ball_State *ball_s = global_state.add_balls();
