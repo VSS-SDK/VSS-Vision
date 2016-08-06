@@ -30,6 +30,11 @@ Installation
 ------------
 [INSTALL][install]
 
+Cloning
+-------
+```
+$ git clone --recursive https://github.com/SIRLab/VSS-Vision.git
+```
 
 Development and Use
 -------------------
