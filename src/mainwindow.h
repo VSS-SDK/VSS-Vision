@@ -48,7 +48,7 @@
 #include "vision.h"
 #include "sqlite.h"
 #include "QtOpenCV.h"
-#include "interface.h"
+#include "VSS-Interface/interface.h"
 
 using namespace common;
 using namespace QtOcv;

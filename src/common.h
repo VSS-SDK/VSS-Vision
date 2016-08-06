@@ -19,7 +19,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/video/video.hpp>
-#include "interface.h"
+#include "VSS-Interface/interface.h"
 
 #define PATH_IMAGE "/home/sirlab/Repositorios/john/VSS-Vision/src/images/model.jpg"
 #define PATH_VIDEO "/home/sirlab/Repositorios/john/VSS-Vision/src/videos/ball_move.mp4";

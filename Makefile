@@ -13,7 +13,7 @@ vision:
 	cd src && make -f Makefile
 
 proto:
-	cd src/protos && make -f protos.make
+	cd src/VSS-Interface/protos && make -f protos.make
 
 run:
 	cd src && ./VSS-Vision

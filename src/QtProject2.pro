@@ -46,9 +46,9 @@ SOURCES += main.cpp\
     sqlite.cpp \
     vision.cpp \
     qcustomlabel.cpp \
-    protos/state.pb.cc \
-    protos/command.pb.cc \
-    interface.cpp
+    VSS-Interface/protos/state.pb.cc \
+    VSS-Interface/protos/command.pb.cc \
+    VSS-Interface/interface.cpp
 
 HEADERS  += mainwindow.h \
     QtOpenCV.h \
@@ -57,9 +57,9 @@ HEADERS  += mainwindow.h \
     sqlite.h \
     vision.h \
     qcustomlabel.h \
-    protos/state.pb.h \
-    protos/command.pb.h \
-    interface.h
+    VSS-Interface/protos/state.pb.h \
+    VSS-Interface/protos/command.pb.h \
+    VSS-Interface/interface.h
 
 FORMS    += mainwindow.ui
 
