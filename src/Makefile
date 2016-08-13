@@ -55,7 +55,8 @@ SOURCES       = main.cpp \
 		qcustomlabel.cpp \
 		VSS-Interface/protos/state.pb.cc \
 		VSS-Interface/protos/command.pb.cc \
-		VSS-Interface/interface.cpp qrc_resources.cpp \
+		VSS-Interface/interface.cpp \
+		kalman.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_calibration.cpp \
 		moc_vision.cpp \
@@ -71,6 +72,7 @@ OBJECTS       = main.o \
 		state.pb.o \
 		command.pb.o \
 		interface.o \
+		kalman.o \
 		qrc_resources.o \
 		moc_mainwindow.o \
 		moc_calibration.o \
@@ -306,7 +308,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/VSS-Vision1.0.0 || mkdir -p .tmp/VSS-Vision1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/VSS-Vision1.0.0/ && $(COPY_FILE) --parents resources.qrc .tmp/VSS-Vision1.0.0/ && $(COPY_FILE) --parents mainwindow.h QtOpenCV.h common.h calibration.h sqlite.h vision.h qcustomlabel.h VSS-Interface/protos/state.pb.h VSS-Interface/protos/command.pb.h VSS-Interface/interface.h .tmp/VSS-Vision1.0.0/ && $(COPY_FILE) --parents main.cpp mainwindow.cpp QtOpenCV.cpp common.cpp calibration.cpp sqlite.cpp vision.cpp qcustomlabel.cpp VSS-Interface/protos/state.pb.cc VSS-Interface/protos/command.pb.cc VSS-Interface/interface.cpp .tmp/VSS-Vision1.0.0/ && $(COPY_FILE) --parents mainwindow.ui .tmp/VSS-Vision1.0.0/ && (cd `dirname .tmp/VSS-Vision1.0.0` && $(TAR) VSS-Vision1.0.0.tar VSS-Vision1.0.0 && $(COMPRESS) VSS-Vision1.0.0.tar) && $(MOVE) `dirname .tmp/VSS-Vision1.0.0`/VSS-Vision1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/VSS-Vision1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/VSS-Vision1.0.0/ && $(COPY_FILE) --parents resources.qrc .tmp/VSS-Vision1.0.0/ && $(COPY_FILE) --parents mainwindow.h QtOpenCV.h common.h calibration.h sqlite.h vision.h qcustomlabel.h VSS-Interface/protos/state.pb.h VSS-Interface/protos/command.pb.h VSS-Interface/interface.h kalman.h .tmp/VSS-Vision1.0.0/ && $(COPY_FILE) --parents main.cpp mainwindow.cpp QtOpenCV.cpp common.cpp calibration.cpp sqlite.cpp vision.cpp qcustomlabel.cpp VSS-Interface/protos/state.pb.cc VSS-Interface/protos/command.pb.cc VSS-Interface/interface.cpp kalman.cpp .tmp/VSS-Vision1.0.0/ && $(COPY_FILE) --parents mainwindow.ui .tmp/VSS-Vision1.0.0/ && (cd `dirname .tmp/VSS-Vision1.0.0` && $(TAR) VSS-Vision1.0.0.tar VSS-Vision1.0.0 && $(COMPRESS) VSS-Vision1.0.0.tar) && $(MOVE) `dirname .tmp/VSS-Vision1.0.0`/VSS-Vision1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/VSS-Vision1.0.0
 
 
 clean:compiler_clean 
@@ -331,11 +333,11 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
-		images/model.jpg \
-		icons/kdf.png \
 		icons/ksame.png \
 		icons/blockdevice.png \
-		icons/package.png
+		icons/package.png \
+		icons/kdf.png \
+		images/model.jpg
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_calibration.cpp moc_vision.cpp moc_qcustomlabel.cpp
@@ -2975,6 +2977,140 @@ interface.o: VSS-Interface/interface.cpp VSS-Interface/interface.h \
 		VSS-Interface/protos/state.pb.h \
 		VSS-Interface/protos/command.pb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o VSS-Interface/interface.cpp
+
+kalman.o: kalman.cpp kalman.h \
+		common.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qprocess.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc.hpp \
+		/usr/local/include/opencv2/imgproc.hpp \
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/video/video.hpp \
+		/usr/local/include/opencv2/video.hpp \
+		/usr/local/include/opencv2/video/tracking.hpp \
+		/usr/local/include/opencv2/video/background_segm.hpp \
+		/usr/local/include/opencv2/video/tracking_c.h \
+		VSS-Interface/interface.h \
+		VSS-Interface/protos/state.pb.h \
+		VSS-Interface/protos/command.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o kalman.o kalman.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
