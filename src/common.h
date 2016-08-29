@@ -203,11 +203,11 @@ namespace common{
         //! Data: ENUM id_color
         int team_color[2];
         //! Data: ENUM id_color
-        int config_labels[2];
-        //! Data: ENUM id_color
         int secundary_color_1[3];
         //! Data: ENUM id_color
         int secundary_color_2[3];
+
+        string data;
 
         //! Default constructor: ExecConfiguration exex;
         ExecConfiguration(){
@@ -216,10 +216,8 @@ namespace common{
             ball_color = ORANGE;
 
             team_color[0] = BLUE;
-            config_labels[0] = SQUARES;
 
             team_color[1] = YELLOW;
-            config_labels[1] = SQUARES;
 
             for(int i = 0 ; i < 3 ; i++){
                 secundary_color_1[i] = UNKNOWN;
@@ -234,10 +232,8 @@ namespace common{
             ball_color = g->ball_color;
 
             team_color[0] = g->team_color[0];
-            config_labels[0] = g->config_labels[0];
 
             team_color[1] = g->team_color[1];
-            config_labels[0] = g->config_labels[0];
 
             for(int i = 0 ; i < 3 ; i++){
                 secundary_color_1[i] = UNKNOWN;
@@ -251,9 +247,7 @@ namespace common{
             //printf("Comment: %s\n", comment);
             printf("Ball_color: %d\n", ball_color);
             printf("Team_color_1: %d\n", team_color[0]);
-            printf("Config_labels_1: %d\n", config_labels[0]);
             printf("Team_color_2: %d\n", team_color[1]);
-            printf("Config_labels_2: %d\n", config_labels[1]);
             for(int i = 0 ; i < 3 ; i++){
                 printf("Secundary_color_team_1: %d\n", secundary_color_1[i]);
                 printf("Secundary_color_team_2: %d\n", secundary_color_2[i]);

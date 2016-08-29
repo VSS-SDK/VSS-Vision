@@ -333,11 +333,11 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
-		images/model.jpg \
 		icons/kdf.png \
+		icons/package.png \
 		icons/blockdevice.png \
 		icons/ksame.png \
-		icons/package.png
+		images/model.jpg
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_calibration.cpp moc_vision.cpp moc_qcustomlabel.cpp
