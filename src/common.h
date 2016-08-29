@@ -9,20 +9,32 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
-#include "iostream"
-#include "math.h"
-#include "qdebug.h"
+#include "iostream"                     // C++
+#include "math.h"                       // C
+
+#include "qdebug.h"                     // Qt
 #include "qprocess.h"
 #include "qimage.h"
 #include "qstring.h"
-#include <opencv2/highgui/highgui.hpp>	// Visão Computacional
+
+#include <opencv2/highgui/highgui.hpp>	// OpenCV Visão Computacional
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/video/video.hpp>
-#include "VSS-Interface/interface.h"
 
-#define PATH_IMAGE "/home/sirlab/Repositorios/john/VSS-Vision/src/images/model.jpg"
-#define PATH_VIDEO "/home/sirlab/Repositorios/john/VSS-Vision/src/videos/ball_move.mp4";
+#include "VSS-Interface/interface.h"    // VSS
+
+#define FIELD_LENGHT            150.0              // 150.0 cm
+#define FIELD_WIDTH             130.0              // 130.0 cm
+#define FIELD_HEIGHT            2.5                // 2.5 cm
+
+#define GOAL_LENGHT             40.0               // 40.0 cm
+#define GOAL_WIDTH              10.0               // 10.0 cm
+
+#define TRIANGLE_CORNER_SIDE    7.5                // 7.5 cm
+
+#define TOTAL_LENGHT            (FIELD_LENGHT + GOAL_WIDTH + GOAL_WIDTH)
+#define TOTAL_WIDTH             FIELD_WIDTH
 
 using namespace std;
 using namespace cv;
@@ -48,7 +60,7 @@ namespace common{
     enum{ ORANGE = 0, BLUE = 1, YELLOW = 2, RED = 3, PINK = 4, PURPLE = 5, GREEN = 6, BROWN = 7, ROTATION = 8, CUT = 9 };
 
     //! This enum represents all types of blob that can be used.
-    enum{ SQUARES = 0, RECTANGLES = 1, CIRCLES = 2 };
+    enum{ SQUARES = 0, RECTANGLES = 1, CIRCLES = 2 };   
 
     //! This enum represents all unknown things.
     enum{ UNKNOWN = -1 };

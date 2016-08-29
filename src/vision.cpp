@@ -162,13 +162,13 @@ void vision::updatePlot(){
     for(int i = 0 ; i < 3 ; i++){
         clearSS(ss);
         ang = state->robots[i].pose.z*180/M_PI;
-        ss << state->robots[i].pose.x << ", " << state->robots[i].pose.y << ", " << ang << "°" << endl;
+        ss << (int)state->robots[i].pose.x << ", " << (int)state->robots[i].pose.y << ", " << ang << "°" << endl;
 
         ang = state->robots[i].v_pose.z*180/M_PI;
-        ss << state->robots[i].v_pose.x << ", " << state->robots[i].v_pose.y << ", " << ang << "°" << endl;
+        ss << (int)state->robots[i].v_pose.x << ", " << (int)state->robots[i].v_pose.y << ", " << ang << "°" << endl;
 
         ang = state->robots_kalman[i].pose.z*180/M_PI;
-        ss << state->robots_kalman[i].pose.x << ", " << state->robots_kalman[i].pose.y << ", " << ang << "°" << endl;
+        ss << (int)state->robots_kalman[i].pose.x << ", " << (int)state->robots_kalman[i].pose.y << ", " << ang << "°" << endl;
 
         ang = state->robots_kalman[i].v_pose.z*180/M_PI;
         ss << state->robots_kalman[i].v_pose.x << ", " << state->robots_kalman[i].v_pose.y << ", " << ang << "°";
@@ -178,24 +178,24 @@ void vision::updatePlot(){
     for(int i = 0 ; i < 3 ; i++){
         clearSS(ss);
         ang = state->robots[i+3].pose.z*180/M_PI;
-        ss << state->robots[i+3].pose.x << ", " << state->robots[i+3].pose.y << ", " << ang << "°" << endl;
+        ss << (int)state->robots[i+3].pose.x << ", " << (int)state->robots[i+3].pose.y << ", " << ang << "°" << endl;
 
         ang = state->robots[i+3].v_pose.z*180/M_PI;
-        ss << state->robots[i+3].v_pose.x << ", " << state->robots[i+3].v_pose.y << ", " << ang << "°" << endl;
+        ss << (int)state->robots[i+3].v_pose.x << ", " << (int)state->robots[i+3].v_pose.y << ", " << ang << "°" << endl;
 
         ang = state->robots_kalman[i+3].pose.z*180/M_PI;
-        ss << state->robots_kalman[i+3].pose.x << ", " << state->robots_kalman[i+3].pose.y << ", " << ang << "°" << endl;
+        ss << (int)state->robots_kalman[i+3].pose.x << ", " << (int)state->robots_kalman[i+3].pose.y << ", " << ang << "°" << endl;
 
         ang = state->robots_kalman[i+3].v_pose.z*180/M_PI;
-        ss << state->robots_kalman[i+3].v_pose.x << ", " << state->robots_kalman[i+3].v_pose.y << ", " << ang << "°";
+        ss << (int)state->robots_kalman[i+3].v_pose.x << ", " << (int)state->robots_kalman[i+3].v_pose.y << ", " << ang << "°";
         lbl_plots->at(i+3)->setText(ss.str().c_str());
     }
 
     clearSS(ss);
-    ss << state->ball.x << ", " << state->ball.y << endl;
-    ss << state->v_ball.x << ", " << state->v_ball.y << endl;
-    ss << state->ball_kalman.x << ", " << state->ball_kalman.y << endl;
-    ss << state->v_ball_kalman.x << ", " << state->v_ball_kalman.y;
+    ss << (int)state->ball.x << ", " << (int)state->ball.y << endl;
+    ss << (int)state->v_ball.x << ", " << (int)state->v_ball.y << endl;
+    ss << (int)state->ball_kalman.x << ", " << (int)state->ball_kalman.y << endl;
+    ss << (int)state->v_ball_kalman.x << ", " << (int)state->v_ball_kalman.y;
 
     lbl_plots->at(6)->setText(ss.str().c_str());
 }
@@ -343,8 +343,8 @@ void vision::recognizeObjects(){
 
     for(int i = 0 ; i < coordinate_old.at(exec_config->ball_color).size() ; i++){
         if(isValidPoint(coordinate_old.at(exec_config->ball_color).at(i))){
-            state->ball.x = coordinate_old.at(exec_config->ball_color).at(i).x;
-            state->ball.y = coordinate_old.at(exec_config->ball_color).at(i).y;
+            state->ball.x = coordinate_old.at(exec_config->ball_color).at(i).x * TOTAL_LENGHT /(float)in.cols;
+            state->ball.y = coordinate_old.at(exec_config->ball_color).at(i).y * TOTAL_WIDTH /(float)in.rows;
         }
     }
 
@@ -352,9 +352,9 @@ void vision::recognizeObjects(){
     for(int i = 0 ; i < coordinate_old.at(exec_config->team_color[1]).size() && max < 3; i++){
         if(isValidPoint(coordinate_old.at(exec_config->team_color[1]).at(i))){
             stringstream ss;
-            ss << i+1;
-            state->robots[i+3].pose.x = coordinate_old.at(exec_config->team_color[1]).at(i).x;
-            state->robots[i+3].pose.y = coordinate_old.at(exec_config->team_color[1]).at(i).y;
+            //ss << i+1;
+            state->robots[i+3].pose.x = coordinate_old.at(exec_config->team_color[1]).at(i).x  * TOTAL_LENGHT/(float)in.cols;
+            state->robots[i+3].pose.y = coordinate_old.at(exec_config->team_color[1]).at(i).y * TOTAL_WIDTH/(float)in.rows;
             max++;
             putText(raw_in, ss.str().c_str(), Point(state->robots[i+3].pose.x + 15, state->robots[i+3].pose.y + 25), 1, 1, Scalar(255, 255, 255), 1, 1, false);
         }
@@ -388,8 +388,8 @@ void vision::recognizeObjects(){
             line(raw_in, Point(center.x + radius*cos(radians), center.y + radius*sin(radians)), Point(center.x - radius*cos(radians), center.y - radius*sin(radians)), Scalar(255, 255, 255), 1, 1, 0);
             putText(raw_in, ss.str().c_str(), Point(center.x + 10, center.y + 20), 1, 1, Scalar(255, 255, 255), 1, 1, false);
 
-            state->robots[k].pose.x = center.x;
-            state->robots[k].pose.y = center.y;
+            state->robots[k].pose.x = center.x * TOTAL_LENGHT/(float)in.cols;
+            state->robots[k].pose.y = center.y * TOTAL_WIDTH/(float)in.rows;
             state->robots[k].pose.z = radians;
         }
     }
