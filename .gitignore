@@ -26,7 +26,9 @@ Calibration/*.o
 # Junk files
 *.md~
 *.md.swp
-.vscode/.browse.VC.*
+*.vscode/.browse.VC.*
+*.pb.cc
+*.pb.h
 
 # Executables
 *.exe
