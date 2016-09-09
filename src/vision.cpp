@@ -382,7 +382,7 @@ void vision::recognizeObjects(){
             stringstream ss;
             double radius = 8;
             Point center = midpoint(coordinate_old.at(exec_config->secundary_color_1[k]).at(i_min), coordinate_old.at(exec_config->team_color[0]).at(j_min));
-            double radians = radian(coordinate_old.at(exec_config->secundary_color_1[k]).at(i_min), coordinate_old.at(exec_config->team_color[0]).at(j_min));
+            double radians = radian(coordinate_old.at(exec_config->secundary_color_1[k]).at(i_min), coordinate_old.at(exec_config->team_color[0]).at(j_min)) - 0.785;
 
             ss << k+1;
             line(raw_in, Point(center.x + radius*cos(radians), center.y + radius*sin(radians)), Point(center.x - radius*cos(radians), center.y - radius*sin(radians)), Scalar(255, 255, 255), 1, 1, 0);
