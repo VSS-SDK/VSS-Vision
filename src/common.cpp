@@ -132,7 +132,7 @@ namespace common{
 
         global_state = vss_state::Global_State();
         global_state.set_id(0);
-	global_state.set_situation(0);
+	    global_state.set_situation(0);
         global_state.set_origin(true);
 
         vss_state::Ball_State *ball_s = global_state.add_balls();
@@ -148,86 +148,173 @@ namespace common{
         ball_s->mutable_k_v_pose()->set_x(state.v_ball_kalman.x);
         ball_s->mutable_k_v_pose()->set_y(state.v_ball_kalman.y);
 
-        for(int i = 0 ; i < 3 ; i++){
-            vss_state::Robot_State *robot_s = global_state.add_robots_blue();
+        switch(exec.team_color[0]){
+            case YELLOW:{
+                for(int i = 0 ; i < 3 ; i++){
+                    vss_state::Robot_State *robot_s = global_state.add_robots_blue();
 
-            robot_s->mutable_pose()->set_x(state.robots[i].pose.x);
-            robot_s->mutable_pose()->set_y(state.robots[i].pose.y);
-            robot_s->mutable_pose()->set_yaw(state.robots[i].pose.z);
+                    robot_s->mutable_pose()->set_x(state.robots[i+3].pose.x);
+                    robot_s->mutable_pose()->set_y(state.robots[i+3].pose.y);
+                    robot_s->mutable_pose()->set_yaw(state.robots[i+3].pose.z);
 
-            robot_s->mutable_v_pose()->set_x(state.robots[i].v_pose.x);
-            robot_s->mutable_v_pose()->set_y(state.robots[i].v_pose.y);
-            robot_s->mutable_v_pose()->set_yaw(state.robots[i].v_pose.z);
+                    robot_s->mutable_v_pose()->set_x(state.robots[i+3].v_pose.x);
+                    robot_s->mutable_v_pose()->set_y(state.robots[i+3].v_pose.y);
+                    robot_s->mutable_v_pose()->set_yaw(state.robots[i+3].v_pose.z);
 
-            robot_s->mutable_k_pose()->set_x(state.robots_kalman[i].pose.x);
-            robot_s->mutable_k_pose()->set_y(state.robots_kalman[i].pose.y);
-            robot_s->mutable_k_pose()->set_yaw(state.robots_kalman[i].pose.z);
+                    robot_s->mutable_k_pose()->set_x(state.robots_kalman[i+3].pose.x);
+                    robot_s->mutable_k_pose()->set_y(state.robots_kalman[i+3].pose.y);
+                    robot_s->mutable_k_pose()->set_yaw(state.robots_kalman[i+3].pose.z);
 
-            robot_s->mutable_k_v_pose()->set_x(state.robots_kalman[i].v_pose.x);
-            robot_s->mutable_k_v_pose()->set_y(state.robots_kalman[i].v_pose.y);
-            robot_s->mutable_k_v_pose()->set_yaw(state.robots_kalman[i].v_pose.z);
+                    robot_s->mutable_k_v_pose()->set_x(state.robots_kalman[i+3].v_pose.x);
+                    robot_s->mutable_k_v_pose()->set_y(state.robots_kalman[i+3].v_pose.y);
+                    robot_s->mutable_k_v_pose()->set_yaw(state.robots_kalman[i+3].v_pose.z);
 
-            if(i == 0 && exec.secundary_color_1[0] != UNKNOWN){
-                robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[0]).rgb[0]);
-                robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[0]).rgb[1]);
-                robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[0]).rgb[2]);
+                    if(i == 0 && exec.secundary_color_2[0] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[0]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[0]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[0]).rgb[2]);
 
-                //qDebug() << exec.secundary_color_1[0];
-            }
+                        //qDebug() << exec.secundary_color_1[0];
+                    }
 
-            if(i == 1 && exec.secundary_color_1[1] != UNKNOWN){
-                robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[1]).rgb[0]);
-                robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[1]).rgb[1]);
-                robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[1]).rgb[2]);
+                    if(i == 1 && exec.secundary_color_2[1] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[1]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[1]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[1]).rgb[2]);
 
-                //qDebug() << exec.secundary_color_1[1];
-            }
+                        //qDebug() << exec.secundary_color_1[1];
+                    }
 
-            if(i == 2 && exec.secundary_color_1[2] != UNKNOWN){
-                robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[2]).rgb[0]);
-                robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[2]).rgb[1]);
-                robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[2]).rgb[2]);
+                    if(i == 2 && exec.secundary_color_2[2] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[2]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[2]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[2]).rgb[2]);
 
-                //c.colors.at(exec.secundary_color_1[2]).show();
-            }
-        }
+                        //c.colors.at(exec.secundary_color_1[2]).show();
+                    }
+                }
 
-        for(int i = 0 ; i < 3 ; i++){
-            vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
+                for(int i = 0 ; i < 3 ; i++){
+                    vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
 
-            robot_s->mutable_pose()->set_x(state.robots[i+3].pose.x);
-            robot_s->mutable_pose()->set_y(state.robots[i+3].pose.y);
-            robot_s->mutable_pose()->set_yaw(state.robots[i+3].pose.z);
+                    robot_s->mutable_pose()->set_x(state.robots[i].pose.x);
+                    robot_s->mutable_pose()->set_y(state.robots[i].pose.y);
+                    robot_s->mutable_pose()->set_yaw(state.robots[i].pose.z);
 
-            robot_s->mutable_v_pose()->set_x(state.robots[i+3].v_pose.x);
-            robot_s->mutable_v_pose()->set_y(state.robots[i+3].v_pose.y);
-            robot_s->mutable_v_pose()->set_yaw(state.robots[i+3].v_pose.z);
+                    robot_s->mutable_v_pose()->set_x(state.robots[i].v_pose.x);
+                    robot_s->mutable_v_pose()->set_y(state.robots[i].v_pose.y);
+                    robot_s->mutable_v_pose()->set_yaw(state.robots[i].v_pose.z);
 
-            robot_s->mutable_k_pose()->set_x(state.robots_kalman[i+3].pose.x);
-            robot_s->mutable_k_pose()->set_y(state.robots_kalman[i+3].pose.y);
-            robot_s->mutable_k_pose()->set_yaw(state.robots_kalman[i+3].pose.z);
+                    robot_s->mutable_k_pose()->set_x(state.robots_kalman[i].pose.x);
+                    robot_s->mutable_k_pose()->set_y(state.robots_kalman[i].pose.y);
+                    robot_s->mutable_k_pose()->set_yaw(state.robots_kalman[i].pose.z);
 
-            robot_s->mutable_k_v_pose()->set_x(state.robots_kalman[i+3].v_pose.x);
-            robot_s->mutable_k_v_pose()->set_y(state.robots_kalman[i+3].v_pose.y);
-            robot_s->mutable_k_v_pose()->set_yaw(state.robots_kalman[i+3].v_pose.z);
+                    robot_s->mutable_k_v_pose()->set_x(state.robots_kalman[i].v_pose.x);
+                    robot_s->mutable_k_v_pose()->set_y(state.robots_kalman[i].v_pose.y);
+                    robot_s->mutable_k_v_pose()->set_yaw(state.robots_kalman[i].v_pose.z);
 
-            if(i == 0 && exec.secundary_color_2[0] != UNKNOWN){
-                robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[0]).rgb[0]);
-                robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[0]).rgb[1]);
-                robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[0]).rgb[2]);
-            }
+                    if(i == 0 && exec.secundary_color_1[0] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[0]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[0]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[0]).rgb[2]);
+                    }
 
-            if(i == 1 && exec.secundary_color_2[1] != UNKNOWN){
-                robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[1]).rgb[0]);
-                robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[1]).rgb[1]);
-                robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[1]).rgb[2]);
-            }
+                    if(i == 1 && exec.secundary_color_1[1] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[1]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[1]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[1]).rgb[2]);
+                    }
 
-            if(i == 2 && exec.secundary_color_2[2] != UNKNOWN){
-                robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[2]).rgb[0]);
-                robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[2]).rgb[1]);
-                robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[2]).rgb[2]);
-            }
+                    if(i == 2 && exec.secundary_color_1[2] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[2]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[2]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[2]).rgb[2]);
+                    }
+                }
+            }break;
+            case BLUE:{
+                for(int i = 0 ; i < 3 ; i++){
+                    vss_state::Robot_State *robot_s = global_state.add_robots_blue();
+
+                    robot_s->mutable_pose()->set_x(state.robots[i].pose.x);
+                    robot_s->mutable_pose()->set_y(state.robots[i].pose.y);
+                    robot_s->mutable_pose()->set_yaw(state.robots[i].pose.z);
+
+                    robot_s->mutable_v_pose()->set_x(state.robots[i].v_pose.x);
+                    robot_s->mutable_v_pose()->set_y(state.robots[i].v_pose.y);
+                    robot_s->mutable_v_pose()->set_yaw(state.robots[i].v_pose.z);
+
+                    robot_s->mutable_k_pose()->set_x(state.robots_kalman[i].pose.x);
+                    robot_s->mutable_k_pose()->set_y(state.robots_kalman[i].pose.y);
+                    robot_s->mutable_k_pose()->set_yaw(state.robots_kalman[i].pose.z);
+
+                    robot_s->mutable_k_v_pose()->set_x(state.robots_kalman[i].v_pose.x);
+                    robot_s->mutable_k_v_pose()->set_y(state.robots_kalman[i].v_pose.y);
+                    robot_s->mutable_k_v_pose()->set_yaw(state.robots_kalman[i].v_pose.z);
+
+                    if(i == 0 && exec.secundary_color_1[0] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[0]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[0]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[0]).rgb[2]);
+
+                        //qDebug() << exec.secundary_color_1[0];
+                    }
+
+                    if(i == 1 && exec.secundary_color_1[1] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[1]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[1]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[1]).rgb[2]);
+
+                        //qDebug() << exec.secundary_color_1[1];
+                    }
+
+                    if(i == 2 && exec.secundary_color_1[2] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_1[2]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_1[2]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_1[2]).rgb[2]);
+
+                        //c.colors.at(exec.secundary_color_1[2]).show();
+                    }
+                }
+
+                for(int i = 0 ; i < 3 ; i++){
+                    vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
+
+                    robot_s->mutable_pose()->set_x(state.robots[i+3].pose.x);
+                    robot_s->mutable_pose()->set_y(state.robots[i+3].pose.y);
+                    robot_s->mutable_pose()->set_yaw(state.robots[i+3].pose.z);
+
+                    robot_s->mutable_v_pose()->set_x(state.robots[i+3].v_pose.x);
+                    robot_s->mutable_v_pose()->set_y(state.robots[i+3].v_pose.y);
+                    robot_s->mutable_v_pose()->set_yaw(state.robots[i+3].v_pose.z);
+
+                    robot_s->mutable_k_pose()->set_x(state.robots_kalman[i+3].pose.x);
+                    robot_s->mutable_k_pose()->set_y(state.robots_kalman[i+3].pose.y);
+                    robot_s->mutable_k_pose()->set_yaw(state.robots_kalman[i+3].pose.z);
+
+                    robot_s->mutable_k_v_pose()->set_x(state.robots_kalman[i+3].v_pose.x);
+                    robot_s->mutable_k_v_pose()->set_y(state.robots_kalman[i+3].v_pose.y);
+                    robot_s->mutable_k_v_pose()->set_yaw(state.robots_kalman[i+3].v_pose.z);
+
+                    if(i == 0 && exec.secundary_color_2[0] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[0]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[0]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[0]).rgb[2]);
+                    }
+
+                    if(i == 1 && exec.secundary_color_2[1] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[1]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[1]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[1]).rgb[2]);
+                    }
+
+                    if(i == 2 && exec.secundary_color_2[2] != UNKNOWN){
+                        robot_s->mutable_color()->set_r(c.colors.at(exec.secundary_color_2[2]).rgb[0]);
+                        robot_s->mutable_color()->set_g(c.colors.at(exec.secundary_color_2[2]).rgb[1]);
+                        robot_s->mutable_color()->set_b(c.colors.at(exec.secundary_color_2[2]).rgb[2]);
+                    }
+                }
+            }break;
         }
 
         return global_state;

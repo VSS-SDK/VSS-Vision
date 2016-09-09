@@ -40,7 +40,7 @@ Development and Use
 -------------------
 ```
 $ cd VSS-Vision
-$ make proto && make qt
+$ make proto
 $ make
 $ make run
 ```

@@ -215,9 +215,9 @@ namespace common{
 
             ball_color = ORANGE;
 
-            team_color[0] = BLUE;
+            team_color[0] = YELLOW;
 
-            team_color[1] = YELLOW;
+            team_color[1] = BLUE;
 
             for(int i = 0 ; i < 3 ; i++){
                 secundary_color_1[i] = UNKNOWN;

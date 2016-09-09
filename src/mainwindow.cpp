@@ -559,7 +559,7 @@ void MainWindow::addExecutionConfig(){
 
     ui->treeMain->insertTopLevelItems(0, defineExecutionConfig);
 
-    cmbMainColors_2->setCurrentIndex(1);
+    cmbMainColors_1->setCurrentIndex(1);
 
     cmbSecColors_1->setCurrentIndex(0);
     cmbSecColors_2->setCurrentIndex(1);
