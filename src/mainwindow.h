@@ -247,6 +247,7 @@ protected:
     int translateColor(QString);
 
     vector<string> devices;
+    vector<int> devices_id;
     vector<int> colors;
     Calibration _calib;
     State state;

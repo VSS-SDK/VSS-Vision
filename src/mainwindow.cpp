@@ -218,6 +218,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //! 
 void MainWindow::getAllDevices(){
     devices.clear();
+    devices_id.clear();
 
     string response = cmdTerminal("find /dev/ -name video*");
     string sp = "";
@@ -225,7 +226,15 @@ void MainWindow::getAllDevices(){
     //! > Trait the exit or common::cmdTerminal();
     for(int i = 0 ; i < response.size() ; i++){
         if(response[i] == '\n'){
+            stringstream s_to_i;
+            int s_in_i;
+
+            s_to_i << sp[sp.size()-1];
+            s_to_i >> s_in_i;
+
             devices.push_back(sp);
+            devices_id.push_back(s_in_i);
+            cout << s_in_i << endl;
             sp = "";
         }else{
             sp += response.at(i);
@@ -806,7 +815,7 @@ void MainWindow::evtCalibrationColors(){
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             calib->set_device(CAMERA);
-            calib->set_id_camera(0);
+            vi->set_id_camera( devices_id.at(cmbCameraIds->currentIndex()) );
         }else
         //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){
@@ -887,7 +896,7 @@ void MainWindow::evtCalibrationCam(){
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             calib->set_device(CAMERA);
-            calib->set_id_camera(0);
+            vi->set_id_camera( devices_id.at(cmbCameraIds->currentIndex()) );
         }else
         //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){
@@ -950,7 +959,8 @@ void MainWindow::evtVision(){
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             vi->set_device(CAMERA);
-            vi->set_id_camera(0);
+
+            vi->set_id_camera( devices_id.at(cmbCameraIds->currentIndex()) );
         }else
         //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){

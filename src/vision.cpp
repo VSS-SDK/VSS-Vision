@@ -39,6 +39,7 @@ void vision::run(){
     lbl_input->setPixmap(QPixmap::fromImage(mat2Image( Mat(480, 770, CV_8UC3, Scalar(130, 70, 40)) )));
 
     while(run_it){
+        //cout << id_camera << endl;
         if(vision_reception){
             if(device_used == CAMERA){
                 if(cap.isOpened()){
@@ -482,7 +483,7 @@ void vision::set_device(int device_used){
 }
 
 void vision::set_id_camera(int id_camera){
-    this->id_camera;
+    this->id_camera = id_camera;
 }
 
 void vision::set_path_image(string path_image){
