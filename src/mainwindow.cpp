@@ -234,7 +234,7 @@ void MainWindow::getAllDevices(){
 
             devices.push_back(sp);
             devices_id.push_back(s_in_i);
-            cout << s_in_i << endl;
+            //cout << s_in_i << endl;
             sp = "";
         }else{
             sp += response.at(i);

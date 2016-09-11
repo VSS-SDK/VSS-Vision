@@ -31,6 +31,7 @@ protected:
     bool start_finish;
     int device_used;
     int id_camera;
+    int init_camera;
     bool vision_reception;
     string path_image;
     string path_video;

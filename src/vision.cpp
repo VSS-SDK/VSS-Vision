@@ -16,6 +16,7 @@ vision::vision(QObject *parent) : QThread(parent){
     distc_max = 50;
     propc_min = 0;
     propc_max = 0;
+    init_camera = 0;
 
     run_it = true;
     device_used = IMAGE;
@@ -69,9 +70,7 @@ void vision::run(){
                 usleep(33333);
             }
 
-            
-
-            if(in.rows > 0){                        // Qt it's assync, and is possible this loop exec something after the GUI send a sign to stop, and this crash the software.;
+            if(in.rows > 0 && init_camera > 30){                        // Qt it's assync, and is possible this loop exec something after the GUI send a sign to stop, and this crash the software.;
                 applyRotation();
                 cutImage();
 
@@ -97,6 +96,9 @@ void vision::run(){
                 // Filtro de Kalman AQUI
                 //
                 recognizeObjects();
+            }else{
+                raw_in = in.clone();
+                init_camera++;
             }
 
             emit has_new_state();
@@ -104,6 +106,7 @@ void vision::run(){
             if(start_finish){
                 start_finish = false;
                 lbl_input->setPixmap(QPixmap::fromImage(mat2Image( Mat(480, 770, CV_8UC3, Scalar(130, 70, 40)) )));
+                init_camera = 0;
                 cap.release();
             }
             usleep(100000);
@@ -342,6 +345,14 @@ void vision::recognizeObjects(){
     int j_min;
     int i_min;
 
+    /*for(int i = 0 ; i < coordinate_old.size() ; i++){
+        for(int j = 0 ; j < coordinate_old.at(i).size() ; j++){
+            cout << "i: " << i << ", j: " << j << endl;
+            cout << "( " << coordinate_old.at(i).at(j).x << ", " << coordinate_old.at(i).at(j).y << ")" << endl;
+        }
+        cout << endl;
+    }*/
+    
     for(int i = 0 ; i < coordinate_old.at(exec_config->ball_color).size() ; i++){
         if(isValidPoint(coordinate_old.at(exec_config->ball_color).at(i))){
             state->ball.x = coordinate_old.at(exec_config->ball_color).at(i).x * TOTAL_LENGHT /(float)in.cols;
@@ -364,20 +375,29 @@ void vision::recognizeObjects(){
     for(int k = 0 ; k < 3 ; k++){
         dist_min = 1024;
         i_min = j_min = -1;
+
+        //cout << "RECOGNIZE ROBOTS: " << k << endl;
+        //cout << "size: " << coordinate_old.at(exec_config->secundary_color_1[k]).size() << endl;
+        //cout << "robot: " << k << endl;
+
         for(int i = 0 ; i < coordinate_old.at(exec_config->secundary_color_1[k]).size(); i++){
+            //cout << coordinate_old.at(exec_config->secundary_color_1[k]).at(i) << endl;
             if(isValidPoint(coordinate_old.at(exec_config->secundary_color_1[k]).at(i))){
                 for(int j = 0 ; j < coordinate_old.at(exec_config->team_color[0]).size() ; j++){
-                    if(isValidPoint(coordinate_old.at(exec_config->team_color[0]).at(i))){
+                    if(isValidPoint(coordinate_old.at(exec_config->team_color[0]).at(j))){
                         float dist = distancePoint( coordinate_old.at( exec_config->team_color[0]).at(j) , coordinate_old.at( exec_config->secundary_color_1[k]).at(i) );
                         if(dist < dist_min && dist <= distc_max && dist >= distc_min){
                             dist_min = dist;
                             j_min = j;
                             i_min = i;
                         }
+
                     }
                 }
             }
         }
+
+        //cout << endl;
 
         if(i_min >= 0 && j_min >= 0){
             stringstream ss;
@@ -469,10 +489,7 @@ bool vision::itsAwayFromLimits(Point coordinate){
 bool vision::isValidPoint(Point a){
     bool isValid = true;
 
-    if(a.x < 0)
-        isValid = false;
-
-    if(a.y < 0)
+    if(a.x < 0 && a.y < 0)
         isValid = false;
 
     return isValid;
