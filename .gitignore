@@ -34,5 +34,4 @@ Calibration/*.o
 *.exe
 *.out
 *.app
-VSS-Vision
-Calibration/Calibration
+src/VSS-Vision

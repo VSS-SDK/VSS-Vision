@@ -41,6 +41,5 @@ script:
   - sudo ldconfig
   - cd ..
 
-  - make qt
   - make proto
   - make
