@@ -146,13 +146,14 @@ public slots:
     void getNewStateVision();
 
 protected:
+    string user_path;
     Interface interface;
     calibration *calib;
     vision *vi;
     SQLite *sql;
     Ui::MainWindow *ui;
     vss_state::Global_State global_state;
-    QIcon blockdevice, ksame, kdf, package;
+    QIcon blockdevice, ksame, kdf, package, database;
 
     // QTree
     //! Method responsible for build all the left tab
@@ -160,6 +161,9 @@ protected:
 
     //! Method responsible for add the main item "Yellow box"
     void addMainItem();
+
+    //! Method responsible for add the list item "Yellow box"
+    void addListItem();
 
     //! Method responsible for add the item of choose input data
     void addInputDataItem();
@@ -192,7 +196,7 @@ protected:
 
     void addDatabaseOptions();
 
-    QTreeWidgetItem* mainItem;
+    QTreeWidgetItem *mainItem, *listItem;
     QList<QTreeWidgetItem*> inputData;
     QList<QTreeWidgetItem*> cameraCalibration;
     QList<QTreeWidgetItem*> databaseOptions;

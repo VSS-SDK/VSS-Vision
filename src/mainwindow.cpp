@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     calib_vs_vision = has_a_camera = false;
 
+    user_path = QCoreApplication::applicationDirPath().toUtf8().constData();
+
     //! > Define the connection to SQLite
     sql = new SQLite("../data/main.db", "passwd");
 
@@ -36,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     coordinate_mouse = new QLabel("M(0, 0)");
 
     mainItem = new QTreeWidgetItem;
+    listItem = new QTreeWidgetItem;
 
     cmbCameraIds = new QComboBox();
     cmbSavedImages = new QComboBox();
@@ -69,6 +72,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ksame = QIcon(":icons/ksame.png");
     kdf = QIcon(":icons/kdf.png");
     package = QIcon(":icons/package.png");
+
+    string database_path;
+    database_path = user_path + "/icons/database.png";
+    database = QIcon(QString(database_path.c_str()));
 
     //! > Get all cameras connected to PC
     getAllDevices();
@@ -255,6 +262,17 @@ void MainWindow::addMainItem(){
     mainItem->setText(0, "Vision System");
 
     ui->treeMain->addTopLevelItem(mainItem);
+}
+
+//! Addendum
+//! --------
+//!
+void MainWindow::addListItem(){
+    //! >  Create the entire tab
+    listItem->setIcon(0, database);
+    listItem->setText(0, "Database");
+
+    ui->treeList->addTopLevelItem(listItem);
 }
 
 
@@ -770,7 +788,7 @@ void MainWindow::checkboxVideo(int a){
 //! --------
 //! 
 void MainWindow::buildTrees(){
-    QStringList headers;
+    QStringList headers, headers2;
 
     headers.append("Variable");
     headers.append("Value");
@@ -793,6 +811,16 @@ void MainWindow::buildTrees(){
     ui->treeMain->setHeaderLabels(headers);
     ui->treeMain->setColumnWidth(0, 190);
     ui->treeMain->expandItem(mainItem);
+
+    addListItem();
+
+    headers2.append("Comment");
+    headers2.append("Date");
+
+    ui->treeList->setColumnCount(2);
+    ui->treeList->setHeaderLabels(headers2);
+    ui->treeList->setColumnWidth(0, 135);
+    ui->treeList->expandItem(listItem);
 }
 
 //! Addendum

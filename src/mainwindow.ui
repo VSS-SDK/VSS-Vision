@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1250</width>
     <height>730</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1200</width>
+    <width>1250</width>
     <height>730</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1200</width>
+    <width>1260</width>
     <height>730</height>
    </size>
   </property>
@@ -254,16 +254,19 @@
      <rect>
       <x>990</x>
       <y>0</y>
-      <width>201</width>
+      <width>251</width>
       <height>486</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="layoutList">
+     <property name="leftMargin">
+      <number>5</number>
+     </property>
      <property name="topMargin">
       <number>5</number>
      </property>
      <item>
-      <widget class="QColumnView" name="columnView">
+      <widget class="QTreeWidget" name="treeList">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -276,6 +279,11 @@
          <height>480</height>
         </size>
        </property>
+       <column>
+        <property name="text">
+         <string notr="true">1</string>
+        </property>
+       </column>
       </widget>
      </item>
     </layout>
@@ -285,7 +293,7 @@
      <rect>
       <x>990</x>
       <y>490</y>
-      <width>201</width>
+      <width>251</width>
       <height>31</height>
      </rect>
     </property>
@@ -296,7 +304,7 @@
      <rect>
       <x>990</x>
       <y>520</y>
-      <width>201</width>
+      <width>251</width>
       <height>141</height>
      </rect>
     </property>
@@ -324,7 +332,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
+     <width>1250</width>
      <height>25</height>
     </rect>
    </property>

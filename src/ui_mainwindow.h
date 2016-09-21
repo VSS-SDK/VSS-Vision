@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QColumnView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
@@ -68,7 +67,7 @@ public:
     QHBoxLayout *layoutH10;
     QWidget *horizontalLayoutWidget_19;
     QHBoxLayout *layoutList;
-    QColumnView *columnView;
+    QTreeWidget *treeList;
     QWidget *horizontalLayoutWidget_20;
     QHBoxLayout *layoutListH;
     QWidget *horizontalLayoutWidget_21;
@@ -81,9 +80,9 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1200, 730);
-        MainWindow->setMinimumSize(QSize(1200, 730));
-        MainWindow->setMaximumSize(QSize(1200, 730));
+        MainWindow->resize(1250, 730);
+        MainWindow->setMinimumSize(QSize(1250, 730));
+        MainWindow->setMaximumSize(QSize(1260, 730));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayoutWidget = new QWidget(centralWidget);
@@ -240,22 +239,25 @@ public:
         layoutH10->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_19 = new QWidget(centralWidget);
         horizontalLayoutWidget_19->setObjectName(QStringLiteral("horizontalLayoutWidget_19"));
-        horizontalLayoutWidget_19->setGeometry(QRect(990, 0, 201, 486));
+        horizontalLayoutWidget_19->setGeometry(QRect(990, 0, 251, 486));
         layoutList = new QHBoxLayout(horizontalLayoutWidget_19);
         layoutList->setSpacing(6);
         layoutList->setContentsMargins(11, 11, 11, 11);
         layoutList->setObjectName(QStringLiteral("layoutList"));
-        layoutList->setContentsMargins(0, 5, 0, 0);
-        columnView = new QColumnView(horizontalLayoutWidget_19);
-        columnView->setObjectName(QStringLiteral("columnView"));
-        columnView->setMinimumSize(QSize(0, 480));
-        columnView->setMaximumSize(QSize(16777215, 480));
+        layoutList->setContentsMargins(5, 5, 0, 0);
+        treeList = new QTreeWidget(horizontalLayoutWidget_19);
+        QTreeWidgetItem *__qtreewidgetitem1 = new QTreeWidgetItem();
+        __qtreewidgetitem1->setText(0, QStringLiteral("1"));
+        treeList->setHeaderItem(__qtreewidgetitem1);
+        treeList->setObjectName(QStringLiteral("treeList"));
+        treeList->setMinimumSize(QSize(0, 480));
+        treeList->setMaximumSize(QSize(16777215, 480));
 
-        layoutList->addWidget(columnView);
+        layoutList->addWidget(treeList);
 
         horizontalLayoutWidget_20 = new QWidget(centralWidget);
         horizontalLayoutWidget_20->setObjectName(QStringLiteral("horizontalLayoutWidget_20"));
-        horizontalLayoutWidget_20->setGeometry(QRect(990, 490, 201, 31));
+        horizontalLayoutWidget_20->setGeometry(QRect(990, 490, 251, 31));
         layoutListH = new QHBoxLayout(horizontalLayoutWidget_20);
         layoutListH->setSpacing(6);
         layoutListH->setContentsMargins(11, 11, 11, 11);
@@ -263,7 +265,7 @@ public:
         layoutListH->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_21 = new QWidget(centralWidget);
         horizontalLayoutWidget_21->setObjectName(QStringLiteral("horizontalLayoutWidget_21"));
-        horizontalLayoutWidget_21->setGeometry(QRect(990, 520, 201, 141));
+        horizontalLayoutWidget_21->setGeometry(QRect(990, 520, 251, 141));
         layoutListC = new QHBoxLayout(horizontalLayoutWidget_21);
         layoutListC->setSpacing(6);
         layoutListC->setContentsMargins(11, 11, 11, 11);
@@ -279,7 +281,7 @@ public:
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1200, 25));
+        menuBar->setGeometry(QRect(0, 0, 1250, 25));
         MainWindow->setMenuBar(menuBar);
 
         retranslateUi(MainWindow);
