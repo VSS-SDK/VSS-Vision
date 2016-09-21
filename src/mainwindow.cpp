@@ -59,6 +59,10 @@ MainWindow::MainWindow(QWidget *parent) :
     btnDoColorCalib = new QPushButton("Do", this);
     btnRunVision = new QPushButton("Run", this);
     btnDoCameraCalib = new QPushButton("Do", this);
+    btnSaveCalib = new QPushButton("Save", this);
+    btnSaveConfig = new QPushButton("Save", this);
+    btnLoadCalib = new QPushButton("Load", this);
+    btnLoadConfig = new QPushButton("Load", this);
 
     //! > Define icons used
     blockdevice = QIcon(":icons/blockdevice.png");
@@ -326,7 +330,7 @@ void MainWindow::addCameraCalibrationItem(){
     }
 
     cameraCalibration.at(0)->setIcon(0, blockdevice);
-    cameraCalibration.at(0)->setText(0, "Camera Calibration");
+    cameraCalibration.at(0)->setText(0, "Camera");
 
     cameraCalibration.at(1)->setIcon(0, ksame);
     cameraCalibration.at(1)->setText(0, "Rotation");
@@ -445,7 +449,7 @@ void MainWindow::addExecutionConfig(){
     }
 
     defineExecutionConfig.at(0)->setIcon(0, blockdevice);
-    defineExecutionConfig.at(0)->setText(0, "Execution Config");
+    defineExecutionConfig.at(0)->setText(0, "Configuration");
 
     defineExecutionConfig.at(1)->setIcon(0, kdf);
     defineExecutionConfig.at(1)->setText(0, "Team 1");
@@ -586,7 +590,7 @@ void MainWindow::addCalibrateColors(){
     }
 
     calibrateColors.at(0)->setIcon(0, blockdevice);
-    calibrateColors.at(0)->setText(0, "Calibrate Colors");
+    calibrateColors.at(0)->setText(0, "Colors");
 
     calibrateColors.at(1)->setIcon(0, ksame);
     calibrateColors.at(1)->setText(0, "Colors List");
@@ -673,12 +677,6 @@ void MainWindow::addExecutionOptions(){
     executionOptions.at(1)->setIcon(0, ksame);
     executionOptions.at(1)->setText(0, "Run");
 
-    /*executionOptions.at(2)->setIcon(0, ksame);
-    executionOptions.at(2)->setText(0, "Img off");
-
-    executionOptions.at(3)->setIcon(0, ksame);
-    executionOptions.at(3)->setText(0, "Report");*/
-
     btnRunVision->setMaximumHeight(20);
     connect(btnRunVision, SIGNAL (clicked()), this, SLOT (evtVision()));
 
@@ -690,6 +688,49 @@ void MainWindow::addExecutionOptions(){
 
     ui->treeMain->setItemWidget(executionOptions.value(1), 1, btnRunVision);
     ui->treeMain->insertTopLevelItems(0, executionOptions);
+}
+
+void MainWindow::addDatabaseOptions(){
+    int qtd = 5;
+    for(int i = 0 ; i < qtd ; i++){
+        databaseOptions.append(new QTreeWidgetItem);
+    }
+
+    databaseOptions.at(0)->setIcon(0, blockdevice);
+    databaseOptions.at(0)->setText(0, "Database");
+
+    databaseOptions.at(1)->setIcon(0, ksame);
+    databaseOptions.at(1)->setText(0, "Calibration");
+
+    databaseOptions.at(2)->setIcon(0, ksame);
+    databaseOptions.at(2)->setText(0, "Calibration");
+
+    databaseOptions.at(3)->setIcon(0, ksame);
+    databaseOptions.at(3)->setText(0, "Configuration");
+
+    databaseOptions.at(4)->setIcon(0, ksame);
+    databaseOptions.at(4)->setText(0, "Configuration");
+
+    btnSaveCalib->setMaximumHeight(20);
+    btnSaveConfig->setMaximumHeight(20);
+    btnLoadCalib->setMaximumHeight(20);
+    btnLoadConfig->setMaximumHeight(20);
+
+    connect(btnSaveCalib, SIGNAL (clicked()), this, SLOT (evtSaveCalib()));
+    connect(btnSaveConfig, SIGNAL (clicked()), this, SLOT (evtSaveConfig()));
+    connect(btnLoadCalib, SIGNAL (clicked()), this, SLOT (evtLoadCalib()));
+    connect(btnLoadConfig, SIGNAL (clicked()), this, SLOT (evtLoadConfig()));
+
+    mainItem->addChild(databaseOptions.at(0));
+    for(int i = 1 ; i < qtd ; i++){
+        databaseOptions.at(0)->addChild(databaseOptions.at(i));
+    }
+
+    ui->treeMain->setItemWidget(databaseOptions.value(1), 1, btnSaveCalib);
+    ui->treeMain->setItemWidget(databaseOptions.value(2), 1, btnLoadCalib);
+    ui->treeMain->setItemWidget(databaseOptions.value(3), 1, btnSaveConfig);
+    ui->treeMain->setItemWidget(databaseOptions.value(4), 1, btnLoadConfig);
+    ui->treeMain->insertTopLevelItems(0, databaseOptions);
 }
 
 //! Addendum
@@ -742,6 +783,7 @@ void MainWindow::buildTrees(){
     //addDefinePatternsItem();
     addCalibrateColors();
     addExecutionConfig();
+    addDatabaseOptions();
     //addVisionOptions();
     //addNetOptions();
     addExecutionOptions();
@@ -749,7 +791,7 @@ void MainWindow::buildTrees(){
     //! > Set the number os columns and the size of them
     ui->treeMain->setColumnCount(2);
     ui->treeMain->setHeaderLabels(headers);
-    ui->treeMain->setColumnWidth(0, 220);
+    ui->treeMain->setColumnWidth(0, 190);
     ui->treeMain->expandItem(mainItem);
 }
 
@@ -815,7 +857,7 @@ void MainWindow::evtCalibrationColors(){
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             calib->set_device(CAMERA);
-            vi->set_id_camera( devices_id.at(cmbCameraIds->currentIndex()) );
+            calib->set_id_camera( devices_id.at(cmbCameraIds->currentIndex()) );
         }else
         //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){
@@ -896,7 +938,7 @@ void MainWindow::evtCalibrationCam(){
         //! > If camera it's used, set device common::CAMERA and its id
         if(checkUseCamera->isChecked()){
             calib->set_device(CAMERA);
-            vi->set_id_camera( devices_id.at(cmbCameraIds->currentIndex()) );
+            calib->set_id_camera( devices_id.at(cmbCameraIds->currentIndex()) );
         }else
         //! > If image it's used, set device common::IMAGE
         if(checkUseImage->isChecked()){
@@ -905,6 +947,7 @@ void MainWindow::evtCalibrationCam(){
         //! > If video it's used, set device common::VIDEO
         if(checkUseVideo->isChecked()){
             calib->set_device(VIDEO);
+
         }
 
         cmbSavedImages->setDisabled(true);
@@ -1019,17 +1062,33 @@ void MainWindow::evtVision(){
     }
 }
 
+void MainWindow::evtSaveConfig(){
+    qDebug() << "save config" << endl;
+}
+
+void MainWindow::evtSaveCalib(){
+    qDebug() << "save calib" << endl;
+}
+
+void MainWindow::evtLoadConfig(){
+    qDebug() << "load config" << endl;
+}
+
+void MainWindow::evtLoadCalib(){
+    qDebug() << "load calib" << endl;
+}
+
 void MainWindow::initCalibrationColors(){
     ui->layoutH3->addWidget(slidersHSV.at(hmin));
     ui->layoutH3->addWidget(slidersHSV.at(hmax));
-    ui->layoutH4->addWidget(slidersHSV.at(smin));
-    ui->layoutH4->addWidget(slidersHSV.at(smax));
-    ui->layoutH5->addWidget(slidersHSV.at(vmin));
-    ui->layoutH5->addWidget(slidersHSV.at(vmax));
+    ui->layoutH5->addWidget(slidersHSV.at(smin));
+    ui->layoutH5->addWidget(slidersHSV.at(smax));
+    ui->layoutH7->addWidget(slidersHSV.at(vmin));
+    ui->layoutH7->addWidget(slidersHSV.at(vmax));
 
     ui->layoutH3H->addWidget(lblHeadersHSV.at(h));
-    ui->layoutH4H->addWidget(lblHeadersHSV.at(s));
-    ui->layoutH5H->addWidget(lblHeadersHSV.at(v));
+    ui->layoutH5H->addWidget(lblHeadersHSV.at(s));
+    ui->layoutH7H->addWidget(lblHeadersHSV.at(v));
 
     for(int i = 0 ; i < 3 ; i++)
         lblHeadersHSV.at(i)->show();
@@ -1043,14 +1102,14 @@ void MainWindow::initCalibrationColors(){
 void MainWindow::finishCalibrationColors(){
     ui->layoutH3->removeWidget(slidersHSV.at(hmin));
     ui->layoutH3->removeWidget(slidersHSV.at(hmax));
-    ui->layoutH4->removeWidget(slidersHSV.at(smin));
-    ui->layoutH4->removeWidget(slidersHSV.at(smax));
-    ui->layoutH5->removeWidget(slidersHSV.at(vmin));
-    ui->layoutH5->removeWidget(slidersHSV.at(vmax));
+    ui->layoutH5->removeWidget(slidersHSV.at(smin));
+    ui->layoutH5->removeWidget(slidersHSV.at(smax));
+    ui->layoutH7->removeWidget(slidersHSV.at(vmin));
+    ui->layoutH7->removeWidget(slidersHSV.at(vmax));
 
     ui->layoutH3H->removeWidget(lblHeadersHSV.at(h));
-    ui->layoutH4H->removeWidget(lblHeadersHSV.at(s));
-    ui->layoutH5H->removeWidget(lblHeadersHSV.at(v));
+    ui->layoutH5H->removeWidget(lblHeadersHSV.at(s));
+    ui->layoutH7H->removeWidget(lblHeadersHSV.at(v));
 
     for(int i = 0 ; i < 3 ; i++)
         lblHeadersHSV.at(i)->hide();

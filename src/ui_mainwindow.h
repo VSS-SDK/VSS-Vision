@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QColumnView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
@@ -65,6 +66,13 @@ public:
     QHBoxLayout *layoutH10H;
     QWidget *horizontalLayoutWidget_18;
     QHBoxLayout *layoutH10;
+    QWidget *horizontalLayoutWidget_19;
+    QHBoxLayout *layoutList;
+    QColumnView *columnView;
+    QWidget *horizontalLayoutWidget_20;
+    QHBoxLayout *layoutListH;
+    QWidget *horizontalLayoutWidget_21;
+    QHBoxLayout *layoutListC;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
@@ -73,14 +81,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1119, 730);
-        MainWindow->setMinimumSize(QSize(1119, 730));
-        MainWindow->setMaximumSize(QSize(1119, 730));
+        MainWindow->resize(1200, 730);
+        MainWindow->setMinimumSize(QSize(1200, 730));
+        MainWindow->setMaximumSize(QSize(1200, 730));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayoutWidget = new QWidget(centralWidget);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(0, 0, 341, 661));
+        horizontalLayoutWidget->setGeometry(QRect(0, 0, 311, 661));
         layoutH1 = new QHBoxLayout(horizontalLayoutWidget);
         layoutH1->setSpacing(5);
         layoutH1->setContentsMargins(11, 11, 11, 11);
@@ -96,7 +104,7 @@ public:
 
         horizontalLayoutWidget_2 = new QWidget(centralWidget);
         horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
-        horizontalLayoutWidget_2->setGeometry(QRect(340, 0, 771, 491));
+        horizontalLayoutWidget_2->setGeometry(QRect(310, 0, 681, 491));
         layoutH2 = new QHBoxLayout(horizontalLayoutWidget_2);
         layoutH2->setSpacing(6);
         layoutH2->setContentsMargins(11, 11, 11, 11);
@@ -104,7 +112,7 @@ public:
         layoutH2->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_3 = new QWidget(centralWidget);
         horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
-        horizontalLayoutWidget_3->setGeometry(QRect(410, 520, 100, 141));
+        horizontalLayoutWidget_3->setGeometry(QRect(360, 520, 91, 141));
         layoutH3 = new QHBoxLayout(horizontalLayoutWidget_3);
         layoutH3->setSpacing(6);
         layoutH3->setContentsMargins(11, 11, 11, 11);
@@ -112,7 +120,7 @@ public:
         layoutH3->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_4 = new QWidget(centralWidget);
         horizontalLayoutWidget_4->setObjectName(QStringLiteral("horizontalLayoutWidget_4"));
-        horizontalLayoutWidget_4->setGeometry(QRect(410, 490, 100, 31));
+        horizontalLayoutWidget_4->setGeometry(QRect(360, 490, 91, 31));
         layoutH3H = new QHBoxLayout(horizontalLayoutWidget_4);
         layoutH3H->setSpacing(6);
         layoutH3H->setContentsMargins(11, 11, 11, 11);
@@ -120,7 +128,7 @@ public:
         layoutH3H->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_5 = new QWidget(centralWidget);
         horizontalLayoutWidget_5->setObjectName(QStringLiteral("horizontalLayoutWidget_5"));
-        horizontalLayoutWidget_5->setGeometry(QRect(510, 490, 100, 31));
+        horizontalLayoutWidget_5->setGeometry(QRect(450, 490, 91, 31));
         layoutH4H = new QHBoxLayout(horizontalLayoutWidget_5);
         layoutH4H->setSpacing(6);
         layoutH4H->setContentsMargins(11, 11, 11, 11);
@@ -128,7 +136,7 @@ public:
         layoutH4H->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_6 = new QWidget(centralWidget);
         horizontalLayoutWidget_6->setObjectName(QStringLiteral("horizontalLayoutWidget_6"));
-        horizontalLayoutWidget_6->setGeometry(QRect(610, 490, 100, 31));
+        horizontalLayoutWidget_6->setGeometry(QRect(540, 490, 91, 31));
         layoutH5H = new QHBoxLayout(horizontalLayoutWidget_6);
         layoutH5H->setSpacing(6);
         layoutH5H->setContentsMargins(11, 11, 11, 11);
@@ -136,7 +144,7 @@ public:
         layoutH5H->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_7 = new QWidget(centralWidget);
         horizontalLayoutWidget_7->setObjectName(QStringLiteral("horizontalLayoutWidget_7"));
-        horizontalLayoutWidget_7->setGeometry(QRect(1010, 490, 100, 31));
+        horizontalLayoutWidget_7->setGeometry(QRect(900, 490, 91, 31));
         layoutH9H = new QHBoxLayout(horizontalLayoutWidget_7);
         layoutH9H->setSpacing(6);
         layoutH9H->setContentsMargins(11, 11, 11, 11);
@@ -144,7 +152,7 @@ public:
         layoutH9H->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_8 = new QWidget(centralWidget);
         horizontalLayoutWidget_8->setObjectName(QStringLiteral("horizontalLayoutWidget_8"));
-        horizontalLayoutWidget_8->setGeometry(QRect(710, 490, 100, 31));
+        horizontalLayoutWidget_8->setGeometry(QRect(630, 490, 91, 31));
         layoutH6H = new QHBoxLayout(horizontalLayoutWidget_8);
         layoutH6H->setSpacing(6);
         layoutH6H->setContentsMargins(11, 11, 11, 11);
@@ -152,7 +160,7 @@ public:
         layoutH6H->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_9 = new QWidget(centralWidget);
         horizontalLayoutWidget_9->setObjectName(QStringLiteral("horizontalLayoutWidget_9"));
-        horizontalLayoutWidget_9->setGeometry(QRect(810, 490, 100, 31));
+        horizontalLayoutWidget_9->setGeometry(QRect(720, 490, 91, 31));
         layoutH7H = new QHBoxLayout(horizontalLayoutWidget_9);
         layoutH7H->setSpacing(6);
         layoutH7H->setContentsMargins(11, 11, 11, 11);
@@ -160,7 +168,7 @@ public:
         layoutH7H->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_10 = new QWidget(centralWidget);
         horizontalLayoutWidget_10->setObjectName(QStringLiteral("horizontalLayoutWidget_10"));
-        horizontalLayoutWidget_10->setGeometry(QRect(910, 490, 100, 31));
+        horizontalLayoutWidget_10->setGeometry(QRect(810, 490, 91, 31));
         layoutH8H = new QHBoxLayout(horizontalLayoutWidget_10);
         layoutH8H->setSpacing(6);
         layoutH8H->setContentsMargins(11, 11, 11, 11);
@@ -168,7 +176,7 @@ public:
         layoutH8H->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_11 = new QWidget(centralWidget);
         horizontalLayoutWidget_11->setObjectName(QStringLiteral("horizontalLayoutWidget_11"));
-        horizontalLayoutWidget_11->setGeometry(QRect(510, 520, 100, 141));
+        horizontalLayoutWidget_11->setGeometry(QRect(450, 520, 91, 141));
         layoutH4 = new QHBoxLayout(horizontalLayoutWidget_11);
         layoutH4->setSpacing(6);
         layoutH4->setContentsMargins(11, 11, 11, 11);
@@ -176,7 +184,7 @@ public:
         layoutH4->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_12 = new QWidget(centralWidget);
         horizontalLayoutWidget_12->setObjectName(QStringLiteral("horizontalLayoutWidget_12"));
-        horizontalLayoutWidget_12->setGeometry(QRect(610, 520, 100, 141));
+        horizontalLayoutWidget_12->setGeometry(QRect(540, 520, 91, 141));
         layoutH5 = new QHBoxLayout(horizontalLayoutWidget_12);
         layoutH5->setSpacing(6);
         layoutH5->setContentsMargins(11, 11, 11, 11);
@@ -184,7 +192,7 @@ public:
         layoutH5->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_13 = new QWidget(centralWidget);
         horizontalLayoutWidget_13->setObjectName(QStringLiteral("horizontalLayoutWidget_13"));
-        horizontalLayoutWidget_13->setGeometry(QRect(710, 520, 100, 141));
+        horizontalLayoutWidget_13->setGeometry(QRect(630, 520, 91, 141));
         layoutH6 = new QHBoxLayout(horizontalLayoutWidget_13);
         layoutH6->setSpacing(6);
         layoutH6->setContentsMargins(11, 11, 11, 11);
@@ -192,7 +200,7 @@ public:
         layoutH6->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_14 = new QWidget(centralWidget);
         horizontalLayoutWidget_14->setObjectName(QStringLiteral("horizontalLayoutWidget_14"));
-        horizontalLayoutWidget_14->setGeometry(QRect(810, 520, 100, 141));
+        horizontalLayoutWidget_14->setGeometry(QRect(720, 520, 91, 141));
         layoutH7 = new QHBoxLayout(horizontalLayoutWidget_14);
         layoutH7->setSpacing(6);
         layoutH7->setContentsMargins(11, 11, 11, 11);
@@ -200,7 +208,7 @@ public:
         layoutH7->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_15 = new QWidget(centralWidget);
         horizontalLayoutWidget_15->setObjectName(QStringLiteral("horizontalLayoutWidget_15"));
-        horizontalLayoutWidget_15->setGeometry(QRect(910, 520, 100, 141));
+        horizontalLayoutWidget_15->setGeometry(QRect(810, 520, 91, 141));
         layoutH8 = new QHBoxLayout(horizontalLayoutWidget_15);
         layoutH8->setSpacing(6);
         layoutH8->setContentsMargins(11, 11, 11, 11);
@@ -208,7 +216,7 @@ public:
         layoutH8->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_16 = new QWidget(centralWidget);
         horizontalLayoutWidget_16->setObjectName(QStringLiteral("horizontalLayoutWidget_16"));
-        horizontalLayoutWidget_16->setGeometry(QRect(1010, 520, 100, 141));
+        horizontalLayoutWidget_16->setGeometry(QRect(900, 520, 91, 141));
         layoutH9 = new QHBoxLayout(horizontalLayoutWidget_16);
         layoutH9->setSpacing(6);
         layoutH9->setContentsMargins(11, 11, 11, 11);
@@ -216,7 +224,7 @@ public:
         layoutH9->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_17 = new QWidget(centralWidget);
         horizontalLayoutWidget_17->setObjectName(QStringLiteral("horizontalLayoutWidget_17"));
-        horizontalLayoutWidget_17->setGeometry(QRect(340, 490, 70, 31));
+        horizontalLayoutWidget_17->setGeometry(QRect(310, 490, 51, 31));
         layoutH10H = new QHBoxLayout(horizontalLayoutWidget_17);
         layoutH10H->setSpacing(6);
         layoutH10H->setContentsMargins(11, 11, 11, 11);
@@ -224,12 +232,44 @@ public:
         layoutH10H->setContentsMargins(0, 0, 0, 0);
         horizontalLayoutWidget_18 = new QWidget(centralWidget);
         horizontalLayoutWidget_18->setObjectName(QStringLiteral("horizontalLayoutWidget_18"));
-        horizontalLayoutWidget_18->setGeometry(QRect(340, 520, 70, 140));
+        horizontalLayoutWidget_18->setGeometry(QRect(310, 520, 51, 140));
         layoutH10 = new QHBoxLayout(horizontalLayoutWidget_18);
         layoutH10->setSpacing(6);
         layoutH10->setContentsMargins(11, 11, 11, 11);
         layoutH10->setObjectName(QStringLiteral("layoutH10"));
         layoutH10->setContentsMargins(0, 0, 0, 0);
+        horizontalLayoutWidget_19 = new QWidget(centralWidget);
+        horizontalLayoutWidget_19->setObjectName(QStringLiteral("horizontalLayoutWidget_19"));
+        horizontalLayoutWidget_19->setGeometry(QRect(990, 0, 201, 486));
+        layoutList = new QHBoxLayout(horizontalLayoutWidget_19);
+        layoutList->setSpacing(6);
+        layoutList->setContentsMargins(11, 11, 11, 11);
+        layoutList->setObjectName(QStringLiteral("layoutList"));
+        layoutList->setContentsMargins(0, 5, 0, 0);
+        columnView = new QColumnView(horizontalLayoutWidget_19);
+        columnView->setObjectName(QStringLiteral("columnView"));
+        columnView->setMinimumSize(QSize(0, 480));
+        columnView->setMaximumSize(QSize(16777215, 480));
+
+        layoutList->addWidget(columnView);
+
+        horizontalLayoutWidget_20 = new QWidget(centralWidget);
+        horizontalLayoutWidget_20->setObjectName(QStringLiteral("horizontalLayoutWidget_20"));
+        horizontalLayoutWidget_20->setGeometry(QRect(990, 490, 201, 31));
+        layoutListH = new QHBoxLayout(horizontalLayoutWidget_20);
+        layoutListH->setSpacing(6);
+        layoutListH->setContentsMargins(11, 11, 11, 11);
+        layoutListH->setObjectName(QStringLiteral("layoutListH"));
+        layoutListH->setContentsMargins(0, 0, 0, 0);
+        horizontalLayoutWidget_21 = new QWidget(centralWidget);
+        horizontalLayoutWidget_21->setObjectName(QStringLiteral("horizontalLayoutWidget_21"));
+        horizontalLayoutWidget_21->setGeometry(QRect(990, 520, 201, 141));
+        layoutListC = new QHBoxLayout(horizontalLayoutWidget_21);
+        layoutListC->setSpacing(6);
+        layoutListC->setContentsMargins(11, 11, 11, 11);
+        layoutListC->setObjectName(QStringLiteral("layoutListC"));
+        layoutListC->setSizeConstraint(QLayout::SetMinimumSize);
+        layoutListC->setContentsMargins(0, 0, 0, 0);
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -239,7 +279,7 @@ public:
         MainWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1119, 25));
+        menuBar->setGeometry(QRect(0, 0, 1200, 25));
         MainWindow->setMenuBar(menuBar);
 
         retranslateUi(MainWindow);

@@ -97,6 +97,14 @@ public slots:
     //! Method that get the signal from click on QPushButton Do Calibration Camera
     void evtCalibrationCam();
 
+    void evtSaveConfig();
+
+    void evtSaveCalib();
+
+    void evtLoadConfig();
+
+    void evtLoadCalib();
+
     // QCheckboxs
     //! Method that get the signal from click on QCheckbox of use camera
     void checkboxCamera(int);
@@ -182,9 +190,12 @@ protected:
     //! Method reponsible form add the item of initializes the vision tracking
     void addExecutionOptions();
 
+    void addDatabaseOptions();
+
     QTreeWidgetItem* mainItem;
     QList<QTreeWidgetItem*> inputData;
     QList<QTreeWidgetItem*> cameraCalibration;
+    QList<QTreeWidgetItem*> databaseOptions;
     QList<QTreeWidgetItem*> blobFinding;
     QList<QTreeWidgetItem*> visualization;
     QList<QTreeWidgetItem*> definePatterns;
@@ -198,7 +209,8 @@ protected:
     QComboBox *cmbColors, *cmbMainColors_1, *cmbMainColors_2, *cmbSecColors_1, *cmbSecColors_2, *cmbSecColors_3, *cmbSecColors_4, *cmbSecColors_5, *cmbSecColors_6, *cmbBallColors;
     QCheckBox *checkUseCamera, *checkUseImage, *checkUseVideo;
 
-    QPushButton *btnDoColorCalib, *btnRunVision, *btnDoCameraCalib; 
+    QPushButton *btnDoColorCalib, *btnRunVision, *btnDoCameraCalib;
+    QPushButton *btnSaveCalib, *btnSaveConfig, *btnLoadCalib, *btnLoadConfig;
 
     QWidget *contLayoutH3;
     vector<QLabel*> lblHeadersHSV;

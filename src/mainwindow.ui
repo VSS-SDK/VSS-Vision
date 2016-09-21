@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1119</width>
+    <width>1200</width>
     <height>730</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1119</width>
+    <width>1200</width>
     <height>730</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1119</width>
+    <width>1200</width>
     <height>730</height>
    </size>
   </property>
@@ -31,7 +31,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>341</width>
+      <width>311</width>
       <height>661</height>
      </rect>
     </property>
@@ -65,9 +65,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>310</x>
       <y>0</y>
-      <width>771</width>
+      <width>681</width>
       <height>491</height>
      </rect>
     </property>
@@ -76,9 +76,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>360</x>
       <y>520</y>
-      <width>100</width>
+      <width>91</width>
       <height>141</height>
      </rect>
     </property>
@@ -87,9 +87,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>360</x>
       <y>490</y>
-      <width>100</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -98,9 +98,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>450</x>
       <y>490</y>
-      <width>100</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -109,9 +109,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_6">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>540</x>
       <y>490</y>
-      <width>100</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -120,9 +120,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_7">
     <property name="geometry">
      <rect>
-      <x>1010</x>
+      <x>900</x>
       <y>490</y>
-      <width>100</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -131,9 +131,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_8">
     <property name="geometry">
      <rect>
-      <x>710</x>
+      <x>630</x>
       <y>490</y>
-      <width>100</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -142,9 +142,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_9">
     <property name="geometry">
      <rect>
-      <x>810</x>
+      <x>720</x>
       <y>490</y>
-      <width>100</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -153,9 +153,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_10">
     <property name="geometry">
      <rect>
-      <x>910</x>
+      <x>810</x>
       <y>490</y>
-      <width>100</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -164,9 +164,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_11">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>450</x>
       <y>520</y>
-      <width>100</width>
+      <width>91</width>
       <height>141</height>
      </rect>
     </property>
@@ -175,9 +175,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_12">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>540</x>
       <y>520</y>
-      <width>100</width>
+      <width>91</width>
       <height>141</height>
      </rect>
     </property>
@@ -186,9 +186,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_13">
     <property name="geometry">
      <rect>
-      <x>710</x>
+      <x>630</x>
       <y>520</y>
-      <width>100</width>
+      <width>91</width>
       <height>141</height>
      </rect>
     </property>
@@ -197,9 +197,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_14">
     <property name="geometry">
      <rect>
-      <x>810</x>
+      <x>720</x>
       <y>520</y>
-      <width>100</width>
+      <width>91</width>
       <height>141</height>
      </rect>
     </property>
@@ -208,9 +208,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_15">
     <property name="geometry">
      <rect>
-      <x>910</x>
+      <x>810</x>
       <y>520</y>
-      <width>100</width>
+      <width>91</width>
       <height>141</height>
      </rect>
     </property>
@@ -219,9 +219,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_16">
     <property name="geometry">
      <rect>
-      <x>1010</x>
+      <x>900</x>
       <y>520</y>
-      <width>100</width>
+      <width>91</width>
       <height>141</height>
      </rect>
     </property>
@@ -230,9 +230,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_17">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>310</x>
       <y>490</y>
-      <width>70</width>
+      <width>51</width>
       <height>31</height>
      </rect>
     </property>
@@ -241,13 +241,73 @@
    <widget class="QWidget" name="horizontalLayoutWidget_18">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>310</x>
       <y>520</y>
-      <width>70</width>
+      <width>51</width>
       <height>140</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="layoutH10"/>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_19">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>0</y>
+      <width>201</width>
+      <height>486</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="layoutList">
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <item>
+      <widget class="QColumnView" name="columnView">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>480</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>480</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_20">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>490</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="layoutListH"/>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_21">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>520</y>
+      <width>201</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="layoutListC">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinimumSize</enum>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+    </layout>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -264,7 +324,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1119</width>
+     <width>1200</width>
      <height>25</height>
     </rect>
    </property>
