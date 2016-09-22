@@ -148,8 +148,8 @@ void vision::cutImage(){
 
 		rep = in(Rect(calib->cut.at(0), calib->cut.at(1)));
 		
-		resize(rep, rep2, Size(640, 480), 0, 0, 0);
-		in = rep2.clone();
+		//resize(rep, rep2, Size(640, 480), 0, 0, 0);
+		in = rep.clone();
 	}
 }
 
@@ -359,6 +359,9 @@ void vision::recognizeObjects(){
             state->ball.y = coordinate_old.at(exec_config->ball_color).at(i).y * TOTAL_WIDTH /(float)in.rows;
         }
     }
+
+    cout << "TOTAL: " << TOTAL_LENGHT << endl;
+    cout << "in.cols: " << in.cols << endl << endl;
 
     int max = 0;
     for(int i = 0 ; i < coordinate_old.at(exec_config->team_color[1]).size() && max < 3; i++){

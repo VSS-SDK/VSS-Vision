@@ -8,30 +8,30 @@
 
 CREATE TABLE `calibration` (
 	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	`comment`	TEXT,
+	`name`	TEXT NOT NULL,
 	`orange`	TEXT NOT NULL,
 	`blue`	TEXT NOT NULL,
+	`yellow`	TEXT NOT NULL,
 	`red`	TEXT NOT NULL,
 	`pink`	TEXT NOT NULL,
 	`purple`	TEXT NOT NULL,
 	`green`	TEXT NOT NULL,
 	`brown`	TEXT NOT NULL,
-	`yellow`	TEXT NOT NULL,
 	`rotation`	REAL NOT NULL,
 	`cut`	TEXT NOT NULL,
-	`data`	TEXT NOT NULL
+	`date`	TEXT NOT NULL
 );
 
 CREATE TABLE `configuration` (
 	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	`comment`	TEXT,
+	`name`	TEXT NOT NULL,
 	`team1_main_color`	TEXT NOT NULL,
-	`team1_secondary_color1`	TEXT NOT NULL,
-	`team1_secondary_color2`	TEXT NOT NULL,
-	`team1_secondary_color3`	TEXT NOT NULL,
+	`team1_secondary_color_1`	TEXT NOT NULL,
+	`team1_secondary_color_2`	TEXT NOT NULL,
+	`team1_secondary_color_3`	TEXT NOT NULL,
 	`team2_main_color`	TEXT NOT NULL,
-	`team1_secondary_color1`	TEXT NOT NULL,
-	`team1_secondary_color2`	TEXT NOT NULL,
-	`team1_secondary_color3`	TEXT NOT NULL,
-	`data`	TEXT NOT NULL
+	`team2_secondary_color_1`	TEXT NOT NULL,
+	`team2_secondary_color_2`	TEXT NOT NULL,
+	`team2_secondary_color_3`	TEXT NOT NULL,
+	`date`	TEXT NOT NULL
 );
