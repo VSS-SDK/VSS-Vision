@@ -35,7 +35,7 @@ protected:
     //! Print the data result from query in database
     static int callback(void *NotUsed, int argc, char **argv, char **azColName);
 public:
-    
+    SQLite();
     //! Default constructor: SQLite sql("name db", "pswd")
     SQLite(string, string);
 

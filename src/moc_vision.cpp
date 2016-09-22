@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'calibration.h'
+** Meta object code from reading C++ file 'vision.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.5.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "calibration.h"
+#include "vision.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'calibration.h' doesn't include <QObject>."
+#error "The header file 'vision.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.5.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -18,27 +18,27 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-struct qt_meta_stringdata_calibration_t {
+struct qt_meta_stringdata_vision_t {
     QByteArrayData data[3];
-    char stringdata0[27];
+    char stringdata0[22];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_calibration_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_vision_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_calibration_t qt_meta_stringdata_calibration = {
+static const qt_meta_stringdata_vision_t qt_meta_stringdata_vision = {
     {
-QT_MOC_LITERAL(0, 0, 11), // "calibration"
-QT_MOC_LITERAL(1, 12, 13), // "has_new_image"
-QT_MOC_LITERAL(2, 26, 0) // ""
+QT_MOC_LITERAL(0, 0, 6), // "vision"
+QT_MOC_LITERAL(1, 7, 13), // "has_new_state"
+QT_MOC_LITERAL(2, 21, 0) // ""
 
     },
-    "calibration\0has_new_image\0"
+    "vision\0has_new_state\0"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_calibration[] = {
+static const uint qt_meta_data_vision[] = {
 
  // content:
        7,       // revision
@@ -60,21 +60,21 @@ static const uint qt_meta_data_calibration[] = {
        0        // eod
 };
 
-void calibration::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void vision::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        calibration *_t = static_cast<calibration *>(_o);
+        vision *_t = static_cast<vision *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->has_new_image(); break;
+        case 0: _t->has_new_state(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (calibration::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&calibration::has_new_image)) {
+            typedef void (vision::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&vision::has_new_state)) {
                 *result = 0;
             }
         }
@@ -82,26 +82,26 @@ void calibration::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     Q_UNUSED(_a);
 }
 
-const QMetaObject calibration::staticMetaObject = {
-    { &QThread::staticMetaObject, qt_meta_stringdata_calibration.data,
-      qt_meta_data_calibration,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
+const QMetaObject vision::staticMetaObject = {
+    { &QThread::staticMetaObject, qt_meta_stringdata_vision.data,
+      qt_meta_data_vision,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
 
-const QMetaObject *calibration::metaObject() const
+const QMetaObject *vision::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *calibration::qt_metacast(const char *_clname)
+void *vision::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_calibration.stringdata0))
-        return static_cast<void*>(const_cast< calibration*>(this));
+    if (!strcmp(_clname, qt_meta_stringdata_vision.stringdata0))
+        return static_cast<void*>(const_cast< vision*>(this));
     return QThread::qt_metacast(_clname);
 }
 
-int calibration::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int vision::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QThread::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -119,7 +119,7 @@ int calibration::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void calibration::has_new_image()
+void vision::has_new_state()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, Q_NULLPTR);
 }

@@ -8,6 +8,9 @@
 
 #include "sqlite.h"
 
+SQLite::SQLite(){
+
+}
 
 SQLite::SQLite(string path_database, string password){
     this->path_database = path_database;
