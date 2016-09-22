@@ -80,6 +80,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //! > Get all cameras connected to PC
     getAllDevices();
 
+    sql_log();
+
     //! > Build the left tab
     buildTrees();
 
@@ -812,15 +814,28 @@ void MainWindow::buildTrees(){
     ui->treeMain->setColumnWidth(0, 190);
     ui->treeMain->expandItem(mainItem);
 
-    addListItem();
-
-    headers2.append("Comment");
+    headers2.append("Calibration");
     headers2.append("Date");
+
+    for(int i = 0 ; i < calibrations.size() ; i++){
+        databaseList.append(new QTreeWidgetItem);
+
+        databaseList.at(0)->setIcon(0, database);
+        databaseList.at(0)->setText(0, QString(calibrations.at(i).comment.c_str()));
+
+        databaseList.at(0)->setText(1, QString(calibrations.at(i).data.c_str()));
+    }
+
+
+
+    ui->treeList->insertTopLevelItems(0, databaseList);
 
     ui->treeList->setColumnCount(2);
     ui->treeList->setHeaderLabels(headers2);
-    ui->treeList->setColumnWidth(0, 135);
+    ui->treeList->setColumnWidth(0, 105);
     ui->treeList->expandItem(listItem);
+
+
 }
 
 //! Addendum
@@ -1469,6 +1484,10 @@ int MainWindow::translateColor(QString s){
     }
 
     return c;
+}
+
+void MainWindow::sql_log(){
+    calibrations = sql->select_calibration();
 }
 
 

@@ -15,8 +15,11 @@
 #include "sstream"
 
 #include <sqlite3.h>
+#include <ctime>
+#include "common.h"
 
 using namespace std;
+using namespace common;
 
 //! This class is responsible for create, read, update and delete common::Calibration 's and common::ExecConfiguration 's 
 class SQLite{
@@ -26,14 +29,13 @@ protected:
     string path_database;
     string password;
 
-    stringstream query;
-
     int status_db;
     char *error_query;
     const char* data;
 
     //! Print the data result from query in database
     static int callback(void *NotUsed, int argc, char **argv, char **azColName);
+    static int callback_calibration(void *NotUsed, int argc, char **argv, char **azColName);
 public:
     SQLite();
     //! Default constructor: SQLite sql("name db", "pswd")
@@ -45,8 +47,8 @@ public:
     //! This metohd close the connection with the database
     void close();
 
-    void insert_calibration();
-    void select_calibration(string s = "");
+    bool insert_calibration(Calibration);
+    vector<Calibration> select_calibration(string s = "");
 };
 
 #endif // SQLITE_H

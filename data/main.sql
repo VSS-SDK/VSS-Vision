@@ -7,7 +7,6 @@
  */
 
 CREATE TABLE `calibration` (
-	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	`name`	TEXT NOT NULL,
 	`orange`	TEXT NOT NULL,
 	`blue`	TEXT NOT NULL,
@@ -23,7 +22,6 @@ CREATE TABLE `calibration` (
 );
 
 CREATE TABLE `configuration` (
-	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	`name`	TEXT NOT NULL,
 	`team1_main_color`	TEXT NOT NULL,
 	`team1_secondary_color_1`	TEXT NOT NULL,

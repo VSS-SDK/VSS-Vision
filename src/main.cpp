@@ -10,6 +10,9 @@
 #include <QApplication>
 #include <QtCore>
 #include "calibration.h"
+#include "common.h"
+
+using namespace common;
 
 int main(int argc, char *argv[])
 {

@@ -360,9 +360,6 @@ void vision::recognizeObjects(){
         }
     }
 
-    cout << "TOTAL: " << TOTAL_LENGHT << endl;
-    cout << "in.cols: " << in.cols << endl << endl;
-
     int max = 0;
     for(int i = 0 ; i < coordinate_old.at(exec_config->team_color[1]).size() && max < 3; i++){
         if(isValidPoint(coordinate_old.at(exec_config->team_color[1]).at(i))){

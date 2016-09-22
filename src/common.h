@@ -270,16 +270,16 @@ namespace common{
 
         //! Default constructor: Calibration c; initialize the vector with range of colors in HSV to track the objects with Saved Video and Saved Image. 
         Calibration(){
-            comment = "";
+            comment = "lorem";
 
-            colors.push_back(VisionColor(Pixel(104, 128 , 118), Pixel(122, 255, 255)));
-            colors.push_back(VisionColor(Pixel(0, 34, 71), Pixel(28, 255, 255)));
-            colors.push_back(VisionColor(Pixel(74, 66, 117), Pixel(104, 255, 255)));
-            colors.push_back(VisionColor(Pixel(120, 165, 61), Pixel(156, 255, 255)));
-            colors.push_back(VisionColor(Pixel(119, 66, 145), Pixel(180, 174, 255)));
-            colors.push_back(VisionColor(Pixel(125, 40, 112), Pixel(180, 255, 255)));
-            colors.push_back(VisionColor(Pixel(21, 46, 120), Pixel(85, 255, 255)));
-            colors.push_back(VisionColor(Pixel(87, 150, 46), Pixel(107, 229, 60)));
+            colors.push_back(VisionColor(Pixel(104, 128 , 118), Pixel(122, 255, 255))); // ORANGE = 0
+            colors.push_back(VisionColor(Pixel(0, 34, 71), Pixel(28, 255, 255)));       // BLUE = 1
+            colors.push_back(VisionColor(Pixel(74, 66, 117), Pixel(104, 255, 255)));    // YELLOW = 2
+            colors.push_back(VisionColor(Pixel(120, 165, 61), Pixel(156, 255, 255)));   // RED = 3
+            colors.push_back(VisionColor(Pixel(119, 66, 145), Pixel(180, 174, 255)));   // PINK = 4
+            colors.push_back(VisionColor(Pixel(125, 40, 112), Pixel(180, 255, 255)));   // PURPLE = 5
+            colors.push_back(VisionColor(Pixel(21, 46, 120), Pixel(85, 255, 255)));     // GREEN = 6
+            colors.push_back(VisionColor(Pixel(87, 150, 46), Pixel(107, 229, 60)));     // BROWN = 7
 
 
             cut.push_back(Point(0, 0));
@@ -287,7 +287,7 @@ namespace common{
 
             rotation = 0.0;
 
-            data = "2016-12-30";
+            data = "0000-00-00";
         };
         //! Constructor copy: Calibration c(Calibration());
         Calibration(Calibration *c){
@@ -301,15 +301,16 @@ namespace common{
         //! Default function: prints all variables.
         void show(){
             printf("Calibration:\n");
-            //printf("Comment: %s", comment);
+            cout << comment << endl;
             for(int i = 0 ; i < colors.size() ; i++){
                 colors.at(i).show();
             }
-            printf("Cut");
+            printf("Cut\n");
             for(int i = 0 ; i < cut.size() ; i++){
-                printf("Point(%d, %d)", cut.at(i).x, cut.at(i).y);
+                printf("Point(%d, %d)\n", cut.at(i).x, cut.at(i).y);
             }
-            //printf("Data: %s", data);
+            printf("Rotation: %f\n", rotation);
+            cout << data << endl;
         };
     };
 

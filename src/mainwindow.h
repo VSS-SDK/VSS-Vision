@@ -198,6 +198,7 @@ protected:
 
     QTreeWidgetItem *mainItem, *listItem;
     QList<QTreeWidgetItem*> inputData;
+    QList<QTreeWidgetItem*> databaseList;
     QList<QTreeWidgetItem*> cameraCalibration;
     QList<QTreeWidgetItem*> databaseOptions;
     QList<QTreeWidgetItem*> blobFinding;
@@ -262,10 +263,13 @@ protected:
     //! Method responsible for translate the colors on QCheckbox to vector
     int translateColor(QString);
 
+    void sql_log();
+
     vector<string> devices;
     vector<int> devices_id;
     vector<int> colors;
     Calibration _calib;
+    vector<Calibration> calibrations;
     State state;
     ExecConfiguration execConfig;
     stringstream ss;
