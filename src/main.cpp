@@ -21,4 +21,13 @@ int main(int argc, char *argv[])
     w.show();
 
     return a.exec();
+
+    /*SQLite sqlite("../data/main.db", "passwd");
+    Calibration c;
+    c.comment = "debug";
+    sqlite.insert_calibration(c);
+
+    cout << "query.str()" << endl;
+
+    return 0;*/
 }

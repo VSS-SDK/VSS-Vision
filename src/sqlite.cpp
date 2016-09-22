@@ -7,6 +7,7 @@
  */
 
 #include "sqlite.h"
+#include "qdebug.h"
 
 vector<Calibration> calibrations_s;
 
@@ -65,6 +66,7 @@ int SQLite::callback_calibration(void *NotUsed, int argc, char **argv, char **az
     for(int i = 1 ; i < 9 ; i++){
         Pixel min, max;
         string s = argv[i];
+        clearSS(ss);
 
         int j = 0;
         while(s[j] != ':'){

@@ -105,6 +105,8 @@ public slots:
 
     void evtLoadCalib();
 
+    void evtDatabaseList();
+
     // QCheckboxs
     //! Method that get the signal from click on QCheckbox of use camera
     void checkboxCamera(int);
@@ -215,7 +217,6 @@ protected:
     QCheckBox *checkUseCamera, *checkUseImage, *checkUseVideo;
 
     QPushButton *btnDoColorCalib, *btnRunVision, *btnDoCameraCalib;
-    QPushButton *btnSaveCalib, *btnSaveConfig, *btnLoadCalib, *btnLoadConfig;
 
     QWidget *contLayoutH3;
     vector<QLabel*> lblHeadersHSV;

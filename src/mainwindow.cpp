@@ -62,10 +62,10 @@ MainWindow::MainWindow(QWidget *parent) :
     btnDoColorCalib = new QPushButton("Do", this);
     btnRunVision = new QPushButton("Run", this);
     btnDoCameraCalib = new QPushButton("Do", this);
-    btnSaveCalib = new QPushButton("Save", this);
+    /*btnSaveCalib = new QPushButton("Save", this);
     btnSaveConfig = new QPushButton("Save", this);
     btnLoadCalib = new QPushButton("Load", this);
-    btnLoadConfig = new QPushButton("Load", this);
+    btnLoadConfig = new QPushButton("Load", this);*/
 
     //! > Define icons used
     blockdevice = QIcon(":icons/blockdevice.png");
@@ -115,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent) :
         lblHeadersPlot.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-weight: bold;}");
 
         lblPlots.push_back(new QLabel("000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n000, 000, 0.00\n"));
-        lblPlots.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb; margin-bottom: 50px;}");
+        lblPlots.at(i)->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px; background: white; border: 1px solid #bbb; margin-bottom: 50px; min-height: 100px;}");
     }
 
     lblHeadersPlot.at(0)->setText("Robot 1A");
@@ -126,11 +126,11 @@ MainWindow::MainWindow(QWidget *parent) :
     lblHeadersPlot.at(5)->setText("Robot 3B");
     lblHeadersPlot.at(6)->setText("Ball");
 
-    lbl_val->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px;  margin-bottom: 50px;}");
+    lbl_val->setStyleSheet("QLabel {qproperty-alignment: AlignCenter; font-size: 14px;  margin-bottom: 50px; min-height: 100px;}");
 
     for(int i = 0 ; i < 6 ; i++){
         slidersHSV.push_back(new QSlider(Qt::Orientation(VerticalTabs)));
-        slidersHSV.at(i)->setMinimumHeight(130);
+        slidersHSV.at(i)->setMinimumHeight(100);
     }
 
     slidersHSV.at(hmin)->setMaximum(179);
@@ -146,6 +146,7 @@ MainWindow::MainWindow(QWidget *parent) :
     slidersHSV.at(hmax)->setMinimum(1);
     slidersHSV.at(smax)->setMinimum(1);
     slidersHSV.at(vmax)->setMinimum(1);
+
 
     slidersHSV.at(hmin)->setValue(_calib.colors.at(0).min.rgb[h]);
     slidersHSV.at(smin)->setValue(_calib.colors.at(0).min.rgb[s]);
@@ -187,7 +188,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->layoutH2->addWidget(image);
 
     sliderRotation = new QSlider();
-    sliderRotation->setMinimumHeight(130);
+    sliderRotation->setMinimumHeight(100);
     sliderRotation->setMaximum(100);
     sliderRotation->setMinimum(-100);
     sliderRotation->setStyleSheet("QSlider {background: white; border: 1px solid #bbb;}");
@@ -224,6 +225,9 @@ MainWindow::MainWindow(QWidget *parent) :
     vi->start();
 
     image->show();
+
+    connect(ui->btnSave, SIGNAL (clicked()), this, SLOT (evtSaveCalib()));
+    connect(ui->btnLoad, SIGNAL (clicked()), this, SLOT (evtLoadCalib()));
 }
 
 //! Addendum
@@ -710,7 +714,7 @@ void MainWindow::addExecutionOptions(){
     ui->treeMain->insertTopLevelItems(0, executionOptions);
 }
 
-void MainWindow::addDatabaseOptions(){
+/*void MainWindow::addDatabaseOptions(){
     int qtd = 5;
     for(int i = 0 ; i < qtd ; i++){
         databaseOptions.append(new QTreeWidgetItem);
@@ -751,7 +755,7 @@ void MainWindow::addDatabaseOptions(){
     ui->treeMain->setItemWidget(databaseOptions.value(3), 1, btnSaveConfig);
     ui->treeMain->setItemWidget(databaseOptions.value(4), 1, btnLoadConfig);
     ui->treeMain->insertTopLevelItems(0, databaseOptions);
-}
+}*/
 
 //! Addendum
 //! --------
@@ -803,7 +807,7 @@ void MainWindow::buildTrees(){
     //addDefinePatternsItem();
     addCalibrateColors();
     addExecutionConfig();
-    addDatabaseOptions();
+    //addDatabaseOptions();
     //addVisionOptions();
     //addNetOptions();
     addExecutionOptions();
@@ -820,19 +824,17 @@ void MainWindow::buildTrees(){
     for(int i = 0 ; i < calibrations.size() ; i++){
         databaseList.append(new QTreeWidgetItem);
 
-        databaseList.at(0)->setIcon(0, database);
-        databaseList.at(0)->setText(0, QString(calibrations.at(i).comment.c_str()));
+        databaseList.at(i)->setIcon(0, database);
+        databaseList.at(i)->setText(0, QString(calibrations.at(i).comment.c_str()));
 
-        databaseList.at(0)->setText(1, QString(calibrations.at(i).data.c_str()));
+        databaseList.at(i)->setText(1, QString(calibrations.at(i).data.c_str()));
     }
-
-
 
     ui->treeList->insertTopLevelItems(0, databaseList);
 
     ui->treeList->setColumnCount(2);
     ui->treeList->setHeaderLabels(headers2);
-    ui->treeList->setColumnWidth(0, 105);
+    ui->treeList->setColumnWidth(0, 120);
     ui->treeList->expandItem(listItem);
 
 
@@ -940,6 +942,9 @@ void MainWindow::evtCalibrationColors(){
         btnRunVision->setDisabled(true);
         btnDoCameraCalib->setDisabled(true);
         btnDoColorCalib->setText("Done");
+
+        ui->btnLoad->setDisabled(true);
+        ui->btnSave->setDisabled(true);
     }else{
         //! > Enable options of input data
         cmbColors->setDisabled(false);
@@ -967,6 +972,9 @@ void MainWindow::evtCalibrationColors(){
         btnRunVision->setDisabled(false);
         btnDoCameraCalib->setDisabled(false);
         btnDoColorCalib->setText("Do");
+
+        ui->btnLoad->setDisabled(false);
+        ui->btnSave->setDisabled(false);
     }
 }
 
@@ -1012,6 +1020,9 @@ void MainWindow::evtCalibrationCam(){
         btnDoCameraCalib->setText("Done");
         btnDoColorCalib->setDisabled(true);
         btnRunVision->setDisabled(true);
+
+        ui->btnLoad->setDisabled(true);
+        ui->btnSave->setDisabled(true);
     }else{
         finishCalibrationCamera();
         //! > Turn OFF the calibration thread
@@ -1033,6 +1044,9 @@ void MainWindow::evtCalibrationCam(){
         btnDoCameraCalib->setText("Do");
         btnDoColorCalib->setDisabled(false);
         btnRunVision->setDisabled(false);
+
+        ui->btnLoad->setDisabled(false);
+        ui->btnSave->setDisabled(false);
     }
 }
 
@@ -1080,6 +1094,9 @@ void MainWindow::evtVision(){
         btnDoCameraCalib->setDisabled(true);
         btnDoColorCalib->setDisabled(true);
         btnRunVision->setText("Pause");
+
+        ui->btnLoad->setDisabled(true);
+        ui->btnSave->setDisabled(true);
     }else{
         //! > Enable options of input data
         cmbColors->setDisabled(false);
@@ -1102,23 +1119,63 @@ void MainWindow::evtVision(){
         btnDoCameraCalib->setDisabled(false);
         btnDoColorCalib->setDisabled(false);
         btnRunVision->setText("Run");
+
+        ui->btnLoad->setDisabled(false);
+        ui->btnSave->setDisabled(false);
     }
 }
 
 void MainWindow::evtSaveConfig(){
-    qDebug() << "save config" << endl;
-}
-
-void MainWindow::evtSaveCalib(){
-    qDebug() << "save calib" << endl;
 }
 
 void MainWindow::evtLoadConfig(){
-    qDebug() << "load config" << endl;
+}
+
+void MainWindow::evtSaveCalib(){
+    bool ok = false;
+    if(ui->saveVal->text().size() > 0){
+        _calib.comment = ui->saveVal->text().toUtf8().constData();
+        sql->insert_calibration(_calib);
+        ok = true;
+    }else{
+        ui->multiTex->setText("ERROR: You must enter a name to save a new calibration ...");
+    }
+
+    if(ok){
+        ui->multiTex->setText("SUCCESS: Calibration saved ...");
+    }else{
+        ui->multiTex->setText("ERROR: Calibration not saved ...");
+    }
 }
 
 void MainWindow::evtLoadCalib(){
-    qDebug() << "load calib" << endl;
+    if(ui->loadVal->text().size() > 0){
+        bool ok = false;
+        for(int i = 0 ; i < calibrations.size() ; i++){
+            if(calibrations.at(i).comment == ui->loadVal->text().toUtf8().constData()){
+                _calib.show();
+                _calib = calibrations.at(i);
+                _calib.show();
+                ok = true;
+                break;
+            }
+        }
+        if(ok){
+            ui->multiTex->setText("SUCCESS: Calibration loaded ...");
+        }else{
+            ui->multiTex->setText("ERROR: Calibration not founded ...");
+        }
+    }else{
+        ui->multiTex->setText("ERROR: You must enter a name to load a calibration ...");
+    }
+}
+
+
+
+
+
+void MainWindow::evtDatabaseList(){
+    qDebug() << "teste";
 }
 
 void MainWindow::initCalibrationColors(){
@@ -1489,7 +1546,6 @@ int MainWindow::translateColor(QString s){
 void MainWindow::sql_log(){
     calibrations = sql->select_calibration();
 }
-
 
 MainWindow::~MainWindow()
 {
