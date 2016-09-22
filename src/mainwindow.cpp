@@ -1153,9 +1153,9 @@ void MainWindow::evtLoadCalib(){
         bool ok = false;
         for(int i = 0 ; i < calibrations.size() ; i++){
             if(calibrations.at(i).comment == ui->loadVal->text().toUtf8().constData()){
-                _calib.show();
+                //_calib.show();
                 _calib = calibrations.at(i);
-                _calib.show();
+                //_calib.show();
                 ok = true;
                 break;
             }

@@ -1,4 +1,0 @@
-cd src && make -f Makefile
-make[1]: Entrando no diretório `/home/sirlab/Repositorios/SIRLab/Projects/VSS-Vision/src'
-make[1]: Nada a ser feito para `first'.
-make[1]: Saindo do diretório `/home/sirlab/Repositorios/SIRLab/Projects/VSS-Vision/src'

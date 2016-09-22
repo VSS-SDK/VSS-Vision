@@ -48,8 +48,6 @@ $ make run
 
 Gallery
 -------
-![screenshot 1](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/top2.png)
-
 ![screenshot 2](https://raw.githubusercontent.com/SIRLab/VSS-Vision/master/images/top.png)
 
 
