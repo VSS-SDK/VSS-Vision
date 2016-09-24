@@ -873,16 +873,18 @@ void MainWindow::mouseLeftPressed(){
 //! --------
 //! 
 void MainWindow::mouseRightPressed(){
-    if(calib->get_type_calibration()){
-        //! > Update the qtd of right clicks on vision
-        calib->set_mouse_click_right(calib->get_mouse_click_right()+1);
-    }else{
-        _calib.cut.at(1).x = image->x;
-        _calib.cut.at(1).y = image->y-10;
+    if(!vi->get_vision_reception()){    
+        if(calib->get_type_calibration()){
+            //! > Update the qtd of right clicks on vision
+            calib->set_mouse_click_right(calib->get_mouse_click_right()+1);
+        }else{
+            _calib.cut.at(1).x = image->x;
+            _calib.cut.at(1).y = image->y-10;
 
-        stringstream ss;
-        ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y; 
-        cameraCalibration.at(2)->setText(1, ss.str().c_str());  
+            stringstream ss;
+            ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y; 
+            cameraCalibration.at(2)->setText(1, ss.str().c_str());  
+        }
     }
 }
 
