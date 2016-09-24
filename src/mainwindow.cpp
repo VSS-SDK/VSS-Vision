@@ -854,16 +854,18 @@ void MainWindow::mouseCurrentPos(){
 //! --------
 //! 
 void MainWindow::mouseLeftPressed(){
-    if(calib->get_type_calibration()){
-        //! > Update the qtd of left clicks on vision zoom
-        calib->set_mouse_click_left(calib->get_mouse_click_left()+1);
-    }else{
-        _calib.cut.at(0).x = image->x;
-        _calib.cut.at(0).y = image->y-10;
+    if(!vi->get_vision_reception()){
+        if(calib->get_type_calibration()){
+            //! > Update the qtd of left clicks on vision zoom
+            calib->set_mouse_click_left(calib->get_mouse_click_left()+1);
+        }else{
+            _calib.cut.at(0).x = image->x;
+            _calib.cut.at(0).y = image->y-10;
 
-        stringstream ss;
-        ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y; 
-        cameraCalibration.at(2)->setText(1, ss.str().c_str());   
+            stringstream ss;
+            ss << _calib.cut.at(0).x << ", " << _calib.cut.at(0).y << ", " << _calib.cut.at(1).x << ", " << _calib.cut.at(1).y; 
+            cameraCalibration.at(2)->setText(1, ss.str().c_str());   
+        }
     }
 }
 

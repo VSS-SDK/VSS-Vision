@@ -354,9 +354,12 @@ void vision::recognizeObjects(){
     }*/
     
     for(int i = 0 ; i < coordinate_old.at(exec_config->ball_color).size() ; i++){
-        if(isValidPoint(coordinate_old.at(exec_config->ball_color).at(i))){
-            state->ball.x = coordinate_old.at(exec_config->ball_color).at(i).x * TOTAL_LENGHT /(float)in.cols;
-            state->ball.y = coordinate_old.at(exec_config->ball_color).at(i).y * TOTAL_WIDTH /(float)in.rows;
+        btVector3 test;
+        test.x = coordinate_old.at(exec_config->ball_color).at(i).x * TOTAL_LENGHT /(float)in.cols;
+        test.y = coordinate_old.at(exec_config->ball_color).at(i).y * TOTAL_WIDTH /(float)in.rows;
+
+        if(isValidPoint(coordinate_old.at(exec_config->ball_color).at(i))/* && distancePoint(state->ball, test)*/){
+            state->ball = test;
         }
     }
 
