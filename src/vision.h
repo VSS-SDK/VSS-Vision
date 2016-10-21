@@ -36,6 +36,7 @@ protected:
     string path_image;
     string path_video;
     string user_path;
+    int frames_renew;
 
     // Parameters
     int side_cut;
@@ -52,6 +53,7 @@ protected:
 
     // Optimization
     vector< vector<Point> > coordinate_old;
+    vector< vector<Point> > save;
     vector<vector<Point> > labels;
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
@@ -59,6 +61,7 @@ protected:
 
     vector<int> *colors;
     bool find_old_labels[13];
+    int colors_by_list[6];
 
     KalmanFilter kfs[13];
 
@@ -80,7 +83,7 @@ public:
     explicit vision(QObject *parent = 0);
 
     void run();
-    void search_color(int);
+    void search_color(int, int);
 
     void alloc_calibration(Calibration*);
     void alloc_state(State*);

@@ -1087,12 +1087,14 @@ void MainWindow::evtVision(){
         if(has_a_camera){
             cmbCameraIds->setDisabled(true);
             checkUseCamera->setDisabled(true);
-        }
+        }  
 
+        defineColors();
+        
         //! > Turn ON the vision thread
         vi->set_vision_reception(true);
 
-        defineColors();
+        
         initPlotValues();
 
         btnDoCameraCalib->setDisabled(true);
