@@ -43,3 +43,6 @@ script:
 
   - make proto
   - make
+
+notifications:
+  slack: sirlab:MjTrgHctmtm0EJF75ISsZ1vB
