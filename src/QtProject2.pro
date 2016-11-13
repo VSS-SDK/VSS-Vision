@@ -46,9 +46,9 @@ SOURCES += main.cpp\
     sqlite.cpp \
     vision.cpp \
     qcustomlabel.cpp \
-    VSS-Interface/protos/state.pb.cc \
-    VSS-Interface/protos/command.pb.cc \
-    VSS-Interface/interface.cpp \
+    VSS-Interface/cpp/state.pb.cc \
+    VSS-Interface/cpp/command.pb.cc \
+    VSS-Interface/cpp/interface.cpp \
     kalman.cpp
 
 HEADERS  += mainwindow.h \
@@ -58,9 +58,9 @@ HEADERS  += mainwindow.h \
     sqlite.h \
     vision.h \
     qcustomlabel.h \
-    VSS-Interface/protos/state.pb.h \
-    VSS-Interface/protos/command.pb.h \
-    VSS-Interface/interface.h \
+    VSS-Interface/cpp/state.pb.h \
+    VSS-Interface/cpp/command.pb.h \
+    VSS-Interface/cpp/interface.h \
     kalman.h
 
 FORMS    += mainwindow.ui
