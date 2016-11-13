@@ -24,7 +24,7 @@ docm:
 build_debug:
 	cd src && make -f Makefile build_debug
 
-#qt:
+qt:
 	#cd src && qmake -qt=qt5
 
 # ../src/QtOpenCV.h ../src/QtOpenCV.cpp ../src/calibration.h ../src/calibration.cpp ../src/commons.h ../src/commons.cpp ../src/interface.h ../src/interface.cpp ../src/main.cpp ../src/mainwindow.h ../src/mainwindow.cpp ../src/qcustomlabel.h ../src/qcustomlabel.cpp ../src/sqlite.h ../src/sqlite.cpp  ../src/vision.h ../src/vision.cpp ../src/protos/command.pb.h ../src/protos/command.pb.cc ../src/protos/command.proto ../src/protos/state.pb.h ../src/protos/state.pb.cc ../src/protos/state.proto
