@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = VSS-Vision1.0.0
-DISTDIR = /home/johnathan/Repositories/SIRLab/Projects/VSS-Vision/src/.tmp/VSS-Vision1.0.0
+DISTDIR = /home/johnathan/Repositories/SIRLab/Public/VSS-Vision/src/.tmp/VSS-Vision1.0.0
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -L/usr/local/lib -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_flann -lopencv_shape -lopencv_stitching -lopencv_videostab -lopencv_videoio -lopencv_imgcodecs -lm -l sqlite3 -lprotobuf -pthread -lzmq -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -56,9 +56,10 @@ SOURCES       = main.cpp \
 		sqlite.cpp \
 		vision.cpp \
 		qcustomlabel.cpp \
-		VSS-Interface/protos/state.pb.cc \
-		VSS-Interface/protos/command.pb.cc \
-		VSS-Interface/interface.cpp \
+		VSS-Interface/cpp/state.pb.cc \
+		VSS-Interface/cpp/command.pb.cc \
+		VSS-Interface/cpp/debug.pb.cc \
+		VSS-Interface/cpp/interface.cpp \
 		kalman.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp \
 		moc_calibration.cpp \
@@ -159,9 +160,9 @@ DIST          = protos/state.proto \
 		sqlite.h \
 		vision.h \
 		qcustomlabel.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/interface.h \
+		VSS-Interface/cpp/state.pb.h \
+		VSS-Interface/cpp/command.pb.h \
+		VSS-Interface/cpp/interface.h \
 		kalman.h main.cpp \
 		mainwindow.cpp \
 		QtOpenCV.cpp \
@@ -170,9 +171,9 @@ DIST          = protos/state.proto \
 		sqlite.cpp \
 		vision.cpp \
 		qcustomlabel.cpp \
-		VSS-Interface/protos/state.pb.cc \
-		VSS-Interface/protos/command.pb.cc \
-		VSS-Interface/interface.cpp \
+		VSS-Interface/cpp/state.pb.cc \
+		VSS-Interface/cpp/command.pb.cc \
+		VSS-Interface/cpp/interface.cpp \
 		kalman.cpp
 QMAKE_TARGET  = VSS-Vision
 DESTDIR       = #avoid trailing-slash linebreak
@@ -366,8 +367,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h QtOpenCV.h common.h calibration.h sqlite.h vision.h qcustomlabel.h VSS-Interface/protos/state.pb.h VSS-Interface/protos/command.pb.h VSS-Interface/interface.h kalman.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp QtOpenCV.cpp common.cpp calibration.cpp sqlite.cpp vision.cpp qcustomlabel.cpp VSS-Interface/protos/state.pb.cc VSS-Interface/protos/command.pb.cc VSS-Interface/interface.cpp kalman.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h QtOpenCV.h common.h calibration.h sqlite.h vision.h qcustomlabel.h VSS-Interface/cpp/state.pb.h VSS-Interface/cpp/command.pb.h VSS-Interface/cpp/interface.h kalman.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp QtOpenCV.cpp common.cpp calibration.cpp sqlite.cpp vision.cpp qcustomlabel.cpp VSS-Interface/cpp/state.pb.cc VSS-Interface/cpp/command.pb.cc VSS-Interface/cpp/interface.cpp kalman.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -405,39 +406,27 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_calibration.cpp moc_vision.cpp moc_qcustomlabel.cpp
 moc_mainwindow.cpp: qcustomlabel.h \
 		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h \
 		calibration.h \
 		QtOpenCV.h \
 		vision.h \
 		sqlite.h \
 		mainwindow.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/johnathan/Repositories/SIRLab/Projects/VSS-Vision/src -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/johnathan/Repositories/SIRLab/Public/VSS-Vision/src -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_calibration.cpp: qcustomlabel.h \
 		QtOpenCV.h \
 		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h \
 		calibration.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/johnathan/Repositories/SIRLab/Projects/VSS-Vision/src -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include calibration.h -o moc_calibration.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/johnathan/Repositories/SIRLab/Public/VSS-Vision/src -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include calibration.h -o moc_calibration.cpp
 
 moc_vision.cpp: qcustomlabel.h \
 		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h \
 		QtOpenCV.h \
 		vision.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/johnathan/Repositories/SIRLab/Projects/VSS-Vision/src -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include vision.h -o moc_vision.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/johnathan/Repositories/SIRLab/Public/VSS-Vision/src -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include vision.h -o moc_vision.cpp
 
 moc_qcustomlabel.cpp: qcustomlabel.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/johnathan/Repositories/SIRLab/Projects/VSS-Vision/src -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomlabel.h -o moc_qcustomlabel.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/johnathan/Repositories/SIRLab/Public/VSS-Vision/src -I/usr/local/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomlabel.h -o moc_qcustomlabel.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -460,10 +449,6 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 main.o: main.cpp mainwindow.h \
 		qcustomlabel.h \
 		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h \
 		calibration.h \
 		QtOpenCV.h \
 		vision.h \
@@ -473,10 +458,6 @@ main.o: main.cpp mainwindow.h \
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		qcustomlabel.h \
 		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h \
 		calibration.h \
 		QtOpenCV.h \
 		vision.h \
@@ -487,62 +468,39 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 QtOpenCV.o: QtOpenCV.cpp QtOpenCV.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QtOpenCV.o QtOpenCV.cpp
 
-common.o: common.cpp common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h
+common.o: common.cpp common.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o common.o common.cpp
 
 calibration.o: calibration.cpp calibration.h \
 		qcustomlabel.h \
 		QtOpenCV.h \
-		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h
+		common.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calibration.o calibration.cpp
 
 sqlite.o: sqlite.cpp sqlite.h \
-		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h
+		common.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sqlite.o sqlite.cpp
 
 vision.o: vision.cpp vision.h \
 		qcustomlabel.h \
 		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h \
 		QtOpenCV.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vision.o vision.cpp
 
 qcustomlabel.o: qcustomlabel.cpp qcustomlabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomlabel.o qcustomlabel.cpp
 
-state.pb.o: VSS-Interface/protos/state.pb.cc VSS-Interface/protos/state.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o state.pb.o VSS-Interface/protos/state.pb.cc
+state.pb.o: VSS-Interface/cpp/state.pb.cc 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o state.pb.o VSS-Interface/cpp/state.pb.cc
 
-command.pb.o: VSS-Interface/protos/command.pb.cc VSS-Interface/protos/command.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o command.pb.o VSS-Interface/protos/command.pb.cc
+command.pb.o: VSS-Interface/cpp/command.pb.cc 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o command.pb.o VSS-Interface/cpp/command.pb.cc
 
-interface.o: VSS-Interface/interface.cpp VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o VSS-Interface/interface.cpp
+interface.o: VSS-Interface/cpp/interface.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o VSS-Interface/cpp/interface.cpp
 
 kalman.o: kalman.cpp kalman.h \
-		common.h \
-		VSS-Interface/interface.h \
-		VSS-Interface/protos/state.pb.h \
-		VSS-Interface/protos/command.pb.h \
-		VSS-Interface/protos/debug.pb.h
+		common.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o kalman.o kalman.cpp
 
 qrc_resources.o: qrc_resources.cpp 

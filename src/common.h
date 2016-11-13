@@ -22,7 +22,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/video/video.hpp>
 
-#include "VSS-Interface/interface.h"    // VSS
+#include "VSS-Interface/cpp/interface.h"    // VSS
 
 #define FIELD_LENGHT            150.0              // 150.0 cm
 #define FIELD_WIDTH             130.0              // 130.0 cm

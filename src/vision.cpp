@@ -217,7 +217,7 @@ void vision::search_color(int id_color, int id_for){
     hierarchy.clear();
     vol_coordinate.clear();
 
-    if(!find_old_labels[id_color]){
+    //if(!find_old_labels[id_color]){
         inRange(in,
                 Scalar(calib->colors.at(id_color).min.rgb[h], calib->colors.at(id_color).min.rgb[s], calib->colors.at(id_color).min.rgb[v]),
                 Scalar(calib->colors.at(id_color).max.rgb[h], calib->colors.at(id_color).max.rgb[s], calib->colors.at(id_color).max.rgb[v]),
@@ -265,7 +265,7 @@ void vision::search_color(int id_color, int id_for){
         vol_coordinate.push_back(Point(-1, -1));
 
         coordinate_old.push_back(vol_coordinate);
-    }else{
+    /*}else{
         Point aux;
         find_old_labels[id_color] = true;
 
@@ -282,7 +282,7 @@ void vision::search_color(int id_color, int id_for){
 
                 stringstream ss;
                 ss << "id_color:" << id_color << "id:" << i << endl;
-                imshow(ss.str().c_str(), volN);*/
+                imshow(ss.str().c_str(), volN);
 
                 inRange(volM,
                         Scalar(calib->colors.at(id_color).min.rgb[h], calib->colors.at(id_color).min.rgb[s], calib->colors.at(id_color).min.rgb[v]),
@@ -338,7 +338,7 @@ void vision::search_color(int id_color, int id_for){
         vol_coordinate.push_back(Point(-1, -1));
 
         coordinate_old.push_back(vol_coordinate);
-    }
+    }*/
 }
 
 void vision::recognizeObjects(){
