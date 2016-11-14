@@ -40,7 +40,7 @@ This code is licensed under the [GNU GENERAL PUBLIC LICENSE Version 3][gpl3], of
 
 You are allowed and encouraged to use this software on the IEEE Very Small Size Soccer competitions.  If you do, please let us know.
 
-[vss-sdk]: http://sirlab.github.io/vss.html
+[vss-sdk]: http://sirlab.github.io/VSS-SDK
 [gpl3]: http://www.gnu.org/licenses/gpl-3.0/
 [travis]: https://travis-ci.org/SIRLab/VSS-Vision
 [install]: https://github.com/SIRLab/VSS-Vision/blob/master/INSTALL.md
