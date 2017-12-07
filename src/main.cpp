@@ -6,28 +6,9 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
+#include <gtkmm.h>
 #include "mainwindow.h"
-#include <QApplication>
-#include <QtCore>
-#include "calibration.h"
-#include "common.h"
 
-using namespace common;
-
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-    return a.exec();
-
-    /*SQLite sqlite("../data/main.db", "passwd");
-    Calibration c;
-    c.comment = "debug";
-    sqlite.insert_calibration(c);
-
-    cout << "query.str()" << endl;
-
-    return 0;*/
+int main(int argc, char *argv[]) {
+    MainWindow window;
 }

@@ -7,24 +7,43 @@
 #
 
 
-all: vision
+ifndef VERBOSE
+.SILENT:
+endif
 
-vision:
-	cd src && make -f Makefile
+COMPILER = g++ -std=c++11 -Wall -g
+EXEC_PROG = VSS-VISION
+BINARIES = $(EXEC_PROG)
 
+SOURCES := $(shell find -name '*.cpp' -not -path "./test/*")
+
+OBJECTS = $(SOURCES:.cpp=.o)
+
+OPENCVLIB = `pkg-config opencv --cflags --libs`
+GTKMMLIB = `pkg-config gtkmm-3.0 --cflags --libs`
+LIBS = $(OPENCVLIB) $(GTKMMLIB) -lpthread
+
+all: message_compiling $(EXEC_PROG)
+	@echo VSS-Vision Build Completed
+
+%.o: %.cpp
+	$(COMPILER) -c $(LIBS) -o $@ $< -w
+
+$(EXEC_PROG): $(OBJECTS)
+	$(COMPILER) -o $(EXEC_PROG) $(OBJECTS) $(LIBS)
+
+# prevents make from getting confused
+.PHONY : run
+run:
+	./$(EXEC_PROG)
+
+.PHONY : clean 
+clean:
+	rm -rf $(EXEC_PROG) $(OBJECTS)
+
+.PHONY : proto
 proto:
 	cd src/VSS-Interface && ./protos.sh
 
-run:
-	cd src && ./VSS-Vision
-
-docm:
-	cd doc && doxygen Doxygen
-
-build_debug:
-	cd src && make -f Makefile build_debug
-
-qt:
-	#cd src && qmake -qt=qt5
-
-# ../src/QtOpenCV.h ../src/QtOpenCV.cpp ../src/calibration.h ../src/calibration.cpp ../src/commons.h ../src/commons.cpp ../src/interface.h ../src/interface.cpp ../src/main.cpp ../src/mainwindow.h ../src/mainwindow.cpp ../src/qcustomlabel.h ../src/qcustomlabel.cpp ../src/sqlite.h ../src/sqlite.cpp  ../src/vision.h ../src/vision.cpp ../src/protos/command.pb.h ../src/protos/command.pb.cc ../src/protos/command.proto ../src/protos/state.pb.h ../src/protos/state.pb.cc ../src/protos/state.proto
+message_compiling:
+	@echo Compiling VSS-Vision...
