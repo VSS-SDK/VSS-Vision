@@ -3,33 +3,20 @@ VSS-Vision
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)][gpl3]
 [![Build Status](https://travis-ci.org/SIRLab/VSS-Vision.svg?branch=master)][travis]
 
-> **Pay Attention and Follow All The Steps Bellow to Install VSS-Vision on Ubuntu 14.04 LTS 3, Ubuntu 16.04 LTS and Debian 8**
+> **Pay Attention and Follow All The Steps Bellow to Install VSS-Vision on Debian 9**
 
-**Only Ubuntu 14.04 LTS 3** 
+
+**Only Debian 9** 
 ---------------------------
 **Install Standard Packages:**
 ```
-$ sudo apt-get update && apt-get upgrade
-$ sudo apt-get install pkg-config
-$ sudo apt-get install g++ cmake git uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev 
+$ sudo apt update && apt upgrade
+$ sudo apt install pkgconf
+$ sudo apt install git g++ cmake qt5-default libxvidcore-dev libv4l-dev libxine2-dev freeglut3-dev zip
 ```
-
-**Only Ubuntu 16.04 LTS** 
----------------------------
-**Install Standard Packages:**
+**Install GTKMM Packages:**
 ```
-$ sudo apt-get update && apt-get upgrade
-$ sudo apt-get install pkg-config
-$ sudo apt-get install g++ cmake git uvcdynctrl libzmqpp3 libzmqpp-dev protobuf-compiler libprotobuf-dev qt5-qmake qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev doxygen graphviz graphviz graphviz-dev
-```
-
-**Only Debian 8** 
----------------------------
-**Install Standard Packages:**
-```
-$ sudo apt-get update && apt-get upgrade
-$ sudo apt-get install pkgconf
-$ sudo apt-get install g++ cmake git uvcdynctrl libzmq3 libzmq3-dev protobuf-compiler libprotobuf-dev
+$ sudo apt install libgtkmm-3.0-dev libgstreamermm-1.0-dev libgtkmm-3.0-doc libgstreamermm-1.0-doc devhelp
 ```
 
 **All Distros** 
@@ -64,7 +51,3 @@ You are allowed and encouraged to use this software on the IEEE Very Small Size 
 [imgui]: https://github.com/ocornut/imgui/
 [travis]: https://travis-ci.org/SIRLab/VSS-Vision
 [samplestrategy]: https://github.com/SIRLab/VSS-SampleStrategy
-
-
-
-
