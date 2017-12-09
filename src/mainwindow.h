@@ -10,7 +10,6 @@ class MainWindow {
 
 private:
 	Gtk::Window* window = nullptr;
-	Gtk::MenuBar* menu_bar = nullptr;
 	
 	void set_widget_signal();
 	void load_widget_from_file();

@@ -19,10 +19,19 @@ void MainWindow::load_widget_from_file(){
 
 	auto builder = Gtk::Builder::create();
 
+	try {
+		builder->add_from_file("src/mainwindow.glade");
+	} catch(const Glib::FileError& ex) {
+		std::cerr << "FileError: " << ex.what() << std::endl;
+	} catch(const Glib::MarkupError& ex) {
+		std::cerr << "MarkupError: " << ex.what() << std::endl;
+	} catch(const Gtk::BuilderError& ex) {
+		std::cerr << "BuilderError: " << ex.what() << std::endl;
+	}
+
 	builder->add_from_file("src/mainwindow.glade");
 	
 	builder->get_widget("window", window);
-	builder->get_widget("menubar", menu_bar);
 }
 
 void MainWindow::set_widget_signal(){
