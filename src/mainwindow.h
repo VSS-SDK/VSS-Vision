@@ -10,11 +10,15 @@ class MainWindow {
 
 private:
 	Gtk::Window* window = nullptr;
+	Gtk::FileChooserButton* button_load = nullptr;
+	
 	
 	void set_widget_signal();
 	void load_widget_from_file();
+	void initialize_widget();
 
-	bool onKeyboard(GdkEventKey*);
+	bool on_keyboard(GdkEventKey*);
+	void on_button_load();
 
 public:
 	MainWindow();
