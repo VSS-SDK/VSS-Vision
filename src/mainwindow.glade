@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.20.0 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
+  <requires lib="gtk+" version="3.18"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="upper">100</property>
     <property name="step_increment">1</property>
@@ -977,7 +977,6 @@
                               <object class="GtkFileChooserButton" id="button_load">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="halign">baseline</property>
                                 <property name="create_folders">False</property>
                                 <property name="title" translatable="yes">Load Calibration</property>
                               </object>
