@@ -10,25 +10,17 @@ class MainWindow {
 
 private:
 	Gtk::Window* window = nullptr;
-	Gtk::Button* button_play = nullptr;
-	Gtk::Button* button_calibration = nullptr;
-	Gtk::Button* button_simulator = nullptr;
-	Gtk::Button* button_arduino = nullptr;
-	Gtk::Button* button_exit = nullptr;
+	Gtk::MenuBar* menu_bar = nullptr;
 	
-	void set_signal_widget();
-	void load_builder_from_file();
+	void set_widget_signal();
+	void load_widget_from_file();
 
 	bool onKeyboard(GdkEventKey*);
-	void onButtonPlay();
-	void onButtonCalibration();
-	void onButtonSimulator();
-	void onButtonArduino();
-	void onButtonExit();
 
 public:
 	MainWindow();
 	virtual ~MainWindow();
+	void run();
 };
 
 #endif
