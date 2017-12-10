@@ -4,4 +4,5 @@
 int main(int argc, char *argv[]) {
     MainWindow window;
     window.run();
+    string s;
 }

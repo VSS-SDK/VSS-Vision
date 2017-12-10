@@ -42,7 +42,7 @@ private:
 	void load_widget_from_file();
 	void initialize_widget();
 
-	bool on_keyboard(GdkEventKey*);
+	bool on_keyboard(GdkEventKey *event);
 	void on_button_load();
 
 	void on_color_selected();
