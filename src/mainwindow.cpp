@@ -21,7 +21,7 @@ void MainWindow::load_widget_from_file(){
 	auto builder = Gtk::Builder::create();
 
 	try {
-		builder->add_from_file("../src/mainwindow.glade");
+		builder->add_from_file("../glade/mainwindow.glade");
 		builder->get_widget("window", window);
 		builder->get_widget("button_load", button_load);
 	} catch(const Glib::FileError& ex) {
