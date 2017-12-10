@@ -2,7 +2,22 @@
 <!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.18"/>
-  <object class="GtkAdjustment" id="adjustment1">
+  <object class="GtkAdjustment" id="adjustment_brightness">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment_contrast">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment_exposure">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment_gain">
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
@@ -17,12 +32,22 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment_rotation">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkAdjustment" id="adjustment_s_max">
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="adjustment_s_min">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment_saturation">
     <property name="upper">100</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
@@ -774,7 +799,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="combo_box_file_path">
+                              <object class="GtkComboBoxText" id="combo_box_input_path">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="valign">center</property>
@@ -833,7 +858,7 @@
                               <object class="GtkScale" id="scale_rotation">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">adjustment1</property>
+                                <property name="adjustment">adjustment_rotation</property>
                                 <property name="fill_level">360</property>
                                 <property name="round_digits">1</property>
                                 <property name="draw_value">False</property>
@@ -891,7 +916,7 @@
                                   <object class="GtkScale" id="scale_brightness">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="adjustment">adjustment1</property>
+                                    <property name="adjustment">adjustment_brightness</property>
                                     <property name="fill_level">100</property>
                                     <property name="round_digits">1</property>
                                     <property name="draw_value">False</property>
@@ -931,7 +956,7 @@
                                   <object class="GtkScale" id="scale_contrast">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="adjustment">adjustment1</property>
+                                    <property name="adjustment">adjustment_contrast</property>
                                     <property name="fill_level">100</property>
                                     <property name="round_digits">1</property>
                                     <property name="draw_value">False</property>
@@ -971,7 +996,7 @@
                                   <object class="GtkScale" id="scale_saturation">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="adjustment">adjustment1</property>
+                                    <property name="adjustment">adjustment_saturation</property>
                                     <property name="fill_level">100</property>
                                     <property name="round_digits">1</property>
                                     <property name="draw_value">False</property>
@@ -1011,7 +1036,7 @@
                                   <object class="GtkScale" id="scale_exposure">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="adjustment">adjustment1</property>
+                                    <property name="adjustment">adjustment_exposure</property>
                                     <property name="fill_level">100</property>
                                     <property name="round_digits">1</property>
                                     <property name="draw_value">False</property>
@@ -1051,7 +1076,7 @@
                                   <object class="GtkScale" id="scale_gain">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="adjustment">adjustment1</property>
+                                    <property name="adjustment">adjustment_gain</property>
                                     <property name="fill_level">100</property>
                                     <property name="round_digits">1</property>
                                     <property name="draw_value">False</property>
