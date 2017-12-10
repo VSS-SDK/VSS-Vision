@@ -3,7 +3,7 @@
         {
             "name": "Mac",
             "includePath": [
-                "/usr/include"
+                "/usr/include",
             ],
             "intelliSenseMode": "clang-x64",
             "browse": {
@@ -20,13 +20,15 @@
             "name": "Linux",
             "includePath": [
                 "/usr/include",
-                "/usr/local/include"
+                "/usr/local/include",
+                "/include"
             ],
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [
                     "/usr/include",
-                    "/usr/local/include"
+                    "/usr/local/include",
+                    "/include"
                 ]
             }
         },
