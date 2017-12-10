@@ -35,3 +35,5 @@ Calibration/*.o
 *.out
 *.app
 src/VSS-Vision
+
+build/*

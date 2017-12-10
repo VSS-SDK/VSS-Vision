@@ -21,7 +21,9 @@ void MainWindow::load_widget_from_file(){
 	auto builder = Gtk::Builder::create();
 
 	try {
-		builder->add_from_file("src/mainwindow.glade");
+		builder->add_from_file("../src/mainwindow.glade");
+		builder->get_widget("window", window);
+		builder->get_widget("button_load", button_load);
 	} catch(const Glib::FileError& ex) {
 		std::cerr << "FileError: " << ex.what() << std::endl;
 	} catch(const Glib::MarkupError& ex) {
@@ -29,11 +31,6 @@ void MainWindow::load_widget_from_file(){
 	} catch(const Gtk::BuilderError& ex) {
 		std::cerr << "BuilderError: " << ex.what() << std::endl;
 	}
-
-	builder->add_from_file("src/mainwindow.glade");
-	
-	builder->get_widget("window", window);
-	builder->get_widget("button_load", button_load);
 }
 
 void MainWindow::set_widget_signal(){
@@ -54,6 +51,7 @@ bool MainWindow::on_keyboard(GdkEventKey* event){
 	} else if(event->keyval == GDK_KEY_Escape) {
 		window->close();
 	}
+	return true;
 }
 
 void MainWindow::on_button_load(){
