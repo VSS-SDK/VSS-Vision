@@ -53,17 +53,10 @@ private:
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
 
-<<<<<<< HEAD
 // Action method
 	bool on_keyboard(GdkEventKey*);
 	
 	void on_input_path();
-=======
-	bool on_keyboard(GdkEventKey *event);
-	void on_button_load();
-
-	void on_color_selected();
->>>>>>> 390d5a84890325662ccbcb9afb4b4c0b2d97caf5
 	void on_color_team_1();
 	void on_color_team_2();
 	void on_color_robot_1();
