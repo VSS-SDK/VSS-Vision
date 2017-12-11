@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="C++ Source File">
+<includepath>/usr/include/gtkmm-3.0</includepath>
+<includepath>/usr/include/mircookie</includepath>
+<includepath>/usr/include/harfbuzz</includepath>
+<includepath>/usr/include/atk-1.0</includepath>
+<includepath>/usr/include/pixman-1</includepath>
+<includepath>/usr/include/freetype2</includepath>
+<includepath>/usr/include/libpng12</includepath>
+<includepath>/usr/include/gio-unix-2.0/</includepath>
+<includepath>/usr/include/mirclient</includepath>
+<includepath>/usr/include/mircore</includepath>
+<includepath>/usr/include/cairo</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/gtkmm-3.0/include</includepath>
+<includepath>/usr/include/atkmm-1.6</includepath>
+<includepath>/usr/include/gtk-3.0/unix-print</includepath>
+<includepath>/usr/include/at-spi2-atk/2.0</includepath>
+<includepath>/usr/include/at-spi-2.0</includepath>
+<includepath>/usr/include/dbus-1.0</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/dbus-1.0/include</includepath>
+<includepath>/usr/include/cairomm-1.0</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/cairomm-1.0/include</includepath>
+<includepath>/usr/include/gtk-3.0</includepath>
+<includepath>/usr/include/pangomm-1.4</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/pangomm-1.4/include</includepath>
+<includepath>/usr/include/pango-1.0</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/gdkmm-3.0/include</includepath>
+<includepath>/usr/include/gdkmm-3.0</includepath>
+<includepath>/usr/include/giomm-2.4</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/giomm-2.4/include</includepath>
+<includepath>/usr/include/sigc++-2.0</includepath>
+<includepath>/usr/include/gdk-pixbuf-2.0</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/sigc++-2.0/include</includepath>
+<includepath>/usr/include/glib-2.0</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/glib-2.0/include</includepath>
+<includepath>/usr/include/glibmm-2.4</includepath>
+<includepath>/usr/lib/x86_64-linux-gnu/glibmm-2.4/include</includepath>
+<includepath workspace_path="true">/VSS-Vision/include</includepath>
+
+</language>
+<language name="C Source File">
+
+</language>
+<language name="Object File">
+
+</language>
+<language name="Assembly Source File">
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="C++ Source File">
+
+</language>
+<language name="C Source File">
+
+</language>
+<language name="Object File">
+
+</language>
+<language name="Assembly Source File">
+
+</language>
+</section>
+</cdtprojectproperties>
