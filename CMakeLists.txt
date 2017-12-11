@@ -7,6 +7,7 @@ FIND_PACKAGE(Boost 1.40 COMPONENTS program_options REQUIRED)
 INCLUDE(FindProtobuf)
 FIND_PACKAGE(Protobuf REQUIRED)
 pkg_check_modules(GTKMM REQUIRED gtkmm-3.0)
+find_package( OpenCV REQUIRED )
 
 include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE_DIRS})
 include_directories(src)
@@ -21,7 +22,7 @@ include_directories(usr/local/include)
 
 ADD_EXECUTABLE(vss-vision ${SRC})
 
-TARGET_LINK_LIBRARIES(vss-vision ${VSS_INTERFACE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES})
+TARGET_LINK_LIBRARIES(vss-vision ${VSS_INTERFACE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS})
 TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES})
 
 INSTALL(TARGETS vss-vision DESTINATION bin)
