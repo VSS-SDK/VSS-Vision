@@ -19,7 +19,7 @@ CMAKE_UBUNTU () {
   cd build
   cmake ..
   make package
-  sudo dpkg -i vss-simulator-0.1.1-Linux.deb
+  sudo dpkg -i vss-vision-0.1.1-Linux.deb
   cd ..
 }
 
@@ -29,7 +29,7 @@ CMAKE_MINT () {
   cd build
   cmake ..
   make package
-  sudo dpkg -i vss-simulator-0.1.1-Linux.deb
+  sudo dpkg -i vss-vision-0.1.1-Linux.deb
   cd ..
 }
 
@@ -39,21 +39,22 @@ CMAKE_DEBIAN () {
   cd build
   cmake ..
   make package
-  dpkg -i vss-simulator-0.1.1-Linux.deb
+  dpkg -i vss-vision-0.1.1-Linux.deb
   cd ..
 }
 
 INSTALL_UBUNTU_16_04 () {
   sudo apt-get update && apt-get upgrade
   sudo apt-get install pkg-config
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev
+  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev /usr/include/opencv
+
   INSTALLED=1
 }
 
 INSTALL_MINT_18_2 () {
   sudo apt-get update && apt-get upgrade
   sudo apt-get install pkg-config
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev
+  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev
   INSTALLED=1
 }
 
@@ -66,7 +67,7 @@ INSTALL_DEBIAN_9_2 () {
 
 INSTALL () {
   # Ubuntu
-  if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "16.04" ]]; then
+  if [[ "$DISTRO" == "Ubuntu" ]]; then
     INSTALL_UBUNTU_16_04;
     if [ $INSTALLED == 1 ]; then
       CMAKE_UBUNTU;
@@ -74,7 +75,7 @@ INSTALL () {
   fi
 
   # Debian
-  if [[ "$DISTRO" == "Debian" ]] && [[ "$RELEASE" == "9.2" ]]; then
+  if [[ "$DISTRO" == "Debian" ]]; then
     INSTALL_DEBIAN_9_2;
     if [ $INSTALLED == 1 ]; then
       CMAKE_DEBIAN;
@@ -82,7 +83,7 @@ INSTALL () {
   fi
 
   # LinuxMint
-  if [[ "$DISTRO" == "LinuxMint" ]] && [[ "$RELEASE" == "18.2" ]]; then
+  if [[ "$DISTRO" == "LinuxMint" ]]; then
     INSTALL_MINT_18_2;
     if [ $INSTALLED == 1 ]; then
       CMAKE_MINT;
