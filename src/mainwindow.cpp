@@ -1,20 +1,19 @@
+/*
+ * This file is part of the VSS-Vision project.
+ *
+ * This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
+ * v. 3.0. If a copy of the GPL was not distributed with this
+ * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
+ */
+
 #include "mainwindow.h"
 
-/*
- * Constructor class
- */
 MainWindow::MainWindow(){
 }
 
-/*
- * Destructor class
- */
 MainWindow::~MainWindow(){
 }
 
-/*
- * Method to create and run the aplication
- */
 void MainWindow::run(){
 	auto app = Gtk::Application::create();
 
@@ -25,9 +24,6 @@ void MainWindow::run(){
 	app->run(*window);
 }
 
-/*
- * Method to load all widgets created in glade
- */
 void MainWindow::load_widget_from_file(){
 
 	auto builder = Gtk::Builder::create();
@@ -79,9 +75,6 @@ void MainWindow::load_widget_from_file(){
 	}
 }
 
-/*
- * Set the correspondent signal/action to the method
- */
 void MainWindow::set_widget_signal(){
 	window->signal_key_press_event().connect(sigc::mem_fun(this, &MainWindow::on_keyboard), false);
 	
@@ -116,17 +109,10 @@ void MainWindow::set_widget_signal(){
     radio_button_camera->signal_pressed().connect(sigc::mem_fun(this, &MainWindow::on_radio_button_camera));
 }
 
-/*
- * Initialize widgets according user needs
- */
 void MainWindow::initialize_widget(){
 	window->maximize();
 	radio_button_image->set_active();
 }
-
-/*
- * All methods bellow convert the user action in code
- */
 
 bool MainWindow::on_keyboard(GdkEventKey* event){
 	if(event->keyval == GDK_KEY_space) {
