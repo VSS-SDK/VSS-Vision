@@ -46,8 +46,7 @@ CMAKE_DEBIAN () {
 INSTALL_UBUNTU_16_04 () {
   sudo apt-get update && apt-get upgrade
   sudo apt-get install pkg-config
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev /usr/include/opencv
-
+  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev 
   INSTALLED=1
 }
 
