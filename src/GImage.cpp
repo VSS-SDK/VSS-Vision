@@ -8,7 +8,7 @@
 
 #include "GImage.h"
 
-GImage::GImage()app{
+GImage::GImage(){
     add_events(Gdk::BUTTON_PRESS_MASK);
     add_events(Gdk::BUTTON_MOTION_MASK);
     add_events(Gdk::BUTTON_RELEASE_MASK);

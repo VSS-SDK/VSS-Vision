@@ -11,14 +11,14 @@
 
 #include <gtkmm.h>
 #include <iostream>
-#include "ICameraReader.h"
+#include "IWindowControl.h"
 
 using namespace std;
 
 class GProgram {
 
 private:
-	ICameraReader *cameraReader;	
+	IWindowControl *cameraReader;	
 // Window - save/load file 
 	Gtk::Window* window_file = nullptr;
 

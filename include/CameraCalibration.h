@@ -2,10 +2,10 @@
 #define CAMERA_CALIBRATION_H
 
 #include "gtkmm.h"
-#include "ICameraReader.h"
+#include "IWindowControl.h"
 #include "iostream"
 
-class CameraCalibration : public ICameraReader{
+class CameraCalibration : public IWindowControl{
 public:
     CameraCalibration();
     bool on_keyboard(GdkEventKey* event, Gtk::Window* window) override;

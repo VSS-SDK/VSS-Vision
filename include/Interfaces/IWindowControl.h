@@ -6,8 +6,8 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#ifndef ICAMERA_READER_H
-#define ICAMERA_READER_H
+#ifndef IWINDOW_CONTROL_H
+#define IWINDOW_CONTROL_H
 
 #include "gtkmm.h"
 
@@ -16,7 +16,7 @@
 // Calibragem e execucao vai implementar essa interface
 // Não poderá ser utilizado a calibragem e a execução ao mesmo tempo
 // Quando for trocar entre um e outro, utilizar dynamic_cast
-class ICameraReader{
+class IWindowControl{
 public:
 
     virtual bool on_keyboard(GdkEventKey* event, Gtk::Window* window) = 0;

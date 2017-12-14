@@ -83,36 +83,36 @@ void GProgram::load_widget_from_file(){
 }
 
 void GProgram::set_widget_signal(){
-	//window->signal_key_press_event().connect(sigc::mem_fun(cameraReader, &ICameraReader::on_keyboard), false);
-	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(cameraReader, &ICameraReader::on_keyboard), window) , false);
+	//window->signal_key_press_event().connect(sigc::mem_fun(cameraReader, &IWindowControl::on_keyboard), false);
+	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(cameraReader, &IWindowControl::on_keyboard), window) , false);
 	
-	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(cameraReader, &ICameraReader::on_button_load), file_chooser ));
-	button_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(cameraReader, &ICameraReader::on_button_save), file_chooser ));
-	button_window_file->signal_clicked().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(cameraReader, &ICameraReader::on_button_window_file), window_file));
+	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(cameraReader, &IWindowControl::on_button_load), file_chooser ));
+	button_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(cameraReader, &IWindowControl::on_button_save), file_chooser ));
+	button_window_file->signal_clicked().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(cameraReader, &IWindowControl::on_button_window_file), window_file));
 
-	input_path	  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &ICameraReader::on_input_path), input_path));
-	color_team_1  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &ICameraReader::on_color_team_1), color_team_1));
-	color_team_2  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &ICameraReader::on_color_team_2), color_team_2));
-	color_robot_1 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &ICameraReader::on_color_robot_1), color_robot_1));
-	color_robot_2 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &ICameraReader::on_color_robot_2), color_robot_2));
-	color_robot_3 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &ICameraReader::on_color_robot_3), color_robot_3));
-	color_selected->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &ICameraReader::on_color_selected), color_selected));
+	input_path	  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_input_path), input_path));
+	color_team_1  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_team_1), color_team_1));
+	color_team_2  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_team_2), color_team_2));
+	color_robot_1 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_robot_1), color_robot_1));
+	color_robot_2 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_robot_2), color_robot_2));
+	color_robot_3 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_robot_3), color_robot_3));
+	color_selected->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_selected), color_selected));
 
-	scale_h_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_h_max), scale_h_max));
- 	scale_h_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_h_min), scale_h_min));
-	scale_s_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_s_max), scale_s_max));
-	scale_s_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_s_min), scale_s_min));
-	scale_v_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_v_max), scale_v_max));
-	scale_v_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_v_min), scale_v_min));
+	scale_h_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_h_max), scale_h_max));
+ 	scale_h_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_h_min), scale_h_min));
+	scale_s_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_s_max), scale_s_max));
+	scale_s_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_s_min), scale_s_min));
+	scale_v_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_v_max), scale_v_max));
+	scale_v_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_v_min), scale_v_min));
 
-	scale_gain		->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_gain), scale_gain));
-	scale_rotation	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_rotation), scale_rotation));
-	scale_contrast	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_contrast), scale_contrast));
-	scale_exposure	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_exposure), scale_exposure));
-	scale_brightness->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_brightness), scale_brightness));
-	scale_saturation->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &ICameraReader::on_scale_saturation), scale_saturation));
+	scale_gain		->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_gain), scale_gain));
+	scale_rotation	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_rotation), scale_rotation));
+	scale_contrast	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_contrast), scale_contrast));
+	scale_exposure	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_exposure), scale_exposure));
+	scale_brightness->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_brightness), scale_brightness));
+	scale_saturation->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_saturation), scale_saturation));
 
-    radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &ICameraReader::on_radio_button_image), radio_button_image));
-    radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &ICameraReader::on_radio_button_video), radio_button_video));
-    radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &ICameraReader::on_radio_button_camera), radio_button_camera));
+    radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &IWindowControl::on_radio_button_image), radio_button_image));
+    radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &IWindowControl::on_radio_button_video), radio_button_video));
+    radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &IWindowControl::on_radio_button_camera), radio_button_camera));
 }
