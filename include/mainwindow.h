@@ -11,13 +11,14 @@
 
 #include <gtkmm.h>
 #include <iostream>
+#include "ICameraReader.h"
 
 using namespace std;
 
 class MainWindow {
 
 private:
-	
+	ICameraReader *cameraReader;	
 // Window - save/load file 
 	Gtk::Window* window_file = nullptr;
 
@@ -60,37 +61,6 @@ private:
 	Gtk::Scale* scale_exposure = nullptr;
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
-
-// Action method
-	bool on_keyboard(GdkEventKey*);
-	
-	void on_input_path();
-	void on_color_team_1();
-	void on_color_team_2();
-	void on_color_robot_1();
-	void on_color_robot_2();
-	void on_color_robot_3();
-	void on_color_selected();
-	
-	void on_scale_h_max();
-	void on_scale_h_min();
-	void on_scale_s_max();
-	void on_scale_s_min();
-	void on_scale_v_max();
-	void on_scale_v_min();
-	void on_scale_gain();
-	void on_scale_rotation();
-	void on_scale_contrast();
-	void on_scale_exposure();
-	void on_scale_saturation();
-	void on_scale_brightness();
-	
-	void on_button_load();
-	void on_button_save();
-	void on_button_window_file();
-	void on_radio_button_image();
-	void on_radio_button_video();
-	void on_radio_button_camera();
 
 // Control method
 	void initialize_widget();

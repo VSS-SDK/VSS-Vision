@@ -11,7 +11,7 @@ find_package( OpenCV REQUIRED )
 
 include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE_DIRS})
 include_directories(src)
-include_directories(include)
+include_directories(include include/Interfaces)
 
 file(GLOB_RECURSE SRC src/*.cpp)
 
