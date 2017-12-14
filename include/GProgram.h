@@ -6,8 +6,8 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef GPROGRAM_H_
+#define GPROGRAM_H_
 
 #include <gtkmm.h>
 #include <iostream>
@@ -15,7 +15,7 @@
 
 using namespace std;
 
-class MainWindow {
+class GProgram {
 
 private:
 	ICameraReader *cameraReader;	
@@ -68,8 +68,8 @@ private:
 	void load_widget_from_file();
 
 public:
-	MainWindow();
-	virtual ~MainWindow();
+	GProgram();
+	virtual ~GProgram();
 	void run();
 };
 

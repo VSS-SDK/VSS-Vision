@@ -6,9 +6,9 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include "mainwindowdraw.h"
+#include "GImage.h"
 
-MainWindowDraw::MainWindowDraw(){
+GImage::GImage()app{
     add_events(Gdk::BUTTON_PRESS_MASK);
     add_events(Gdk::BUTTON_MOTION_MASK);
     add_events(Gdk::BUTTON_RELEASE_MASK);
@@ -21,45 +21,43 @@ MainWindowDraw::MainWindowDraw(){
     move_adjust_cut = false;
 }
 
-bool MainWindowDraw::on_draw (const Cairo::RefPtr<Cairo::Context> &cairo_draw){
+bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
 
     try{
-        Gtk::Allocation allocation = get_allocation();
-            cairo_image_size.x = allocation.get_width();
-            cairo_image_size.y = allocation.get_height();
-            opencv_image_size  = opencv_image.size();
+        cairo_image_size.x = get_allocation().get_width();
+        cairo_image_size.y = get_allocation().get_height();
 
-        if (opencv_image_size.x != 0 && opencv_image_size.y != 0){
-            cv::Mat opencv_image_resize;
-            cv::resize(opencv_image, opencv_image_resize, cairo_image_size, 0, 0, cv::INTER_LINEAR);
+        if (opencv_image.rows != 0 && opencv_image.cols != 0){
+
+            cv::resize(opencv_image, opencv_image, cairo_image_size, 0, 0, cv::INTER_LINEAR);
             
-            Glib::RefPtr<Gdk::Pixbuf> pixbuf =  Gdk::Pixbuf::create_from_data( opencv_image_resize.data, Gdk::COLORSPACE_RGB, false, 8, opencv_image_resize.cols, opencv_image_resize.rows, opencv_image_resize.step);
-            Gdk::Cairo::set_source_pixbuf(cairo_draw, pixbuf);
-            cairo_draw->paint();
-
-            cairo_draw->move_to(cut_point.first.x,  cut_point.first.y);
-            cairo_draw->line_to(cut_point.second.x, cut_point.first.y);
-            cairo_draw->line_to(cut_point.second.x, cut_point.second.y);
-            cairo_draw->line_to(cut_point.first.x, cut_point.second.y);
-            cairo_draw->close_path();
+            Glib::RefPtr<Gdk::Pixbuf> pixbuf =  Gdk::Pixbuf::create_from_data( opencv_image.data, Gdk::COLORSPACE_RGB, false, 8, opencv_image.cols, opencv_image.rows, opencv_image.step);
+            Gdk::Cairo::set_source_pixbuf(c, pixbuf);
+            
+            c->paint();
+            c->move_to(cut_point.first.x , cut_point.first.y);
+            c->line_to(cut_point.second.x, cut_point.first.y);
+            c->line_to(cut_point.second.x, cut_point.second.y);
+            c->line_to(cut_point.first.x , cut_point.second.y);
+            c->close_path();
 
             std::vector<double> dashes = {50.0, 10.0, 10.0, 10.0};
             double offset = -50.0;
 
-            cairo_draw->set_dash(dashes, offset);
-            cairo_draw->set_source_rgba(1, 1, 1, 1);
-            cairo_draw->set_line_width(4.0);
-            cairo_draw->stroke();
+            c->set_dash(dashes, offset);
+            c->set_source_rgba(1, 1, 1, 1);
+            c->set_line_width(4.0);
+            c->stroke();
         }
 
     } catch(const std::exception& ex) {
-        std::cout << "EXCEPTION: " << ex.what() << "in MainWindowDraw:on_draw " << std::endl;
+        std::cout << "EXCEPTION: " << ex.what() << "in GImage:on_draw " << std::endl;
     }
     
     return true;
 }
 
-bool MainWindowDraw::on_button_press_event (GdkEventButton* event){
+bool GImage::on_button_press_event (GdkEventButton* event){
     if(event->button == GDK_BUTTON_SECONDARY && cut_mode) {
         cut_point.first = {int(event->x), int(event->y)};
         cut_point.second = {int(event->x), int(event->y)};
@@ -73,7 +71,7 @@ bool MainWindowDraw::on_button_press_event (GdkEventButton* event){
     return true;
 }
 
-bool MainWindowDraw::on_button_release_event (GdkEventButton* event){
+bool GImage::on_button_release_event (GdkEventButton* event){
     if(event->button == GDK_BUTTON_SECONDARY && cut_mode) {
         move_first_cut = false;
     }
@@ -85,7 +83,7 @@ bool MainWindowDraw::on_button_release_event (GdkEventButton* event){
     return true;
 }
 
-bool MainWindowDraw::on_motion_notify_event (GdkEventMotion* event){
+bool GImage::on_motion_notify_event (GdkEventMotion* event){
     if(move_first_cut && cut_mode) {
         cut_point.second = {int(event->x) , int(event->y)};
         queue_draw();
@@ -112,24 +110,24 @@ bool MainWindowDraw::on_motion_notify_event (GdkEventMotion* event){
     return true;
 }
 
-void MainWindowDraw::setImage(cv::Mat image){
+void GImage::setImage(cv::Mat image){
     opencv_image = image;
     queue_draw();
 }
 
-void MainWindowDraw::setCutMode(bool b){
+void GImage::setCutMode(bool b){
     cut_mode = b;
 }
 
-void MainWindowDraw::setRectangleInvisible(){
+void GImage::setRectangleInvisible(){
     cut_point.first  = {0,0};
     cut_point.second = {0,0};
 }
 
-cv::Point MainWindowDraw::getCairoImageSize(){
+cv::Point GImage::getCairoImageSize(){
     return cairo_image_size;
 }
 
-PointCut MainWindowDraw::getCutPoint(){
+PointCut GImage::getCutPoint(){
     return cut_point;
 }

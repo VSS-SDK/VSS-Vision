@@ -7,9 +7,9 @@
  */
 
 #include <gtkmm.h>
-#include "mainwindow.h"
+#include "GProgram.h"
 
 int main(int argc, char *argv[]) {
-    MainWindow window;
-    window.run();
+    GProgram app;
+    app.run();
 }

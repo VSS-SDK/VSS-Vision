@@ -6,17 +6,22 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include "mainwindow.h"
+#include "GProgram.h"
 #include "CameraCalibration.h"
 
-MainWindow::MainWindow(){
+GProgram::GProgram(){
 	cameraReader = new CameraCalibration();
 }
 
-MainWindow::~MainWindow(){
+GProgram::~GProgram(){
 }
 
-void MainWindow::run(){
+void GProgram::initialize_widget(){
+	window->maximize();
+	radio_button_image->set_active();
+}
+
+void GProgram::run(){
 	auto app = Gtk::Application::create();
 
 	load_widget_from_file();
@@ -26,7 +31,7 @@ void MainWindow::run(){
 	app->run(*window);
 }
 
-void MainWindow::load_widget_from_file(){
+void GProgram::load_widget_from_file(){
 
 	auto builder = Gtk::Builder::create();
 
@@ -77,7 +82,7 @@ void MainWindow::load_widget_from_file(){
 	}
 }
 
-void MainWindow::set_widget_signal(){
+void GProgram::set_widget_signal(){
 	//window->signal_key_press_event().connect(sigc::mem_fun(cameraReader, &ICameraReader::on_keyboard), false);
 	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(cameraReader, &ICameraReader::on_keyboard), window) , false);
 	
@@ -110,9 +115,4 @@ void MainWindow::set_widget_signal(){
     radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &ICameraReader::on_radio_button_image), radio_button_image));
     radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &ICameraReader::on_radio_button_video), radio_button_video));
     radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &ICameraReader::on_radio_button_camera), radio_button_camera));
-}
-
-void MainWindow::initialize_widget(){
-	window->maximize();
-	radio_button_image->set_active();
 }

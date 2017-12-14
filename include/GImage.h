@@ -6,8 +6,8 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#ifndef MAIN_WINDOW_DRAW
-#define MAIN_WINDOW_DRAW
+#ifndef GIMAGE_H_
+#define GIMAGE_H_
 
 #include <gtkmm.h>
 #include <stdio.h>
@@ -32,12 +32,11 @@ struct PointCut {
 	}
 };
 
-class MainWindowDraw : public Gtk::DrawingArea {
+class GImage : public Gtk::DrawingArea {
 
 private:
     cv::Mat opencv_image;
     cv::Point cairo_image_size;
-    cv::Point opencv_image_size;
     cv::Point pixel_color;
     PointCut cut_point;
 
@@ -48,13 +47,13 @@ private:
     void drawRectangle(cv::Point, cv::Point);
 
 protected:
-    virtual bool on_draw(const Cairo::RefPtr<Cairo::Context> &c);
-    virtual bool on_button_press_event (GdkEventButton* event);
-    virtual bool on_button_release_event (GdkEventButton* event);
-    virtual bool on_motion_notify_event (GdkEventMotion* event);
+    bool on_draw(const Cairo::RefPtr<Cairo::Context> &c) override;
+    bool on_button_press_event(GdkEventButton* event) override;
+    bool on_motion_notify_event(GdkEventMotion* event) override;
+    bool on_button_release_event(GdkEventButton* event) override;
 
 public:
-	MainWindowDraw();
+	GImage();
     void setCutMode(bool);
     void setImage(cv::Mat);
     void setRectangleInvisible();

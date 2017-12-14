@@ -1,7 +1,6 @@
 #include "CameraCalibration.h"
 
 CameraCalibration::CameraCalibration(){
-
 }
 
 bool CameraCalibration::on_keyboard(GdkEventKey* event, Gtk::Window* window){
@@ -13,18 +12,6 @@ bool CameraCalibration::on_keyboard(GdkEventKey* event, Gtk::Window* window){
 		window->close();
 	}
 	return true;
-}
-
-
-bool on_keyboard(GdkEventKey* event, Gtk::Window* window){
-    if(event->keyval == GDK_KEY_space) {
-        window->close();
-    } else if(event->keyval == GDK_KEY_Return) {
-        window->close();
-    } else if(event->keyval == GDK_KEY_Escape) {
-        window->close();
-    }
-    return true;
 }
 
 void CameraCalibration::on_button_load(Gtk::FileChooserWidget* file_chooser){
