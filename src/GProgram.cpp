@@ -10,16 +10,41 @@
 #include "CameraCalibration.h"
 
 GProgram::GProgram(){
-	cameraReader = new CameraCalibration();
-	position.resize(7);
+	window_control = new CameraCalibration();
+
+	text_position = { "Robot 1 - [200,200]", "Robot 2 - [200,200]", "Robot 3 - [200,200]", "Opponent 1 - [200,200]", "Opponent 2 - [200,200]", "Opponent 3 - [200,200]", "Ball - [200,200]"};
+	text_color = {"Yellow", "Blue", "Orange", "Pink", "Purple", "Green"};
 }
 
 GProgram::~GProgram(){
 }
 
 void GProgram::initialize_widget(){
-	window->maximize();
+
+	for (unsigned int i = 0; i < text_position.size(); i++){
+		label_position.push_back( new Gtk::Label(text_position[i]) );
+		box->pack_start(*label_position[i]);
+	}
+
+	for (unsigned int i = 0; i < text_color.size(); i++){	
+		combo_box_color_select->append(text_color[i]);
+	}
+
+	for (unsigned int i = 0; i < 2; i++){	
+		combo_box_color_team1->append(text_color[i]);
+		combo_box_color_team2->append(text_color[i]);
+	}
+
+	for (unsigned int i = 3; i < text_color.size(); i++){	
+		combo_box_color_robot1->append(text_color[i]);
+		combo_box_color_robot2->append(text_color[i]);
+		combo_box_color_robot3->append(text_color[i]);
+	}	
+
 	radio_button_image->set_active();
+
+	window->maximize();
+	window->show_all();
 }
 
 void GProgram::run(){
@@ -40,6 +65,7 @@ void GProgram::load_widget_from_file(){
 		builder->add_from_file("../glade/mainwindow.glade");
 
 		builder->get_widget("window", window);
+		builder->get_widget("box_position", box);
 		
 		builder->get_widget("window_file", window_file);
 		builder->get_widget("button_save", button_save);
@@ -47,13 +73,13 @@ void GProgram::load_widget_from_file(){
 		builder->get_widget("button_window_file", button_window_file);
 		builder->get_widget("file_chooser", file_chooser);
 	
-		builder->get_widget("color_selected", color_selected);
-		builder->get_widget("color_team_1", color_team_1);
-		builder->get_widget("color_team_2", color_team_2);
-		builder->get_widget("color_robot_1", color_robot_1);
-		builder->get_widget("color_robot_2", color_robot_2);
-		builder->get_widget("color_robot_3", color_robot_3);
-		builder->get_widget("combo_box_input_path", input_path);
+		builder->get_widget("combo_box_color_select", combo_box_color_select);
+		builder->get_widget("combo_box_color_team1", combo_box_color_team1);
+		builder->get_widget("combo_box_color_team2", combo_box_color_team2);
+		builder->get_widget("combo_box_color_robot1", combo_box_color_robot1);
+		builder->get_widget("combo_box_color_robot2", combo_box_color_robot2);
+		builder->get_widget("combo_box_color_robot3", combo_box_color_robot3);
+		builder->get_widget("combo_box_input_path", combo_box_input_path);
 	
 		builder->get_widget("scale_h_max", scale_h_max);
 		builder->get_widget("scale_h_min", scale_h_min);
@@ -71,14 +97,6 @@ void GProgram::load_widget_from_file(){
 		builder->get_widget("radio_button_image", radio_button_image);    
 		builder->get_widget("radio_button_video", radio_button_video);    
 		builder->get_widget("radio_button_camera", radio_button_camera);
-		
-		builder->get_widget("label1", position[0]);
-		builder->get_widget("label2", position[1]);
-		builder->get_widget("label3", position[2]);
-		builder->get_widget("label4", position[3]);
-		builder->get_widget("label5", position[4]);
-		builder->get_widget("label6", position[5]);
-		builder->get_widget("label7", position[6]);
 			
 	} catch(const Glib::FileError& ex) {
 		std::cerr << "FileError: " << ex.what() << std::endl;
@@ -92,36 +110,36 @@ void GProgram::load_widget_from_file(){
 }
 
 void GProgram::set_widget_signal(){
-	//window->signal_key_press_event().connect(sigc::mem_fun(cameraReader, &IWindowControl::on_keyboard), false);
-	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(cameraReader, &IWindowControl::on_keyboard), window) , false);
+	//window->signal_key_press_event().connect(sigc::mem_fun(window_control, &IWindowControl::on_keyboard), false);
+	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(window_control, &IWindowControl::on_keyboard), window) , false);
 	
-	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(cameraReader, &IWindowControl::on_button_load), file_chooser ));
-	button_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(cameraReader, &IWindowControl::on_button_save), file_chooser ));
-	button_window_file->signal_clicked().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(cameraReader, &IWindowControl::on_button_window_file), window_file));
+	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load), file_chooser ));
+	button_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(window_control, &IWindowControl::on_button_save), file_chooser ));
+	button_window_file->signal_clicked().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(window_control, &IWindowControl::on_button_window_file), window_file));
 
-	input_path	  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_input_path), input_path));
-	color_team_1  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_team_1), color_team_1));
-	color_team_2  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_team_2), color_team_2));
-	color_robot_1 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_robot_1), color_robot_1));
-	color_robot_2 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_robot_2), color_robot_2));
-	color_robot_3 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_robot_3), color_robot_3));
-	color_selected->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(cameraReader, &IWindowControl::on_color_selected), color_selected));
+	combo_box_input_path	  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_input_path), combo_box_input_path));
+	combo_box_color_team1  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_team1), combo_box_color_team1));
+	combo_box_color_team2  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_team2), combo_box_color_team2));
+	combo_box_color_robot1 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot1), combo_box_color_robot1));
+	combo_box_color_robot2 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot2), combo_box_color_robot2));
+	combo_box_color_robot3 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot3), combo_box_color_robot3));
+	combo_box_color_select->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_select), combo_box_color_select));
 
-	scale_h_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_h_max), scale_h_max));
- 	scale_h_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_h_min), scale_h_min));
-	scale_s_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_s_max), scale_s_max));
-	scale_s_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_s_min), scale_s_min));
-	scale_v_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_v_max), scale_v_max));
-	scale_v_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_v_min), scale_v_min));
+	scale_h_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_h_max), scale_h_max));
+ 	scale_h_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_h_min), scale_h_min));
+	scale_s_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_s_max), scale_s_max));
+	scale_s_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_s_min), scale_s_min));
+	scale_v_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_v_max), scale_v_max));
+	scale_v_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_v_min), scale_v_min));
 
-	scale_gain		->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_gain), scale_gain));
-	scale_rotation	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_rotation), scale_rotation));
-	scale_contrast	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_contrast), scale_contrast));
-	scale_exposure	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_exposure), scale_exposure));
-	scale_brightness->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_brightness), scale_brightness));
-	scale_saturation->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(cameraReader, &IWindowControl::on_scale_saturation), scale_saturation));
+	scale_gain		->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_gain), scale_gain));
+	scale_rotation	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_rotation), scale_rotation));
+	scale_contrast	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_contrast), scale_contrast));
+	scale_exposure	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_exposure), scale_exposure));
+	scale_brightness->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_brightness), scale_brightness));
+	scale_saturation->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_saturation), scale_saturation));
 
-    radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &IWindowControl::on_radio_button_image), radio_button_image));
-    radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &IWindowControl::on_radio_button_video), radio_button_video));
-    radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(cameraReader, &IWindowControl::on_radio_button_camera), radio_button_camera));
+    radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_image), radio_button_image));
+    radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_video), radio_button_video));
+    radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_camera), radio_button_camera));
 }

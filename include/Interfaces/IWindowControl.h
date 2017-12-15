@@ -19,33 +19,32 @@
 class IWindowControl{
 public:
 
-    virtual bool on_keyboard(GdkEventKey* event, Gtk::Window* window) = 0;
-
-    virtual void on_button_load(Gtk::FileChooserWidget* file_chooser) = 0;
-	virtual void on_button_save(Gtk::FileChooserWidget* file_chooser) = 0;
-	virtual void on_button_window_file(Gtk::Window* window_file) = 0;
-	virtual void on_color_selected(Gtk::ComboBoxText* color_selected) = 0;
-	virtual void on_color_team_1(Gtk::ComboBoxText* color_team_1) = 0;
-	virtual void on_color_team_2(Gtk::ComboBoxText* color_team_2) = 0;
-	virtual void on_color_robot_1(Gtk::ComboBoxText* color_robot_1) = 0;
-	virtual void on_color_robot_2(Gtk::ComboBoxText* color_robot_2) = 0;
-	virtual void on_color_robot_3(Gtk::ComboBoxText* color_robot_3) = 0;
-	virtual void on_input_path(Gtk::ComboBoxText* input_path) = 0;
-	virtual void on_scale_h_max(Gtk::Scale* scale_h_max) = 0;
-	virtual void on_scale_h_min(Gtk::Scale* scale_h_min) = 0;
-	virtual void on_scale_s_max(Gtk::Scale* scale_s_max) = 0;
-	virtual void on_scale_s_min(Gtk::Scale* scale_s_min) = 0;
-	virtual void on_scale_v_max(Gtk::Scale* scale_v_max) = 0;
-	virtual void on_scale_v_min(Gtk::Scale* scale_v_min) = 0;
-	virtual void on_scale_rotation(Gtk::Scale* scale_rotation) = 0;
-	virtual void on_scale_brightness(Gtk::Scale* scale_brightness) = 0;
-	virtual void on_scale_contrast(Gtk::Scale* scale_contrast) = 0;
-	virtual void on_scale_saturation(Gtk::Scale* scale_saturation) = 0;
-	virtual void on_scale_exposure(Gtk::Scale* scale_exposure) = 0;
-	virtual void on_scale_gain(Gtk::Scale* scale_gain) = 0;
-	virtual void on_radio_button_image(Gtk::RadioButton* radio_button_image) = 0;
-	virtual void on_radio_button_video(Gtk::RadioButton* radio_button_video) = 0;
-	virtual void on_radio_button_camera(Gtk::RadioButton* radio_button_camera) = 0; 
+    virtual bool on_keyboard(GdkEventKey* event, Gtk::Window*) = 0;
+    virtual void on_button_load(Gtk::FileChooserWidget*) = 0;
+	virtual void on_button_save(Gtk::FileChooserWidget*) = 0;
+	virtual void on_button_window_file(Gtk::Window*) = 0;
+	virtual void on_combo_box_color_select(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_team1(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_team2(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_robot1(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_robot2(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_robot3(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_input_path(Gtk::ComboBoxText*) = 0;
+	virtual void on_scale_h_max(Gtk::Scale*) = 0;
+	virtual void on_scale_h_min(Gtk::Scale*) = 0;
+	virtual void on_scale_s_max(Gtk::Scale*) = 0;
+	virtual void on_scale_s_min(Gtk::Scale*) = 0;
+	virtual void on_scale_v_max(Gtk::Scale*) = 0;
+	virtual void on_scale_v_min(Gtk::Scale*) = 0;
+	virtual void on_scale_rotation(Gtk::Scale*) = 0;
+	virtual void on_scale_brightness(Gtk::Scale*) = 0;
+	virtual void on_scale_contrast(Gtk::Scale*) = 0;
+	virtual void on_scale_saturation(Gtk::Scale*) = 0;
+	virtual void on_scale_exposure(Gtk::Scale*) = 0;
+	virtual void on_scale_gain(Gtk::Scale*) = 0;
+	virtual void on_radio_button_image(Gtk::RadioButton*) = 0;
+	virtual void on_radio_button_video(Gtk::RadioButton*) = 0;
+	virtual void on_radio_button_camera(Gtk::RadioButton*) = 0; 
 };
 
 #endif // ICAMERA_READER_H

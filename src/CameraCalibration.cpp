@@ -26,31 +26,31 @@ void CameraCalibration::on_button_window_file(Gtk::Window* window_file){
     window_file->show();
 }
 
-void CameraCalibration::on_color_selected(Gtk::ComboBoxText* color_selected){
+void CameraCalibration::on_combo_box_color_select(Gtk::ComboBoxText* color_selected){
     std::cout << color_selected->get_active_text() << std::endl;
 }
 
-void CameraCalibration::on_color_team_1(Gtk::ComboBoxText* color_team_1){
+void CameraCalibration::on_combo_box_color_team1(Gtk::ComboBoxText* color_team_1){
     std::cout << color_team_1->get_active_text() << std::endl;
 }
 
-void CameraCalibration::on_color_team_2(Gtk::ComboBoxText* color_team_2){
+void CameraCalibration::on_combo_box_color_team2(Gtk::ComboBoxText* color_team_2){
     std::cout << color_team_2->get_active_text() << std::endl;
 }
 
-void CameraCalibration::on_color_robot_1(Gtk::ComboBoxText* color_robot_1){
+void CameraCalibration::on_combo_box_color_robot1(Gtk::ComboBoxText* color_robot_1){
     std::cout << color_robot_1->get_active_text() << std::endl;
 }
 
-void CameraCalibration::on_color_robot_2(Gtk::ComboBoxText* color_robot_2){
+void CameraCalibration::on_combo_box_color_robot2(Gtk::ComboBoxText* color_robot_2){
     std::cout << color_robot_2->get_active_text() << std::endl;
 }
 
-void CameraCalibration::on_color_robot_3(Gtk::ComboBoxText* color_robot_3){
+void CameraCalibration::on_combo_box_color_robot3(Gtk::ComboBoxText* color_robot_3){
     std::cout << color_robot_3->get_active_text() << std::endl;
 }
 
-void CameraCalibration::on_input_path(Gtk::ComboBoxText* input_path){
+void CameraCalibration::on_combo_box_input_path(Gtk::ComboBoxText* input_path){
     std::cout << input_path->get_active_text() << std::endl;
 }
 

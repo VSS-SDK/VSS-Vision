@@ -121,19 +121,10 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="color_selected">
+                              <object class="GtkComboBoxText" id="combo_box_color_select">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="active">0</property>
-                                <items>
-                                  <item id="0" translatable="yes">Blue</item>
-                                  <item id="1" translatable="yes">Yellow</item>
-                                  <item id="2" translatable="yes">Orange</item>
-                                  <item id="3" translatable="yes">Red</item>
-                                  <item id="4" translatable="yes">Pink</item>
-                                  <item id="5" translatable="yes">Purple</item>
-                                  <item id="6" translatable="yes">Green</item>
-                                </items>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -476,14 +467,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBoxText" id="color_team_1">
+                                  <object class="GtkComboBoxText" id="combo_box_color_team1">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="active">0</property>
-                                    <items>
-                                      <item id="0" translatable="yes">Blue</item>
-                                      <item id="1" translatable="yes">Yellow</item>
-                                    </items>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -517,14 +504,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBoxText" id="color_team_2">
+                                  <object class="GtkComboBoxText" id="combo_box_color_team2">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="active">1</property>
-                                    <items>
-                                      <item id="0" translatable="yes">Blue</item>
-                                      <item id="1" translatable="yes">Yellow</item>
-                                    </items>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -558,16 +541,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBoxText" id="color_robot_1">
+                                  <object class="GtkComboBoxText" id="combo_box_color_robot1">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="active">0</property>
-                                    <items>
-                                      <item id="3" translatable="yes">Red</item>
-                                      <item id="4" translatable="yes">Pink</item>
-                                      <item id="5" translatable="yes">Purple</item>
-                                      <item id="6" translatable="yes">Green</item>
-                                    </items>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -601,16 +578,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBoxText" id="color_robot_2">
+                                  <object class="GtkComboBoxText" id="combo_box_color_robot2">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="active">2</property>
-                                    <items>
-                                      <item id="3" translatable="yes">Red</item>
-                                      <item id="4" translatable="yes">Pink</item>
-                                      <item id="5" translatable="yes">Purple</item>
-                                      <item id="6" translatable="yes">Green</item>
-                                    </items>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -644,16 +615,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBoxText" id="color_robot_3">
+                                  <object class="GtkComboBoxText" id="combo_box_color_robot3">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="active">3</property>
-                                    <items>
-                                      <item id="3" translatable="yes">Red</item>
-                                      <item id="4" translatable="yes">Pink</item>
-                                      <item id="5" translatable="yes">Purple</item>
-                                      <item id="6" translatable="yes">Green</item>
-                                    </items>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -1222,6 +1187,8 @@
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
                     <property name="margin_left">10</property>
                     <property name="margin_right">10</property>
                     <property name="margin_top">10</property>
@@ -1287,93 +1254,12 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkGrid" id="grid_position">
+                      <object class="GtkBox" id="box_position">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_left">5</property>
-                        <property name="margin_right">5</property>
-                        <property name="margin_top">5</property>
-                        <property name="margin_bottom">5</property>
-                        <property name="row_spacing">5</property>
-                        <property name="column_spacing">5</property>
-                        <property name="row_homogeneous">True</property>
-                        <property name="column_homogeneous">True</property>
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">4</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">5</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">label</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">6</property>
-                          </packing>
+                          <placeholder/>
                         </child>
                       </object>
                     </child>
@@ -1392,6 +1278,7 @@
               </object>
               <packing>
                 <property name="tab_expand">True</property>
+                <property name="tab_fill">False</property>
               </packing>
             </child>
             <child>
