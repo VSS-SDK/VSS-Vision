@@ -32,6 +32,9 @@ private:
 
 // Window - calibration
 	Gtk::Window* window = nullptr;
+
+	// Text position
+	vector<Gtk::Label*> position;
 	
 	// Button
 	Gtk::Button* button_window_file = nullptr;

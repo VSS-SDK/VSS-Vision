@@ -1299,7 +1299,7 @@
                         <property name="row_homogeneous">True</property>
                         <property name="column_homogeneous">True</property>
                         <child>
-                          <object class="GtkLabel" id="label1">
+                          <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">label</property>
@@ -1310,7 +1310,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label2">
+                          <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">label</property>
@@ -1321,7 +1321,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label3">
+                          <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">label</property>
@@ -1332,7 +1332,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label4">
+                          <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">label</property>
@@ -1343,7 +1343,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label5">
+                          <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">label</property>
@@ -1354,7 +1354,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label6">
+                          <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">label</property>
@@ -1365,7 +1365,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label7">
+                          <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">label</property>

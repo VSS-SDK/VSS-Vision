@@ -11,6 +11,7 @@
 
 GProgram::GProgram(){
 	cameraReader = new CameraCalibration();
+	position.resize(7);
 }
 
 GProgram::~GProgram(){
@@ -69,7 +70,15 @@ void GProgram::load_widget_from_file(){
 	
 		builder->get_widget("radio_button_image", radio_button_image);    
 		builder->get_widget("radio_button_video", radio_button_video);    
-		builder->get_widget("radio_button_camera", radio_button_camera);    
+		builder->get_widget("radio_button_camera", radio_button_camera);
+		
+		builder->get_widget("label1", position[0]);
+		builder->get_widget("label2", position[1]);
+		builder->get_widget("label3", position[2]);
+		builder->get_widget("label4", position[3]);
+		builder->get_widget("label5", position[4]);
+		builder->get_widget("label6", position[5]);
+		builder->get_widget("label7", position[6]);
 			
 	} catch(const Glib::FileError& ex) {
 		std::cerr << "FileError: " << ex.what() << std::endl;
