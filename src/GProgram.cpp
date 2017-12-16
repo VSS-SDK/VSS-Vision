@@ -7,6 +7,7 @@
  */
 
 #include "GProgram.h"
+#include "myarea.h"
 #include "CameraCalibration.h"
 
 GProgram::GProgram(){
@@ -23,7 +24,7 @@ void GProgram::initialize_widget(){
 
 	for (unsigned int i = 0; i < text_position.size(); i++){
 		label_position.push_back( new Gtk::Label(text_position[i]) );
-		box->pack_start(*label_position[i]);
+		box_position->pack_start(*label_position[i]);
 	}
 
 	for (unsigned int i = 0; i < text_color.size(); i++){	
@@ -39,12 +40,9 @@ void GProgram::initialize_widget(){
 		combo_box_color_robot1->append(text_color[i]);
 		combo_box_color_robot2->append(text_color[i]);
 		combo_box_color_robot3->append(text_color[i]);
-	}	
+	}
 
 	radio_button_image->set_active();
-
-	window->maximize();
-	window->show_all();
 }
 
 void GProgram::run(){
@@ -53,6 +51,14 @@ void GProgram::run(){
 	load_widget_from_file();
 	set_widget_signal();
 	initialize_widget();
+
+	MyArea image;
+	box_image->pack_start(image);
+
+	box_image->show();
+
+	window->maximize();
+	window->show_all();
 
 	app->run(*window);
 }
@@ -65,7 +71,9 @@ void GProgram::load_widget_from_file(){
 		builder->add_from_file("../glade/mainwindow.glade");
 
 		builder->get_widget("window", window);
-		builder->get_widget("box_position", box);
+
+		builder->get_widget("box_image", box_image);
+		builder->get_widget("box_position", box_position);
 		
 		builder->get_widget("window_file", window_file);
 		builder->get_widget("button_save", button_save);
@@ -110,14 +118,13 @@ void GProgram::load_widget_from_file(){
 }
 
 void GProgram::set_widget_signal(){
-	//window->signal_key_press_event().connect(sigc::mem_fun(window_control, &IWindowControl::on_keyboard), false);
 	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(window_control, &IWindowControl::on_keyboard), window) , false);
 	
 	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load), file_chooser ));
 	button_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(window_control, &IWindowControl::on_button_save), file_chooser ));
 	button_window_file->signal_clicked().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(window_control, &IWindowControl::on_button_window_file), window_file));
 
-	combo_box_input_path	  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_input_path), combo_box_input_path));
+	combo_box_input_path   ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_input_path), combo_box_input_path));
 	combo_box_color_team1  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_team1), combo_box_color_team1));
 	combo_box_color_team2  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_team2), combo_box_color_team2));
 	combo_box_color_robot1 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot1), combo_box_color_robot1));

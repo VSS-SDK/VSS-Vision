@@ -7,6 +7,8 @@
  */
 
 #include "GImage.h"
+#include "opencv2/highgui/highgui.hpp"
+
 
 GImage::GImage(){
     add_events(Gdk::BUTTON_PRESS_MASK);
@@ -19,6 +21,8 @@ GImage::GImage(){
     cut_mode = false;
     move_first_cut = false;
     move_adjust_cut = false;
+
+    setImage(cv::imread("../mock/images/model.jpg"));
 }
 
 bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
@@ -56,7 +60,7 @@ bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
     
     return true;
 }
-
+/* 
 bool GImage::on_button_press_event (GdkEventButton* event){
     if(event->button == GDK_BUTTON_SECONDARY && cut_mode) {
         cut_point.first = {int(event->x), int(event->y)};
@@ -108,11 +112,13 @@ bool GImage::on_motion_notify_event (GdkEventMotion* event){
         queue_draw();
     }
     return true;
-}
+} */
 
 void GImage::setImage(cv::Mat image){
     opencv_image = image;
     queue_draw();
+    cout << opencv_image.size() << endl;
+    
 }
 
 void GImage::setCutMode(bool b){

@@ -10,9 +10,6 @@
 #define GIMAGE_H_
 
 #include <gtkmm.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <vector>
 #include <iostream>
 #include "opencv2/imgproc/imgproc.hpp"
 
@@ -47,10 +44,10 @@ private:
     void drawRectangle(cv::Point, cv::Point);
 
 protected:
-    bool on_draw(const Cairo::RefPtr<Cairo::Context> &c) override;
-    bool on_button_press_event(GdkEventButton* event) override;
-    bool on_motion_notify_event(GdkEventMotion* event) override;
-    bool on_button_release_event(GdkEventButton* event) override;
+    virtual bool on_draw(const Cairo::RefPtr<Cairo::Context> &c);
+    //virtual bool on_button_press_event(GdkEventButton* event);
+    //virtual bool on_motion_notify_event(GdkEventMotion* event);
+    //virtual bool on_button_release_event(GdkEventButton* event);
 
 public:
 	GImage();

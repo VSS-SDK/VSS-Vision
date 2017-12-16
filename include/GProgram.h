@@ -12,12 +12,14 @@
 #include <gtkmm.h>
 #include <iostream>
 #include "IWindowControl.h"
+#include "GImage.h"
 
 using namespace std;
 
 class GProgram {
 
 private:
+
 
 	vector<string> text_position;
 	vector<string> text_color;
@@ -38,8 +40,9 @@ private:
 // Window - calibration
 	Gtk::Window* window = nullptr;
 
-	// Box text position
-	Gtk::Box* box;
+	// Box
+	Gtk::Box* box_image;
+	Gtk::Box* box_position;
 
 	// Text position
 	vector<Gtk::Label*> label_position;
