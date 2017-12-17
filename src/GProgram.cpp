@@ -41,7 +41,12 @@ void GProgram::initialize_widget(){
 		combo_box_color_robot3->append(text_color[i]);
 	}
 
+	g_image->set_image(cv::imread("../mock/images/model.jpg"));	
+
 	radio_button_image->set_active();	
+
+	window->maximize();
+	window->show_all();
 }
 
 void GProgram::run(){
@@ -51,14 +56,6 @@ void GProgram::run(){
 	set_widget_signal();
 	initialize_widget();
 
-// Passar isso para o initialize_widget
-	GImage image;
-	image.set_image(cv::imread("../mock/images/model.jpg"));
-	box_image->pack_start(image);
-	window->maximize();
-	window->show_all();
-// Passar isso para o initialize_widget
-
 	app->run(*window);
 }
 
@@ -67,9 +64,10 @@ void GProgram::load_widget_from_file(){
 	auto builder = Gtk::Builder::create();
 
 	try {
-		builder->add_from_file("../glade/mainwindow.glade");
+		builder->add_from_file("../glade/GProgram.glade");
 
 		builder->get_widget("window", window);
+		builder->get_widget_derived("image", g_image);
 
 		builder->get_widget("box_image", box_image);
 		builder->get_widget("box_position", box_position);

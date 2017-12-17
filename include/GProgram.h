@@ -41,6 +41,8 @@ private:
 // Window - calibration
 	Gtk::Window* window = nullptr;
 
+	GImage* g_image = nullptr;
+
 	// Box
 	Gtk::Box* box_image;
 	Gtk::Box* box_position;

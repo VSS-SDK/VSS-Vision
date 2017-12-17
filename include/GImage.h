@@ -33,7 +33,9 @@ protected:
     bool on_button_release_event(GdkEventButton* event) override;
 
 public:
-	GImage();
+    GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
+    virtual ~GImage();
+    
     void set_cut_mode(bool);
     void set_image(cv::Mat);
 };

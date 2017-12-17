@@ -8,7 +8,7 @@
 
 #include "GImage.h"
 
-GImage::GImage(){
+GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) : Gtk::DrawingArea(cobject) {
     add_events(Gdk::BUTTON_PRESS_MASK);
     add_events(Gdk::BUTTON_MOTION_MASK);
     add_events(Gdk::BUTTON_RELEASE_MASK);
@@ -21,6 +21,9 @@ GImage::GImage(){
     cv_image = cv::Mat::zeros(1, 1, CV_64F);
 }
 
+GImage::~GImage(){ 
+}
+
 bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
 
     try{
@@ -28,7 +31,7 @@ bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
             cv_resize.x = get_allocation().get_width();
             cv_resize.y = (cv_resize.x / cv_image.cols) * cv_image.rows;
 
-        cv::resize(cv_image, cv_image, cv_resize, 0, 0, cv::INTER_LINEAR);
+        cv::resize(cv_image, cv_image, cv::Point(640,480), 0, 0, cv::INTER_LINEAR);
         
         Glib::RefPtr<Gdk::Pixbuf> pixbuf =  Gdk::Pixbuf::create_from_data( cv_image.data, Gdk::COLORSPACE_RGB, false, 8, cv_image.cols, cv_image.rows, cv_image.step);
         Gdk::Cairo::set_source_pixbuf(c, pixbuf);
