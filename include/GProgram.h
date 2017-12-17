@@ -11,8 +11,10 @@
 
 #include <gtkmm.h>
 #include <iostream>
-#include "IWindowControl.h"
+
 #include "GImage.h"
+#include "IWindowControl.h"
+#include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
 
@@ -20,9 +22,8 @@ class GProgram {
 
 private:
 
-
-	vector<string> text_position;
 	vector<string> text_color;
+	vector<string> text_position;
 
 	IWindowControl *window_control;
 

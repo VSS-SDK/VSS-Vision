@@ -897,13 +897,13 @@
                               <object class="GtkBox">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="spacing">18</property>
+                                <property name="spacing">29</property>
                                 <child>
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
-                                    <property name="label" translatable="yes">Saturation</property>
+                                    <property name="label" translatable="yes">Contrast</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -912,10 +912,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkScale" id="scale_saturation">
+                                  <object class="GtkScale" id="scale_contrast">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="adjustment">adjustment_saturation</property>
+                                    <property name="adjustment">adjustment_contrast</property>
                                     <property name="fill_level">100</property>
                                     <property name="round_digits">1</property>
                                     <property name="draw_value">False</property>
@@ -937,13 +937,13 @@
                               <object class="GtkBox">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="spacing">29</property>
+                                <property name="spacing">18</property>
                                 <child>
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
-                                    <property name="label" translatable="yes">Contrast</property>
+                                    <property name="label" translatable="yes">Saturation</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -952,10 +952,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkScale" id="scale_contrast">
+                                  <object class="GtkScale" id="scale_saturation">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="adjustment">adjustment_contrast</property>
+                                    <property name="adjustment">adjustment_saturation</property>
                                     <property name="fill_level">100</property>
                                     <property name="round_digits">1</property>
                                     <property name="draw_value">False</property>
@@ -1180,7 +1180,16 @@
             <property name="margin_bottom">10</property>
             <property name="orientation">vertical</property>
             <child>
-              <placeholder/>
+              <object class="GtkDrawingArea">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
             </child>
           </object>
           <packing>

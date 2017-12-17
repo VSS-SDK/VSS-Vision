@@ -11,51 +11,31 @@
 
 #include <gtkmm.h>
 #include <iostream>
+
 #include "opencv2/imgproc/imgproc.hpp"
-
-using namespace std;
-using namespace cv;
-
-struct PointCut {
-	cv::Point2i first;
-	cv::Point2i second;
-
-	PointCut (){}
-
-	// initialize making a square area to cut
-	PointCut (cv::Point2i point, int side_size){
-		first  = cv::Point( point.x - side_size , point.y - side_size );
-        second = cv::Point( point.x + side_size , point.y + side_size );
-	}
-};
 
 class GImage : public Gtk::DrawingArea {
 
 private:
-    cv::Mat opencv_image;
-    cv::Point cairo_image_size;
-    cv::Point pixel_color;
-    PointCut cut_point;
+    cv::Mat cv_image;
+
+    cv::Point cut_point_1;
+    cv::Point cut_point_2;
 
     bool cut_mode;
-    bool move_first_cut;
-    bool move_adjust_cut;
-
-    void drawRectangle(cv::Point, cv::Point);
+    bool cut_move;
+    bool cut_move_adjust;
 
 protected:
-    virtual bool on_draw(const Cairo::RefPtr<Cairo::Context> &c);
-    //virtual bool on_button_press_event(GdkEventButton* event);
-    //virtual bool on_motion_notify_event(GdkEventMotion* event);
-    //virtual bool on_button_release_event(GdkEventButton* event);
+    bool on_draw(const Cairo::RefPtr<Cairo::Context> &c) override;
+    bool on_button_press_event(GdkEventButton* event) override;
+    bool on_motion_notify_event(GdkEventMotion* event) override;
+    bool on_button_release_event(GdkEventButton* event) override;
 
 public:
 	GImage();
-    void setCutMode(bool);
-    void setImage(cv::Mat);
-    void setRectangleInvisible();
-    cv::Point getCairoImageSize();
-    PointCut getCutPoint();
+    void set_cut_mode(bool);
+    void set_image(cv::Mat);
 };
 
 #endif

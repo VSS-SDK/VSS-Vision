@@ -7,7 +7,6 @@
  */
 
 #include "GProgram.h"
-#include "myarea.h"
 #include "CameraCalibration.h"
 
 GProgram::GProgram(){
@@ -42,7 +41,7 @@ void GProgram::initialize_widget(){
 		combo_box_color_robot3->append(text_color[i]);
 	}
 
-	radio_button_image->set_active();
+	radio_button_image->set_active();	
 }
 
 void GProgram::run(){
@@ -52,13 +51,13 @@ void GProgram::run(){
 	set_widget_signal();
 	initialize_widget();
 
-	MyArea image;
+// Passar isso para o initialize_widget
+	GImage image;
+	image.set_image(cv::imread("../mock/images/model.jpg"));
 	box_image->pack_start(image);
-
-	box_image->show();
-
 	window->maximize();
 	window->show_all();
+// Passar isso para o initialize_widget
 
 	app->run(*window);
 }
