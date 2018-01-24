@@ -6,6 +6,7 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
+/* 
 #include "GImage.h"
 
 GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) : Gtk::DrawingArea(cobject) {
@@ -118,4 +119,4 @@ void GImage::set_image(cv::Mat _cv_image){
 
 void GImage::set_cut_mode(bool _cut_mode){
     cut_mode = _cut_mode;
-}
+} */

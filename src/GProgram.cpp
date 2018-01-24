@@ -7,13 +7,13 @@
  */
 
 #include "GProgram.h"
-#include "CameraCalibration.h"
+//#include "CameraCalibration.h"
 
 GProgram::GProgram(){
-	window_control = new CameraCalibration();
+	/* window_control = new CameraCalibration();
 
 	text_position = { "Robot 1 - [200,200]", "Robot 2 - [200,200]", "Robot 3 - [200,200]", "Opponent 1 - [200,200]", "Opponent 2 - [200,200]", "Opponent 3 - [200,200]", "Ball - [200,200]"};
-	text_color = {"Yellow", "Blue", "Orange", "Pink", "Purple", "Green"};
+	text_color = {"Yellow", "Blue", "Orange", "Pink", "Purple", "Green"}; */
 }
 
 GProgram::~GProgram(){
@@ -21,7 +21,7 @@ GProgram::~GProgram(){
 
 void GProgram::initialize_widget(){
 
-	for (unsigned int i = 0; i < text_position.size(); i++){
+	/* for (unsigned int i = 0; i < text_position.size(); i++){
 		label_position.push_back( new Gtk::Label(text_position[i]) );
 		box_position->pack_start(*label_position[i]);
 	}
@@ -44,19 +44,19 @@ void GProgram::initialize_widget(){
 	g_image->set_image(cv::imread("../mock/images/model.jpg"));	
 
 	radio_button_image->set_active();	
-
+ */
 	window->maximize();
 	window->show_all();
 }
 
-void GProgram::run(){
-	auto app = Gtk::Application::create();
+void GProgram::run(int argc, char *argv[]){
+    Gtk::Main kit(argc, argv);
 
 	load_widget_from_file();
 	set_widget_signal();
 	initialize_widget();
 
-	app->run(*window);
+    Gtk::Main::run(*window);
 }
 
 void GProgram::load_widget_from_file(){
@@ -67,6 +67,7 @@ void GProgram::load_widget_from_file(){
 		builder->add_from_file("../glade/GProgram.glade");
 
 		builder->get_widget("window", window);
+		/*
 		builder->get_widget_derived("image", g_image);
 
 		builder->get_widget("box_image", box_image);
@@ -102,6 +103,7 @@ void GProgram::load_widget_from_file(){
 		builder->get_widget("radio_button_image", radio_button_image);    
 		builder->get_widget("radio_button_video", radio_button_video);    
 		builder->get_widget("radio_button_camera", radio_button_camera);
+		*/
 			
 	} catch(const Glib::FileError& ex) {
 		std::cerr << "FileError: " << ex.what() << std::endl;
@@ -115,6 +117,7 @@ void GProgram::load_widget_from_file(){
 }
 
 void GProgram::set_widget_signal(){
+	/*
 	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(window_control, &IWindowControl::on_keyboard), window) , false);
 	
 	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserWidget*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load), file_chooser ));
@@ -146,4 +149,5 @@ void GProgram::set_widget_signal(){
     radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_image), radio_button_image));
     radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_video), radio_button_video));
     radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_camera), radio_button_camera));
+	*/
 }

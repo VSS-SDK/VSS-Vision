@@ -11,5 +11,5 @@
 
 int main(int argc, char *argv[]) {
     GProgram app;
-    app.run();
+    app.run(argc, argv);
 }

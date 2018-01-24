@@ -5,11 +5,11 @@ CameraCalibration::CameraCalibration(){
 
 bool CameraCalibration::on_keyboard(GdkEventKey* event, Gtk::Window* window){
     if(event->keyval == GDK_KEY_space) {
-		window->close();
+		//window->close();
 	} else if(event->keyval == GDK_KEY_Return) {
-		window->close();
+		//window->close();
 	} else if(event->keyval == GDK_KEY_Escape) {
-		window->close();
+		//window->close();
 	}
 	return true;
 }

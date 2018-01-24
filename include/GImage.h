@@ -5,7 +5,7 @@
  * v. 3.0. If a copy of the GPL was not distributed with this
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
-
+/* 
 #ifndef GIMAGE_H_
 #define GIMAGE_H_
 
@@ -40,4 +40,4 @@ public:
     void set_image(cv::Mat);
 };
 
-#endif
+#endif */

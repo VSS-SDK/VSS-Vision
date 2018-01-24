@@ -6,7 +6,7 @@ find_package(PkgConfig)
 FIND_PACKAGE(Boost 1.40 COMPONENTS program_options REQUIRED)
 INCLUDE(FindProtobuf)
 FIND_PACKAGE(Protobuf REQUIRED)
-pkg_check_modules(GTKMM REQUIRED gtkmm-3.0)
+pkg_check_modules(GTKMM REQUIRED gtkmm-2.4)
 find_package( OpenCV REQUIRED )
 
 include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE_DIRS})

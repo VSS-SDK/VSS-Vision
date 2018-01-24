@@ -12,9 +12,9 @@
 #include <gtkmm.h>
 #include <iostream>
 
-#include "GImage.h"
-#include "IWindowControl.h"
-#include "opencv2/highgui/highgui.hpp"
+//#include "GImage.h"
+//#include "IWindowControl.h"
+//#include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
 
@@ -22,14 +22,20 @@ class GProgram {
 
 private:
 
-	vector<string> text_color;
-	vector<string> text_position;
+	//vector<string> text_color;
+	//vector<string> text_position;
 
-	IWindowControl *window_control;
+	Gtk::Window* window = nullptr;
+
+	//IWindowControl *window_control;
+
+
+
+/*
 
 // Window - save/load file 
 	Gtk::Window* window_file = nullptr;
-
+ 
 	// Button
 	Gtk::Button* button_save = nullptr;
 	Gtk::Button* button_load = nullptr;
@@ -79,6 +85,10 @@ private:
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
 
+*/
+
+
+
 // Control method
 	void initialize_widget();
 	void set_widget_signal();
@@ -87,7 +97,7 @@ private:
 public:
 	GProgram();
 	virtual ~GProgram();
-	void run();
+	void run(int argc, char *argv[]);
 };
 
 #endif
