@@ -13,7 +13,7 @@
 #include <iostream>
 
 //#include "GImage.h"
-//#include "IWindowControl.h"
+#include "IWindowControl.h"
 //#include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
@@ -22,16 +22,9 @@ class GProgram {
 
 private:
 
-	//vector<string> text_color;
-	//vector<string> text_position;
-
-	Gtk::Window* window = nullptr;
-
-	//IWindowControl *window_control;
-
-
-
-/*
+	vector<string> text_color;
+	vector<string> text_position;
+	IWindowControl *window_control;
 
 // Window - save/load file 
 	Gtk::Window* window_file = nullptr;
@@ -47,7 +40,7 @@ private:
 // Window - calibration
 	Gtk::Window* window = nullptr;
 
-	GImage* g_image = nullptr;
+	//GImage* g_image = nullptr;
 
 	// Box
 	Gtk::Box* box_image;
@@ -63,13 +56,13 @@ private:
 	Gtk::RadioButton* radio_button_camera = nullptr;
 
 	// Select text
-	Gtk::ComboBoxText* combo_box_input_path = nullptr;
-	Gtk::ComboBoxText* combo_box_color_team1 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_team2 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_robot1 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_robot2 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_robot3 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_select = nullptr;
+	Gtk::ComboBox* combo_box_input_path = nullptr;
+	Gtk::ComboBox* combo_box_color_team1 = nullptr;
+	Gtk::ComboBox* combo_box_color_team2 = nullptr;
+	Gtk::ComboBox* combo_box_color_robot1 = nullptr;
+	Gtk::ComboBox* combo_box_color_robot2 = nullptr;
+	Gtk::ComboBox* combo_box_color_robot3 = nullptr;
+	Gtk::ComboBox* combo_box_color_select = nullptr;
 
 	// Slider
 	Gtk::Scale* scale_h_max = nullptr;
@@ -84,9 +77,6 @@ private:
 	Gtk::Scale* scale_exposure = nullptr;
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
-
-*/
-
 
 
 // Control method
