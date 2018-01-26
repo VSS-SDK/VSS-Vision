@@ -12,35 +12,21 @@
 #include <gtkmm.h>
 #include <iostream>
 
-//#include "GImage.h"
+#include "GImage.h"
 #include "IWindowControl.h"
-//#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
 
 class GProgram {
 
 private:
-
-	vector<string> text_color;
-	vector<string> text_position;
 	IWindowControl *window_control;
-
-// Window - save/load file 
-	Gtk::Window* window_file = nullptr;
- 
-	// Button
-	Gtk::Button* button_save = nullptr;
-	Gtk::Button* button_load = nullptr;
-
-	// File Chooser
-	Gtk::FileChooserWidget* file_chooser = nullptr;
-
-
+	
 // Window - calibration
 	Gtk::Window* window = nullptr;
 
-	//GImage* g_image = nullptr;
+	GImage* g_image = nullptr;
 
 	// Box
 	Gtk::Box* box_image;
@@ -50,19 +36,18 @@ private:
 	vector<Gtk::Label*> label_position;
 
 	// Button
-	Gtk::Button* button_window_file = nullptr;
 	Gtk::RadioButton* radio_button_image = nullptr;
 	Gtk::RadioButton* radio_button_video = nullptr;
 	Gtk::RadioButton* radio_button_camera = nullptr;
 
 	// Select text
-	Gtk::ComboBox* combo_box_input_path = nullptr;
-	Gtk::ComboBox* combo_box_color_team1 = nullptr;
-	Gtk::ComboBox* combo_box_color_team2 = nullptr;
-	Gtk::ComboBox* combo_box_color_robot1 = nullptr;
-	Gtk::ComboBox* combo_box_color_robot2 = nullptr;
-	Gtk::ComboBox* combo_box_color_robot3 = nullptr;
-	Gtk::ComboBox* combo_box_color_select = nullptr;
+	Gtk::ComboBoxText* combo_box_input_path = nullptr;
+	Gtk::ComboBoxText* combo_box_color_team1 = nullptr;
+	Gtk::ComboBoxText* combo_box_color_team2 = nullptr;
+	Gtk::ComboBoxText* combo_box_color_robot1 = nullptr;
+	Gtk::ComboBoxText* combo_box_color_robot2 = nullptr;
+	Gtk::ComboBoxText* combo_box_color_robot3 = nullptr;
+	Gtk::ComboBoxText* combo_box_color_select = nullptr;
 
 	// Slider
 	Gtk::Scale* scale_h_max = nullptr;
@@ -78,6 +63,13 @@ private:
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
 
+// File Chooser - save/load file 
+	Gtk::FileChooserDialog* file_chooser = nullptr;
+ 
+	// Button
+	Gtk::Button* button_save = nullptr;
+	Gtk::Button* button_load = nullptr;
+	Gtk::Button* button_load_save = nullptr;
 
 // Control method
 	void initialize_widget();

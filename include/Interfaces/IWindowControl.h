@@ -16,20 +16,21 @@
 // Calibragem e execucao vai implementar essa interface
 // Não poderá ser utilizado a calibragem e a execução ao mesmo tempo
 // Quando for trocar entre um e outro, utilizar dynamic_cast
+
 class IWindowControl{
 public:
 
     virtual bool on_keyboard(GdkEventKey* event, Gtk::Window*) = 0;
-    virtual void on_button_load(Gtk::FileChooserWidget*) = 0;
-	virtual void on_button_save(Gtk::FileChooserWidget*) = 0;
-	virtual void on_button_window_file(Gtk::Window*) = 0;
-	virtual void on_combo_box_color_select(Gtk::ComboBox*) = 0;
-	virtual void on_combo_box_color_team1(Gtk::ComboBox*) = 0;
-	virtual void on_combo_box_color_team2(Gtk::ComboBox*) = 0;
-	virtual void on_combo_box_color_robot1(Gtk::ComboBox*) = 0;
-	virtual void on_combo_box_color_robot2(Gtk::ComboBox*) = 0;
-	virtual void on_combo_box_color_robot3(Gtk::ComboBox*) = 0;
-	virtual void on_combo_box_input_path(Gtk::ComboBox*) = 0;
+    virtual void on_button_load(Gtk::FileChooserDialog*) = 0;
+	virtual void on_button_save(Gtk::FileChooserDialog*) = 0;
+	virtual void on_button_load_save(Gtk::FileChooserDialog*) = 0;
+	virtual void on_combo_box_color_select(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_team1(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_team2(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_robot1(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_robot2(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_robot3(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_input_path(Gtk::ComboBoxText*) = 0;
 	virtual void on_scale_h_max(Gtk::Scale*) = 0;
 	virtual void on_scale_h_min(Gtk::Scale*) = 0;
 	virtual void on_scale_s_max(Gtk::Scale*) = 0;

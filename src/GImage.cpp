@@ -18,7 +18,6 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
     cut_move = false;
     cut_move_adjust = false;
 
-bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
     cv_image = cv::Mat::zeros(1, 1, CV_64F);
 }
 
@@ -64,27 +63,27 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
 }
 
 bool GImage::on_button_press_event (GdkEventButton* event){
-    /* if (event->button == GDK_BUTTON_SECONDARY && cut_mode) {
+    if (event->button == 1 && cut_mode) {
+        cut_move_adjust = true;
+    }
+   
+    if (event->button == 3 && cut_mode) {
         cut_point_1 = {int(event->x), int(event->y)};
         cut_point_2 = {int(event->x), int(event->y)};
         cut_move = true;
     } 
 
-    if (event->button == GDK_BUTTON_PRIMARY && cut_mode) {
-        cut_move_adjust = true;
-    } */
-
     return true;
 }
 
 bool GImage::on_button_release_event (GdkEventButton* event){
-    /* if (event->button == GDK_BUTTON_SECONDARY && cut_mode) {
-        cut_move = false;
+    if (event->button == 1 && cut_mode) {
+        cut_move_adjust = false;
     }
 
-    if (event->button == GDK_BUTTON_PRIMARY && cut_mode) {
-        cut_move_adjust = false;
-    } */
+    if (event->button == 3 && cut_mode) {
+        cut_move = false;
+    }
 
     return true;
 }
