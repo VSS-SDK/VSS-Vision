@@ -6,7 +6,6 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-/* 
 #include "GImage.h"
 
 GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder) : Gtk::DrawingArea(cobject) {
@@ -19,20 +18,25 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
     cut_move = false;
     cut_move_adjust = false;
 
+bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
     cv_image = cv::Mat::zeros(1, 1, CV_64F);
 }
 
 GImage::~GImage(){ 
 }
 
-bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
+bool GImage::on_expose_event(GdkEventExpose* event) {
 
     try{
+        Glib::RefPtr<Gdk::Window> window = get_window();
+
         cv::Point cv_resize;
             cv_resize.x = get_allocation().get_width();
             cv_resize.y = (cv_resize.x / cv_image.cols) * cv_image.rows;
 
         cv::resize(cv_image, cv_image, cv::Point(640,480), 0, 0, cv::INTER_LINEAR);
+
+        Cairo::RefPtr<Cairo::Context> c = window->create_cairo_context();
         
         Glib::RefPtr<Gdk::Pixbuf> pixbuf =  Gdk::Pixbuf::create_from_data( cv_image.data, Gdk::COLORSPACE_RGB, false, 8, cv_image.cols, cv_image.rows, cv_image.step);
         Gdk::Cairo::set_source_pixbuf(c, pixbuf);
@@ -60,7 +64,7 @@ bool GImage::on_draw (const Cairo::RefPtr<Cairo::Context> &c){
 }
 
 bool GImage::on_button_press_event (GdkEventButton* event){
-    if (event->button == GDK_BUTTON_SECONDARY && cut_mode) {
+    /* if (event->button == GDK_BUTTON_SECONDARY && cut_mode) {
         cut_point_1 = {int(event->x), int(event->y)};
         cut_point_2 = {int(event->x), int(event->y)};
         cut_move = true;
@@ -68,19 +72,19 @@ bool GImage::on_button_press_event (GdkEventButton* event){
 
     if (event->button == GDK_BUTTON_PRIMARY && cut_mode) {
         cut_move_adjust = true;
-    }
+    } */
 
     return true;
 }
 
 bool GImage::on_button_release_event (GdkEventButton* event){
-    if (event->button == GDK_BUTTON_SECONDARY && cut_mode) {
+    /* if (event->button == GDK_BUTTON_SECONDARY && cut_mode) {
         cut_move = false;
     }
 
     if (event->button == GDK_BUTTON_PRIMARY && cut_mode) {
         cut_move_adjust = false;
-    }
+    } */
 
     return true;
 }
@@ -119,4 +123,4 @@ void GImage::set_image(cv::Mat _cv_image){
 
 void GImage::set_cut_mode(bool _cut_mode){
     cut_mode = _cut_mode;
-} */
+}

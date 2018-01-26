@@ -57,10 +57,10 @@ INSTALL_MINT_18_2 () {
   INSTALLED=1
 }
 
-INSTALL_DEBIAN_9_2 () {
+INSTALL_DEBIAN_9_3 () {
   sudo apt-get update && apt-get upgrade
   sudo apt-get install pkgconf
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev
+  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev libgtkmm-2.4-dev
   INSTALLED=1
 }
 
@@ -75,7 +75,7 @@ INSTALL () {
 
   # Debian
   if [[ "$DISTRO" == "Debian" ]]; then
-    INSTALL_DEBIAN_9_2;
+    INSTALL_DEBIAN_9_3;
     if [ $INSTALLED == 1 ]; then
       CMAKE_DEBIAN;
     fi

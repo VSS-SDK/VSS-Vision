@@ -5,7 +5,7 @@
  * v. 3.0. If a copy of the GPL was not distributed with this
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
-/* 
+
 #ifndef GIMAGE_H_
 #define GIMAGE_H_
 
@@ -27,7 +27,7 @@ private:
     bool cut_move_adjust;
 
 protected:
-    bool on_draw(const Cairo::RefPtr<Cairo::Context> &c) override;
+    bool on_expose_event(GdkEventExpose* event) override;
     bool on_button_press_event(GdkEventButton* event) override;
     bool on_motion_notify_event(GdkEventMotion* event) override;
     bool on_button_release_event(GdkEventButton* event) override;
@@ -40,4 +40,4 @@ public:
     void set_image(cv::Mat);
 };
 
-#endif */
+#endif
