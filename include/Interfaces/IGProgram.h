@@ -10,12 +10,6 @@
 #define IGPROGRAM_H_
 
 class IGProgram {
-private:
-
-	virtual void initialize_widget() = 0;
-	virtual void set_signal_widget() = 0;
-	virtual void builder_widget() = 0;
-
 public:
   virtual void run(int argc, char *argv[]) = 0;
 

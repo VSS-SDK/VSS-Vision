@@ -10,8 +10,8 @@ pkg_check_modules(GTKMM REQUIRED gtkmm-2.4)
 find_package( OpenCV REQUIRED )
 
 include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE_DIRS})
-include_directories(src src/Domain)
-include_directories(include include/Interfaces include/Domain)
+include_directories(src src/Domain src/Repositories)
+include_directories(include include/Interfaces include/Domain include/Repositories)
 
 file(GLOB_RECURSE SRC src/*.cpp)
 
