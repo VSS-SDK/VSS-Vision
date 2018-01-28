@@ -30,7 +30,26 @@ void GProgram::initialize_widget(){
 	table_color_robot->attach(*combobox_color_robot_4, 1, 2, 6, 7, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
 	table_color_robot->attach(*combobox_color_robot_5, 1, 2, 7, 8, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
 	
-	radio_button_image->set_active();	
+	vector<Glib::ustring> colors = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
+	
+	for (unsigned int i = 0; i < colors.size(); i++){
+		combobox_color_select->append(colors[i]);
+	}
+
+	for (unsigned int i = 0; i < 2; i++){
+		combobox_color_team_1->append(colors[i]);
+		combobox_color_team_2->append(colors[i]);
+	}
+
+	for (unsigned int i = 3; i < colors.size(); i++){
+		combobox_color_robot_1->append(colors[i]);
+		combobox_color_robot_2->append(colors[i]);
+		combobox_color_robot_3->append(colors[i]);
+		combobox_color_robot_4->append(colors[i]);
+		combobox_color_robot_5->append(colors[i]);
+	}
+
+	radio_button_image->set_active();
 
 	g_image->set_image(cv::imread("../mock/images/model.jpg"));	
  
