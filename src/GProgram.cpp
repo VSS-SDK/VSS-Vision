@@ -18,40 +18,37 @@ GProgram::~GProgram(){
 
 void GProgram::initialize_widget(){
 
-/*
-	//combo_box_color_select->append("text");
+	table_input->attach(*combobox_input_path, 0, 3, 3, 4, Gtk::FILL, Gtk::EXPAND);
+	
+	table_set_color->attach(*combobox_color_select, 0, 1, 1, 2, Gtk::FILL, Gtk::EXPAND);
 
-	for (unsigned int i = 0; i < 2; i++){	
-		combo_box_color_team1->append(text_color[i]);
-		combo_box_color_team2->append(text_color[i]);
-	}
-
-	for (unsigned int i = 3; i < text_color.size(); i++){	
-		combo_box_color_robot1->append(text_color[i]);
-		combo_box_color_robot2->append(text_color[i]);
-		combo_box_color_robot3->append(text_color[i]);
-	}
-*/
-
+	table_color_robot->attach(*combobox_color_team_1 , 1, 2, 1, 2, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
+	table_color_robot->attach(*combobox_color_team_2 , 1, 2, 2, 3, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
+	table_color_robot->attach(*combobox_color_robot_1, 1, 2, 3, 4, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
+	table_color_robot->attach(*combobox_color_robot_2, 1, 2, 4, 5, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
+	table_color_robot->attach(*combobox_color_robot_3, 1, 2, 5, 6, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
+	table_color_robot->attach(*combobox_color_robot_4, 1, 2, 6, 7, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
+	table_color_robot->attach(*combobox_color_robot_5, 1, 2, 7, 8, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
+	
 	radio_button_image->set_active();	
 
 	g_image->set_image(cv::imread("../mock/images/model.jpg"));	
-
+ 
 	window->maximize();
-	window->show_all();
+	window->show_all_children();
 }
 
 void GProgram::run(int argc, char *argv[]){
     Gtk::Main kit(argc, argv);
 
-	load_widget_from_file();
-	set_widget_signal();
+	builder_widget();
+	set_signal_widget();
 	initialize_widget();
 
     Gtk::Main::run(*window);
 }
  
-void GProgram::load_widget_from_file(){
+void GProgram::builder_widget(){
 
 	auto builder = Gtk::Builder::create();
 
@@ -66,16 +63,7 @@ void GProgram::load_widget_from_file(){
 		builder->get_widget("button_load", button_load);
 		builder->get_widget("button_load_save", button_load_save);
 		builder->get_widget("filechooserdialog", file_chooser);
-	
-	/* 	
-		builder->get_widget("comboboxtext_input", combo_box_input_path);
-		builder->get_widget("comboboxtext_team_1", combo_box_color_team1);
-		builder->get_widget("comboboxtext_team_2", combo_box_color_team2);
-		builder->get_widget("comboboxtext_robot_1", combo_box_color_robot1);
-		builder->get_widget("comboboxtext_robot_2", combo_box_color_robot2);
-		builder->get_widget("comboboxtext_robot_3", combo_box_color_robot3);
-		builder->get_widget("comboboxtext_set_color", combo_box_color_select);
-	*/
+
 		builder->get_widget("hscale_hmax", scale_h_max);
 		builder->get_widget("hscale_hmin", scale_h_min);
 		builder->get_widget("hscale_smax", scale_s_max);
@@ -92,7 +80,21 @@ void GProgram::load_widget_from_file(){
 		builder->get_widget("radiobutton_image", radio_button_image);    
 		builder->get_widget("radiobutton_video", radio_button_video);    
 		builder->get_widget("radiobutton_camera", radio_button_camera);
-	
+
+		builder->get_widget("table_input", table_input);
+		builder->get_widget("table_set_color", table_set_color);
+		builder->get_widget("table_color_robot", table_color_robot);
+
+		combobox_input_path    = new Gtk::ComboBoxText();
+		combobox_color_select  = new Gtk::ComboBoxText();
+		combobox_color_team_1  = new Gtk::ComboBoxText();
+		combobox_color_team_2  = new Gtk::ComboBoxText();
+		combobox_color_robot_1 = new Gtk::ComboBoxText();
+		combobox_color_robot_2 = new Gtk::ComboBoxText();
+		combobox_color_robot_3 = new Gtk::ComboBoxText();
+		combobox_color_robot_4 = new Gtk::ComboBoxText();
+		combobox_color_robot_5 = new Gtk::ComboBoxText();
+		
 	} catch(const Glib::FileError& ex) {
 		std::cerr << "FileError: " << ex.what() << std::endl;
 
@@ -104,7 +106,7 @@ void GProgram::load_widget_from_file(){
 	}
 }
 
-void GProgram::set_widget_signal(){
+void GProgram::set_signal_widget(){
 	
 	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(window_control, &IWindowControl::on_keyboard), window) , false);
 	
@@ -112,15 +114,6 @@ void GProgram::set_widget_signal(){
 	button_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(window_control, &IWindowControl::on_button_save), file_chooser ));
 	button_load_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load_save), file_chooser ));
 
-/* 
-	combo_box_input_path   ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_input_path), combo_box_input_path));
-	combo_box_color_team1  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_team1), combo_box_color_team1));
-	combo_box_color_team2  ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_team2), combo_box_color_team2));
-	combo_box_color_robot1 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot1), combo_box_color_robot1));
-	combo_box_color_robot2 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot2), combo_box_color_robot2));
-	combo_box_color_robot3 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot3), combo_box_color_robot3));
-	combo_box_color_select->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_select), combo_box_color_select));
-*/
 	scale_h_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_h_max), scale_h_max));
  	scale_h_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_h_min), scale_h_min));
 	scale_s_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_s_max), scale_s_max));
@@ -138,4 +131,15 @@ void GProgram::set_widget_signal(){
     radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_image), radio_button_image));
     radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_video), radio_button_video));
     radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_camera), radio_button_camera));
+
+	combobox_input_path   ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_input_path), combobox_input_path));
+	combobox_color_select ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_select), combobox_color_select));
+	combobox_color_team_1 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_team1), combobox_color_team_1));
+	combobox_color_team_2 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_team2), combobox_color_team_2));
+	combobox_color_robot_1->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot1), combobox_color_robot_1));
+	combobox_color_robot_2->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot2), combobox_color_robot_2));
+	combobox_color_robot_3->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot3), combobox_color_robot_3));
+	combobox_color_robot_4->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot4), combobox_color_robot_4));
+	combobox_color_robot_5->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_robot5), combobox_color_robot_5));
+	
 }

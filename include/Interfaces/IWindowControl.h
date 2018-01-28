@@ -19,30 +19,36 @@
 
 class IWindowControl{
 public:
-
     virtual bool on_keyboard(GdkEventKey* event, Gtk::Window*) = 0;
+
     virtual void on_button_load(Gtk::FileChooserDialog*) = 0;
 	virtual void on_button_save(Gtk::FileChooserDialog*) = 0;
 	virtual void on_button_load_save(Gtk::FileChooserDialog*) = 0;
-	virtual void on_combo_box_color_select(Gtk::ComboBoxText*) = 0;
+
+	virtual void on_combo_box_input_path(Gtk::ComboBoxText*) = 0;
 	virtual void on_combo_box_color_team1(Gtk::ComboBoxText*) = 0;
 	virtual void on_combo_box_color_team2(Gtk::ComboBoxText*) = 0;
 	virtual void on_combo_box_color_robot1(Gtk::ComboBoxText*) = 0;
 	virtual void on_combo_box_color_robot2(Gtk::ComboBoxText*) = 0;
 	virtual void on_combo_box_color_robot3(Gtk::ComboBoxText*) = 0;
-	virtual void on_combo_box_input_path(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_robot4(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_robot5(Gtk::ComboBoxText*) = 0;
+	virtual void on_combo_box_color_select(Gtk::ComboBoxText*) = 0;
+
 	virtual void on_scale_h_max(Gtk::Scale*) = 0;
 	virtual void on_scale_h_min(Gtk::Scale*) = 0;
 	virtual void on_scale_s_max(Gtk::Scale*) = 0;
 	virtual void on_scale_s_min(Gtk::Scale*) = 0;
 	virtual void on_scale_v_max(Gtk::Scale*) = 0;
 	virtual void on_scale_v_min(Gtk::Scale*) = 0;
-	virtual void on_scale_rotation(Gtk::Scale*) = 0;
-	virtual void on_scale_brightness(Gtk::Scale*) = 0;
-	virtual void on_scale_contrast(Gtk::Scale*) = 0;
-	virtual void on_scale_saturation(Gtk::Scale*) = 0;
-	virtual void on_scale_exposure(Gtk::Scale*) = 0;
+
 	virtual void on_scale_gain(Gtk::Scale*) = 0;
+	virtual void on_scale_contrast(Gtk::Scale*) = 0;
+	virtual void on_scale_rotation(Gtk::Scale*) = 0;
+	virtual void on_scale_exposure(Gtk::Scale*) = 0;
+	virtual void on_scale_brightness(Gtk::Scale*) = 0;
+	virtual void on_scale_saturation(Gtk::Scale*) = 0;
+
 	virtual void on_radio_button_image(Gtk::RadioButton*) = 0;
 	virtual void on_radio_button_video(Gtk::RadioButton*) = 0;
 	virtual void on_radio_button_camera(Gtk::RadioButton*) = 0; 

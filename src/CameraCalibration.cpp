@@ -34,8 +34,8 @@ void CameraCalibration::on_button_load_save(Gtk::FileChooserDialog* file_chooser
     file_chooser->show();
 }
 
-void CameraCalibration::on_combo_box_color_select(Gtk::ComboBoxText* color_selected){
-    std::cout << color_selected->get_active_text() << std::endl;
+void CameraCalibration::on_combo_box_color_select(Gtk::ComboBoxText* color_select){
+    std::cout << color_select->get_active_text() << std::endl;    
 }
 
 void CameraCalibration::on_combo_box_color_team1(Gtk::ComboBoxText* color_team_1){
@@ -56,6 +56,14 @@ void CameraCalibration::on_combo_box_color_robot2(Gtk::ComboBoxText* color_robot
 
 void CameraCalibration::on_combo_box_color_robot3(Gtk::ComboBoxText* color_robot_3){
     std::cout << color_robot_3->get_active_text() << std::endl;
+}
+
+void CameraCalibration::on_combo_box_color_robot4(Gtk::ComboBoxText* color_robot_4){
+    std::cout << color_robot_4->get_active_text() << std::endl;
+}
+
+void CameraCalibration::on_combo_box_color_robot5(Gtk::ComboBoxText* color_robot_5){
+    std::cout << color_robot_5->get_active_text() << std::endl;
 }
 
 void CameraCalibration::on_combo_box_input_path(Gtk::ComboBoxText* input_path){

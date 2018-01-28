@@ -21,19 +21,14 @@ using namespace std;
 class GProgram {
 
 private:
+
 	IWindowControl *window_control;
 	
 // Window - calibration
 	Gtk::Window* window = nullptr;
 
+	// Opencv image
 	GImage* g_image = nullptr;
-
-	// Box
-	Gtk::Box* box_image;
-	Gtk::Box* box_position;
-
-	// Text position
-	vector<Gtk::Label*> label_position;
 
 	// Button
 	Gtk::RadioButton* radio_button_image = nullptr;
@@ -41,13 +36,20 @@ private:
 	Gtk::RadioButton* radio_button_camera = nullptr;
 
 	// Select text
-	Gtk::ComboBoxText* combo_box_input_path = nullptr;
-	Gtk::ComboBoxText* combo_box_color_team1 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_team2 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_robot1 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_robot2 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_robot3 = nullptr;
-	Gtk::ComboBoxText* combo_box_color_select = nullptr;
+	Gtk::ComboBoxText* combobox_input_path = nullptr;
+	Gtk::ComboBoxText* combobox_color_select = nullptr;
+	Gtk::ComboBoxText* combobox_color_team_1 = nullptr;
+	Gtk::ComboBoxText* combobox_color_team_2 = nullptr;
+	Gtk::ComboBoxText* combobox_color_robot_1 = nullptr;
+	Gtk::ComboBoxText* combobox_color_robot_2 = nullptr;
+	Gtk::ComboBoxText* combobox_color_robot_3 = nullptr;
+	Gtk::ComboBoxText* combobox_color_robot_4 = nullptr;
+	Gtk::ComboBoxText* combobox_color_robot_5 = nullptr;
+
+	// Table
+	Gtk::Table* table_input = nullptr;
+	Gtk::Table* table_set_color = nullptr;
+	Gtk::Table* table_color_robot = nullptr;
 
 	// Slider
 	Gtk::Scale* scale_h_max = nullptr;
@@ -73,13 +75,14 @@ private:
 
 // Control method
 	void initialize_widget();
-	void set_widget_signal();
-	void load_widget_from_file();
+	void set_signal_widget();
+	void builder_widget();
 
 public:
+
 	GProgram();
 	virtual ~GProgram();
 	void run(int argc, char *argv[]);
-};
 
+};
 #endif
