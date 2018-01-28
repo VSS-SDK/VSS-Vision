@@ -83,7 +83,7 @@ public:
 
 	GProgram();
 	virtual ~GProgram();
-	void run(int argc, char *argv[]);
+	void run(int argc, char *argv[]) override;
 
 };
 #endif
