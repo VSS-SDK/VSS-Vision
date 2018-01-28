@@ -67,11 +67,15 @@ private:
 
 // File Chooser - save/load file 
 	Gtk::FileChooserDialog* file_chooser = nullptr;
+
+	// Entry
+	Gtk::Entry* entry_chooser = nullptr;
  
 	// Button
 	Gtk::Button* button_save = nullptr;
 	Gtk::Button* button_load = nullptr;
 	Gtk::Button* button_load_save = nullptr;
+	Gtk::ToggleButton* togglebutton_cut_mode = nullptr;
 
 // Control method
 	void initialize_widget();

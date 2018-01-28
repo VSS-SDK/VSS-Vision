@@ -29,11 +29,10 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
     try{
         Glib::RefPtr<Gdk::Window> window = get_window();
 
-        cv::Point cv_resize;
-            cv_resize.x = get_allocation().get_width();
-            cv_resize.y = (cv_resize.x / cv_image.cols) * cv_image.rows;
+        //float width  = get_allocation().get_width();
+        //float height = get_allocation().get_height();
 
-        cv::resize(cv_image, cv_image, cv::Point(640,480), 0, 0, cv::INTER_LINEAR);
+        cv::resize(cv_image, cv_image, cv::Point(800 , 640), 0, 0, cv::INTER_LINEAR);
 
         Cairo::RefPtr<Cairo::Context> c = window->create_cairo_context();
         

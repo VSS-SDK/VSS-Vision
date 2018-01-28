@@ -26,8 +26,8 @@ void CameraCalibration::on_button_load(Gtk::FileChooserDialog* file_chooser){
     std::cout << file_chooser->get_filename() << std::endl;
 }
 
-void CameraCalibration::on_button_save(Gtk::FileChooserDialog* file_chooser){
-    std::cout << file_chooser->get_filename() << std::endl;
+void CameraCalibration::on_button_save(Gtk::Entry* entry){
+    std::cout << entry->get_text() << std::endl;
 }
 
 void CameraCalibration::on_button_load_save(Gtk::FileChooserDialog* file_chooser){
@@ -116,6 +116,10 @@ void CameraCalibration::on_scale_exposure(Gtk::Scale* scale_exposure){
 
 void CameraCalibration::on_scale_gain(Gtk::Scale* scale_gain){
     std::cout << scale_gain->get_value() << std::endl;
+}
+
+void CameraCalibration::on_toggle_button_cut_mode(Gtk::ToggleButton* toggle_button_cut_mode){
+    std::cout << toggle_button_cut_mode->get_active() << std::endl;
 }
 
 void CameraCalibration::on_radio_button_image(Gtk::RadioButton* radio_button_image){

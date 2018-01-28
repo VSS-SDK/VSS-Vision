@@ -18,10 +18,9 @@ GProgram::~GProgram(){
 
 void GProgram::initialize_widget(){
 
+	//TABLES
 	table_input->attach(*combobox_input_path, 0, 3, 3, 4, Gtk::FILL, Gtk::EXPAND);
-	
 	table_set_color->attach(*combobox_color_select, 0, 1, 1, 2, Gtk::FILL, Gtk::EXPAND);
-
 	table_color_robot->attach(*combobox_color_team_1 , 1, 2, 1, 2, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
 	table_color_robot->attach(*combobox_color_team_2 , 1, 2, 2, 3, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
 	table_color_robot->attach(*combobox_color_robot_1, 1, 2, 3, 4, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
@@ -30,6 +29,7 @@ void GProgram::initialize_widget(){
 	table_color_robot->attach(*combobox_color_robot_4, 1, 2, 6, 7, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
 	table_color_robot->attach(*combobox_color_robot_5, 1, 2, 7, 8, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
 	
+	//COMBOBOXTEXT
 	vector<Glib::ustring> colors = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
 	
 	for (unsigned int i = 0; i < colors.size(); i++){
@@ -49,12 +49,15 @@ void GProgram::initialize_widget(){
 		combobox_color_robot_5->append(colors[i]);
 	}
 
+	//RADIOBUTTON
 	radio_button_image->set_active();
-
-	g_image->set_image(cv::imread("../mock/images/model.jpg"));	
  
+	//WINDOW
 	window->maximize();
 	window->show_all_children();
+
+	//DRAWINGAREA
+	g_image->set_image(cv::imread("../mock/images/model.jpg"));	
 }
 
 void GProgram::run(int argc, char *argv[]){
@@ -72,7 +75,7 @@ void GProgram::builder_widget(){
 	auto builder = Gtk::Builder::create();
 
 	try {
-		builder->add_from_file("../glade/GProgram.glade");
+		builder->add_from_file("../glade/Calibration.glade");
 
 		builder->get_widget("window", window);
 		
@@ -81,6 +84,7 @@ void GProgram::builder_widget(){
 		builder->get_widget("button_save", button_save);
 		builder->get_widget("button_load", button_load);
 		builder->get_widget("button_load_save", button_load_save);
+		builder->get_widget("entry_chooser", entry_chooser);
 		builder->get_widget("filechooserdialog", file_chooser);
 
 		builder->get_widget("hscale_hmax", scale_h_max);
@@ -99,6 +103,7 @@ void GProgram::builder_widget(){
 		builder->get_widget("radiobutton_image", radio_button_image);    
 		builder->get_widget("radiobutton_video", radio_button_video);    
 		builder->get_widget("radiobutton_camera", radio_button_camera);
+		builder->get_widget("togglebutton_cut_mode", togglebutton_cut_mode);
 
 		builder->get_widget("table_input", table_input);
 		builder->get_widget("table_set_color", table_set_color);
@@ -130,7 +135,7 @@ void GProgram::set_signal_widget(){
 	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(window_control, &IWindowControl::on_keyboard), window) , false);
 	
 	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load), file_chooser ));
-	button_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(window_control, &IWindowControl::on_button_save), file_chooser ));
+	button_save->signal_clicked().connect(sigc::bind<Gtk::Entry*>(sigc::mem_fun(window_control, &IWindowControl::on_button_save), entry_chooser ));
 	button_load_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load_save), file_chooser ));
 
 	scale_h_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_h_max), scale_h_max));
@@ -150,6 +155,7 @@ void GProgram::set_signal_widget(){
     radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_image), radio_button_image));
     radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_video), radio_button_video));
     radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_camera), radio_button_camera));
+    togglebutton_cut_mode->signal_pressed().connect(sigc::bind<Gtk::ToggleButton*>(sigc::mem_fun(window_control, &IWindowControl::on_toggle_button_cut_mode), togglebutton_cut_mode));
 
 	combobox_input_path   ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_input_path), combobox_input_path));
 	combobox_color_select ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_select), combobox_color_select));

@@ -20,7 +20,7 @@ public:
 	bool on_keyboard(GdkEventKey* event, Gtk::Window*) override;
 
     void on_button_load(Gtk::FileChooserDialog*) override;
-	void on_button_save(Gtk::FileChooserDialog*) override;
+	void on_button_save(Gtk::Entry* ) override;
 	void on_button_load_save(Gtk::FileChooserDialog*) override;
 
 	void on_combo_box_input_path(Gtk::ComboBoxText*) override;
@@ -50,6 +50,8 @@ public:
 	void on_radio_button_image(Gtk::RadioButton*) override;
 	void on_radio_button_video(Gtk::RadioButton*) override;
 	void on_radio_button_camera(Gtk::RadioButton*) override; 
+	void on_toggle_button_cut_mode(Gtk::ToggleButton*) override; 
+
 	
 };
 
