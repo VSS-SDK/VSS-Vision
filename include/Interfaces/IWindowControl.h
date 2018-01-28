@@ -51,7 +51,7 @@ public:
 
 	virtual void on_radio_button_image(Gtk::RadioButton*) = 0;
 	virtual void on_radio_button_video(Gtk::RadioButton*) = 0;
-	virtual void on_radio_button_camera(Gtk::RadioButton*) = 0; 
+	virtual void on_radio_button_camera(Gtk::RadioButton*) = 0;
 };
 
 #endif // ICAMERA_READER_H

@@ -9,6 +9,7 @@
 #ifndef GPROGRAM_H_
 #define GPROGRAM_H_
 
+#include "IGProgram.h"
 #include <gtkmm.h>
 #include <iostream>
 
@@ -18,12 +19,12 @@
 
 using namespace std;
 
-class GProgram {
+class GProgram : public IGProgram {
 
 private:
 
 	IWindowControl *window_control;
-	
+
 // Window - calibration
 	Gtk::Window* window = nullptr;
 
@@ -65,9 +66,9 @@ private:
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
 
-// File Chooser - save/load file 
+// File Chooser - save/load file
 	Gtk::FileChooserDialog* file_chooser = nullptr;
- 
+
 	// Button
 	Gtk::Button* button_save = nullptr;
 	Gtk::Button* button_load = nullptr;

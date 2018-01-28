@@ -6,10 +6,18 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include <gtkmm.h>
-#include "GProgram.h"
+#ifndef IGPROGRAM_H_
+#define IGPROGRAM_H_
 
-int main(int argc, char *argv[]) {
-    GProgram app;
-    app.run(argc, argv);
-}
+class IGProgram {
+private:
+
+	virtual void initialize_widget() = 0;
+	virtual void set_signal_widget() = 0;
+	virtual void builder_widget() = 0;
+
+public:
+  virtual void run(int argc, char *argv[]) = 0;
+
+};
+#endif
