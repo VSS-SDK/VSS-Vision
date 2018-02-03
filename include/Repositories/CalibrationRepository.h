@@ -9,15 +9,21 @@
 #ifndef CALIBRATION_REPOSITORY_H
 #define CALIBRATION_REPOSITORY_H
 
+#include <Domain/ConfigurationType.h>
+#include <Domain/ColorType.h>
 #include "ICalibrationRepository.h"
 #include "Calibration.h"
 
 class CalibrationRepository : public ICalibrationRepository {
+private:
+    ColorType hasColorType(std::string name);
+    ConfigurationType hasConfigurationType(std::string name);
+
 public:
-  Calibration read(std::string pathName) override;
-  Calibration update(std::string pathName, Calibration calibration) override;
-  void remove(std::string pathName) override;
-  void create(std::string pathName, Calibration calibration) override;
+    Calibration read(std::string pathName) override;
+    Calibration update(std::string pathName, Calibration calibration) override;
+    void remove(std::string pathName) override;
+    void create(std::string pathName, Calibration calibration) override;
 };
 
 #endif // CALIBRATION_REPOSITORY_H

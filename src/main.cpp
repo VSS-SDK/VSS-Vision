@@ -8,8 +8,19 @@
 
 #include <gtkmm.h>
 #include "GProgram.h"
+#include "DirectoryHelper.h"
+#include "Calibration.h"
+#include "ICalibrationRepository.h"
+#include "CalibrationRepository.h"
 
 int main(int argc, char *argv[]) {
-    GProgram app;
-    app.run(argc, argv);
+    ICalibrationRepository *calibrationRepository = new CalibrationRepository();
+    cout << getCurrentWorkingDir() << endl;
+    string path = getCurrentWorkingDir() + "/test.txt";
+
+    calibrationRepository->create(path, new Calibration());
+
+    auto calibration = calibrationRepository->read(path);
+    // GProgram app;
+    // app.run(argc, argv);
 }

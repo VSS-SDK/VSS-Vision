@@ -10,7 +10,68 @@
 #include "fstream"
 
 Calibration CalibrationRepository::read(std::string pathName){
+  std::ifstream ifs (pathName, std::ifstream::in);
+
+  for (std::string line; std::getline(ifs, line); )
+  {
+    auto colorType = hasColorType(line);
+
+    if(colorType != ColorType::UnknownType)
+      std::cout << "color" << std::endl;
+
+  }
+
   return new Calibration();
+}
+
+ColorType CalibrationRepository::hasColorType(std::string name){
+  if(name == "# Blue")
+    return ColorType::Blue;
+
+  if(name == "# Yellow")
+    return ColorType::Yellow;
+
+  if(name == "# Orange")
+    return ColorType::Orange;
+
+  if(name == "# Red")
+    return ColorType::Red;
+
+  if(name == "# Green")
+    return ColorType::Green;
+
+  if(name == "# Pink")
+    return ColorType::Pink;
+
+  if(name == "# Purple")
+    return ColorType::Purple;
+
+  if(name == " # Brown")
+    return ColorType::Brown;
+
+  return ColorType::UnknownType;
+}
+
+ConfigurationType CalibrationRepository::hasConfigurationType(std::string name){
+  if(name == "# Rotation")
+    return ConfigurationType::Rotation;
+
+  if(name == "# Brightness")
+    return ConfigurationType::Brightness;
+
+  if(name == "# Contrast")
+    return ConfigurationType::Contrast;
+
+  if(name == "# Saturation")
+    return ConfigurationType::Saturation;
+
+  if(name == "# Exposure")
+    return ConfigurationType::Exposure;
+
+  if(name == "# Gain")
+    return ConfigurationType::Gain;
+
+  return ConfigurationType::UnknownConfiguration;
 }
 
 void CalibrationRepository::create(std::string pathName, Calibration calibration){
@@ -22,7 +83,7 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
   file << calibration.rotation << std::endl;
   file << std::endl;
 
-  file << "# Brigthness" << std::endl;
+  file << "# Brightness" << std::endl;
   file << calibration.brightness << std::endl;
   file << std::endl;
 
@@ -119,7 +180,7 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
 
   for(int i = 0 ; i < 3 ; i++)
     file << calibration.colorsRange[7].max[i] << " ";
-  
+
   file.close();
 }
 

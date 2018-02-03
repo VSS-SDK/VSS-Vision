@@ -13,14 +13,14 @@
 
 class ColorRange {
 public:
-  std::string label;
-  float min[3];
-  float max[3];
+	std::string label;
+	float min[3];
+	float max[3];
 
 	ColorRange();
-  ColorRange( float *min, float *max );
+	ColorRange( float *min, float *max );
 
-	ColorRange( ColorRange *colorRange );
+    explicit ColorRange( ColorRange *colorRange );
 
 	friend std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange );
 };
