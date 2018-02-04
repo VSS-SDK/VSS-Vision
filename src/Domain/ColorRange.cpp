@@ -9,7 +9,7 @@
 #include "ColorRange.h"
 
 ColorRange::ColorRange(){
-  label = "";
+  colorType = ColorType::UnknownType;
   for(int i = 0 ; i < 3 ; i++){
     this->min[i] = 0.0;
     this->max[i] = 0.0;
@@ -17,7 +17,7 @@ ColorRange::ColorRange(){
 }
 
 ColorRange::ColorRange(float *min, float *max){
-  label = "";
+  colorType = ColorType::UnknownType;
   for(int i = 0 ; i < 3 ; i++){
     this->min[i] = min[i];
     this->max[i] = max[i];
@@ -25,7 +25,7 @@ ColorRange::ColorRange(float *min, float *max){
 }
 
 ColorRange::ColorRange( ColorRange *colorRange ){
-  label = colorRange->label;;
+  colorType = colorRange->colorType;
   for(int i = 0 ; i < 3 ; i++){
     min[i] = colorRange->min[i];
     max[i] = colorRange->max[i];
@@ -33,7 +33,7 @@ ColorRange::ColorRange( ColorRange *colorRange ){
 }
 std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange )
 {
-  os << "label: " << colorRange.label << std::endl;
+  os << "colorType: " << colorRange.colorType << std::endl;
   os << "min: (" << colorRange.min[0] << ", " << colorRange.min[1] << ", " << colorRange.min[2] << ")" << std::endl;
   os << "max: (" << colorRange.max[0] << ", " << colorRange.max[1] << ", " << colorRange.max[2] << ")" << std::endl;
 

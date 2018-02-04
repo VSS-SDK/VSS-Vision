@@ -15,15 +15,6 @@ Calibration::Calibration(){
   saturation = 0.0;
   exposure = 0.0;
   gain = 0.0;
-
-  for(int i = 0 ; i < 8 ; i++){
-    float aux[3] = {0.0, 0.0, 0.0};
-    colorsRange.push_back(new ColorRange(aux, aux));
-  }
-
-  for(int i = 0 ; i < 4 ; i++){
-    cut.push_back(0.0);
-  }
 }
 
 Calibration::Calibration(Calibration *calibration){
@@ -40,6 +31,7 @@ Calibration::Calibration(Calibration *calibration){
 
 std::ostream& operator<<( std::ostream& os, const Calibration& calibration )
 {
+  os << "gain: " << calibration.gain << std::endl;
   os << "rotation: " << calibration.rotation << std::endl;
   os << "brightness: " << calibration.brightness << std::endl;
   os << "contrast: " << calibration.contrast << std::endl;

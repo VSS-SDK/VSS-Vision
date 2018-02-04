@@ -11,6 +11,7 @@
 
 #include <Domain/ConfigurationType.h>
 #include <Domain/ColorType.h>
+#include <fstream>
 #include "ICalibrationRepository.h"
 #include "Calibration.h"
 
@@ -19,11 +20,17 @@ private:
     ColorType hasColorType(std::string name);
     ConfigurationType hasConfigurationType(std::string name);
 
+    ColorRange getColorRange(std::ifstream &file, ColorType &colorType);
+    double getConfiguration(std::string line);
+    std::vector<double> getCuts(std::string line);
+
 public:
     Calibration read(std::string pathName) override;
     Calibration update(std::string pathName, Calibration calibration) override;
     void remove(std::string pathName) override;
     void create(std::string pathName, Calibration calibration) override;
+
+    void setConfigurationType(Calibration &calibration, std::ifstream &file, ConfigurationType &configurationType);
 };
 
 #endif // CALIBRATION_REPOSITORY_H

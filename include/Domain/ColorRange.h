@@ -10,19 +10,20 @@
 #define COLOR_RANGE_H
 
 #include "iostream"
+#include "ColorType.h"
 
 class ColorRange {
 public:
-	std::string label;
-	float min[3];
-	float max[3];
+    ColorType colorType;
+    float min[3];
+    float max[3];
 
-	ColorRange();
-	ColorRange( float *min, float *max );
+    ColorRange();
+    ColorRange( float *min, float *max );
 
-    explicit ColorRange( ColorRange *colorRange );
+    ColorRange( ColorRange *colorRange );
 
-	friend std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange );
+    friend std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange );
 };
 
 #endif // COLOR_RANGE_H

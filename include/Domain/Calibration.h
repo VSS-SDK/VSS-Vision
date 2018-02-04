@@ -16,15 +16,15 @@
 
 class Calibration {
 public:
-  float rotation;
-  float brightness;
-  float contrast;
-  float saturation;
-  float exposure;
-  float gain;
+	float rotation;
+	float brightness;
+	float contrast;
+	float saturation;
+	float exposure;
+	float gain;
 
-  std::vector<ColorRange> colorsRange;
-  std::vector<float> cut;
+	std::vector<ColorRange> colorsRange;
+	std::vector<float> cut;
 
 	Calibration();
 	Calibration( Calibration *calibration );

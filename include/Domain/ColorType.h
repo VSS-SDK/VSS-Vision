@@ -5,6 +5,8 @@
 #ifndef VSS_VISION_TYPECOLOR_H
 #define VSS_VISION_TYPECOLOR_H
 
+#include "iostream"
+
 enum ColorType {
     UnknownType = 0,
     Blue = 1,

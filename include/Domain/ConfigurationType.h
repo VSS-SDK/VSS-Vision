@@ -14,4 +14,5 @@ enum ConfigurationType {
     Exposure = 5,
     Gain = 6
 };
+
 #endif //VSS_VISION_CONFIGURATIONTYPE_H

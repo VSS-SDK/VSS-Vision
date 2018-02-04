@@ -6,22 +6,31 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
+#include <Core/StringHelper.h>
 #include "CalibrationRepository.h"
-#include "fstream"
 
 Calibration CalibrationRepository::read(std::string pathName){
   std::ifstream ifs (pathName, std::ifstream::in);
+  Calibration *calibration = new Calibration();
 
   for (std::string line; std::getline(ifs, line); )
   {
     auto colorType = hasColorType(line);
+    if(colorType != ColorType::UnknownType) {
+      ColorRange colorRange = getColorRange(ifs, colorType);
+      calibration->colorsRange.push_back(colorRange);
+      continue;
+    }
 
-    if(colorType != ColorType::UnknownType)
-      std::cout << "color" << std::endl;
-
+    auto configurationType = hasConfigurationType(line);
+    if(configurationType != ConfigurationType::UnknownConfiguration){
+      setConfigurationType(*calibration, ifs, configurationType);
+    }
   }
 
-  return new Calibration();
+  std::cout << *calibration << std::endl;
+
+  return calibration;
 }
 
 ColorType CalibrationRepository::hasColorType(std::string name){
@@ -75,6 +84,9 @@ ConfigurationType CalibrationRepository::hasConfigurationType(std::string name){
 }
 
 void CalibrationRepository::create(std::string pathName, Calibration calibration){
+  if(calibration.colorsRange.size() < 7)
+    return;
+
   std::ofstream file;
   std::cout << pathName << std::endl;
   file.open (pathName);
@@ -191,4 +203,54 @@ Calibration CalibrationRepository::update(std::string pathName, Calibration cali
 
 void CalibrationRepository::remove(std::string pathName){
   // TODO
+}
+
+ColorRange CalibrationRepository::getColorRange(std::ifstream &file, ColorType &colorType) {
+  auto colorRange = new ColorRange();
+  std::string line;
+
+  colorRange->colorType = colorType;
+
+  std::getline(file, line);
+  auto minValues = explode(line, ' ');
+
+  for(unsigned int i = 0 ; i < minValues.size() || i < 3; i++)
+    colorRange->min[i] = stof(minValues.at(i));
+
+  std::getline(file, line);
+  auto maxValues = explode(line, ' ');
+
+  for(unsigned int i = 0 ; i < maxValues.size() || i < 3; i++)
+    colorRange->max[i] = stof(maxValues.at(i));
+
+  return colorRange;
+}
+
+void CalibrationRepository::setConfigurationType(Calibration &calibration, std::ifstream &file,
+                                                 ConfigurationType &configurationType) {
+  std::string line;
+  std::getline(file, line);
+
+  switch(configurationType){
+    case ConfigurationType::Rotation:
+      calibration.rotation = stof(line);
+      break;
+    case ConfigurationType::Gain:
+      calibration.gain = stof(line);
+      break;
+    case ConfigurationType::Exposure:
+      calibration.exposure = stof(line);
+      break;
+    case ConfigurationType::Saturation:
+      calibration.saturation = stof(line);
+      break;
+    case ConfigurationType::Contrast:
+      calibration.contrast = stof(line);
+      break;
+    case ConfigurationType::Brightness:
+      calibration.brightness = stof(line);
+      break;
+    case ConfigurationType::UnknownConfiguration:
+      break;
+  }
 }
