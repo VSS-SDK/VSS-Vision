@@ -12,6 +12,7 @@
 #include "IGProgram.h"
 #include <gtkmm.h>
 #include <iostream>
+#include <Interfaces/ICalibrationRepository.h>
 
 #include "GImage.h"
 #include "IWindowControl.h"
@@ -20,12 +21,11 @@
 using namespace std;
 
 class GProgram : public IGProgram {
-
 private:
-
 	IWindowControl *window_control;
+	ICalibrationRepository *calibration_repository;
 
-// Window - calibration
+	// Window - calibration
 	Gtk::Window* window = nullptr;
 
 	// Opencv image
@@ -66,7 +66,7 @@ private:
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
 
-// File Chooser - save/load file
+	// File Chooser - save/load file
 	Gtk::FileChooserDialog* file_chooser = nullptr;
 
 	// Button
@@ -74,7 +74,7 @@ private:
 	Gtk::Button* button_load = nullptr;
 	Gtk::Button* button_load_save = nullptr;
 
-// Control method
+	// Control method
 	void initialize_widget();
 	void set_signal_widget();
 	void builder_widget();
@@ -84,6 +84,5 @@ public:
 	GProgram();
 	virtual ~GProgram();
 	void run(int argc, char *argv[]) override;
-
 };
 #endif

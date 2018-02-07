@@ -37,5 +37,5 @@ std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange )
   os << "min: (" << colorRange.min[0] << ", " << colorRange.min[1] << ", " << colorRange.min[2] << ")" << std::endl;
   os << "max: (" << colorRange.max[0] << ", " << colorRange.max[1] << ", " << colorRange.max[2] << ")" << std::endl;
 
-	return os;
+  return os;
 }

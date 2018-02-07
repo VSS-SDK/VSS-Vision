@@ -12,10 +12,11 @@
 #include "gtkmm.h"
 #include "IWindowControl.h"
 #include "iostream"
+#include "ICalibrationRepository.h"
 
 class CameraCalibration : public IWindowControl{
 public:
-    CameraCalibration();
+    CameraCalibration(ICalibrationRepository *calibrationRepository);
 
 	bool on_keyboard(GdkEventKey* event, Gtk::Window*) override;
 
@@ -50,7 +51,11 @@ public:
 	void on_radio_button_image(Gtk::RadioButton*) override;
 	void on_radio_button_video(Gtk::RadioButton*) override;
 	void on_radio_button_camera(Gtk::RadioButton*) override; 
-	
+
+private:
+	ICalibrationRepository *calibrationRepository;
+
+	Calibration calibration;
 };
 
 #endif // CAMERA_CALIBRATION_H

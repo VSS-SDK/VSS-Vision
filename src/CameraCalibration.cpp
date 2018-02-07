@@ -8,7 +8,8 @@
 
 #include "CameraCalibration.h"
 
-CameraCalibration::CameraCalibration(){
+CameraCalibration::CameraCalibration(ICalibrationRepository *calibrationRepository){
+    this->calibrationRepository = calibrationRepository;
 }
 
 bool CameraCalibration::on_keyboard(GdkEventKey* event, Gtk::Window* window){
@@ -24,6 +25,7 @@ bool CameraCalibration::on_keyboard(GdkEventKey* event, Gtk::Window* window){
 
 void CameraCalibration::on_button_load(Gtk::FileChooserDialog* file_chooser){
     std::cout << file_chooser->get_filename() << std::endl;
+    calibration = calibrationRepository->read(file_chooser->get_filename());
 }
 
 void CameraCalibration::on_button_save(Gtk::FileChooserDialog* file_chooser){

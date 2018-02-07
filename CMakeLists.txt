@@ -20,7 +20,7 @@ link_libraries(${GTKMM_LIBRARIES})
 link_directories(usr/lib ${GTKMM_LIBRARY_DIRS})
 include_directories(usr/local/include)
 
-ADD_EXECUTABLE(vss-vision ${SRC} include/Domain/Calibration.h include/Domain/ColorRange.h include/Interfaces/ICalibrationRepository.h include/Interfaces/IGProgram.h include/Interfaces/IWindowControl.h include/Repositories/CalibrationRepository.h include/CameraCalibration.h include/GImage.h include/GProgram.h include/Core/DirectoryHelper.h src/Domain/Calibration.cpp src/Domain/ColorRange.cpp src/Repositories/CalibrationRepository.cpp src/Core/DirectoryHelper.cpp src/CameraCalibration.cpp src/GImage.cpp src/GProgram.cpp src/main.cpp include/Domain/ColorType.h include/Domain/ConfigurationType.h include/Core/StringHelper.h src/Core/StringHelper.cpp)
+ADD_EXECUTABLE(vss-vision ${SRC} include/Domain/Calibration.h include/Domain/ColorRange.h include/Interfaces/ICalibrationRepository.h include/Interfaces/IGProgram.h include/Interfaces/IWindowControl.h include/Repositories/CalibrationRepository.h include/CameraCalibration.h include/GImage.h include/GProgram.h include/Core/DirectoryHelper.h src/Domain/Calibration.cpp src/Domain/ColorRange.cpp src/Repositories/CalibrationRepository.cpp src/Core/DirectoryHelper.cpp src/CameraCalibration.cpp src/GImage.cpp src/GProgram.cpp src/main.cpp include/Domain/ColorType.h include/Domain/ConfigurationType.h include/Core/StringHelper.h src/Core/StringHelper.cpp include/Domain/CutType.h include/Domain/Point2d.h src/Domain/Point2d.cpp)
 
 TARGET_LINK_LIBRARIES(vss-vision ${VSS_INTERFACE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS})
 TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES})

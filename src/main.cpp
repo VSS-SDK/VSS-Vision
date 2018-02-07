@@ -6,21 +6,9 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include <gtkmm.h>
 #include "GProgram.h"
-#include "DirectoryHelper.h"
-#include "Calibration.h"
-#include "ICalibrationRepository.h"
-#include "CalibrationRepository.h"
 
 int main(int argc, char *argv[]) {
-    ICalibrationRepository *calibrationRepository = new CalibrationRepository();
-    cout << getCurrentWorkingDir() << endl;
-    string path = getCurrentWorkingDir() + "/test.txt";
-
-    calibrationRepository->create(path, new Calibration());
-
-    auto calibration = calibrationRepository->read(path);
-    // GProgram app;
-    // app.run(argc, argv);
+    GProgram app;
+    app.run(argc, argv);
 }

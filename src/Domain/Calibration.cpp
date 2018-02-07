@@ -38,12 +38,14 @@ std::ostream& operator<<( std::ostream& os, const Calibration& calibration )
   os << "saturation: " << calibration.saturation << std::endl;
   os << "exposure: " << calibration.exposure << std:: endl;
 
+  os << std::endl;
   for(unsigned int i = 0 ; i < calibration.colorsRange.size() ; i++){
     os << calibration.colorsRange.at(i);
   }
 
+  os << std::endl;
   for(unsigned int i = 0 ; i < calibration.cut.size() ; i++){
-    os << calibration.cut.at(i) << std::endl;
+    os << calibration.cut.at(i);
   }
 
 	return os;

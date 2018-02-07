@@ -17,74 +17,27 @@ Calibration CalibrationRepository::read(std::string pathName){
   {
     auto colorType = hasColorType(line);
     if(colorType != ColorType::UnknownType) {
-      ColorRange colorRange = getColorRange(ifs, colorType);
-      calibration->colorsRange.push_back(colorRange);
+      setCalibrationColorRange(*calibration, ifs, colorType);
       continue;
     }
 
     auto configurationType = hasConfigurationType(line);
     if(configurationType != ConfigurationType::UnknownConfiguration){
-      setConfigurationType(*calibration, ifs, configurationType);
+      setCalibrationConfiguration(*calibration, ifs, configurationType);
+      continue;
+    }
+
+    auto cutType = hasCutType(line);
+    if(cutType != CutType::UnknownCut){
+      setCalibrationCut(*calibration, ifs);
     }
   }
-
-  std::cout << *calibration << std::endl;
 
   return calibration;
 }
 
-ColorType CalibrationRepository::hasColorType(std::string name){
-  if(name == "# Blue")
-    return ColorType::Blue;
-
-  if(name == "# Yellow")
-    return ColorType::Yellow;
-
-  if(name == "# Orange")
-    return ColorType::Orange;
-
-  if(name == "# Red")
-    return ColorType::Red;
-
-  if(name == "# Green")
-    return ColorType::Green;
-
-  if(name == "# Pink")
-    return ColorType::Pink;
-
-  if(name == "# Purple")
-    return ColorType::Purple;
-
-  if(name == " # Brown")
-    return ColorType::Brown;
-
-  return ColorType::UnknownType;
-}
-
-ConfigurationType CalibrationRepository::hasConfigurationType(std::string name){
-  if(name == "# Rotation")
-    return ConfigurationType::Rotation;
-
-  if(name == "# Brightness")
-    return ConfigurationType::Brightness;
-
-  if(name == "# Contrast")
-    return ConfigurationType::Contrast;
-
-  if(name == "# Saturation")
-    return ConfigurationType::Saturation;
-
-  if(name == "# Exposure")
-    return ConfigurationType::Exposure;
-
-  if(name == "# Gain")
-    return ConfigurationType::Gain;
-
-  return ConfigurationType::UnknownConfiguration;
-}
-
 void CalibrationRepository::create(std::string pathName, Calibration calibration){
-  if(calibration.colorsRange.size() < 7)
+  if(calibration.colorsRange.size() < 7 && calibration.cut.size() < 2)
     return;
 
   std::ofstream file;
@@ -113,6 +66,11 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
 
   file << "# Gain" << std::endl;
   file << calibration.gain << std::endl;
+  file << std::endl;
+
+  file << "# Cuts" << std::endl;
+  for(unsigned int i = 0 ; i < calibration.cut.size() ; i++)
+    file << calibration.cut.at(i).x << " " << calibration.cut.at(i).y << std::endl;
   file << std::endl;
 
   file << "# Blue" << std::endl;
@@ -205,29 +163,8 @@ void CalibrationRepository::remove(std::string pathName){
   // TODO
 }
 
-ColorRange CalibrationRepository::getColorRange(std::ifstream &file, ColorType &colorType) {
-  auto colorRange = new ColorRange();
-  std::string line;
-
-  colorRange->colorType = colorType;
-
-  std::getline(file, line);
-  auto minValues = explode(line, ' ');
-
-  for(unsigned int i = 0 ; i < minValues.size() || i < 3; i++)
-    colorRange->min[i] = stof(minValues.at(i));
-
-  std::getline(file, line);
-  auto maxValues = explode(line, ' ');
-
-  for(unsigned int i = 0 ; i < maxValues.size() || i < 3; i++)
-    colorRange->max[i] = stof(maxValues.at(i));
-
-  return colorRange;
-}
-
-void CalibrationRepository::setConfigurationType(Calibration &calibration, std::ifstream &file,
-                                                 ConfigurationType &configurationType) {
+void CalibrationRepository::setCalibrationConfiguration(Calibration &calibration, std::ifstream &file,
+                                                        ConfigurationType &configurationType) {
   std::string line;
   std::getline(file, line);
 
@@ -253,4 +190,95 @@ void CalibrationRepository::setConfigurationType(Calibration &calibration, std::
     case ConfigurationType::UnknownConfiguration:
       break;
   }
+}
+
+void CalibrationRepository::setCalibrationCut(Calibration &calibration, std::ifstream &file) {
+  std::string line;
+
+  std::getline(file, line);
+  auto cutValuesBottom = explode(line, ' ');
+  calibration.cut.push_back(new Point2d(stof(cutValuesBottom.at(0)), stof(cutValuesBottom.at(1))));
+
+  std::getline(file, line);
+  auto cutValuesTop = explode(line, ' ');
+  calibration.cut.push_back(new Point2d(stof(cutValuesTop.at(0)), stof(cutValuesTop.at(1))));
+}
+
+void CalibrationRepository::setCalibrationColorRange(Calibration &calibration, std::ifstream &file, ColorType &colorType) {
+  auto colorRange = new ColorRange();
+  std::string line;
+
+  colorRange->colorType = colorType;
+
+  std::getline(file, line);
+  auto minValues = explode(line, ' ');
+
+  for(unsigned int i = 0 ; i < minValues.size() || i < 3; i++)
+    colorRange->min[i] = stof(minValues.at(i));
+
+  std::getline(file, line);
+  auto maxValues = explode(line, ' ');
+
+  for(unsigned int i = 0 ; i < maxValues.size() || i < 3; i++)
+    colorRange->max[i] = stof(maxValues.at(i));
+
+  calibration.colorsRange.push_back(colorRange);
+}
+
+CutType CalibrationRepository::hasCutType(std::string name) {
+  if(name == "# Cuts")
+    return CutType::DefaultCut;
+
+  return CutType::UnknownCut;
+}
+
+
+ColorType CalibrationRepository::hasColorType(std::string name){
+  if(name == "# Blue")
+    return ColorType::Blue;
+
+  if(name == "# Yellow")
+    return ColorType::Yellow;
+
+  if(name == "# Orange")
+    return ColorType::Orange;
+
+  if(name == "# Red")
+    return ColorType::Red;
+
+  if(name == "# Green")
+    return ColorType::Green;
+
+  if(name == "# Pink")
+    return ColorType::Pink;
+
+  if(name == "# Purple")
+    return ColorType::Purple;
+
+  if(name == " # Brown")
+    return ColorType::Brown;
+
+  return ColorType::UnknownType;
+}
+
+ConfigurationType CalibrationRepository::hasConfigurationType(std::string name){
+  if(name == "# Rotation")
+    return ConfigurationType::Rotation;
+
+  if(name == "# Brightness")
+    return ConfigurationType::Brightness;
+
+  if(name == "# Contrast")
+    return ConfigurationType::Contrast;
+
+  if(name == "# Saturation")
+    return ConfigurationType::Saturation;
+
+  if(name == "# Exposure")
+    return ConfigurationType::Exposure;
+
+  if(name == "# Gain")
+    return ConfigurationType::Gain;
+
+  return ConfigurationType::UnknownConfiguration;
 }

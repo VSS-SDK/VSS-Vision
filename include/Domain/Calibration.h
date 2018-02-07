@@ -13,6 +13,7 @@
 #include "vector"
 
 #include "ColorRange.h"
+#include "Point2d.h"
 
 class Calibration {
 public:
@@ -24,7 +25,7 @@ public:
 	float gain;
 
 	std::vector<ColorRange> colorsRange;
-	std::vector<float> cut;
+	std::vector<Point2d> cut;
 
 	Calibration();
 	Calibration( Calibration *calibration );

@@ -6,11 +6,13 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
+#include <Repositories/CalibrationRepository.h>
 #include "GProgram.h"
 #include "CameraCalibration.h"
 
 GProgram::GProgram(){
-	window_control = new CameraCalibration();
+	calibration_repository = new CalibrationRepository();
+	window_control = new CameraCalibration(calibration_repository);
 }
 
 GProgram::~GProgram(){

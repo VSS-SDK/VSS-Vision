@@ -20,7 +20,6 @@ public:
 
     ColorRange();
     ColorRange( float *min, float *max );
-
     ColorRange( ColorRange *colorRange );
 
     friend std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange );
