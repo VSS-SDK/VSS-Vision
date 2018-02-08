@@ -50,12 +50,39 @@ public:
 
 	void on_radio_button_image(Gtk::RadioButton*) override;
 	void on_radio_button_video(Gtk::RadioButton*) override;
-	void on_radio_button_camera(Gtk::RadioButton*) override; 
+	void on_radio_button_camera(Gtk::RadioButton*) override;
+
+	void bind_scale_h_max(Gtk::Scale*) override;
+	void bind_scale_h_min(Gtk::Scale*) override;
+	void bind_scale_s_max(Gtk::Scale*) override;
+	void bind_scale_s_min(Gtk::Scale*) override;
+	void bind_scale_v_max(Gtk::Scale*) override;
+	void bind_scale_v_min(Gtk::Scale*) override;
+
+	void bind_scale_gain(Gtk::Scale*) override;
+	void bind_scale_contrast(Gtk::Scale*) override;
+	void bind_scale_rotation(Gtk::Scale*) override;
+	void bind_scale_exposure(Gtk::Scale*) override;
+	void bind_scale_brightness(Gtk::Scale*) override;
+	void bind_scale_saturation(Gtk::Scale*) override;
 
 private:
 	ICalibrationRepository *calibrationRepository;
 
 	Calibration calibration;
+
+	Gtk::Scale* scale_h_max = nullptr;
+	Gtk::Scale* scale_h_min = nullptr;
+	Gtk::Scale* scale_s_max = nullptr;
+	Gtk::Scale* scale_s_min = nullptr;
+	Gtk::Scale* scale_v_max = nullptr;
+	Gtk::Scale* scale_v_min = nullptr;
+	Gtk::Scale* scale_gain  = nullptr;
+	Gtk::Scale* scale_rotation = nullptr;
+	Gtk::Scale* scale_contrast = nullptr;
+	Gtk::Scale* scale_exposure = nullptr;
+	Gtk::Scale* scale_brightness = nullptr;
+	Gtk::Scale* scale_saturation = nullptr;
 };
 
 #endif // CAMERA_CALIBRATION_H

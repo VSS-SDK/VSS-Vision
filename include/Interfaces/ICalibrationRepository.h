@@ -9,6 +9,7 @@
 #ifndef I_CALIBRATION_REPOSITORY_H
 #define I_CALIBRATION_REPOSITORY_H
 
+#include <gtkmm/scale.h>
 #include "Calibration.h"
 
 class ICalibrationRepository {

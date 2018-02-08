@@ -78,6 +78,7 @@ private:
 	void initialize_widget();
 	void set_signal_widget();
 	void builder_widget();
+	void bind_widgets_to_calibration();
 
 public:
 

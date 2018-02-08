@@ -52,6 +52,20 @@ public:
 	virtual void on_radio_button_image(Gtk::RadioButton*) = 0;
 	virtual void on_radio_button_video(Gtk::RadioButton*) = 0;
 	virtual void on_radio_button_camera(Gtk::RadioButton*) = 0;
+
+	virtual void bind_scale_h_max(Gtk::Scale*) = 0;
+	virtual void bind_scale_h_min(Gtk::Scale*) = 0;
+	virtual void bind_scale_s_max(Gtk::Scale*) = 0;
+	virtual void bind_scale_s_min(Gtk::Scale*) = 0;
+	virtual void bind_scale_v_max(Gtk::Scale*) = 0;
+	virtual void bind_scale_v_min(Gtk::Scale*) = 0;
+
+	virtual void bind_scale_gain(Gtk::Scale*) = 0;
+	virtual void bind_scale_contrast(Gtk::Scale*) = 0;
+	virtual void bind_scale_rotation(Gtk::Scale*) = 0;
+	virtual void bind_scale_exposure(Gtk::Scale*) = 0;
+	virtual void bind_scale_brightness(Gtk::Scale*) = 0;
+	virtual void bind_scale_saturation(Gtk::Scale*) = 0;
 };
 
 #endif // ICAMERA_READER_H

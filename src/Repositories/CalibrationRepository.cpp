@@ -18,13 +18,11 @@ Calibration CalibrationRepository::read(std::string pathName){
     auto colorType = hasColorType(line);
     if(colorType != ColorType::UnknownType) {
       setCalibrationColorRange(*calibration, ifs, colorType);
-      continue;
     }
 
     auto configurationType = hasConfigurationType(line);
     if(configurationType != ConfigurationType::UnknownConfiguration){
       setCalibrationConfiguration(*calibration, ifs, configurationType);
-      continue;
     }
 
     auto cutType = hasCutType(line);
@@ -41,7 +39,6 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
     return;
 
   std::ofstream file;
-  std::cout << pathName << std::endl;
   file.open (pathName);
 
   file << "# Rotation" << std::endl;
@@ -225,6 +222,7 @@ void CalibrationRepository::setCalibrationColorRange(Calibration &calibration, s
   calibration.colorsRange.push_back(colorRange);
 }
 
+// TODO: arrumar um jeito de melhorar essa verificação
 CutType CalibrationRepository::hasCutType(std::string name) {
   if(name == "# Cuts")
     return CutType::DefaultCut;
@@ -232,7 +230,7 @@ CutType CalibrationRepository::hasCutType(std::string name) {
   return CutType::UnknownCut;
 }
 
-
+// TODO: arrumar um jeito de melhorar essa verificação
 ColorType CalibrationRepository::hasColorType(std::string name){
   if(name == "# Blue")
     return ColorType::Blue;
@@ -261,6 +259,7 @@ ColorType CalibrationRepository::hasColorType(std::string name){
   return ColorType::UnknownType;
 }
 
+// TODO: arrumar um jeito de melhorar essa verificação
 ConfigurationType CalibrationRepository::hasConfigurationType(std::string name){
   if(name == "# Rotation")
     return ConfigurationType::Rotation;
