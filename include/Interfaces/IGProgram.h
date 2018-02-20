@@ -6,9 +6,12 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include "GProgram.h"
+#ifndef IGPROGRAM_H_
+#define IGPROGRAM_H_
 
-int main(int argc, char *argv[]) {
-    GProgram app;
-    app.run(argc, argv);
-}
+class IGProgram {
+public:
+  virtual void run(int argc, char *argv[]) = 0;
+
+};
+#endif

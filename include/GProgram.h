@@ -9,8 +9,10 @@
 #ifndef GPROGRAM_H_
 #define GPROGRAM_H_
 
+#include "IGProgram.h"
 #include <gtkmm.h>
 #include <iostream>
+#include <Interfaces/ICalibrationRepository.h>
 
 #include "GImage.h"
 #include "IWindowControl.h"
@@ -18,13 +20,12 @@
 
 using namespace std;
 
-class GProgram {
-
+class GProgram : public IGProgram {
 private:
-
 	IWindowControl *window_control;
-	
-// Window - calibration
+	ICalibrationRepository *calibration_repository;
+
+	// Window - calibration
 	Gtk::Window* window = nullptr;
 
 	// Opencv image
@@ -65,28 +66,28 @@ private:
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
 
-// File Chooser - save/load file 
+	// File Chooser - save/load file
 	Gtk::FileChooserDialog* file_chooser = nullptr;
 
 	// Entry
 	Gtk::Entry* entry_chooser = nullptr;
- 
+
 	// Button
 	Gtk::Button* button_save = nullptr;
 	Gtk::Button* button_load = nullptr;
 	Gtk::Button* button_load_save = nullptr;
 	Gtk::ToggleButton* togglebutton_cut_mode = nullptr;
 
-// Control method
+	// Control method
 	void initialize_widget();
 	void set_signal_widget();
 	void builder_widget();
+	void bind_widgets_to_calibration();
 
 public:
 
 	GProgram();
 	virtual ~GProgram();
-	void run(int argc, char *argv[]);
-
+	void run(int argc, char *argv[]) override;
 };
 #endif
