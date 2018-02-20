@@ -11,17 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="efcfc985-df8a-438e-8dcc-32499dba70eb" name="Default" comment="Iniciado obtencao de calibragem do txt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/data/calibration1.txt" afterPath="$PROJECT_DIR$/data/calibration1.txt" />
-      <change beforePath="$PROJECT_DIR$/include/CameraCalibration.h" afterPath="$PROJECT_DIR$/include/CameraCalibration.h" />
-      <change beforePath="$PROJECT_DIR$/include/GProgram.h" afterPath="$PROJECT_DIR$/include/GProgram.h" />
-      <change beforePath="$PROJECT_DIR$/include/Interfaces/ICalibrationRepository.h" afterPath="$PROJECT_DIR$/include/Interfaces/ICalibrationRepository.h" />
-      <change beforePath="$PROJECT_DIR$/include/Interfaces/IWindowControl.h" afterPath="$PROJECT_DIR$/include/Interfaces/IWindowControl.h" />
-      <change beforePath="$PROJECT_DIR$/src/CameraCalibration.cpp" afterPath="$PROJECT_DIR$/src/CameraCalibration.cpp" />
-      <change beforePath="$PROJECT_DIR$/src/GProgram.cpp" afterPath="$PROJECT_DIR$/src/GProgram.cpp" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp" afterPath="$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp" />
-    </list>
+    <list default="true" id="efcfc985-df8a-438e-8dcc-32499dba70eb" name="Default" comment="Iniciado obtencao de calibragem do txt" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,10 +23,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CalibrationRepository.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CalibrationRepository.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
+            <state relative-caret-position="3978">
               <caret line="224" column="54" lean-forward="false" selection-start-line="224" selection-start-column="54" selection-end-line="224" selection-end-column="54" />
               <folding>
                 <element signature="e#274#304#0" expanded="true" />
@@ -107,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CameraCalibration.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CameraCalibration.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CameraCalibration.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-629">
-              <caret line="132" column="38" lean-forward="false" selection-start-line="132" selection-start-column="38" selection-end-line="132" selection-end-column="38" />
+            <state relative-caret-position="324">
+              <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -295,7 +285,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28225000" />
+    <option name="totallyTimeSpent" value="29024000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1054" extended-state="6" />
@@ -305,7 +295,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32004198" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -702,21 +692,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/CameraCalibration.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="19" lean-forward="true" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
+        <state relative-caret-position="3978">
           <caret line="224" column="54" lean-forward="false" selection-start-line="224" selection-start-column="54" selection-end-line="224" selection-end-column="54" />
           <folding>
             <element signature="e#274#304#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CameraCalibration.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-629">
-          <caret line="132" column="38" lean-forward="false" selection-start-line="132" selection-start-column="38" selection-end-line="132" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
