@@ -16,11 +16,11 @@
 
 class CameraCalibration : public IWindowControl{
 public:
-    CameraCalibration(ICalibrationRepository *calibrationRepository);
+	CameraCalibration(ICalibrationRepository *calibrationRepository);
 
 	bool on_keyboard(GdkEventKey* event, Gtk::Window*) override;
 
-    void on_button_load(Gtk::FileChooserDialog*) override;
+	void on_button_load(Gtk::FileChooserDialog*) override;
 	void on_button_save(Gtk::Entry* ) override;
 	void on_button_load_save(Gtk::FileChooserDialog*) override;
 
@@ -50,7 +50,7 @@ public:
 
 	void on_radio_button_image(Gtk::RadioButton*) override;
 	void on_radio_button_video(Gtk::RadioButton*) override;
-  void on_toggle_button_cut_mode(Gtk::ToggleButton*) override; 
+	void on_toggle_button_cut_mode(Gtk::ToggleButton*) override;
 	void on_radio_button_camera(Gtk::RadioButton*) override;
 
 	void bind_scale_h_max(Gtk::Scale*) override;
@@ -72,6 +72,8 @@ private:
 
 	Calibration calibration;
 
+	ColorType actualColorToCalibrate;
+
 	Gtk::Scale* scale_h_max = nullptr;
 	Gtk::Scale* scale_h_min = nullptr;
 	Gtk::Scale* scale_s_max = nullptr;
@@ -84,6 +86,12 @@ private:
 	Gtk::Scale* scale_exposure = nullptr;
 	Gtk::Scale* scale_brightness = nullptr;
 	Gtk::Scale* scale_saturation = nullptr;
+
+	void applyActualColorRangeToSlidersHSV(ColorType type);
+
+    ColorRange getColorRangeFromCalibration(ColorType type);
+
+    void setColorRangePart(ColorRangePart part, double value);
 };
 
 #endif // CAMERA_CALIBRATION_H

@@ -6,10 +6,13 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
+#include <Domain/ColorSpace.h>
 #include "CameraCalibration.h"
 
 CameraCalibration::CameraCalibration(ICalibrationRepository *calibrationRepository){
   this->calibrationRepository = calibrationRepository;
+
+  actualColorToCalibrate = ColorType::UnknownType;
 }
 
 bool CameraCalibration::on_keyboard(GdkEventKey* event, Gtk::Window* window){
@@ -43,7 +46,8 @@ void CameraCalibration::on_button_load_save(Gtk::FileChooserDialog* file_chooser
 }
 
 void CameraCalibration::on_combo_box_color_select(Gtk::ComboBoxText* color_select){
-  std::cout << color_select->get_active_text() << std::endl;
+  actualColorToCalibrate = toColorType(color_select->get_active_text());
+  applyActualColorRangeToSlidersHSV(actualColorToCalibrate);
 }
 
 void CameraCalibration::on_combo_box_color_team1(Gtk::ComboBoxText* color_team_1){
@@ -79,27 +83,27 @@ void CameraCalibration::on_combo_box_input_path(Gtk::ComboBoxText* input_path){
 }
 
 void CameraCalibration::on_scale_h_max(Gtk::Scale* scale_h_max){
-  std::cout << scale_h_max->get_value() << std::endl;
+  setColorRangePart(ColorRangePart::H_MAX, scale_h_max->get_value());
 }
 
 void CameraCalibration::on_scale_h_min(Gtk::Scale* scale_h_min){
-  std::cout << scale_h_min->get_value() << std::endl;
+  setColorRangePart(ColorRangePart::H_MIN, scale_h_min->get_value());
 }
 
 void CameraCalibration::on_scale_s_max(Gtk::Scale* scale_s_max){
-  std::cout << scale_s_max->get_value() << std::endl;
+  setColorRangePart(ColorRangePart::S_MAX, scale_s_max->get_value());
 }
 
 void CameraCalibration::on_scale_s_min(Gtk::Scale* scale_s_min){
-  std::cout << scale_s_min->get_value() << std::endl;
+  setColorRangePart(ColorRangePart::S_MIN, scale_s_min->get_value());
 }
 
 void CameraCalibration::on_scale_v_max(Gtk::Scale* scale_v_max){
-  std::cout << scale_v_max->get_value() << std::endl;
+  setColorRangePart(ColorRangePart::V_MAX, scale_v_max->get_value());
 }
 
 void CameraCalibration::on_scale_v_min(Gtk::Scale* scale_v_min){
-  std::cout << scale_v_min->get_value() << std::endl;
+  setColorRangePart(ColorRangePart::V_MIN, scale_v_min->get_value());
 }
 
 void CameraCalibration::on_scale_rotation(Gtk::Scale* scale_rotation){
@@ -196,4 +200,53 @@ void CameraCalibration::bind_scale_brightness(Gtk::Scale *scale_brightness) {
 
 void CameraCalibration::bind_scale_saturation(Gtk::Scale *scale_saturation) {
   this->scale_saturation = scale_saturation;
+}
+
+void CameraCalibration::applyActualColorRangeToSlidersHSV(ColorType type) {
+  auto colorRange = getColorRangeFromCalibration(type);
+
+  scale_h_max->set_value(colorRange.max[H]);
+  scale_s_max->set_value(colorRange.max[S]);
+  scale_v_max->set_value(colorRange.max[V]);
+
+  scale_h_min->set_value(colorRange.min[H]);
+  scale_s_min->set_value(colorRange.min[S]);
+  scale_v_min->set_value(colorRange.min[V]);
+}
+
+ColorRange CameraCalibration::getColorRangeFromCalibration(ColorType type) {
+  std::cout << calibration << std::endl;
+  for (auto& colorRange : calibration.colorsRange) {
+    if(colorRange.colorType == type)
+      return colorRange;
+  }
+
+  return new ColorRange();
+}
+
+void CameraCalibration::setColorRangePart(ColorRangePart part, double value) {
+  for (auto& colorRange : calibration.colorsRange) {
+    if(colorRange.colorType == actualColorToCalibrate){
+      switch (part){
+        case ColorRangePart::H_MAX:
+          colorRange.max[H] = value;
+          break;
+        case ColorRangePart::H_MIN:
+          colorRange.min[H] = value;
+          break;
+        case ColorRangePart::S_MAX:
+          colorRange.max[S] = value;
+          break;
+        case ColorRangePart::S_MIN:
+          colorRange.min[S] = value;
+          break;
+        case ColorRangePart::V_MAX:
+          colorRange.max[V] = value;
+          break;
+        case ColorRangePart::V_MIN:
+          colorRange.min[V] = value;
+          break;
+      }
+    }
+  }
 }

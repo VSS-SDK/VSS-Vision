@@ -19,4 +19,7 @@ enum ColorType {
     Brown = 8
 };
 
+std::string toDescription(ColorType);
+ColorType toColorType(std::string);
+
 #endif //VSS_VISION_TYPECOLOR_H

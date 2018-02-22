@@ -253,7 +253,7 @@ ColorType CalibrationRepository::hasColorType(std::string name){
   if(name == "# Purple")
     return ColorType::Purple;
 
-  if(name == " # Brown")
+  if(name == "# Brown")
     return ColorType::Brown;
 
   return ColorType::UnknownType;
