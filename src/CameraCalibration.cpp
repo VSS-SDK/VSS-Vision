@@ -229,22 +229,22 @@ void CameraCalibration::setColorRangePart(ColorRangePart part, double value) {
     if(colorRange.colorType == actualColorToCalibrate){
       switch (part){
         case ColorRangePart::H_MAX:
-          colorRange.max[H] = value;
+          colorRange.max[H] = static_cast<float>(value);
           break;
         case ColorRangePart::H_MIN:
-          colorRange.min[H] = value;
+          colorRange.min[H] = static_cast<float>(value);
           break;
         case ColorRangePart::S_MAX:
-          colorRange.max[S] = value;
+          colorRange.max[S] = static_cast<float>(value);
           break;
         case ColorRangePart::S_MIN:
-          colorRange.min[S] = value;
+          colorRange.min[S] = static_cast<float>(value);
           break;
         case ColorRangePart::V_MAX:
-          colorRange.max[V] = value;
+          colorRange.max[V] = static_cast<float>(value);
           break;
         case ColorRangePart::V_MIN:
-          colorRange.min[V] = value;
+          colorRange.min[V] = static_cast<float>(value);
           break;
       }
     }
