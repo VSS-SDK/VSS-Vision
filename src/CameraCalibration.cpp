@@ -9,8 +9,9 @@
 #include <Domain/ColorSpace.h>
 #include "CameraCalibration.h"
 
-CameraCalibration::CameraCalibration(ICalibrationRepository *calibrationRepository){
+CameraCalibration::CameraCalibration(ICalibrationRepository *calibrationRepository, ICalibrationFactory *calibrationFactory){
   this->calibrationRepository = calibrationRepository;
+  this->calibrationFactory = calibrationFactory;
 
   actualColorToCalibrate = ColorType::UnknownType;
 }
@@ -34,8 +35,9 @@ void CameraCalibration::on_signal_select_dialog(Gtk::FileChooserDialog* file_cho
 
 void CameraCalibration::on_button_save_calibration(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
   if (entry->get_text_length() > 0){
-    std::cout << entry->get_text() << std::endl;
-    std::cout << file_chooser->get_current_folder() << std::endl;
+    std::stringstream aux;
+    aux << file_chooser->get_current_folder() << "/" << entry->get_text();
+    calibrationRepository->create(aux.str(), calibration);
     file_chooser->hide();
   }
 }
@@ -49,7 +51,6 @@ void CameraCalibration::on_button_load_calibration(Gtk::FileChooserDialog* file_
     scale_contrast->set_value(calibration.contrast);
     scale_rotation->set_value(calibration.rotation);
     scale_gain->set_value(calibration.gain);
-  
     file_chooser->hide();    
   }
 }

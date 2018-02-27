@@ -1,0 +1,53 @@
+# Rotation
+12
+
+# Brightness
+12
+
+# Contrast
+12
+
+# Saturation
+23
+
+# Exposure
+12
+
+# Gain
+12
+
+# Cuts
+12 122
+122 12
+
+# Blue
+0 0 0 
+50 50 50 
+
+# Yellow
+0 0 0 
+50 50 50 
+
+# Orange
+0 0 0 
+120 120 50 
+
+# Green
+0 0 0 
+120 120 120 
+
+# Pink
+0 0 0 
+120 120 120 
+
+# Purple
+0 0 0 
+120 120 120 
+
+# Red
+0 0 0 
+120 120 120 
+
+# Brown
+0 0 0 
+120 120 120 

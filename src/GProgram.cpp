@@ -7,12 +7,17 @@
  */
 
 #include <Repositories/CalibrationRepository.h>
+#include <Factories/CalibrationFactory.h>
 #include "GProgram.h"
 #include "CameraCalibration.h"
 
 GProgram::GProgram(){
-	calibration_repository = new CalibrationRepository();
-	window_control = new CameraCalibration(calibration_repository);
+	ICalibrationFactory *test = new CalibrationFactory();
+
+	calibration_repository = new CalibrationRepository(test);
+
+	calibration_factory = new CalibrationFactory();
+	window_control = new CameraCalibration(calibration_repository, calibration_factory);
 }
 
 GProgram::~GProgram(){
@@ -161,10 +166,10 @@ void GProgram::set_signal_widget(){
 	scale_brightness->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_brightness), scale_brightness));
 	scale_saturation->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_saturation), scale_saturation));
 
-    radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_image), radio_button_image));
-    radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_video), radio_button_video));
-    radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_camera), radio_button_camera));
-    togglebutton_cut_mode->signal_pressed().connect(sigc::bind<Gtk::ToggleButton*>(sigc::mem_fun(window_control, &IWindowControl::on_toggle_button_cut_mode), togglebutton_cut_mode));
+	radio_button_image ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_image), radio_button_image));
+	radio_button_video ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_video), radio_button_video));
+	radio_button_camera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(window_control, &IWindowControl::on_radio_button_camera), radio_button_camera));
+	togglebutton_cut_mode->signal_pressed().connect(sigc::bind<Gtk::ToggleButton*>(sigc::mem_fun(window_control, &IWindowControl::on_toggle_button_cut_mode), togglebutton_cut_mode));
 
 	combobox_input_path   ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_input_path), combobox_input_path));
 	combobox_color_select ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(window_control, &IWindowControl::on_combo_box_color_select), combobox_color_select));

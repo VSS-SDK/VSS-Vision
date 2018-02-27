@@ -13,6 +13,7 @@
 #include <gtkmm.h>
 #include <iostream>
 #include <Interfaces/ICalibrationRepository.h>
+#include <Interfaces/ICalibrationFactory.h>
 
 #include "GImage.h"
 #include "IWindowControl.h"
@@ -24,6 +25,7 @@ class GProgram : public IGProgram {
 private:
 	IWindowControl *window_control;
 	ICalibrationRepository *calibration_repository;
+	ICalibrationFactory *calibration_factory;
 
 	// Window - calibration
 	Gtk::Window* window = nullptr;
