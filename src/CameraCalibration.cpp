@@ -26,23 +26,42 @@ bool CameraCalibration::on_keyboard(GdkEventKey* event, Gtk::Window* window){
   return true;
 }
 
-void CameraCalibration::on_button_load(Gtk::FileChooserDialog* file_chooser){
-  calibration = calibrationRepository->read(file_chooser->get_filename());
-
-  scale_saturation->set_value(calibration.saturation);
-  scale_brightness->set_value(calibration.brightness);
-  scale_exposure->set_value(calibration.exposure);
-  scale_contrast->set_value(calibration.contrast);
-  scale_rotation->set_value(calibration.rotation);
-  scale_gain->set_value(calibration.gain);
+void CameraCalibration::on_signal_select_dialog(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+  std::string str = file_chooser->get_filename();
+  std::size_t sub_str = str.find_last_of("/\\");
+  entry->set_text(str.substr(sub_str+1));
 }
 
-void CameraCalibration::on_button_save(Gtk::Entry* entry){
+void CameraCalibration::on_button_save_calibration(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+  if (entry->get_text_length() > 0){
     std::cout << entry->get_text() << std::endl;
+    std::cout << file_chooser->get_current_folder() << std::endl;
+    file_chooser->hide();
+  }
 }
 
-void CameraCalibration::on_button_load_save(Gtk::FileChooserDialog* file_chooser){
+void CameraCalibration::on_button_load_calibration(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+  if (entry->get_text_length() > 0){
+    calibration = calibrationRepository->read(file_chooser->get_filename());
+    scale_saturation->set_value(calibration.saturation);
+    scale_brightness->set_value(calibration.brightness);
+    scale_exposure->set_value(calibration.exposure);
+    scale_contrast->set_value(calibration.contrast);
+    scale_rotation->set_value(calibration.rotation);
+    scale_gain->set_value(calibration.gain);
+  
+    file_chooser->hide();    
+  }
+}
+
+void CameraCalibration::on_button_load_dialog(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+  entry->set_sensitive(false);
   file_chooser->show();
+}
+
+void CameraCalibration::on_button_save_dialog(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+  entry->set_sensitive(true);  
+  file_chooser->show();    
 }
 
 void CameraCalibration::on_combo_box_color_select(Gtk::ComboBoxText* color_select){

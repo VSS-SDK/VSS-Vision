@@ -87,7 +87,9 @@ void GProgram::builder_widget(){
 
 		builder->get_widget("button_save", button_save);
 		builder->get_widget("button_load", button_load);
-		builder->get_widget("button_load_save", button_load_save);
+		builder->get_widget("button_save_dialog", button_save_dialog);
+		builder->get_widget("button_load_dialog", button_load_dialog);
+
 		builder->get_widget("entry_chooser", entry_chooser);
 		builder->get_widget("filechooserdialog", file_chooser);
 
@@ -138,9 +140,12 @@ void GProgram::set_signal_widget(){
 
 	window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(window_control, &IWindowControl::on_keyboard), window) , false);
 
-	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load), file_chooser ));
-	button_save->signal_clicked().connect(sigc::bind<Gtk::Entry*>(sigc::mem_fun(window_control, &IWindowControl::on_button_save), entry_chooser ));
-	button_load_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load_save), file_chooser ));
+	button_load->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load_calibration), file_chooser, entry_chooser ));
+	button_save->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(window_control, &IWindowControl::on_button_save_calibration), file_chooser, entry_chooser ));
+	button_load_dialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(window_control, &IWindowControl::on_button_load_dialog), file_chooser, entry_chooser ));
+	button_save_dialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(window_control, &IWindowControl::on_button_save_dialog), file_chooser, entry_chooser ));
+
+	file_chooser->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(window_control, &IWindowControl::on_signal_select_dialog), file_chooser, entry_chooser ));
 
 	scale_h_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_h_max), scale_h_max));
 	scale_h_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(window_control, &IWindowControl::on_scale_h_min), scale_h_min));

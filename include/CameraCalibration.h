@@ -12,6 +12,8 @@
 #include "gtkmm.h"
 #include "IWindowControl.h"
 #include "iostream"
+#include <string>
+#include <cstddef>  
 #include "ICalibrationRepository.h"
 
 class CameraCalibration : public IWindowControl{
@@ -20,9 +22,11 @@ public:
 
 	bool on_keyboard(GdkEventKey* event, Gtk::Window*) override;
 
-	void on_button_load(Gtk::FileChooserDialog*) override;
-	void on_button_save(Gtk::Entry* ) override;
-	void on_button_load_save(Gtk::FileChooserDialog*) override;
+	void on_signal_select_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
+	void on_button_save_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) override;
+	void on_button_load_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) override;
+	void on_button_load_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
+	void on_button_save_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
 
 	void on_combo_box_input_path(Gtk::ComboBoxText*) override;
 	void on_combo_box_color_team1(Gtk::ComboBoxText*) override;
