@@ -10,7 +10,7 @@
 #define CAMERA_CALIBRATION_H
 
 #include "gtkmm.h"
-#include "ICameraCalibration.h"
+#include "ICalibrationRoutine.h"
 #include "iostream"
 #include <string>
 #include <sstream>
@@ -18,9 +18,9 @@
 #include <Interfaces/ICalibrationBuilder.h>
 #include "ICalibrationRepository.h"
 
-class CameraCalibration : public ICameraCalibration{
+class CalibrationRoutine : public ICalibrationRoutine{
 public:
-	CameraCalibration(ICalibrationRepository *calibrationRepository, ICalibrationBuilder *calibrationBuilder);
+	CalibrationRoutine(ICalibrationRepository *calibrationRepository, ICalibrationBuilder *calibrationBuilder);
 
 	bool on_keyboard(GdkEventKey* event, Gtk::Window*) override;
 

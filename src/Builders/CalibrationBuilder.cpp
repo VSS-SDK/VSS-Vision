@@ -3,96 +3,70 @@
 //
 
 #include <Domain/Calibration.h>
-#include <Factories/CalibrationFactory.h>
+#include <Builders/CalibrationBuilder.h>
 
-Calibration CalibrationFactory::createCalibrationWithoutColors() {
+void CalibrationBuilder::shouldInitializeColors(bool haveToInitializeColors) {
+  this->haveToInitializeColors = haveToInitializeColors;
+}
+
+void CalibrationBuilder::shouldInitializeCuts(bool haveToInitializeCuts) {
+  this->haveToInitializeCuts = haveToInitializeCuts;
+}
+
+Calibration CalibrationBuilder::getInstance() {
   auto calibration = new Calibration();
 
-  calibration->cut.push_back(new Point2d(0.0, 0.0));
-  calibration->cut.push_back(new Point2d(0.0, 0.0));
+  if(haveToInitializeColors)
+    calibration->colorsRange = getColorsRange();
+
+  if(haveToInitializeCuts)
+    calibration->cut = getCuts();
 
   return calibration;
 }
 
-Calibration CalibrationFactory::createCalibrationWithoutCuts() {
-  auto calibration = new Calibration();
+CalibrationBuilder::CalibrationBuilder() {
+  haveToInitializeColors = false;
+  haveToInitializeCuts = false;
+}
+
+std::vector<ColorRange> CalibrationBuilder::getColorsRange() {
+  std::vector<ColorRange> colorsRange;
 
   auto colorRangeAux = new ColorRange();
 
   colorRangeAux->colorType = ColorType::Red;
-  calibration->colorsRange.push_back(colorRangeAux);
+  colorsRange.push_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Yellow;
-  calibration->colorsRange.push_back(colorRangeAux);
+  colorsRange.push_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Orange;
-  calibration->colorsRange.push_back(colorRangeAux);
+  colorsRange.push_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Green;
-  calibration->colorsRange.push_back(colorRangeAux);
+  colorsRange.push_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Pink;
-  calibration->colorsRange.push_back(colorRangeAux);
+  colorsRange.push_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Purple;
-  calibration->colorsRange.push_back(colorRangeAux);
+  colorsRange.push_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Brown;
-  calibration->colorsRange.push_back(colorRangeAux);
+  colorsRange.push_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Blue;
-  calibration->colorsRange.push_back(colorRangeAux);
+  colorsRange.push_back(colorRangeAux);
 
-  return calibration;
+  return colorsRange;
 }
 
-Calibration CalibrationFactory::createCalibrationWithoutColorsAndCuts() {
-  return new Calibration();
-}
+std::vector<Point2d> CalibrationBuilder::getCuts() {
+  std::vector<Point2d> cuts;
 
-Calibration CalibrationFactory::createCalibrationWithColorsAndCuts() {
-  auto calibration = new Calibration();
+  cuts.push_back(Point2d(0,0));
+  cuts.push_back(Point2d(0,0));
 
-  auto colorRangeAux = new ColorRange();
-
-  colorRangeAux->colorType = ColorType::Red;
-  calibration->colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Yellow;
-  calibration->colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Orange;
-  calibration->colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Green;
-  calibration->colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Pink;
-  calibration->colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Purple;
-  calibration->colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Brown;
-  calibration->colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Blue;
-  calibration->colorsRange.push_back(colorRangeAux);
-
-  calibration->cut.push_back(new Point2d(0.0, 0.0));
-  calibration->cut.push_back(new Point2d(0.0, 0.0));
-
-  return calibration;
-}
-
-void CalibrationFactory::shouldInitializeColors(bool) {
-
-}
-
-void CalibrationFactory::shouldInitializeCuts(bool) {
-
-}
-
-Calibration CalibrationFactory::getInstance() {
-  return Calibration();
+  return cuts;
 }
