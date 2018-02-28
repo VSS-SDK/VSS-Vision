@@ -115,7 +115,7 @@ bool GImage::on_motion_notify_event (GdkEventMotion* event){
 }
 
 void GImage::set_image(cv::Mat _cv_image){
-    cv_image = _cv_image;
+    cv::cvtColor(_cv_image, cv_image, cv::COLOR_BGR2RGB);
     queue_draw();
 }
 
