@@ -9,43 +9,46 @@
 #ifndef GPROGRAM_H_
 #define GPROGRAM_H_
 
-#include "IGProgram.h"
+#include "ICalibrationWindow.h"
 #include <gtkmm.h>
 #include <iostream>
 #include <Interfaces/ICalibrationRepository.h>
+#include <Interfaces/ICalibrationBuilder.h>
 
 #include "GImage.h"
-#include "IWindowControl.h"
+#include "ICalibrationRoutine.h"
 #include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
 
-class GProgram : public IGProgram {
+class CalibrationWindow : public ICalibrationWindow {
 private:
-	IWindowControl *window_control;
-	ICalibrationRepository *calibration_repository;
+	ICalibrationRoutine *calibrationRoutine;
+	ICalibrationRepository *calibrationRepository;
+    ICalibrationBuilder *calibrationBuilderFromRepository;
+	ICalibrationBuilder *calibrationBuilderFromRoutine;
 
 	// Window - calibration
 	Gtk::Window* window = nullptr;
 
 	// Opencv image
-	GImage* g_image = nullptr;
+	GImage* gImage = nullptr;
 
 	// Button
-	Gtk::RadioButton* radio_button_image = nullptr;
-	Gtk::RadioButton* radio_button_video = nullptr;
-	Gtk::RadioButton* radio_button_camera = nullptr;
+	Gtk::RadioButton* radioButtonImage = nullptr;
+	Gtk::RadioButton* radioButtonVideo = nullptr;
+	Gtk::RadioButton* radioButtonCamera = nullptr;
 
 	// Select text
-	Gtk::ComboBoxText* combobox_input_path = nullptr;
-	Gtk::ComboBoxText* combobox_color_select = nullptr;
-	Gtk::ComboBoxText* combobox_color_team_1 = nullptr;
-	Gtk::ComboBoxText* combobox_color_team_2 = nullptr;
-	Gtk::ComboBoxText* combobox_color_robot_1 = nullptr;
-	Gtk::ComboBoxText* combobox_color_robot_2 = nullptr;
-	Gtk::ComboBoxText* combobox_color_robot_3 = nullptr;
-	Gtk::ComboBoxText* combobox_color_robot_4 = nullptr;
-	Gtk::ComboBoxText* combobox_color_robot_5 = nullptr;
+	Gtk::ComboBoxText* comboBoxInputPath = nullptr;
+	Gtk::ComboBoxText* comboBoxColorSelect = nullptr;
+	Gtk::ComboBoxText* comboBoxColorTeam1 = nullptr;
+	Gtk::ComboBoxText* comboBoxColorTeam2 = nullptr;
+	Gtk::ComboBoxText* comboBoxColorRobot1 = nullptr;
+	Gtk::ComboBoxText* comboBoxColorRobot2 = nullptr;
+	Gtk::ComboBoxText* comboBoxColorRobot3 = nullptr;
+	Gtk::ComboBoxText* comboBoxColorRobot4 = nullptr;
+	Gtk::ComboBoxText* comboBoxColorRobot5 = nullptr;
 
 	// Table
 	Gtk::Table* table_input = nullptr;
@@ -87,8 +90,8 @@ private:
 
 public:
 
-	GProgram();
-	virtual ~GProgram();
+	CalibrationWindow();
+	virtual ~CalibrationWindow();
 	void run(int argc, char *argv[]) override;
 };
 #endif

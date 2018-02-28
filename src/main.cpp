@@ -6,9 +6,9 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include "GProgram.h"
+#include "CalibrationWindow.h"
 
 int main(int argc, char *argv[]) {
-    GProgram app;
-    app.run(argc, argv);
+    ICalibrationWindow *calibrationWindow = new CalibrationWindow();
+    calibrationWindow->run(argc, argv);
 }

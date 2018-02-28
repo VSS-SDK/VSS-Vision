@@ -19,10 +19,12 @@ public:
     float max[3];
 
     ColorRange();
-    ColorRange( float *min, float *max );
+    ColorRange( ColorType colorType, float *min, float *max );
     ColorRange( ColorRange *colorRange );
 
     friend std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange );
 };
+
+enum ColorRangePart {H_MIN = 0, S_MIN = 1, V_MIN = 2, H_MAX = 3, S_MAX = 4, V_MAX = 5};
 
 #endif // COLOR_RANGE_H

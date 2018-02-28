@@ -13,11 +13,14 @@
 #include <Domain/ColorType.h>
 #include <fstream>
 #include <Domain/CutType.h>
+#include <Interfaces/ICalibrationBuilder.h>
 #include "ICalibrationRepository.h"
 #include "Calibration.h"
 
 class CalibrationRepository : public ICalibrationRepository {
 private:
+    ICalibrationBuilder *calibrationBuilder;
+
     ColorType hasColorType(std::string name);
     ConfigurationType hasConfigurationType(std::string name);
     CutType hasCutType(std::string name);
@@ -28,6 +31,8 @@ private:
                                      ConfigurationType &configurationType);
 
 public:
+    CalibrationRepository(ICalibrationBuilder *calibrationFactory);
+
     Calibration read(std::string pathName) override;
     Calibration update(std::string pathName, Calibration calibration) override;
     void remove(std::string pathName) override;

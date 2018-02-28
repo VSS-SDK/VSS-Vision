@@ -16,8 +16,8 @@ ColorRange::ColorRange(){
   }
 }
 
-ColorRange::ColorRange(float *min, float *max){
-  colorType = ColorType::UnknownType;
+ColorRange::ColorRange(ColorType colorType, float *min, float *max){
+  colorType = colorType;
   for(int i = 0 ; i < 3 ; i++){
     this->min[i] = min[i];
     this->max[i] = max[i];
@@ -33,7 +33,7 @@ ColorRange::ColorRange( ColorRange *colorRange ){
 }
 std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange )
 {
-  os << "colorType: " << colorRange.colorType << std::endl;
+  os << "colorType: " << toDescription(colorRange.colorType) << std::endl;
   os << "min: (" << colorRange.min[0] << ", " << colorRange.min[1] << ", " << colorRange.min[2] << ")" << std::endl;
   os << "max: (" << colorRange.max[0] << ", " << colorRange.max[1] << ", " << colorRange.max[2] << ")" << std::endl;
 

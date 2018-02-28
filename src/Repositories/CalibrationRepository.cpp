@@ -11,32 +11,36 @@
 
 Calibration CalibrationRepository::read(std::string pathName){
   std::ifstream ifs (pathName, std::ifstream::in);
-  Calibration *calibration = new Calibration();
+
+  auto calibration = calibrationBuilder->getInstance();
 
   for (std::string line; std::getline(ifs, line); )
   {
     auto colorType = hasColorType(line);
     if(colorType != ColorType::UnknownType) {
-      setCalibrationColorRange(*calibration, ifs, colorType);
+      setCalibrationColorRange(calibration, ifs, colorType);
     }
 
     auto configurationType = hasConfigurationType(line);
     if(configurationType != ConfigurationType::UnknownConfiguration){
-      setCalibrationConfiguration(*calibration, ifs, configurationType);
+      setCalibrationConfiguration(calibration, ifs, configurationType);
     }
 
     auto cutType = hasCutType(line);
     if(cutType != CutType::UnknownCut){
-      setCalibrationCut(*calibration, ifs);
+      setCalibrationCut(calibration, ifs);
     }
   }
-
+  std::cout << "amount " << calibration.colorsRange.size() << std::endl;
   return calibration;
 }
 
 void CalibrationRepository::create(std::string pathName, Calibration calibration){
-  if(calibration.colorsRange.size() < 7 && calibration.cut.size() < 2)
+  if(calibration.colorsRange.size() < 7 && calibration.cut.size() < 2){
+    std::cout << "colors " << calibration.colorsRange.size() << std::endl;
+    std::cout << "cuts " << calibration.cut.size() << std::endl;
     return;
+  }
 
   std::ofstream file;
   file.open (pathName);
@@ -63,11 +67,6 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
 
   file << "# Gain" << std::endl;
   file << calibration.gain << std::endl;
-  file << std::endl;
-
-  file << "# Cuts" << std::endl;
-  for(unsigned int i = 0 ; i < calibration.cut.size() ; i++)
-    file << calibration.cut.at(i).x << " " << calibration.cut.at(i).y << std::endl;
   file << std::endl;
 
   file << "# Blue" << std::endl;
@@ -147,6 +146,11 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
 
   for(int i = 0 ; i < 3 ; i++)
     file << calibration.colorsRange[7].max[i] << " ";
+
+  file << "# Cuts" << std::endl;
+  for(unsigned int i = 0 ; i < calibration.cut.size() ; i++)
+    file << calibration.cut.at(i).x << " " << calibration.cut.at(i).y << std::endl;
+  file << std::endl;
 
   file.close();
 }
@@ -253,7 +257,7 @@ ColorType CalibrationRepository::hasColorType(std::string name){
   if(name == "# Purple")
     return ColorType::Purple;
 
-  if(name == " # Brown")
+  if(name == "# Brown")
     return ColorType::Brown;
 
   return ColorType::UnknownType;
@@ -280,4 +284,10 @@ ConfigurationType CalibrationRepository::hasConfigurationType(std::string name){
     return ConfigurationType::Gain;
 
   return ConfigurationType::UnknownConfiguration;
+}
+
+CalibrationRepository::CalibrationRepository(ICalibrationBuilder *calibrationBuilder) {
+  this->calibrationBuilder = calibrationBuilder;
+  calibrationBuilder->shouldInitializeColors(false);
+  calibrationBuilder->shouldInitializeCuts(false);
 }

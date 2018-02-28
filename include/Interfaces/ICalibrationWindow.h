@@ -9,9 +9,8 @@
 #ifndef IGPROGRAM_H_
 #define IGPROGRAM_H_
 
-class IGProgram {
+class ICalibrationWindow {
 public:
   virtual void run(int argc, char *argv[]) = 0;
-
 };
 #endif

@@ -17,14 +17,15 @@
 // Não poderá ser utilizado a calibragem e a execução ao mesmo tempo
 // Quando for trocar entre um e outro, utilizar dynamic_cast
 
-class IWindowControl{
+class ICalibrationRoutine{
 public:
     virtual bool on_keyboard(GdkEventKey* event, Gtk::Window*) = 0;
 
-    virtual void on_button_save_dialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-	virtual void on_button_load_dialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-	virtual void on_button_load_calibration(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-	virtual void on_button_save_calibration(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+    virtual void on_signal_select_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) = 0;
+	virtual void on_button_save_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) = 0;
+	virtual void on_button_load_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) = 0;
+	virtual void on_button_load_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) = 0;
+	virtual void on_button_save_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) = 0;
 
 	virtual void on_combo_box_input_path(Gtk::ComboBoxText*) = 0;
 	virtual void on_combo_box_color_team1(Gtk::ComboBoxText*) = 0;
