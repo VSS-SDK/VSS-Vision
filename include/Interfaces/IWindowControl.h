@@ -21,9 +21,10 @@ class IWindowControl{
 public:
     virtual bool on_keyboard(GdkEventKey* event, Gtk::Window*) = 0;
 
-    virtual void on_button_load(Gtk::FileChooserDialog*) = 0;
-	virtual void on_button_save(Gtk::Entry* ) = 0;
-	virtual void on_button_load_save(Gtk::FileChooserDialog*) = 0;
+    virtual void on_button_save_dialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+	virtual void on_button_load_dialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+	virtual void on_button_load_calibration(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+	virtual void on_button_save_calibration(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
 	virtual void on_combo_box_input_path(Gtk::ComboBoxText*) = 0;
 	virtual void on_combo_box_color_team1(Gtk::ComboBoxText*) = 0;
@@ -51,7 +52,7 @@ public:
 
 	virtual void on_radio_button_image(Gtk::RadioButton*) = 0;
 	virtual void on_radio_button_video(Gtk::RadioButton*) = 0;
-  virtual void on_toggle_button_cut_mode(Gtk::ToggleButton*) = 0; 
+  	virtual void on_toggle_button_cut_mode(Gtk::ToggleButton*) = 0; 
 	virtual void on_radio_button_camera(Gtk::RadioButton*) = 0;
 
 	virtual void bind_scale_h_max(Gtk::Scale*) = 0;

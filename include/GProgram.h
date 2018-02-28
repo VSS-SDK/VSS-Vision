@@ -73,9 +73,10 @@ private:
 	Gtk::Entry* entry_chooser = nullptr;
 
 	// Button
-	Gtk::Button* button_save = nullptr;
-	Gtk::Button* button_load = nullptr;
-	Gtk::Button* button_load_save = nullptr;
+	Gtk::Button* button_load_dialog = nullptr;
+	Gtk::Button* button_save_dialog = nullptr;
+	Gtk::Button* button_save_calibration = nullptr;
+	Gtk::Button* button_load_calibration = nullptr;
 	Gtk::ToggleButton* togglebutton_cut_mode = nullptr;
 
 	// Control method
