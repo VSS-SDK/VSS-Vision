@@ -11,7 +11,8 @@
 
 Calibration CalibrationRepository::read(std::string pathName){
   std::ifstream ifs (pathName, std::ifstream::in);
-  auto calibration = calibrationFactory->createCalibrationWithoutColorsAndCuts();
+
+  auto calibration = calibrationBuilder->getInstance();
 
   for (std::string line; std::getline(ifs, line); )
   {
@@ -285,6 +286,8 @@ ConfigurationType CalibrationRepository::hasConfigurationType(std::string name){
   return ConfigurationType::UnknownConfiguration;
 }
 
-CalibrationRepository::CalibrationRepository(ICalibrationFactory *calibrationFactory) {
-  this->calibrationFactory = calibrationFactory;
+CalibrationRepository::CalibrationRepository(ICalibrationBuilder *calibrationBuilder) {
+  this->calibrationBuilder = calibrationBuilder;
+  calibrationBuilder->shouldInitializeColors(false);
+  calibrationBuilder->shouldInitializeCuts(false);
 }

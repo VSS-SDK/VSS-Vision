@@ -13,19 +13,20 @@
 #include <gtkmm.h>
 #include <iostream>
 #include <Interfaces/ICalibrationRepository.h>
-#include <Interfaces/ICalibrationFactory.h>
+#include <Interfaces/ICalibrationBuilder.h>
 
 #include "GImage.h"
-#include "IWindowControl.h"
+#include "ICameraCalibration.h"
 #include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
 
 class GProgram : public IGProgram {
 private:
-	IWindowControl *window_control;
+	ICameraCalibration *camera_calibration;
 	ICalibrationRepository *calibration_repository;
-	ICalibrationFactory *calibration_factory;
+    ICalibrationBuilder *calibration_builder_from_repository;
+	ICalibrationBuilder *calibration_builder_from_window_control;
 
 	// Window - calibration
 	Gtk::Window* window = nullptr;

@@ -10,17 +10,17 @@
 #define CAMERA_CALIBRATION_H
 
 #include "gtkmm.h"
-#include "IWindowControl.h"
+#include "ICameraCalibration.h"
 #include "iostream"
 #include <string>
 #include <sstream>
 #include <cstddef>
-#include <Interfaces/ICalibrationFactory.h>
+#include <Interfaces/ICalibrationBuilder.h>
 #include "ICalibrationRepository.h"
 
-class CameraCalibration : public IWindowControl{
+class CameraCalibration : public ICameraCalibration{
 public:
-	CameraCalibration(ICalibrationRepository *calibrationRepository, ICalibrationFactory *calibrationFactory);
+	CameraCalibration(ICalibrationRepository *calibrationRepository, ICalibrationBuilder *calibrationBuilder);
 
 	bool on_keyboard(GdkEventKey* event, Gtk::Window*) override;
 
@@ -74,7 +74,7 @@ public:
 	void bind_scale_saturation(Gtk::Scale*) override;
 
 private:
-	ICalibrationFactory *calibrationFactory;
+	ICalibrationBuilder *calibrationBuilder;
 	ICalibrationRepository *calibrationRepository;
 
 	Calibration calibration;

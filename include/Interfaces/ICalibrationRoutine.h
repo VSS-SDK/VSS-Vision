@@ -17,7 +17,7 @@
 // Não poderá ser utilizado a calibragem e a execução ao mesmo tempo
 // Quando for trocar entre um e outro, utilizar dynamic_cast
 
-class IWindowControl{
+class ICameraCalibration{
 public:
     virtual bool on_keyboard(GdkEventKey* event, Gtk::Window*) = 0;
 

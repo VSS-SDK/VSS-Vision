@@ -9,9 +9,13 @@
 #include <Domain/ColorSpace.h>
 #include "CameraCalibration.h"
 
-CameraCalibration::CameraCalibration(ICalibrationRepository *calibrationRepository, ICalibrationFactory *calibrationFactory){
+CameraCalibration::CameraCalibration(ICalibrationRepository *calibrationRepository, ICalibrationBuilder *calibrationBuilder){
   this->calibrationRepository = calibrationRepository;
-  this->calibrationFactory = calibrationFactory;
+  this->calibrationBuilder = calibrationBuilder;
+
+  this->calibrationBuilder->shouldInitializeColors(true);
+  this->calibrationBuilder->shouldInitializeCuts(true);
+  calibration = calibrationBuilder->getInstance();
 
   actualColorToCalibrate = ColorType::UnknownType;
 }

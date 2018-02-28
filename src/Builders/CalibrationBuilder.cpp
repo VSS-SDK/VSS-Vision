@@ -84,3 +84,15 @@ Calibration CalibrationFactory::createCalibrationWithColorsAndCuts() {
 
   return calibration;
 }
+
+void CalibrationFactory::shouldInitializeColors(bool) {
+
+}
+
+void CalibrationFactory::shouldInitializeCuts(bool) {
+
+}
+
+Calibration CalibrationFactory::getInstance() {
+  return Calibration();
+}
