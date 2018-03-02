@@ -14,6 +14,8 @@
 #include <iostream>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
+#include <Interfaces/ICameraReader.h>
+#include <thread>
 
 #include "GImage.h"
 #include "ICalibrationRoutine.h"
@@ -23,8 +25,15 @@ using namespace std;
 
 class CalibrationWindow : public ICalibrationWindow {
 private:
+	// Threads
+	std::thread *threadCameraReader;
+    std::thread *threadWindowControl;
+    std::thread *threadAlgorithm;
+
+	// Classes
 	ICalibrationRoutine *calibrationRoutine;
 	ICalibrationRepository *calibrationRepository;
+	ICameraReader *cameraReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
 	ICalibrationBuilder *calibrationBuilderFromRoutine;
 
@@ -83,10 +92,14 @@ private:
 	Gtk::ToggleButton* togglebutton_cut_mode = nullptr;
 
 	// Control method
-	void initialize_widget();
-	void set_signal_widget();
-	void builder_widget();
-	void bind_widgets_to_calibration();
+	void initializeWidget();
+	void setSignalWidget();
+	void builderWidget();
+	void bindWidgetToCalibrationRoutine();
+
+	void cameraThreadWrapper();
+    void windowThreadWrapper();
+    void algorithmThreadWrapper();
 
 public:
 

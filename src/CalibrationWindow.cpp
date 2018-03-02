@@ -8,12 +8,14 @@
 
 #include <Repositories/CalibrationRepository.h>
 #include <Builders/CalibrationBuilder.h>
+#include <CameraReader.h>
 #include "CalibrationWindow.h"
 #include "CalibrationRoutine.h"
 
 CalibrationWindow::CalibrationWindow(){
   calibrationBuilderFromRepository = new CalibrationBuilder();
   calibrationBuilderFromRoutine = new CalibrationBuilder();
+  cameraReader = new CameraReader();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
@@ -23,7 +25,35 @@ CalibrationWindow::CalibrationWindow(){
 CalibrationWindow::~CalibrationWindow(){
 }
 
-void CalibrationWindow::initialize_widget(){
+void CalibrationWindow::run(int argc, char *argv[]){
+  Gtk::Main kit(argc, argv);
+
+  threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
+  threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
+  threadAlgorithm = new thread( std::bind( &CalibrationWindow::algorithmThreadWrapper, this ));
+
+  threadCameraReader->join();
+  threadWindowControl->join();
+  threadAlgorithm->join();
+}
+
+void CalibrationWindow::cameraThreadWrapper() {
+  cameraReader->setCameraIndex(0);
+  cameraReader->start();
+  cameraReader->initializeCapture();
+}
+
+void CalibrationWindow::windowThreadWrapper() {
+  builderWidget();
+  setSignalWidget();
+  initializeWidget();
+  bindWidgetToCalibrationRoutine();
+
+  Gtk::Main::run(*window);
+}
+
+
+void CalibrationWindow::initializeWidget(){
 
   //TABLES
   table_input->attach(*comboBoxInputPath, 0, 3, 3, 4, Gtk::FILL, Gtk::EXPAND);
@@ -68,18 +98,7 @@ void CalibrationWindow::initialize_widget(){
   gImage->set_image(cv::imread("../mock/images/model.jpg"));
 }
 
-void CalibrationWindow::run(int argc, char *argv[]){
-  Gtk::Main kit(argc, argv);
-
-  builder_widget();
-  set_signal_widget();
-  initialize_widget();
-  bind_widgets_to_calibration();
-
-  Gtk::Main::run(*window);
-}
-
-void CalibrationWindow::builder_widget(){
+void CalibrationWindow::builderWidget(){
 
   auto builder = Gtk::Builder::create();
 
@@ -141,7 +160,7 @@ void CalibrationWindow::builder_widget(){
   }
 }
 
-void CalibrationWindow::set_signal_widget(){
+void CalibrationWindow::setSignalWidget(){
 
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_keyboard), window) , false);
 
@@ -183,7 +202,7 @@ void CalibrationWindow::set_signal_widget(){
 
 }
 
-void CalibrationWindow::bind_widgets_to_calibration() {
+void CalibrationWindow::bindWidgetToCalibrationRoutine() {
   calibrationRoutine->bind_scale_brightness(scale_brightness);
   calibrationRoutine->bind_scale_contrast(scale_contrast);
   calibrationRoutine->bind_scale_exposure(scale_exposure);
@@ -199,4 +218,15 @@ void CalibrationWindow::bind_widgets_to_calibration() {
 
   calibrationRoutine->bind_scale_v_max(scale_v_max);
   calibrationRoutine->bind_scale_v_min(scale_v_min);
+}
+
+void CalibrationWindow::algorithmThreadWrapper() {
+  while(true){
+    cv::Mat frame = cameraReader->getActualFrame();
+
+    if(frame.rows > 0 && frame.cols > 0)
+      gImage->set_image(frame);
+
+    usleep(33333);
+  }
 }

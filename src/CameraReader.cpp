@@ -8,10 +8,12 @@
 #include <zconf.h>
 
 CameraReader::CameraReader() {
-  initialized = false;
   runningCapture = false;
   shouldCloseReader = false;
   actualCameraIndex = -1;
+
+  // Simulando uma camera
+  camerasIndex.push_back(0);
 }
 
 
@@ -20,20 +22,18 @@ std::vector<int> CameraReader::getAllCamerasIndex() {
 }
 
 void CameraReader::initializeCapture() {
-  if(!initialized){
-    std::cerr << "[Error] Capture not initialized" << std::endl;
-    return;
-  }
-
   if(!isAValidCameraIndex(actualCameraIndex)) {
     std::cerr << "[Error] Invalid camera index" << std::endl;
     return;
   }
 
+  capture = cv::VideoCapture(0);
+
   while(!shouldCloseReader){
     if(runningCapture){
-      // Faz um monte de coisa
-      usleep(1000000);
+      capture >> actualFrame;
+      //cv::imshow("test", actualFrame);
+      //if(cv::waitKey(30) == 27) break;
     }else{
       usleep(1000000);
     }
@@ -50,7 +50,7 @@ void CameraReader::setCameraIndex(int actualCameraIndex) {
 }
 
 cv::Mat CameraReader::getActualFrame() {
-  return cv::Mat();
+  return actualFrame.clone();
 }
 
 void CameraReader::pause() {

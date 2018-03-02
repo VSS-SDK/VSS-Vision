@@ -8,8 +8,9 @@
 #include <vector>
 #include <cxcore.h>
 #include <Interfaces/ICameraReader.h>
+#include <highgui.h>
 
-class CameraReader : ICameraReader{
+class CameraReader : public ICameraReader{
 public:
     CameraReader();
 
@@ -24,10 +25,10 @@ public:
 private:
     bool shouldCloseReader;
     bool runningCapture;
-    bool initialized;
     int actualCameraIndex;
     cv::Mat actualFrame;
     std::vector<int> camerasIndex;
+    cv::VideoCapture capture;
 
     bool isAValidCameraIndex(int);
 };

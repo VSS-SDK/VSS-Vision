@@ -9,6 +9,6 @@
 #include "CalibrationWindow.h"
 
 int main(int argc, char *argv[]) {
-    ICalibrationWindow *calibrationWindow = new CalibrationWindow();
-    calibrationWindow->run(argc, argv);
+  ICalibrationWindow *calibrationWindow = new CalibrationWindow();
+  calibrationWindow->run(argc, argv);
 }
