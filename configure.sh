@@ -43,6 +43,13 @@ CMAKE_DEBIAN () {
   cd ..
 }
 
+INSTALL_UBUNTU_14_04 () {
+  sudo apt-get update && apt-get upgrade
+  sudo apt-get install pkg-config
+  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev build-essential checkinstall yasm libtiff4-dev libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg
+  INSTALLED=1
+}
+
 INSTALL_UBUNTU_16_04 () {
   sudo apt-get update && apt-get upgrade
   sudo apt-get install pkg-config
@@ -66,8 +73,15 @@ INSTALL_DEBIAN_9_3 () {
 
 INSTALL () {
   # Ubuntu
-  if [[ "$DISTRO" == "Ubuntu" ]]; then
+  if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "16.04" ]]; then
     INSTALL_UBUNTU_16_04;
+    if [ $INSTALLED == 1 ]; then
+      CMAKE_UBUNTU;
+    fi
+  fi
+
+  if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "14.04" ]]; then
+    INSTALL_UBUNTU_14_04;
     if [ $INSTALLED == 1 ]; then
       CMAKE_UBUNTU;
     fi
