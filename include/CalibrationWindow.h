@@ -56,18 +56,8 @@ private:
 	Gtk::Table* table_color_robot = nullptr;
 
 	// Slider
-	Gtk::Scale* scale_h_max = nullptr;
-	Gtk::Scale* scale_h_min = nullptr;
-	Gtk::Scale* scale_s_max = nullptr;
-	Gtk::Scale* scale_s_min = nullptr;
-	Gtk::Scale* scale_v_max = nullptr;
-	Gtk::Scale* scale_v_min = nullptr;
-	Gtk::Scale* scale_gain  = nullptr;
-	Gtk::Scale* scale_rotation = nullptr;
-	Gtk::Scale* scale_contrast = nullptr;
-	Gtk::Scale* scale_exposure = nullptr;
-	Gtk::Scale* scale_brightness = nullptr;
-	Gtk::Scale* scale_saturation = nullptr;
+	std::vector<Gtk::Scale*> scale_hsv;
+	std::vector<Gtk::Scale*> scale_cam_config;
 
 	// File Chooser - save/load file
 	Gtk::FileChooserDialog* file_chooser = nullptr;
@@ -86,7 +76,6 @@ private:
 	void initialize_widget();
 	void set_signal_widget();
 	void builder_widget();
-	void bind_widgets_to_calibration();
 
 public:
 

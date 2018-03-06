@@ -46,15 +46,15 @@ void CalibrationRoutine::on_button_save_calibration(Gtk::FileChooserDialog* file
   }
 }
 
-void CalibrationRoutine::on_button_load_calibration(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+void CalibrationRoutine::on_button_load_calibration(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry, std::vector<Gtk::Scale*> scale_cam_config){
   if (entry->get_text_length() > 0){
     calibration = calibrationRepository->read(file_chooser->get_filename());
-    scale_saturation->set_value(calibration.saturation);
-    scale_brightness->set_value(calibration.brightness);
-    scale_exposure->set_value(calibration.exposure);
-    scale_contrast->set_value(calibration.contrast);
-    scale_rotation->set_value(calibration.rotation);
-    scale_gain->set_value(calibration.gain);
+    scale_cam_config[Saturation]->set_value(calibration.saturation);
+    scale_cam_config[Brightness]->set_value(calibration.brightness);
+    scale_cam_config[Exposure]->set_value(calibration.exposure);
+    scale_cam_config[Contrast]->set_value(calibration.contrast);
+    scale_cam_config[Rotation]->set_value(calibration.rotation);
+    scale_cam_config[Gain]->set_value(calibration.gain);
     file_chooser->hide();    
   }
 }
@@ -69,9 +69,9 @@ void CalibrationRoutine::on_button_save_dialog(Gtk::FileChooserDialog* file_choo
   file_chooser->show();    
 }
 
-void CalibrationRoutine::on_combo_box_color_select(Gtk::ComboBoxText* color_select){
+void CalibrationRoutine::on_combo_box_color_select(Gtk::ComboBoxText* color_select, std::vector<Gtk::Scale*> scale_hsv){
   actualColorToCalibrate = toColorType(color_select->get_active_text());
-  applyActualColorRangeToSlidersHSV(actualColorToCalibrate);
+  applyActualColorRangeToSlidersHSV(actualColorToCalibrate, scale_hsv);
 }
 
 void CalibrationRoutine::on_combo_box_color_team1(Gtk::ComboBoxText* color_team_1){
@@ -178,64 +178,16 @@ void CalibrationRoutine::on_radio_button_camera(Gtk::RadioButton* radio_button_c
     std::cout << "Camera: " << radio_button_camera->get_active() << std::endl;
 }
 
-void CalibrationRoutine::bind_scale_h_max(Gtk::Scale *scale_h_max) {
-  this->scale_h_max = scale_h_max;
-}
-
-void CalibrationRoutine::bind_scale_h_min(Gtk::Scale *scale_h_min) {
-  this->scale_h_min = scale_h_min;
-}
-
-void CalibrationRoutine::bind_scale_s_max(Gtk::Scale *scale_s_max) {
-  this->scale_s_max = scale_s_max;
-}
-
-void CalibrationRoutine::bind_scale_s_min(Gtk::Scale *scale_s_min) {
-  this->scale_s_min = scale_s_min;
-}
-
-void CalibrationRoutine::bind_scale_v_max(Gtk::Scale *scale_v_max) {
-  this->scale_v_max = scale_v_max;
-}
-
-void CalibrationRoutine::bind_scale_v_min(Gtk::Scale *scale_v_min) {
-  this->scale_v_min = scale_v_min;
-}
-
-void CalibrationRoutine::bind_scale_gain(Gtk::Scale *scale_gain) {
-  this->scale_gain = scale_gain;
-}
-
-void CalibrationRoutine::bind_scale_contrast(Gtk::Scale *scale_contrast) {
-  this->scale_contrast = scale_contrast;
-}
-
-void CalibrationRoutine::bind_scale_rotation(Gtk::Scale *scale_rotation) {
-  this->scale_rotation = scale_rotation;
-}
-
-void CalibrationRoutine::bind_scale_exposure(Gtk::Scale *scale_exposure) {
-  this->scale_exposure = scale_exposure;
-}
-
-void CalibrationRoutine::bind_scale_brightness(Gtk::Scale *scale_brightness) {
-  this->scale_brightness = scale_brightness;
-}
-
-void CalibrationRoutine::bind_scale_saturation(Gtk::Scale *scale_saturation) {
-  this->scale_saturation = scale_saturation;
-}
-
-void CalibrationRoutine::applyActualColorRangeToSlidersHSV(ColorType type) {
+void CalibrationRoutine::applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*> scale_hsv) {
   auto colorRange = getColorRangeFromCalibration(type);
 
-  scale_h_max->set_value(colorRange.max[H]);
-  scale_s_max->set_value(colorRange.max[S]);
-  scale_v_max->set_value(colorRange.max[V]);
+  scale_hsv[H_MAX]->set_value(colorRange.max[H]);
+  scale_hsv[S_MAX]->set_value(colorRange.max[S]);
+  scale_hsv[V_MAX]->set_value(colorRange.max[V]);
 
-  scale_h_min->set_value(colorRange.min[H]);
-  scale_s_min->set_value(colorRange.min[S]);
-  scale_v_min->set_value(colorRange.min[V]);
+  scale_hsv[H_MIN]->set_value(colorRange.min[H]);
+  scale_hsv[S_MIN]->set_value(colorRange.min[S]);
+  scale_hsv[V_MIN]->set_value(colorRange.min[V]);
 }
 
 ColorRange CalibrationRoutine::getColorRangeFromCalibration(ColorType type) {
