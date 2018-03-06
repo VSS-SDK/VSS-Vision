@@ -28,7 +28,6 @@ private:
 	// Threads
 	std::thread *threadCameraReader;
     std::thread *threadWindowControl;
-    std::thread *threadAlgorithm;
 
 	// Classes
 	ICalibrationRoutine *calibrationRoutine;
@@ -99,10 +98,10 @@ private:
 
 	void cameraThreadWrapper();
     void windowThreadWrapper();
-    void algorithmThreadWrapper();
+
+	void update_frame(cv::Mat);
 
 public:
-
 	CalibrationWindow();
 	virtual ~CalibrationWindow();
 	void run(int argc, char *argv[]) override;

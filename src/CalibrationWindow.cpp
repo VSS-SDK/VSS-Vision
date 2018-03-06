@@ -20,6 +20,8 @@ CalibrationWindow::CalibrationWindow(){
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
   calibrationRoutine = new CalibrationRoutine(calibrationRepository, calibrationBuilderFromRoutine);
+
+  cameraReader->signal_update_frame.connect( sigc::mem_fun(this, &CalibrationWindow::update_frame) );
 }
 
 CalibrationWindow::~CalibrationWindow(){
@@ -30,11 +32,9 @@ void CalibrationWindow::run(int argc, char *argv[]){
 
   threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
   threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
-  threadAlgorithm = new thread( std::bind( &CalibrationWindow::algorithmThreadWrapper, this ));
 
   threadCameraReader->join();
   threadWindowControl->join();
-  threadAlgorithm->join();
 }
 
 void CalibrationWindow::cameraThreadWrapper() {
@@ -51,7 +51,6 @@ void CalibrationWindow::windowThreadWrapper() {
 
   Gtk::Main::run(*window);
 }
-
 
 void CalibrationWindow::initializeWidget(){
 
@@ -220,13 +219,7 @@ void CalibrationWindow::bindWidgetToCalibrationRoutine() {
   calibrationRoutine->bind_scale_v_min(scale_v_min);
 }
 
-void CalibrationWindow::algorithmThreadWrapper() {
-  while(true){
-    cv::Mat frame = cameraReader->getActualFrame();
-
-    if(frame.rows > 0 && frame.cols > 0)
-      gImage->set_image(frame);
-
-    usleep(33333);
-  }
+void CalibrationWindow::update_frame(cv::Mat frame) {
+  if(frame.rows > 0 && frame.cols > 0)
+    gImage->set_image(frame);
 }

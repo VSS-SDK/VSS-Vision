@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <cxcore.h>
+#include <sigc++/sigc++.h>
 
 class ICameraReader{
 public:
@@ -17,6 +18,8 @@ public:
     virtual void pause() = 0;
     virtual void start() = 0;
     virtual void close() = 0;
+
+    sigc::signal <void, cv::Mat> signal_update_frame;
 };
 
 #endif //VSS_VISION_ICAMERAREADER_H

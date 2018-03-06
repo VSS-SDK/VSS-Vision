@@ -14,8 +14,8 @@ CameraReader::CameraReader() {
 
   // Simulando uma camera
   camerasIndex.push_back(0);
-}
 
+}
 
 std::vector<int> CameraReader::getAllCamerasIndex() {
   return std::vector<int>();
@@ -32,6 +32,9 @@ void CameraReader::initializeCapture() {
   while(!shouldCloseReader){
     if(runningCapture){
       capture >> actualFrame;
+      
+      signal_update_frame.emit(actualFrame);
+      
       //cv::imshow("test", actualFrame);
       //if(cv::waitKey(30) == 27) break;
     }else{
