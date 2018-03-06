@@ -55,7 +55,7 @@ void CalibrationWindow::initialize_widget(){
     comboBoxColorRobot4->append(colors[i]);
     comboBoxColorRobot5->append(colors[i]);
   }
-
+  
   //RADIOBUTTON
   radioButtonImage->set_active();
 
@@ -74,7 +74,6 @@ void CalibrationWindow::run(int argc, char *argv[]){
   builder_widget();
   set_signal_widget();
   initialize_widget();
-  bind_widgets_to_calibration();
 
   Gtk::Main::run(*window);
 }
@@ -98,18 +97,30 @@ void CalibrationWindow::builder_widget(){
     builder->get_widget("entry_chooser", entry_chooser);
     builder->get_widget("filechooserdialog", file_chooser);
 
-    builder->get_widget("hscale_hmax", scale_h_max);
-    builder->get_widget("hscale_hmin", scale_h_min);
-    builder->get_widget("hscale_smax", scale_s_max);
-    builder->get_widget("hscale_smin", scale_s_min);
-    builder->get_widget("hscale_vmax", scale_v_max);
-    builder->get_widget("hscale_vmin", scale_v_min);
-    builder->get_widget("hscale_rotation", scale_rotation);
-    builder->get_widget("hscale_brightness", scale_brightness);
-    builder->get_widget("hscale_contrast", scale_contrast);
-    builder->get_widget("hscale_exposure", scale_exposure);
-    builder->get_widget("hscale_saturation", scale_saturation);
-    builder->get_widget("hscale_gain", scale_gain);
+    //SCALE
+    scale_hsv.resize(6);
+    for (unsigned int i = 0; i < scale_hsv.size(); i++){
+      scale_hsv[i] = nullptr;
+    }
+
+    builder->get_widget("hscale_hmax", scale_hsv[H_MAX]);
+    builder->get_widget("hscale_hmin", scale_hsv[H_MIN]);
+    builder->get_widget("hscale_smax", scale_hsv[S_MAX]);
+    builder->get_widget("hscale_smin", scale_hsv[S_MIN]);
+    builder->get_widget("hscale_vmax", scale_hsv[V_MAX]);
+    builder->get_widget("hscale_vmin", scale_hsv[V_MIN]);
+
+    scale_cam_config.resize(7);
+    for (unsigned int i = 0; i < scale_cam_config.size(); i++){
+      scale_cam_config[i] = nullptr;
+    }
+
+    builder->get_widget("hscale_gain", scale_cam_config[Gain]);
+    builder->get_widget("hscale_rotation", scale_cam_config[Rotation]);
+    builder->get_widget("hscale_contrast", scale_cam_config[Contrast]);
+    builder->get_widget("hscale_exposure", scale_cam_config[Exposure]);
+    builder->get_widget("hscale_brightness", scale_cam_config[Brightness]);
+    builder->get_widget("hscale_saturation", scale_cam_config[Saturation]);
 
     builder->get_widget("radiobutton_image", radioButtonImage);
     builder->get_widget("radiobutton_video", radioButtonVideo);
@@ -145,58 +156,40 @@ void CalibrationWindow::set_signal_widget(){
 
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_keyboard), window) , false);
 
-  button_load_calibration->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_load_calibration), file_chooser, entry_chooser ));
-  button_save_calibration->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_save_calibration), file_chooser, entry_chooser ));
-  button_load_dialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_load_dialog), file_chooser, entry_chooser ));
   button_save_dialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_save_dialog), file_chooser, entry_chooser ));
+  button_load_dialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_load_dialog), file_chooser, entry_chooser ));
+  button_save_calibration->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_save_calibration), file_chooser, entry_chooser ));
+  button_load_calibration->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*, std::vector<Gtk::Scale*>>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_load_calibration), file_chooser, entry_chooser, scale_cam_config ));
 
   file_chooser->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_signal_select_dialog), file_chooser, entry_chooser ));
 
-  scale_h_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_h_max), scale_h_max));
-  scale_h_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_h_min), scale_h_min));
-  scale_s_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_s_max), scale_s_max));
-  scale_s_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_s_min), scale_s_min));
-  scale_v_max->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_v_max), scale_v_max));
-  scale_v_min->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_v_min), scale_v_min));
+  scale_hsv[H_MAX]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_h_max), scale_hsv[H_MAX]));
+  scale_hsv[H_MIN]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_h_min), scale_hsv[H_MIN]));
+  scale_hsv[S_MAX]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_s_max), scale_hsv[S_MAX]));
+  scale_hsv[S_MIN]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_s_min), scale_hsv[S_MIN]));
+  scale_hsv[V_MAX]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_v_max), scale_hsv[V_MAX]));
+  scale_hsv[V_MIN]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_v_min), scale_hsv[V_MIN]));
 
-  scale_gain		->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_gain), scale_gain));
-  scale_rotation	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_rotation), scale_rotation));
-  scale_contrast	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_contrast), scale_contrast));
-  scale_exposure	->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_exposure), scale_exposure));
-  scale_brightness->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_brightness), scale_brightness));
-  scale_saturation->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_saturation), scale_saturation));
+  scale_cam_config[Gain]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_gain), scale_cam_config[Gain]));
+  scale_cam_config[Rotation]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_rotation), scale_cam_config[Rotation]));
+  scale_cam_config[Contrast]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_contrast), scale_cam_config[Contrast]));
+  scale_cam_config[Exposure]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_exposure), scale_cam_config[Exposure]));
+  scale_cam_config[Brightness]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_brightness), scale_cam_config[Brightness]));
+  scale_cam_config[Saturation]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_scale_saturation), scale_cam_config[Saturation]));
 
-  radioButtonImage ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_radio_button_image), radioButtonImage));
-  radioButtonVideo ->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_radio_button_video), radioButtonVideo));
+  radioButtonImage->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_radio_button_image), radioButtonImage));
+  radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_radio_button_video), radioButtonVideo));
   radioButtonCamera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_radio_button_camera), radioButtonCamera));
   togglebutton_cut_mode->signal_pressed().connect(sigc::bind<Gtk::ToggleButton*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_toggle_button_cut_mode), togglebutton_cut_mode));
 
-  comboBoxInputPath   ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_input_path), comboBoxInputPath));
-  comboBoxColorSelect ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_select), comboBoxColorSelect));
-  comboBoxColorTeam1 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_team1), comboBoxColorTeam1));
-  comboBoxColorTeam2 ->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_team2), comboBoxColorTeam2));
+  comboBoxInputPath->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_input_path), comboBoxInputPath));
+  comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_team1), comboBoxColorTeam1));
+  comboBoxColorTeam2->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_team2), comboBoxColorTeam2));
   comboBoxColorRobot1->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot1), comboBoxColorRobot1));
   comboBoxColorRobot2->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot2), comboBoxColorRobot2));
   comboBoxColorRobot3->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot3), comboBoxColorRobot3));
   comboBoxColorRobot4->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot4), comboBoxColorRobot4));
   comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot5), comboBoxColorRobot5));
 
-}
-
-void CalibrationWindow::bind_widgets_to_calibration() {
-  calibrationRoutine->bind_scale_brightness(scale_brightness);
-  calibrationRoutine->bind_scale_contrast(scale_contrast);
-  calibrationRoutine->bind_scale_exposure(scale_exposure);
-  calibrationRoutine->bind_scale_gain(scale_gain);
-  calibrationRoutine->bind_scale_rotation(scale_rotation);
-  calibrationRoutine->bind_scale_saturation(scale_saturation);
-
-  calibrationRoutine->bind_scale_h_max(scale_h_max);
-  calibrationRoutine->bind_scale_h_min(scale_h_min);
-
-  calibrationRoutine->bind_scale_s_max(scale_s_max);
-  calibrationRoutine->bind_scale_s_min(scale_s_min);
-
-  calibrationRoutine->bind_scale_v_max(scale_v_max);
-  calibrationRoutine->bind_scale_v_min(scale_v_min);
+  comboBoxColorSelect->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*, std::vector<Gtk::Scale*>>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_select), comboBoxColorSelect, scale_hsv));
 }

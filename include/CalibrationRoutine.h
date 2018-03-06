@@ -17,6 +17,7 @@
 #include <cstddef>
 #include <Interfaces/ICalibrationBuilder.h>
 #include "ICalibrationRepository.h"
+#include <Domain/ConfigurationType.h>
 
 class CalibrationRoutine : public ICalibrationRoutine{
 public:
@@ -28,7 +29,7 @@ public:
 	void on_button_load_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
 	void on_button_save_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
 	void on_button_save_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) override;
-	void on_button_load_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) override;
+	void on_button_load_calibration(Gtk::FileChooserDialog* , Gtk::Entry*, std::vector<Gtk::Scale*>) override;
 
 	void on_combo_box_input_path(Gtk::ComboBoxText*) override;
 	void on_combo_box_color_team1(Gtk::ComboBoxText*) override;
@@ -38,7 +39,7 @@ public:
 	void on_combo_box_color_robot3(Gtk::ComboBoxText*) override;
 	void on_combo_box_color_robot4(Gtk::ComboBoxText*) override;
 	void on_combo_box_color_robot5(Gtk::ComboBoxText*) override;
-	void on_combo_box_color_select(Gtk::ComboBoxText*) override;
+	void on_combo_box_color_select(Gtk::ComboBoxText*, std::vector<Gtk::Scale*>) override;
 
 	void on_scale_h_max(Gtk::Scale*) override;
 	void on_scale_h_min(Gtk::Scale*) override;
@@ -59,20 +60,6 @@ public:
 	void on_toggle_button_cut_mode(Gtk::ToggleButton*) override;
 	void on_radio_button_camera(Gtk::RadioButton*) override;
 
-	void bind_scale_h_max(Gtk::Scale*) override;
-	void bind_scale_h_min(Gtk::Scale*) override;
-	void bind_scale_s_max(Gtk::Scale*) override;
-	void bind_scale_s_min(Gtk::Scale*) override;
-	void bind_scale_v_max(Gtk::Scale*) override;
-	void bind_scale_v_min(Gtk::Scale*) override;
-
-	void bind_scale_gain(Gtk::Scale*) override;
-	void bind_scale_contrast(Gtk::Scale*) override;
-	void bind_scale_rotation(Gtk::Scale*) override;
-	void bind_scale_exposure(Gtk::Scale*) override;
-	void bind_scale_brightness(Gtk::Scale*) override;
-	void bind_scale_saturation(Gtk::Scale*) override;
-
 private:
 	ICalibrationBuilder *calibrationBuilder;
 	ICalibrationRepository *calibrationRepository;
@@ -81,20 +68,7 @@ private:
 
 	ColorType actualColorToCalibrate;
 
-	Gtk::Scale* scale_h_max = nullptr;
-	Gtk::Scale* scale_h_min = nullptr;
-	Gtk::Scale* scale_s_max = nullptr;
-	Gtk::Scale* scale_s_min = nullptr;
-	Gtk::Scale* scale_v_max = nullptr;
-	Gtk::Scale* scale_v_min = nullptr;
-	Gtk::Scale* scale_gain  = nullptr;
-	Gtk::Scale* scale_rotation = nullptr;
-	Gtk::Scale* scale_contrast = nullptr;
-	Gtk::Scale* scale_exposure = nullptr;
-	Gtk::Scale* scale_brightness = nullptr;
-	Gtk::Scale* scale_saturation = nullptr;
-
-	void applyActualColorRangeToSlidersHSV(ColorType type);
+	void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
 
     ColorRange getColorRangeFromCalibration(ColorType type);
 
