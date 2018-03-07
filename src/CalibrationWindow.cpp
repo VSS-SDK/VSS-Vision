@@ -20,8 +20,6 @@ CalibrationWindow::CalibrationWindow(){
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
   calibrationRoutine = new CalibrationRoutine(calibrationRepository, calibrationBuilderFromRoutine);
-
-  cameraReader->signal_update_frame.connect( sigc::mem_fun(this, &CalibrationWindow::update_frame) );
 }
 
 CalibrationWindow::~CalibrationWindow(){
@@ -199,6 +197,7 @@ void CalibrationWindow::setSignalWidget(){
   comboBoxColorRobot4->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot4), comboBoxColorRobot4));
   comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot5), comboBoxColorRobot5));
 
+  cameraReader->signal_update_frame.connect( sigc::mem_fun(gImage, &GImage::set_image) );  
 }
 
 void CalibrationWindow::bindWidgetToCalibrationRoutine() {
@@ -217,9 +216,4 @@ void CalibrationWindow::bindWidgetToCalibrationRoutine() {
 
   calibrationRoutine->bind_scale_v_max(scale_v_max);
   calibrationRoutine->bind_scale_v_min(scale_v_min);
-}
-
-void CalibrationWindow::update_frame(cv::Mat frame) {
-  if(frame.rows > 0 && frame.cols > 0)
-    gImage->set_image(frame);
 }

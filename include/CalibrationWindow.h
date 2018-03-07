@@ -98,9 +98,7 @@ private:
 
 	void cameraThreadWrapper();
     void windowThreadWrapper();
-
-	void update_frame(cv::Mat);
-
+	
 public:
 	CalibrationWindow();
 	virtual ~CalibrationWindow();
