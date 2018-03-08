@@ -8,12 +8,14 @@
 
 #include <Repositories/CalibrationRepository.h>
 #include <Builders/CalibrationBuilder.h>
+#include <CameraReader.h>
 #include "CalibrationWindow.h"
 #include "CalibrationRoutine.h"
 
 CalibrationWindow::CalibrationWindow(){
   calibrationBuilderFromRepository = new CalibrationBuilder();
   calibrationBuilderFromRoutine = new CalibrationBuilder();
+  cameraReader = new CameraReader();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
@@ -23,7 +25,32 @@ CalibrationWindow::CalibrationWindow(){
 CalibrationWindow::~CalibrationWindow(){
 }
 
-void CalibrationWindow::initialize_widget(){
+void CalibrationWindow::run(int argc, char *argv[]){
+  Gtk::Main kit(argc, argv);
+
+  threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
+  threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
+  
+  threadWindowControl->join();
+  threadCameraReader->detach();
+}
+
+void CalibrationWindow::cameraThreadWrapper() {
+  cameraReader->setCameraIndex(0);
+  cameraReader->start();
+  cameraReader->initializeCapture();
+}
+
+void CalibrationWindow::windowThreadWrapper() {
+  builderWidget();
+  setSignals();
+  initializeWidget();
+  bindWidgetToCalibrationRoutine();
+
+  Gtk::Main::run(*window);
+}
+
+void CalibrationWindow::initializeWidget(){
 
   //TABLES
   table_input->attach(*comboBoxInputPath, 0, 3, 3, 4, Gtk::FILL, Gtk::EXPAND);
@@ -59,8 +86,6 @@ void CalibrationWindow::initialize_widget(){
   //RADIOBUTTON
   radioButtonImage->set_active();
 
-  gImage->set_image(cv::imread("../mock/images/model.jpg"));
-
   window->maximize();
   window->show_all_children();
 
@@ -68,17 +93,7 @@ void CalibrationWindow::initialize_widget(){
   gImage->set_image(cv::imread("../mock/images/model.jpg"));
 }
 
-void CalibrationWindow::run(int argc, char *argv[]){
-  Gtk::Main kit(argc, argv);
-
-  builder_widget();
-  set_signal_widget();
-  initialize_widget();
-
-  Gtk::Main::run(*window);
-}
-
-void CalibrationWindow::builder_widget(){
+void CalibrationWindow::builderWidget(){
 
   auto builder = Gtk::Builder::create();
 
@@ -152,8 +167,8 @@ void CalibrationWindow::builder_widget(){
   }
 }
 
-void CalibrationWindow::set_signal_widget(){
-
+void CalibrationWindow::setSignals(){ 
+  
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_keyboard), window) , false);
 
   button_save_dialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_save_dialog), file_chooser, entry_chooser ));
@@ -192,4 +207,16 @@ void CalibrationWindow::set_signal_widget(){
   comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot5), comboBoxColorRobot5));
 
   comboBoxColorSelect->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*, std::vector<Gtk::Scale*>>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_select), comboBoxColorSelect, scale_hsv));
+  // signals to update frame
+  dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
+  cameraReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) ); 
+}
+
+void CalibrationWindow::setNewFrame(){
+  gImage->set_image(frame);
+}
+
+void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
+  frame = _frame;
+  dispatcher_frame.emit();
 }

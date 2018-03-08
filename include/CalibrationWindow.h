@@ -14,6 +14,8 @@
 #include <iostream>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
+#include <Interfaces/ICameraReader.h>
+#include <thread>
 
 #include "GImage.h"
 #include "ICalibrationRoutine.h"
@@ -23,8 +25,16 @@ using namespace std;
 
 class CalibrationWindow : public ICalibrationWindow {
 private:
+	// Threads
+	std::thread *threadCameraReader;
+    std::thread *threadWindowControl;
+
+	Glib::Dispatcher dispatcher_frame;
+
+	// Classes
 	ICalibrationRoutine *calibrationRoutine;
 	ICalibrationRepository *calibrationRepository;
+	ICameraReader *cameraReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
 	ICalibrationBuilder *calibrationBuilderFromRoutine;
 
@@ -32,6 +42,7 @@ private:
 	Gtk::Window* window = nullptr;
 
 	// Opencv image
+	cv::Mat frame;	
 	GImage* gImage = nullptr;
 
 	// Button
@@ -73,14 +84,20 @@ private:
 	Gtk::ToggleButton* togglebutton_cut_mode = nullptr;
 
 	// Control method
-	void initialize_widget();
-	void set_signal_widget();
-	void builder_widget();
+	void initializeWidget();
+	void setSignals();
+	void builderWidget();
 
+	void cameraThreadWrapper();
+    void windowThreadWrapper();
+
+	// Update frame
+	void setNewFrame();
+	void receiveNewFrame(cv::Mat);
+	
 public:
-
 	CalibrationWindow();
 	virtual ~CalibrationWindow();
-	void run(int argc, char *argv[]) override;
+	void run(int argc, char *argv[]) override;	
 };
 #endif
