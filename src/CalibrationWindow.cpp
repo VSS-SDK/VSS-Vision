@@ -45,7 +45,6 @@ void CalibrationWindow::windowThreadWrapper() {
   builderWidget();
   setSignals();
   initializeWidget();
-  bindWidgetToCalibrationRoutine();
 
   Gtk::Main::run(*window);
 }
@@ -207,6 +206,7 @@ void CalibrationWindow::setSignals(){
   comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot5), comboBoxColorRobot5));
 
   comboBoxColorSelect->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*, std::vector<Gtk::Scale*>>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_select), comboBoxColorSelect, scale_hsv));
+  
   // signals to update frame
   dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
   cameraReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) ); 
