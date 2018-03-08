@@ -146,7 +146,9 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
 
   for(int i = 0 ; i < 3 ; i++)
     file << calibration.colorsRange[7].max[i] << " ";
-
+  file << std::endl;
+  file << std::endl;
+  
   file << "# Cuts" << std::endl;
   for(unsigned int i = 0 ; i < calibration.cut.size() ; i++)
     file << calibration.cut.at(i).x << " " << calibration.cut.at(i).y << std::endl;
