@@ -33,10 +33,8 @@ void CameraReader::initializeCapture() {
     if(runningCapture){
       capture >> actualFrame;
       
-      signal_update_frame.emit(actualFrame);
+      signal_new_frame.emit(actualFrame);
       
-      //cv::imshow("test", actualFrame);
-      //if(cv::waitKey(30) == 27) break;
     }else{
       usleep(1000000);
     }

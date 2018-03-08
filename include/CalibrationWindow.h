@@ -29,6 +29,8 @@ private:
 	std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
+	Glib::Dispatcher dispatcher_frame;
+
 	// Classes
 	ICalibrationRoutine *calibrationRoutine;
 	ICalibrationRepository *calibrationRepository;
@@ -40,6 +42,7 @@ private:
 	Gtk::Window* window = nullptr;
 
 	// Opencv image
+	cv::Mat frame;	
 	GImage* gImage = nullptr;
 
 	// Button
@@ -92,16 +95,20 @@ private:
 
 	// Control method
 	void initializeWidget();
-	void setSignalWidget();
+	void setSignals();
 	void builderWidget();
 	void bindWidgetToCalibrationRoutine();
 
 	void cameraThreadWrapper();
     void windowThreadWrapper();
+
+	// Update frame
+	void setNewFrame();
+	void receiveNewFrame(cv::Mat);
 	
 public:
 	CalibrationWindow();
 	virtual ~CalibrationWindow();
-	void run(int argc, char *argv[]) override;
+	void run(int argc, char *argv[]) override;	
 };
 #endif

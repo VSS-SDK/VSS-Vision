@@ -28,11 +28,11 @@ CalibrationWindow::~CalibrationWindow(){
 void CalibrationWindow::run(int argc, char *argv[]){
   Gtk::Main kit(argc, argv);
 
-  threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
   threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
-
-  threadCameraReader->join();
+  threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
+  
   threadWindowControl->join();
+  threadCameraReader->detach();
 }
 
 void CalibrationWindow::cameraThreadWrapper() {
@@ -43,7 +43,7 @@ void CalibrationWindow::cameraThreadWrapper() {
 
 void CalibrationWindow::windowThreadWrapper() {
   builderWidget();
-  setSignalWidget();
+  setSignals();
   initializeWidget();
   bindWidgetToCalibrationRoutine();
 
@@ -85,8 +85,6 @@ void CalibrationWindow::initializeWidget(){
 
   //RADIOBUTTON
   radioButtonImage->set_active();
-
-  gImage->set_image(cv::imread("../mock/images/model.jpg"));
 
   window->maximize();
   window->show_all_children();
@@ -157,8 +155,8 @@ void CalibrationWindow::builderWidget(){
   }
 }
 
-void CalibrationWindow::setSignalWidget(){
-
+void CalibrationWindow::setSignals(){ 
+  
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_keyboard), window) , false);
 
   button_load_calibration->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_button_load_calibration), file_chooser, entry_chooser ));
@@ -197,7 +195,18 @@ void CalibrationWindow::setSignalWidget(){
   comboBoxColorRobot4->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot4), comboBoxColorRobot4));
   comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(calibrationRoutine, &ICalibrationRoutine::on_combo_box_color_robot5), comboBoxColorRobot5));
 
-  cameraReader->signal_update_frame.connect( sigc::mem_fun(gImage, &GImage::set_image) );  
+  // signals to update frame
+  dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
+  cameraReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) ); 
+}
+
+void CalibrationWindow::setNewFrame(){
+  gImage->set_image(frame);
+}
+
+void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
+  frame = _frame;
+  dispatcher_frame.emit();
 }
 
 void CalibrationWindow::bindWidgetToCalibrationRoutine() {

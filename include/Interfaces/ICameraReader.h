@@ -19,7 +19,7 @@ public:
     virtual void start() = 0;
     virtual void close() = 0;
 
-    sigc::signal <void, cv::Mat> signal_update_frame;
+    sigc::signal <void, cv::Mat> signal_new_frame;
 };
 
 #endif //VSS_VISION_ICAMERAREADER_H
