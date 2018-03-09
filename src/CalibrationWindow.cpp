@@ -209,14 +209,19 @@ void CalibrationWindow::setSignals(){
   
   // signals to update frame
   dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
-  cameraReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) ); 
+  cameraReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
 }
 
 void CalibrationWindow::setNewFrame(){
   gImage->set_image(frame);
+  doComputerVisionProcess();
 }
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
   frame = _frame;
   dispatcher_frame.emit();
+}
+
+void CalibrationWindow::doComputerVisionProcess() {
+
 }

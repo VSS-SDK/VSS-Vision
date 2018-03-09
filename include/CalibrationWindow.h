@@ -24,6 +24,11 @@
 using namespace std;
 
 class CalibrationWindow : public ICalibrationWindow {
+public:
+    CalibrationWindow();
+    virtual ~CalibrationWindow();
+    void run(int argc, char *argv[]) override;
+
 private:
 	// Threads
 	std::thread *threadCameraReader;
@@ -94,10 +99,7 @@ private:
 	// Update frame
 	void setNewFrame();
 	void receiveNewFrame(cv::Mat);
-	
-public:
-	CalibrationWindow();
-	virtual ~CalibrationWindow();
-	void run(int argc, char *argv[]) override;	
+
+    void doComputerVisionProcess();
 };
 #endif
