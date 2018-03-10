@@ -10,6 +10,7 @@
 #include <Builders/CalibrationBuilder.h>
 #include <CameraReader.h>
 #include <ImageFileReader.h>
+#include <ColorRecognizer.h>
 #include "CalibrationWindow.h"
 #include "CalibrationRoutine.h"
 
@@ -18,6 +19,7 @@ CalibrationWindow::CalibrationWindow(){
   calibrationBuilderFromRoutine = new CalibrationBuilder();
   //cameraReader = new CameraReader();
   inputReader = new ImageFileReader();
+  colorRecognizer = new ColorRecognizer();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
@@ -50,6 +52,10 @@ void CalibrationWindow::windowThreadWrapper() {
   initializeWidget();
 
   Gtk::Main::run(*window);
+}
+
+void CalibrationWindow::setupComputerVision() {
+
 }
 
 void CalibrationWindow::initializeWidget(){

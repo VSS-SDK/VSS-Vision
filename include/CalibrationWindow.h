@@ -16,6 +16,7 @@
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IImageInputReader.h>
 #include <thread>
+#include <Interfaces/IColorRecognizer.h>
 
 #include "GImage.h"
 #include "ICalibrationRoutine.h"
@@ -42,6 +43,7 @@ private:
 	IImageInputReader *inputReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
 	ICalibrationBuilder *calibrationBuilderFromRoutine;
+	IColorRecognizer *colorRecognizer;
 
 	// Window - calibration
 	Gtk::Window* window = nullptr;
@@ -92,6 +94,7 @@ private:
 	void initializeWidget();
 	void setSignals();
 	void builderWidget();
+	void setupComputerVision();
 
 	void cameraThreadWrapper();
     void windowThreadWrapper();
