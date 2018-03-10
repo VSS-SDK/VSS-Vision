@@ -9,12 +9,11 @@
 #include <cxcore.h>
 #include <sigc++/sigc++.h>
 
-class ICameraReader{
+class IImageInputReader{
 public:
-    virtual void initializeCapture() = 0;
-    virtual std::vector<int> getAllCamerasIndex() = 0;
-    virtual void setCameraIndex(int) = 0;
-    virtual cv::Mat getActualFrame() = 0;
+    virtual void initializeReceivement() = 0;
+    virtual std::vector<std::string> getAllPossibleSources() = 0;
+    virtual void setSource(std::string) = 0;
     virtual void pause() = 0;
     virtual void start() = 0;
     virtual void close() = 0;

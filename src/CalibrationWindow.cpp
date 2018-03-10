@@ -9,13 +9,15 @@
 #include <Repositories/CalibrationRepository.h>
 #include <Builders/CalibrationBuilder.h>
 #include <CameraReader.h>
+#include <ImageFileReader.h>
 #include "CalibrationWindow.h"
 #include "CalibrationRoutine.h"
 
 CalibrationWindow::CalibrationWindow(){
   calibrationBuilderFromRepository = new CalibrationBuilder();
   calibrationBuilderFromRoutine = new CalibrationBuilder();
-  cameraReader = new CameraReader();
+  //cameraReader = new CameraReader();
+  inputReader = new ImageFileReader();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
@@ -36,9 +38,10 @@ void CalibrationWindow::run(int argc, char *argv[]){
 }
 
 void CalibrationWindow::cameraThreadWrapper() {
-  cameraReader->setCameraIndex(0);
-  cameraReader->start();
-  cameraReader->initializeCapture();
+  auto path = inputReader->getAllPossibleSources();
+  inputReader->setSource(path.at(0));
+  inputReader->start();
+  inputReader->initializeReceivement();
 }
 
 void CalibrationWindow::windowThreadWrapper() {
@@ -209,7 +212,7 @@ void CalibrationWindow::setSignals(){
   
   // signals to update frame
   dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
-  cameraReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
+  inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
 }
 
 void CalibrationWindow::setNewFrame(){

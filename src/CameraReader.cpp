@@ -14,14 +14,13 @@ CameraReader::CameraReader() {
 
   // Simulando uma camera
   camerasIndex.push_back(0);
-
 }
 
-std::vector<int> CameraReader::getAllCamerasIndex() {
-  return std::vector<int>();
+std::vector<std::string> CameraReader::getAllPossibleSources() {
+  return std::vector<std::string>();
 }
 
-void CameraReader::initializeCapture() {
+void CameraReader::initializeReceivement() {
   if(!isAValidCameraIndex(actualCameraIndex)) {
     std::cerr << "[Error] Invalid camera index" << std::endl;
     return;
@@ -41,17 +40,15 @@ void CameraReader::initializeCapture() {
   }
 }
 
-void CameraReader::setCameraIndex(int actualCameraIndex) {
-  if(!isAValidCameraIndex(actualCameraIndex)) {
+void CameraReader::setSource(std::string actualCameraIndex) {
+  int cameraIndex = std::stoi(actualCameraIndex);
+
+  if(!isAValidCameraIndex(cameraIndex)) {
     std::cerr << "[Error] Invalid camera index" << std::endl;
     return;
   }
 
-  this->actualCameraIndex = actualCameraIndex;
-}
-
-cv::Mat CameraReader::getActualFrame() {
-  return actualFrame.clone();
+  this->actualCameraIndex = cameraIndex;
 }
 
 void CameraReader::pause() {

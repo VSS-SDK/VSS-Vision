@@ -7,17 +7,16 @@
 
 #include <vector>
 #include <cxcore.h>
-#include <Interfaces/ICameraReader.h>
+#include <Interfaces/IImageInputReader.h>
 #include <highgui.h>
 
-class CameraReader : public ICameraReader{
+class CameraReader : public IImageInputReader{
 public:
     CameraReader();
 
-    void initializeCapture() override;
-    std::vector<int> getAllCamerasIndex() override;
-    void setCameraIndex(int) override;
-    cv::Mat getActualFrame() override;
+    void initializeReceivement() override;
+    std::vector<std::string> getAllPossibleSources() override;
+    void setSource(std::string) override;
     void pause() override;
     void start() override;
     void close() override;

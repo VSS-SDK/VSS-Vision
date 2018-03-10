@@ -14,7 +14,7 @@
 #include <iostream>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
-#include <Interfaces/ICameraReader.h>
+#include <Interfaces/IImageInputReader.h>
 #include <thread>
 
 #include "GImage.h"
@@ -39,7 +39,7 @@ private:
 	// Classes
 	ICalibrationRoutine *calibrationRoutine;
 	ICalibrationRepository *calibrationRepository;
-	ICameraReader *cameraReader;
+	IImageInputReader *inputReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
 	ICalibrationBuilder *calibrationBuilderFromRoutine;
 
