@@ -17,7 +17,9 @@ CameraReader::CameraReader() {
 }
 
 std::vector<std::string> CameraReader::getAllPossibleSources() {
-  return std::vector<std::string>();
+  auto camerasIndex = std::vector<std::string>();
+  camerasIndex.push_back("0");
+  return camerasIndex;
 }
 
 void CameraReader::initializeReceivement() {

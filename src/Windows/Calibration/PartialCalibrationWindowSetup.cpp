@@ -16,7 +16,7 @@
 
 CalibrationWindow::CalibrationWindow(){
   calibrationBuilder = new CalibrationBuilder();
-  //cameraReader = new CameraReader();
+  //inputReader = new CameraReader();
   inputReader = new ImageFileReader();
   colorRecognizer = new ColorRecognizer();
 
@@ -213,62 +213,3 @@ void CalibrationWindow::setSignals(){
   dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
   inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
 }
-
-void CalibrationWindow::setNewFrame(){
-  gImage->set_image(frame);
-}
-
-void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
-  frame = _frame;
-  dispatcher_frame.emit();
-}
-
-void CalibrationWindow::applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*> scale_hsv) {
-  auto colorRange = getColorRangeFromCalibration(type);
-
-  scale_hsv[H_MAX]->set_value(colorRange.max[H]);
-  scale_hsv[S_MAX]->set_value(colorRange.max[S]);
-  scale_hsv[V_MAX]->set_value(colorRange.max[V]);
-
-  scale_hsv[H_MIN]->set_value(colorRange.min[H]);
-  scale_hsv[S_MIN]->set_value(colorRange.min[S]);
-  scale_hsv[V_MIN]->set_value(colorRange.min[V]);
-}
-
-ColorRange CalibrationWindow::getColorRangeFromCalibration(ColorType type) {
-  std::cout << calibration << std::endl;
-  for (auto& colorRange : calibration.colorsRange) {
-    if(colorRange.colorType == type)
-      return colorRange;
-  }
-
-  return new ColorRange();
-}
-
-void CalibrationWindow::setColorRangePart(ColorRangePart part, double value) {
-  for (auto& colorRange : calibration.colorsRange) {
-    if(colorRange.colorType == actualColorToCalibrate){
-      switch (part){
-        case ColorRangePart::H_MAX:
-          colorRange.max[H] = static_cast<float>(value);
-          break;
-        case ColorRangePart::H_MIN:
-          colorRange.min[H] = static_cast<float>(value);
-          break;
-        case ColorRangePart::S_MAX:
-          colorRange.max[S] = static_cast<float>(value);
-          break;
-        case ColorRangePart::S_MIN:
-          colorRange.min[S] = static_cast<float>(value);
-          break;
-        case ColorRangePart::V_MAX:
-          colorRange.max[V] = static_cast<float>(value);
-          break;
-        case ColorRangePart::V_MIN:
-          colorRange.min[V] = static_cast<float>(value);
-          break;
-      }
-    }
-  }
-}
-

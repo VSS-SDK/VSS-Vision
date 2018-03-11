@@ -13,14 +13,9 @@
   <component name="ChangeListManager">
     <list default="true" id="efcfc985-df8a-438e-8dcc-32499dba70eb" name="Default" comment="Iniciado obtencao de calibragem do txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change beforePath="$PROJECT_DIR$/include/CalibrationRoutine.h" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/include/CalibrationWindow.h" afterPath="$PROJECT_DIR$/include/Windows/Calibration/CalibrationWindow.h" />
-      <change beforePath="$PROJECT_DIR$/include/Interfaces/ICalibrationRoutine.h" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/include/Interfaces/ICalibrationWindow.h" afterPath="$PROJECT_DIR$/include/Interfaces/ICalibrationWindow.h" />
-      <change beforePath="$PROJECT_DIR$/src/CalibrationRoutine.cpp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/CalibrationWindow.cpp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" afterPath="$PROJECT_DIR$/src/main.cpp" />
+      <change beforePath="$PROJECT_DIR$/src/CameraReader.cpp" afterPath="$PROJECT_DIR$/src/CameraReader.cpp" />
+      <change beforePath="$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowEvents.cpp" afterPath="$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowEvents.cpp" />
+      <change beforePath="$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowSetup.cpp" afterPath="$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowSetup.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,31 +28,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CalibrationWindow.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/Windows/Calibration/CalibrationWindow.h">
+      <file leaf-file-name="PartialCalibrationWindowSetup.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowSetup.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="40" lean-forward="false" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GImage.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GImage.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1683">
-              <caret line="117" column="4" lean-forward="false" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PartialCalibrationWindowEvents.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowEvents.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="172" column="1" lean-forward="false" selection-start-line="172" selection-start-column="1" selection-end-line="172" selection-end-column="1" />
+            <state relative-caret-position="-2804">
+              <caret line="19" column="2" lean-forward="false" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
               <folding>
                 <element signature="e#274#321#0" expanded="true" />
               </folding>
@@ -65,34 +40,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PartialCalibrationWindowSetup.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowSetup.cpp">
+      <file leaf-file-name="PartialCalibrationWindowEvents.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowEvents.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="42" column="39" lean-forward="true" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+            <state relative-caret-position="3434">
+              <caret line="205" column="20" lean-forward="false" selection-start-line="205" selection-start-column="20" selection-end-line="205" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ICalibrationWindow.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/Interfaces/ICalibrationWindow.h">
+      <file leaf-file-name="IImageInputReader.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/Interfaces/IImageInputReader.h">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-              <folding>
-                <element signature="e#317#335#0" expanded="true" />
-              </folding>
+              <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CameraReader.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/CameraReader.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="205">
+              <caret line="17" column="29" lean-forward="false" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CameraReader.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CameraReader.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="21" column="22" lean-forward="false" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -159,7 +142,6 @@
         <option value="$PROJECT_DIR$/include/Interfaces/ICameraReader.h" />
         <option value="$PROJECT_DIR$/include/Interfaces/IImageInputReader.h" />
         <option value="$PROJECT_DIR$/include/CameraReader.h" />
-        <option value="$PROJECT_DIR$/src/CameraReader.cpp" />
         <option value="$PROJECT_DIR$/src/GImage.cpp" />
         <option value="$PROJECT_DIR$/include/ImageFileReader.h" />
         <option value="$PROJECT_DIR$/src/ImageFileReader.cpp" />
@@ -176,6 +158,7 @@
         <option value="$PROJECT_DIR$/src/Windows/Calibration/CalibrationWindow.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowEvents.cpp" />
+        <option value="$PROJECT_DIR$/src/CameraReader.cpp" />
         <option value="$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowSetup.cpp" />
       </list>
     </option>
@@ -221,6 +204,19 @@
               <item name="vss-vision" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
               <item name="VSS-Vision" type="462c0819:PsiDirectoryNode" />
               <item name="include" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vss-vision" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="VSS-Vision" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+              <item name="Windows" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vss-vision" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="VSS-Vision" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+              <item name="Windows" type="462c0819:PsiDirectoryNode" />
+              <item name="Calibration" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vss-vision" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
@@ -327,7 +323,7 @@
       <workItem from="1520684548286" duration="9933000" />
       <workItem from="1520715481622" duration="6452000" />
       <workItem from="1520730044672" duration="1521000" />
-      <workItem from="1520777476115" duration="3525000" />
+      <workItem from="1520777476115" duration="4050000" />
     </task>
     <task id="LOCAL-00001" summary="Iniciado obtencao de calibragem do txt">
       <created>1517672934213</created>
@@ -340,7 +336,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96676000" />
+    <option name="totallyTimeSpent" value="97201000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1054" extended-state="6" />
@@ -557,25 +553,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/include/Interfaces/IColorRecognizerGPU.h" />
     <entry file="file://$PROJECT_DIR$/include/Interfaces/IColorRecognizerOptimized.h" />
-    <entry file="file://$PROJECT_DIR$/include/CameraReader.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageFileReader.h" />
-    <entry file="file://$PROJECT_DIR$/src/CameraReader.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="39" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/ImageFileReader.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -592,13 +575,6 @@
         <state relative-caret-position="493">
           <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/Interfaces/IImageInputReader.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -683,7 +659,7 @@
         <state relative-caret-position="204">
           <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
           <folding>
-            <element signature="e#317#335#0" expanded="true" />
+            <element signature="e#317#335#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -696,18 +672,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Windows/Calibration/CalibrationWindow.h">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="40" lean-forward="false" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/CalibrationWindow.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6450">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        <state relative-caret-position="323">
+          <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -720,28 +688,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowSetup.cpp">
+    <entry file="file://$PROJECT_DIR$/include/Windows/Calibration/CalibrationWindow.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="42" column="39" lean-forward="true" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+        <state relative-caret-position="153">
+          <caret line="18" column="40" lean-forward="false" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowEvents.cpp">
+    <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/CalibrationWindow.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="172" column="1" lean-forward="false" selection-start-line="172" selection-start-column="1" selection-end-line="172" selection-end-column="1" />
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/Interfaces/IImageInputReader.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/CameraReader.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="17" column="29" lean-forward="false" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CameraReader.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="22" lean-forward="false" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowSetup.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2804">
+          <caret line="19" column="2" lean-forward="false" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
           <folding>
             <element signature="e#274#321#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/src/Windows/Calibration/PartialCalibrationWindowEvents.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="47" lean-forward="false" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+        <state relative-caret-position="3434">
+          <caret line="205" column="20" lean-forward="false" selection-start-line="205" selection-start-column="20" selection-end-line="205" selection-end-column="20" />
           <folding />
         </state>
       </provider>
