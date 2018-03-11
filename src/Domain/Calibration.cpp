@@ -11,7 +11,7 @@
 Calibration::Calibration(){
   rotation = 0.0;
   brightness = 0.0;
-  contrast = 0.0;
+  contrast = 1.0;
   saturation = 0.0;
   exposure = 0.0;
   gain = 0.0;

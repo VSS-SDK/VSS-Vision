@@ -18,14 +18,15 @@ CalibrationWindow::CalibrationWindow(){
   calibrationBuilder = new CalibrationBuilder();
   calibrationBuilderFromRepository = new CalibrationBuilder();
 
-  //inputReader = new CameraReader();
-  inputReader = new ImageFileReader();
-  colorRecognizer = new ColorRecognizer();
-
   calibrationBuilder->shouldInitializeColors(true);
   calibrationBuilder->shouldInitializeCuts(true);
   calibration = calibrationBuilder->getInstance();
   actualColorRangeIndex = 0;
+
+  inputReader = new CameraReader();
+  //inputReader = new ImageFileReader();
+
+  colorRecognizer = new ColorRecognizer();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 }
@@ -145,12 +146,21 @@ void CalibrationWindow::builderWidget(){
       scale_cam_config[i] = nullptr;
     }
 
-    builder->get_widget("hscale_gain", scale_cam_config[Gain]);
     builder->get_widget("hscale_rotation", scale_cam_config[Rotation]);
+    builder->get_widget("hscale_gain", scale_cam_config[Gain]);
     builder->get_widget("hscale_contrast", scale_cam_config[Contrast]);
     builder->get_widget("hscale_exposure", scale_cam_config[Exposure]);
     builder->get_widget("hscale_brightness", scale_cam_config[Brightness]);
     builder->get_widget("hscale_saturation", scale_cam_config[Saturation]);
+
+    scale_cam_config[Rotation]->set_range(-50.0, 50.0);
+    scale_cam_config[Gain]->set_range(0.0, 90.0);
+    scale_cam_config[Contrast]->set_range(0.0, 45.0);
+    scale_cam_config[Exposure]->set_range(-50.0, 50.0);
+    scale_cam_config[Brightness]->set_range(0.0, 90.0);
+    scale_cam_config[Saturation]->set_range(0.0, 90.0);
+
+    scale_cam_config[Contrast]->set_value(1.0);
 
     builder->get_widget("radiobutton_image", radioButtonImage);
     builder->get_widget("radiobutton_video", radioButtonVideo);
@@ -226,4 +236,5 @@ void CalibrationWindow::setSignals(){
   // signals to update frame
   dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
   inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
+  inputReader->signal_loaded_capture.connect(sigc::mem_fun(this, &CalibrationWindow::getAllAttributsFromCapture));
 }

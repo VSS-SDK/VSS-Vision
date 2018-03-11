@@ -58,3 +58,35 @@ void ImageFileReader::close() {
 bool ImageFileReader::isAValidFileSource(std::string source) {
   return source == "" ? false : true;
 }
+
+void ImageFileReader::setBrightness(float) {
+
+}
+
+void ImageFileReader::setGain(float) {
+
+}
+
+void ImageFileReader::setSaturation(float) {
+
+}
+
+void ImageFileReader::setContrast(float) {
+
+}
+
+float ImageFileReader::getBrightness() {
+  return 0;
+}
+
+float ImageFileReader::getGain() {
+  return 0;
+}
+
+float ImageFileReader::getSaturation() {
+  return 0;
+}
+
+float ImageFileReader::getContrast() {
+  return 0;
+}

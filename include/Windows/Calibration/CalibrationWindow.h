@@ -141,6 +141,8 @@ private:
 	// Update frame
 	void setNewFrame();
 	void receiveNewFrame(cv::Mat);
+	void processFrame();
+	void getAllAttributsFromCapture(bool signal);
 
     void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
     void defineActualColorRange(ColorType type);

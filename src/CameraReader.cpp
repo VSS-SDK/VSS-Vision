@@ -29,6 +29,7 @@ void CameraReader::initializeReceivement() {
   }
 
   capture = cv::VideoCapture(0);
+  signal_loaded_capture.emit(true);
 
   while(!shouldCloseReader){
     if(runningCapture){
@@ -75,4 +76,36 @@ bool CameraReader::isAValidCameraIndex(int cameraIndex) {
 
 void CameraReader::close() {
   this->shouldCloseReader = true;
+}
+
+void CameraReader::setBrightness(float value) {
+  capture.set(CV_CAP_PROP_BRIGHTNESS, value/100.0);
+}
+
+void CameraReader::setGain(float value) {
+  capture.set(CV_CAP_PROP_CONTRAST, value/100.0);
+}
+
+void CameraReader::setSaturation(float value) {
+  capture.set(CV_CAP_PROP_SATURATION, value/100.0);
+}
+
+void CameraReader::setContrast(float value) {
+  capture.set(CV_CAP_PROP_GAIN, value/100.0);
+}
+
+float CameraReader::getBrightness() {
+  return static_cast<float>(capture.get(CV_CAP_PROP_BRIGHTNESS)*100.0);
+}
+
+float CameraReader::getGain() {
+  return static_cast<float>(capture.get(CV_CAP_PROP_GAIN)*100.0);
+}
+
+float CameraReader::getSaturation() {
+  return static_cast<float>(capture.get(CV_CAP_PROP_SATURATION)*100.0);
+}
+
+float CameraReader::getContrast() {
+  return static_cast<float>(capture.get(CV_CAP_PROP_CONTRAST)*100.0);
 }

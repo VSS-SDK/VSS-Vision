@@ -133,14 +133,17 @@ void CalibrationWindow::on_scale_rotation(Gtk::Scale* scale_rotation){
 
 void CalibrationWindow::on_scale_brightness(Gtk::Scale* scale_brightness){
   calibration.brightness = static_cast<float>(scale_brightness->get_value());
+  inputReader->setBrightness(calibration.brightness);
 }
 
 void CalibrationWindow::on_scale_contrast(Gtk::Scale* scale_contrast){
   calibration.contrast = static_cast<float>(scale_contrast->get_value());
+  inputReader->setContrast(calibration.contrast);
 }
 
 void CalibrationWindow::on_scale_saturation(Gtk::Scale* scale_saturation){
   calibration.saturation = static_cast<float>(scale_saturation->get_value());
+  inputReader->setSaturation(calibration.saturation);
 }
 
 void CalibrationWindow::on_scale_exposure(Gtk::Scale* scale_exposure){
@@ -149,6 +152,7 @@ void CalibrationWindow::on_scale_exposure(Gtk::Scale* scale_exposure){
 
 void CalibrationWindow::on_scale_gain(Gtk::Scale* scale_gain){
   calibration.gain = static_cast<float>(scale_gain->get_value());
+  inputReader->setGain(calibration.gain);
 }
 
 void CalibrationWindow::on_toggle_button_cut_mode(Gtk::ToggleButton* toggle_button_cut_mode){
@@ -187,4 +191,11 @@ void CalibrationWindow::defineActualColorRange(ColorType type) {
       break;
     }
   }
+}
+
+void CalibrationWindow::getAllAttributsFromCapture(bool signal) {
+  scale_cam_config[Gain]->set_value(inputReader->getGain());
+  scale_cam_config[Contrast]->set_value(inputReader->getContrast());
+  scale_cam_config[Brightness]->set_value(inputReader->getBrightness());
+  scale_cam_config[Saturation]->set_value(inputReader->getSaturation());
 }
