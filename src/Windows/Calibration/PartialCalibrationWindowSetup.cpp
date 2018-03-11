@@ -16,11 +16,18 @@
 
 CalibrationWindow::CalibrationWindow(){
   calibrationBuilder = new CalibrationBuilder();
+  calibrationBuilderFromRepository = new CalibrationBuilder();
+
   //inputReader = new CameraReader();
   inputReader = new ImageFileReader();
   colorRecognizer = new ColorRecognizer();
 
-  calibrationRepository = new CalibrationRepository(calibrationBuilder);
+  calibrationBuilder->shouldInitializeColors(true);
+  calibrationBuilder->shouldInitializeCuts(true);
+  calibration = calibrationBuilder->getInstance();
+  actualColorRangeIndex = 0;
+
+  calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 }
 
 CalibrationWindow::~CalibrationWindow(){
@@ -125,6 +132,13 @@ void CalibrationWindow::builderWidget(){
     builder->get_widget("hscale_smin", scale_hsv[S_MIN]);
     builder->get_widget("hscale_vmax", scale_hsv[V_MAX]);
     builder->get_widget("hscale_vmin", scale_hsv[V_MIN]);
+
+    scale_hsv[H_MAX]->set_range(0, 255);
+    scale_hsv[H_MIN]->set_range(0, 255);
+    scale_hsv[S_MAX]->set_range(0, 255);
+    scale_hsv[S_MIN]->set_range(0, 255);
+    scale_hsv[V_MAX]->set_range(0, 255);
+    scale_hsv[V_MIN]->set_range(0, 255);
 
     scale_cam_config.resize(7);
     for (unsigned int i = 0; i < scale_cam_config.size(); i++){

@@ -25,8 +25,8 @@ void ColorRecognizer::binarizesImage() {
   cv::Mat processed;
 
   cv::inRange(originalFrame,
-              cv::Scalar(colorRange.min[H], colorRange.min[S], colorRange.min[V]),
-              cv::Scalar(colorRange.max[H], colorRange.max[H], colorRange.max[V]),
+              cv::Scalar(colorRange.min[V], colorRange.min[S], colorRange.min[H]),
+              cv::Scalar(colorRange.max[V], colorRange.max[S], colorRange.max[H]),
               processed);
 
   cv::medianBlur(processed, processed, 3);

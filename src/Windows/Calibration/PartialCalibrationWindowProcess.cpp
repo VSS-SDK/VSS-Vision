@@ -11,7 +11,8 @@
 #include <Windows/Calibration/CalibrationWindow.h>
 
 void CalibrationWindow::setNewFrame(){
-  // colorRecognizer->processImage(frame);
+  colorRecognizer->processImage(frame);
+  cv::imshow("asd", colorRecognizer->getBinaryImage());
   gImage->set_image(frame);
 }
 

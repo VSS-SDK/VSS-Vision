@@ -77,11 +77,13 @@ private:
 	// Classes
 	ICalibrationRepository *calibrationRepository;
 	IImageInputReader *inputReader;
-    ICalibrationBuilder *calibrationBuilder;
+	ICalibrationBuilder *calibrationBuilder;
+    ICalibrationBuilder *calibrationBuilderFromRepository;
 	IColorRecognizer *colorRecognizer;
 
     Calibration calibration;
     ColorRange *actualColorRange;
+	unsigned int actualColorRangeIndex;
 
 	// Window - calibration
 	Gtk::Window* window = nullptr;
@@ -142,6 +144,5 @@ private:
 
     void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
     void defineActualColorRange(ColorType type);
-    void setColorRangePart(ColorRangePart part, double value);
 };
 #endif
