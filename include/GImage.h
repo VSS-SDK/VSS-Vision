@@ -15,6 +15,18 @@
 #include "opencv2/imgproc/imgproc.hpp"
 
 class GImage : public Gtk::DrawingArea {
+public:
+    GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
+    virtual ~GImage();
+    
+    void set_cut_mode(bool);
+    void set_image(cv::Mat);
+
+protected:
+    bool on_expose_event(GdkEventExpose* event) override;
+    bool on_button_press_event(GdkEventButton* event) override;
+    bool on_motion_notify_event(GdkEventMotion* event) override;
+    bool on_button_release_event(GdkEventButton* event) override;
 
 private:
     cv::Mat cv_image;
@@ -25,19 +37,6 @@ private:
     bool cut_mode;
     bool cut_move;
     bool cut_move_adjust;
-
-protected:
-    bool on_expose_event(GdkEventExpose* event) override;
-    bool on_button_press_event(GdkEventButton* event) override;
-    bool on_motion_notify_event(GdkEventMotion* event) override;
-    bool on_button_release_event(GdkEventButton* event) override;
-
-public:
-    GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
-    virtual ~GImage();
-    
-    void set_cut_mode(bool);
-    void set_image(cv::Mat);
 };
 
 #endif

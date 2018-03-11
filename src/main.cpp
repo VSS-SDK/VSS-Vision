@@ -6,7 +6,7 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include "CalibrationWindow.h"
+#include "Windows/Calibration/CalibrationWindow.h"
 
 int main(int argc, char *argv[]) {
   ICalibrationWindow *calibrationWindow = new CalibrationWindow();

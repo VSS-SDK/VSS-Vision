@@ -1,19 +1,15 @@
 //
-// Created by johnathan on 01/03/18.
+// Created by johnathan on 10/03/18.
 //
 
-#ifndef VSS_VISION_CAMERAREADER_H
-#define VSS_VISION_CAMERAREADER_H
+#ifndef VSS_VISION_IMAGEFILEREADER_H
+#define VSS_VISION_IMAGEFILEREADER_H
 
-#include <vector>
-#include <cxcore.h>
 #include <Interfaces/IImageInputReader.h>
-#include <highgui.h>
 
-class CameraReader : public IImageInputReader{
+class ImageFileReader : public IImageInputReader{
 public:
-    CameraReader();
-
+    ImageFileReader();
     void initializeReceivement() override;
     std::vector<std::string> getAllPossibleSources() override;
     void setSource(std::string) override;
@@ -32,14 +28,11 @@ public:
     float getContrast() override;
 
 private:
-    bool shouldCloseReader;
+    std::string source;
     bool runningCapture;
-    int actualCameraIndex;
+    bool shouldCloseReader;
     cv::Mat actualFrame;
-    std::vector<int> camerasIndex;
-    cv::VideoCapture capture;
 
-    bool isAValidCameraIndex(int);
+    bool isAValidFileSource(std::string);
 };
-
-#endif //VSS_VISION_CAMERAREADER_H
+#endif //VSS_VISION_IMAGEFILEREADER_H
