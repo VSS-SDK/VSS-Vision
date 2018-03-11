@@ -81,8 +81,7 @@ private:
 	IColorRecognizer *colorRecognizer;
 
     Calibration calibration;
-
-    ColorType actualColorToCalibrate;
+    ColorRange *actualColorRange;
 
 	// Window - calibration
 	Gtk::Window* window = nullptr;
@@ -142,7 +141,7 @@ private:
 	void receiveNewFrame(cv::Mat);
 
     void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
-    ColorRange getColorRangeFromCalibration(ColorType type);
+    void defineActualColorRange(ColorType type);
     void setColorRangePart(ColorRangePart part, double value);
 };
 #endif

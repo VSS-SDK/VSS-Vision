@@ -61,7 +61,7 @@ void CalibrationWindow::on_button_save_dialog(Gtk::FileChooserDialog* file_choos
 }
 
 void CalibrationWindow::on_combo_box_color_select(Gtk::ComboBoxText* color_select, std::vector<Gtk::Scale*> scale_hsv){
-  actualColorToCalibrate = toColorType(color_select->get_active_text());
+  auto actualColorToCalibrate = toColorType(color_select->get_active_text());
   applyActualColorRangeToSlidersHSV(actualColorToCalibrate, scale_hsv);
 }
 
@@ -169,60 +169,46 @@ void CalibrationWindow::on_radio_button_camera(Gtk::RadioButton* radio_button_ca
     std::cout << "Camera: " << radio_button_camera->get_active() << std::endl;
 }
 
-void CalibrationWindow::setNewFrame(){
-  gImage->set_image(frame);
-}
-
-void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
-  frame = _frame;
-  dispatcher_frame.emit();
-}
-
 void CalibrationWindow::applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*> scale_hsv) {
-  auto colorRange = getColorRangeFromCalibration(type);
+  defineActualColorRange(type);
 
-  scale_hsv[H_MAX]->set_value(colorRange.max[H]);
-  scale_hsv[S_MAX]->set_value(colorRange.max[S]);
-  scale_hsv[V_MAX]->set_value(colorRange.max[V]);
+  scale_hsv[H_MAX]->set_value(actualColorRange->max[H]);
+  scale_hsv[S_MAX]->set_value(actualColorRange->max[S]);
+  scale_hsv[V_MAX]->set_value(actualColorRange->max[V]);
 
-  scale_hsv[H_MIN]->set_value(colorRange.min[H]);
-  scale_hsv[S_MIN]->set_value(colorRange.min[S]);
-  scale_hsv[V_MIN]->set_value(colorRange.min[V]);
+  scale_hsv[H_MIN]->set_value(actualColorRange->min[H]);
+  scale_hsv[S_MIN]->set_value(actualColorRange->min[S]);
+  scale_hsv[V_MIN]->set_value(actualColorRange->min[V]);
 }
 
-ColorRange CalibrationWindow::getColorRangeFromCalibration(ColorType type) {
-  std::cout << calibration << std::endl;
-  for (auto& colorRange : calibration.colorsRange) {
-    if(colorRange.colorType == type)
-      return colorRange;
+void CalibrationWindow::defineActualColorRange(ColorType type) {
+  for(unsigned int i = 0 ; i < calibration.colorsRange.size() ; i++){
+    if(calibration.colorsRange.at(i).colorType == type) {
+      actualColorRange = &calibration.colorsRange.at(i);
+      break;
+    }
   }
-
-  return new ColorRange();
 }
 
 void CalibrationWindow::setColorRangePart(ColorRangePart part, double value) {
-  for (auto& colorRange : calibration.colorsRange) {
-    if(colorRange.colorType == actualColorToCalibrate){
-      switch (part){
-        case ColorRangePart::H_MAX:
-          colorRange.max[H] = static_cast<float>(value);
-          break;
-        case ColorRangePart::H_MIN:
-          colorRange.min[H] = static_cast<float>(value);
-          break;
-        case ColorRangePart::S_MAX:
-          colorRange.max[S] = static_cast<float>(value);
-          break;
-        case ColorRangePart::S_MIN:
-          colorRange.min[S] = static_cast<float>(value);
-          break;
-        case ColorRangePart::V_MAX:
-          colorRange.max[V] = static_cast<float>(value);
-          break;
-        case ColorRangePart::V_MIN:
-          colorRange.min[V] = static_cast<float>(value);
-          break;
-      }
-    }
+  switch (part){
+    case ColorRangePart::H_MAX:
+      actualColorRange->max[H] = static_cast<float>(value);
+      break;
+    case ColorRangePart::H_MIN:
+      actualColorRange->min[H] = static_cast<float>(value);
+      break;
+    case ColorRangePart::S_MAX:
+      actualColorRange->max[S] = static_cast<float>(value);
+      break;
+    case ColorRangePart::S_MIN:
+      actualColorRange->min[S] = static_cast<float>(value);
+      break;
+    case ColorRangePart::V_MAX:
+      actualColorRange->max[V] = static_cast<float>(value);
+      break;
+    case ColorRangePart::V_MIN:
+      actualColorRange->min[V] = static_cast<float>(value);
+      break;
   }
 }
