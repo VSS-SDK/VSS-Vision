@@ -9,7 +9,6 @@
 #include <Repositories/CalibrationRepository.h>
 #include <CameraReader.h>
 #include <Windows/Calibration/CalibrationWindow.h>
-#include <Core/FrameHelper.h>
 
 void CalibrationWindow::setNewFrame(){
   processFrame();
@@ -25,5 +24,13 @@ void CalibrationWindow::processFrame() {
   cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
 
   colorRecognizer->processImage(frame);
-  cv::imshow("asd", colorRecognizer->getBinaryImage());
+
+  applyRectangleToFrame();
+}
+
+void CalibrationWindow::applyRectangleToFrame(){
+  auto rectangles = colorRecognizer->getRectangles();
+  for(unsigned int i = 0 ; i < rectangles.size() ; i++){
+    cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
+  }
 }
