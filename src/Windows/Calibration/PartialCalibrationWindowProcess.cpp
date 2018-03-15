@@ -13,7 +13,7 @@
 
 void CalibrationWindow::setNewFrame(){
   processFrame();
-  gImage->set_image(frame);
+  screenImage->set_image(frame);
 }
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
