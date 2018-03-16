@@ -17,10 +17,8 @@ public:
 
     virtual bool onKeyboard(GdkEventKey*, Gtk::Window*) = 0;
 
-    virtual void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
-    virtual void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
     virtual void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
     virtual void onRadioButtonImage(Gtk::RadioButton*) = 0;
@@ -30,5 +28,12 @@ public:
     virtual void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 	
     virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorTeam1(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorTeam2(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorRobot1(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorRobot2(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorRobot3(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorRobot4(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorRobot5(Gtk::ComboBox*) = 0;
 };
 #endif

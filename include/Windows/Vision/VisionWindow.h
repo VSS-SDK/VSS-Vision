@@ -12,6 +12,7 @@
 #include <gtkmm.h>
 #include <iostream>
 #include <thread>
+#include "GImage.h"
 #include "IVisionWindow.h"
 
 using namespace std;
@@ -25,10 +26,8 @@ public:
 
     bool onKeyboard(GdkEventKey*, Gtk::Window*) override;
 
-    void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 	void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
-    void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) override;
     void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
     void onRadioButtonImage(Gtk::RadioButton*) override;
@@ -38,6 +37,13 @@ public:
     void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 	
     void onComboBoxSelectPath(Gtk::ComboBox*) override;
+	void onComboBoxSelectColorTeam1(Gtk::ComboBox*) override;
+    void onComboBoxSelectColorTeam2(Gtk::ComboBox*) override;
+    void onComboBoxSelectColorRobot1(Gtk::ComboBox*) override;
+    void onComboBoxSelectColorRobot2(Gtk::ComboBox*) override;
+    void onComboBoxSelectColorRobot3(Gtk::ComboBox*) override;
+    void onComboBoxSelectColorRobot4(Gtk::ComboBox*) override;
+    void onComboBoxSelectColorRobot5(Gtk::ComboBox*) override;
 
 private:
 	// Threads
@@ -45,6 +51,8 @@ private:
 
 	// GTKMM - Calibration Window
 		Gtk::Window* window = nullptr;
+
+		GImage* screenImage = nullptr;		
 
 		Gtk::RadioButton* radioButtonImage = nullptr;
 		Gtk::RadioButton* radioButtonVideo = nullptr;
@@ -59,15 +67,14 @@ private:
 		Gtk::ComboBox* comboBoxColorRobot4 = nullptr;
 		Gtk::ComboBox* comboBoxColorRobot5 = nullptr;
 
-		Gtk::Button* buttonSave = nullptr;
 		Gtk::Button* buttonLoad = nullptr;
+		Gtk::Button* buttonPlay = nullptr;
 
 	// GTKMM - File Chooser Window
 		Gtk::FileChooserDialog* fileChooserDialog = nullptr;
 
 		Gtk::Entry* entryChooserDialog = nullptr;
 
-		Gtk::Button* buttonOpenSaveDialog = nullptr;
 		Gtk::Button* buttonOpenLoadDialog = nullptr;
 
 

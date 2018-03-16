@@ -12,15 +12,8 @@ bool VisionWindow::onKeyboard(GdkEventKey*, Gtk::Window*) {
     return true;
 }
 
-void VisionWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
-
-}
 
 void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
-
-}
-
-void VisionWindow::onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) {
 
 }
 
@@ -45,5 +38,33 @@ void VisionWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entr
 }
 
 void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox*) {
+
+}
+
+void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox*) {
+
+}
+
+void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox*) {
+
+}
+
+void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox*) {
+
+}
+
+void VisionWindow::onComboBoxSelectColorRobot2(Gtk::ComboBox*) {
+
+}
+
+void VisionWindow::onComboBoxSelectColorRobot3(Gtk::ComboBox*) {
+
+}
+
+void VisionWindow::onComboBoxSelectColorRobot4(Gtk::ComboBox*) {
+
+}
+
+void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox*) {
 
 }

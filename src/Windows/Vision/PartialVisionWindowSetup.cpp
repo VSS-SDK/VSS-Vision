@@ -30,7 +30,7 @@ void VisionWindow::windowThreadWrapper() {
 }
 
 void VisionWindow::initializeWidget(){
-  window->maximize();
+  //window->maximize();
   window->show_all_children();
 }
 
@@ -43,9 +43,7 @@ void VisionWindow::builderWidget(){
 
     builder->get_widget("window", window);
 
-    builder->get_widget("button_save_calibration", buttonSave);
     builder->get_widget("button_load_calibration", buttonLoad);
-    builder->get_widget("button_save_dialog", buttonOpenSaveDialog);
     builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
 
     builder->get_widget("entry_chooser", entryChooserDialog);
@@ -77,10 +75,8 @@ void VisionWindow::builderWidget(){
 void VisionWindow::setSignals(){ 
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window) , false);
 
-  buttonOpenSaveDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonOpenSaveDialog), fileChooserDialog, entryChooserDialog ));
   buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog ));
   
-  buttonSave->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonSave), fileChooserDialog, entryChooserDialog ));
   buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad), fileChooserDialog, entryChooserDialog));
 
   fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog ));
