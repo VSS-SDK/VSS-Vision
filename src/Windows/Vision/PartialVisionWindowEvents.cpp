@@ -8,62 +8,42 @@
 
 #include <Windows/Vision/VisionWindow.h>
 
-void VisionWindow::run(int argc, char *argv[]) {
-
-}
-
-bool VisionWindow::on_keyboard(GdkEventKey* event, Gtk::Window* window) {
+bool VisionWindow::onKeyboard(GdkEventKey*, Gtk::Window*) {
     return true;
 }
 
-void VisionWindow::on_button_load_dialog(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry) {
+void VisionWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
 
 }
 
-void VisionWindow::on_button_load_calibration(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry) {
+void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
 
 }
 
-void VisionWindow::on_combo_box_input_path(Gtk::ComboBoxText* combo_box) {
+void VisionWindow::onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) {
 
 }
 
-void VisionWindow::on_combo_box_color_team1(Gtk::ComboBoxText* combo_box) {
+void VisionWindow::onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) {
 
 }
 
-void VisionWindow::on_combo_box_color_team2(Gtk::ComboBoxText* combo_box) {
+void VisionWindow::onRadioButtonImage(Gtk::RadioButton*) {
 
 }
 
-void VisionWindow::on_combo_box_color_robot1(Gtk::ComboBoxText* combo_box) {
+void VisionWindow::onRadioButtonVideo(Gtk::RadioButton*) {
 
 }
 
-void VisionWindow::on_combo_box_color_robot2(Gtk::ComboBoxText* combo_box) {
+void VisionWindow::onRadioButtonCamera(Gtk::RadioButton*) {
 
 }
 
-void VisionWindow::on_combo_box_color_robot3(Gtk::ComboBoxText* combo_box) {
+void VisionWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
 
 }
 
-void VisionWindow::on_combo_box_color_robot4(Gtk::ComboBoxText* combo_box) {
-
-}
-
-void VisionWindow::on_combo_box_color_robot5(Gtk::ComboBoxText* combo_box) {
-
-}
-
-void VisionWindow::on_radio_button_image(Gtk::RadioButton* radio_button) {
-
-}
-
-void VisionWindow::on_radio_button_video(Gtk::RadioButton* radio_button) {
-
-}
-
-void VisionWindow::on_radio_button_camera(Gtk::RadioButton* radio_button) {
+void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox*) {
 
 }

@@ -142,9 +142,10 @@ void CalibrationWindow::onComboBoxSelectPath(Gtk::ComboBox* input_path){
 }
 
 void CalibrationWindow::onComboBoxSelectColor(Gtk::ComboBox* color_select, std::vector<Gtk::Scale*> scale_hsv){
-  std::cout << color_select->get_active_row_number() << std::endl;
-  //auto actualColorToCalibrate = toColorType(color_select->get_active_text());
-  //applyActualColorRangeToSlidersHSV(actualColorToCalibrate, scale_hsv);
+  vector<string> color = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
+  int row = color_select->get_active_row_number();
+  auto actualColorToCalibrate = toColorType(color[row]);
+  applyActualColorRangeToSlidersHSV(actualColorToCalibrate, scale_hsv);
 }
 
 void CalibrationWindow::defineActualColorRange(ColorType type) {

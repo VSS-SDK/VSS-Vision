@@ -38,10 +38,10 @@ void CalibrationWindow::run(int argc, char *argv[]){
   Gtk::Main kit(argc, argv);
 
   threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
-  //threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
+  threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
 
   threadWindowControl->join();
-  //threadCameraReader->detach();
+  threadCameraReader->detach();
 }
 
 void CalibrationWindow::cameraThreadWrapper() {
@@ -61,34 +61,15 @@ void CalibrationWindow::windowThreadWrapper() {
 
 void CalibrationWindow::initializeWidget(){
 
-  //COMBOBOXTEXT
-  vector<Glib::ustring> colors = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
-
-  for (unsigned int i = 0; i < colors.size(); i++){
-    //comboBoxColor->append(colors[i]);
-  }
-  
-  //RADIOBUTTON
   radioButtonImage->set_active();
+  
+  screenImage->set_image(cv::imread("../mock/images/model.jpg"));
 
   window->maximize();
   window->show_all_children();
-
-  //DRAWINGAREA
-  screenImage->set_image(cv::imread("../mock/images/model.jpg"));
 }
 
 void CalibrationWindow::builderWidget(){
-
-  scaleHSV.resize(6);
-  for (unsigned int i = 0; i < scaleHSV.size(); i++){
-    scaleHSV[i] = nullptr;
-  }
-
-  scaleCameraConfig.resize(7);
-    for (unsigned int i = 0; i < scaleCameraConfig.size(); i++){
-      scaleCameraConfig[i] = nullptr;
-    }
 
   auto builder = Gtk::Builder::create();
 
@@ -107,6 +88,7 @@ void CalibrationWindow::builderWidget(){
     builder->get_widget("entry_chooser", entryChooserDialog);
     builder->get_widget("file_chooser_dialog", fileChooserDialog);
 
+    scaleHSV.resize(6);
     builder->get_widget("hscale_hmax", scaleHSV[H_MAX]);
     builder->get_widget("hscale_hmin", scaleHSV[H_MIN]);
     builder->get_widget("hscale_smax", scaleHSV[S_MAX]);
@@ -114,6 +96,7 @@ void CalibrationWindow::builderWidget(){
     builder->get_widget("hscale_vmax", scaleHSV[V_MAX]);
     builder->get_widget("hscale_vmin", scaleHSV[V_MIN]);
 
+    scaleCameraConfig.resize(7);
     builder->get_widget("hscale_rotation", scaleCameraConfig[Rotation]);
     builder->get_widget("hscale_gain", scaleCameraConfig[Gain]);
     builder->get_widget("hscale_contrast", scaleCameraConfig[Contrast]);

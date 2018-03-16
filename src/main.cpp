@@ -7,8 +7,14 @@
  */
 
 #include "Windows/Calibration/CalibrationWindow.h"
+#include "Windows/Vision/VisionWindow.h"
 
 int main(int argc, char *argv[]) {
+  /*
   ICalibrationWindow *calibrationWindow = new CalibrationWindow();
   calibrationWindow->run(argc, argv);
+  */
+  
+  IVisionWindow *visionWindow = new VisionWindow();
+  visionWindow->run(argc, argv);
 }

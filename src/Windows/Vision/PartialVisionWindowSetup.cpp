@@ -8,61 +8,82 @@
 
 #include <Windows/Vision/VisionWindow.h>
 
-/*
-  
-void CalibrationWindow::initializeWidget(){
-
-  //TABLES
-  table_input->attach(*comboBoxInputPath, 0, 3, 3, 4, Gtk::FILL, Gtk::EXPAND);
-  table_set_color->attach(*comboBoxColorSelect, 0, 1, 1, 2, Gtk::FILL, Gtk::EXPAND);
-  table_color_robot->attach(*comboBoxColorTeam1 , 1, 2, 1, 2, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
-  table_color_robot->attach(*comboBoxColorTeam2 , 1, 2, 2, 3, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
-  table_color_robot->attach(*comboBoxColorRobot1, 1, 2, 3, 4, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
-  table_color_robot->attach(*comboBoxColorRobot2, 1, 2, 4, 5, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
-  table_color_robot->attach(*comboBoxColorRobot3, 1, 2, 5, 6, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
-  table_color_robot->attach(*comboBoxColorRobot4, 1, 2, 6, 7, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
-  table_color_robot->attach(*comboBoxColorRobot5, 1, 2, 7, 8, Gtk::FILL | Gtk::EXPAND, Gtk::EXPAND);
-
-  //COMBOBOXTEXT
-  vector<Glib::ustring> colors = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
-
-  for (unsigned int i = 0; i < colors.size(); i++){
-    comboBoxColorSelect->append(colors[i]);
-  }
-
-  for (unsigned int i = 0; i < 2; i++){
-    comboBoxColorTeam1->append(colors[i]);
-    comboBoxColorTeam2->append(colors[i]);
-  }
-
-  for (unsigned int i = 3; i < colors.size(); i++){
-    comboBoxColorRobot1->append(colors[i]);
-    comboBoxColorRobot2->append(colors[i]);
-    comboBoxColorRobot3->append(colors[i]);
-    comboBoxColorRobot4->append(colors[i]);
-    comboBoxColorRobot5->append(colors[i]);
-  }
-  
-  //RADIOBUTTON
-  radioButtonImage->set_active();
-
-  window->maximize();
-  window->show_all_children();
-
-  //DRAWINGAREA
-  gImage->set_image(cv::imread("../mock/images/model.jpg"));
+VisionWindow::VisionWindow(){
 }
 
+VisionWindow::~VisionWindow(){
+}
 
+void VisionWindow::run(int argc, char *argv[]){
+  Gtk::Main kit(argc, argv);
 
-    comboBoxInputPath    = new Gtk::ComboBoxText();
-    comboBoxColorSelect  = new Gtk::ComboBoxText();
-    comboBoxColorTeam1  = new Gtk::ComboBoxText();
-    comboBoxColorTeam2  = new Gtk::ComboBoxText();
-    comboBoxColorRobot1 = new Gtk::ComboBoxText();
-    comboBoxColorRobot2 = new Gtk::ComboBoxText();
-    comboBoxColorRobot3 = new Gtk::ComboBoxText();
-    comboBoxColorRobot4 = new Gtk::ComboBoxText();
-    comboBoxColorRobot5 = new Gtk::ComboBoxText();
+  threadWindowControl = new thread( std::bind( &VisionWindow::windowThreadWrapper, this ));
+  threadWindowControl->join();
+}
+
+void VisionWindow::windowThreadWrapper() {
+  builderWidget();
+  setSignals();
+  initializeWidget();
+
+  Gtk::Main::run(*window);
+}
+
+void VisionWindow::initializeWidget(){
+  window->maximize();
+  window->show_all_children();
+}
+
+void VisionWindow::builderWidget(){
+
+  auto builder = Gtk::Builder::create();
+
+  try {
+    builder->add_from_file("../glade/Vision.glade");
+
+    builder->get_widget("window", window);
+
+    builder->get_widget("button_save_calibration", buttonSave);
+    builder->get_widget("button_load_calibration", buttonLoad);
+    builder->get_widget("button_save_dialog", buttonOpenSaveDialog);
+    builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
+
+    builder->get_widget("entry_chooser", entryChooserDialog);
+    builder->get_widget("file_chooser_dialog", fileChooserDialog);
+
+    builder->get_widget("radiobutton_camera", radioButtonCamera);
+
+    builder->get_widget("combobox_path", comboBoxPath);
+		builder->get_widget("combobox_team_1", comboBoxColorTeam1);
+		builder->get_widget("combobox_team_2", comboBoxColorTeam2);
+		builder->get_widget("combobox_robot_1", comboBoxColorRobot1);
+		builder->get_widget("combobox_robot_2", comboBoxColorRobot2);
+		builder->get_widget("combobox_robot_3", comboBoxColorRobot3);
+		builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
+		builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
+
     
-*/
+  } catch(const Glib::FileError& ex) {
+    std::cerr << "FileError: " << ex.what() << std::endl;
+
+  } catch(const Glib::MarkupError& ex) {
+    std::cerr << "MarkupError: " << ex.what() << std::endl;
+
+  } catch(const Gtk::BuilderError& ex) {
+    std::cerr << "BuilderError: " << ex.what() << std::endl;
+  }
+}
+
+void VisionWindow::setSignals(){ 
+  window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window) , false);
+
+  buttonOpenSaveDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonOpenSaveDialog), fileChooserDialog, entryChooserDialog ));
+  buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog ));
+  
+  buttonSave->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonSave), fileChooserDialog, entryChooserDialog ));
+  buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad), fileChooserDialog, entryChooserDialog));
+
+  fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog ));
+  
+  comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
+}

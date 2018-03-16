@@ -11,50 +11,72 @@
 
 #include <gtkmm.h>
 #include <iostream>
+#include <thread>
 #include "IVisionWindow.h"
 
 using namespace std;
 
-class VisionWindow : public IVisionWindow{
+class VisionWindow : public IVisionWindow {
 public:
     VisionWindow();
     virtual ~VisionWindow();
 
     void run(int argc, char *argv[]) override;
 
-    bool on_keyboard(GdkEventKey*, Gtk::Window*) override;
+    bool onKeyboard(GdkEventKey*, Gtk::Window*) override;
 
-    void on_button_load_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
-    void on_button_load_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) override;
+    void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
+	void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
-    void on_combo_box_input_path(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_team1(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_team2(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot1(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot2(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot3(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot4(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot5(Gtk::ComboBoxText*) override;
+    void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) override;
+    void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
-    void on_radio_button_image(Gtk::RadioButton*) override;
-    void on_radio_button_video(Gtk::RadioButton*) override;
-    void on_radio_button_camera(Gtk::RadioButton*) override;
+    void onRadioButtonImage(Gtk::RadioButton*) override;
+    void onRadioButtonVideo(Gtk::RadioButton*) override;
+    void onRadioButtonCamera(Gtk::RadioButton*) override;
+
+    void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
+	
+    void onComboBoxSelectPath(Gtk::ComboBox*) override;
 
 private:
+	// Threads
+    std::thread *threadWindowControl;
 
-    // Button
-	Gtk::RadioButton* radioButtonImage = nullptr;
-	Gtk::RadioButton* radioButtonVideo = nullptr;
-	Gtk::RadioButton* radioButtonCamera = nullptr;
-    
-    // Select text
-    Gtk::ComboBoxText* comboBoxColorTeam1 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorTeam2 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot1 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot2 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot3 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot4 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot5 = nullptr;
-    
+	// GTKMM - Calibration Window
+		Gtk::Window* window = nullptr;
+
+		Gtk::RadioButton* radioButtonImage = nullptr;
+		Gtk::RadioButton* radioButtonVideo = nullptr;
+		Gtk::RadioButton* radioButtonCamera = nullptr;
+
+		Gtk::ComboBox* comboBoxPath = nullptr;
+		Gtk::ComboBox* comboBoxColorTeam1 = nullptr;
+		Gtk::ComboBox* comboBoxColorTeam2 = nullptr;
+		Gtk::ComboBox* comboBoxColorRobot1 = nullptr;
+		Gtk::ComboBox* comboBoxColorRobot2 = nullptr;
+		Gtk::ComboBox* comboBoxColorRobot3 = nullptr;
+		Gtk::ComboBox* comboBoxColorRobot4 = nullptr;
+		Gtk::ComboBox* comboBoxColorRobot5 = nullptr;
+
+		Gtk::Button* buttonSave = nullptr;
+		Gtk::Button* buttonLoad = nullptr;
+
+	// GTKMM - File Chooser Window
+		Gtk::FileChooserDialog* fileChooserDialog = nullptr;
+
+		Gtk::Entry* entryChooserDialog = nullptr;
+
+		Gtk::Button* buttonOpenSaveDialog = nullptr;
+		Gtk::Button* buttonOpenLoadDialog = nullptr;
+
+
+	// Control method
+	void initializeWidget();
+	void setSignals();
+	void builderWidget();
+
+    void windowThreadWrapper();
+
 };
 #endif

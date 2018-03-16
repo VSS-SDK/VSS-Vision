@@ -15,22 +15,20 @@ class IVisionWindow {
 public:
     virtual void run(int argc, char *argv[]) = 0;
 
-    virtual bool on_keyboard(GdkEventKey* event, Gtk::Window*) = 0;
+    virtual bool onKeyboard(GdkEventKey*, Gtk::Window*) = 0;
 
-    virtual void on_button_load_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) = 0;
-    virtual void on_button_load_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) = 0;
+    virtual void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
-    virtual void on_combo_box_input_path(Gtk::ComboBoxText*) = 0;
-    virtual void on_combo_box_color_team1(Gtk::ComboBoxText*) = 0;
-    virtual void on_combo_box_color_team2(Gtk::ComboBoxText*) = 0;
-    virtual void on_combo_box_color_robot1(Gtk::ComboBoxText*) = 0;
-    virtual void on_combo_box_color_robot2(Gtk::ComboBoxText*) = 0;
-    virtual void on_combo_box_color_robot3(Gtk::ComboBoxText*) = 0;
-    virtual void on_combo_box_color_robot4(Gtk::ComboBoxText*) = 0;
-    virtual void on_combo_box_color_robot5(Gtk::ComboBoxText*) = 0;
+    virtual void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+    virtual void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
-    virtual void on_radio_button_image(Gtk::RadioButton*) = 0;
-    virtual void on_radio_button_video(Gtk::RadioButton*) = 0;
-    virtual void on_radio_button_camera(Gtk::RadioButton*) = 0;
+    virtual void onRadioButtonImage(Gtk::RadioButton*) = 0;
+    virtual void onRadioButtonVideo(Gtk::RadioButton*) = 0;
+    virtual void onRadioButtonCamera(Gtk::RadioButton*) = 0;
+
+    virtual void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+	
+    virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
 };
 #endif
