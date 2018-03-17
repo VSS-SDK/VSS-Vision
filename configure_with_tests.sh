@@ -20,7 +20,6 @@ CMAKE_UBUNTU () {
   cmake -D TESTS=ON ..
   make
   ./tests
-  cd ..
 }
 
 CMAKE_MINT () {
@@ -30,7 +29,6 @@ CMAKE_MINT () {
   cmake -D TESTS=ON ..
   make
   ./tests
-  cd ..
 }
 
 CMAKE_DEBIAN () {
@@ -40,7 +38,6 @@ CMAKE_DEBIAN () {
   cmake -D TESTS=ON ..
   make
   ./tests
-  cd ..
 }
 
 INSTALL_UBUNTU_14_04 () {
