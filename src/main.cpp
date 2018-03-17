@@ -6,13 +6,17 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include "Windows/Calibration/CalibrationWindow.h"
+#include "Windows/Menu/MenuWindow.h"
 #include "Windows/Vision/VisionWindow.h"
+#include "Windows/Calibration/CalibrationWindow.h"
 
 int main(int argc, char *argv[]) {
   //ICalibrationWindow *calibrationWindow = new CalibrationWindow();
   //calibrationWindow->run(argc, argv);
   
-  IVisionWindow *visionWindow = new VisionWindow();
-  visionWindow->run(argc, argv);
+  //IVisionWindow *visionWindow = new VisionWindow();
+  //visionWindow->run(argc, argv);
+
+  IMenuWindow *menuWindow = new MenuWindow();
+  menuWindow->run(argc, argv);
 }
