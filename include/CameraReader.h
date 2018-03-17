@@ -31,6 +31,13 @@ public:
     float getSaturation() override;
     float getContrast() override;
 
+    bool getShouldCloseReader();
+    bool getRunningCapture();
+    int getActualCameraIndex();
+    cv::Mat getActualFrame();
+    std::vector<int> getCamerasIndex();
+    cv::VideoCapture getCapture();
+
 private:
     bool shouldCloseReader;
     bool runningCapture;

@@ -109,3 +109,27 @@ float CameraReader::getSaturation() {
 float CameraReader::getContrast() {
   return static_cast<float>(capture.get(CV_CAP_PROP_CONTRAST)*100.0);
 }
+
+bool CameraReader::getShouldCloseReader() {
+  return shouldCloseReader;
+}
+
+bool CameraReader::getRunningCapture() {
+  return runningCapture;
+}
+
+int CameraReader::getActualCameraIndex() {
+  return actualCameraIndex;
+}
+
+cv::Mat CameraReader::getActualFrame() {
+  return actualFrame;
+}
+
+std::vector<int> CameraReader::getCamerasIndex() {
+  return camerasIndex;
+}
+
+cv::VideoCapture CameraReader::getCapture() {
+  return capture;
+}
