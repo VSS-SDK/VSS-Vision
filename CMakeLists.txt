@@ -1,6 +1,8 @@
-PROJECT(vss-vision)
 CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
-SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++17 -o2")
+
+OPTION(TESTS "build tests" OFF)
+
+PROJECT(vss-vision)
 
 find_package(PkgConfig)
 FIND_PACKAGE(Boost 1.40 COMPONENTS program_options REQUIRED)
@@ -13,17 +15,42 @@ include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE
 include_directories(src src/Domain src/Repositories src/Core src/Builders src/Windows src/Windows/Calibration)
 include_directories(include include/Interfaces include/Domain include/Repositories include/Core include/Builders include/Windows include/Windows/Calibration)
 
-file(GLOB_RECURSE SRC src/*.cpp)
-
 set (VSS_INTERFACE libvss-interface.so)
 link_libraries(${GTKMM_LIBRARIES})
 link_directories(usr/lib ${GTKMM_LIBRARY_DIRS})
 include_directories(usr/local/include)
 
-ADD_EXECUTABLE(vss-vision ${SRC} include/Domain/Calibration.h include/Domain/ColorRange.h include/Interfaces/ICalibrationRepository.h include/Interfaces/ICalibrationWindow.h include/Repositories/CalibrationRepository.h include/GImage.h include/Windows/Calibration/CalibrationWindow.h include/Core/DirectoryHelper.h src/Domain/Calibration.cpp src/Domain/ColorRange.cpp src/Repositories/CalibrationRepository.cpp src/Core/DirectoryHelper.cpp src/GImage.cpp src/Windows/Calibration/PartialCalibrationWindowSetup.cpp src/Windows/Calibration/PartialCalibrationWindowEvents.cpp src/Windows/Calibration/PartialCalibrationWindowProcess.cpp src/main.cpp include/Domain/ColorType.h include/Domain/ConfigurationType.h include/Core/StringHelper.h src/Core/StringHelper.cpp include/Domain/CutType.h include/Domain/Point2d.h src/Domain/Point2d.cpp src/Domain/ColorType.cpp include/Domain/ColorSpace.h include/Interfaces/ICalibrationBuilder.h include/Builders/CalibrationBuilder.h src/Builders/CalibrationBuilder.cpp include/Interfaces/IImageInputReader.h include/CameraReader.h src/CameraReader.cpp include/Interfaces/IColorRecognizer.h include/ColorRecognizer.h src/ColorRecognizer.cpp include/ImageFileReader.h src/ImageFileReader.cpp include/Core/FrameHelper.h src/Core/FrameHelper.cpp)
+ADD_LIBRARY(core include/Domain/ColorRange.h include/Interfaces/ICalibrationRepository.h include/Interfaces/ICalibrationWindow.h include/Repositories/CalibrationRepository.h include/GImage.h include/Windows/Calibration/CalibrationWindow.h include/Core/DirectoryHelper.h src/Domain/Calibration.cpp src/Domain/ColorRange.cpp src/Repositories/CalibrationRepository.cpp src/Core/DirectoryHelper.cpp src/GImage.cpp src/Windows/Calibration/PartialCalibrationWindowSetup.cpp src/Windows/Calibration/PartialCalibrationWindowEvents.cpp src/Windows/Calibration/PartialCalibrationWindowProcess.cpp include/Domain/ColorType.h include/Domain/ConfigurationType.h include/Core/StringHelper.h src/Core/StringHelper.cpp include/Domain/CutType.h include/Domain/Point2d.h src/Domain/Point2d.cpp src/Domain/ColorType.cpp include/Domain/ColorSpace.h include/Interfaces/ICalibrationBuilder.h include/Builders/CalibrationBuilder.h src/Builders/CalibrationBuilder.cpp include/Interfaces/IImageInputReader.h include/CameraReader.h src/CameraReader.cpp include/Interfaces/IColorRecognizer.h include/ColorRecognizer.h src/ColorRecognizer.cpp include/ImageFileReader.h src/ImageFileReader.cpp include/Core/FrameHelper.h src/Core/FrameHelper.cpp)
+ADD_EXECUTABLE(vss-vision src/main.cpp)
 
 TARGET_LINK_LIBRARIES(vss-vision ${VSS_INTERFACE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS})
-TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES})
+TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES} core)
+
+SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11")
+
+if(TESTS)
+
+    enable_testing()
+
+    # Process the CMakeLists.txt in third-party/googletest, sets project(gtest) and
+    # project(gmock), gives access to ${gtest_SOURCE_DIR} and ${gmock_SOURCE_DIR}.
+    add_subdirectory(third-party/googletest)
+
+    include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+    include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
+
+    # Tests. *-test.cpp should be added here.
+    add_executable(tests
+            ./test/Core/StringHelperTests.cpp)
+
+    # Link core, pthread and gtest to tests.
+    target_link_libraries(tests
+            pthread
+            gtest
+            gtest_main
+            core)
+
+endif()
 
 INSTALL(TARGETS vss-vision DESTINATION bin)
 
