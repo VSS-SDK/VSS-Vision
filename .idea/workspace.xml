@@ -3,10 +3,10 @@
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
       <config projectName="vss-vision" targetName="gtest" />
-      <config projectName="vss-vision" targetName="tests" />
-      <config projectName="vss-vision" targetName="core" />
-      <config projectName="vss-vision" targetName="gmock" />
       <config projectName="vss-vision" targetName="gmock_main" />
+      <config projectName="vss-vision" targetName="gmock" />
+      <config projectName="vss-vision" targetName="core" />
+      <config projectName="vss-vision" targetName="tests" />
       <config projectName="vss-vision" targetName="vss-vision" />
       <config projectName="vss-vision" targetName="gtest_main" />
     </generated>
@@ -18,9 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efcfc985-df8a-438e-8dcc-32499dba70eb" name="Default" comment="Iniciado obtencao de calibragem do txt">
-      <change beforePath="$PROJECT_DIR$/include/Interfaces/ICalibrationRepository.h" afterPath="$PROJECT_DIR$/include/Interfaces/ICalibrationRepository.h" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
       <change beforePath="$PROJECT_DIR$/include/Repositories/CalibrationRepository.h" afterPath="$PROJECT_DIR$/include/Repositories/CalibrationRepository.h" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/ColorRange.cpp" afterPath="$PROJECT_DIR$/src/Domain/ColorRange.cpp" />
       <change beforePath="$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp" afterPath="$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -34,37 +33,46 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CalibrationRepository.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CalibrationRepository.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="158" column="0" lean-forward="false" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+            <state relative-caret-position="765">
+              <caret line="200" column="28" lean-forward="false" selection-start-line="200" selection-start-column="28" selection-end-line="200" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalibrationRepository.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CalibrationRepositoryTests.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/Repositories/CalibrationRepositoryTests.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="494">
+              <caret line="60" column="72" lean-forward="false" selection-start-line="60" selection-start-column="72" selection-end-line="60" selection-end-column="72" />
+              <folding>
+                <element signature="e#45#77#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CalibrationRepository.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/include/Repositories/CalibrationRepository.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ICalibrationRepository.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/Interfaces/ICalibrationRepository.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="17" column="2" lean-forward="false" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
+            <state relative-caret-position="388">
+              <caret line="31" column="18" lean-forward="false" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -97,7 +105,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Builders/CalibrationFactory.cpp" />
         <option value="$PROJECT_DIR$/include/Interfaces/ICalibrationBuilder.h" />
         <option value="$PROJECT_DIR$/include/CameraCalibration.h" />
         <option value="$PROJECT_DIR$/src/CameraCalibration.cpp" />
@@ -136,7 +143,6 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/test/MainTests.cpp" />
         <option value="$PROJECT_DIR$/include/ColorRecognizer.h" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/src/ColorRecognizer.cpp" />
         <option value="$PROJECT_DIR$/src/Builders/CalibrationBuilder.cpp" />
         <option value="$PROJECT_DIR$/include/CameraReader.h" />
@@ -145,9 +151,11 @@
         <option value="$PROJECT_DIR$/include/Builders/CalibrationBuilder.h" />
         <option value="$PROJECT_DIR$/test/Builders/CalibrationBuilderTests.cpp" />
         <option value="$PROJECT_DIR$/src/Domain/ColorRange.cpp" />
-        <option value="$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp" />
-        <option value="$PROJECT_DIR$/include/Repositories/CalibrationRepository.h" />
         <option value="$PROJECT_DIR$/include/Interfaces/ICalibrationRepository.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/include/Repositories/CalibrationRepository.h" />
+        <option value="$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp" />
+        <option value="$PROJECT_DIR$/test/Repositories/CalibrationRepositoryTests.cpp" />
       </list>
     </option>
   </component>
@@ -247,7 +255,7 @@
               <item name="vss-vision" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
               <item name="VSS-Vision" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="Builders" type="462c0819:PsiDirectoryNode" />
+              <item name="Repositories" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -366,7 +374,7 @@
       <workItem from="1521252328719" duration="5744000" />
       <workItem from="1521289412081" duration="5894000" />
       <workItem from="1521315662838" duration="1040000" />
-      <workItem from="1521316871517" duration="3673000" />
+      <workItem from="1521316871517" duration="8280000" />
     </task>
     <task id="LOCAL-00001" summary="Iniciado obtencao de calibragem do txt">
       <created>1517672934213</created>
@@ -379,7 +387,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151060000" />
+    <option name="totallyTimeSpent" value="155667000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2410" y="0" width="1922" height="1054" extended-state="6" />
@@ -391,7 +399,7 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3158447" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -422,7 +430,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/include/Interfaces/IColorRecognizerGPU.h" />
     <entry file="file://$PROJECT_DIR$/include/Interfaces/IColorRecognizerOptimized.h" />
     <entry file="file://$PROJECT_DIR$/src/ImageFileReader.h" />
     <entry file="file://$PROJECT_DIR$/include/Interfaces/ICalibrationBuilder.h">
@@ -629,18 +636,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/MainTests.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -677,13 +677,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
           <caret line="145" column="0" lean-forward="false" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/CameraReaderTests.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="2" lean-forward="false" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -729,6 +722,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/include/Interfaces/ICalibrationRepository.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -737,18 +738,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/Repositories/CalibrationRepository.h">
+    <entry file="file://$PROJECT_DIR$/test/CameraReaderTests.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+        <state relative-caret-position="102">
+          <caret line="7" column="77" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Repositories/CalibrationRepository.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="158" column="0" lean-forward="false" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+        <state relative-caret-position="765">
+          <caret line="200" column="28" lean-forward="false" selection-start-line="200" selection-start-column="28" selection-end-line="200" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Repositories/CalibrationRepositoryTests.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="60" column="72" lean-forward="false" selection-start-line="60" selection-start-column="72" selection-end-line="60" selection-end-column="72" />
+          <folding>
+            <element signature="e#45#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/Repositories/CalibrationRepository.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="31" column="18" lean-forward="false" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
           <folding />
         </state>
       </provider>

@@ -32,7 +32,7 @@ public:
     void setCalibrationColorRange(Calibration &calibration, std::ifstream &file, ColorType &colorType);
     void setCalibrationConfiguration(Calibration &calibration, std::ifstream &file,
                                      ConfigurationType &configurationType);
-
+    ICalibrationBuilder* getCalibrationBuilder();
 private:
     ICalibrationBuilder *calibrationBuilder;
 };

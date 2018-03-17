@@ -284,3 +284,7 @@ CalibrationRepository::CalibrationRepository(ICalibrationBuilder *calibrationBui
   calibrationBuilder->shouldInitializeColors(false);
   calibrationBuilder->shouldInitializeCuts(false);
 }
+
+ICalibrationBuilder *CalibrationRepository::getCalibrationBuilder() {
+  return calibrationBuilder;
+}
