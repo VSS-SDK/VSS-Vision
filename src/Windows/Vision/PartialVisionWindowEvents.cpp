@@ -12,12 +12,15 @@ bool VisionWindow::onKeyboard(GdkEventKey*, Gtk::Window*) {
     return true;
 }
 
-
-void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
+void VisionWindow::onButtonPlay() {
 
 }
 
 void VisionWindow::onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) {
+
+}
+
+void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
 
 }
 

@@ -124,7 +124,13 @@ void CalibrationWindow::builderWidget(){
   }
 }
 
-void CalibrationWindow::setSignals(){ 
+void CalibrationWindow::setSignals(){
+  
+  dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
+
+  inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
+  inputReader->signal_loaded_capture.connect(sigc::mem_fun(this, &CalibrationWindow::getAllAttributsFromCapture));
+
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(this, &ICalibrationWindow::onKeyboard), window) , false);
 
   buttonOpenSaveDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenSaveDialog), fileChooserDialog, entryChooserDialog ));
@@ -157,9 +163,4 @@ void CalibrationWindow::setSignals(){
   
   comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectPath), comboBoxPath));
   comboBoxColor->signal_changed().connect(sigc::bind<Gtk::ComboBox*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectColor), comboBoxColor, scaleHSV));
-  
-  // signals to update frame
-  dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
-  inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
-  inputReader->signal_loaded_capture.connect(sigc::mem_fun(this, &CalibrationWindow::getAllAttributsFromCapture));
 }

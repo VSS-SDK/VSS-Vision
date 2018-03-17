@@ -14,6 +14,7 @@
 #include <thread>
 #include "GImage.h"
 #include "IVisionWindow.h"
+#include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
 
@@ -26,15 +27,13 @@ public:
 
     bool onKeyboard(GdkEventKey*, Gtk::Window*) override;
 
-	void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
-
+    void onButtonPlay() override;
     void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) override;
+	void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
     void onRadioButtonImage(Gtk::RadioButton*) override;
     void onRadioButtonVideo(Gtk::RadioButton*) override;
     void onRadioButtonCamera(Gtk::RadioButton*) override;
-
-    void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 	
     void onComboBoxSelectPath(Gtk::ComboBox*) override;
 	void onComboBoxSelectColorTeam1(Gtk::ComboBox*) override;
@@ -44,6 +43,8 @@ public:
     void onComboBoxSelectColorRobot3(Gtk::ComboBox*) override;
     void onComboBoxSelectColorRobot4(Gtk::ComboBox*) override;
     void onComboBoxSelectColorRobot5(Gtk::ComboBox*) override;
+
+    void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
 private:
 	// Threads
