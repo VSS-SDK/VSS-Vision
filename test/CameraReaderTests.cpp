@@ -154,3 +154,18 @@ TEST(CameraReader_initializeReceivement, WhenTryToInitializeReceivementWithoutAC
   std::string output = testing::internal::GetCapturedStderr();
   EXPECT_STREQ("[Error] Invalid camera index\n", output.c_str());
 }
+
+TEST(CameraReader_isAValidCameraIndex, WhenIsLessThanZeroShouldReturnFalse){
+  auto sut = new CameraReader();
+  EXPECT_FALSE(sut->isAValidCameraIndex(-1));
+}
+
+TEST(CameraReader_isAValidCameraIndex, WhenIsAnInvalidIndexShouldReturnFalse){
+  auto sut = new CameraReader();
+  EXPECT_FALSE(sut->isAValidCameraIndex(11111));
+}
+
+TEST(CameraReader_isAValidCameraIndex, WhenIsAValidVShouldReturnTrue){
+  auto sut = new CameraReader();
+  EXPECT_TRUE(sut->isAValidCameraIndex(0));
+}

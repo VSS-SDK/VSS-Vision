@@ -37,6 +37,7 @@ public:
     cv::Mat getActualFrame();
     std::vector<int> getCamerasIndex();
     cv::VideoCapture getCapture();
+    bool isAValidCameraIndex(int);
 
 private:
     bool shouldCloseReader;
@@ -45,8 +46,6 @@ private:
     cv::Mat actualFrame;
     std::vector<int> camerasIndex;
     cv::VideoCapture capture;
-
-    bool isAValidCameraIndex(int);
 };
 
 #endif //VSS_VISION_CAMERAREADER_H

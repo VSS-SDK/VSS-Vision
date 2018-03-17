@@ -17,12 +17,15 @@ public:
 
     Calibration getInstance();
 
-private:
-    bool haveToInitializeColors;
-    bool haveToInitializeCuts;
+    bool getHaveToInitializeColors();
+    bool getHaveToInitializeCuts();
 
     std::vector<ColorRange> getColorsRange();
     std::vector<Point2d> getCuts();
+
+private:
+    bool haveToInitializeColors;
+    bool haveToInitializeCuts;
 };
 
 #endif //VSS_VISION_CALIBRATIONBUILDER_H

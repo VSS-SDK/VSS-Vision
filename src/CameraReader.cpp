@@ -68,18 +68,6 @@ void CameraReader::start() {
   this->runningCapture = true;
 }
 
-bool CameraReader::isAValidCameraIndex(int cameraIndex) {
-  if(cameraIndex < 0)
-    return false;
-
-  for(unsigned int i = 0 ; i < camerasIndex.size() ; i++){
-    if(cameraIndex == camerasIndex.at(i))
-      return true;
-  }
-
-  return false;
-}
-
 void CameraReader::close() {
   this->shouldCloseReader = true;
 }
@@ -154,6 +142,18 @@ float CameraReader::getContrast() {
   }
 
   return static_cast<float>(capture.get(CV_CAP_PROP_CONTRAST)*100.0);
+}
+
+bool CameraReader::isAValidCameraIndex(int cameraIndex) {
+  if(cameraIndex < 0)
+    return false;
+
+  for(unsigned int i = 0 ; i < camerasIndex.size() ; i++){
+    if(cameraIndex == camerasIndex.at(i))
+      return true;
+  }
+
+  return false;
 }
 
 bool CameraReader::getShouldCloseReader() {

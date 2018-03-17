@@ -5,6 +5,11 @@
 #include <Domain/Calibration.h>
 #include <Builders/CalibrationBuilder.h>
 
+CalibrationBuilder::CalibrationBuilder() {
+  haveToInitializeColors = false;
+  haveToInitializeCuts = false;
+}
+
 void CalibrationBuilder::shouldInitializeColors(bool haveToInitializeColors) {
   this->haveToInitializeColors = haveToInitializeColors;
 }
@@ -23,11 +28,6 @@ Calibration CalibrationBuilder::getInstance() {
     calibration->cut = getCuts();
 
   return calibration;
-}
-
-CalibrationBuilder::CalibrationBuilder() {
-  haveToInitializeColors = false;
-  haveToInitializeCuts = false;
 }
 
 std::vector<ColorRange> CalibrationBuilder::getColorsRange() {
@@ -69,4 +69,12 @@ std::vector<Point2d> CalibrationBuilder::getCuts() {
   cuts.push_back(Point2d(0,0));
 
   return cuts;
+}
+
+bool CalibrationBuilder::getHaveToInitializeColors() {
+  return haveToInitializeColors;
+}
+
+bool CalibrationBuilder::getHaveToInitializeCuts() {
+  return haveToInitializeCuts;
 }
