@@ -7,6 +7,7 @@
 
 TEST(CameraReader_Constructor, WhenBuildObject_ShouldHaveRightParametersValue){
   auto sut = new CameraReader();
+
   EXPECT_EQ(sut->getRunningCapture(), false);
   EXPECT_EQ(sut->getCamerasIndex().size(), 1);
   EXPECT_EQ(sut->getShouldCloseReader(), false);
@@ -19,12 +20,14 @@ TEST(CameraReader_Constructor, WhenBuildObject_ShouldHaveRightParametersValue){
 TEST(CameraReader_getAllPossibleSources, WhenGetAllPossibleSources_ShouldReturnZeroMocked_TODO){
   auto sut = new CameraReader();
   auto allPossibleSources = sut->getAllPossibleSources();
+
   EXPECT_EQ(allPossibleSources.size(), 1);
   EXPECT_EQ(allPossibleSources.at(0), "0");
 }
 
 TEST(CameraReader_pause_start, WhenCallPauseAndStart_ShouldTogglerunningCapture){
   auto sut = new CameraReader();
+
   EXPECT_EQ(sut->getRunningCapture(), false);
 
   sut->start();
@@ -36,6 +39,7 @@ TEST(CameraReader_pause_start, WhenCallPauseAndStart_ShouldTogglerunningCapture)
 
 TEST(CameraReader_close, WhenCallClose_ShouldSetShouldCloseReaderToTrue){
   auto sut = new CameraReader();
+
   EXPECT_EQ(sut->getShouldCloseReader(), false);
 
   sut->close();
@@ -66,6 +70,7 @@ TEST(CameraReader_setSource, WhenTryToSetAInvalidValue_ShouldNotSetActualCameraI
 
 TEST(CameraReader_setSource, WhenTryToSetAnAvailableValue_ShouldSetActualCameraIndex){
   auto sut = new CameraReader();
+
   EXPECT_EQ(sut->getActualCameraIndex(), -1);
 
   sut->setSource("0");
@@ -157,15 +162,18 @@ TEST(CameraReader_initializeReceivement, WhenTryToInitializeReceivementWithoutAC
 
 TEST(CameraReader_isAValidCameraIndex, WhenIsLessThanZeroShouldReturnFalse){
   auto sut = new CameraReader();
+
   EXPECT_FALSE(sut->isAValidCameraIndex(-1));
 }
 
 TEST(CameraReader_isAValidCameraIndex, WhenIsAnInvalidIndexShouldReturnFalse){
   auto sut = new CameraReader();
+
   EXPECT_FALSE(sut->isAValidCameraIndex(11111));
 }
 
 TEST(CameraReader_isAValidCameraIndex, WhenIsAValidVShouldReturnTrue){
   auto sut = new CameraReader();
+
   EXPECT_TRUE(sut->isAValidCameraIndex(0));
 }

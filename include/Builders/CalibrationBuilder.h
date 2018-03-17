@@ -15,7 +15,7 @@ public:
     void shouldInitializeColors(bool) override;
     void shouldInitializeCuts(bool) override;
 
-    Calibration getInstance();
+    Calibration getInstance() override;
 
     bool getHaveToInitializeColors();
     bool getHaveToInitializeCuts();
