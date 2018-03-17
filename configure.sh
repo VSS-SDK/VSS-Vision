@@ -53,7 +53,7 @@ INSTALL_UBUNTU_14_04 () {
 INSTALL_UBUNTU_16_04 () {
   sudo apt-get update && apt-get upgrade
   sudo apt-get install pkg-config
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev 
+  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev gtkmm-2.4 
   INSTALLED=1
 }
 

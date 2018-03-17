@@ -12,7 +12,6 @@ public:
     void setColorRange(ColorRange) override;
     void processImage(cv::Mat) override;
     void processImageInsideSectors(cv::Mat, std::vector<cv::Point>, int) override;
-    cv::Mat getBinaryImage() override;
     std::vector<cv::Rect> getRectangles() override;
     std::vector<cv::Point> getCenters() override;
 
