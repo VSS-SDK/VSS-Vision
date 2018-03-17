@@ -18,11 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efcfc985-df8a-438e-8dcc-32499dba70eb" name="Default" comment="Iniciado obtencao de calibragem do txt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/include/CameraReader.h" afterPath="$PROJECT_DIR$/include/CameraReader.h" />
       <change beforePath="$PROJECT_DIR$/src/CameraReader.cpp" afterPath="$PROJECT_DIR$/src/CameraReader.cpp" />
+      <change beforePath="$PROJECT_DIR$/test/CameraReaderTests.cpp" afterPath="$PROJECT_DIR$/test/CameraReaderTests.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,6 +28,40 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DockManager">
+    <window id="3">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="CameraReader.cpp" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/src/CameraReader.cpp">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="170">
+                    <caret line="58" column="61" lean-forward="false" selection-start-line="58" selection-start-column="61" selection-end-line="58" selection-end-column="61" />
+                    <folding>
+                      <element signature="e#44#61#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="CameraReader.h" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/include/CameraReader.h">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="805">
+                    <caret line="48" column="9" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+                    <folding>
+                      <element signature="e#113#130#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
@@ -55,24 +86,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CameraReaderTests.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/CameraReaderTests.cpp">
+      <file leaf-file-name="StringHelperTests.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/Core/StringHelperTests.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding>
-                <element signature="e#44#68#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="272">
+              <caret line="17" column="47" lean-forward="false" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CameraReader.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/CameraReader.h">
+      <file leaf-file-name="CameraReaderTests.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/CameraReaderTests.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-              <folding />
+            <state relative-caret-position="680">
+              <caret line="40" column="42" lean-forward="false" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
+              <folding>
+                <element signature="e#44#68#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -122,16 +153,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="595">
               <caret line="35" column="9" lean-forward="false" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StringHelperTests.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/Core/StringHelperTests.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="17" column="47" lean-forward="false" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -218,8 +239,8 @@
         <option value="$PROJECT_DIR$/test/MainTests.cpp" />
         <option value="$PROJECT_DIR$/include/ColorRecognizer.h" />
         <option value="$PROJECT_DIR$/include/CameraReader.h" />
-        <option value="$PROJECT_DIR$/src/CameraReader.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/CameraReader.cpp" />
         <option value="$PROJECT_DIR$/test/CameraReaderTests.cpp" />
       </list>
     </option>
@@ -418,7 +439,7 @@
       <workItem from="1520777476115" duration="6344000" />
       <workItem from="1520783873194" duration="22822000" />
       <workItem from="1520985802325" duration="6057000" />
-      <workItem from="1521252328719" duration="4302000" />
+      <workItem from="1521252328719" duration="5716000" />
     </task>
     <task id="LOCAL-00001" summary="Iniciado obtencao de calibragem do txt">
       <created>1517672934213</created>
@@ -431,19 +452,19 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137932000" />
+    <option name="totallyTimeSpent" value="139346000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2410" y="0" width="1922" height="1054" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19947916" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19947916" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3158447" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -456,6 +477,26 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3158447" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19947916" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39979014" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -725,14 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/Core/StringHelperTests.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="17" column="47" lean-forward="false" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageFileReader.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="579">
@@ -773,10 +806,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/CameraReader.h">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+        <state relative-caret-position="573">
+          <caret line="51" column="26" lean-forward="false" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -789,18 +822,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/test/Core/StringHelperTests.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="51" column="26" lean-forward="false" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
+        <state relative-caret-position="272">
+          <caret line="17" column="47" lean-forward="false" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CameraReader.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1303">
-          <caret line="7" column="18" lean-forward="false" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+        <state relative-caret-position="170">
+          <caret line="58" column="61" lean-forward="false" selection-start-line="58" selection-start-column="61" selection-end-line="58" selection-end-column="61" />
           <folding>
             <element signature="e#44#61#0" expanded="true" />
           </folding>
@@ -809,10 +842,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/CameraReaderTests.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="680">
+          <caret line="40" column="42" lean-forward="false" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
           <folding>
             <element signature="e#44#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/CameraReader.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="805">
+          <caret line="48" column="9" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+          <folding>
+            <element signature="e#113#130#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -44,14 +44,20 @@ void CameraReader::initializeReceivement() {
 }
 
 void CameraReader::setSource(std::string actualCameraIndex) {
-  int cameraIndex = std::stoi(actualCameraIndex);
+  try {
+    int cameraIndex = std::stoi(actualCameraIndex);
 
-  if(!isAValidCameraIndex(cameraIndex)) {
-    std::cerr << "[Error] Invalid camera index" << std::endl;
-    return;
+    if(!isAValidCameraIndex(cameraIndex)) {
+      std::cerr << "[Error] Invalid camera index" << std::endl;
+      return;
+    }
+
+    this->actualCameraIndex = cameraIndex;
   }
-
-  this->actualCameraIndex = cameraIndex;
+  catch(std::exception const & e)
+  {
+    std::cerr << "[Error] Invalid camera index" << std::endl;
+  }
 }
 
 void CameraReader::pause() {
