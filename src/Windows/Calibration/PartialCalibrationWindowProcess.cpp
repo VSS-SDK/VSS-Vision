@@ -13,7 +13,7 @@
 
 void CalibrationWindow::setNewFrame(){
   processFrame();
-  gImage->set_image(frame);
+  screenImage->set_image(frame);
 }
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
@@ -25,5 +25,5 @@ void CalibrationWindow::processFrame() {
   cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
 
   colorRecognizer->processImage(frame);
-  cv::imshow("asd", colorRecognizer->getBinaryImage());
+  //cv::imshow("asd", colorRecognizer->getBinaryImage());
 }

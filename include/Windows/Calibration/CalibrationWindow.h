@@ -9,16 +9,16 @@
 #ifndef GPROGRAM_H_
 #define GPROGRAM_H_
 
+#include "GImage.h"
 #include "ICalibrationWindow.h"
+#include "opencv2/highgui/highgui.hpp"
 #include <gtkmm.h>
 #include <iostream>
+#include <thread>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IImageInputReader.h>
-#include <thread>
 #include <Interfaces/IColorRecognizer.h>
-#include "GImage.h"
-#include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
 
@@ -29,106 +29,89 @@ public:
 
     void run(int argc, char *argv[]) override;
 
-    bool on_keyboard(GdkEventKey* event, Gtk::Window*) override;
+    bool onKeyboard(GdkEventKey*, Gtk::Window*) override;
 
-    void on_signal_select_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
-    void on_button_load_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
-    void on_button_save_dialog(Gtk::FileChooserDialog* , Gtk::Entry*) override;
-    void on_button_save_calibration(Gtk::FileChooserDialog* , Gtk::Entry*) override;
-    void on_button_load_calibration(Gtk::FileChooserDialog* , Gtk::Entry*, std::vector<Gtk::Scale*>) override;
+    void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
+	void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
-    void on_combo_box_input_path(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_team1(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_team2(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot1(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot2(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot3(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot4(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_robot5(Gtk::ComboBoxText*) override;
-    void on_combo_box_color_select(Gtk::ComboBoxText*, std::vector<Gtk::Scale*>) override;
+    void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) override;
+    void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*, std::vector<Gtk::Scale*>) override;
 
-    void on_scale_h_max(Gtk::Scale*) override;
-    void on_scale_h_min(Gtk::Scale*) override;
-    void on_scale_s_max(Gtk::Scale*) override;
-    void on_scale_s_min(Gtk::Scale*) override;
-    void on_scale_v_max(Gtk::Scale*) override;
-    void on_scale_v_min(Gtk::Scale*) override;
+    void onScaleHMAX(Gtk::Scale*) override;
+    void onScaleHMIN(Gtk::Scale*) override;
+    void onScaleSMAX(Gtk::Scale*) override;
+    void onScaleSMIN(Gtk::Scale*) override;
+    void onScaleVMAX(Gtk::Scale*) override;
+    void onScaleVMIN(Gtk::Scale*) override;
 
-    void on_scale_gain(Gtk::Scale*) override;
-    void on_scale_contrast(Gtk::Scale*) override;
-    void on_scale_rotation(Gtk::Scale*) override;
-    void on_scale_exposure(Gtk::Scale*) override;
-    void on_scale_brightness(Gtk::Scale*) override;
-    void on_scale_saturation(Gtk::Scale*) override;
+    void onScaleGain(Gtk::Scale*) override;
+    void onScaleContrast(Gtk::Scale*) override;
+    void onScaleRotation(Gtk::Scale*) override;
+    void onScaleExposure(Gtk::Scale*) override;
+    void onScaleBrightness(Gtk::Scale*) override;
+    void onScaleSaturation(Gtk::Scale*) override;
 
-    void on_radio_button_image(Gtk::RadioButton*) override;
-    void on_radio_button_video(Gtk::RadioButton*) override;
-    void on_toggle_button_cut_mode(Gtk::ToggleButton*) override;
-    void on_radio_button_camera(Gtk::RadioButton*) override;
+    void onRadioButtonImage(Gtk::RadioButton*) override;
+    void onRadioButtonVideo(Gtk::RadioButton*) override;
+    void onRadioButtonCamera(Gtk::RadioButton*) override;
 
+    void onToggleButtonCutMode(Gtk::ToggleButton*) override;
+
+    void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
+	
+    void onComboBoxSelectPath(Gtk::ComboBox*) override;
+    void onComboBoxSelectColor(Gtk::ComboBox*, std::vector<Gtk::Scale*>) override;
 
 private:
 	// Threads
 	std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
+	// Comunication between threads
 	Glib::Dispatcher dispatcher_frame;
 
 	// Classes
-	ICalibrationRepository *calibrationRepository;
 	IImageInputReader *inputReader;
+	IColorRecognizer *colorRecognizer;
 	ICalibrationBuilder *calibrationBuilder;
     ICalibrationBuilder *calibrationBuilderFromRepository;
-	IColorRecognizer *colorRecognizer;
+	ICalibrationRepository *calibrationRepository;
 
     Calibration calibration;
     ColorRange *actualColorRange;
 	unsigned int actualColorRangeIndex;
 
-	// Window - calibration
-	Gtk::Window* window = nullptr;
-
 	// Opencv image
 	cv::Mat frame;	
-	GImage* gImage = nullptr;
 
-	// Button
-	Gtk::RadioButton* radioButtonImage = nullptr;
-	Gtk::RadioButton* radioButtonVideo = nullptr;
-	Gtk::RadioButton* radioButtonCamera = nullptr;
+	// GTKMM - Calibration Window
+		Gtk::Window* window = nullptr;
 
-	// Select text
-	Gtk::ComboBoxText* comboBoxInputPath = nullptr;
-	Gtk::ComboBoxText* comboBoxColorSelect = nullptr;
-	Gtk::ComboBoxText* comboBoxColorTeam1 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorTeam2 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot1 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot2 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot3 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot4 = nullptr;
-	Gtk::ComboBoxText* comboBoxColorRobot5 = nullptr;
+		GImage* screenImage = nullptr;
 
-	// Table
-	Gtk::Table* table_input = nullptr;
-	Gtk::Table* table_set_color = nullptr;
-	Gtk::Table* table_color_robot = nullptr;
+		Gtk::RadioButton* radioButtonImage = nullptr;
+		Gtk::RadioButton* radioButtonVideo = nullptr;
+		Gtk::RadioButton* radioButtonCamera = nullptr;
 
-	// Slider
-	std::vector<Gtk::Scale*> scale_hsv;
-	std::vector<Gtk::Scale*> scale_cam_config;
+		Gtk::ComboBox* comboBoxPath = nullptr;
+		Gtk::ComboBox* comboBoxColor = nullptr;
 
-	// File Chooser - save/load file
-	Gtk::FileChooserDialog* file_chooser = nullptr;
+		std::vector<Gtk::Scale*> scaleHSV;
+		std::vector<Gtk::Scale*> scaleCameraConfig;
 
-	// Entry
-	Gtk::Entry* entry_chooser = nullptr;
+		Gtk::Button* buttonSave = nullptr;
+		Gtk::Button* buttonLoad = nullptr;
+		
+		Gtk::ToggleButton* toggleButtonCutMode = nullptr;
 
-	// Button
-	Gtk::Button* button_load_dialog = nullptr;
-	Gtk::Button* button_save_dialog = nullptr;
-	Gtk::Button* button_save_calibration = nullptr;
-	Gtk::Button* button_load_calibration = nullptr;
-	Gtk::ToggleButton* togglebutton_cut_mode = nullptr;
+	// GTKMM - File Chooser Window
+		Gtk::FileChooserDialog* fileChooserDialog = nullptr;
+
+		Gtk::Entry* entryChooserDialog = nullptr;
+
+		Gtk::Button* buttonOpenSaveDialog = nullptr;
+		Gtk::Button* buttonOpenLoadDialog = nullptr;
+
 
 	// Control method
 	void initializeWidget();
@@ -140,11 +123,12 @@ private:
 
 	// Update frame
 	void setNewFrame();
-	void receiveNewFrame(cv::Mat);
 	void processFrame();
-	void getAllAttributsFromCapture(bool signal);
-
-    void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
+	void receiveNewFrame(cv::Mat);
+	
+	// Events
     void defineActualColorRange(ColorType type);
+	void getAllAttributsFromCapture(bool signal);
+    void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
 };
 #endif
