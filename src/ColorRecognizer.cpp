@@ -21,6 +21,18 @@ void ColorRecognizer::processImage(cv::Mat frame) {
   calculateCenters();
 }
 
+void ColorRecognizer::processImageInsideSectors(cv::Mat, std::vector<cv::Point>, int) {
+
+}
+
+std::vector<cv::Rect> ColorRecognizer::getRectangles() {
+  return rectangles;
+}
+
+std::vector<cv::Point> ColorRecognizer::getCenters() {
+  return centers;
+}
+
 void ColorRecognizer::binarizesImage() {
   cv::Mat processed;
 
@@ -62,21 +74,19 @@ void ColorRecognizer::calculateCenters() {
   this->centers = centers;
 }
 
-void ColorRecognizer::processImageInsideSectors(cv::Mat, std::vector<cv::Point>, int) {
-
-}
-
 cv::Point ColorRecognizer::getCenter(cv::Rect rect) {
   cv::Point point = (rect.br() + rect.tl())*0.5;
   return point;
 }
 
-std::vector<cv::Rect> ColorRecognizer::getRectangles() {
-  return rectangles;
+ColorRange ColorRecognizer::getColorRange() {
+  return colorRange;
 }
 
-std::vector<cv::Point> ColorRecognizer::getCenters() {
-  return centers;
+cv::Mat ColorRecognizer::getOriginalFrame() {
+  return originalFrame;
 }
 
-
+cv::Mat ColorRecognizer::getBinaryFrame() {
+  return binaryFrame;
+}
