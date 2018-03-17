@@ -34,9 +34,123 @@ TEST(CameraReader_pause_start, WhenCallPauseAndStart_ShouldTogglerunningCapture)
   EXPECT_EQ(sut->getRunningCapture(), false);
 }
 
-TEST(CameraReader_setSource, WhenTryToSendANotANumValue_ShouldNotSetActualCameraIndex){
+TEST(CameraReader_close, WhenCallClose_ShouldSetShouldCloseReaderToTrue){
   auto sut = new CameraReader();
+  EXPECT_EQ(sut->getShouldCloseReader(), false);
+
+  sut->close();
+  EXPECT_EQ(sut->getShouldCloseReader(), true);
+}
+
+TEST(CameraReader_setSource, WhenTryToSetANotANumValue_ShouldNotSetActualCameraIndex){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
   EXPECT_NO_THROW(sut->setSource("NAN - Not a Num"));
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] Invalid camera index\n", output.c_str());
+
   EXPECT_EQ(sut->getActualCameraIndex(), -1);
-  // TODO: Test cerr << "message" << endl;
+}
+
+TEST(CameraReader_setSource, WhenTryToSetAInvalidValue_ShouldNotSetActualCameraIndex){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_NO_THROW(sut->setSource("123"));
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] Invalid camera index\n", output.c_str());
+
+  EXPECT_EQ(sut->getActualCameraIndex(), -1);
+}
+
+TEST(CameraReader_setSource, WhenTryToSetAnAvailableValue_ShouldSetActualCameraIndex){
+  auto sut = new CameraReader();
+  EXPECT_EQ(sut->getActualCameraIndex(), -1);
+
+  sut->setSource("0");
+  EXPECT_EQ(sut->getActualCameraIndex(), 0);
+}
+
+TEST(CameraReader_setBrightness, WhenTryToSetValueWithCaptureClosed_ShouldCerrAnError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_NO_THROW(sut->setBrightness(50));
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] capture is closed\n", output.c_str());
+}
+
+TEST(CameraReader_getBrightness, WhenTryToGetValueWithCaptureClosed_ShouldCerrAnError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_EQ(sut->getBrightness(), 0);
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] capture is closed\n", output.c_str());
+}
+
+TEST(CameraReader_setGain, WhenTryToSetValueWithCaptureClosed_ShouldCerrAnError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_NO_THROW(sut->setGain(50));
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] capture is closed\n", output.c_str());
+}
+
+TEST(CameraReader_getGain, WhenTryToGetValueWithCaptureClosed_ShouldCerrAnError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_EQ(sut->getGain(), 0);
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] capture is closed\n", output.c_str());
+}
+
+
+TEST(CameraReader_setSaturation, WhenTryToSetValueWithCaptureClosed_ShouldCerrAnError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_NO_THROW(sut->setSaturation(50));
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] capture is closed\n", output.c_str());
+}
+
+TEST(CameraReader_getSaturation, WhenTryToGetValueWithCaptureClosed_ShouldCerrAnError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_EQ(sut->getSaturation(), 0);
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] capture is closed\n", output.c_str());
+}
+
+
+TEST(CameraReader_setContrast, WhenTryToSetValueWithCaptureClosed_ShouldCerrAnError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_NO_THROW(sut->setContrast(50));
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] capture is closed\n", output.c_str());
+}
+
+TEST(CameraReader_getContrast, WhenTryToGetValueWithCaptureClosed_ShouldCerrAnError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  EXPECT_EQ(sut->getContrast(), 0);
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] capture is closed\n", output.c_str());
+}
+
+TEST(CameraReader_initializeReceivement, WhenTryToInitializeReceivementWithoutACamera_ShouldCerranError){
+  auto sut = new CameraReader();
+
+  testing::internal::CaptureStderr();
+  sut->initializeReceivement();
+  std::string output = testing::internal::GetCapturedStderr();
+  EXPECT_STREQ("[Error] Invalid camera index\n", output.c_str());
 }
