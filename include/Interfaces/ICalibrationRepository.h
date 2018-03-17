@@ -15,8 +15,6 @@
 class ICalibrationRepository {
 public:
   virtual Calibration read(std::string pathName) = 0;
-  virtual Calibration update(std::string pathName, Calibration calibration) = 0;
-  virtual void remove(std::string pathName) = 0;
   virtual void create(std::string pathName, Calibration calibration) = 0;
 };
 
