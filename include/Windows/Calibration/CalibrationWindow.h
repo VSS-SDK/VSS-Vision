@@ -128,6 +128,7 @@ private:
 	
 	// Events
     void defineActualColorRange(ColorType type);
+    void applyRectangleToFrame();
 	void getAllAttributsFromCapture(bool signal);
     void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
 };

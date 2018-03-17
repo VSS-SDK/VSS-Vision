@@ -17,30 +17,27 @@ CMAKE_UBUNTU () {
   sudo rm -R build
   mkdir build
   cd build
-  cmake ..
-  make package
-  sudo dpkg -i vss-vision-0.1.1-Linux.deb
-  cd ..
+  cmake -D TESTS=ON ..
+  make
+  ./tests
 }
 
 CMAKE_MINT () {
   sudo rm -R build
   mkdir build
   cd build
-  cmake ..
-  make package
-  sudo dpkg -i vss-vision-0.1.1-Linux.deb
-  cd ..
+  cmake -D TESTS=ON ..
+  make
+  ./tests
 }
 
 CMAKE_DEBIAN () {
   rm -R build
   mkdir build
   cd build
-  cmake ..
-  make package
-  dpkg -i vss-vision-0.1.1-Linux.deb
-  cd ..
+  cmake -D TESTS=ON ..
+  make
+  ./tests
 }
 
 INSTALL_UBUNTU_14_04 () {
@@ -72,6 +69,9 @@ INSTALL_DEBIAN_9_3 () {
 }
 
 INSTALL () {
+  # Clone GoogleTests
+  git submodule update --init --recursive
+
   # Ubuntu
   if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "16.04" ]]; then
     INSTALL_UBUNTU_16_04;

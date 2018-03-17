@@ -22,7 +22,7 @@ addons:
       - ubuntu-toolchain-r-test
 
 script:
-  - sudo ./configure.sh
+  - sudo ./configure_with_tests.sh
 
 notifications:
   slack: vss-sdk:UJ7ZEzNA2i1QJVtc8ABnET3x

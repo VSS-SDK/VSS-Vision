@@ -62,10 +62,6 @@ void ColorRecognizer::calculateCenters() {
   this->centers = centers;
 }
 
-cv::Mat ColorRecognizer::getBinaryImage() {
-  return binaryFrame;
-}
-
 void ColorRecognizer::processImageInsideSectors(cv::Mat, std::vector<cv::Point>, int) {
 
 }
