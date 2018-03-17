@@ -52,7 +52,7 @@ void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* file_chooser, Gtk::
     scale_cam_config[Gain]->set_value(calibration.gain);
     file_chooser->hide();
   }
-}
+} 
 
 void CalibrationWindow::onScaleHMAX(Gtk::Scale* scale_h_max){
   calibration.colorsRange.at(actualColorRangeIndex).max[H] = static_cast<float>(scale_h_max->get_value());
