@@ -17,3 +17,9 @@ TEST(ColorRecognizer_setColorRange, WhenSetColorRange_ShouldChangeValue){
   EXPECT_EQ(sut->getColorRange().colorType, ColorType::Blue);
 }
 
+TEST(ColorRecognizer_getCenter, WhenGetCenter_ShouldGetRightCenter){
+  auto sut = new ColorRecognizer();
+  auto center = sut->getCenter(cv::Rect(cv::Point(0,0), cv::Point(10, 10)));
+
+  EXPECT_EQ(center, cv::Point(5,5));
+}
