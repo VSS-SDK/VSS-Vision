@@ -88,6 +88,7 @@
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
     <property name="border_width">10</property>
+    <property name="title" translatable="yes">VISION</property>
     <property name="gravity">north-east</property>
     <child>
       <object class="GtkTable" id="table_main">

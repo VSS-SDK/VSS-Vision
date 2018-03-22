@@ -14,11 +14,12 @@ VisionWindow::VisionWindow(){
 VisionWindow::~VisionWindow(){
 }
 
-void VisionWindow::run(int argc, char *argv[]){
-  Gtk::Main kit(argc, argv);
+int VisionWindow::run(int argc, char *argv[]){
 
   threadWindowControl = new thread( std::bind( &VisionWindow::windowThreadWrapper, this ));
   threadWindowControl->join();
+
+  return MENU;
 }
 
 void VisionWindow::windowThreadWrapper() {

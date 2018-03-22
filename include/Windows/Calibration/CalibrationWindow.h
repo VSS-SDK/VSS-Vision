@@ -19,6 +19,7 @@
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IImageInputReader.h>
 #include <Interfaces/IColorRecognizer.h>
+#include <Domain/ProgramState.h>
 
 using namespace std;
 
@@ -27,7 +28,7 @@ public:
     CalibrationWindow();
     virtual ~CalibrationWindow();
 
-    void run(int argc, char *argv[]) override;
+    int run(int argc, char *argv[]) override;
 
     bool onKeyboard(GdkEventKey*, Gtk::Window*) override;
 
@@ -63,6 +64,7 @@ public:
     void onComboBoxSelectColor(Gtk::ComboBox*, std::vector<Gtk::Scale*>) override;
 
 private:
+
 	// Threads
 	std::thread *threadCameraReader;
     std::thread *threadWindowControl;

@@ -34,14 +34,15 @@ CalibrationWindow::CalibrationWindow(){
 CalibrationWindow::~CalibrationWindow(){
 }
 
-void CalibrationWindow::run(int argc, char *argv[]){
-  Gtk::Main kit(argc, argv);
+int CalibrationWindow::run(int argc, char *argv[]){
 
   threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
   threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
 
   threadWindowControl->join();
   threadCameraReader->detach();
+
+  return MENU;
 }
 
 void CalibrationWindow::cameraThreadWrapper() {

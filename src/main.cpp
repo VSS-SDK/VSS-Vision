@@ -10,28 +10,30 @@
 #include "Windows/Vision/VisionWindow.h"
 #include "Windows/Calibration/CalibrationWindow.h"
 
-enum ProgramState {EXIT, MENU, VISION, CALIBRATION};
-
 int main(int argc, char *argv[]) {
+
+  Gtk::Main kit(argc, argv);  
+
+  int programState = MENU;
 
   while (programState != EXIT){
 
     switch (programState){
 
-      case MENU :
+      case MENU : {
         IMenuWindow *menuWindow = new MenuWindow();
         programState = menuWindow->run(argc, argv);
-        break;
+      } break;
 
-      case VISION :
+      case VISION : {
         IVisionWindow *visionWindow = new VisionWindow();
         programState = visionWindow->run(argc, argv);
-        break;
+      } break;
 
-      case CALIBRATION :
+      case CALIBRATION : {
         ICalibrationWindow *calibrationWindow = new CalibrationWindow();
         programState = calibrationWindow->run(argc, argv);
-        break;
+      } break;
     }
   }
 }
