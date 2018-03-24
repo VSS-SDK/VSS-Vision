@@ -13,7 +13,7 @@
 
 class IMenuWindow {
 public:
-    virtual void run(int argc, char *argv[]) = 0;
+    virtual int run(int argc, char *argv[]) = 0;
 
     virtual bool onKeyboard(GdkEventKey*, Gtk::Window*) = 0;
 

@@ -85,9 +85,47 @@
       <action-widget response="0">button_load_calibration</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkListStore" id="liststore_robot">
+    <columns>
+      <!-- column-name Color -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Green</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Pink</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Purple</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Red</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Brown</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="liststore_team">
+    <columns>
+      <!-- column-name Color -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Blue</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Yellow</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
     <property name="border_width">10</property>
+    <property name="title" translatable="yes">VISION</property>
     <property name="gravity">north-east</property>
     <child>
       <object class="GtkTable" id="table_main">
@@ -542,6 +580,13 @@
                   <object class="GtkComboBox" id="combobox_team_1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">liststore_team</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -554,6 +599,13 @@
                   <object class="GtkComboBox" id="combobox_team_2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">liststore_team</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext2"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -566,6 +618,13 @@
                   <object class="GtkComboBox" id="combobox_robot_1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">liststore_robot</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext3"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -578,6 +637,13 @@
                   <object class="GtkComboBox" id="combobox_robot_2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">liststore_robot</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext4"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -590,6 +656,13 @@
                   <object class="GtkComboBox" id="combobox_robot_3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">liststore_robot</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext5"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -602,6 +675,13 @@
                   <object class="GtkComboBox" id="combobox_robot_4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">liststore_robot</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext6"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -614,6 +694,13 @@
                   <object class="GtkComboBox" id="combobox_robot_5">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="model">liststore_robot</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="cellrenderertext7"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>

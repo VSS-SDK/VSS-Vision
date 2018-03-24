@@ -9,16 +9,18 @@
 #include <Windows/Menu/MenuWindow.h>
 
 MenuWindow::MenuWindow(){
+  programState = EXIT;
 }
 
 MenuWindow::~MenuWindow(){
 }
 
-void MenuWindow::run(int argc, char *argv[]){
-  Gtk::Main kit(argc, argv);
+int MenuWindow::run(int argc, char *argv[]){
 
   threadWindowControl = new thread( std::bind( &MenuWindow::windowThreadWrapper, this ));
   threadWindowControl->join();
+
+  return programState;
 }
 
 void MenuWindow::windowThreadWrapper() {

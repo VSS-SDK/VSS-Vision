@@ -15,6 +15,8 @@
 #include "GImage.h"
 #include "IVisionWindow.h"
 #include "opencv2/highgui/highgui.hpp"
+#include <Domain/ProgramState.h>
+
 
 using namespace std;
 
@@ -23,7 +25,7 @@ public:
     VisionWindow();
     virtual ~VisionWindow();
 
-    void run(int argc, char *argv[]) override;
+    int run(int argc, char *argv[]) override;
 
     bool onKeyboard(GdkEventKey*, Gtk::Window*) override;
 

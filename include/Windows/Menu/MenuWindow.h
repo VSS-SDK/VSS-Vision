@@ -13,6 +13,8 @@
 #include <iostream>
 #include <thread>
 #include "IMenuWindow.h"
+#include <Domain/ProgramState.h>
+
 
 using namespace std;
 
@@ -21,7 +23,7 @@ public:
     MenuWindow();
     virtual ~MenuWindow();
 
-    void run(int argc, char *argv[]) override;
+    int run(int argc, char *argv[]) override;
 
     bool onKeyboard(GdkEventKey*, Gtk::Window*) override;
 
@@ -29,6 +31,9 @@ public:
     void onButtonCalibration() override;
 
 private:
+	
+	int programState;
+
 	// Threads
     std::thread *threadWindowControl;
 

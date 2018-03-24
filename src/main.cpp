@@ -11,12 +11,29 @@
 #include "Windows/Calibration/CalibrationWindow.h"
 
 int main(int argc, char *argv[]) {
-  //ICalibrationWindow *calibrationWindow = new CalibrationWindow();
-  //calibrationWindow->run(argc, argv);
-  
-  //IVisionWindow *visionWindow = new VisionWindow();
-  //visionWindow->run(argc, argv);
 
-  IMenuWindow *menuWindow = new MenuWindow();
-  menuWindow->run(argc, argv);
+  Gtk::Main kit(argc, argv);  
+
+  int programState = MENU;
+
+  while (programState != EXIT){
+
+    switch (programState){
+
+      case MENU : {
+        IMenuWindow *menuWindow = new MenuWindow();
+        programState = menuWindow->run(argc, argv);
+      } break;
+
+      case VISION : {
+        IVisionWindow *visionWindow = new VisionWindow();
+        programState = visionWindow->run(argc, argv);
+      } break;
+
+      case CALIBRATION : {
+        ICalibrationWindow *calibrationWindow = new CalibrationWindow();
+        programState = calibrationWindow->run(argc, argv);
+      } break;
+    }
+  }
 }
