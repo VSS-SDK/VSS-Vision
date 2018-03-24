@@ -113,22 +113,22 @@ void CalibrationWindow::onScaleSaturation(Gtk::Scale* scale_saturation){
 }
 
 void CalibrationWindow::onRadioButtonImage(Gtk::RadioButton* radio_button_image){
-  if (!radio_button_image->get_active())
-    std::cout << "Image: " << radio_button_image->get_active() << std::endl;
+//  if (!radio_button_image->get_active())
+//    std::cout << "Image: " << radio_button_image->get_active() << std::endl;
 }
 
 void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radio_button_video){
-  if (!radio_button_video->get_active())
-    std::cout << "Video: " << radio_button_video->get_active() << std::endl;
+//  if (!radio_button_video->get_active())
+//    std::cout << "Video: " << radio_button_video->get_active() << std::endl;
 }
 
 void CalibrationWindow::onRadioButtonCamera(Gtk::RadioButton* radio_button_camera){
-  if (!radio_button_camera->get_active())
-    std::cout << "Camera: " << radio_button_camera->get_active() << std::endl;
+//  if (!radio_button_camera->get_active())
+//    std::cout << "Camera: " << radio_button_camera->get_active() << std::endl;
 }
 
 void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggle_button_cut_mode){
-  std::cout << toggle_button_cut_mode->get_active() << std::endl;
+//  std::cout << toggle_button_cut_mode->get_active() << std::endl;
 }
 
 void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
@@ -138,7 +138,7 @@ void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* file_
 }
 
 void CalibrationWindow::onComboBoxSelectPath(Gtk::ComboBox* input_path){
-  std::cout << input_path->get_active_row_number() << std::endl;
+//  std::cout << input_path->get_active_row_number() << std::endl;
 }
 
 void CalibrationWindow::onComboBoxSelectColor(Gtk::ComboBox* color_select, std::vector<Gtk::Scale*> scale_hsv){

@@ -23,40 +23,50 @@ void VisionWindow::onButtonPlay() {
 
 }
 
-void VisionWindow::onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) {
-
+void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    if (entry->get_text_length() > 0){
+    //calibration = calibrationRepository->read(file_chooser->get_filename());
+    fileChooser->hide();
+  }
 }
 
-void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
-
+void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    entry->set_sensitive(true);
+    fileChooser->show();
 }
 
-void VisionWindow::onRadioButtonImage(Gtk::RadioButton*) {
-
+void VisionWindow::onRadioButtonImage(Gtk::RadioButton* radioButton) {
+//    if (!radioButton->get_active())
+//        std::cout << "Image: " << radioButton->get_active() << std::endl;
 }
 
-void VisionWindow::onRadioButtonVideo(Gtk::RadioButton*) {
-
+void VisionWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton) {
+//    if (!radioButton->get_active())
+//        std::cout << "Video: " << radioButton->get_active() << std::endl;
 }
 
-void VisionWindow::onRadioButtonCamera(Gtk::RadioButton*) {
-
+void VisionWindow::onRadioButtonCamera(Gtk::RadioButton* radioButton) {
+//    if (!radioButton->get_active())
+//        std::cout << "Camera: " << radioButton->get_active() << std::endl;
 }
 
-void VisionWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) {
-
+void VisionWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    std::string str = fileChooser->get_filename();
+    std::size_t sub_str = str.find_last_of("/\\");
+    entry->set_text(str.substr(sub_str+1));
 }
 
-void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox*) {
-
+void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox* combobox) {
+//  std::cout << combobox->get_active_row_number() << std::endl;
 }
 
-void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox*) {
-
+void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox* combobox) {
+    vector<string> color = {"Blue", "Yellow"};
+    int row = combobox->get_active_row_number();
+    std::cout << color[row] << std::endl;
 }
 
 void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox*) {
-
 }
 
 void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox*) {
