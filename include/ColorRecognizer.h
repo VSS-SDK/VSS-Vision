@@ -15,12 +15,15 @@ public:
     std::vector<cv::Rect> getRectangles() override;
     std::vector<cv::Point> getCenters() override;
 
-private:
     void binarizesImage();
     void recognizesRectangles();
     void calculateCenters();
     cv::Point getCenter(cv::Rect);
+    ColorRange getColorRange();
+    cv::Mat getOriginalFrame();
+    cv::Mat getBinaryFrame();
 
+private:
     ColorRange colorRange;
     cv::Mat originalFrame;
     cv::Mat binaryFrame;

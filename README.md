@@ -11,6 +11,27 @@ Mais informações sobre o framework podem ser encontradas em [VSS-SDK][vss-sdk]
 ## Installation
 ```
 $ sudo ./configure.sh
+$ vss-vision
+```
+
+## Development
+First Time
+```
+$ sudo ./configure_with_tests.sh
+```
+
+Tests
+```
+$ cd build
+$ make
+$ ./tests
+```
+
+Execution
+```
+$ cd build
+$ make
+$ ./vss-vision
 ```
 
 ## Samples
@@ -30,6 +51,7 @@ You are allowed and encouraged to use this software on robotics competitions.  I
 [vss-sdk-features]: https://trello.com/b/b4dVV6ug/vss-sdk-features
 [vss-sdk-pbis]: https://trello.com/b/m0u389nR/vss-sdk-pbis
 [slack]: https://vss-sdk.slack.com
+[samplecpp]: https://github.com/SIRLab/VSS-SampleCpp
 
 
 

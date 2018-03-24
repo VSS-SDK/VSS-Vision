@@ -157,15 +157,6 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
   file.close();
 }
 
-Calibration CalibrationRepository::update(std::string pathName, Calibration calibration){
-  // TODO
-  return new Calibration();
-}
-
-void CalibrationRepository::remove(std::string pathName){
-  // TODO
-}
-
 void CalibrationRepository::setCalibrationConfiguration(Calibration &calibration, std::ifstream &file,
                                                         ConfigurationType &configurationType) {
   std::string line;
@@ -292,4 +283,8 @@ CalibrationRepository::CalibrationRepository(ICalibrationBuilder *calibrationBui
   this->calibrationBuilder = calibrationBuilder;
   calibrationBuilder->shouldInitializeColors(false);
   calibrationBuilder->shouldInitializeCuts(false);
+}
+
+ICalibrationBuilder *CalibrationRepository::getCalibrationBuilder() {
+  return calibrationBuilder;
 }

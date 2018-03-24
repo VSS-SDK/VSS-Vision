@@ -17,7 +17,7 @@ ColorRange::ColorRange(){
 }
 
 ColorRange::ColorRange(ColorType colorType, float *min, float *max){
-  colorType = colorType;
+  this->colorType = colorType;
   for(int i = 0 ; i < 3 ; i++){
     this->min[i] = min[i];
     this->max[i] = max[i];

@@ -22,12 +22,7 @@ public:
     CalibrationRepository(ICalibrationBuilder *calibrationFactory);
 
     Calibration read(std::string pathName) override;
-    Calibration update(std::string pathName, Calibration calibration) override;
-    void remove(std::string pathName) override;
     void create(std::string pathName, Calibration calibration) override;
-
-private:
-    ICalibrationBuilder *calibrationBuilder;
 
     ColorType hasColorType(std::string name);
     ConfigurationType hasConfigurationType(std::string name);
@@ -37,6 +32,9 @@ private:
     void setCalibrationColorRange(Calibration &calibration, std::ifstream &file, ColorType &colorType);
     void setCalibrationConfiguration(Calibration &calibration, std::ifstream &file,
                                      ConfigurationType &configurationType);
+    ICalibrationBuilder* getCalibrationBuilder();
+private:
+    ICalibrationBuilder *calibrationBuilder;
 };
 
 #endif // CALIBRATION_REPOSITORY_H

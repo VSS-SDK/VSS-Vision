@@ -15,14 +15,17 @@ public:
     void shouldInitializeColors(bool) override;
     void shouldInitializeCuts(bool) override;
 
-    Calibration getInstance();
+    Calibration getInstance() override;
+
+    bool getHaveToInitializeColors();
+    bool getHaveToInitializeCuts();
+
+    std::vector<ColorRange> getColorsRange();
+    std::vector<Point2d> getCuts();
 
 private:
     bool haveToInitializeColors;
     bool haveToInitializeCuts;
-
-    std::vector<ColorRange> getColorsRange();
-    std::vector<Point2d> getCuts();
 };
 
 #endif //VSS_VISION_CALIBRATIONBUILDER_H

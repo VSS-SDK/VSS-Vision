@@ -41,14 +41,15 @@ if(TESTS)
 
     # Tests. *-test.cpp should be added here.
     add_executable(tests
-            ./test/Core/StringHelperTests.cpp)
+            test/Core/StringHelperTests.cpp test/MainTests.cpp test/CameraReaderTests.cpp test/Builders/CalibrationBuilderTests.cpp test/Repositories/CalibrationRepositoryTests.cpp test/ColorRecognizerTests.cpp)
 
     # Link core, pthread and gtest to tests.
     target_link_libraries(tests
             pthread
             gtest
             gtest_main
-            core)
+            core
+            ${OpenCV_LIBS})
 
 endif()
 
