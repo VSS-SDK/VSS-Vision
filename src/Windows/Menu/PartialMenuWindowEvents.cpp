@@ -20,11 +20,11 @@ bool MenuWindow::onKeyboard(GdkEventKey* event, Gtk::Window*) {
 }
 
 void MenuWindow::onButtonVision() {
-    programState = 2;
+    programState = VISION;
     window->hide();
 }
 
 void MenuWindow::onButtonCalibration() {
-    programState = 3;
+    programState = CALIBRATION;
     window->hide();         
 }

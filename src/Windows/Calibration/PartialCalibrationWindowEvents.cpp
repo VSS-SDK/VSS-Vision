@@ -22,130 +22,130 @@ bool CalibrationWindow::onKeyboard(GdkEventKey* event, Gtk::Window* window){
   return true;
 }
 
-void CalibrationWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+void CalibrationWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
   entry->set_sensitive(false);
-  file_chooser->show();
+  fileChooser->show();
 }
 
-void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
   entry->set_sensitive(true);
-  file_chooser->show();
+  fileChooser->show();
 }
 
-void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
+void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
   if (entry->get_text_length() > 0){
     std::stringstream aux;
-    aux << file_chooser->get_current_folder() << "/" << entry->get_text();
+    aux << fileChooser->get_current_folder() << "/" << entry->get_text();
     calibrationRepository->create(aux.str(), calibration);
-    file_chooser->hide();
+    fileChooser->hide();
   }
 }
 
-void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry, std::vector<Gtk::Scale*> scale_cam_config){
+void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry, std::vector<Gtk::Scale*> scale_cam_config){
   if (entry->get_text_length() > 0){
-    calibration = calibrationRepository->read(file_chooser->get_filename());
+    calibration = calibrationRepository->read(fileChooser->get_filename());
     scale_cam_config[Saturation]->set_value(calibration.saturation);
     scale_cam_config[Brightness]->set_value(calibration.brightness);
     scale_cam_config[Exposure]->set_value(calibration.exposure);
     scale_cam_config[Contrast]->set_value(calibration.contrast);
     scale_cam_config[Rotation]->set_value(calibration.rotation);
     scale_cam_config[Gain]->set_value(calibration.gain);
-    file_chooser->hide();
+    fileChooser->hide();
   }
 } 
 
-void CalibrationWindow::onScaleHMAX(Gtk::Scale* scale_h_max){
-  calibration.colorsRange.at(actualColorRangeIndex).max[H] = static_cast<float>(scale_h_max->get_value());
+void CalibrationWindow::onScaleHMAX(Gtk::Scale* scale){
+  calibration.colorsRange.at(actualColorRangeIndex).max[H] = static_cast<float>(scale->get_value());
   colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
-void CalibrationWindow::onScaleHMIN(Gtk::Scale* scale_h_min){
-  calibration.colorsRange.at(actualColorRangeIndex).min[H] = static_cast<float>(scale_h_min->get_value());
+void CalibrationWindow::onScaleHMIN(Gtk::Scale* scale){
+  calibration.colorsRange.at(actualColorRangeIndex).min[H] = static_cast<float>(scale->get_value());
   colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
-void CalibrationWindow::onScaleSMAX(Gtk::Scale* scale_s_max){
-  calibration.colorsRange.at(actualColorRangeIndex).max[S] = static_cast<float>(scale_s_max->get_value());
+void CalibrationWindow::onScaleSMAX(Gtk::Scale* scale){
+  calibration.colorsRange.at(actualColorRangeIndex).max[S] = static_cast<float>(scale->get_value());
   colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
-void CalibrationWindow::onScaleSMIN(Gtk::Scale* scale_s_min){
-  calibration.colorsRange.at(actualColorRangeIndex).min[S] = static_cast<float>(scale_s_min->get_value());
+void CalibrationWindow::onScaleSMIN(Gtk::Scale* scale){
+  calibration.colorsRange.at(actualColorRangeIndex).min[S] = static_cast<float>(scale->get_value());
   colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
-void CalibrationWindow::onScaleVMAX(Gtk::Scale* scale_v_max){
-  calibration.colorsRange.at(actualColorRangeIndex).max[V] = static_cast<float>(scale_v_max->get_value());
+void CalibrationWindow::onScaleVMAX(Gtk::Scale* scale){
+  calibration.colorsRange.at(actualColorRangeIndex).max[V] = static_cast<float>(scale->get_value());
   colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
-void CalibrationWindow::onScaleVMIN(Gtk::Scale* scale_v_min){
-  calibration.colorsRange.at(actualColorRangeIndex).min[V] = static_cast<float>(scale_v_min->get_value());
+void CalibrationWindow::onScaleVMIN(Gtk::Scale* scale){
+  calibration.colorsRange.at(actualColorRangeIndex).min[V] = static_cast<float>(scale->get_value());
   colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
-void CalibrationWindow::onScaleGain(Gtk::Scale* scale_gain){
-  calibration.gain = static_cast<float>(scale_gain->get_value());
+void CalibrationWindow::onScaleGain(Gtk::Scale* scale){
+  calibration.gain = static_cast<float>(scale->get_value());
   inputReader->setGain(calibration.gain);
 }
 
-void CalibrationWindow::onScaleContrast(Gtk::Scale* scale_contrast){
-  calibration.contrast = static_cast<float>(scale_contrast->get_value());
+void CalibrationWindow::onScaleContrast(Gtk::Scale* scale){
+  calibration.contrast = static_cast<float>(scale->get_value());
   inputReader->setContrast(calibration.contrast);
 }
 
-void CalibrationWindow::onScaleRotation(Gtk::Scale* scale_rotation){
-  calibration.rotation = static_cast<float>(scale_rotation->get_value());
+void CalibrationWindow::onScaleRotation(Gtk::Scale* scale){
+  calibration.rotation = static_cast<float>(scale->get_value());
 }
 
-void CalibrationWindow::onScaleExposure(Gtk::Scale* scale_exposure){
-  calibration.exposure = static_cast<float>(scale_exposure->get_value());
+void CalibrationWindow::onScaleExposure(Gtk::Scale* scale){
+  calibration.exposure = static_cast<float>(scale->get_value());
 }
 
-void CalibrationWindow::onScaleBrightness(Gtk::Scale* scale_brightness){
-  calibration.brightness = static_cast<float>(scale_brightness->get_value());
+void CalibrationWindow::onScaleBrightness(Gtk::Scale* scale){
+  calibration.brightness = static_cast<float>(scale->get_value());
   inputReader->setBrightness(calibration.brightness);
 }
 
-void CalibrationWindow::onScaleSaturation(Gtk::Scale* scale_saturation){
-  calibration.saturation = static_cast<float>(scale_saturation->get_value());
+void CalibrationWindow::onScaleSaturation(Gtk::Scale* scale){
+  calibration.saturation = static_cast<float>(scale->get_value());
   inputReader->setSaturation(calibration.saturation);
 }
 
-void CalibrationWindow::onRadioButtonImage(Gtk::RadioButton* radio_button_image){
-//  if (!radio_button_image->get_active())
-//    std::cout << "Image: " << radio_button_image->get_active() << std::endl;
+void CalibrationWindow::onRadioButtonImage(Gtk::RadioButton* radioButton){
+//  if (!radioButton->get_active())
+//    std::cout << "Image: " << radioButton->get_active() << std::endl;
 }
 
-void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radio_button_video){
-//  if (!radio_button_video->get_active())
-//    std::cout << "Video: " << radio_button_video->get_active() << std::endl;
+void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton){
+//  if (!radioButton->get_active())
+//    std::cout << "Video: " << radioButton->get_active() << std::endl;
 }
 
-void CalibrationWindow::onRadioButtonCamera(Gtk::RadioButton* radio_button_camera){
-//  if (!radio_button_camera->get_active())
-//    std::cout << "Camera: " << radio_button_camera->get_active() << std::endl;
+void CalibrationWindow::onRadioButtonCamera(Gtk::RadioButton* radioButton){
+//  if (!radioButton->get_active())
+//    std::cout << "Camera: " << radioButton->get_active() << std::endl;
 }
 
-void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggle_button_cut_mode){
-//  std::cout << toggle_button_cut_mode->get_active() << std::endl;
+void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
+//  std::cout << toggleButton->get_active() << std::endl;
 }
 
-void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* file_chooser, Gtk::Entry* entry){
-  std::string str = file_chooser->get_filename();
+void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
+  std::string str = fileChooser->get_filename();
   std::size_t sub_str = str.find_last_of("/\\");
   entry->set_text(str.substr(sub_str+1));
 }
 
-void CalibrationWindow::onComboBoxSelectPath(Gtk::ComboBox* input_path){
-//  std::cout << input_path->get_active_row_number() << std::endl;
+void CalibrationWindow::onComboBoxSelectPath(Gtk::ComboBox* inputPath){
+//  std::cout << inputPath->get_active_row_number() << std::endl;
 }
 
-void CalibrationWindow::onComboBoxSelectColor(Gtk::ComboBox* color_select, std::vector<Gtk::Scale*> scale_hsv){
+void CalibrationWindow::onComboBoxSelectColor(Gtk::ComboBox* combobox, std::vector<Gtk::Scale*> scale){
   vector<string> color = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
-  int row = color_select->get_active_row_number();
+  int row = combobox->get_active_row_number();
   auto actualColorToCalibrate = toColorType(color[row]);
-  applyActualColorRangeToSlidersHSV(actualColorToCalibrate, scale_hsv);
+  applyActualColorRangeToSlidersHSV(actualColorToCalibrate, scale);
 }
 
 void CalibrationWindow::defineActualColorRange(ColorType type) {
@@ -164,14 +164,14 @@ void CalibrationWindow::getAllAttributsFromCapture(bool signal) {
   scaleCameraConfig[Saturation]->set_value(inputReader->getSaturation());
 }
 
-void CalibrationWindow::applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*> scale_hsv) {
+void CalibrationWindow::applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*> scale) {
   defineActualColorRange(type);
 
-  scale_hsv[H_MAX]->set_value(calibration.colorsRange.at(actualColorRangeIndex).max[H]);
-  scale_hsv[S_MAX]->set_value(calibration.colorsRange.at(actualColorRangeIndex).max[S]);
-  scale_hsv[V_MAX]->set_value(calibration.colorsRange.at(actualColorRangeIndex).max[V]);
+  scale[H_MAX]->set_value(calibration.colorsRange.at(actualColorRangeIndex).max[H]);
+  scale[S_MAX]->set_value(calibration.colorsRange.at(actualColorRangeIndex).max[S]);
+  scale[V_MAX]->set_value(calibration.colorsRange.at(actualColorRangeIndex).max[V]);
 
-  scale_hsv[H_MIN]->set_value(calibration.colorsRange.at(actualColorRangeIndex).min[H]);
-  scale_hsv[S_MIN]->set_value(calibration.colorsRange.at(actualColorRangeIndex).min[S]);
-  scale_hsv[V_MIN]->set_value(calibration.colorsRange.at(actualColorRangeIndex).min[V]);
+  scale[H_MIN]->set_value(calibration.colorsRange.at(actualColorRangeIndex).min[H]);
+  scale[S_MIN]->set_value(calibration.colorsRange.at(actualColorRangeIndex).min[S]);
+  scale[V_MIN]->set_value(calibration.colorsRange.at(actualColorRangeIndex).min[V]);
 }
