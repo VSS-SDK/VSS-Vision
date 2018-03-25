@@ -14,7 +14,7 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
     add_events(Gdk::BUTTON_RELEASE_MASK);
     add_events(Gdk::POINTER_MOTION_MASK);
 
-    cut_mode = true;
+    cut_mode = false;
     cut_move = false;
     cut_move_adjust = false;
 
@@ -134,4 +134,12 @@ void GImage::set_image(cv::Mat _cv_image){
 
 void GImage::set_cut_mode(bool _cut_mode){
     cut_mode = _cut_mode;
+}
+
+cv::Point GImage::get_cut_point_1(){
+    return cut_point_1;
+}
+
+cv::Point GImage::get_cut_point_2(){
+    return cut_point_2;
 }

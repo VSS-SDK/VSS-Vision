@@ -128,7 +128,13 @@ void CalibrationWindow::onRadioButtonCamera(Gtk::RadioButton* radioButton){
 }
 
 void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
-//  std::cout << toggleButton->get_active() << std::endl;
+  screenImage->set_cut_mode(!toggleButton->get_active());
+  
+  if (toggleButton->get_active()) {
+    calibration.cut.resize(2);
+    calibration.cut[0] = Point2d(screenImage->get_cut_point_1().x, screenImage->get_cut_point_1().y);
+    calibration.cut[1] = Point2d(screenImage->get_cut_point_2().x, screenImage->get_cut_point_2().y);
+  }
 }
 
 void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){

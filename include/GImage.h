@@ -21,6 +21,8 @@ public:
     
     void set_cut_mode(bool);
     void set_image(cv::Mat);
+    cv::Point get_cut_point_1();
+    cv::Point get_cut_point_2();
 
 protected:
     bool on_expose_event(GdkEventExpose* event) override;
