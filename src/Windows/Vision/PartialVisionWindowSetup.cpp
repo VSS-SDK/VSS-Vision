@@ -9,6 +9,8 @@
 #include <Windows/Vision/VisionWindow.h>
 
 VisionWindow::VisionWindow(){
+  //inputReader = new CameraReader();
+  inputReader = new ImageFileReader();
 }
 
 VisionWindow::~VisionWindow(){
@@ -17,9 +19,19 @@ VisionWindow::~VisionWindow(){
 int VisionWindow::run(int argc, char *argv[]){
 
   threadWindowControl = new thread( std::bind( &VisionWindow::windowThreadWrapper, this ));
+  threadCameraReader = new thread( std::bind( &VisionWindow::cameraThreadWrapper, this ));
+  
   threadWindowControl->join();
+  threadCameraReader->detach();
 
   return MENU;
+}
+
+void VisionWindow::cameraThreadWrapper() {
+  auto path = inputReader->getAllPossibleSources();
+  inputReader->setSource(path.at(0));
+  inputReader->start();
+  inputReader->initializeReceivement();
 }
 
 void VisionWindow::windowThreadWrapper() {
@@ -79,7 +91,12 @@ void VisionWindow::builderWidget(){
   }
 }
 
-void VisionWindow::setSignals(){ 
+void VisionWindow::setSignals(){
+  
+  signal_set_new_frame.connect(sigc::mem_fun( this, &VisionWindow::setNewFrame) );
+
+  inputReader->signal_new_frame.connect( sigc::mem_fun(this, &VisionWindow::receiveNewFrame) );
+
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window) , false);
 
   buttonPlay->signal_clicked().connect(sigc::mem_fun(this, &IVisionWindow::onButtonPlay));
