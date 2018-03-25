@@ -70,7 +70,7 @@ private:
     std::thread *threadWindowControl;
 
 	// Comunication between threads
-	Glib::Dispatcher dispatcher_frame;
+	Glib::Dispatcher signal_set_new_frame;
 
 	// Classes
 	IImageInputReader *inputReader;
@@ -84,7 +84,7 @@ private:
 	unsigned int actualColorRangeIndex;
 
 	// Opencv image
-	cv::Mat frame;	
+	cv::Mat frame;
 
 	// GTKMM - Calibration Window
 		Gtk::Window* window = nullptr;
@@ -120,8 +120,8 @@ private:
 	void setSignals();
 	void builderWidget();
 
-	void cameraThreadWrapper();
     void windowThreadWrapper();
+	void cameraThreadWrapper();
 
 	// Update frame
 	void setNewFrame();

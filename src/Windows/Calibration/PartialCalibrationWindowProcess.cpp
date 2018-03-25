@@ -17,7 +17,7 @@ void CalibrationWindow::setNewFrame(){
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
   frame = _frame;
-  dispatcher_frame.emit();
+  signal_set_new_frame.emit();
 }
 
 void CalibrationWindow::processFrame() {

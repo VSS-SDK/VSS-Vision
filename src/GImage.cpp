@@ -19,6 +19,8 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
     cut_move_adjust = false;
 
     cv_image = cv::Mat::zeros(1, 1, CV_64F);
+
+    set_size_request(250,200);
 }
 
 GImage::~GImage(){ 
@@ -29,10 +31,21 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
     try{
         Glib::RefPtr<Gdk::Window> window = get_window();
 
-        //float width  = get_allocation().get_width();
-        //float height = get_allocation().get_height();
+        int width_allocation  = get_allocation().get_width();
+        int height_allocation = get_allocation().get_height();
+        
+        int width_image  = width_allocation;
+        int height_image = height_allocation;
 
-        cv::resize(cv_image, cv_image, cv::Point(800 , 640), 0, 0, cv::INTER_LINEAR);
+        do {
+            float ratio = float(width_image) / float(cv_image.cols);
+
+            width_image  = width_image - 1;
+            height_image = float(cv_image.rows) * ratio;
+
+        } while (height_image > height_allocation);
+
+        cv::resize(cv_image, cv_image, cv::Point(width_image , height_image), 0, 0, cv::INTER_LINEAR);
 
         Cairo::RefPtr<Cairo::Context> c = window->create_cairo_context();
         

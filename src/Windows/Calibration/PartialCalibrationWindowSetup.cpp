@@ -127,7 +127,7 @@ void CalibrationWindow::builderWidget(){
 
 void CalibrationWindow::setSignals(){
   
-  dispatcher_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
+  signal_set_new_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
 
   inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
   inputReader->signal_loaded_capture.connect(sigc::mem_fun(this, &CalibrationWindow::getAllAttributsFromCapture));

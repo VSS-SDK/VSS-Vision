@@ -9,14 +9,18 @@
 #ifndef VISION_WINDOW_H_
 #define VISION_WINDOW_H_
 
+#include <thread>
 #include <gtkmm.h>
 #include <iostream>
-#include <thread>
+
+#include <CameraReader.h>
+#include <ImageFileReader.h>
+#include <Domain/ProgramState.h>
+#include <Interfaces/IImageInputReader.h>
+
 #include "GImage.h"
 #include "IVisionWindow.h"
 #include "opencv2/highgui/highgui.hpp"
-#include <Domain/ProgramState.h>
-
 
 using namespace std;
 
@@ -49,9 +53,20 @@ public:
     void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
 private:
+
 	// Threads
+	std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
+	// Comunication between threads
+	Glib::Dispatcher signal_set_new_frame;
+
+	// Classes
+	IImageInputReader *inputReader;
+
+	// Opencv image
+	cv::Mat frame;
+	
 	// GTKMM - Calibration Window
 		Gtk::Window* window = nullptr;
 
@@ -87,6 +102,13 @@ private:
 	void builderWidget();
 
     void windowThreadWrapper();
+	void cameraThreadWrapper();
+		
+	// Update frame
+	void setNewFrame();
+	void processFrame();
+	void receiveNewFrame(cv::Mat);
+
 
 };
 #endif
