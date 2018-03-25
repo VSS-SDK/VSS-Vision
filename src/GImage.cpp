@@ -45,8 +45,6 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
 
         } while (height_image > height_allocation);
 
-
-        std:: cout << width_image << " : " << height_image << std::endl;
         cv::resize(cv_image, cv_image, cv::Point(width_image , height_image), 0, 0, cv::INTER_LINEAR);
 
         Cairo::RefPtr<Cairo::Context> c = window->create_cairo_context();
