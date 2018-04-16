@@ -39,3 +39,5 @@ src/VSS-Vision
 build/*
 Debug/*
 cmake-build-debug/*
+.idea/*
+
