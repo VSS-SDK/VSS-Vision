@@ -17,6 +17,7 @@
 #include <ImageFileReader.h>
 #include <Domain/ProgramState.h>
 #include <Interfaces/IImageInputReader.h>
+#include <Domain/WhoseColor.h>
 
 #include "GImage.h"
 #include "IVisionWindow.h"
@@ -109,6 +110,7 @@ private:
 	void processFrame();
 	void receiveNewFrame(cv::Mat);
 
+	std::vector<WhoseColor> objects;
 
 };
 #endif

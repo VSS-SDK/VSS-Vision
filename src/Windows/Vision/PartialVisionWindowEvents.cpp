@@ -62,29 +62,56 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox* combobox) {
 
 void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox* combobox) {
     vector<string> color = {"Blue", "Yellow"};
-    int row = combobox->get_active_row_number();
-    std::cout << color[row] << std::endl;
+    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+    WhoseName whoseName = WhoseName::Team1;
+    WhoseColor whoseColor(whoseName, colorType);
+    objects.push_back(whoseColor);
 }
 
-void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox*) {
+void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox* combobox) {
+    vector<string> color = {"Blue", "Yellow"};
+    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+    WhoseName whoseName = WhoseName::Team2;
+    WhoseColor whoseColor(whoseName, colorType);
+    objects.push_back(whoseColor);
 }
 
-void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox*) {
-
+void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox* combobox) {
+    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+    WhoseName whoseName = WhoseName::Robot1;
+    WhoseColor whoseColor(whoseName, colorType);
+    objects.push_back(whoseColor);
 }
 
-void VisionWindow::onComboBoxSelectColorRobot2(Gtk::ComboBox*) {
-
+void VisionWindow::onComboBoxSelectColorRobot2(Gtk::ComboBox* combobox) {
+    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+    WhoseName whoseName = WhoseName::Robot2;
+    WhoseColor whoseColor(whoseName, colorType);
+    objects.push_back(whoseColor);
 }
 
-void VisionWindow::onComboBoxSelectColorRobot3(Gtk::ComboBox*) {
-
+void VisionWindow::onComboBoxSelectColorRobot3(Gtk::ComboBox* combobox) {
+    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+    WhoseName whoseName = WhoseName::Robot3;
+    WhoseColor whoseColor(whoseName, colorType);
+    objects.push_back(whoseColor);
 }
 
-void VisionWindow::onComboBoxSelectColorRobot4(Gtk::ComboBox*) {
-
+void VisionWindow::onComboBoxSelectColorRobot4(Gtk::ComboBox* combobox) {
+    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+    WhoseName whoseName = WhoseName::Robot4;
+    WhoseColor whoseColor(whoseName, colorType);
+    objects.push_back(whoseColor);
 }
 
-void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox*) {
-
+void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox* combobox) {
+    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+    WhoseName whoseName = WhoseName::Robot5;
+    WhoseColor whoseColor(whoseName, colorType);
+    objects.push_back(whoseColor);
 }

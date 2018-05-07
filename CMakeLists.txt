@@ -29,7 +29,7 @@ ADD_EXECUTABLE(vss-vision src/main.cpp)
 TARGET_LINK_LIBRARIES(vss-vision ${VSS_CORE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS})
 TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES} core)
 
-SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11")
+SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11 -pthread")
 
 if(TESTS)
 
