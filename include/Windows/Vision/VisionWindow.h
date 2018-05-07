@@ -18,6 +18,7 @@
 #include <Domain/ProgramState.h>
 #include <Interfaces/IImageInputReader.h>
 #include <Interfaces/ICalibrationRepository.h>
+#include <Interfaces/ICalibrationBuilder.h>
 
 #include "GImage.h"
 #include "IVisionWindow.h"
@@ -64,6 +65,7 @@ private:
 
 	// Classes
 	IImageInputReader *inputReader;
+    ICalibrationBuilder *calibrationBuilderFromRepository;
 	ICalibrationRepository *calibrationRepository;
 
     Calibration calibration;

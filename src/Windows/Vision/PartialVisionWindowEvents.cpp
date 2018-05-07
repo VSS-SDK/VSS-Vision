@@ -35,7 +35,7 @@ void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry*
 }
 
 void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
-    entry->set_sensitive(true);
+    entry->set_sensitive(false);
     fileChooser->show();
 }
 
