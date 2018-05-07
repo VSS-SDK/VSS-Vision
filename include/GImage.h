@@ -24,6 +24,10 @@ public:
     cv::Point get_cut_point_1();
     cv::Point get_cut_point_2();
 
+    void set_cut_point_1(cv::Point);
+    void set_cut_point_2(cv::Point);
+
+
 protected:
     bool on_expose_event(GdkEventExpose* event) override;
     bool on_button_press_event(GdkEventButton* event) override;

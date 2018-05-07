@@ -143,3 +143,11 @@ cv::Point GImage::get_cut_point_1(){
 cv::Point GImage::get_cut_point_2(){
     return cut_point_2;
 }
+
+void GImage::set_cut_point_1(cv::Point p) {
+    cut_point_1 = p;
+}
+
+void GImage::set_cut_point_2(cv::Point p) {
+    cut_point_2 = p;
+}
