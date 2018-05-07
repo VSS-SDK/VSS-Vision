@@ -1,5 +1,0 @@
-<map id="calibration" name="calibration">
-<area shape="rect" id="node3" href="$structcommon_1_1Calibration.html" title="This struct represents a calibration of colors. " alt="" coords="102,81,245,108"/>
-<area shape="rect" id="node4" href="$classQCustomLabel.html" title="This class is a modification of QLabel, QCustomLabel handle events like: mouse click, mouse move, scrool wheel move and etc. " alt="" coords="269,81,379,108"/>
-<area shape="rect" id="node6" href="$structcommon_1_1TableColor.html" title="This struct represents all colors in RGB that can be used. " alt="" coords="403,81,546,108"/>
-</map>

@@ -6,28 +6,34 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include "mainwindow.h"
-#include <QApplication>
-#include <QtCore>
-#include "calibration.h"
-#include "common.h"
+#include "Windows/Menu/MenuWindow.h"
+#include "Windows/Vision/VisionWindow.h"
+#include "Windows/Calibration/CalibrationWindow.h"
 
-using namespace common;
+int main(int argc, char *argv[]) {
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+  Gtk::Main kit(argc, argv);  
 
-    return a.exec();
+  int programState = MENU;
 
-    /*SQLite sqlite("../data/main.db", "passwd");
-    Calibration c;
-    c.comment = "debug";
-    sqlite.insert_calibration(c);
+  while (programState != EXIT){
 
-    cout << "query.str()" << endl;
+    switch (programState){
 
-    return 0;*/
+      case MENU : {
+        IMenuWindow *menuWindow = new MenuWindow();
+        programState = menuWindow->run(argc, argv);
+      } break;
+
+      case VISION : {
+        IVisionWindow *visionWindow = new VisionWindow();
+        programState = visionWindow->run(argc, argv);
+      } break;
+
+      case CALIBRATION : {
+        ICalibrationWindow *calibrationWindow = new CalibrationWindow();
+        programState = calibrationWindow->run(argc, argv);
+      } break;
+    }
+  }
 }
