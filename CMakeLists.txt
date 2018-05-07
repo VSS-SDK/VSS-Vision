@@ -15,7 +15,7 @@ include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE
 include_directories(src src/Domain src/Repositories src/Core src/Builders src/Windows src/Windows/Calibration src/Windows/Menu src/Windows/Vision)
 include_directories(include include/Interfaces include/Domain include/Repositories include/Core include/Builders include/Windows include/Windows/Calibration include/Windows/Menu include/Windows/Vision)
 
-set (VSS_CORE libvss-interface.so)
+set (VSS_CORE libvss-core.so)
 link_libraries(${GTKMM_LIBRARIES})
 link_directories(usr/lib ${GTKMM_LIBRARY_DIRS})
 include_directories(usr/local/include)
@@ -29,7 +29,7 @@ ADD_EXECUTABLE(vss-vision src/main.cpp)
 TARGET_LINK_LIBRARIES(vss-vision ${VSS_CORE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS})
 TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES} core)
 
-SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11 -pthread")
+SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11")
 
 if(TESTS)
 
