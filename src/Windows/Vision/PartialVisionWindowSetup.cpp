@@ -16,6 +16,10 @@ VisionWindow::VisionWindow(){
 
     calibrationBuilderFromRepository = new CalibrationBuilder();
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
+
+  interface.createSocketSendState(&global_state);
+  // Chamar o send assim que o global_state for atualizado
+  // interface.sendState();
 }
 
 VisionWindow::~VisionWindow(){
