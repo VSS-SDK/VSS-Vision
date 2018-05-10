@@ -17,6 +17,8 @@
 #include <ImageFileReader.h>
 #include <Domain/ProgramState.h>
 #include <Interfaces/IImageInputReader.h>
+#include <Interfaces/ICalibrationRepository.h>
+#include <Interfaces/ICalibrationBuilder.h>
 #include <interface.h>
 
 #include "GImage.h"
@@ -67,6 +69,10 @@ private:
 
 	// Classes
 	IImageInputReader *inputReader;
+    ICalibrationBuilder *calibrationBuilderFromRepository;
+	ICalibrationRepository *calibrationRepository;
+
+    Calibration calibration;
 
 	// Opencv image
 	cv::Mat frame;

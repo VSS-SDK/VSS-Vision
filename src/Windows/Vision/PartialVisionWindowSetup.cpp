@@ -7,15 +7,19 @@
  */
 
 #include <Windows/Vision/VisionWindow.h>
+#include <Builders/CalibrationBuilder.h>
+#include <Repositories/CalibrationRepository.h>
 
 VisionWindow::VisionWindow(){
+    //inputReader = new CameraReader();
+    inputReader = new ImageFileReader();
+
+    calibrationBuilderFromRepository = new CalibrationBuilder();
+    calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
   interface.createSocketSendState(&global_state);
   // Chamar o send assim que o global_state for atualizado
   // interface.sendState();
-  
-  //inputReader = new CameraReader();
-  inputReader = new ImageFileReader();
 }
 
 VisionWindow::~VisionWindow(){
