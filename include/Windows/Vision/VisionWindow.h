@@ -17,6 +17,7 @@
 #include <ImageFileReader.h>
 #include <Domain/ProgramState.h>
 #include <Interfaces/IImageInputReader.h>
+#include <interface.h>
 
 #include "GImage.h"
 #include "IVisionWindow.h"
@@ -53,6 +54,9 @@ public:
     void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
 private:
+
+	Interface interface;
+	vss_state::Global_State global_state;
 
 	// Threads
 	std::thread *threadCameraReader;
