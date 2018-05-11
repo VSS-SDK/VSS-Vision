@@ -19,6 +19,9 @@
 #include <Interfaces/IImageInputReader.h>
 #include <Domain/WhoseName.h>
 #include <Domain/ColorType.h>
+#include <Interfaces/ICalibrationRepository.h>
+#include <Interfaces/ICalibrationBuilder.h>
+#include <interface.h>
 
 #include "GImage.h"
 #include "IVisionWindow.h"
@@ -56,6 +59,9 @@ public:
 
 private:
 
+	Interface interface;
+	vss_state::Global_State global_state;
+
 	// Threads
 	std::thread *threadCameraReader;
     std::thread *threadWindowControl;
@@ -65,6 +71,10 @@ private:
 
 	// Classes
 	IImageInputReader *inputReader;
+    ICalibrationBuilder *calibrationBuilderFromRepository;
+	ICalibrationRepository *calibrationRepository;
+
+    Calibration calibration;
 
 	// Opencv image
 	cv::Mat frame;

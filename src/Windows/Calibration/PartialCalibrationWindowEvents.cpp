@@ -23,12 +23,12 @@ bool CalibrationWindow::onKeyboard(GdkEventKey* event, Gtk::Window* window){
 }
 
 void CalibrationWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-  entry->set_sensitive(false);
+  entry->set_sensitive(true);
   fileChooser->show();
 }
 
 void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-  entry->set_sensitive(true);
+  entry->set_sensitive(false);
   fileChooser->show();
 }
 

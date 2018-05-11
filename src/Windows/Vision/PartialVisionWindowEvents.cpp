@@ -23,15 +23,19 @@ void VisionWindow::onButtonPlay() {
 
 }
 
-void VisionWindow::onButtonLoad(Gtk::FileChooserDialog *fileChooser, Gtk::Entry *entry) {
-    if (entry->get_text_length() > 0) {
-        //calibration = calibrationRepository->read(file_chooser->get_filename());
+void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    if (entry->get_text_length() > 0){
+        calibration = calibrationRepository->read(fileChooser->get_filename());
+
+        screenImage->set_cut_point_1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
+        screenImage->set_cut_point_2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
+
         fileChooser->hide();
     }
 }
 
-void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog *fileChooser, Gtk::Entry *entry) {
-    entry->set_sensitive(true);
+void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    entry->set_sensitive(false);
     fileChooser->show();
 }
 
