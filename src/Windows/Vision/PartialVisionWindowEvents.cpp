@@ -63,118 +63,41 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    WhoseName whoseName = WhoseName::Team1;
-    WhoseColor whoseColor(whoseName, colorType);
-    bool flag = false;
-    for (unsigned i = 0; i < objects.size(); i++) {
-        if (whoseName == objects[i].whoseName) {
-            objects[i] = whoseColor;
-            flag = true;
-        }
-    }
-    if (!flag) {
-        objects.push_back(whoseColor);
-    }
+    whoseColor[WhoseName::Team1] = colorType;
 }
 
 void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    WhoseName whoseName = WhoseName::Team2;
-    WhoseColor whoseColor(whoseName, colorType);
-    bool flag = false;
-    for (unsigned i = 0; i < objects.size(); i++) {
-        if (whoseName == objects[i].whoseName) {
-            objects[i] = whoseColor;
-            flag = true;
-        }
-    }
-    if (!flag) {
-        objects.push_back(whoseColor);
-    }
+    whoseColor[WhoseName::Team2] = colorType;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    WhoseName whoseName = WhoseName::Robot1;
-    WhoseColor whoseColor(whoseName, colorType);
-    bool flag = false;
-    for (unsigned i = 0; i < objects.size(); i++) {
-        if (whoseName == objects[i].whoseName) {
-            objects[i] = whoseColor;
-            flag = true;
-        }
-    }
-    if (!flag) {
-        objects.push_back(whoseColor);
-    }
+    whoseColor[WhoseName::Robot1] = colorType;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot2(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    WhoseName whoseName = WhoseName::Robot2;
-    WhoseColor whoseColor(whoseName, colorType);
-    bool flag = false;
-    for (unsigned i = 0; i < objects.size(); i++) {
-        if (whoseName == objects[i].whoseName) {
-            objects[i] = whoseColor;
-            flag = true;
-        }
-    }
-    if (!flag) {
-        objects.push_back(whoseColor);
-    }
+    whoseColor[WhoseName::Robot2] = colorType;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot3(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    WhoseName whoseName = WhoseName::Robot3;
-    WhoseColor whoseColor(whoseName, colorType);
-    bool flag = false;
-    for (unsigned i = 0; i < objects.size(); i++) {
-        if (whoseName == objects[i].whoseName) {
-            objects[i] = whoseColor;
-            flag = true;
-        }
-    }
-    if (!flag) {
-        objects.push_back(whoseColor);
-    }
+    whoseColor[WhoseName::Robot3] = colorType;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot4(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    WhoseName whoseName = WhoseName::Robot4;
-    WhoseColor whoseColor(whoseName, colorType);
-    bool flag = false;
-    for (unsigned i = 0; i < objects.size(); i++) {
-        if (whoseName == objects[i].whoseName) {
-            objects[i] = whoseColor;
-            flag = true;
-        }
-    }
-    if (!flag) {
-        objects.push_back(whoseColor);
-    }
+    whoseColor[WhoseName::Robot4] = colorType;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    WhoseName whoseName = WhoseName::Robot5;
-    WhoseColor whoseColor(whoseName, colorType);
-    bool flag = false;
-    for (unsigned i = 0; i < objects.size(); i++) {
-        if (whoseName == objects[i].whoseName) {
-            objects[i] = whoseColor;
-            flag = true;
-        }
-    }
-    if (!flag) {
-        objects.push_back(whoseColor);
-    }
+    whoseColor[WhoseName::Robot5] = colorType;
 }
