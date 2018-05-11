@@ -17,6 +17,8 @@
 #include <ImageFileReader.h>
 #include <Domain/ProgramState.h>
 #include <Interfaces/IImageInputReader.h>
+#include <Domain/WhoseName.h>
+#include <Domain/ColorType.h>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <interface.h>
@@ -43,7 +45,7 @@ public:
     void onRadioButtonImage(Gtk::RadioButton*) override;
     void onRadioButtonVideo(Gtk::RadioButton*) override;
     void onRadioButtonCamera(Gtk::RadioButton*) override;
-	
+
     void onComboBoxSelectPath(Gtk::ComboBox*) override;
 	void onComboBoxSelectColorTeam1(Gtk::ComboBox*) override;
     void onComboBoxSelectColorTeam2(Gtk::ComboBox*) override;
@@ -76,11 +78,11 @@ private:
 
 	// Opencv image
 	cv::Mat frame;
-	
+
 	// GTKMM - Calibration Window
 		Gtk::Window* window = nullptr;
 
-		GImage* screenImage = nullptr;		
+		GImage* screenImage = nullptr;
 
 		Gtk::RadioButton* radioButtonImage = nullptr;
 		Gtk::RadioButton* radioButtonVideo = nullptr;
@@ -110,15 +112,17 @@ private:
 	void initializeWidget();
 	void setSignals();
 	void builderWidget();
+    void initializeWhoseColor();
 
     void windowThreadWrapper();
 	void cameraThreadWrapper();
-		
+
 	// Update frame
 	void setNewFrame();
 	void processFrame();
 	void receiveNewFrame(cv::Mat);
 
+	std::map<WhoseName, ColorType> whoseColor;
 
 };
 #endif

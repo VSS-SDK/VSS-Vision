@@ -47,6 +47,7 @@ void VisionWindow::windowThreadWrapper() {
   builderWidget();
   setSignals();
   initializeWidget();
+  initializeWhoseColor();
 
   Gtk::Main::run(*window);
 }
@@ -126,4 +127,14 @@ void VisionWindow::setSignals(){
   comboBoxColorRobot3->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot3), comboBoxColorRobot3));
   comboBoxColorRobot4->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot4), comboBoxColorRobot4));
   comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot5), comboBoxColorRobot5));
+}
+
+void VisionWindow::initializeWhoseColor() {
+  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Team1, ColorType::UnknownType));
+  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Team2, ColorType::UnknownType));
+  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot1, ColorType::UnknownType));
+  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot2, ColorType::UnknownType));
+  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot3, ColorType::UnknownType));
+  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot4, ColorType::UnknownType));
+  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot5, ColorType::UnknownType));
 }
