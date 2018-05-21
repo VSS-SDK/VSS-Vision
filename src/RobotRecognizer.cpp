@@ -5,6 +5,20 @@
 #include <Helpers/Math.h>
 #include "RobotRecognizer.h"
 
+RobotRecognizer::RobotRecognizer() {
+    vss::Robot initialRobot;
+    initialRobot.x = initialRobot.y = 0;
+    initialRobot.speedX = initialRobot.speedY = 0;
+    initialRobot.speedAngle = 0;
+
+    lastPositions.insert(std::make_pair(WhoseName::Robot1, initialRobot));
+    lastPositions.insert(std::make_pair(WhoseName::Robot2, initialRobot));
+    lastPositions.insert(std::make_pair(WhoseName::Robot3, initialRobot));
+    lastPositions.insert(std::make_pair(WhoseName::Robot4, initialRobot));
+    lastPositions.insert(std::make_pair(WhoseName::Robot5, initialRobot));
+
+}
+
 void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colors) {
 
     // iterate through team1 colors and team2 colors
@@ -46,13 +60,16 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colors)
                 robot.angle = atan2(colors[name].points[idRobotColor].y - teamPositions.points[idTeamColor].y,
                                     colors[name].points[idRobotColor].x - teamPositions.points[idTeamColor].x) *
                               (180 / CV_PI);
-                //robot.speedAngle = ...
-                //robot.speedX = ...
-                //robot.speedY = ...
+
+                // retornar velocidade negativa ou em modulo?
+                robot.speedAngle = (robot.angle - lastPositions[name].angle);
+                robot.speedX = (robot.x - lastPositions[name].x);
+                robot.speedY = (robot.y - lastPositions[name].y);
 
                 // remove used point to optimize searching
                 teamPositions.points.erase(teamPositions.points.begin() + idTeamColor);
-
+                
+                lastPositions[name] = robot;
                 robots.push_back(robot);
             }
         }
