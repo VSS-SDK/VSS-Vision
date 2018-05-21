@@ -11,13 +11,13 @@ FIND_PACKAGE(Protobuf REQUIRED)
 pkg_check_modules(GTKMM REQUIRED gtkmm-2.4)
 find_package( OpenCV REQUIRED )
 
-include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE_DIRS})
-include_directories(src src/Domain src/Repositories src/Core src/Builders src/Windows src/Windows/Calibration src/Windows/Menu src/Windows/Vision)
+include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
+include_directories(src src/Helper src/Domain src/Repositories src/Core src/Builders src/Windows src/Windows/Calibration src/Windows/Menu src/Windows/Vision)
 include_directories(include include/Interfaces include/Domain include/Repositories include/Core include/Builders include/Windows include/Windows/Calibration include/Windows/Menu include/Windows/Vision)
 
-set (VSS_CORE libvss-core.so)
+set (VSS_CORE /usr/lib/libvss-core.so)
 link_libraries(${GTKMM_LIBRARIES})
-link_directories(usr/lib ${GTKMM_LIBRARY_DIRS})
+link_directories(/usr/lib ${GTKMM_LIBRARY_DIRS})
 include_directories(usr/local/include)
 
 file(GLOB_RECURSE SRC src/*.cpp)
@@ -26,8 +26,8 @@ file(GLOB_RECURSE INCLUDE include/*.h)
 ADD_LIBRARY(core ${SRC} ${INCLUDE})
 ADD_EXECUTABLE(vss-vision src/main.cpp)
 
-TARGET_LINK_LIBRARIES(vss-vision ${VSS_CORE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS})
-TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES} core)
+TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC core ${VSS_CORE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES})
+#TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES} core)
 
 SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11 -pthread")
 

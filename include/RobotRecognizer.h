@@ -10,9 +10,15 @@
 class RobotRecognizer : public IRobotRecognizer {
 	
 public:
-	
-	
-	
+
+    void recognizeRobots(std::map<WhoseName,ColorPosition>) override;
+    std::vector<vss::Robot> getRobots() override;
+
+private:
+
+    std::vector<vss::Robot> robots;
+
+
 };
 
 #endif
