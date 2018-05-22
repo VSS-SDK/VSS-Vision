@@ -8,74 +8,74 @@
 
 #include <Windows/Vision/VisionWindow.h>
 
-void VisionWindow::setNewFrame(){
-  processFrame();
-  screenImage->set_image(frame);
+void VisionWindow::setNewFrame() {
+    processFrame();
+    screenImage->set_image(frame);
 }
 
-void VisionWindow::receiveNewFrame(cv::Mat _frame){
-  frame = _frame;
-  signal_set_new_frame.emit();
+void VisionWindow::receiveNewFrame(cv::Mat _frame) {
+    frame = _frame;
+    signal_set_new_frame.emit();
 }
 
 void VisionWindow::processFrame() {
-  //cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
+    //cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
 }
 
-void VisionWindow::sendState(std::vector<vss::Robot> robots, vss::Ball ball){
+void VisionWindow::sendState(std::vector<vss::Robot> robots, vss::Ball ball) {
+    //@TODO como manter time azul no final do vetor e time amarelo no inicio?
+    for (int i = 0; i < 3; i++) {
+        vss_state::Robot_State *robot_s = global_state.add_robots_blue();
 
-  for(int i = 0; i < 3; i++) {
-    vss_state::Robot_State *robot_s = global_state.add_robots_blue();
+        robot_s->mutable_pose()->set_x(robots[i + 3].x);
+        robot_s->mutable_pose()->set_y(robots[i + 3].y);
+        robot_s->mutable_pose()->set_yaw(robots[i + 3].angle);
 
-    robot_s->mutable_pose()->set_x( robots[i+3].x );
-    robot_s->mutable_pose()->set_y( robots[i+3].y );
-    robot_s->mutable_pose()->set_yaw( robots[i+3].angle );
+        robot_s->mutable_v_pose()->set_x(robots[i + 3].speedX);
+        robot_s->mutable_v_pose()->set_y(robots[i + 3].speedY);
+        robot_s->mutable_v_pose()->set_yaw(0);
 
-    robot_s->mutable_v_pose()->set_x( robots[i+3].speedX );
-    robot_s->mutable_v_pose()->set_y( robots[i+3].speedY );
-    robot_s->mutable_v_pose()->set_yaw( 0 );
+        robot_s->mutable_k_pose()->set_x(0);
+        robot_s->mutable_k_pose()->set_y(0);
+        robot_s->mutable_k_pose()->set_yaw(0);
 
-    robot_s->mutable_k_pose()->set_x( 0 );
-    robot_s->mutable_k_pose()->set_y( 0 );
-    robot_s->mutable_k_pose()->set_yaw( 0 );
+        robot_s->mutable_k_v_pose()->set_x(0);
+        robot_s->mutable_k_v_pose()->set_y(0);
+        robot_s->mutable_k_v_pose()->set_yaw(0);
+    }
 
-    robot_s->mutable_k_v_pose()->set_x( 0 );
-    robot_s->mutable_k_v_pose()->set_y( 0 );
-    robot_s->mutable_k_v_pose()->set_yaw( 0 );
-  }
+    for (int i = 0; i < 3; i++) {
+        vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
 
-  for(int i = 0; i < 3; i++) {
-    vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
+        robot_s->mutable_pose()->set_x(robots[i].x);
+        robot_s->mutable_pose()->set_y(robots[i].y);
+        robot_s->mutable_pose()->set_yaw(robots[i].angle);
 
-    robot_s->mutable_pose()->set_x( robots[i].x );
-    robot_s->mutable_pose()->set_y( robots[i].y );
-    robot_s->mutable_pose()->set_yaw( robots[i].angle );
+        robot_s->mutable_v_pose()->set_x(robots[i].speedX);
+        robot_s->mutable_v_pose()->set_y(robots[i].speedY);
+        robot_s->mutable_v_pose()->set_yaw(0);
 
-    robot_s->mutable_v_pose()->set_x( robots[i].speedX );
-    robot_s->mutable_v_pose()->set_y( robots[i].speedY );
-    robot_s->mutable_v_pose()->set_yaw( 0 );
+        robot_s->mutable_k_pose()->set_x(0);
+        robot_s->mutable_k_pose()->set_y(0);
+        robot_s->mutable_k_pose()->set_yaw(0);
 
-    robot_s->mutable_k_pose()->set_x( 0 );
-    robot_s->mutable_k_pose()->set_y( 0 );
-    robot_s->mutable_k_pose()->set_yaw( 0 );
+        robot_s->mutable_k_v_pose()->set_x(0);
+        robot_s->mutable_k_v_pose()->set_y(0);
+        robot_s->mutable_k_v_pose()->set_yaw(0);
+    }
 
-    robot_s->mutable_k_v_pose()->set_x( 0 );
-    robot_s->mutable_k_v_pose()->set_y( 0 );
-    robot_s->mutable_k_v_pose()->set_yaw( 0 );
-  }
+    //@TODO: como vira a bola? Necessario calcular a velocidade...
+    vss_state::Ball_State *ball_s = global_state.add_balls();
+    ball_s->mutable_pose()->set_x(ball.x);
+    ball_s->mutable_pose()->set_y(ball.y);
+    ball_s->mutable_v_pose()->set_x(ball.speedX);
+    ball_s->mutable_v_pose()->set_y(ball.speedY);
 
-  vss_state::Ball_State *ball_s = global_state.add_balls();
-  ball_s->mutable_pose()->set_x( ball.x );
-  ball_s->mutable_pose()->set_y( ball.y );
+    ball_s->mutable_k_pose()->set_x(0);
+    ball_s->mutable_k_pose()->set_y(0);
 
-  ball_s->mutable_v_pose()->set_x( ball.speedX );
-  ball_s->mutable_v_pose()->set_y( ball.speedY );
+    ball_s->mutable_k_v_pose()->set_x(0);
+    ball_s->mutable_k_v_pose()->set_y(0);
 
-  ball_s->mutable_k_pose()->set_x( 0 );
-  ball_s->mutable_k_pose()->set_y( 0 );
-
-  ball_s->mutable_k_v_pose()->set_x( 0 );
-  ball_s->mutable_k_v_pose()->set_y( 0 );
-
-  interface.sendState();
+    interface.sendState();
 }
