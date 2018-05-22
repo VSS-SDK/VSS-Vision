@@ -22,6 +22,8 @@
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <interface.h>
+#include <Ball.h>
+#include <Robot.h>
 
 #include "GImage.h"
 #include "IVisionWindow.h"
@@ -121,6 +123,9 @@ private:
 	void setNewFrame();
 	void processFrame();
 	void receiveNewFrame(cv::Mat);
+
+	// Send stated
+	void sendState(std::vector<vss::Robot>, vss::Ball);
 
 	std::map<WhoseName, ColorType> whoseColor;
 
