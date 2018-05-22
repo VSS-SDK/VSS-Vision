@@ -23,7 +23,7 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
     set_size_request(250,200);
 }
 
-GImage::~GImage(){ 
+GImage::~GImage(){
 }
 
 bool GImage::on_expose_event(GdkEventExpose* event) {
@@ -33,7 +33,7 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
 
         int width_allocation  = get_allocation().get_width();
         int height_allocation = get_allocation().get_height();
-        
+
         int width_image  = width_allocation;
         int height_image = height_allocation;
 
@@ -48,7 +48,7 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
         cv::resize(cv_image, cv_image, cv::Point(width_image , height_image), 0, 0, cv::INTER_LINEAR);
 
         Cairo::RefPtr<Cairo::Context> c = window->create_cairo_context();
-        
+
         Glib::RefPtr<Gdk::Pixbuf> pixbuf =  Gdk::Pixbuf::create_from_data( cv_image.data, Gdk::COLORSPACE_RGB, false, 8, cv_image.cols, cv_image.rows, cv_image.step);
         Gdk::Cairo::set_source_pixbuf(c, pixbuf);
         c->paint();
@@ -70,7 +70,7 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
     } catch(const std::exception& ex) {
         std::cout << "EXCEPTION: " << ex.what() << "in GImage:on_draw " << std::endl;
     }
-    
+
     return true;
 }
 
@@ -78,12 +78,12 @@ bool GImage::on_button_press_event (GdkEventButton* event){
     if (event->button == 1 && cut_mode) {
         cut_move_adjust = true;
     }
-   
+
     if (event->button == 3 && cut_mode) {
         cut_point_1 = {int(event->x), int(event->y)};
         cut_point_2 = {int(event->x), int(event->y)};
         cut_move = true;
-    } 
+    }
 
     return true;
 }
@@ -104,7 +104,7 @@ bool GImage::on_motion_notify_event (GdkEventMotion* event){
     if (cut_move && cut_mode) {
         cut_point_2 = {int(event->x) , int(event->y)};
         queue_draw();
-    
+
     } else if (cut_move_adjust && cut_mode) {
 
         int dist1 = abs(int(event->x) - cut_point_1.x);
@@ -121,7 +121,7 @@ bool GImage::on_motion_notify_event (GdkEventMotion* event){
         } else if (dist4 < dist1 && dist4 < dist2 && dist4 < dist3){
             cut_point_1.y = int(event->y);
         }
-        
+
         queue_draw();
     }
     return true;
