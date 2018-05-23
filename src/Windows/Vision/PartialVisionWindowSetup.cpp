@@ -1,21 +1,22 @@
 /*
- * This file is part of the VSS-Vision project.
- *
- * This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
- * v. 3.0. If a copy of the GPL was not distributed with this
- * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
- */
+* This file is part of the VSS-Vision project.
+*
+* This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
+* v. 3.0. If a copy of the GPL was not distributed with this
+* file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
+*/
 
 #include <Windows/Vision/VisionWindow.h>
 #include <Builders/CalibrationBuilder.h>
 #include <Repositories/CalibrationRepository.h>
 
 VisionWindow::VisionWindow(){
-    //inputReader = new CameraReader();
-    inputReader = new ImageFileReader();
+  //inputReader = new CameraReader();
+  inputReader = new ImageFileReader();
 
-    calibrationBuilderFromRepository = new CalibrationBuilder();
-    calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
+  calibrationBuilderFromRepository = new CalibrationBuilder();
+  calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
+  calibration = calibrationBuilderFromRepository->getInstance();
 
   interface.createSocketSendState(&global_state);
   // Chamar o send assim que o global_state for atualizado
@@ -29,7 +30,7 @@ int VisionWindow::run(int argc, char *argv[]){
 
   threadWindowControl = new thread( std::bind( &VisionWindow::windowThreadWrapper, this ));
   threadCameraReader = new thread( std::bind( &VisionWindow::cameraThreadWrapper, this ));
-  
+
   threadWindowControl->join();
   threadCameraReader->detach();
 
@@ -54,7 +55,7 @@ void VisionWindow::windowThreadWrapper() {
 
 void VisionWindow::initializeWidget(){
   screenImage->set_image(cv::imread("../mock/images/model.jpg"));
-  
+
   window->maximize();
   window->show_all_children();
 }
@@ -68,7 +69,7 @@ void VisionWindow::builderWidget(){
 
     builder->get_widget("window", window);
 
-    builder->get_widget_derived("drawingarea_frame", screenImage);    
+    builder->get_widget_derived("drawingarea_frame", screenImage);
 
     builder->get_widget("button_play", buttonPlay);
     builder->get_widget("button_load_calibration", buttonLoad);
@@ -82,13 +83,13 @@ void VisionWindow::builderWidget(){
     builder->get_widget("radiobutton_camera", radioButtonCamera);
 
     builder->get_widget("combobox_path", comboBoxPath);
-		builder->get_widget("combobox_team_1", comboBoxColorTeam1);
-		builder->get_widget("combobox_team_2", comboBoxColorTeam2);
-		builder->get_widget("combobox_robot_1", comboBoxColorRobot1);
-		builder->get_widget("combobox_robot_2", comboBoxColorRobot2);
-		builder->get_widget("combobox_robot_3", comboBoxColorRobot3);
-		builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
-		builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
+    builder->get_widget("combobox_team_1", comboBoxColorTeam1);
+    builder->get_widget("combobox_team_2", comboBoxColorTeam2);
+    builder->get_widget("combobox_robot_1", comboBoxColorRobot1);
+    builder->get_widget("combobox_robot_2", comboBoxColorRobot2);
+    builder->get_widget("combobox_robot_3", comboBoxColorRobot3);
+    builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
+    builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
 
   } catch(const Glib::FileError& ex) {
     std::cerr << "FileError: " << ex.what() << std::endl;
@@ -102,7 +103,7 @@ void VisionWindow::builderWidget(){
 }
 
 void VisionWindow::setSignals(){
-  
+
   signal_set_new_frame.connect(sigc::mem_fun( this, &VisionWindow::setNewFrame) );
 
   inputReader->signal_new_frame.connect( sigc::mem_fun(this, &VisionWindow::receiveNewFrame) );
@@ -112,13 +113,13 @@ void VisionWindow::setSignals(){
   buttonPlay->signal_clicked().connect(sigc::mem_fun(this, &IVisionWindow::onButtonPlay));
   buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad), fileChooserDialog, entryChooserDialog));
   buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog ));
-  
+
   fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &IVisionWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog ));
-  
+
   radioButtonImage->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonImage), radioButtonImage));
   radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonVideo), radioButtonVideo));
   radioButtonCamera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonCamera), radioButtonCamera));
-  
+
   comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
   comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam1), comboBoxColorTeam1));
   comboBoxColorTeam2->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam2), comboBoxColorTeam2));
