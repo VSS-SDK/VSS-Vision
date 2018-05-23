@@ -8,7 +8,7 @@
 #include "iostream"
 
 enum WhoseName {
-    WhoseUnknown = 0,
+    Unknown = 0,
     Team1 = 1,
     Team2 = 2,
     Robot1 = 3,

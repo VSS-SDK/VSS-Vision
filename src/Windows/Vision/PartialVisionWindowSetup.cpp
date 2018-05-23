@@ -131,11 +131,12 @@ void VisionWindow::setSignals(){
 }
 
 void VisionWindow::initializeWhoseColor() {
-  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Team1, ColorType::UnknownType));
-  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Team2, ColorType::UnknownType));
-  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot1, ColorType::UnknownType));
-  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot2, ColorType::UnknownType));
-  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot3, ColorType::UnknownType));
-  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot4, ColorType::UnknownType));
-  whoseColor.insert(std::pair<WhoseName , ColorType >(WhoseName::Robot5, ColorType::UnknownType));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Red, WhoseName::Unknown));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Blue, WhoseName::Unknown));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Pink, WhoseName::Unknown));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Green, WhoseName::Unknown));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Brown, WhoseName::Unknown));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Yellow, WhoseName::Unknown));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Unknown));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Purple, WhoseName::Unknown));
 }

@@ -20,6 +20,7 @@
 #include <Interfaces/IImageInputReader.h>
 #include <Domain/WhoseName.h>
 #include <Domain/ColorType.h>
+#include <Domain/ColorPosition.h>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IColorRecognizer.h>
@@ -126,8 +127,9 @@ private:
   void setNewFrame();
   void processFrame();
   void receiveNewFrame(cv::Mat);
+  std::map<WhoseName, ColorPosition> getColorPosition();
 
-  std::map<WhoseName, ColorType> whoseColor;
+  std::map<ColorType, WhoseName> whoseColor;
 
 };
 #endif

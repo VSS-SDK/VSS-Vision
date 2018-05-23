@@ -23,13 +23,34 @@ void VisionWindow::receiveNewFrame(cv::Mat _frame){
 void VisionWindow::processFrame() {
   //cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
 
-  if (calibration.colorsRange.size() > 0) {
-    colorRecognizer->setColorRange(calibration.colorsRange.at(0));
-    colorRecognizer->processImage(frame);
+  map<WhoseName, ColorPosition> position = getColorPosition();
 
-    auto rectangles = colorRecognizer->getRectangles();
-    for(unsigned int i = 0 ; i < rectangles.size() ; i++){
-      cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
+}
+
+std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition(){
+  map<WhoseName, ColorPosition> whosePosition;
+
+  for (auto colorRange : calibration.colorsRange) {
+    WhoseName objectName = whoseColor[colorRange.colorType];
+
+    if (objectName != WhoseName::Unknown) {
+      colorRecognizer->setColorRange(colorRange);
+      colorRecognizer->processImage(frame);
+
+      ColorPosition colorPosition;
+        colorPosition.color  = colorRange.colorType;
+        colorPosition.points = colorRecognizer->getCenters();
+
+      whosePosition[objectName] = colorPosition;
+
+      ///* TO DRAW IN IMAGE
+      auto rectangles = colorRecognizer->getRectangles();
+      for(unsigned int i = 0 ; i < rectangles.size() ; i++){
+        cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
+      }
+      //*/
+
     }
   }
+  return whosePosition;
 }

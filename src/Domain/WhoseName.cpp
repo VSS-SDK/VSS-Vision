@@ -47,5 +47,5 @@ WhoseName toWhoseName(std::string whoseName) {
     if (whoseName == "Robot5")
         return WhoseName::Robot5;
 
-    return WhoseName::WhoseUnknown;
+    return WhoseName::Unknown;
 }
