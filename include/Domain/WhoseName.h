@@ -15,7 +15,8 @@ enum WhoseName {
     Robot2 = 4,
     Robot3 = 5,
     Robot4 = 6,
-    Robot5 = 7
+    Robot5 = 7,
+    Ball = 8
 };
 
 std::string toDescription(WhoseName);

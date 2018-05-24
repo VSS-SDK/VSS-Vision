@@ -43,13 +43,11 @@ std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition(){
 
       whosePosition[objectName] = colorPosition;
 
-      ///* TO DRAW IN IMAGE
+      /* TO DRAW IN IMAGE */
       auto rectangles = colorRecognizer->getRectangles();
       for(unsigned int i = 0 ; i < rectangles.size() ; i++){
         cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
       }
-      //*/
-
     }
   }
   return whosePosition;

@@ -137,6 +137,6 @@ void VisionWindow::initializeWhoseColor() {
   whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Green, WhoseName::Unknown));
   whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Brown, WhoseName::Unknown));
   whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Yellow, WhoseName::Unknown));
-  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Unknown));
+  whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Ball));
   whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Purple, WhoseName::Unknown));
 }
