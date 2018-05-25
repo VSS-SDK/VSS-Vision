@@ -3,6 +3,7 @@
 //
 
 #include <Helpers/Math.h>
+#include <Ball.h>
 #include "RobotRecognizer.h"
 
 RobotRecognizer::RobotRecognizer() {
@@ -11,72 +12,121 @@ RobotRecognizer::RobotRecognizer() {
     initialRobot.speedX = initialRobot.speedY = 0;
     initialRobot.speedAngle = 0;
 
-    lastPositions.insert(std::make_pair(WhoseName::Robot1, initialRobot));
-    lastPositions.insert(std::make_pair(WhoseName::Robot2, initialRobot));
-    lastPositions.insert(std::make_pair(WhoseName::Robot3, initialRobot));
-    lastPositions.insert(std::make_pair(WhoseName::Robot4, initialRobot));
-    lastPositions.insert(std::make_pair(WhoseName::Robot5, initialRobot));
+    ball.x = ball.y = 0;
+    ball.speedX = ball.speedY = 0;
 
+    lastRobotsPos.insert(std::make_pair(WhoseName::Robot1, initialRobot));
+    lastRobotsPos.insert(std::make_pair(WhoseName::Robot2, initialRobot));
+    lastRobotsPos.insert(std::make_pair(WhoseName::Robot3, initialRobot));
+    lastRobotsPos.insert(std::make_pair(WhoseName::Robot4, initialRobot));
+    lastRobotsPos.insert(std::make_pair(WhoseName::Robot5, initialRobot));
+
+    lastBallPos = ball;
+
+    // 1/60
+    rate = 0.016;
+    maxDistance = 30;
 }
 
-void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colors) {
+void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsPos) {
 
-    // iterate through team1 colors and team2 colors
-    for(int i=1 ; i<=2 ; i++) {
+    if(colorsPos.empty()) return;
 
-        // team colors positions
-        auto teamPositions = colors[(WhoseName) i];
+    std::vector<vss::Robot> blueRobots;
+    std::vector<vss::Robot> yellowRobots;
 
-        // iterate through robot1 color, robot2, ... etc
-        for (int j = 3; j <= 7; j++) {
+    for(int teamInt = WhoseName::Team1 ; teamInt != WhoseName::Robot1 ; teamInt++){
 
-            auto name = (WhoseName) j;
+        auto teamNumber = static_cast<WhoseName>(teamInt);
 
-            if (colors[name].color != ColorType::UnknownType) {
-                int idTeamColor = -1;
-                int idRobotColor = -1;
-                double shorterDistance = 10000;
+        auto& teamPositions = colorsPos[teamNumber].points;
+        auto& teamColor = colorsPos[teamNumber].color;
 
-                for (unsigned int k = 0; k < colors[name].points.size(); k++) {
-                    // looks for the color with the shorter distance in team colors positions vector
-                    for (unsigned int l = 0; l < teamPositions.points.size(); l++) {
-                        // talvez adicionar uma distancia maxima para ser considerado robo
-                        double distance = Math::distance(colors[name].points[k], teamPositions.points[l]);
-                        if (distance < shorterDistance) {
-                            shorterDistance = distance;
-                            idRobotColor = k;
-                            idTeamColor = l;
-                        }
+        if(teamColor == ColorType::UnknownType or teamPositions.empty()) continue;
+
+        for(int robotInt = WhoseName::Robot1 ; robotInt <= WhoseName::Robot5 ; robotInt++){
+
+            auto robotNumber = static_cast<WhoseName>(robotInt);
+
+            auto& robotPositions = colorsPos[robotNumber].points;
+            auto& robotColor = colorsPos[robotNumber].color;
+
+            if(robotColor == ColorType::UnknownType or robotPositions.empty()) break;
+
+            auto itRobotPos = robotPositions.end();
+            auto itTeamPos = teamPositions.end();
+
+            double minDistance = 10000;
+
+            for(unsigned int i=0 ; i<robotPositions.size() ; i++){
+                for(unsigned int j=0 ; j<teamPositions.size() ; j++){
+
+                    double distance = Math::distance(robotPositions.at(i), teamPositions.at(j));
+
+                    if(distance < minDistance and distance < maxDistance){
+                        minDistance = distance;
+                        itRobotPos = robotPositions.begin() + i;
+                        itTeamPos = teamPositions.begin() + j;
                     }
                 }
+            }
 
+            vss::Robot robot;
+            if(itRobotPos != robotPositions.end() and itTeamPos != teamPositions.end()){
                 // with the closer point found update robot's values
-                vss::Robot robot;
-                cv::Point midPoint = Math::midPoint(colors[name].points[idRobotColor],
-                                                    teamPositions.points[idTeamColor]);
+                auto midPoint = Math::midPoint(*itRobotPos, *itTeamPos);
+
                 robot.x = midPoint.x;
                 robot.y = midPoint.y;
                 //@TODO verificar angulacao
-                robot.angle = atan2(colors[name].points[idRobotColor].y - teamPositions.points[idTeamColor].y,
-                                    colors[name].points[idRobotColor].x - teamPositions.points[idTeamColor].x) *
-                              (180 / CV_PI);
+                robot.angle = atan2(itRobotPos->y - itTeamPos->y, itRobotPos->x - itTeamPos->x) * (180 / CV_PI);
 
-                // retornar velocidade negativa ou em modulo?
-                robot.speedAngle = (robot.angle - lastPositions[name].angle);
-                robot.speedX = (robot.x - lastPositions[name].x);
-                robot.speedY = (robot.y - lastPositions[name].y);
+                robot.speedAngle = (robot.angle - lastRobotsPos[robotNumber].angle)/rate;
+                robot.speedX = (robot.x - lastRobotsPos[robotNumber].x)/rate;
+                robot.speedY = (robot.y - lastRobotsPos[robotNumber].y)/rate;
 
-                // remove used point to optimize searching
-                teamPositions.points.erase(teamPositions.points.begin() + idTeamColor);
-                
-                lastPositions[name] = robot;
-                robots.push_back(robot);
+                // remove used points to optimize searching
+                teamPositions.erase(itTeamPos);
+                robotPositions.erase(itRobotPos);
+
+                lastRobotsPos[robotNumber] = robot;
+
+                if(teamColor == ColorType::Yellow)
+                    yellowRobots.push_back(robot);
+                else
+                    blueRobots.push_back(robot);
             }
         }
     }
-}
 
+
+    // concatenate blue vector and yellow vector
+    vss::Robot nullRobot;
+    nullRobot.x = nullRobot.y = 0;
+    nullRobot.angle = nullRobot.speedAngle = 0;
+    nullRobot.speedX = nullRobot.speedY = 0;
+
+    blueRobots.resize(3, nullRobot);
+    yellowRobots.resize(3, nullRobot);
+
+    robots.clear();
+    robots.insert(robots.begin(), yellowRobots.begin(), yellowRobots.end());
+    robots.insert(robots.end(), blueRobots.begin(), blueRobots.end());
+
+    // calculates ball values
+    ball.x = colorsPos[WhoseName::Ball].points.front().x;
+    ball.y = colorsPos[WhoseName::Ball].points.front().y;
+
+    ball.speedX = (ball.x - lastBallPos.x)/rate;
+    ball.speedY = (ball.y - lastBallPos.y)/rate;
+
+    lastBallPos = ball;
+}
 
 std::vector<vss::Robot> RobotRecognizer::getRobots() {
     return robots;
+}
+
+vss::Ball RobotRecognizer::getBall(){
+    return ball;
 }

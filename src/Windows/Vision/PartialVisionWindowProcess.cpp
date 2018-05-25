@@ -1,10 +1,10 @@
 /*
- * This file is part of the VSS-Vision project.
- *
- * This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
- * v. 3.0. If a copy of the GPL was not distributed with this
- * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
- */
+* This file is part of the VSS-Vision project.
+*
+* This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
+* v. 3.0. If a copy of the GPL was not distributed with this
+* file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
+*/
 
 #include <Windows/Vision/VisionWindow.h>
 
@@ -20,11 +20,50 @@ void VisionWindow::receiveNewFrame(cv::Mat _frame) {
 
 void VisionWindow::processFrame() {
     //cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
+    map<WhoseName, ColorPosition> positions = getColorPosition();
+
+    robotRecognizer->recognizeRobots(positions);
+
+    auto robots = robotRecognizer->getRobots();
+    auto ball = robotRecognizer->getBall();
+
+    for(auto r : robots){
+        cout << "robot " << r.x << " " << r.y << " " << r.angle << endl;
+    }
+    cout << "ball " << ball.x << " " << ball.y << endl;
+    sendState(robots, ball);
+}
+
+std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition() {
+    map<WhoseName, ColorPosition> whosePosition;
+
+    for (auto colorRange : calibration.colorsRange) {
+        WhoseName objectName = whoseColor[colorRange.colorType];
+
+        if (objectName != WhoseName::Unknown) {
+            colorRecognizer->setColorRange(colorRange);
+            colorRecognizer->processImage(frame);
+
+            ColorPosition colorPosition;
+            colorPosition.color = colorRange.colorType;
+            colorPosition.points = colorRecognizer->getCenters();
+
+            whosePosition[objectName] = colorPosition;
+
+            /* TO DRAW IN IMAGE */
+            auto rectangles = colorRecognizer->getRectangles();
+            for (unsigned int i = 0; i < rectangles.size(); i++) {
+                cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
+            }
+        }
+    }
+
+    return whosePosition;
 }
 
 void VisionWindow::sendState(std::vector<vss::Robot> robots, vss::Ball ball) {
     //@TODO como manter time azul no final do vetor e time amarelo no inicio?
-    for (int i = 0; i < 3; i++) {
+    for (unsigned int i = 0; i < robots.size()/2; i++) {
         vss_state::Robot_State *robot_s = global_state.add_robots_blue();
 
         robot_s->mutable_pose()->set_x(robots[i + 3].x);
@@ -44,7 +83,7 @@ void VisionWindow::sendState(std::vector<vss::Robot> robots, vss::Ball ball) {
         robot_s->mutable_k_v_pose()->set_yaw(0);
     }
 
-    for (int i = 0; i < 3; i++) {
+    for (unsigned int i = 0; i < robots.size()/2; i++) {
         vss_state::Robot_State *robot_s = global_state.add_robots_yellow();
 
         robot_s->mutable_pose()->set_x(robots[i].x);
@@ -64,7 +103,6 @@ void VisionWindow::sendState(std::vector<vss::Robot> robots, vss::Ball ball) {
         robot_s->mutable_k_v_pose()->set_yaw(0);
     }
 
-    //@TODO: como vira a bola? Necessario calcular a velocidade...
     vss_state::Ball_State *ball_s = global_state.add_balls();
     ball_s->mutable_pose()->set_x(ball.x);
     ball_s->mutable_pose()->set_y(ball.y);

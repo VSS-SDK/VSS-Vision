@@ -14,12 +14,18 @@ public:
     RobotRecognizer();
     void recognizeRobots(std::map<WhoseName,ColorPosition>) override;
     std::vector<vss::Robot> getRobots() override;
+    vss::Ball getBall() override;
 
 private:
 
     std::vector<vss::Robot> robots;
-    std::map<WhoseName, vss::Robot> lastPositions;
+    std::map<WhoseName, vss::Robot> lastRobotsPos;
 
+    vss::Ball ball;
+    vss::Ball lastBallPos;
+
+    double rate;
+    double maxDistance;
 };
 
 #endif

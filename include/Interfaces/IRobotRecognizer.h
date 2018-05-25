@@ -12,9 +12,11 @@
 #include "ColorPosition.h"
 
 class IRobotRecognizer {
-	
+
+public:
     virtual void recognizeRobots(std::map<WhoseName,ColorPosition>) = 0;
     virtual std::vector<vss::Robot> getRobots() = 0;
+    virtual vss::Ball getBall() = 0;
 
 };
 
