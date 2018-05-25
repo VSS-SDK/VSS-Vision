@@ -25,6 +25,7 @@ RobotRecognizer::RobotRecognizer() {
 
     // 1/60
     rate = 0.016;
+    // max distance between colors to be considered a robot
     maxDistance = 30;
 }
 
@@ -35,6 +36,7 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
+    // iterate through team1 and team2
     for(int teamInt = WhoseName::Team1 ; teamInt != WhoseName::Robot1 ; teamInt++){
 
         auto teamNumber = static_cast<WhoseName>(teamInt);
@@ -44,6 +46,7 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
 
         if(teamColor == ColorType::UnknownType or teamPositions.empty()) continue;
 
+        // iterate through robots
         for(int robotInt = WhoseName::Robot1 ; robotInt <= WhoseName::Robot5 ; robotInt++){
 
             auto robotNumber = static_cast<WhoseName>(robotInt);
@@ -51,13 +54,14 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
             auto& robotPositions = colorsPos[robotNumber].points;
             auto& robotColor = colorsPos[robotNumber].color;
 
-            if(robotColor == ColorType::UnknownType or robotPositions.empty()) break;
+            if(robotColor == ColorType::UnknownType or robotPositions.empty()) continue;
 
             auto itRobotPos = robotPositions.end();
             auto itTeamPos = teamPositions.end();
 
             double minDistance = 10000;
 
+            // searches for a robot point which matches with team point
             for(unsigned int i=0 ; i<robotPositions.size() ; i++){
                 for(unsigned int j=0 ; j<teamPositions.size() ; j++){
 
@@ -71,9 +75,9 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
                 }
             }
 
+            // with the closer point found update robot's values
             vss::Robot robot;
             if(itRobotPos != robotPositions.end() and itTeamPos != teamPositions.end()){
-                // with the closer point found update robot's values
                 auto midPoint = Math::midPoint(*itRobotPos, *itTeamPos);
 
                 robot.x = midPoint.x;
@@ -85,7 +89,7 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
                 robot.speedX = (robot.x - lastRobotsPos[robotNumber].x)/rate;
                 robot.speedY = (robot.y - lastRobotsPos[robotNumber].y)/rate;
 
-                // remove used points to optimize searching
+                // removes used points to optimize searching
                 teamPositions.erase(itTeamPos);
                 robotPositions.erase(itRobotPos);
 
@@ -109,6 +113,7 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
     blueRobots.resize(3, nullRobot);
     yellowRobots.resize(3, nullRobot);
 
+    // yellow robots in the beginning
     robots.clear();
     robots.insert(robots.begin(), yellowRobots.begin(), yellowRobots.end());
     robots.insert(robots.end(), blueRobots.begin(), blueRobots.end());

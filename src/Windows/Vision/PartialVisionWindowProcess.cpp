@@ -27,10 +27,7 @@ void VisionWindow::processFrame() {
     auto robots = robotRecognizer->getRobots();
     auto ball = robotRecognizer->getBall();
 
-    for(auto r : robots){
-        cout << "robot " << r.x << " " << r.y << " " << r.angle << endl;
-    }
-    cout << "ball " << ball.x << " " << ball.y << endl;
+    // should it be here?
     sendState(robots, ball);
 }
 
