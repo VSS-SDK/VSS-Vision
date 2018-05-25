@@ -5,7 +5,7 @@
 #ifndef VSS_VISION_MATH_H
 #define VSS_VISION_MATH_H
 
-#include <opencv2/core/types.hpp>
+#include <cxcore.h>
 
 class Math {
 

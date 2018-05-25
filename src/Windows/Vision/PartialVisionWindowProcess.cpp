@@ -31,7 +31,7 @@ void VisionWindow::processFrame() {
         cout << "robot " << r.x << " " << r.y << endl;
     }
 
-    cout << ball.x << " " << ball.y << endl;
+    cout << ball.x << " " << ball.y << " " << ball.speedX << " " << ball.speedY << endl;
 
     // should it be here?
     sendState(robots, ball);

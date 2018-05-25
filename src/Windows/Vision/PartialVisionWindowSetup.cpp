@@ -11,8 +11,8 @@
 #include <Repositories/CalibrationRepository.h>
 
 VisionWindow::VisionWindow() {
-//    inputReader = new CameraReader();
-    inputReader = new ImageFileReader();
+    inputReader = new CameraReader();
+//    inputReader = new ImageFileReader();
 
     calibrationBuilderFromRepository = new CalibrationBuilder();
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
