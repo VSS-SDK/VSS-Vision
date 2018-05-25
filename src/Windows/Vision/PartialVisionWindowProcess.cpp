@@ -27,6 +27,12 @@ void VisionWindow::processFrame() {
     auto robots = robotRecognizer->getRobots();
     auto ball = robotRecognizer->getBall();
 
+    for(auto r : robots){
+        cout << "robot " << r.x << " " << r.y << endl;
+    }
+
+    cout << ball.x << " " << ball.y << endl;
+
     // should it be here?
     sendState(robots, ball);
 }
@@ -59,7 +65,6 @@ std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition() {
 }
 
 void VisionWindow::sendState(std::vector<vss::Robot> robots, vss::Ball ball) {
-    //@TODO como manter time azul no final do vetor e time amarelo no inicio?
     for (unsigned int i = 0; i < robots.size()/2; i++) {
         vss_state::Robot_State *robot_s = global_state.add_robots_blue();
 

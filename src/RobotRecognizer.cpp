@@ -31,78 +31,89 @@ RobotRecognizer::RobotRecognizer() {
 
 void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsPos) {
 
-    if(colorsPos.empty()) return;
-
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
-    // iterate through team1 and team2
-    for(int teamInt = WhoseName::Team1 ; teamInt != WhoseName::Robot1 ; teamInt++){
+    if(not colorsPos.empty()) {
 
-        auto teamNumber = static_cast<WhoseName>(teamInt);
+        // iterate through team1 and team2
+        for (int teamInt = WhoseName::Team1; teamInt != WhoseName::Robot1; teamInt++) {
 
-        auto& teamPositions = colorsPos[teamNumber].points;
-        auto& teamColor = colorsPos[teamNumber].color;
+            auto teamNumber = static_cast<WhoseName>(teamInt);
 
-        if(teamColor == ColorType::UnknownType or teamPositions.empty()) continue;
+            auto &teamPositions = colorsPos[teamNumber].points;
+            auto &teamColor = colorsPos[teamNumber].color;
 
-        // iterate through robots
-        for(int robotInt = WhoseName::Robot1 ; robotInt <= WhoseName::Robot5 ; robotInt++){
+            if (teamColor == ColorType::UnknownType or teamPositions.empty()) continue;
 
-            auto robotNumber = static_cast<WhoseName>(robotInt);
+            // iterate through robots
+            for (int robotInt = WhoseName::Robot1; robotInt <= WhoseName::Robot5; robotInt++) {
 
-            auto& robotPositions = colorsPos[robotNumber].points;
-            auto& robotColor = colorsPos[robotNumber].color;
+                auto robotNumber = static_cast<WhoseName>(robotInt);
 
-            if(robotColor == ColorType::UnknownType or robotPositions.empty()) continue;
+                auto &robotPositions = colorsPos[robotNumber].points;
+                auto &robotColor = colorsPos[robotNumber].color;
 
-            auto itRobotPos = robotPositions.end();
-            auto itTeamPos = teamPositions.end();
+                if (robotColor == ColorType::UnknownType or robotPositions.empty()) continue;
 
-            double minDistance = 10000;
+                auto itRobotPos = robotPositions.end();
+                auto itTeamPos = teamPositions.end();
 
-            // searches for a robot point which matches with team point
-            for(unsigned int i=0 ; i<robotPositions.size() ; i++){
-                for(unsigned int j=0 ; j<teamPositions.size() ; j++){
+                double minDistance = 10000;
 
-                    double distance = Math::distance(robotPositions.at(i), teamPositions.at(j));
+                // searches for a robot point which matches with team point
+                for (unsigned int i = 0; i < robotPositions.size(); i++) {
+                    for (unsigned int j = 0; j < teamPositions.size(); j++) {
 
-                    if(distance < minDistance and distance < maxDistance){
-                        minDistance = distance;
-                        itRobotPos = robotPositions.begin() + i;
-                        itTeamPos = teamPositions.begin() + j;
+                        double distance = Math::distance(robotPositions.at(i), teamPositions.at(j));
+
+                        if (distance < minDistance and distance < maxDistance) {
+                            minDistance = distance;
+                            itRobotPos = robotPositions.begin() + i;
+                            itTeamPos = teamPositions.begin() + j;
+                        }
                     }
                 }
-            }
 
-            // with the closer point found update robot's values
-            vss::Robot robot;
-            if(itRobotPos != robotPositions.end() and itTeamPos != teamPositions.end()){
-                auto midPoint = Math::midPoint(*itRobotPos, *itTeamPos);
+                // with the closer point found update robot's values
+                vss::Robot robot;
+                if (itRobotPos != robotPositions.end() and itTeamPos != teamPositions.end()) {
+                    auto midPoint = Math::midPoint(*itRobotPos, *itTeamPos);
 
-                robot.x = midPoint.x;
-                robot.y = midPoint.y;
-                //@TODO verificar angulacao
-                robot.angle = atan2(itRobotPos->y - itTeamPos->y, itRobotPos->x - itTeamPos->x) * (180 / CV_PI);
+                    robot.x = midPoint.x;
+                    robot.y = midPoint.y;
+                    //@TODO verificar angulacao
+                    robot.angle = atan2(itRobotPos->y - itTeamPos->y, itRobotPos->x - itTeamPos->x) * (180 / CV_PI);
 
-                robot.speedAngle = (robot.angle - lastRobotsPos[robotNumber].angle)/rate;
-                robot.speedX = (robot.x - lastRobotsPos[robotNumber].x)/rate;
-                robot.speedY = (robot.y - lastRobotsPos[robotNumber].y)/rate;
+                    robot.speedAngle = (robot.angle - lastRobotsPos[robotNumber].angle) / rate;
+                    robot.speedX = (robot.x - lastRobotsPos[robotNumber].x) / rate;
+                    robot.speedY = (robot.y - lastRobotsPos[robotNumber].y) / rate;
 
-                // removes used points to optimize searching
-                teamPositions.erase(itTeamPos);
-                robotPositions.erase(itRobotPos);
+                    // removes used points to optimize searching
+                    teamPositions.erase(itTeamPos);
+                    robotPositions.erase(itRobotPos);
 
-                lastRobotsPos[robotNumber] = robot;
+                    lastRobotsPos[robotNumber] = robot;
 
-                if(teamColor == ColorType::Yellow)
-                    yellowRobots.push_back(robot);
-                else
-                    blueRobots.push_back(robot);
+                    if (teamColor == ColorType::Yellow)
+                        yellowRobots.push_back(robot);
+                    else
+                        blueRobots.push_back(robot);
+                }
             }
         }
-    }
 
+        // calculates ball values
+        if(not colorsPos[WhoseName::Ball].points.empty()) {
+            ball.x = colorsPos[WhoseName::Ball].points.front().x;
+            ball.y = colorsPos[WhoseName::Ball].points.front().y;
+
+            ball.speedX = (ball.x - lastBallPos.x) / rate;
+            ball.speedY = (ball.y - lastBallPos.y) / rate;
+
+            lastBallPos = ball;
+        }
+    }
 
     // concatenate blue vector and yellow vector
     vss::Robot nullRobot;
@@ -110,6 +121,7 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
     nullRobot.angle = nullRobot.speedAngle = 0;
     nullRobot.speedX = nullRobot.speedY = 0;
 
+    // fill each vector with 3 positions
     blueRobots.resize(3, nullRobot);
     yellowRobots.resize(3, nullRobot);
 
@@ -117,15 +129,6 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
     robots.clear();
     robots.insert(robots.begin(), yellowRobots.begin(), yellowRobots.end());
     robots.insert(robots.end(), blueRobots.begin(), blueRobots.end());
-
-    // calculates ball values
-    ball.x = colorsPos[WhoseName::Ball].points.front().x;
-    ball.y = colorsPos[WhoseName::Ball].points.front().y;
-
-    ball.speedX = (ball.x - lastBallPos.x)/rate;
-    ball.speedY = (ball.y - lastBallPos.y)/rate;
-
-    lastBallPos = ball;
 }
 
 std::vector<vss::Robot> RobotRecognizer::getRobots() {
