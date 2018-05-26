@@ -9,6 +9,7 @@
 #include <cxcore.h>
 #include <Interfaces/IImageInputReader.h>
 #include <opencv/highgui.h>
+#include <opencv2/opencv.hpp>
 //#include <opencv2/videoio.hpp> // VideoCapture
 
 class CameraReader : public IImageInputReader{
