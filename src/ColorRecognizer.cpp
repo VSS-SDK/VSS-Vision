@@ -53,6 +53,13 @@ void ColorRecognizer::recognizesRectangles() {
 
   cv::findContours(auxImage, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 
+  // sort in crescent order the contours vector by found area
+  sort(contours.begin(), contours.end(),
+      [](const std::vector<cv::Point> c1, const std::vector<cv::Point> c2){
+          return cv::contourArea(c1, false) < cv::contourArea(c2, false);
+      }
+  );
+
   std::vector<std::vector<cv::Point> > contours_poly( contours.size() );
   std::vector<cv::Rect> boundRect( contours.size() );
 
@@ -66,9 +73,17 @@ void ColorRecognizer::recognizesRectangles() {
 
 void ColorRecognizer::calculateCenters() {
   auto centers = std::vector<cv::Point>();
+  auto centimeterPoint = cv::Point();
 
   for(unsigned int i = 0 ; i < rectangles.size() ; i++){
-    centers.push_back(getCenter(rectangles.at(i)));
+    auto pixelPoint = getCenter(rectangles.at(i));
+
+    centimeterPoint = {
+      (pixelPoint.x * 170) / originalFrame.cols,
+      (pixelPoint.y * 130) / originalFrame.rows
+    };
+
+    centers.push_back(centimeterPoint);
   }
 
   this->centers = centers;
