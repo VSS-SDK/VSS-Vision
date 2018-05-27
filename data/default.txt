@@ -1,20 +1,20 @@
 # Rotation
-12
+0
 
 # Brightness
-12
+0
 
 # Contrast
-12
+32
 
 # Saturation
-23
+60
 
 # Exposure
-12
+239
 
 # Gain
-12
+5
 
 # Blue
 0 0 146 

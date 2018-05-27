@@ -20,6 +20,8 @@ std::string toDescription(WhoseName whoseName) {
             return "Robot4";
         case WhoseName::Robot5:
             return "Robot5";
+        case WhoseName::Ball:
+            return "Ball";
         default:
             return "Unknown";
     }
@@ -47,5 +49,8 @@ WhoseName toWhoseName(std::string whoseName) {
     if (whoseName == "Robot5")
         return WhoseName::Robot5;
 
-    return WhoseName::WhoseUnknown;
+    if (whoseName == "Ball")
+        return WhoseName::Ball;
+
+    return WhoseName::Unknown;
 }

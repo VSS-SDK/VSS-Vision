@@ -1,7 +1,0 @@
-{
-    "version": "0.1.0",
-    "command": "make",
-    "isShellCommand": true,
-    "showOutput": "always",
-    "args": ["build_debug"]
-}

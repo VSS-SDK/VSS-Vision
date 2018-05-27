@@ -4,7 +4,7 @@
 
 #include <ImageFileReader.h>
 #include <iostream>
-#include <highgui.h>
+#include <opencv/highgui.h>
 #include <zconf.h>
 
 ImageFileReader::ImageFileReader() {
