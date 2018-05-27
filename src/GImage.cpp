@@ -34,8 +34,11 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
         int width_allocation  = get_allocation().get_width();
         int height_allocation = get_allocation().get_height();
 
-        int width_image  = width_allocation;
-        int height_image = height_allocation;
+        width_image  = width_allocation;
+        height_image = height_allocation;
+
+        width_original_image = cv_image.cols;
+        height_original_image = cv_image.rows;
 
         do {
             float ratio = float(width_image) / float(cv_image.cols);
@@ -124,6 +127,12 @@ bool GImage::on_motion_notify_event (GdkEventMotion* event){
 
         queue_draw();
     }
+
+    if(cut_point_1.x < 0) cut_point_1.x = 0;
+    if(cut_point_1.y < 0) cut_point_1.y = 0;
+    if(cut_point_2.x > width_image) cut_point_2.x = width_image;
+    if(cut_point_2.y > height_image) cut_point_2.y = height_image;
+
     return true;
 }
 
@@ -137,11 +146,21 @@ void GImage::set_cut_mode(bool _cut_mode){
 }
 
 cv::Point GImage::get_cut_point_1(){
-    return cut_point_1;
+    cv::Point aux;
+    aux.x = (cut_point_1.x*width_original_image)/cv_image.cols;
+    aux.y = (cut_point_1.y*height_original_image)/cv_image.rows;
+
+    return aux;
 }
 
 cv::Point GImage::get_cut_point_2(){
-    return cut_point_2;
+    cv::Point aux;
+    std::cout << "original: " << width_original_image << " atual: " << cv_image.cols << " clique: " << cut_point_2.x << std::endl;
+
+    aux.x = (cut_point_2.x*width_original_image)/cv_image.cols;
+    aux.y = (cut_point_2.y*height_original_image)/cv_image.rows;
+
+    return aux;
 }
 
 void GImage::set_cut_point_1(cv::Point p) {

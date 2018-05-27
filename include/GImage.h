@@ -43,6 +43,12 @@ private:
     bool cut_mode;
     bool cut_move;
     bool cut_move_adjust;
+
+    int width_image;
+    int height_image;
+
+    int width_original_image;
+    int height_original_image;
 };
 
 #endif

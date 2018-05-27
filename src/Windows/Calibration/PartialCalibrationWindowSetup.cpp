@@ -29,10 +29,11 @@ CalibrationWindow::CalibrationWindow(){
   colorRecognizer = new ColorRecognizer();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
+
+  imageWasCuted = false;
 }
 
-CalibrationWindow::~CalibrationWindow(){
-}
+CalibrationWindow::~CalibrationWindow() = default;
 
 int CalibrationWindow::run(int argc, char *argv[]){
 
@@ -63,7 +64,7 @@ void CalibrationWindow::windowThreadWrapper() {
 void CalibrationWindow::initializeWidget(){
 
   radioButtonImage->set_active();
-  
+
   screenImage->set_image(cv::imread("../mock/images/model.jpg"));
 
   window->maximize();
@@ -111,8 +112,9 @@ void CalibrationWindow::builderWidget(){
 
     builder->get_widget("combobox_path", comboBoxPath);
     builder->get_widget("combobox_color", comboBoxColor);
-    
+
     builder->get_widget("togglebutton_cut_mode", toggleButtonCutMode);
+    builder->get_widget("button_restore_cut", buttonRestoreCut);
 
   } catch(const Glib::FileError& ex) {
     std::cerr << "FileError: " << ex.what() << std::endl;
@@ -126,7 +128,7 @@ void CalibrationWindow::builderWidget(){
 }
 
 void CalibrationWindow::setSignals(){
-  
+
   signal_set_new_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
 
   inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
@@ -136,7 +138,7 @@ void CalibrationWindow::setSignals(){
 
   buttonOpenSaveDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenSaveDialog), fileChooserDialog, entryChooserDialog ));
   buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog ));
-  
+
   buttonSave->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonSave), fileChooserDialog, entryChooserDialog ));
   buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onButtonLoad), fileChooserDialog, entryChooserDialog, scaleCameraConfig ));
 
@@ -159,9 +161,10 @@ void CalibrationWindow::setSignals(){
   radioButtonCamera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonCamera), radioButtonCamera));
   
   toggleButtonCutMode->signal_pressed().connect(sigc::bind<Gtk::ToggleButton*>(sigc::mem_fun(this, &ICalibrationWindow::onToggleButtonCutMode), toggleButtonCutMode));
+  buttonRestoreCut->signal_pressed().connect(sigc::mem_fun(this, &ICalibrationWindow::onButtonRestoreCut));
 
   fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog ));
-  
+
   comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectPath), comboBoxPath));
   comboBoxColor->signal_changed().connect(sigc::bind<Gtk::ComboBox*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectColor), comboBoxColor, scaleHSV));
 }

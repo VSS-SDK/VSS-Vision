@@ -134,7 +134,18 @@ void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
     calibration.cut.resize(2);
     calibration.cut[0] = Point2d(screenImage->get_cut_point_1().x, screenImage->get_cut_point_1().y);
     calibration.cut[1] = Point2d(screenImage->get_cut_point_2().x, screenImage->get_cut_point_2().y);
+    imageWasCuted = true;
   }
+}
+
+void CalibrationWindow::onButtonRestoreCut() {
+    imageWasCuted = false;
+
+    calibration.cut[0] = Point2d(0,0);
+    calibration.cut[1] = Point2d(0,0);
+
+    screenImage->set_cut_point_1(cv::Point(0,0));
+    screenImage->set_cut_point_2(cv::Point(0,0));
 }
 
 void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
