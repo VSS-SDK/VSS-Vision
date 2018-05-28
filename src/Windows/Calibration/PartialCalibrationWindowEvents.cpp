@@ -36,6 +36,7 @@ void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser, Gtk::E
   if (entry->get_text_length() > 0){
     std::stringstream aux;
     aux << fileChooser->get_current_folder() << "/" << entry->get_text();
+    cout << "arquivo " << aux.str() <<endl;
     calibrationRepository->create(aux.str(), calibration);
     fileChooser->hide();
   }
@@ -134,12 +135,13 @@ void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
     calibration.cut.resize(2);
     calibration.cut[0] = Point2d(screenImage->get_cut_point_1().x, screenImage->get_cut_point_1().y);
     calibration.cut[1] = Point2d(screenImage->get_cut_point_2().x, screenImage->get_cut_point_2().y);
-    imageWasCuted = true;
+
+    calibration.shouldCropImage = true;
   }
 }
 
 void CalibrationWindow::onButtonRestoreCut() {
-    imageWasCuted = false;
+    calibration.shouldCropImage = false;
 
     calibration.cut[0] = Point2d(0,0);
     calibration.cut[1] = Point2d(0,0);

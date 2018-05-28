@@ -14,7 +14,7 @@
 #include <Domain/ColorSpace.h>
 #include <Windows/Calibration/CalibrationWindow.h>
 
-CalibrationWindow::CalibrationWindow(){
+CalibrationWindow::CalibrationWindow() {
   calibrationBuilder = new CalibrationBuilder();
   calibrationBuilderFromRepository = new CalibrationBuilder();
 
@@ -29,8 +29,6 @@ CalibrationWindow::CalibrationWindow(){
   colorRecognizer = new ColorRecognizer();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
-
-  imageWasCuted = false;
 }
 
 CalibrationWindow::~CalibrationWindow() = default;

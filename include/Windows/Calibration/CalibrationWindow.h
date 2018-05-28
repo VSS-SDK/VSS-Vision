@@ -84,8 +84,6 @@ private:
     ColorRange *actualColorRange;
 	unsigned int actualColorRangeIndex;
 
-	bool imageWasCuted;
-
 	// Opencv image
 	cv::Mat frame;
 

@@ -152,6 +152,7 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
   file << "# Cuts" << std::endl;
   for(unsigned int i = 0 ; i < calibration.cut.size() ; i++)
     file << calibration.cut.at(i).x << " " << calibration.cut.at(i).y << std::endl;
+  std::cout << "SALVANDO " << calibration.cut[0] << calibration.cut[1];
   file << std::endl;
 
   file.close();
@@ -196,6 +197,10 @@ void CalibrationRepository::setCalibrationCut(Calibration &calibration, std::ifs
   std::getline(file, line);
   auto cutValuesTop = explode(line, ' ');
   calibration.cut.push_back(new Point2d(stof(cutValuesTop.at(0)), stof(cutValuesTop.at(1))));
+
+  if(calibration.cut.at(1).x != 0 and calibration.cut.at(1).y != 0) calibration.shouldCropImage = true;
+  else calibration.shouldCropImage = false;
+
 }
 
 void CalibrationRepository::setCalibrationColorRange(Calibration &calibration, std::ifstream &file, ColorType &colorType) {

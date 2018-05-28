@@ -37,9 +37,6 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
         width_image  = width_allocation;
         height_image = height_allocation;
 
-        width_original_image = cv_image.cols;
-        height_original_image = cv_image.rows;
-
         do {
             float ratio = float(width_image) / float(cv_image.cols);
 
@@ -138,6 +135,10 @@ bool GImage::on_motion_notify_event (GdkEventMotion* event){
 
 void GImage::set_image(cv::Mat _cv_image){
     cv::cvtColor(_cv_image, cv_image, cv::COLOR_BGR2RGB);
+
+    width_original_image = cv_image.cols;
+    height_original_image = cv_image.rows;
+
     queue_draw();
 }
 
