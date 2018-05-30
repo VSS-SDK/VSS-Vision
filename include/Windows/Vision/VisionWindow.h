@@ -12,6 +12,7 @@
 #include <thread>
 #include <gtkmm.h>
 #include <iostream>
+#include <fstream>
 
 #include <CameraReader.h>
 #include <ColorRecognizer.h>
@@ -51,6 +52,12 @@ public:
     void onButtonLoad(Gtk::FileChooserDialog *, Gtk::Entry *) override;
 
     void onButtonOpenLoadDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+
+    void onButtonOpenSaveDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+
+    void onButtonLoadGameConfig(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+
+    void onButtonSaveGameConfig(Gtk::FileChooserDialog *, Gtk::Entry *) override;
 
     void onRadioButtonImage(Gtk::RadioButton *) override;
 
@@ -121,10 +128,17 @@ private:
     Gtk::Button *buttonLoad = nullptr;
     Gtk::Button *buttonPlay = nullptr;
 
+    Gtk::Button *buttonLoadGameConfig = nullptr;
+    Gtk::Button *buttonOpenLoadGameConfigDialog = nullptr;
+    Gtk::Button *buttonSaveGameConfig = nullptr;
+    Gtk::Button *buttonOpenSaveGameConfigDialog = nullptr;
+
     // GTKMM - File Chooser Window
     Gtk::FileChooserDialog *fileChooserDialog = nullptr;
+    Gtk::FileChooserDialog *fileChooserGameConfigDialog = nullptr;
 
     Gtk::Entry *entryChooserDialog = nullptr;
+    Gtk::Entry *entryChooserGameConfigDialog = nullptr;
 
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
@@ -154,6 +168,12 @@ private:
 
     // Send state
     void sendState(std::vector<vss::Robot>, vss::Ball);
+
+    void getComboBoxByColor(std::string);
+
+    void setupWhoseColor(std::string);
+
+    void saveWhoseColor(std::string);
 
 };
 
