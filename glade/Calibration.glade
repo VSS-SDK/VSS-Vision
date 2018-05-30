@@ -991,7 +991,7 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="button_restore_cut">
-                            <property name="label" translatable="yes">Restore Cut</property>
+                            <property name="label" translatable="yes">Restore Image Size</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
