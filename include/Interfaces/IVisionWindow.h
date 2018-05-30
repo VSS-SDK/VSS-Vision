@@ -20,6 +20,10 @@ public:
     virtual void onButtonPlay() = 0;    
     virtual void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+    virtual void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+
+	virtual void onButtonLoadGameConfig(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+	virtual void onButtonSaveGameConfig(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
     virtual void onRadioButtonImage(Gtk::RadioButton*) = 0;
     virtual void onRadioButtonVideo(Gtk::RadioButton*) = 0;

@@ -85,6 +85,103 @@
       <action-widget response="0">button_load_calibration</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkFileChooserDialog" id="file_chooser_game_config_dialog">
+        <property name="can_focus">False</property>
+        <property name="border_width">5</property>
+        <property name="role">GtkFileChooserDialog</property>
+        <property name="type_hint">dialog</property>
+        <child internal-child="vbox">
+          <object class="GtkVBox" id="load_game_config_dialog_vbox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">2</property>
+            <child internal-child="action_area">
+              <object class="GtkHButtonBox" id="load_game_config_dialog_action_area">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="layout_style">end</property>
+                <child>
+                  <object class="GtkButton" id="button_load_game_config">
+                    <property name="label" translatable="yes">Load</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_save_game_config">
+                    <property name="label" translatable="yes">Save</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkTable" id="load_game_config_table_file_name">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="n_columns">2</property>
+                <property name="column_spacing">5</property>
+                <child>
+                  <object class="GtkLabel" id="load_game_config_label_file_name">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Name</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="x_options">GTK_FILL</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="entry_chooser_game_config">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char">●</property>
+                    <property name="invisible_char_set">True</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <action-widgets>
+          <action-widget response="0">button_load_game_config</action-widget>
+          <action-widget response="1">button_save_game_config</action-widget>
+        </action-widgets>
+      </object>
   <object class="GtkListStore" id="liststore_robot">
     <columns>
       <!-- column-name Color -->
@@ -462,7 +559,7 @@
                       <object class="GtkTable" id="table_settings">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="n_rows">8</property>
+                        <property name="n_rows">10</property>
                         <property name="row_spacing">10</property>
                         <child>
                           <object class="GtkTable" id="table_color_robot">
@@ -883,6 +980,65 @@
                           <packing>
                             <property name="top_attach">1</property>
                             <property name="bottom_attach">2</property>
+                            <property name="y_options">GTK_FILL</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkTable" id="table_load_save1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="n_rows">3</property>
+                            <property name="row_spacing">5</property>
+                            <property name="homogeneous">True</property>
+                            <child>
+                              <object class="GtkLabel" id="label_load_save_game_config">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Game config file</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="button_load_game_config_dialog">
+                                <property name="label" translatable="yes">Load</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                              </object>
+                              <packing>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="button_save_game_config_dialog">
+                                <property name="label" translatable="yes">Save</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                              </object>
+                              <packing>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="top_attach">9</property>
+                            <property name="bottom_attach">10</property>
+                            <property name="y_options">GTK_FILL</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkHSeparator" id="hseparator5">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                          <packing>
+                            <property name="top_attach">8</property>
+                            <property name="bottom_attach">9</property>
                             <property name="y_options">GTK_FILL</property>
                           </packing>
                         </child>

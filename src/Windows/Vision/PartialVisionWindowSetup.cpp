@@ -92,6 +92,15 @@ void VisionWindow::builderWidget() {
         builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
         builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
 
+
+        builder->get_widget("entry_chooser_game_config", entryChooserGameConfigDialog);
+        builder->get_widget("file_chooser_game_config_dialog", fileChooserGameConfigDialog);
+
+        builder->get_widget("button_load_game_config", buttonLoadGameConfig);
+        builder->get_widget("button_load_game_config_dialog", buttonOpenLoadGameConfigDialog);
+        builder->get_widget("button_save_game_config", buttonSaveGameConfig);
+        builder->get_widget("button_save_game_config_dialog", buttonOpenSaveGameConfigDialog);
+
     } catch (const Glib::FileError &ex) {
         std::cerr << "FileError: " << ex.what() << std::endl;
 
@@ -121,6 +130,23 @@ void VisionWindow::setSignals() {
 
     fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
             sigc::mem_fun(this, &IVisionWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog));
+
+    buttonLoadGameConfig->signal_clicked().connect(
+            sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoadGameConfig),
+                                                               fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
+    buttonSaveGameConfig->signal_clicked().connect(
+            sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(sigc::mem_fun(this, &IVisionWindow::onButtonSaveGameConfig),
+                                                               fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
+    buttonOpenLoadGameConfigDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
+            sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
+    buttonOpenSaveGameConfigDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
+            sigc::mem_fun(this, &IVisionWindow::onButtonOpenSaveDialog), fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
+    fileChooserGameConfigDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
+            sigc::mem_fun(this, &IVisionWindow::onSignalSelectFileInDialog), fileChooserGameConfigDialog, entryChooserGameConfigDialog));
 
     radioButtonImage->signal_pressed().connect(
             sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonImage), radioButtonImage));
