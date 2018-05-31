@@ -156,8 +156,6 @@ cv::Point GImage::get_cut_point_1(){
 
 cv::Point GImage::get_cut_point_2(){
     cv::Point aux;
-    std::cout << "original: " << width_original_image << " atual: " << cv_image.cols << " clique: " << cut_point_2.x << std::endl;
-
     aux.x = (cut_point_2.x*width_original_image)/cv_image.cols;
     aux.y = (cut_point_2.y*height_original_image)/cv_image.rows;
 

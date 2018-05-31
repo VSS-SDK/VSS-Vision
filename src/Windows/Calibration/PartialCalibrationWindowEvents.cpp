@@ -36,7 +36,6 @@ void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser, Gtk::E
   if (entry->get_text_length() > 0){
     std::stringstream aux;
     aux << fileChooser->get_current_folder() << "/" << entry->get_text();
-    cout << "arquivo " << aux.str() <<endl;
     calibrationRepository->create(aux.str(), calibration);
     fileChooser->hide();
   }

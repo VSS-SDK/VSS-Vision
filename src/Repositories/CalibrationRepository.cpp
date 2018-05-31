@@ -152,7 +152,6 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
   file << "# Cuts" << std::endl;
   for(unsigned int i = 0 ; i < calibration.cut.size() ; i++)
     file << calibration.cut.at(i).x << " " << calibration.cut.at(i).y << std::endl;
-  std::cout << "SALVANDO " << calibration.cut[0] << calibration.cut[1];
   file << std::endl;
 
   file.close();
