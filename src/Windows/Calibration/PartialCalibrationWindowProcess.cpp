@@ -23,6 +23,17 @@ void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
 void CalibrationWindow::processFrame() {
   cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
 
+  if(calibration.shouldCropImage) {
+      cv::Rect2d rect = cv::Rect2d(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y),
+              cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
+
+      try{
+          frame = frame(rect);
+      } catch (std::exception& e){
+          cout << "Exception cropping image" << endl;
+      }
+  }
+
   colorRecognizer->processImage(frame);
 
   applyRectangleToFrame();

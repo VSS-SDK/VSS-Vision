@@ -57,6 +57,7 @@ public:
     void onRadioButtonCamera(Gtk::RadioButton*) override;
 
     void onToggleButtonCutMode(Gtk::ToggleButton*) override;
+	void onButtonRestoreCut() override;
 
     void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 	
@@ -102,12 +103,13 @@ private:
 		std::vector<Gtk::Scale*> scaleCameraConfig;
 
 		Gtk::Button* buttonSave = nullptr;
-		Gtk::Button* buttonLoad = nullptr;
-		
-		Gtk::ToggleButton* toggleButtonCutMode = nullptr;
+		Gtk::Button* buttonRestoreCut = nullptr;
 
-	// GTKMM - File Chooser Window
+		// GTKMM - File Chooser Window
 		Gtk::FileChooserDialog* fileChooserDialog = nullptr;
+
+		Gtk::Button* buttonLoad = nullptr;
+		Gtk::ToggleButton* toggleButtonCutMode = nullptr;
 
 		Gtk::Entry* entryChooserDialog = nullptr;
 

@@ -27,6 +27,8 @@ public:
 	std::vector<ColorRange> colorsRange;
 	std::vector<Point2d> cut;
 
+	bool shouldCropImage;
+
 	Calibration();
 	Calibration( Calibration *calibration );
 
