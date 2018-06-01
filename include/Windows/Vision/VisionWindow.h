@@ -30,6 +30,7 @@
 #include <Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
 #include <RobotRecognizer.h>
+#include <StateSenderAdapter.h>
 #include "GImage.h"
 #include "IVisionWindow.h"
 #include "opencv2/highgui/highgui.hpp"
@@ -78,8 +79,7 @@ public:
 
 private:
 
-    Interface interface;
-    vss_state::Global_State global_state;
+    IStateSenderAdapter* stateSender;
 
     // Threads
     std::thread *threadCameraReader;
@@ -151,9 +151,6 @@ private:
     void receiveNewFrame(cv::Mat);
 
     std::map<WhoseName, ColorPosition> getColorPosition();
-
-    // Send state
-    void sendState(std::vector<vss::Robot>, vss::Ball);
 
 };
 

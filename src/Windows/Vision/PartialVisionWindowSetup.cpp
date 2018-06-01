@@ -21,11 +21,11 @@ VisionWindow::VisionWindow() {
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
 
-    interface.createSocketSendState(&global_state);
+    stateSender = new StateSenderAdapter();
+    stateSender->createSocket();
 }
 
-VisionWindow::~VisionWindow() {
-}
+VisionWindow::~VisionWindow() = default;
 
 int VisionWindow::run(int argc, char *argv[]) {
 
