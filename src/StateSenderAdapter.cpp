@@ -4,10 +4,12 @@
 
 #include "StateSenderAdapter.h"
 
-StateSenderAdapter::StateSenderAdapter() = default;
+StateSenderAdapter::StateSenderAdapter(){
+    sender = new vss::StateSender();
+};
 
 void StateSenderAdapter::createSocket() {
-    sender.createSocket();
+    sender->createSocket();
 }
 
 void StateSenderAdapter::sendState(std::vector<vss::Robot>& robots, vss::Ball& ball) {
@@ -20,5 +22,5 @@ void StateSenderAdapter::sendState(std::vector<vss::Robot>& robots, vss::Ball& b
 
 //    std::cout << state << std::endl;
 
-    sender.sendState(state);
+    sender->sendState(state);
 }

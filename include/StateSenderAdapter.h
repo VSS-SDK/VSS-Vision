@@ -5,6 +5,7 @@
 #ifndef VSS_VISION_STATESENDERADAPTER_H
 #define VSS_VISION_STATESENDERADAPTER_H
 
+#include <Interfaces/IStateSender.h>
 #include <Communications/StateSender.h>
 #include <State.h>
 #include "IStateSenderAdapter.h"
@@ -19,7 +20,7 @@ public:
 
 private:
 
-    vss::StateSender sender;
+    vss::IStateSender* sender;
 
 };
 
