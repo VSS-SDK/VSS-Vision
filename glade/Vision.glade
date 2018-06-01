@@ -2,11 +2,15 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkFileFilter" id="filefilter1"/>
+  <object class="GtkFileFilter" id="filefilter2"/>
   <object class="GtkFileChooserDialog" id="file_chooser_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="role">GtkFileChooserDialog</property>
     <property name="type_hint">dialog</property>
+    <property name="create_folders">False</property>
+    <property name="filter">filefilter2</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog_vbox">
         <property name="visible">True</property>
@@ -85,6 +89,7 @@
       <action-widget response="0">button_load_calibration</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkFileFilter" id="filefilter3"/>
   <object class="GtkListStore" id="liststore_robot">
     <columns>
       <!-- column-name Color -->
@@ -907,6 +912,7 @@
               </object>
               <packing>
                 <property name="tab_expand">True</property>
+                <property name="tab_fill">False</property>
               </packing>
             </child>
           </object>
