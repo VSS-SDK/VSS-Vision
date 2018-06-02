@@ -22,11 +22,11 @@ public:
 
     virtual bool onKeyboard(GdkEventKey*, Gtk::Window*) = 0;
 
-    virtual void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+    virtual void onButtonOpenSaveDialog(Gtk::FileChooserDialog*) = 0;
+	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*) = 0;
 
-    virtual void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-    virtual void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*, std::vector<Gtk::Scale*>) = 0;
+    virtual void onButtonSave(Gtk::FileChooserDialog*) = 0;
+    virtual void onButtonLoad(Gtk::FileChooserDialog*, std::vector<Gtk::Scale*>) = 0;
 
     virtual void onScaleHMAX(Gtk::Scale*) = 0;
     virtual void onScaleHMIN(Gtk::Scale*) = 0;
@@ -49,8 +49,6 @@ public:
     virtual void onToggleButtonCutMode(Gtk::ToggleButton*) = 0;
     virtual void onButtonRestoreCut() = 0;
 
-    virtual void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-	
     virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColor(Gtk::ComboBox*, std::vector<Gtk::Scale*>) = 0;
 

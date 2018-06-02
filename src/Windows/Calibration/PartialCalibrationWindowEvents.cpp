@@ -22,36 +22,47 @@ bool CalibrationWindow::onKeyboard(GdkEventKey* event, Gtk::Window* window){
   return true;
 }
 
-void CalibrationWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-  entry->set_sensitive(true);
-  fileChooser->show();
+void CalibrationWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser){
+    fileChooser->set_action(Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
+    buttonLoad->set_visible(false);
+    buttonSave->set_visible(true);
+    fileChooser->run();
 }
 
-void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-  entry->set_sensitive(false);
-  fileChooser->show();
+void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser){
+    fileChooser->set_action(Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+    buttonLoad->set_visible(true);
+    buttonSave->set_visible(false);
+    fileChooser->run();
 }
 
-void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-  if (entry->get_text_length() > 0){
-    std::stringstream aux;
-    aux << fileChooser->get_current_folder() << "/" << entry->get_text();
-    calibrationRepository->create(aux.str(), calibration);
+void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser){
     fileChooser->hide();
-  }
+
+    // gtkmm-2.4 nao permite extrair filename diretamente pelo FileChooserDialog
+    auto entryWidget = dynamic_cast<Gtk::FileChooserWidget*>(*fileChooser->get_vbox()->get_children().begin());
+    string filename = entryWidget->get_filename();
+
+    if (not filename.empty()){
+        calibrationRepository->create(filename, calibration);
+        fileChooser->hide();
+    }
 }
 
-void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry, std::vector<Gtk::Scale*> scale_cam_config){
-  if (entry->get_text_length() > 0){
-    calibration = calibrationRepository->read(fileChooser->get_filename());
-    scale_cam_config[Saturation]->set_value(calibration.saturation);
-    scale_cam_config[Brightness]->set_value(calibration.brightness);
-    scale_cam_config[Exposure]->set_value(calibration.exposure);
-    scale_cam_config[Contrast]->set_value(calibration.contrast);
-    scale_cam_config[Rotation]->set_value(calibration.rotation);
-    scale_cam_config[Gain]->set_value(calibration.gain);
+void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, std::vector<Gtk::Scale*> scale_cam_config){
     fileChooser->hide();
-  }
+    string filename = fileChooser->get_filename();
+
+    if (not filename.empty()){
+        calibration = calibrationRepository->read(fileChooser->get_filename());
+        scale_cam_config[Saturation]->set_value(calibration.saturation);
+        scale_cam_config[Brightness]->set_value(calibration.brightness);
+        scale_cam_config[Exposure]->set_value(calibration.exposure);
+        scale_cam_config[Contrast]->set_value(calibration.contrast);
+        scale_cam_config[Rotation]->set_value(calibration.rotation);
+        scale_cam_config[Gain]->set_value(calibration.gain);
+        fileChooser->hide();
+    }
 } 
 
 void CalibrationWindow::onScaleHMAX(Gtk::Scale* scale){
@@ -147,12 +158,6 @@ void CalibrationWindow::onButtonRestoreCut() {
 
     screenImage->set_cut_point_1(cv::Point(0,0));
     screenImage->set_cut_point_2(cv::Point(0,0));
-}
-
-void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-  std::string str = fileChooser->get_filename();
-  std::size_t sub_str = str.find_last_of("/\\");
-  entry->set_text(str.substr(sub_str+1));
 }
 
 void CalibrationWindow::onComboBoxSelectPath(Gtk::ComboBox* inputPath){

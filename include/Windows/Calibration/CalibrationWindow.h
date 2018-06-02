@@ -32,11 +32,11 @@ public:
 
     bool onKeyboard(GdkEventKey*, Gtk::Window*) override;
 
-    void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
-	void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
+    void onButtonOpenSaveDialog(Gtk::FileChooserDialog*) override;
+	void onButtonOpenLoadDialog(Gtk::FileChooserDialog*) override;
 
-    void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) override;
-    void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*, std::vector<Gtk::Scale*>) override;
+    void onButtonSave(Gtk::FileChooserDialog*) override;
+    void onButtonLoad(Gtk::FileChooserDialog*, std::vector<Gtk::Scale*>) override;
 
     void onScaleHMAX(Gtk::Scale*) override;
     void onScaleHMIN(Gtk::Scale*) override;
@@ -59,8 +59,6 @@ public:
     void onToggleButtonCutMode(Gtk::ToggleButton*) override;
 	void onButtonRestoreCut() override;
 
-    void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
-	
     void onComboBoxSelectPath(Gtk::ComboBox*) override;
     void onComboBoxSelectColor(Gtk::ComboBox*, std::vector<Gtk::Scale*>) override;
 
