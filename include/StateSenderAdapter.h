@@ -7,7 +7,7 @@
 
 #include <Interfaces/IStateSender.h>
 #include <Communications/StateSender.h>
-#include <State.h>
+#include <Domain/State.h>
 #include "IStateSenderAdapter.h"
 
 class StateSenderAdapter : public IStateSenderAdapter {
