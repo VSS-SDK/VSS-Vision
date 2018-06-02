@@ -71,7 +71,7 @@ void CalibrationWindow::initializeWidget(){
   filterText->add_pattern("*.txt");
   fileChooserDialog->add_filter(*filterText);
 
-  // define initial folder
+  // define initial folder for file chooser
   fileChooserDialog->set_current_folder("../data");
 
   window->maximize();
@@ -94,7 +94,6 @@ void CalibrationWindow::builderWidget(){
     builder->get_widget("button_save_dialog", buttonOpenSaveDialog);
     builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
 
-    //builder->get_widget("entry_chooser", entryChooserDialog);
     builder->get_widget("file_chooser_dialog", fileChooserDialog);
 
     scaleHSV.resize(6);

@@ -23,20 +23,20 @@ void VisionWindow::onButtonPlay() {
 
 }
 
-void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
-    if (entry->get_text_length() > 0){
-        calibration = calibrationRepository->read(fileChooser->get_filename());
+void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
+    fileChooser->hide();
+    string filename = fileChooser->get_filename();
+
+    if (not filename.empty()){
+        calibration = calibrationRepository->read(filename);
 
         screenImage->set_cut_point_1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
         screenImage->set_cut_point_2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
-
-        fileChooser->hide();
     }
 }
 
-void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
-    entry->set_sensitive(false);
-    fileChooser->show();
+void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
+    fileChooser->run();
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
@@ -52,12 +52,6 @@ void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
 void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
 //    if (!radioButton->get_active())
 //        std::cout << "Camera: " << radioButton->get_active() << std::endl;
-}
-
-void VisionWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog *fileChooser, Gtk::Entry *entry) {
-    std::string str = fileChooser->get_filename();
-    std::size_t sub_str = str.find_last_of("/\\");
-    entry->set_text(str.substr(sub_str + 1));
 }
 
 void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {

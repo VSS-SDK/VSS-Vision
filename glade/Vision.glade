@@ -2,7 +2,6 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkFileFilter" id="filefilter1"/>
   <object class="GtkFileFilter" id="filefilter2"/>
   <object class="GtkFileChooserDialog" id="file_chooser_dialog">
     <property name="can_focus">False</property>
@@ -42,46 +41,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkTable" id="table_file_name">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="n_columns">2</property>
-            <property name="column_spacing">5</property>
-            <child>
-              <object class="GtkLabel" id="label_file_name">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Name</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="x_options">GTK_FILL</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="entry_chooser">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-                <property name="invisible_char_set">True</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing>
+          <placeholder/>
         </child>
       </object>
     </child>
@@ -89,7 +49,6 @@
       <action-widget response="0">button_load_calibration</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkFileFilter" id="filefilter3"/>
   <object class="GtkListStore" id="liststore_robot">
     <columns>
       <!-- column-name Color -->
