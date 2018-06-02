@@ -21,6 +21,9 @@ bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
 
 void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> robots, vss::Ball ball) {
 
+    //@TODO: diferenciar time e adversario
+    //@TODO: adaptar para permitir mais de 3 robos
+
     // send positions
     stateSender->sendState(robots, ball);
 
