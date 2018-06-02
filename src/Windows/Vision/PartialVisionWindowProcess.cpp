@@ -36,10 +36,7 @@ void VisionWindow::processFrame() {
 
     robotRecognizer->recognizeRobots(positions);
 
-    auto robots = robotRecognizer->getRobots();
-    auto ball = robotRecognizer->getBall();
-
-    stateSender->sendState(robots, ball);
+    signalRobotsNewPositions.emit(robotRecognizer->getRobots(), robotRecognizer->getBall());
 }
 
 std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition() {
