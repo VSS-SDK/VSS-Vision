@@ -8,6 +8,8 @@
 #include <Interfaces/IStateSender.h>
 #include <Communications/StateSender.h>
 #include <Domain/State.h>
+#include "Domain/Robot.h"
+#include "Domain/Ball.h"
 #include "IStateSenderAdapter.h"
 
 class StateSenderAdapter : public IStateSenderAdapter {

@@ -6,6 +6,7 @@
 #define VSS_VISION_IROBOTRECOGNIZER_H
 
 #include <vector>
+#include "Domain/Ball.h"
 #include <Domain/Robot.h>
 #include <Domain/WhoseName.h>
 #include <map>
@@ -17,7 +18,6 @@ public:
     virtual void recognizeRobots(std::map<WhoseName,ColorPosition>) = 0;
     virtual std::vector<vss::Robot> getRobots() = 0;
     virtual vss::Ball getBall() = 0;
-
 };
 
 #endif

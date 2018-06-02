@@ -3,7 +3,7 @@
 //
 
 #include <Helpers/Math.h>
-#include <Ball.h>
+
 #include "RobotRecognizer.h"
 
 RobotRecognizer::RobotRecognizer() {

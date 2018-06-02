@@ -10,6 +10,8 @@
 #define I_VISION_WINDOW_H_
 
 #include "gtkmm.h"
+#include "Domain/Robot.h"
+#include "Domain/Ball.h"
 
 class IVisionWindow {
 public:
