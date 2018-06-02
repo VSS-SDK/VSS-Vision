@@ -75,6 +75,8 @@ public:
 
     void onComboBoxSelectColorRobot5(Gtk::ComboBox *) override;
 
+    void onRobotsNewPositions(std::vector<vss::Robot>, vss::Ball) override;
+
     void onSignalSelectFileInDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
 
 private:
@@ -87,6 +89,8 @@ private:
 
     // Comunication between threads
     Glib::Dispatcher signal_set_new_frame;
+
+    sigc::signal <void, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
 
     // Classes
     IImageInputReader *inputReader;
@@ -117,6 +121,20 @@ private:
     Gtk::ComboBox *comboBoxColorRobot3 = nullptr;
     Gtk::ComboBox *comboBoxColorRobot4 = nullptr;
     Gtk::ComboBox *comboBoxColorRobot5 = nullptr;
+
+    Gtk::Label *labelPositionBall = nullptr;
+
+    Gtk::Label *labelPositionRobot1 = nullptr;
+    Gtk::Label *labelPositionRobot2 = nullptr;
+    Gtk::Label *labelPositionRobot3 = nullptr;
+    Gtk::Label *labelPositionRobot4 = nullptr;
+    Gtk::Label *labelPositionRobot5 = nullptr;
+
+    Gtk::Label *labelPositionOpponent1 = nullptr;
+    Gtk::Label *labelPositionOpponent2 = nullptr;
+    Gtk::Label *labelPositionOpponent3 = nullptr;
+    Gtk::Label *labelPositionOpponent4 = nullptr;
+    Gtk::Label *labelPositionOpponent5 = nullptr;
 
     Gtk::Button *buttonLoad = nullptr;
     Gtk::Button *buttonPlay = nullptr;

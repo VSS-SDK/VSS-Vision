@@ -22,11 +22,11 @@ void VisionWindow::processFrame() {
     cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
 
     if(calibration.shouldCropImage){
-        //cv::Rect2d rect = cv::Rect2d(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y),
-        //                             cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
+        cv::Rect rect = cv::Rect(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y),
+                cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
 
         try{
-            //frame = frame(rect);
+            frame = frame(rect);
         } catch (std::exception& e){
             cout << "Exception cropping image" << endl;
         }
@@ -36,10 +36,7 @@ void VisionWindow::processFrame() {
 
     robotRecognizer->recognizeRobots(positions);
 
-    auto robots = robotRecognizer->getRobots();
-    auto ball = robotRecognizer->getBall();
-
-    stateSender->sendState(robots, ball);
+    signalRobotsNewPositions.emit(robotRecognizer->getRobots(), robotRecognizer->getBall());
 }
 
 std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition() {
