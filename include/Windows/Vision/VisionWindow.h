@@ -26,8 +26,8 @@
 #include <Interfaces/IColorRecognizer.h>
 
 #include <interface.h>
-#include <Ball.h>
-#include <Robot.h>
+#include <Domain/Ball.h>
+#include <Domain/Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
 #include <RobotRecognizer.h>
 #include <StateSenderAdapter.h>

@@ -6,7 +6,7 @@
 #define VSS_VISION_IROBOTRECOGNIZER_H
 
 #include <vector>
-#include <Robot.h>
+#include <Domain/Robot.h>
 #include <Domain/WhoseName.h>
 #include <map>
 #include "ColorPosition.h"

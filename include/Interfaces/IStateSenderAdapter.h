@@ -5,9 +5,9 @@
 #ifndef VSS_VISION_ISENDCOMMANDADAPTER_H
 #define VSS_VISION_ISENDCOMMANDADAPTER_H
 
-#include <Robot.h>
+#include <Domain/Robot.h>
 #include <vector>
-#include <Ball.h>
+#include <Domain/Ball.h>
 
 class IStateSenderAdapter {
 
