@@ -41,7 +41,7 @@ void MenuWindow::builderWidget(){
   auto builder = Gtk::Builder::create();
 
   try {
-    builder->add_from_file("../glade/Menu.glade");
+    builder->add_from_file(defaultFilesPath + "/glade/Menu.glade");
 
     builder->get_widget("window", window);
 

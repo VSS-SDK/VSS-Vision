@@ -11,8 +11,8 @@ pkg_check_modules(GTKMM REQUIRED gtkmm-2.4)
 find_package( OpenCV REQUIRED )
 
 include_directories(${PROTOBUF_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${GTKMM_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
-include_directories(src src/Helper src/Domain src/Repositories src/Core src/Builders src/Windows src/Windows/Calibration src/Windows/Menu src/Windows/Vision)
-include_directories(include include/Interfaces include/Domain include/Repositories include/Core include/Builders include/Windows include/Windows/Calibration include/Windows/Menu include/Windows/Vision)
+include_directories(src src/Helpers src/Domain src/Repositories src/Core src/Builders src/Windows src/Windows/Calibration src/Windows/Menu src/Windows/Vision)
+include_directories(include include/Helpers include/Interfaces include/Domain include/Repositories include/Core include/Builders include/Windows include/Windows/Calibration include/Windows/Menu include/Windows/Vision)
 
 set (VSS_CORE /usr/lib/libvss-core.so)
 link_libraries(${GTKMM_LIBRARIES})
@@ -29,6 +29,13 @@ ADD_EXECUTABLE(vss-vision src/main.cpp)
 TARGET_LINK_LIBRARIES(vss-vision vss-vision-core)
 
 SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11 -pthread")
+
+SET(VSS_FILES_FOLDER $ENV{HOME}/.vss-files)
+
+# copying vss-vision files to ~/.vss-files
+FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/glade/ DESTINATION ${VSS_FILES_FOLDER}/glade)
+FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/mock/ DESTINATION ${VSS_FILES_FOLDER}/mock)
+FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/data/ DESTINATION ${VSS_FILES_FOLDER}/data)
 
 IF(RELEASE)
     SET(CMAKE_CXX_FLAGS "-Wall -Werror -o2 -std=c++11 -pthread")

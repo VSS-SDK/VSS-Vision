@@ -55,7 +55,7 @@ void VisionWindow::windowThreadWrapper() {
 }
 
 void VisionWindow::initializeWidget() {
-    screenImage->set_image(cv::imread("../mock/images/model.jpg"));
+    screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
 
     // show only .txt files
     auto filterText = fileChooserDialog->get_filter();
@@ -64,7 +64,7 @@ void VisionWindow::initializeWidget() {
     fileChooserDialog->add_filter(*filterText);
 
     // define initial folder for file chooser
-    fileChooserDialog->set_current_folder("../data");
+    fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
 
     window->maximize();
     window->show_all_children();
@@ -75,7 +75,7 @@ void VisionWindow::builderWidget() {
     auto builder = Gtk::Builder::create();
 
     try {
-        builder->add_from_file("../glade/Vision.glade");
+        builder->add_from_file(defaultFilesPath + "/glade/Vision.glade");
 
         builder->get_widget("window", window);
 
