@@ -4,7 +4,7 @@
 [![Trello](https://img.shields.io/badge/Trello-SDK-blue.svg)][vss-sdk-trello]
 [![Slack](https://img.shields.io/badge/Slack-Channel-551a8b.svg)][slack]
 
-O VSS-Vision é um sistema de visão computacional open-source que rastreiar objetos em um
+O VSS-Vision é um sistema de visão computacional open-source que rastreia objetos em um
 campo de futebol. Esse projeto utiliza o [VSS-Core][vss-core] como interface de comunicação.
 
 
