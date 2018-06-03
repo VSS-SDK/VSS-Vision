@@ -65,14 +65,14 @@ void CalibrationWindow::initializeWidget(){
 
   screenImage->set_image(cv::imread("../mock/images/model.jpg"));
 
-  // show only .txt files
-  auto filterText = fileChooserDialog->get_filter();
-  filterText->set_name("Text files");
-  filterText->add_pattern("*.txt");
-  fileChooserDialog->add_filter(*filterText);
+    // show only .txt files
+    auto filterText = fileChooserDialog->get_filter();
+    filterText->set_name("Text files");
+    filterText->add_pattern("*.txt");
+    fileChooserDialog->add_filter(*filterText);
 
-  // define initial folder for file chooser
-  fileChooserDialog->set_current_folder("../data");
+    // define initial folder for file chooser
+    fileChooserDialog->set_current_folder("../data");
 
   window->maximize();
   window->show_all_children();
@@ -94,6 +94,7 @@ void CalibrationWindow::builderWidget(){
     builder->get_widget("button_save_dialog", buttonOpenSaveDialog);
     builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
 
+    builder->get_widget("entry_chooser", entryChooserDialog);
     builder->get_widget("file_chooser_dialog", fileChooserDialog);
 
     scaleHSV.resize(6);
@@ -142,11 +143,11 @@ void CalibrationWindow::setSignals(){
 
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(this, &ICalibrationWindow::onKeyboard), window) , false);
 
-  buttonOpenSaveDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenSaveDialog), fileChooserDialog ));
-  buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenLoadDialog), fileChooserDialog ));
+  buttonOpenSaveDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenSaveDialog), fileChooserDialog, entryChooserDialog ));
+  buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog ));
 
-  buttonSave->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonSave), fileChooserDialog ));
-  buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onButtonLoad), fileChooserDialog, scaleCameraConfig ));
+  buttonSave->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonSave), fileChooserDialog, entryChooserDialog ));
+  buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onButtonLoad), fileChooserDialog, entryChooserDialog, scaleCameraConfig ));
 
   scaleHSV[H_MAX]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleHMAX), scaleHSV[H_MAX]));
   scaleHSV[H_MIN]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleHMIN), scaleHSV[H_MIN]));
@@ -168,6 +169,8 @@ void CalibrationWindow::setSignals(){
   
   toggleButtonCutMode->signal_pressed().connect(sigc::bind<Gtk::ToggleButton*>(sigc::mem_fun(this, &ICalibrationWindow::onToggleButtonCutMode), toggleButtonCutMode));
   buttonRestoreCut->signal_pressed().connect(sigc::mem_fun(this, &ICalibrationWindow::onButtonRestoreCut));
+
+  fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog ));
 
   comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectPath), comboBoxPath));
   comboBoxColor->signal_changed().connect(sigc::bind<Gtk::ComboBox*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectColor), comboBoxColor, scaleHSV));

@@ -240,7 +240,7 @@
                           <object class="GtkLabel" id="label_position_robot_1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -253,7 +253,7 @@
                           <object class="GtkLabel" id="label_position_robot_2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -266,7 +266,7 @@
                           <object class="GtkLabel" id="label_position_robot_3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -279,7 +279,7 @@
                           <object class="GtkLabel" id="label_position_robot_4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -292,7 +292,7 @@
                           <object class="GtkLabel" id="label_position_robot_5">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -305,7 +305,7 @@
                           <object class="GtkLabel" id="label_position_opponent_1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -318,7 +318,7 @@
                           <object class="GtkLabel" id="label_position_opponent_2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -331,7 +331,7 @@
                           <object class="GtkLabel" id="label_position_opponent_3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -344,7 +344,7 @@
                           <object class="GtkLabel" id="label_position_opponent_4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -357,7 +357,7 @@
                           <object class="GtkLabel" id="label_position_opponent_5">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -370,7 +370,7 @@
                           <object class="GtkLabel" id="label_position_bal">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>

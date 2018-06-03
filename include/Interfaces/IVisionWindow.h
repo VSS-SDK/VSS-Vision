@@ -10,6 +10,8 @@
 #define I_VISION_WINDOW_H_
 
 #include "gtkmm.h"
+#include "Domain/Robot.h"
+#include "Domain/Ball.h"
 
 class IVisionWindow {
 public:
@@ -34,5 +36,6 @@ public:
     virtual void onComboBoxSelectColorRobot4(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorRobot5(Gtk::ComboBox*) = 0;
 
+    virtual void onRobotsNewPositions(std::vector<vss::Robot>, vss::Ball) = 0;
 };
 #endif

@@ -26,10 +26,11 @@
 #include <Interfaces/IColorRecognizer.h>
 
 #include <interface.h>
-#include <Ball.h>
-#include <Robot.h>
+#include <Domain/Ball.h>
+#include <Domain/Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
 #include <RobotRecognizer.h>
+#include <StateSenderAdapter.h>
 #include "GImage.h"
 #include "IVisionWindow.h"
 #include "opencv2/highgui/highgui.hpp"
@@ -74,10 +75,11 @@ public:
 
     void onComboBoxSelectColorRobot5(Gtk::ComboBox *) override;
 
+    void onRobotsNewPositions(std::vector<vss::Robot>, vss::Ball) override;
+
 private:
 
-    Interface interface;
-    vss_state::Global_State global_state;
+    IStateSenderAdapter* stateSender;
 
     // Threads
     std::thread *threadCameraReader;
@@ -85,6 +87,8 @@ private:
 
     // Comunication between threads
     Glib::Dispatcher signal_set_new_frame;
+
+    sigc::signal <void, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
 
     // Classes
     IImageInputReader *inputReader;
@@ -115,6 +119,20 @@ private:
     Gtk::ComboBox *comboBoxColorRobot3 = nullptr;
     Gtk::ComboBox *comboBoxColorRobot4 = nullptr;
     Gtk::ComboBox *comboBoxColorRobot5 = nullptr;
+
+    Gtk::Label *labelPositionBall = nullptr;
+
+    Gtk::Label *labelPositionRobot1 = nullptr;
+    Gtk::Label *labelPositionRobot2 = nullptr;
+    Gtk::Label *labelPositionRobot3 = nullptr;
+    Gtk::Label *labelPositionRobot4 = nullptr;
+    Gtk::Label *labelPositionRobot5 = nullptr;
+
+    Gtk::Label *labelPositionOpponent1 = nullptr;
+    Gtk::Label *labelPositionOpponent2 = nullptr;
+    Gtk::Label *labelPositionOpponent3 = nullptr;
+    Gtk::Label *labelPositionOpponent4 = nullptr;
+    Gtk::Label *labelPositionOpponent5 = nullptr;
 
     Gtk::Button *buttonLoad = nullptr;
     Gtk::Button *buttonPlay = nullptr;
@@ -147,9 +165,6 @@ private:
     void receiveNewFrame(cv::Mat);
 
     std::map<WhoseName, ColorPosition> getColorPosition();
-
-    // Send state
-    void sendState(std::vector<vss::Robot>, vss::Ball);
 
 };
 

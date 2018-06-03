@@ -21,11 +21,11 @@ VisionWindow::VisionWindow() {
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
 
-    interface.createSocketSendState(&global_state);
+    stateSender = new StateSenderAdapter();
+    stateSender->createSocket();
 }
 
-VisionWindow::~VisionWindow() {
-}
+VisionWindow::~VisionWindow() = default;
 
 int VisionWindow::run(int argc, char *argv[]) {
 
@@ -100,6 +100,20 @@ void VisionWindow::builderWidget() {
         builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
         builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
 
+        builder->get_widget("label_position_bal", labelPositionBall);
+
+        builder->get_widget("label_position_robot_1", labelPositionRobot1);
+        builder->get_widget("label_position_robot_2", labelPositionRobot2);
+        builder->get_widget("label_position_robot_3", labelPositionRobot3);
+        builder->get_widget("label_position_robot_4", labelPositionRobot4);
+        builder->get_widget("label_position_robot_5", labelPositionRobot5);
+
+        builder->get_widget("label_position_opponent_1", labelPositionOpponent1);
+        builder->get_widget("label_position_opponent_2", labelPositionOpponent2);
+        builder->get_widget("label_position_opponent_3", labelPositionOpponent3);
+        builder->get_widget("label_position_opponent_4", labelPositionOpponent4);
+        builder->get_widget("label_position_opponent_5", labelPositionOpponent5);
+
     } catch (const Glib::FileError &ex) {
         std::cerr << "FileError: " << ex.what() << std::endl;
 
@@ -116,6 +130,8 @@ void VisionWindow::setSignals() {
     signal_set_new_frame.connect(sigc::mem_fun(this, &VisionWindow::setNewFrame));
 
     inputReader->signal_new_frame.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
+
+    signalRobotsNewPositions.connect(sigc::mem_fun(this, &VisionWindow::onRobotsNewPositions));
 
     window->signal_key_press_event().connect(
             sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);

@@ -1,6 +1,5 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
-
-OPTION(TESTS "build tests" OFF)
+set(CMAKE_BUILD_TYPE Release)
 
 PROJECT(vss-vision)
 
@@ -23,47 +22,50 @@ include_directories(usr/local/include)
 file(GLOB_RECURSE SRC src/*.cpp)
 file(GLOB_RECURSE INCLUDE include/*.h)
 
-ADD_LIBRARY(core ${SRC} ${INCLUDE})
-ADD_EXECUTABLE(vss-vision src/main.cpp)
+ADD_LIBRARY(vss-vision-core ${SRC} ${INCLUDE})
+TARGET_LINK_LIBRARIES(vss-vision-core LINK_PUBLIC ${VSS_CORE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES})
 
-TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC core ${VSS_CORE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES})
-#TARGET_LINK_LIBRARIES(vss-vision LINK_PUBLIC ${Boost_LIBRARIES} core)
+ADD_EXECUTABLE(vss-vision src/main.cpp)
+TARGET_LINK_LIBRARIES(vss-vision vss-vision-core)
 
 SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11 -pthread")
 
-if(TESTS)
+IF(RELEASE)
+    SET(CMAKE_CXX_FLAGS "-Wall -Werror -o2 -std=c++11 -pthread")
+
+    INCLUDE(CPack)
+
+    INSTALL(TARGETS vss-vision DESTINATION bin)
+
+    SET(CPACK_GENERATOR "DEB")
+    SET(CPACK_DEBIAN_PACKAGE_NAME "vss-vision")
+    SET(CPACK_DEBIAN_PACKAGE_DESCRIPTION "A Computer Vision System made for Recognize and tracking robots and ball of competition of Robot Soccer IEEE Very Small Size")
+    SET(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://sirlab.github.io/VSS-SDK/")
+    SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "all")
+    SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Johnathan Fercher")
+    SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+ELSE()
+    INCLUDE_DIRECTORIES(third-party)
 
     enable_testing()
 
-    # Process the CMakeLists.txt in third-party/googletest, sets project(gtest) and
-    # project(gmock), gives access to ${gtest_SOURCE_DIR} and ${gmock_SOURCE_DIR}.
     add_subdirectory(third-party/googletest)
 
     include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
     include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
 
-    # Tests. *-test.cpp should be added here.
-    add_executable(tests
-            test/Core/StringHelperTests.cpp test/MainTests.cpp test/CameraReaderTests.cpp test/Builders/CalibrationBuilderTests.cpp test/Repositories/CalibrationRepositoryTests.cpp test/ColorRecognizerTests.cpp)
+    file(GLOB_RECURSE TEST test/*.cpp)
 
-    # Link core, pthread and gtest to tests.
+    ADD_EXECUTABLE(tests ${TEST})
+
     target_link_libraries(tests
             pthread
             gtest
             gtest_main
-            core
+            vss-vision-core
             ${OpenCV_LIBS})
 
-endif()
+    SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11 -pthread")
+ENDIF()
 
-INSTALL(TARGETS vss-vision DESTINATION bin)
 
-SET(CPACK_GENERATOR "DEB")
-SET(CPACK_DEBIAN_PACKAGE_NAME "vss-vision")
-SET(CPACK_DEBIAN_PACKAGE_DESCRIPTION "A Computer Vision System made for Recognize and tracking robots and ball of competition of Robot Soccer IEEE Very Small Size")
-SET(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://sirlab.github.io/VSS-SDK/")
-SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "all")
-SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Johnathan Fercher")
-SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-
-INCLUDE(CPack)
