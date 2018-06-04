@@ -49,9 +49,9 @@ public:
 
     void onButtonPlay() override;
 
-    void onButtonLoad(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+    void onButtonLoad(Gtk::FileChooserDialog *) override;
 
-    void onButtonOpenLoadDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+    void onButtonOpenLoadDialog(Gtk::FileChooserDialog *) override;
 
     void onRadioButtonImage(Gtk::RadioButton *) override;
 
@@ -76,8 +76,6 @@ public:
     void onComboBoxSelectColorRobot5(Gtk::ComboBox *) override;
 
     void onRobotsNewPositions(std::vector<vss::Robot>, vss::Ball) override;
-
-    void onSignalSelectFileInDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
 
 private:
 
@@ -141,8 +139,6 @@ private:
 
     // GTKMM - File Chooser Window
     Gtk::FileChooserDialog *fileChooserDialog = nullptr;
-
-    Gtk::Entry *entryChooserDialog = nullptr;
 
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 

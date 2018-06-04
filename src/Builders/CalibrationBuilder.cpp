@@ -27,6 +27,8 @@ Calibration CalibrationBuilder::getInstance() {
   if(haveToInitializeCuts)
     calibration->cut = getCuts();
 
+  calibration->shouldCropImage = false;
+
   return calibration;
 }
 

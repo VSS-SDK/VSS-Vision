@@ -24,18 +24,23 @@ bool CalibrationWindow::onKeyboard(GdkEventKey* event, Gtk::Window* window){
 
 void CalibrationWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
   entry->set_sensitive(true);
+  buttonLoad->set_visible(false);
+  buttonSave->set_visible(true);
   fileChooser->show();
 }
 
 void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
   entry->set_sensitive(false);
+    buttonLoad->set_visible(true);
+    buttonSave->set_visible(false);
   fileChooser->show();
 }
 
 void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-  if (entry->get_text_length() > 0){
+  string filename = entry->get_text();
+  if (not filename.empty()){
     std::stringstream aux;
-    aux << fileChooser->get_current_folder() << "/" << entry->get_text();
+    aux << fileChooser->get_current_folder() << "/" << filename;
     calibrationRepository->create(aux.str(), calibration);
     fileChooser->hide();
   }

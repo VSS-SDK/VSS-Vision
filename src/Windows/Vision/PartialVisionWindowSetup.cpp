@@ -57,6 +57,15 @@ void VisionWindow::windowThreadWrapper() {
 void VisionWindow::initializeWidget() {
     screenImage->set_image(cv::imread("../mock/images/model.jpg"));
 
+    // show only .txt files
+    auto filterText = fileChooserDialog->get_filter();
+    filterText->set_name("Text files");
+    filterText->add_pattern("*.txt");
+    fileChooserDialog->add_filter(*filterText);
+
+    // define initial folder for file chooser
+    fileChooserDialog->set_current_folder("../data");
+
     window->maximize();
     window->show_all_children();
 }
@@ -76,7 +85,6 @@ void VisionWindow::builderWidget() {
         builder->get_widget("button_load_calibration", buttonLoad);
         builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
 
-        builder->get_widget("entry_chooser", entryChooserDialog);
         builder->get_widget("file_chooser_dialog", fileChooserDialog);
 
         builder->get_widget("radiobutton_image", radioButtonImage);
@@ -130,13 +138,11 @@ void VisionWindow::setSignals() {
 
     buttonPlay->signal_clicked().connect(sigc::mem_fun(this, &IVisionWindow::onButtonPlay));
     buttonLoad->signal_clicked().connect(
-            sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad),
-                                                               fileChooserDialog, entryChooserDialog));
-    buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
-            sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog));
+            sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad),
+                                                               fileChooserDialog));
 
-    fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
-            sigc::mem_fun(this, &IVisionWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog));
+    buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(
+            sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog));
 
     radioButtonImage->signal_pressed().connect(
             sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonImage), radioButtonImage));
