@@ -11,6 +11,7 @@
 
 #include "GImage.h"
 #include "ICalibrationWindow.h"
+#include "DefaultFilesPath.h"
 #include "opencv2/highgui/highgui.hpp"
 #include <gtkmm.h>
 #include <iostream>

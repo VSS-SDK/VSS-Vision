@@ -13,6 +13,7 @@
 #include <gtkmm.h>
 #include <iostream>
 
+#include "DefaultFilesPath.h"
 #include <CameraReader.h>
 #include <ColorRecognizer.h>
 #include <ImageFileReader.h>

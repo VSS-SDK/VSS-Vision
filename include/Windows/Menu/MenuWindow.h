@@ -12,6 +12,7 @@
 #include <gtkmm.h>
 #include <iostream>
 #include <thread>
+#include "DefaultFilesPath.h"
 #include "IMenuWindow.h"
 #include <Domain/ProgramState.h>
 
