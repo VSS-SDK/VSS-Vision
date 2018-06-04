@@ -25,7 +25,8 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> robots, vss::Bal
     //@TODO: adaptar para permitir mais de 3 robos
 
     // send positions
-    stateSender->sendState(robots, ball);
+    if(playing)
+        stateSender->sendState(robots, ball);
 
     // update positions label with new positions
     stringstream ss;
@@ -58,8 +59,13 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> robots, vss::Bal
 
 }
 
-void VisionWindow::onButtonPlay() {
+void VisionWindow::onButtonPlay(Gtk::ToggleButton * toggleButton) {
+    if(toggleButton->get_active())
+        toggleButton->set_label("Pause");
+    else
+        toggleButton->set_label("Play");
 
+    playing = !playing;
 }
 
 void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {

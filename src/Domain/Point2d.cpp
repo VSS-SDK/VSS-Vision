@@ -20,6 +20,6 @@ Point2d::Point2d(Point2d *point2d) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Point2d &point2d) {
-  os << "Point2d(" << point2d.x << ", " << point2d.y << ")" << std::endl;
+  os << "Point2d(" << point2d.x << ", " << point2d.y << ")";
   return os;
 }

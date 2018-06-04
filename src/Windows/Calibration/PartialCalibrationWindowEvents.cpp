@@ -140,7 +140,10 @@ void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
     calibration.cut[0] = Point2d(screenImage->get_cut_point_1().x, screenImage->get_cut_point_1().y);
     calibration.cut[1] = Point2d(screenImage->get_cut_point_2().x, screenImage->get_cut_point_2().y);
 
-    calibration.shouldCropImage = true;
+    if(calibration.cut[1].x != 0 and calibration.cut[1].y != 0)
+        calibration.shouldCropImage = true;
+    else
+        calibration.shouldCropImage = false;
   }
 }
 
