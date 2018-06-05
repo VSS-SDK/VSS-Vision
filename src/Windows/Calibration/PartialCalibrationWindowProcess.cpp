@@ -21,17 +21,10 @@ void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
 }
 
 void CalibrationWindow::processFrame() {
-  cv::warpAffine(frame, frame, cv::getRotationMatrix2D(cv::Point2f(frame.cols/2, frame.rows/2), calibration.rotation, 1.0), frame.size());
+  changeRotation(frame, calibration.rotation);
 
   if(calibration.shouldCropImage) {
-      cv::Rect rect = cv::Rect(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y),
-              cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
-
-      try{
-          frame = frame(rect);
-      } catch (std::exception& e){
-          cout << "Exception cropping image" << endl;
-      }
+      cropImage(frame, calibration.cut[0], calibration.cut[1]);
   }
 
   colorRecognizer->processImage(frame);

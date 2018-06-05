@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "Core/StringHelper.h"
+#include "Helpers/StringHelper.h"
 
 TEST(explode, WhenReceiveContentWithRightDelimiter_ShouldReturnTheRightNumberOfContents){
   EXPECT_EQ(2, explode("Teste1#Teste2", '#').size());

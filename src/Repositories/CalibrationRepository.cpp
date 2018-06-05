@@ -6,7 +6,7 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include <Core/StringHelper.h>
+#include <Helpers/StringHelper.h>
 #include "CalibrationRepository.h"
 
 Calibration CalibrationRepository::read(std::string pathName){
