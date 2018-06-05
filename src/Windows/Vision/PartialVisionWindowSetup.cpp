@@ -23,6 +23,8 @@ VisionWindow::VisionWindow() {
 
     stateSender = new StateSenderAdapter();
     stateSender->createSocket();
+
+    playing = true;
 }
 
 VisionWindow::~VisionWindow() = default;
@@ -81,7 +83,7 @@ void VisionWindow::builderWidget() {
 
         builder->get_widget_derived("drawingarea_frame", screenImage);
 
-        builder->get_widget("button_play", buttonPlay);
+        builder->get_widget("togglebutton_play", buttonPlay);
         builder->get_widget("button_load_calibration", buttonLoad);
         builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
 
@@ -136,7 +138,9 @@ void VisionWindow::setSignals() {
     window->signal_key_press_event().connect(
             sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);
 
-    buttonPlay->signal_clicked().connect(sigc::mem_fun(this, &IVisionWindow::onButtonPlay));
+    buttonPlay->signal_clicked().connect(sigc::bind<Gtk::ToggleButton *>(
+            sigc::mem_fun(this, &IVisionWindow::onButtonPlay), buttonPlay));
+
     buttonLoad->signal_clicked().connect(
             sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad),
                                                                fileChooserDialog));

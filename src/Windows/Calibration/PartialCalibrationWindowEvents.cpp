@@ -137,18 +137,21 @@ void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
   
   if (toggleButton->get_active()) {
     calibration.cut.resize(2);
-    calibration.cut[0] = Point2d(screenImage->get_cut_point_1().x, screenImage->get_cut_point_1().y);
-    calibration.cut[1] = Point2d(screenImage->get_cut_point_2().x, screenImage->get_cut_point_2().y);
+    calibration.cut[0] = vss::Point(screenImage->get_cut_point_1().x, screenImage->get_cut_point_1().y);
+    calibration.cut[1] = vss::Point(screenImage->get_cut_point_2().x, screenImage->get_cut_point_2().y);
 
-    calibration.shouldCropImage = true;
+    if(calibration.cut[1].x != 0 and calibration.cut[1].y != 0)
+        calibration.shouldCropImage = true;
+    else
+        calibration.shouldCropImage = false;
   }
 }
 
 void CalibrationWindow::onButtonRestoreCut() {
     calibration.shouldCropImage = false;
 
-    calibration.cut[0] = Point2d(0,0);
-    calibration.cut[1] = Point2d(0,0);
+    calibration.cut[0] = vss::Point(0,0);
+    calibration.cut[1] = vss::Point(0,0);
 
     screenImage->set_cut_point_1(cv::Point(0,0));
     screenImage->set_cut_point_2(cv::Point(0,0));

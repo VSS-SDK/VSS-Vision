@@ -18,14 +18,14 @@
 #include <ColorRecognizer.h>
 #include <ImageFileReader.h>
 #include <Domain/ProgramState.h>
-#include <Interfaces/IImageInputReader.h>
 #include <Domain/WhoseName.h>
 #include <Domain/ColorType.h>
 #include <Domain/ColorPosition.h>
+#include <Interfaces/IImageInputReader.h>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IColorRecognizer.h>
-
+#include <Helpers/FrameHelper.h>
 #include <interface.h>
 #include <Domain/Ball.h>
 #include <Domain/Robot.h>
@@ -48,7 +48,7 @@ public:
 
     bool onKeyboard(GdkEventKey *, Gtk::Window *) override;
 
-    void onButtonPlay() override;
+    void onButtonPlay(Gtk::ToggleButton *) override;
 
     void onButtonLoad(Gtk::FileChooserDialog *) override;
 
@@ -100,6 +100,8 @@ private:
 
     Calibration calibration;
 
+    bool playing;
+
     // Opencv image
     cv::Mat frame;
 
@@ -136,7 +138,7 @@ private:
     Gtk::Label *labelPositionOpponent5 = nullptr;
 
     Gtk::Button *buttonLoad = nullptr;
-    Gtk::Button *buttonPlay = nullptr;
+    Gtk::ToggleButton *buttonPlay = nullptr;
 
     // GTKMM - File Chooser Window
     Gtk::FileChooserDialog *fileChooserDialog = nullptr;

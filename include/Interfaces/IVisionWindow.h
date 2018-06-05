@@ -19,7 +19,7 @@ public:
 
     virtual bool onKeyboard(GdkEventKey*, Gtk::Window*) = 0;
 
-    virtual void onButtonPlay() = 0;    
+    virtual void onButtonPlay(Gtk::ToggleButton *) = 0;
     virtual void onButtonLoad(Gtk::FileChooserDialog*) = 0;
 	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*) = 0;
 

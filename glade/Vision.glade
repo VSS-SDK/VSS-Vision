@@ -838,11 +838,13 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton" id="button_play">
-                            <property name="label" translatable="yes">Play</property>
+                          <object class="GtkToggleButton" id="togglebutton_play">
+                            <property name="label" translatable="yes">Pause</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="focus_on_click">False</property>
+                            <property name="active">True</property>
                           </object>
                           <packing>
                             <property name="top_attach">1</property>

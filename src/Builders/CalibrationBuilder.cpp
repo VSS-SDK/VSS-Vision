@@ -64,11 +64,11 @@ std::vector<ColorRange> CalibrationBuilder::getColorsRange() {
   return colorsRange;
 }
 
-std::vector<Point2d> CalibrationBuilder::getCuts() {
-  std::vector<Point2d> cuts;
+std::vector<vss::Point> CalibrationBuilder::getCuts() {
+  std::vector<vss::Point> cuts;
 
-  cuts.push_back(Point2d(0,0));
-  cuts.push_back(Point2d(0,0));
+  cuts.push_back(vss::Point(0,0));
+  cuts.push_back(vss::Point(0,0));
 
   return cuts;
 }

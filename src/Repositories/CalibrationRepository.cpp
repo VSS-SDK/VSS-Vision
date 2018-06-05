@@ -6,7 +6,7 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include <Core/StringHelper.h>
+#include <Helpers/StringHelper.h>
 #include "CalibrationRepository.h"
 
 Calibration CalibrationRepository::read(std::string pathName){
@@ -191,11 +191,11 @@ void CalibrationRepository::setCalibrationCut(Calibration &calibration, std::ifs
 
   std::getline(file, line);
   auto cutValuesBottom = explode(line, ' ');
-  calibration.cut.push_back(new Point2d(stof(cutValuesBottom.at(0)), stof(cutValuesBottom.at(1))));
+  calibration.cut.push_back(vss::Point(stof(cutValuesBottom.at(0)), stof(cutValuesBottom.at(1))));
 
   std::getline(file, line);
   auto cutValuesTop = explode(line, ' ');
-  calibration.cut.push_back(new Point2d(stof(cutValuesTop.at(0)), stof(cutValuesTop.at(1))));
+  calibration.cut.push_back(vss::Point(stof(cutValuesTop.at(0)), stof(cutValuesTop.at(1))));
 
   if(calibration.cut.at(1).x != 0 and calibration.cut.at(1).y != 0) calibration.shouldCropImage = true;
   else calibration.shouldCropImage = false;

@@ -21,6 +21,7 @@
 #include <Interfaces/IImageInputReader.h>
 #include <Interfaces/IColorRecognizer.h>
 #include <Domain/ProgramState.h>
+#include <Helpers/FrameHelper.h>
 
 using namespace std;
 
