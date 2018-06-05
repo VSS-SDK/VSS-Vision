@@ -6,12 +6,6 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include <Repositories/CalibrationRepository.h>
-#include <Builders/CalibrationBuilder.h>
-#include <CameraReader.h>
-#include <ImageFileReader.h>
-#include <ColorRecognizer.h>
-#include <Domain/ColorSpace.h>
 #include <Windows/Calibration/CalibrationWindow.h>
 
 CalibrationWindow::CalibrationWindow() {
@@ -45,10 +39,10 @@ int CalibrationWindow::run(int argc, char *argv[]){
 }
 
 void CalibrationWindow::cameraThreadWrapper() {
-  auto path = inputReader->getAllPossibleSources();
-  inputReader->setSource(path.at(0));
-  inputReader->start();
-  inputReader->initializeReceivement();
+    configureInputReceivement(inputReader);
+
+    while(true)
+        inputReader->initializeReceivement();
 }
 
 void CalibrationWindow::windowThreadWrapper() {
@@ -77,6 +71,15 @@ void CalibrationWindow::initializeWidget(){
   window->maximize();
   window->show_all_children();
 }
+
+void CalibrationWindow::configureInputReceivement(IInputReader* input){
+    input->signal_new_frame.connect(sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame));
+
+    auto path = input->getAllPossibleSources();
+    input->setSource(path.at(0));
+    input->start();
+}
+
 
 void CalibrationWindow::builderWidget(){
 

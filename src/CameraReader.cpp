@@ -71,7 +71,6 @@ void CameraReader::start() {
 }
 
 void CameraReader::close() {
-    std::cout << "CLOSE MIZERAVEL" << std::endl;
     this->shouldCloseReader = true;
 }
 

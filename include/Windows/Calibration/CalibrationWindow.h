@@ -11,7 +11,6 @@
 
 #include "GImage.h"
 #include "ICalibrationWindow.h"
-#include "DefaultFilesPath.h"
 #include "opencv2/highgui/highgui.hpp"
 #include <gtkmm.h>
 #include <iostream>
@@ -21,7 +20,14 @@
 #include <Interfaces/IInputReader.h>
 #include <Interfaces/IColorRecognizer.h>
 #include <Domain/ProgramState.h>
+#include <Domain/ColorSpace.h>
 #include <Helpers/FrameHelper.h>
+#include <Helpers/DefaultFilesPath.h>
+#include <Repositories/CalibrationRepository.h>
+#include <Builders/CalibrationBuilder.h>
+#include <ImageFileReader.h>
+#include <CameraReader.h>
+#include <ColorRecognizer.h>
 
 using namespace std;
 
@@ -123,8 +129,9 @@ private:
 	void initializeWidget();
 	void setSignals();
 	void builderWidget();
+	void configureInputReceivement(IInputReader*);
 
-    void windowThreadWrapper();
+	void windowThreadWrapper();
 	void cameraThreadWrapper();
 
 	// Update frame
