@@ -13,7 +13,7 @@
 #include "vector"
 
 #include "ColorRange.h"
-#include "Point2d.h"
+#include "Domain/Point.h"
 
 class Calibration {
 public:
@@ -25,7 +25,7 @@ public:
 	float gain;
 
 	std::vector<ColorRange> colorsRange;
-	std::vector<Point2d> cut;
+	std::vector<vss::Point> cut;
 
 	bool shouldCropImage;
 
