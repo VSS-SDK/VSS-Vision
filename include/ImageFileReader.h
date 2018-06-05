@@ -5,11 +5,11 @@
 #ifndef VSS_VISION_IMAGEFILEREADER_H
 #define VSS_VISION_IMAGEFILEREADER_H
 
-#include <Interfaces/IImageInputReader.h>
+#include <Interfaces/IInputReader.h>
 #include <opencv2/opencv.hpp>
 //#include <opencv2/imgcodecs.hpp> //imread ubuntu 18.04
 
-class ImageFileReader : public IImageInputReader{
+class ImageFileReader : public IInputReader{
 public:
     ImageFileReader();
     void initializeReceivement() override;

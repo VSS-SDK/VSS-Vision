@@ -18,7 +18,7 @@
 #include <thread>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
-#include <Interfaces/IImageInputReader.h>
+#include <Interfaces/IInputReader.h>
 #include <Interfaces/IColorRecognizer.h>
 #include <Domain/ProgramState.h>
 #include <Helpers/FrameHelper.h>
@@ -76,7 +76,7 @@ private:
 	Glib::Dispatcher signal_set_new_frame;
 
 	// Classes
-	IImageInputReader *inputReader;
+	IInputReader *inputReader;
 	IColorRecognizer *colorRecognizer;
 	ICalibrationBuilder *calibrationBuilder;
     ICalibrationBuilder *calibrationBuilderFromRepository;

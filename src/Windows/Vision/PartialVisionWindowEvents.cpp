@@ -85,8 +85,10 @@ void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
-//    if (!radioButton->get_active())
-//        std::cout << "Image: " << radioButton->get_active() << std::endl;
+    inputReader->close();
+
+    inputReader = new ImageFileReader();
+    configureInputReceivement(inputReader);
 }
 
 void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
@@ -95,8 +97,10 @@ void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
 }
 
 void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
-//    if (!radioButton->get_active())
-//        std::cout << "Camera: " << radioButton->get_active() << std::endl;
+    inputReader->close();
+
+    inputReader = new CameraReader();
+    configureInputReceivement(inputReader);
 }
 
 void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {

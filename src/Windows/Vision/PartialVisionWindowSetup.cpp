@@ -41,10 +41,11 @@ int VisionWindow::run(int argc, char *argv[]) {
 }
 
 void VisionWindow::cameraThreadWrapper() {
-    auto path = inputReader->getAllPossibleSources();
-    inputReader->setSource(path.at(0));
-    inputReader->start();
-    inputReader->initializeReceivement();
+    configureInputReceivement(inputReader);
+
+    while(true) {
+        inputReader->initializeReceivement();
+    }
 }
 
 void VisionWindow::windowThreadWrapper() {
@@ -54,6 +55,14 @@ void VisionWindow::windowThreadWrapper() {
     initializeWhoseColor();
 
     Gtk::Main::run(*window);
+}
+
+void VisionWindow::configureInputReceivement(IInputReader* input){
+    input->signal_new_frame.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
+
+    auto path = input->getAllPossibleSources();
+    input->setSource(path.at(0));
+    input->start();
 }
 
 void VisionWindow::initializeWidget() {

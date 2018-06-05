@@ -41,6 +41,8 @@ void CameraReader::initializeReceivement() {
       usleep(1000000);
     }
   }
+
+    capture.release();
 }
 
 void CameraReader::setSource(std::string actualCameraIndex) {
@@ -69,7 +71,8 @@ void CameraReader::start() {
 }
 
 void CameraReader::close() {
-  this->shouldCloseReader = true;
+    std::cout << "CLOSE MIZERAVEL" << std::endl;
+    this->shouldCloseReader = true;
 }
 
 void CameraReader::setBrightness(float value) {

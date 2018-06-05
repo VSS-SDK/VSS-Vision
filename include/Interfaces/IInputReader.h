@@ -9,7 +9,7 @@
 #include <cxcore.h>
 #include <sigc++/sigc++.h>
 
-class IImageInputReader{
+class IInputReader{
 public:
     virtual void initializeReceivement() = 0;
     virtual std::vector<std::string> getAllPossibleSources() = 0;
