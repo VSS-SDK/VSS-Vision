@@ -92,6 +92,8 @@ private:
     ColorRange *actualColorRange;
 	unsigned int actualColorRangeIndex;
 
+	bool shouldReadInput;
+
 	// Opencv image
 	cv::Mat frame;
 

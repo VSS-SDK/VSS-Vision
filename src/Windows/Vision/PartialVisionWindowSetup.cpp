@@ -25,6 +25,7 @@ VisionWindow::VisionWindow() {
     stateSender->createSocket();
 
     playing = true;
+    shouldReadInput = true;
 }
 
 VisionWindow::~VisionWindow() = default;
@@ -35,6 +36,9 @@ int VisionWindow::run(int argc, char *argv[]) {
     threadCameraReader = new thread(std::bind(&VisionWindow::cameraThreadWrapper, this));
 
     threadWindowControl->join();
+
+    inputReader->close();
+    shouldReadInput = false;
     threadCameraReader->detach();
 
     return MENU;
@@ -43,7 +47,7 @@ int VisionWindow::run(int argc, char *argv[]) {
 void VisionWindow::cameraThreadWrapper() {
     configureInputReceivement(inputReader);
 
-    while(true) {
+    while(shouldReadInput) {
         inputReader->initializeReceivement();
     }
 }

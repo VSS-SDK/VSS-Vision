@@ -23,6 +23,8 @@ CalibrationWindow::CalibrationWindow() {
   colorRecognizer = new ColorRecognizer();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
+
+    shouldReadInput = true;
 }
 
 CalibrationWindow::~CalibrationWindow() = default;
@@ -32,8 +34,11 @@ int CalibrationWindow::run(int argc, char *argv[]){
   threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
   threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
 
-  threadWindowControl->join();
-  threadCameraReader->detach();
+    threadWindowControl->join();
+
+    inputReader->close();
+    shouldReadInput = false;
+    threadCameraReader->detach();
 
   return MENU;
 }
@@ -41,8 +46,9 @@ int CalibrationWindow::run(int argc, char *argv[]){
 void CalibrationWindow::cameraThreadWrapper() {
     configureInputReceivement(inputReader);
 
-    while(true)
+    while(shouldReadInput) {
         inputReader->initializeReceivement();
+    }
 }
 
 void CalibrationWindow::windowThreadWrapper() {

@@ -101,6 +101,7 @@ private:
     Calibration calibration;
 
     bool playing;
+    bool shouldReadInput;
 
     // Opencv image
     cv::Mat frame;
