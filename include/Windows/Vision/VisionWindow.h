@@ -12,6 +12,7 @@
 #include <thread>
 #include <gtkmm.h>
 #include <iostream>
+#include <fstream>
 
 #include "DefaultFilesPath.h"
 #include <CameraReader.h>
@@ -31,6 +32,9 @@
 #include <Domain/Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
 #include <RobotRecognizer.h>
+#include <Domain/Game.h>
+#include <Interfaces/IGameBuilder.h>
+#include <Interfaces/IGameRepository.h>
 #include <StateSenderAdapter.h>
 #include "GImage.h"
 #include "IVisionWindow.h"
@@ -53,6 +57,12 @@ public:
     void onButtonLoad(Gtk::FileChooserDialog *) override;
 
     void onButtonOpenLoadDialog(Gtk::FileChooserDialog *) override;
+
+    void onButtonOpenSaveDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+
+    void onButtonLoadGameConfig(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+
+    void onButtonSaveGameConfig(Gtk::FileChooserDialog *, Gtk::Entry *) override;
 
     void onRadioButtonImage(Gtk::RadioButton *) override;
 
@@ -141,12 +151,22 @@ private:
     Gtk::Button *buttonLoad = nullptr;
     Gtk::ToggleButton *buttonPlay = nullptr;
 
+    Gtk::Button *buttonLoadGameConfig = nullptr;
+    Gtk::Button *buttonOpenLoadGameConfigDialog = nullptr;
+    Gtk::Button *buttonSaveGameConfig = nullptr;
+    Gtk::Button *buttonOpenSaveGameConfigDialog = nullptr;
+
     // GTKMM - File Chooser Window
     Gtk::FileChooserDialog *fileChooserDialog = nullptr;
+    Gtk::FileChooserDialog *fileChooserGameConfigDialog = nullptr;
+  
+    Gtk::Entry *entryChooserGameConfigDialog = nullptr;
 
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
-    std::map<ColorType, WhoseName> whoseColor;
+    IGameBuilder *gameBuilder;
+    IGameRepository *gameRepository;
+    Game * game;
 
     // Control method
     void initializeWidget();
@@ -171,6 +191,12 @@ private:
     void receiveNewFrame(cv::Mat);
 
     std::map<WhoseName, ColorPosition> getColorPosition();
+
+    void getComboBoxByColor(std::string);
+
+    void setupWhoseColor(std::string);
+
+    void saveWhoseColor(std::string);
 
 };
 

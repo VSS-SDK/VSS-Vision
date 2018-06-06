@@ -18,10 +18,13 @@ public:
     virtual int run(int argc, char *argv[]) = 0;
 
     virtual bool onKeyboard(GdkEventKey*, Gtk::Window*) = 0;
-
-    virtual void onButtonPlay(Gtk::ToggleButton *) = 0;
+  
+    virtual void onButtonPlay() = 0;    
     virtual void onButtonLoad(Gtk::FileChooserDialog*) = 0;
 	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*) = 0;
+
+	virtual void onButtonLoadGameConfig(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+	virtual void onButtonSaveGameConfig(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
     virtual void onRadioButtonImage(Gtk::RadioButton*) = 0;
     virtual void onRadioButtonVideo(Gtk::RadioButton*) = 0;

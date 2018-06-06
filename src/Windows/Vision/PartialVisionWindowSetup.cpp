@@ -9,6 +9,8 @@
 #include <Windows/Vision/VisionWindow.h>
 #include <Builders/CalibrationBuilder.h>
 #include <Repositories/CalibrationRepository.h>
+#include <Builders/GameBuilder.h>
+#include <Repositories/GameRepository.h>
 
 VisionWindow::VisionWindow() {
 //    inputReader = new CameraReader();
@@ -17,6 +19,11 @@ VisionWindow::VisionWindow() {
     calibrationBuilderFromRepository = new CalibrationBuilder();
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
+
+    gameBuilder = new GameBuilder();
+    gameRepository = new GameRepository(gameBuilder);
+    game = new Game();
+
 
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
@@ -115,6 +122,14 @@ void VisionWindow::builderWidget() {
         builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
         builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
 
+        builder->get_widget("entry_chooser_game_config", entryChooserGameConfigDialog);
+        builder->get_widget("file_chooser_game_config_dialog", fileChooserGameConfigDialog);
+
+        builder->get_widget("button_load_game_config", buttonLoadGameConfig);
+        builder->get_widget("button_load_game_config_dialog", buttonOpenLoadGameConfigDialog);
+        builder->get_widget("button_save_game_config", buttonSaveGameConfig);
+        builder->get_widget("button_save_game_config_dialog", buttonOpenSaveGameConfigDialog);
+
         builder->get_widget("label_position_bal", labelPositionBall);
 
         builder->get_widget("label_position_robot_1", labelPositionRobot1);
@@ -161,6 +176,23 @@ void VisionWindow::setSignals() {
     buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(
             sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog));
 
+    buttonLoadGameConfig->signal_clicked().connect(
+            sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoadGameConfig),
+                                                               fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
+    buttonSaveGameConfig->signal_clicked().connect(
+            sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(sigc::mem_fun(this, &IVisionWindow::onButtonSaveGameConfig),
+                                                               fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
+    buttonOpenLoadGameConfigDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
+            sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
+    buttonOpenSaveGameConfigDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
+            sigc::mem_fun(this, &IVisionWindow::onButtonOpenSaveDialog), fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
+    fileChooserGameConfigDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
+            sigc::mem_fun(this, &IVisionWindow::onSignalSelectFileInDialog), fileChooserGameConfigDialog, entryChooserGameConfigDialog));
+
     radioButtonImage->signal_pressed().connect(
             sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonImage), radioButtonImage));
     radioButtonVideo->signal_pressed().connect(
@@ -195,12 +227,12 @@ void VisionWindow::setSignals() {
 }
 
 void VisionWindow::initializeWhoseColor() {
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Red, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Blue, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Pink, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Green, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Brown, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Yellow, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Ball));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Purple, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Red, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Blue, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Pink, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Green, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Brown, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Yellow, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Ball));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Purple, WhoseName::Unknown));
 }

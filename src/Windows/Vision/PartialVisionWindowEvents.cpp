@@ -7,6 +7,7 @@
  */
 
 #include <Windows/Vision/VisionWindow.h>
+#include <Core/StringHelper.h>
 
 bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
     if (event->keyval == GDK_KEY_space) {
@@ -80,8 +81,29 @@ void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
     }
 }
 
+void VisionWindow::onButtonLoadGameConfig(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    if (entry->get_text_length() > 0){
+        setupWhoseColor(fileChooser->get_filename());
+        fileChooser->hide();
+    }
+}
+
+void VisionWindow::onButtonSaveGameConfig(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    if (entry->get_text_length() > 0){
+        std::stringstream aux;
+        aux << fileChooser->get_current_folder() << "/" << entry->get_text();
+        saveWhoseColor(aux.str());
+        fileChooser->hide();
+    }
+}
+
 void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
     fileChooser->run();
+}
+
+void VisionWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    entry->set_sensitive(true);
+    fileChooser->show();
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
@@ -103,6 +125,7 @@ void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
     configureInputReceivement(inputReader);
 }
 
+
 void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 //  std::cout << combobox->get_active_row_number() << std::endl;
 }
@@ -110,41 +133,62 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Team1;
+    game->whoseColor[colorType] = WhoseName::Team1;
 }
 
 void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Team2;
+    game->whoseColor[colorType] = WhoseName::Team2;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot1;
+    game->whoseColor[colorType] = WhoseName::Robot1;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot2(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot2;
+    game->whoseColor[colorType] = WhoseName::Robot2;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot3(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot3;
+    game->whoseColor[colorType] = WhoseName::Robot3;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot4(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot4;
+    game->whoseColor[colorType] = WhoseName::Robot4;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot5;
+    game->whoseColor[colorType] = WhoseName::Robot5;
 }
+
+void VisionWindow::saveWhoseColor(std::string path) {
+    gameRepository->create(path, *game);
+}
+
+void VisionWindow::setupWhoseColor(std::string path) {
+    std::ifstream ifs (path, std::ifstream::in);
+    std::map <WhoseName, Gtk::ComboBox*> whoseNameToComboBox;
+    whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Team1, comboBoxColorTeam1));
+    whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Team2, comboBoxColorTeam2));
+    whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Robot1, comboBoxColorRobot1));
+    whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Robot2, comboBoxColorRobot2));
+    whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Robot3, comboBoxColorRobot3));
+    whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Robot4, comboBoxColorRobot4));
+    whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Robot5, comboBoxColorRobot5));
+
+    *game = gameRepository->read(path, whoseNameToComboBox);
+    if (game->calibrationPath.length() > 0) {
+        calibration = calibrationRepository->read(game->calibrationPath);
+    }
+};
