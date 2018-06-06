@@ -8,6 +8,7 @@
 #include <ColorRecognizer.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <Domain/ColorSpace.h>
+#include <highgui.h>
 
 void ColorRecognizer::setColorRange(ColorRange colorRange) {
   this->colorRange = colorRange;
@@ -35,10 +36,13 @@ std::vector<cv::Point> ColorRecognizer::getCenters() {
 
 void ColorRecognizer::binarizesImage() {
   cv::Mat processed;
+  cv::Mat processedHSV;
 
-  cv::inRange(originalFrame,
-              cv::Scalar(colorRange.min[V], colorRange.min[S], colorRange.min[H]),
-              cv::Scalar(colorRange.max[V], colorRange.max[S], colorRange.max[H]),
+  cv::cvtColor(originalFrame, processedHSV, cv::COLOR_RGB2HSV_FULL);
+
+  cv::inRange(processedHSV,
+              cv::Scalar(colorRange.min[H], colorRange.min[S], colorRange.min[V]),
+              cv::Scalar(colorRange.max[H], colorRange.max[S], colorRange.max[V]),
               processed);
 
   cv::medianBlur(processed, processed, 3);

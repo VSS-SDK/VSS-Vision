@@ -21,7 +21,7 @@ public:
     bool getHaveToInitializeCuts();
 
     std::vector<ColorRange> getColorsRange();
-    std::vector<Point2d> getCuts();
+    std::vector<vss::Point> getCuts();
 
 private:
     bool haveToInitializeColors;

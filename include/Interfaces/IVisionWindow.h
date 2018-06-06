@@ -10,17 +10,18 @@
 #define I_VISION_WINDOW_H_
 
 #include "gtkmm.h"
+#include "Domain/Robot.h"
+#include "Domain/Ball.h"
 
 class IVisionWindow {
 public:
     virtual int run(int argc, char *argv[]) = 0;
 
     virtual bool onKeyboard(GdkEventKey*, Gtk::Window*) = 0;
-
+  
     virtual void onButtonPlay() = 0;    
-    virtual void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-    virtual void onButtonOpenSaveDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+    virtual void onButtonLoad(Gtk::FileChooserDialog*) = 0;
+	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*) = 0;
 
 	virtual void onButtonLoadGameConfig(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 	virtual void onButtonSaveGameConfig(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
@@ -38,6 +39,6 @@ public:
     virtual void onComboBoxSelectColorRobot4(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorRobot5(Gtk::ComboBox*) = 0;
 
-    virtual void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
+    virtual void onRobotsNewPositions(std::vector<vss::Robot>, vss::Ball) = 0;
 };
 #endif

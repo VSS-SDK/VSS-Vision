@@ -2,11 +2,14 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkFileFilter" id="filefilter2"/>
   <object class="GtkFileChooserDialog" id="file_chooser_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="role">GtkFileChooserDialog</property>
     <property name="type_hint">dialog</property>
+    <property name="create_folders">False</property>
+    <property name="filter">filefilter2</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog_vbox">
         <property name="visible">True</property>
@@ -38,46 +41,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkTable" id="table_file_name">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="n_columns">2</property>
-            <property name="column_spacing">5</property>
-            <child>
-              <object class="GtkLabel" id="label_file_name">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Name</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="x_options">GTK_FILL</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="entry_chooser">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-                <property name="invisible_char_set">True</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-                <property name="primary_icon_sensitive">True</property>
-                <property name="secondary_icon_sensitive">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing>
+          <placeholder/>
         </child>
       </object>
     </child>
@@ -373,7 +337,7 @@
                           <object class="GtkLabel" id="label_position_robot_1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -386,7 +350,7 @@
                           <object class="GtkLabel" id="label_position_robot_2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -399,7 +363,7 @@
                           <object class="GtkLabel" id="label_position_robot_3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -412,7 +376,7 @@
                           <object class="GtkLabel" id="label_position_robot_4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -425,7 +389,7 @@
                           <object class="GtkLabel" id="label_position_robot_5">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -438,7 +402,7 @@
                           <object class="GtkLabel" id="label_position_opponent_1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -451,7 +415,7 @@
                           <object class="GtkLabel" id="label_position_opponent_2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -464,7 +428,7 @@
                           <object class="GtkLabel" id="label_position_opponent_3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -477,7 +441,7 @@
                           <object class="GtkLabel" id="label_position_opponent_4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -490,7 +454,7 @@
                           <object class="GtkLabel" id="label_position_opponent_5">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -503,7 +467,7 @@
                           <object class="GtkLabel" id="label_position_bal">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">[ 200 x 200 ]</property>
+                            <property name="label" translatable="yes">[ 0 x 0 ]</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -890,6 +854,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
+                                <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                                 <property name="group">radiobutton_video</property>
                               </object>
@@ -904,7 +869,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="active">True</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                               <packing>
@@ -971,11 +935,13 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButton" id="button_play">
-                            <property name="label" translatable="yes">Play</property>
+                          <object class="GtkToggleButton" id="togglebutton_play">
+                            <property name="label" translatable="yes">Pause</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="focus_on_click">False</property>
+                            <property name="active">True</property>
                           </object>
                           <packing>
                             <property name="top_attach">1</property>
@@ -1063,6 +1029,7 @@
               </object>
               <packing>
                 <property name="tab_expand">True</property>
+                <property name="tab_fill">False</property>
               </packing>
             </child>
           </object>

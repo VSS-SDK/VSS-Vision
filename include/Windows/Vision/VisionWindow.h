@@ -14,26 +14,28 @@
 #include <iostream>
 #include <fstream>
 
+#include "DefaultFilesPath.h"
 #include <CameraReader.h>
 #include <ColorRecognizer.h>
 #include <ImageFileReader.h>
 #include <Domain/ProgramState.h>
-#include <Interfaces/IImageInputReader.h>
 #include <Domain/WhoseName.h>
 #include <Domain/ColorType.h>
 #include <Domain/ColorPosition.h>
+#include <Interfaces/IInputReader.h>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IColorRecognizer.h>
-
+#include <Helpers/FrameHelper.h>
 #include <interface.h>
-#include <Ball.h>
-#include <Robot.h>
+#include <Domain/Ball.h>
+#include <Domain/Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
 #include <RobotRecognizer.h>
 #include <Domain/Game.h>
 #include <Interfaces/IGameBuilder.h>
 #include <Interfaces/IGameRepository.h>
+#include <StateSenderAdapter.h>
 #include "GImage.h"
 #include "IVisionWindow.h"
 #include "opencv2/highgui/highgui.hpp"
@@ -50,11 +52,11 @@ public:
 
     bool onKeyboard(GdkEventKey *, Gtk::Window *) override;
 
-    void onButtonPlay() override;
+    void onButtonPlay(Gtk::ToggleButton *) override;
 
-    void onButtonLoad(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+    void onButtonLoad(Gtk::FileChooserDialog *) override;
 
-    void onButtonOpenLoadDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+    void onButtonOpenLoadDialog(Gtk::FileChooserDialog *) override;
 
     void onButtonOpenSaveDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
 
@@ -84,12 +86,11 @@ public:
 
     void onComboBoxSelectColorRobot5(Gtk::ComboBox *) override;
 
-    void onSignalSelectFileInDialog(Gtk::FileChooserDialog *, Gtk::Entry *) override;
+    void onRobotsNewPositions(std::vector<vss::Robot>, vss::Ball) override;
 
 private:
 
-    Interface interface;
-    vss_state::Global_State global_state;
+    IStateSenderAdapter* stateSender;
 
     // Threads
     std::thread *threadCameraReader;
@@ -98,14 +99,19 @@ private:
     // Comunication between threads
     Glib::Dispatcher signal_set_new_frame;
 
+    sigc::signal <void, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
+
     // Classes
-    IImageInputReader *inputReader;
+    IInputReader *inputReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
     IColorRecognizer *colorRecognizer;
     IRobotRecognizer *robotRecognizer;
 
     Calibration calibration;
+
+    bool playing;
+    bool shouldReadInput;
 
     // Opencv image
     cv::Mat frame;
@@ -128,8 +134,22 @@ private:
     Gtk::ComboBox *comboBoxColorRobot4 = nullptr;
     Gtk::ComboBox *comboBoxColorRobot5 = nullptr;
 
+    Gtk::Label *labelPositionBall = nullptr;
+
+    Gtk::Label *labelPositionRobot1 = nullptr;
+    Gtk::Label *labelPositionRobot2 = nullptr;
+    Gtk::Label *labelPositionRobot3 = nullptr;
+    Gtk::Label *labelPositionRobot4 = nullptr;
+    Gtk::Label *labelPositionRobot5 = nullptr;
+
+    Gtk::Label *labelPositionOpponent1 = nullptr;
+    Gtk::Label *labelPositionOpponent2 = nullptr;
+    Gtk::Label *labelPositionOpponent3 = nullptr;
+    Gtk::Label *labelPositionOpponent4 = nullptr;
+    Gtk::Label *labelPositionOpponent5 = nullptr;
+
     Gtk::Button *buttonLoad = nullptr;
-    Gtk::Button *buttonPlay = nullptr;
+    Gtk::ToggleButton *buttonPlay = nullptr;
 
     Gtk::Button *buttonLoadGameConfig = nullptr;
     Gtk::Button *buttonOpenLoadGameConfigDialog = nullptr;
@@ -139,8 +159,7 @@ private:
     // GTKMM - File Chooser Window
     Gtk::FileChooserDialog *fileChooserDialog = nullptr;
     Gtk::FileChooserDialog *fileChooserGameConfigDialog = nullptr;
-
-    Gtk::Entry *entryChooserDialog = nullptr;
+  
     Gtk::Entry *entryChooserGameConfigDialog = nullptr;
 
     Gtk::Button *buttonOpenLoadDialog = nullptr;
@@ -158,6 +177,8 @@ private:
 
     void initializeWhoseColor();
 
+    void configureInputReceivement(IInputReader*);
+
     void windowThreadWrapper();
 
     void cameraThreadWrapper();
@@ -170,9 +191,6 @@ private:
     void receiveNewFrame(cv::Mat);
 
     std::map<WhoseName, ColorPosition> getColorPosition();
-
-    // Send state
-    void sendState(std::vector<vss::Robot>, vss::Ball);
 
     void getComboBoxByColor(std::string);
 

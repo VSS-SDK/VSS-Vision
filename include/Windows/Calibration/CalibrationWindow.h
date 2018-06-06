@@ -17,9 +17,17 @@
 #include <thread>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
-#include <Interfaces/IImageInputReader.h>
+#include <Interfaces/IInputReader.h>
 #include <Interfaces/IColorRecognizer.h>
 #include <Domain/ProgramState.h>
+#include <Domain/ColorSpace.h>
+#include <Helpers/FrameHelper.h>
+#include <Helpers/DefaultFilesPath.h>
+#include <Repositories/CalibrationRepository.h>
+#include <Builders/CalibrationBuilder.h>
+#include <ImageFileReader.h>
+#include <CameraReader.h>
+#include <ColorRecognizer.h>
 
 using namespace std;
 
@@ -57,6 +65,7 @@ public:
     void onRadioButtonCamera(Gtk::RadioButton*) override;
 
     void onToggleButtonCutMode(Gtk::ToggleButton*) override;
+	void onButtonRestoreCut() override;
 
     void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 	
@@ -73,7 +82,7 @@ private:
 	Glib::Dispatcher signal_set_new_frame;
 
 	// Classes
-	IImageInputReader *inputReader;
+	IInputReader *inputReader;
 	IColorRecognizer *colorRecognizer;
 	ICalibrationBuilder *calibrationBuilder;
     ICalibrationBuilder *calibrationBuilderFromRepository;
@@ -82,6 +91,8 @@ private:
     Calibration calibration;
     ColorRange *actualColorRange;
 	unsigned int actualColorRangeIndex;
+
+	bool shouldReadInput;
 
 	// Opencv image
 	cv::Mat frame;
@@ -102,12 +113,13 @@ private:
 		std::vector<Gtk::Scale*> scaleCameraConfig;
 
 		Gtk::Button* buttonSave = nullptr;
-		Gtk::Button* buttonLoad = nullptr;
-		
-		Gtk::ToggleButton* toggleButtonCutMode = nullptr;
+		Gtk::Button* buttonRestoreCut = nullptr;
 
-	// GTKMM - File Chooser Window
+		// GTKMM - File Chooser Window
 		Gtk::FileChooserDialog* fileChooserDialog = nullptr;
+
+		Gtk::Button* buttonLoad = nullptr;
+		Gtk::ToggleButton* toggleButtonCutMode = nullptr;
 
 		Gtk::Entry* entryChooserDialog = nullptr;
 
@@ -119,8 +131,9 @@ private:
 	void initializeWidget();
 	void setSignals();
 	void builderWidget();
+	void configureInputReceivement(IInputReader*);
 
-    void windowThreadWrapper();
+	void windowThreadWrapper();
 	void cameraThreadWrapper();
 
 	// Update frame

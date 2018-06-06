@@ -24,18 +24,23 @@ bool CalibrationWindow::onKeyboard(GdkEventKey* event, Gtk::Window* window){
 
 void CalibrationWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
   entry->set_sensitive(true);
+  buttonLoad->set_visible(false);
+  buttonSave->set_visible(true);
   fileChooser->show();
 }
 
 void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
   entry->set_sensitive(false);
+    buttonLoad->set_visible(true);
+    buttonSave->set_visible(false);
   fileChooser->show();
 }
 
 void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-  if (entry->get_text_length() > 0){
+  string filename = entry->get_text();
+  if (not filename.empty()){
     std::stringstream aux;
-    aux << fileChooser->get_current_folder() << "/" << entry->get_text();
+    aux << fileChooser->get_current_folder() << "/" << filename;
     calibrationRepository->create(aux.str(), calibration);
     fileChooser->hide();
   }
@@ -113,8 +118,10 @@ void CalibrationWindow::onScaleSaturation(Gtk::Scale* scale){
 }
 
 void CalibrationWindow::onRadioButtonImage(Gtk::RadioButton* radioButton){
-//  if (!radioButton->get_active())
-//    std::cout << "Image: " << radioButton->get_active() << std::endl;
+    inputReader->close();
+
+    inputReader = new ImageFileReader();
+    configureInputReceivement(inputReader);
 }
 
 void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton){
@@ -123,8 +130,10 @@ void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton){
 }
 
 void CalibrationWindow::onRadioButtonCamera(Gtk::RadioButton* radioButton){
-//  if (!radioButton->get_active())
-//    std::cout << "Camera: " << radioButton->get_active() << std::endl;
+    inputReader->close();
+
+    inputReader = new CameraReader();
+    configureInputReceivement(inputReader);
 }
 
 void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
@@ -132,9 +141,24 @@ void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
   
   if (toggleButton->get_active()) {
     calibration.cut.resize(2);
-    calibration.cut[0] = Point2d(screenImage->get_cut_point_1().x, screenImage->get_cut_point_1().y);
-    calibration.cut[1] = Point2d(screenImage->get_cut_point_2().x, screenImage->get_cut_point_2().y);
+    calibration.cut[0] = vss::Point(screenImage->get_cut_point_1().x, screenImage->get_cut_point_1().y);
+    calibration.cut[1] = vss::Point(screenImage->get_cut_point_2().x, screenImage->get_cut_point_2().y);
+
+    if(calibration.cut[1].x != 0 and calibration.cut[1].y != 0)
+        calibration.shouldCropImage = true;
+    else
+        calibration.shouldCropImage = false;
   }
+}
+
+void CalibrationWindow::onButtonRestoreCut() {
+    calibration.shouldCropImage = false;
+
+    calibration.cut[0] = vss::Point(0,0);
+    calibration.cut[1] = vss::Point(0,0);
+
+    screenImage->set_cut_point_1(cv::Point(0,0));
+    screenImage->set_cut_point_2(cv::Point(0,0));
 }
 
 void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){

@@ -28,11 +28,14 @@ VisionWindow::VisionWindow() {
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
 
-    interface.createSocketSendState(&global_state);
+    stateSender = new StateSenderAdapter();
+    stateSender->createSocket();
+
+    playing = true;
+    shouldReadInput = true;
 }
 
-VisionWindow::~VisionWindow() {
-}
+VisionWindow::~VisionWindow() = default;
 
 int VisionWindow::run(int argc, char *argv[]) {
 
@@ -40,16 +43,20 @@ int VisionWindow::run(int argc, char *argv[]) {
     threadCameraReader = new thread(std::bind(&VisionWindow::cameraThreadWrapper, this));
 
     threadWindowControl->join();
+
+    inputReader->close();
+    shouldReadInput = false;
     threadCameraReader->detach();
 
     return MENU;
 }
 
 void VisionWindow::cameraThreadWrapper() {
-    auto path = inputReader->getAllPossibleSources();
-    inputReader->setSource(path.at(0));
-    inputReader->start();
-    inputReader->initializeReceivement();
+    configureInputReceivement(inputReader);
+
+    while(shouldReadInput) {
+        inputReader->initializeReceivement();
+    }
 }
 
 void VisionWindow::windowThreadWrapper() {
@@ -61,8 +68,25 @@ void VisionWindow::windowThreadWrapper() {
     Gtk::Main::run(*window);
 }
 
+void VisionWindow::configureInputReceivement(IInputReader* input){
+    input->signal_new_frame.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
+
+    auto path = input->getAllPossibleSources();
+    input->setSource(path.at(0));
+    input->start();
+}
+
 void VisionWindow::initializeWidget() {
-    screenImage->set_image(cv::imread("../mock/images/model.jpg"));
+    screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
+
+    // show only .txt files
+    auto filterText = fileChooserDialog->get_filter();
+    filterText->set_name("Text files");
+    filterText->add_pattern("*.txt");
+    fileChooserDialog->add_filter(*filterText);
+
+    // define initial folder for file chooser
+    fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
 
     window->maximize();
     window->show_all_children();
@@ -73,17 +97,16 @@ void VisionWindow::builderWidget() {
     auto builder = Gtk::Builder::create();
 
     try {
-        builder->add_from_file("../glade/Vision.glade");
+        builder->add_from_file(defaultFilesPath + "/glade/Vision.glade");
 
         builder->get_widget("window", window);
 
         builder->get_widget_derived("drawingarea_frame", screenImage);
 
-        builder->get_widget("button_play", buttonPlay);
+        builder->get_widget("togglebutton_play", buttonPlay);
         builder->get_widget("button_load_calibration", buttonLoad);
         builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
 
-        builder->get_widget("entry_chooser", entryChooserDialog);
         builder->get_widget("file_chooser_dialog", fileChooserDialog);
 
         builder->get_widget("radiobutton_image", radioButtonImage);
@@ -99,7 +122,6 @@ void VisionWindow::builderWidget() {
         builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
         builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
 
-
         builder->get_widget("entry_chooser_game_config", entryChooserGameConfigDialog);
         builder->get_widget("file_chooser_game_config_dialog", fileChooserGameConfigDialog);
 
@@ -107,6 +129,20 @@ void VisionWindow::builderWidget() {
         builder->get_widget("button_load_game_config_dialog", buttonOpenLoadGameConfigDialog);
         builder->get_widget("button_save_game_config", buttonSaveGameConfig);
         builder->get_widget("button_save_game_config_dialog", buttonOpenSaveGameConfigDialog);
+
+        builder->get_widget("label_position_bal", labelPositionBall);
+
+        builder->get_widget("label_position_robot_1", labelPositionRobot1);
+        builder->get_widget("label_position_robot_2", labelPositionRobot2);
+        builder->get_widget("label_position_robot_3", labelPositionRobot3);
+        builder->get_widget("label_position_robot_4", labelPositionRobot4);
+        builder->get_widget("label_position_robot_5", labelPositionRobot5);
+
+        builder->get_widget("label_position_opponent_1", labelPositionOpponent1);
+        builder->get_widget("label_position_opponent_2", labelPositionOpponent2);
+        builder->get_widget("label_position_opponent_3", labelPositionOpponent3);
+        builder->get_widget("label_position_opponent_4", labelPositionOpponent4);
+        builder->get_widget("label_position_opponent_5", labelPositionOpponent5);
 
     } catch (const Glib::FileError &ex) {
         std::cerr << "FileError: " << ex.what() << std::endl;
@@ -125,18 +161,20 @@ void VisionWindow::setSignals() {
 
     inputReader->signal_new_frame.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
 
+    signalRobotsNewPositions.connect(sigc::mem_fun(this, &VisionWindow::onRobotsNewPositions));
+
     window->signal_key_press_event().connect(
             sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);
 
-    buttonPlay->signal_clicked().connect(sigc::mem_fun(this, &IVisionWindow::onButtonPlay));
-    buttonLoad->signal_clicked().connect(
-            sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad),
-                                                               fileChooserDialog, entryChooserDialog));
-    buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
-            sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog));
+    buttonPlay->signal_clicked().connect(sigc::bind<Gtk::ToggleButton *>(
+            sigc::mem_fun(this, &IVisionWindow::onButtonPlay), buttonPlay));
 
-    fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(
-            sigc::mem_fun(this, &IVisionWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog));
+    buttonLoad->signal_clicked().connect(
+            sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad),
+                                                               fileChooserDialog));
+
+    buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(
+            sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog));
 
     buttonLoadGameConfig->signal_clicked().connect(
             sigc::bind<Gtk::FileChooserDialog *, Gtk::Entry *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoadGameConfig),

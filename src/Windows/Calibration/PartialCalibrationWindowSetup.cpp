@@ -6,15 +6,9 @@
  * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
  */
 
-#include <Repositories/CalibrationRepository.h>
-#include <Builders/CalibrationBuilder.h>
-#include <CameraReader.h>
-#include <ImageFileReader.h>
-#include <ColorRecognizer.h>
-#include <Domain/ColorSpace.h>
 #include <Windows/Calibration/CalibrationWindow.h>
 
-CalibrationWindow::CalibrationWindow(){
+CalibrationWindow::CalibrationWindow() {
   calibrationBuilder = new CalibrationBuilder();
   calibrationBuilderFromRepository = new CalibrationBuilder();
 
@@ -29,27 +23,32 @@ CalibrationWindow::CalibrationWindow(){
   colorRecognizer = new ColorRecognizer();
 
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
+
+    shouldReadInput = true;
 }
 
-CalibrationWindow::~CalibrationWindow(){
-}
+CalibrationWindow::~CalibrationWindow() = default;
 
 int CalibrationWindow::run(int argc, char *argv[]){
 
   threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
   threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
 
-  threadWindowControl->join();
-  threadCameraReader->detach();
+    threadWindowControl->join();
+
+    inputReader->close();
+    shouldReadInput = false;
+    threadCameraReader->detach();
 
   return MENU;
 }
 
 void CalibrationWindow::cameraThreadWrapper() {
-  auto path = inputReader->getAllPossibleSources();
-  inputReader->setSource(path.at(0));
-  inputReader->start();
-  inputReader->initializeReceivement();
+    configureInputReceivement(inputReader);
+
+    while(shouldReadInput) {
+        inputReader->initializeReceivement();
+    }
 }
 
 void CalibrationWindow::windowThreadWrapper() {
@@ -63,19 +62,37 @@ void CalibrationWindow::windowThreadWrapper() {
 void CalibrationWindow::initializeWidget(){
 
   radioButtonImage->set_active();
-  
-  screenImage->set_image(cv::imread("../mock/images/model.jpg"));
+
+  screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
+
+    // show only .txt files
+    auto filterText = fileChooserDialog->get_filter();
+    filterText->set_name("Text files");
+    filterText->add_pattern("*.txt");
+    fileChooserDialog->add_filter(*filterText);
+
+    // define initial folder for file chooser
+    fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
 
   window->maximize();
   window->show_all_children();
 }
+
+void CalibrationWindow::configureInputReceivement(IInputReader* input){
+    input->signal_new_frame.connect(sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame));
+
+    auto path = input->getAllPossibleSources();
+    input->setSource(path.at(0));
+    input->start();
+}
+
 
 void CalibrationWindow::builderWidget(){
 
   auto builder = Gtk::Builder::create();
 
   try {
-    builder->add_from_file("../glade/Calibration.glade");
+    builder->add_from_file(defaultFilesPath + "/glade/Calibration.glade");
 
     builder->get_widget("window", window);
 
@@ -111,8 +128,9 @@ void CalibrationWindow::builderWidget(){
 
     builder->get_widget("combobox_path", comboBoxPath);
     builder->get_widget("combobox_color", comboBoxColor);
-    
+
     builder->get_widget("togglebutton_cut_mode", toggleButtonCutMode);
+    builder->get_widget("button_restore_cut", buttonRestoreCut);
 
   } catch(const Glib::FileError& ex) {
     std::cerr << "FileError: " << ex.what() << std::endl;
@@ -126,7 +144,7 @@ void CalibrationWindow::builderWidget(){
 }
 
 void CalibrationWindow::setSignals(){
-  
+
   signal_set_new_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
 
   inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
@@ -136,7 +154,7 @@ void CalibrationWindow::setSignals(){
 
   buttonOpenSaveDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenSaveDialog), fileChooserDialog, entryChooserDialog ));
   buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog ));
-  
+
   buttonSave->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonSave), fileChooserDialog, entryChooserDialog ));
   buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onButtonLoad), fileChooserDialog, entryChooserDialog, scaleCameraConfig ));
 
@@ -159,9 +177,10 @@ void CalibrationWindow::setSignals(){
   radioButtonCamera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonCamera), radioButtonCamera));
   
   toggleButtonCutMode->signal_pressed().connect(sigc::bind<Gtk::ToggleButton*>(sigc::mem_fun(this, &ICalibrationWindow::onToggleButtonCutMode), toggleButtonCutMode));
+  buttonRestoreCut->signal_pressed().connect(sigc::mem_fun(this, &ICalibrationWindow::onButtonRestoreCut));
 
   fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog ));
-  
+
   comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectPath), comboBoxPath));
   comboBoxColor->signal_changed().connect(sigc::bind<Gtk::ComboBox*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectColor), comboBoxColor, scaleHSV));
 }

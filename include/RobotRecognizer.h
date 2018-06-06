@@ -6,6 +6,8 @@
 #define VSS_VISION_ROBOTRECOGNIZER_H
 
 #include "Interfaces/IRobotRecognizer.h"
+#include "Domain/Ball.h"
+#include "Domain/Robot.h"
 
 class RobotRecognizer : public IRobotRecognizer {
 	

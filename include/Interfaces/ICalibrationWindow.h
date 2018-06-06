@@ -47,6 +47,7 @@ public:
     virtual void onRadioButtonCamera(Gtk::RadioButton*) = 0;
 
     virtual void onToggleButtonCutMode(Gtk::ToggleButton*) = 0;
+    virtual void onButtonRestoreCut() = 0;
 
     virtual void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 	

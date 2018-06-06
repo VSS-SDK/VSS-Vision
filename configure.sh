@@ -7,106 +7,112 @@
 # file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
 #
 
-DISTRO=`lsb_release -si`
-RELEASE=`lsb_release -sr`
-RELEASE_DEBIAN=`lsb_release -sr | cut -c1-1`
-ARCHITECTURE=`uname -m`
+DISTRO=``
+RELEASE=``
+RELEASE_DEBIAN=``
+ARCHITECTURE=``
+COMPILE_TYPE=$1
 
 INSTALLED=0
 
-CMAKE_UBUNTU () {
-  sudo rm -R build
-  mkdir build
-  cd build
-  cmake ..
-  make package
-  sudo dpkg -i vss-vision-0.1.1-Linux.deb
-  cd ..
+CMAKE () {
+    rm -R build
+    mkdir -p build
+    cd build
+    cmake ..
+    make
+    cd ..
 }
 
-CMAKE_MINT () {
-  sudo rm -R build
-  mkdir build
-  cd build
-  cmake ..
-  make package
-  sudo dpkg -i vss-vision-0.1.1-Linux.deb
-  cd ..
-}
-
-CMAKE_DEBIAN () {
-  rm -R build
-  mkdir build
-  cd build
-  cmake ..
-  make package
-  dpkg -i vss-vision-0.1.1-Linux.deb
-  cd ..
+CMAKE_INSTALL () {
+    rm -R build
+    mkdir -p build
+    cd build
+    cmake -D RELEASE=ON ..
+    make install
+    cd ..
 }
 
 INSTALL_UBUNTU_14_04 () {
-  sudo apt-get update && apt-get upgrade
-  sudo apt-get install pkg-config
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev build-essential checkinstall yasm libtiff4-dev libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg
-  INSTALLED=1
+    apt-get update && apt-get upgrade
+    apt-get -y install pkg-config
+    apt-get -y install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev build-essential checkinstall yasm libtiff4-dev libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg
+    INSTALLED=1
 }
 
 INSTALL_UBUNTU_16_04 () {
-  sudo apt-get update && apt-get upgrade
-  sudo apt-get install pkg-config
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev gtkmm-2.4 
-  INSTALLED=1
+    apt-get update && apt-get upgrade
+    apt-get -y install pkg-config
+    apt-get -y install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev gtkmm-2.4
+    INSTALLED=1
 }
 
 INSTALL_MINT_18_2 () {
-  sudo apt-get update && apt-get upgrade
-  sudo apt-get install pkg-config
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev
-  INSTALLED=1
+    apt-get update && apt-get upgrade
+    apt-get -y install pkg-config
+    apt-get -y install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev libgtkmm-2.4-dev
+    INSTALLED=1
 }
 
 INSTALL_DEBIAN_9 () {
-  sudo apt-get update && apt-get upgrade
-  sudo apt-get install pkgconf
-  sudo apt-get install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev libgtkmm-2.4-dev gtk2-engines-pixbuf
-  INSTALLED=1
+    apt-get update && apt-get upgrade
+    apt-get -y install pkgconf
+    apt-get -y install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev libgtkmm-2.4-dev gtk2-engines-pixbuf
+    INSTALLED=1
 }
 
+INSTALL_BASE() {
+    apt-get update && apt-get upgrade
+    apt-get -y install lsb-release;
+
+    DISTRO=`lsb_release -si`
+    RELEASE=`lsb_release -sr`
+    RELEASE_DEBIAN=`lsb_release -sr | cut -c1-1`
+    ARCHITECTURE=`uname -m`
+}
+
+INIT_SUBMODULES() {
+    git submodule init;
+    git submodule update;
+}
+
+
 INSTALL () {
-  # Ubuntu
-  if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "16.04" ]]; then
-    INSTALL_UBUNTU_16_04;
-    if [ $INSTALLED == 1 ]; then
-      CMAKE_UBUNTU;
-    fi
-  fi
+    INSTALL_BASE;
 
-  if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "14.04" ]]; then
-    INSTALL_UBUNTU_14_04;
-    if [ $INSTALLED == 1 ]; then
-      CMAKE_UBUNTU;
+    # Ubuntu
+    if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "16.04" ]]; then
+        INSTALL_UBUNTU_16_04;
     fi
-  fi
 
-  # Debian
-  if [[ "$DISTRO" == "Debian" ]]&& [[ "$RELEASE_DEBIAN" == "9" ]]; then
-    INSTALL_DEBIAN_9;
-    if [ $INSTALLED == 1 ]; then
-      CMAKE_DEBIAN;
+    if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "14.04" ]]; then
+        INSTALL_UBUNTU_14_04;
     fi
-  fi
 
-  # LinuxMint
-  if [[ "$DISTRO" == "LinuxMint" ]]; then
-    INSTALL_MINT_18_2;
-    if [ $INSTALLED == 1 ]; then
-      CMAKE_MINT;
+    # Debian
+    if [[ "$DISTRO" == "Debian" ]]&& [[ "$RELEASE_DEBIAN" == "9" ]]; then
+        INSTALL_DEBIAN_9;
     fi
-  fi
 
-  if [[ $INSTALLED == 0 ]]; then
-    echo "Sistema Operacional Incompatível";
-  fi
+    # LinuxMint
+    if [[ "$DISTRO" == "LinuxMint" ]]; then
+        INSTALL_MINT_18_2;
+    fi
+
+    if [[ $INSTALLED == 0 ]]; then
+        echo "Sistema Operacional Incompatível";
+    fi
+
+    if [[ $INSTALLED == 1 ]]; then
+        INIT_SUBMODULES;
+
+        if [[ $COMPILE_TYPE == "development" ]];
+        then
+            CMAKE;
+        else
+            CMAKE_INSTALL;
+        fi
+    fi
 }
 
 INSTALL;

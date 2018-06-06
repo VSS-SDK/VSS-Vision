@@ -20,19 +20,64 @@ bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
     return true;
 }
 
-void VisionWindow::onButtonPlay() {
+void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> robots, vss::Ball ball) {
+
+    //@TODO: diferenciar time e adversario
+    //@TODO: adaptar para permitir mais de 3 robos
+
+    // send positions
+    if(playing)
+        stateSender->sendState(robots, ball);
+
+    // update positions label with new positions
+    stringstream ss;
+    ss << "[ " << ball.x << " x " << ball.y << " ]";
+    labelPositionBall->set_text(ss.str());
+
+    ss.str("");
+    ss << "[ " << robots[0].x << " x " << robots[0].y << " ]";
+    labelPositionRobot1->set_text(ss.str());
+
+    ss.str("");
+    ss << "[ " << robots[1].x << " x " << robots[1].y << " ]";
+    labelPositionRobot2->set_text(ss.str());
+
+    ss.str("");
+    ss << "[ " << robots[2].x << " x " << robots[2].y << " ]";
+    labelPositionRobot3->set_text(ss.str());
+
+    ss.str("");
+    ss << "[ " << robots[3].x << " x " << robots[3].y << " ]";
+    labelPositionOpponent1->set_text(ss.str());
+
+    ss.str("");
+    ss << "[ " << robots[4].x << " x " << robots[4].y << " ]";
+    labelPositionOpponent2->set_text(ss.str());
+
+    ss.str("");
+    ss << "[ " << robots[5].x << " x " << robots[5].y << " ]";
+    labelPositionOpponent3->set_text(ss.str());
 
 }
 
-void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
-    if (entry->get_text_length() > 0){
-        calibration = calibrationRepository->read(fileChooser->get_filename());
-        game->calibrationPath = fileChooser->get_filename();
+void VisionWindow::onButtonPlay(Gtk::ToggleButton * toggleButton) {
+    if(toggleButton->get_active())
+        toggleButton->set_label("Pause");
+    else
+        toggleButton->set_label("Play");
+
+    playing = !playing;
+}
+
+void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
+    fileChooser->hide();
+    string filename = fileChooser->get_filename();
+
+    if (not filename.empty()){
+        calibration = calibrationRepository->read(filename);
 
         screenImage->set_cut_point_1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
         screenImage->set_cut_point_2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
-
-        fileChooser->hide();
     }
 }
 
@@ -52,9 +97,8 @@ void VisionWindow::onButtonSaveGameConfig(Gtk::FileChooserDialog* fileChooser, G
     }
 }
 
-void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
-    entry->set_sensitive(false);
-    fileChooser->show();
+void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
+    fileChooser->run();
 }
 
 void VisionWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
@@ -63,8 +107,10 @@ void VisionWindow::onButtonOpenSaveDialog(Gtk::FileChooserDialog* fileChooser, G
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
-//    if (!radioButton->get_active())
-//        std::cout << "Image: " << radioButton->get_active() << std::endl;
+    inputReader->close();
+
+    inputReader = new ImageFileReader();
+    configureInputReceivement(inputReader);
 }
 
 void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
@@ -73,14 +119,10 @@ void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
 }
 
 void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
-//    if (!radioButton->get_active())
-//        std::cout << "Camera: " << radioButton->get_active() << std::endl;
-}
+    inputReader->close();
 
-void VisionWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog *fileChooser, Gtk::Entry *entry) {
-    std::string str = fileChooser->get_filename();
-    std::size_t sub_str = str.find_last_of("/\\");
-    entry->set_text(str.substr(sub_str + 1));
+    inputReader = new CameraReader();
+    configureInputReceivement(inputReader);
 }
 
 

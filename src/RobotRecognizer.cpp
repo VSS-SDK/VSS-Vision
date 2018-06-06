@@ -3,7 +3,7 @@
 //
 
 #include <Helpers/Math.h>
-#include <Ball.h>
+
 #include "RobotRecognizer.h"
 
 RobotRecognizer::RobotRecognizer() {
@@ -26,7 +26,7 @@ RobotRecognizer::RobotRecognizer() {
     // 1/60
     rate = 0.016;
     // max distance in cm between colors to be considered a robot
-    maxDistance = 10;
+    maxDistance = 25;
 }
 
 void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsPos) {

@@ -27,6 +27,8 @@ Calibration::Calibration(Calibration *calibration){
 
   colorsRange = calibration->colorsRange;
   cut = calibration->cut;
+
+  shouldCropImage = calibration->shouldCropImage;
 }
 
 std::ostream& operator<<( std::ostream& os, const Calibration& calibration )
