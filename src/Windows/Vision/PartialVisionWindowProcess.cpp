@@ -41,7 +41,7 @@ std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition() {
     map<WhoseName, ColorPosition> whosePosition;
 
     for (auto colorRange : calibration.colorsRange) {
-        WhoseName objectName = whoseColor[colorRange.colorType];
+        WhoseName objectName = game->whoseColor[colorRange.colorType];
 
         if (objectName != WhoseName::Unknown) {
             colorRecognizer->setColorRange(colorRange);

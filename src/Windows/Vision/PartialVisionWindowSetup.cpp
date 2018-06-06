@@ -9,6 +9,8 @@
 #include <Windows/Vision/VisionWindow.h>
 #include <Builders/CalibrationBuilder.h>
 #include <Repositories/CalibrationRepository.h>
+#include <Builders/GameBuilder.h>
+#include <Repositories/GameRepository.h>
 
 VisionWindow::VisionWindow() {
 //    inputReader = new CameraReader();
@@ -17,6 +19,11 @@ VisionWindow::VisionWindow() {
     calibrationBuilderFromRepository = new CalibrationBuilder();
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
+
+    gameBuilder = new GameBuilder();
+    gameRepository = new GameRepository(gameBuilder);
+    game = new Game();
+
 
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
@@ -182,12 +189,12 @@ void VisionWindow::setSignals() {
 }
 
 void VisionWindow::initializeWhoseColor() {
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Red, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Blue, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Pink, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Green, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Brown, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Yellow, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Ball));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Purple, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Red, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Blue, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Pink, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Green, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Brown, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Yellow, WhoseName::Unknown));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Ball));
+    game->whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Purple, WhoseName::Unknown));
 }

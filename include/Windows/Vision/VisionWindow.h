@@ -31,6 +31,9 @@
 #include <Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
 #include <RobotRecognizer.h>
+#include <Domain/Game.h>
+#include <Interfaces/IGameBuilder.h>
+#include <Interfaces/IGameRepository.h>
 #include "GImage.h"
 #include "IVisionWindow.h"
 #include "opencv2/highgui/highgui.hpp"
@@ -142,7 +145,9 @@ private:
 
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
-    std::map<ColorType, WhoseName> whoseColor;
+    IGameBuilder *gameBuilder;
+    IGameRepository *gameRepository;
+    Game * game;
 
     // Control method
     void initializeWidget();

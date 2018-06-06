@@ -27,6 +27,7 @@ void VisionWindow::onButtonPlay() {
 void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
     if (entry->get_text_length() > 0){
         calibration = calibrationRepository->read(fileChooser->get_filename());
+        game->calibrationPath = fileChooser->get_filename();
 
         screenImage->set_cut_point_1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
         screenImage->set_cut_point_2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
@@ -90,55 +91,47 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Team1;
+    game->whoseColor[colorType] = WhoseName::Team1;
 }
 
 void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Team2;
+    game->whoseColor[colorType] = WhoseName::Team2;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot1;
+    game->whoseColor[colorType] = WhoseName::Robot1;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot2(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot2;
+    game->whoseColor[colorType] = WhoseName::Robot2;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot3(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot3;
+    game->whoseColor[colorType] = WhoseName::Robot3;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot4(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot4;
+    game->whoseColor[colorType] = WhoseName::Robot4;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot5;
+    game->whoseColor[colorType] = WhoseName::Robot5;
 }
 
 void VisionWindow::saveWhoseColor(std::string path) {
-    std::ofstream file;
-    file.open(path);
-    cout << path << endl;
-    for(std::map<ColorType, WhoseName>::iterator it = whoseColor.begin(); it != whoseColor.end(); it++) {
-        if(it->first != ColorType::Orange && it->second != WhoseName::Unknown) {
-            file << toDescription(it->first) << " " << toDescription(it->second) << std::endl;
-        }
-    }
-    file.close();
+    gameRepository->create(path, *game);
 }
 
 void VisionWindow::setupWhoseColor(std::string path) {
@@ -152,23 +145,8 @@ void VisionWindow::setupWhoseColor(std::string path) {
     whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Robot4, comboBoxColorRobot4));
     whoseNameToComboBox.insert(std::pair<WhoseName, Gtk::ComboBox*>(WhoseName::Robot5, comboBoxColorRobot5));
 
-    std::map <ColorType, int> colorToIndex;
-    colorToIndex.insert(std::pair<ColorType, int>(ColorType::UnknownType, -1));
-    colorToIndex.insert(std::pair<ColorType, int>(ColorType::Blue, 0));
-    colorToIndex.insert(std::pair<ColorType, int>(ColorType::Yellow, 1));
-    colorToIndex.insert(std::pair<ColorType, int>(ColorType::Green, 0));
-    colorToIndex.insert(std::pair<ColorType, int>(ColorType::Pink, 1));
-    colorToIndex.insert(std::pair<ColorType, int>(ColorType::Purple, 2));
-    colorToIndex.insert(std::pair<ColorType, int>(ColorType::Red, 3));
-    colorToIndex.insert(std::pair<ColorType, int>(ColorType::Brown, 4));
-
-    for (std::string line; std::getline(ifs, line); ) {
-        std::vector<std::string> tokens = explode(line, ' ');
-        ColorType colorType = toColorType(tokens[0]);
-        whoseColor[colorType] = toWhoseName(tokens[1]);
-        if (whoseColor[colorType] != WhoseName::Unknown) {
-            whoseNameToComboBox[whoseColor[colorType]]->set_active(colorToIndex[colorType]);
-        }
+    *game = gameRepository->read(path, whoseNameToComboBox);
+    if (game->calibrationPath.length() > 0) {
+        calibration = calibrationRepository->read(game->calibrationPath);
     }
-
 };
