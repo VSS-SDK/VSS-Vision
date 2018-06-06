@@ -1,9 +1,0 @@
-<map id="vision" name="vision">
-<area shape="rect" id="node3" href="$structcommon_1_1Calibration.html" title="This struct represents a calibration of colors. " alt="" coords="506,56,649,83"/>
-<area shape="rect" id="node4" href="$structcommon_1_1State.html" title="This struct represents the state that the workspace can handle. " alt="" coords="522,107,633,133"/>
-<area shape="rect" id="node5" href="$structcommon_1_1btVector3.html" title="This struct represents a Vector in R^3. " alt="" coords="5,101,141,128"/>
-<area shape="rect" id="node6" href="$structcommon_1_1Robot.html" title="This strcut represets the pose that one robot can handle. Pos and Vel. " alt="" coords="232,135,347,161"/>
-<area shape="rect" id="node7" href="$structcommon_1_1ExecConfiguration.html" title="This struct represents a configuration of colors of objects in workspace. " alt="" coords="484,157,671,184"/>
-<area shape="rect" id="node8" href="$classQCustomLabel.html" title="This class is a modification of QLabel, QCustomLabel handle events like: mouse click, mouse move, scrool wheel move and etc. " alt="" coords="523,208,632,235"/>
-<area shape="rect" id="node10" href="$structcommon_1_1TableColor.html" title="This struct represents all colors in RGB that can be used. " alt="" coords="506,259,649,285"/>
-</map>
