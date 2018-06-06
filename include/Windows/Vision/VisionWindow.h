@@ -21,7 +21,7 @@
 #include <Domain/WhoseName.h>
 #include <Domain/ColorType.h>
 #include <Domain/ColorPosition.h>
-#include <Interfaces/IImageInputReader.h>
+#include <Interfaces/IInputReader.h>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IColorRecognizer.h>
@@ -92,7 +92,7 @@ private:
     sigc::signal <void, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
 
     // Classes
-    IImageInputReader *inputReader;
+    IInputReader *inputReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
     IColorRecognizer *colorRecognizer;
@@ -101,6 +101,7 @@ private:
     Calibration calibration;
 
     bool playing;
+    bool shouldReadInput;
 
     // Opencv image
     cv::Mat frame;
@@ -155,6 +156,8 @@ private:
     void builderWidget();
 
     void initializeWhoseColor();
+
+    void configureInputReceivement(IInputReader*);
 
     void windowThreadWrapper();
 

@@ -118,8 +118,10 @@ void CalibrationWindow::onScaleSaturation(Gtk::Scale* scale){
 }
 
 void CalibrationWindow::onRadioButtonImage(Gtk::RadioButton* radioButton){
-//  if (!radioButton->get_active())
-//    std::cout << "Image: " << radioButton->get_active() << std::endl;
+    inputReader->close();
+
+    inputReader = new ImageFileReader();
+    configureInputReceivement(inputReader);
 }
 
 void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton){
@@ -128,8 +130,10 @@ void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton){
 }
 
 void CalibrationWindow::onRadioButtonCamera(Gtk::RadioButton* radioButton){
-//  if (!radioButton->get_active())
-//    std::cout << "Camera: " << radioButton->get_active() << std::endl;
+    inputReader->close();
+
+    inputReader = new CameraReader();
+    configureInputReceivement(inputReader);
 }
 
 void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){
