@@ -9,8 +9,8 @@
 
 enum WhoseName {
     Unknown = 0,
-    Team1 = 1,
-    Team2 = 2,
+    Team = 1,
+    Opponent = 2,
     Robot1 = 3,
     Robot2 = 4,
     Robot3 = 5,

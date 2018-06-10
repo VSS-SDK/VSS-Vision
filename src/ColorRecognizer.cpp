@@ -30,7 +30,7 @@ std::vector<cv::Rect> ColorRecognizer::getRectangles() {
   return rectangles;
 }
 
-std::vector<cv::Point> ColorRecognizer::getCenters() {
+std::vector<cv::Point2f> ColorRecognizer::getCenters() {
   return centers;
 }
 
@@ -60,7 +60,7 @@ void ColorRecognizer::recognizesRectangles() {
   // sort in crescent order the contours vector by found area
   sort(contours.begin(), contours.end(),
       [](const std::vector<cv::Point> c1, const std::vector<cv::Point> c2){
-          return cv::contourArea(c1, false) < cv::contourArea(c2, false);
+          return cv::contourArea(c1, false) > cv::contourArea(c2, false);
       }
   );
 
@@ -76,15 +76,15 @@ void ColorRecognizer::recognizesRectangles() {
 }
 
 void ColorRecognizer::calculateCenters() {
-  auto centers = std::vector<cv::Point>();
-  auto centimeterPoint = cv::Point();
+  auto centers = std::vector<cv::Point2f>();
+  auto centimeterPoint = cv::Point2f();
 
   for(unsigned int i = 0 ; i < rectangles.size() ; i++){
     auto pixelPoint = getCenter(rectangles.at(i));
 
     centimeterPoint = {
-      (pixelPoint.x * 170) / originalFrame.cols,
-      (pixelPoint.y * 130) / originalFrame.rows
+            (float) (pixelPoint.x * 170) / originalFrame.cols,
+            (float) (pixelPoint.y * 130) / originalFrame.rows
     };
 
     centers.push_back(centimeterPoint);

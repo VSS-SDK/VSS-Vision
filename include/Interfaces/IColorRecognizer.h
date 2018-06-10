@@ -15,7 +15,7 @@ public:
     virtual void processImage(cv::Mat) = 0;
     virtual void processImageInsideSectors(cv::Mat, std::vector<cv::Point>, int) = 0;
     virtual std::vector<cv::Rect> getRectangles() = 0;
-    virtual std::vector<cv::Point> getCenters() = 0;
+    virtual std::vector<cv::Point2f> getCenters() = 0;
 };
 
 #endif //VSS_VISION_ICOLORRECOGNIZER_H

@@ -19,14 +19,25 @@ bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
     return true;
 }
 
-void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> robots, vss::Ball ball) {
+void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
 
     //@TODO: diferenciar time e adversario
     //@TODO: adaptar para permitir mais de 3 robos
 
     // send positions
     if(playing)
-        stateSender->sendState(robots, ball);
+        stateSender->sendState(blueRobots, yellowRobots, ball);
+
+    std::vector<vss::Robot> teamPositions;
+    std::vector<vss::Robot> opponentPositions;
+
+    if(whoseColor[ColorType::Blue] == WhoseName::Team) {
+        teamPositions = blueRobots;
+        opponentPositions = yellowRobots;
+    } else {
+        teamPositions = yellowRobots;
+        opponentPositions = blueRobots;
+    }
 
     // update positions label with new positions
     stringstream ss;
@@ -34,27 +45,27 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> robots, vss::Bal
     labelPositionBall->set_text(ss.str());
 
     ss.str("");
-    ss << "[ " << robots[0].x << " x " << robots[0].y << " ]";
+    ss << "[ " << teamPositions[0].x << " x " << teamPositions[0].y << " ]";
     labelPositionRobot1->set_text(ss.str());
 
     ss.str("");
-    ss << "[ " << robots[1].x << " x " << robots[1].y << " ]";
+    ss << "[ " << teamPositions[1].x << " x " << teamPositions[1].y << " ]";
     labelPositionRobot2->set_text(ss.str());
 
     ss.str("");
-    ss << "[ " << robots[2].x << " x " << robots[2].y << " ]";
+    ss << "[ " << teamPositions[2].x << " x " << teamPositions[2].y << " ]";
     labelPositionRobot3->set_text(ss.str());
 
     ss.str("");
-    ss << "[ " << robots[3].x << " x " << robots[3].y << " ]";
+    ss << "[ " << opponentPositions[0].x << " x " << opponentPositions[0].y << " ]";
     labelPositionOpponent1->set_text(ss.str());
 
     ss.str("");
-    ss << "[ " << robots[4].x << " x " << robots[4].y << " ]";
+    ss << "[ " << opponentPositions[1].x << " x " << opponentPositions[1].y << " ]";
     labelPositionOpponent2->set_text(ss.str());
 
     ss.str("");
-    ss << "[ " << robots[5].x << " x " << robots[5].y << " ]";
+    ss << "[ " << opponentPositions[2].x << " x " << opponentPositions[2].y << " ]";
     labelPositionOpponent3->set_text(ss.str());
 
 }
@@ -110,13 +121,13 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Team1;
+    whoseColor[colorType] = WhoseName::Team;
 }
 
 void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Team2;
+    whoseColor[colorType] = WhoseName::Opponent;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox *combobox) {
