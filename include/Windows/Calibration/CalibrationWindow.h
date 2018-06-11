@@ -23,6 +23,7 @@
 #include <Domain/ColorSpace.h>
 #include <Helpers/FrameHelper.h>
 #include <Helpers/DefaultFilesPath.h>
+#include <Helpers/TimeHelper.h>
 #include <Repositories/CalibrationRepository.h>
 #include <Builders/CalibrationBuilder.h>
 #include <ImageFileReader.h>
@@ -94,6 +95,10 @@ private:
 
 	bool shouldReadInput;
 
+	int nFps;
+
+	TimeHelper timeHelper;
+
 	// Opencv image
 	cv::Mat frame;
 
@@ -146,5 +151,7 @@ private:
     void applyRectangleToFrame();
 	void getAllAttributsFromCapture(bool signal);
     void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
+
+	void updateFpsLabel();
 };
 #endif

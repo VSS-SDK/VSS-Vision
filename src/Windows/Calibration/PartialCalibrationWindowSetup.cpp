@@ -25,6 +25,8 @@ CalibrationWindow::CalibrationWindow() {
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
     shouldReadInput = true;
+
+    nFps = 0;
 }
 
 CalibrationWindow::~CalibrationWindow() = default;

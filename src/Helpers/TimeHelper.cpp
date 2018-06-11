@@ -4,6 +4,10 @@
 
 #include <Helpers/TimeHelper.h>
 
+TimeHelper::TimeHelper() {
+    startTime = std::chrono::high_resolution_clock::now();
+}
+
 void TimeHelper::startCounting() {
     startTime = std::chrono::high_resolution_clock::now();
 }

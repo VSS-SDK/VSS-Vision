@@ -11,6 +11,7 @@ class TimeHelper {
 
 public:
 
+    TimeHelper();
     void startCounting();
     void restartCounting();
     double getElapsedTime();
