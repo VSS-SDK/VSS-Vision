@@ -53,12 +53,6 @@ void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
 
     if (teamColor == ColorType::UnknownType or teamPositions.empty()) return;
 
-//    std::cout << "TEAM:" << std::endl;
-//    for(auto i : teamPositions){
-//        std::cout << i << std::endl;
-//    }
-    //std::cout << std::endl;
-
     // iterate through robots
     for (int robotInt = WhoseName::Robot1; robotInt <= WhoseName::Robot5; robotInt++) {
 
@@ -75,12 +69,6 @@ void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
 
             continue;
         }
-
-//        std::cout << "ROBOT:" << std::endl;
-//        for(auto i : robotPositions){
-//            std::cout << i << std::endl;
-//        }
-        //std::cout << std::endl;
 
         auto itRobotPos = robotPositions.end();
         auto itTeamPos = teamPositions.end();
@@ -103,21 +91,9 @@ void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
             if(itRobotPos != robotPositions.end()) break;
         }
 
-        // with the closer point found update robot's values
-        vss::Robot robot;
         if (itRobotPos != robotPositions.end() and itTeamPos != teamPositions.end()) {
-            robot.x = itTeamPos->x;
-            robot.y = itTeamPos->y;
 
-            // somando 180 para deixar no intervalo 0 e 360
-            robot.angle = atan2(itRobotPos->y - itTeamPos->y, itRobotPos->x - itTeamPos->x)*(180/M_PI)+180;
-
-            if(robot.angle >= 315) robot.angle -= 315;
-            else robot.angle += 45;
-
-            robot.speedAngle = (robot.angle - lastRobotsPos[robotNumber].angle) / rate;
-            robot.speedX = (robot.x - lastRobotsPos[robotNumber].x) / rate;
-            robot.speedY = (robot.y - lastRobotsPos[robotNumber].y) / rate;
+            vss::Robot robot = calculateRobotsValues(*itTeamPos, *itRobotPos, robotNumber);
 
             // removes used points to optimize searching
             teamPositions.erase(itTeamPos);
@@ -129,6 +105,7 @@ void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
                 yellowRobots.push_back(robot);
             else
                 blueRobots.push_back(robot);
+
         }
     }
 
@@ -170,6 +147,26 @@ void RobotRecognizer::recognizeBall(std::map<WhoseName,ColorPosition>& colors){
         lastBallPos = ball;
     }
 
+}
+
+vss::Robot RobotRecognizer::calculateRobotsValues(cv::Point teamPos, cv::Point robotPos, WhoseName robotNumber) {
+    // with the closer point found update robot's values
+    vss::Robot robot;
+
+    robot.x = teamPos.x;
+    robot.y = teamPos.y;
+
+    // somando 180 para deixar no intervalo 0 e 360
+    robot.angle = atan2(robotPos.y - teamPos.y, robotPos.x - teamPos.x)*(180/M_PI)+180;
+
+    if(robot.angle >= 315) robot.angle -= 315;
+    else robot.angle += 45;
+
+    robot.speedAngle = (robot.angle - lastRobotsPos[robotNumber].angle) / rate;
+    robot.speedX = (robot.x - lastRobotsPos[robotNumber].x) / rate;
+    robot.speedY = (robot.y - lastRobotsPos[robotNumber].y) / rate;
+
+    return robot;
 }
 
 std::vector<vss::Robot> RobotRecognizer::getBlueRobots(){

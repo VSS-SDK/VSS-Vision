@@ -83,8 +83,8 @@ void ColorRecognizer::calculateCenters() {
     auto pixelPoint = getCenter(rectangles.at(i));
 
     centimeterPoint = {
-            (float) (pixelPoint.x * 170) / originalFrame.cols,
-            (float) (pixelPoint.y * 130) / originalFrame.rows
+            (float) (pixelPoint.x * vss::MAX_COORDINATE_X) / originalFrame.cols,
+            (float) (pixelPoint.y * vss::MAX_COORDINATE_Y) / originalFrame.rows
     };
 
     centers.push_back(centimeterPoint);

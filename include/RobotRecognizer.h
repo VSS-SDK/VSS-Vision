@@ -37,6 +37,8 @@ private:
     void recognizeTeam(std::map<WhoseName,ColorPosition>&);
     void recognizeOpponent(std::map<WhoseName,ColorPosition>&);
     void recognizeBall(std::map<WhoseName,ColorPosition>&);
+
+    vss::Robot calculateRobotsValues(cv::Point teamPos, cv::Point robotPos, WhoseName robotNumber);
 };
 
 #endif

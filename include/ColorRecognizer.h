@@ -6,6 +6,7 @@
 #define VSS_VISION_COLORRECOGNIZER_H
 
 #include <Interfaces/IColorRecognizer.h>
+#include <Constants.h>
 
 class ColorRecognizer : public IColorRecognizer{
 public:
