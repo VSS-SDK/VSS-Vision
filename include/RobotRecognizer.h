@@ -15,12 +15,17 @@ public:
 
     RobotRecognizer();
     void recognizeRobots(std::map<WhoseName,ColorPosition>) override;
-    std::vector<vss::Robot> getRobots() override;
+
+    std::vector<vss::Robot> getBlueRobots() override;
+    std::vector<vss::Robot> getYellowRobots() override;
+
     vss::Ball getBall() override;
 
 private:
 
-    std::vector<vss::Robot> robots;
+    std::vector<vss::Robot> blueRobots;
+    std::vector<vss::Robot> yellowRobots;
+
     std::map<WhoseName, vss::Robot> lastRobotsPos;
 
     vss::Ball ball;
@@ -28,6 +33,12 @@ private:
 
     double rate;
     double maxDistance;
+
+    void recognizeTeam(std::map<WhoseName,ColorPosition>&);
+    void recognizeOpponent(std::map<WhoseName,ColorPosition>&);
+    void recognizeBall(std::map<WhoseName,ColorPosition>&);
+
+    vss::Robot calculateRobotsValues(cv::Point teamPos, cv::Point robotPos, WhoseName robotNumber);
 };
 
 #endif

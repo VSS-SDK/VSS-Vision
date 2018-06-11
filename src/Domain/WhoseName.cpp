@@ -6,10 +6,10 @@
 
 std::string toDescription(WhoseName whoseName) {
     switch (whoseName) {
-        case WhoseName::Team1:
-            return "Team1";
-        case WhoseName::Team2:
-            return "Team2";
+        case WhoseName::Team:
+            return "Team";
+        case WhoseName::Opponent:
+            return "Opponent";
         case WhoseName::Robot1:
             return "Robot1";
         case WhoseName::Robot2:
@@ -28,11 +28,11 @@ std::string toDescription(WhoseName whoseName) {
 }
 
 WhoseName toWhoseName(std::string whoseName) {
-    if (whoseName == "Team1")
-        return WhoseName::Team1;
+    if (whoseName == "Team")
+        return WhoseName::Team;
 
-    if (whoseName == "Team2")
-        return WhoseName::Team2;
+    if (whoseName == "Opponent")
+        return WhoseName::Opponent;
 
     if (whoseName == "Robot1")
         return WhoseName::Robot1;

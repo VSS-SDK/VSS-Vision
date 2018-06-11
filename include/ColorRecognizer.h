@@ -6,6 +6,7 @@
 #define VSS_VISION_COLORRECOGNIZER_H
 
 #include <Interfaces/IColorRecognizer.h>
+#include <Constants.h>
 
 class ColorRecognizer : public IColorRecognizer{
 public:
@@ -13,7 +14,7 @@ public:
     void processImage(cv::Mat) override;
     void processImageInsideSectors(cv::Mat, std::vector<cv::Point>, int) override;
     std::vector<cv::Rect> getRectangles() override;
-    std::vector<cv::Point> getCenters() override;
+    std::vector<cv::Point2f> getCenters() override;
 
     void binarizesImage();
     void recognizesRectangles();
@@ -28,6 +29,6 @@ private:
     cv::Mat originalFrame;
     cv::Mat binaryFrame;
     std::vector<cv::Rect> rectangles;
-    std::vector<cv::Point> centers;
+    std::vector<cv::Point2f> centers;
 };
 #endif //VSS_VISION_COLORRECOGNIZER_H

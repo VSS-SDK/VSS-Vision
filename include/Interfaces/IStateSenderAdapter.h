@@ -14,7 +14,7 @@ class IStateSenderAdapter {
 public:
 
     virtual void createSocket() = 0;
-    virtual void sendState(std::vector<vss::Robot>&, vss::Ball&) = 0;
+    virtual void sendState(std::vector<vss::Robot>& blueRobots, std::vector<vss::Robot>& yellowRobots, vss::Ball& ball) = 0;
 
 };
 

@@ -16,7 +16,7 @@
 class ColorPosition {
 public:
     ColorType color;
-    std::vector<cv::Point> points;
+    std::vector<cv::Point2f> points;
 
     ColorPosition(){
         color = ColorType::UnknownType;

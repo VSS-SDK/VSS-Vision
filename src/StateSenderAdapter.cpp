@@ -12,13 +12,12 @@ void StateSenderAdapter::createSocket() {
     sender->createSocket();
 }
 
-void StateSenderAdapter::sendState(std::vector<vss::Robot>& robots, vss::Ball& ball) {
+void StateSenderAdapter::sendState(std::vector<vss::Robot>& blueRobots, std::vector<vss::Robot>& yellowRobots, vss::Ball& ball) {
     vss::State state;
-    unsigned long nRobots = robots.size()/2;
 
     state.ball = ball;
-    state.teamYellow.insert(state.teamYellow.end(), robots.begin(), robots.begin()+nRobots);
-    state.teamBlue.insert(state.teamBlue.end(), robots.begin()+nRobots, robots.end());
+    state.teamYellow.insert(state.teamYellow.end(), yellowRobots.begin(), yellowRobots.end());
+    state.teamBlue.insert(state.teamBlue.end(), blueRobots.begin(), blueRobots.end());
 
 //    std::cout << state << std::endl;
 

@@ -453,7 +453,7 @@
                               <object class="GtkLabel" id="label_team_1">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Team 1</property>
+                                <property name="label" translatable="yes">Team</property>
                               </object>
                               <packing>
                                 <property name="top_attach">1</property>
@@ -465,7 +465,7 @@
                               <object class="GtkLabel" id="label_team_2">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Team 2</property>
+                                <property name="label" translatable="yes">Opponent</property>
                               </object>
                               <packing>
                                 <property name="top_attach">2</property>

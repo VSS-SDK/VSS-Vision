@@ -76,7 +76,7 @@ public:
 
     void onComboBoxSelectColorRobot5(Gtk::ComboBox *) override;
 
-    void onRobotsNewPositions(std::vector<vss::Robot>, vss::Ball) override;
+    void onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) override;
 
 private:
 
@@ -89,7 +89,7 @@ private:
     // Comunication between threads
     Glib::Dispatcher signal_set_new_frame;
 
-    sigc::signal <void, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
+    sigc::signal <void, std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
 
     // Classes
     IInputReader *inputReader;
