@@ -48,20 +48,24 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
 
 void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
 
+    // vector com os pontos onde, por exemplo, a cor azul do time foi encontrada
     auto &teamPositions = colors[WhoseName::Team].points;
     auto &teamColor = colors[WhoseName::Team].color;
 
     if (teamColor == ColorType::UnknownType or teamPositions.empty()) return;
 
-    // iterate through robots
+    // itera sobre as posicoes das cores de robot1, robot2, ..., robot5
     for (int robotInt = WhoseName::Robot1; robotInt <= WhoseName::Robot5; robotInt++) {
 
         auto robotNumber = static_cast<WhoseName>(robotInt);
 
+        // vector com os pontos da cor do robot1, por exemplo
         auto &robotPositions = colors[robotNumber].points;
         auto &robotColor = colors[robotNumber].color;
 
+        // if utilizado para manter robot1 na posicao 1, robot2 na posicao 2, etc
         if (robotColor == ColorType::UnknownType or robotPositions.empty()){
+            // caso nao tenha encontrado a cor no campo ou a cor nao esteja definida entao adiciona um robo nulo no vetor
             if(teamColor == ColorType::Yellow)
                 yellowRobots.emplace_back(vss::Robot());
             else
@@ -75,7 +79,7 @@ void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
 
         double minDistance = 10000;
 
-        // searches for a robot point which matches with team point
+        // procura pelo ponto do time que seja mais proximo do ponto do robo
         for (unsigned int i = 0; i < robotPositions.size(); i++) {
             for (unsigned int j = 0; j < teamPositions.size(); j++) {
 
@@ -88,6 +92,7 @@ void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
                 }
             }
 
+            // se encontrou um ponto, entao quebra o loop
             if(itRobotPos != robotPositions.end()) break;
         }
 
@@ -95,10 +100,11 @@ void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
 
             vss::Robot robot = calculateRobotsValues(*itTeamPos, *itRobotPos, robotNumber);
 
-            // removes used points to optimize searching
+            // remove os pontos utilizados para otimizar e para que um mesmo ponto nao seja utilizado 2x
             teamPositions.erase(itTeamPos);
             robotPositions.erase(itRobotPos);
 
+            // atualiza ultima posicao para calculo de velocidade
             lastRobotsPos[robotNumber] = robot;
 
             if (teamColor == ColorType::Yellow)
