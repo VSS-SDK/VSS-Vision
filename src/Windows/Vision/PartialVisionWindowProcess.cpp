@@ -16,6 +16,16 @@ void VisionWindow::setNewFrame() {
 void VisionWindow::receiveNewFrame(cv::Mat _frame) {
     frame = _frame;
     signal_set_new_frame.emit();
+
+    if(timeHelper.getElapsedTime() >= 1000){
+        updateFpsLabel();
+
+        timeHelper.restartCounting();
+        nFps = 0;
+    } else {
+        nFps++;
+    }
+
 }
 
 void VisionWindow::processFrame() {

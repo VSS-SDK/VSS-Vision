@@ -26,6 +26,8 @@ VisionWindow::VisionWindow() {
 
     playing = true;
     shouldReadInput = true;
+
+    nFps = 0;
 }
 
 VisionWindow::~VisionWindow() = default;
@@ -45,6 +47,7 @@ int VisionWindow::run(int argc, char *argv[]) {
 }
 
 void VisionWindow::cameraThreadWrapper() {
+    timeHelper.startCounting();
     configureInputReceivement(inputReader);
 
     while(shouldReadInput) {
