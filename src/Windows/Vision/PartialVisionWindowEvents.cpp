@@ -161,6 +161,6 @@ void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox *combobox) {
 }
 
 void VisionWindow::updateFpsLabel(){
-    string title = "VISION (" + to_string(nFps) + ")";
+    string title = "VISION (" + to_string(fpsAmount) + ")";
     window->set_title(title);
 }

@@ -106,7 +106,7 @@ private:
     bool playing;
     bool shouldReadInput;
 
-    int nFps;
+    int fpsAmount;
 
     // Opencv image
     cv::Mat frame;

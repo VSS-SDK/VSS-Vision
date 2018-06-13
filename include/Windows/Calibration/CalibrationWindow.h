@@ -95,7 +95,7 @@ private:
 
 	bool shouldReadInput;
 
-	int nFps;
+	int fpsAmount;
 
 	TimeHelper timeHelper;
 

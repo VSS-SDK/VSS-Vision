@@ -27,7 +27,7 @@ VisionWindow::VisionWindow() {
     playing = true;
     shouldReadInput = true;
 
-    nFps = 0;
+    fpsAmount = 0;
 }
 
 VisionWindow::~VisionWindow() = default;

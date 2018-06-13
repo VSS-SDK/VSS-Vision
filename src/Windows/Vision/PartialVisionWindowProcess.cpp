@@ -21,9 +21,9 @@ void VisionWindow::receiveNewFrame(cv::Mat _frame) {
         updateFpsLabel();
 
         timeHelper.restartCounting();
-        nFps = 0;
+        fpsAmount = 0;
     } else {
-        nFps++;
+        fpsAmount++;
     }
 
 }

@@ -26,7 +26,7 @@ CalibrationWindow::CalibrationWindow() {
 
     shouldReadInput = true;
 
-    nFps = 0;
+    fpsAmount = 0;
 }
 
 CalibrationWindow::~CalibrationWindow() = default;
