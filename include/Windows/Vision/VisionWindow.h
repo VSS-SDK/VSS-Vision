@@ -26,6 +26,7 @@
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IColorRecognizer.h>
 #include <Helpers/FrameHelper.h>
+#include <Helpers/TimeHelper.h>
 #include <interface.h>
 #include <Domain/Ball.h>
 #include <Domain/Robot.h>
@@ -100,8 +101,12 @@ private:
 
     Calibration calibration;
 
+    TimeHelper timeHelper;
+
     bool playing;
     bool shouldReadInput;
+
+    int fpsAmount;
 
     // Opencv image
     cv::Mat frame;
@@ -169,6 +174,8 @@ private:
     void processFrame();
 
     void receiveNewFrame(cv::Mat);
+
+    void updateFpsLabel();
 
     std::map<WhoseName, ColorPosition> getColorPosition();
 

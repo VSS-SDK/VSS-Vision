@@ -25,6 +25,8 @@ CalibrationWindow::CalibrationWindow() {
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
     shouldReadInput = true;
+
+    fpsAmount = 0;
 }
 
 CalibrationWindow::~CalibrationWindow() = default;
