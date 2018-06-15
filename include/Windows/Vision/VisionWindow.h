@@ -88,7 +88,7 @@ private:
     std::thread *threadWindowControl;
 
     // Comunication between threads
-    Glib::Dispatcher signal_set_new_frame;
+    Glib::Dispatcher dispatcher_update_gtkmm_frame;
 
     sigc::signal <void, std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
 
@@ -169,7 +169,7 @@ private:
     void cameraThreadWrapper();
 
     // Update frame
-    void setNewFrame();
+    void updateGtkImage();
 
     void processFrame();
 

@@ -28,7 +28,7 @@ public:
     virtual float getSaturation() = 0;
     virtual float getContrast() = 0;
 
-    sigc::signal <void, cv::Mat> signal_new_frame;
+    sigc::signal <void, cv::Mat> signal_new_frame_from_reader;
     sigc::signal <void, bool> signal_loaded_capture;
 };
 

@@ -34,8 +34,7 @@ void CameraReader::initializeReceivement() {
   while(!shouldCloseReader){
     if(runningCapture){
       capture >> actualFrame;
-
-      signal_new_frame.emit(actualFrame);
+      signal_new_frame_from_reader.emit(actualFrame);
 
     }else{
       usleep(1000000);

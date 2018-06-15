@@ -8,14 +8,14 @@
 
 #include <Windows/Vision/VisionWindow.h>
 
-void VisionWindow::setNewFrame() {
+void VisionWindow::updateGtkImage() {
     processFrame();
     screenImage->set_image(frame);
 }
 
 void VisionWindow::receiveNewFrame(cv::Mat _frame) {
     frame = _frame;
-    signal_set_new_frame.emit();
+    dispatcher_update_gtkmm_frame.emit();
 
     if(timeHelper.getElapsedTime() >= 1000){
         updateFpsLabel();

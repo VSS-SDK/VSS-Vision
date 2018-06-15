@@ -1,56 +1,51 @@
 /*
- * This file is part of the VSS-Vision project.
- *
- * This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
- * v. 3.0. If a copy of the GPL was not distributed with this
- * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
- */
+* This file is part of the VSS-Vision project.
+*
+* This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
+* v. 3.0. If a copy of the GPL was not distributed with this
+* file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
+*/
 
 #include <Windows/Calibration/CalibrationWindow.h>
 
 CalibrationWindow::CalibrationWindow() {
   calibrationBuilder = new CalibrationBuilder();
-  calibrationBuilderFromRepository = new CalibrationBuilder();
-
   calibrationBuilder->shouldInitializeColors(true);
   calibrationBuilder->shouldInitializeCuts(true);
-  calibration = calibrationBuilder->getInstance();
-  actualColorRangeIndex = 0;
 
-  //inputReader = new CameraReader();
-  inputReader = new ImageFileReader();
-
-  colorRecognizer = new ColorRecognizer();
-
+  calibrationBuilderFromRepository = new CalibrationBuilder();
   calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
 
-    shouldReadInput = true;
+  calibration = calibrationBuilder->getInstance();
 
-    fpsAmount = 0;
+  inputReader = new ImageFileReader();
+  colorRecognizer = new ColorRecognizer();
+
+  fpsAmount = 0;
+  shouldReadInput = true;
+  actualColorRangeIndex = 0;
 }
 
 CalibrationWindow::~CalibrationWindow() = default;
 
 int CalibrationWindow::run(int argc, char *argv[]){
 
-  threadWindowControl = new thread( std::bind( &CalibrationWindow::windowThreadWrapper, this ));
   threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
+  windowThreadWrapper();
 
-    threadWindowControl->join();
-
-    inputReader->close();
-    shouldReadInput = false;
-    threadCameraReader->detach();
+  inputReader->close();
+  shouldReadInput = false;
+  threadCameraReader->detach();
 
   return MENU;
 }
 
 void CalibrationWindow::cameraThreadWrapper() {
-    configureInputReceivement(inputReader);
+  configureInputReceivement(inputReader);
 
-    while(shouldReadInput) {
-        inputReader->initializeReceivement();
-    }
+  while(shouldReadInput) {
+    inputReader->initializeReceivement();
+  }
 }
 
 void CalibrationWindow::windowThreadWrapper() {
@@ -67,25 +62,25 @@ void CalibrationWindow::initializeWidget(){
 
   screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
 
-    // show only .txt files
-    auto filterText = fileChooserDialog->get_filter();
-    filterText->set_name("Text files");
-    filterText->add_pattern("*.txt");
-    fileChooserDialog->add_filter(*filterText);
+  // show only .txt files
+  auto filterText = fileChooserDialog->get_filter();
+  filterText->set_name("Text files");
+  filterText->add_pattern("*.txt");
+  fileChooserDialog->add_filter(*filterText);
 
-    // define initial folder for file chooser
-    fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
+  // define initial folder for file chooser
+  fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
 
   window->maximize();
   window->show_all_children();
 }
 
 void CalibrationWindow::configureInputReceivement(IInputReader* input){
-    input->signal_new_frame.connect(sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame));
+  input->signal_new_frame_from_reader.connect(sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame));
 
-    auto path = input->getAllPossibleSources();
-    input->setSource(path.at(0));
-    input->start();
+  auto path = input->getAllPossibleSources();
+  input->setSource(path.at(0));
+  input->start();
 }
 
 
@@ -147,9 +142,8 @@ void CalibrationWindow::builderWidget(){
 
 void CalibrationWindow::setSignals(){
 
-  signal_set_new_frame.connect(sigc::mem_fun( this, &CalibrationWindow::setNewFrame) );
+  dispatcher_update_gtkmm_frame.connect(sigc::mem_fun( this, &CalibrationWindow::updateGtkImage) );
 
-  inputReader->signal_new_frame.connect( sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame) );
   inputReader->signal_loaded_capture.connect(sigc::mem_fun(this, &CalibrationWindow::getAllAttributsFromCapture));
 
   window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(this, &ICalibrationWindow::onKeyboard), window) , false);
@@ -177,7 +171,7 @@ void CalibrationWindow::setSignals(){
   radioButtonImage->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonImage), radioButtonImage));
   radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonVideo), radioButtonVideo));
   radioButtonCamera->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonCamera), radioButtonCamera));
-  
+
   toggleButtonCutMode->signal_pressed().connect(sigc::bind<Gtk::ToggleButton*>(sigc::mem_fun(this, &ICalibrationWindow::onToggleButtonCutMode), toggleButtonCutMode));
   buttonRestoreCut->signal_pressed().connect(sigc::mem_fun(this, &ICalibrationWindow::onButtonRestoreCut));
 

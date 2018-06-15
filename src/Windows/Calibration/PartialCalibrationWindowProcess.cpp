@@ -10,24 +10,19 @@
 #include <CameraReader.h>
 #include <Windows/Calibration/CalibrationWindow.h>
 
-void CalibrationWindow::setNewFrame(){
-  processFrame();
-  screenImage->set_image(frame);
-}
-
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
   frame = _frame;
-  signal_set_new_frame.emit();
+  dispatcher_update_gtkmm_frame.emit();
 
-  if(timeHelper.getElapsedTime() >= 1000){
-    updateFpsLabel();
+  countFps();
+}
 
-    timeHelper.restartCounting();
-    fpsAmount = 0;
-  } else {
-    fpsAmount++;
-  }
-
+void CalibrationWindow::updateGtkImage(){
+  //TimeHelper t;
+  //t.startCounting();
+  processFrame();
+  //std::cout << t.getElapsedTime() << std::endl;
+  screenImage->set_image(frame);
 }
 
 void CalibrationWindow::processFrame() {
@@ -46,5 +41,16 @@ void CalibrationWindow::applyRectangleToFrame(){
   auto rectangles = colorRecognizer->getRectangles();
   for(unsigned int i = 0 ; i < rectangles.size() ; i++){
     cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
+  }
+}
+
+void CalibrationWindow::countFps(){
+  if(timeHelper.getElapsedTime() >= 1000){
+    updateFpsLabel();
+    timeHelper.restartCounting();
+    fpsAmount = 0;
+
+  } else {
+    fpsAmount++;
   }
 }

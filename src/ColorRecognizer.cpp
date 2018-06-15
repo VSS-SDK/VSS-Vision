@@ -16,14 +16,34 @@ void ColorRecognizer::setColorRange(ColorRange colorRange) {
 
 void ColorRecognizer::processImage(cv::Mat frame) {
   originalFrame = frame.clone();
-
+  
   binarizesImage();
   recognizesRectangles();
   calculateCenters();
 }
 
-void ColorRecognizer::processImageInsideSectors(cv::Mat, std::vector<cv::Point>, int) {
+void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::Point> squareCenterPoint, int squareSize) {
 
+  for (unsigned int i = 0; i < squareCenterPoint.size(); i++) {
+
+    cv::Point squareOriginPoint = cv::Point( squareCenterPoint[i].x - squareSize/2, squareCenterPoint[i].y - squareSize/2 );
+      if (squareOriginPoint.x < 0) squareOriginPoint.x = 0;
+      if (squareOriginPoint.y < 0) squareOriginPoint.y = 0;
+
+    cv::Point squareSizePoint = cv::Point( squareCenterPoint[i].x + squareSize/2, squareCenterPoint[i].y + squareSize/2 );
+      if (squareOriginPoint.x > frame.cols) squareOriginPoint.x = frame.cols;
+      if (squareOriginPoint.y > frame.rows) squareOriginPoint.y = frame.rows;
+
+    cv::Mat cutFrame = cv::Mat(frame, cv::Rect(squareOriginPoint.x , squareOriginPoint.y, squareSizePoint.x, squareSizePoint.y)).clone();
+
+    // cv::imshow('teste', cutFrame);
+    // cv::waitKey();
+
+    binarizesImage();
+
+
+
+  }
 }
 
 std::vector<cv::Rect> ColorRecognizer::getRectangles() {

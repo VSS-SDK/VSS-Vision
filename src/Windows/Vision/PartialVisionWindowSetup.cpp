@@ -64,7 +64,7 @@ void VisionWindow::windowThreadWrapper() {
 }
 
 void VisionWindow::configureInputReceivement(IInputReader* input){
-    input->signal_new_frame.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
+    input->signal_new_frame_from_reader.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
 
     auto path = input->getAllPossibleSources();
     input->setSource(path.at(0));
@@ -144,9 +144,9 @@ void VisionWindow::builderWidget() {
 
 void VisionWindow::setSignals() {
 
-    signal_set_new_frame.connect(sigc::mem_fun(this, &VisionWindow::setNewFrame));
+    dispatcher_update_gtkmm_frame.connect(sigc::mem_fun(this, &VisionWindow::updateGtkImage));
 
-    inputReader->signal_new_frame.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
+    inputReader->signal_new_frame_from_reader.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
 
     signalRobotsNewPositions.connect(sigc::mem_fun(this, &VisionWindow::onRobotsNewPositions));
 
