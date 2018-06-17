@@ -27,7 +27,6 @@
 #include <Interfaces/IColorRecognizer.h>
 #include <Helpers/FrameHelper.h>
 #include <Helpers/TimeHelper.h>
-#include <interface.h>
 #include <Domain/Ball.h>
 #include <Domain/Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
@@ -102,6 +101,9 @@ private:
     Calibration calibration;
 
     TimeHelper timeHelper;
+    TimeHelper timerOptimization;
+    std::map<ColorType, std::vector<cv::Rect>> cutPosition;
+
 
     bool playing;
     bool shouldReadInput;

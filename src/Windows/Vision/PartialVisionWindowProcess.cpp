@@ -29,7 +29,7 @@ void VisionWindow::receiveNewFrame(cv::Mat _frame) {
 }
 
 void VisionWindow::processFrame() {
-  /*
+
     changeRotation(frame, calibration.rotation);
 
     if(calibration.shouldCropImage){
@@ -38,36 +38,53 @@ void VisionWindow::processFrame() {
 
     map<ObjectType, ColorPosition> positions = getColorPosition();
 
-    robotRecognizer->recognizeRobots(positions);
+    //robotRecognizer->recognizeRobots(positions);
 
-    signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
-    */
+    //signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
+
 }
 
 std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition() {
     map<ObjectType, ColorPosition> whosePosition;
-/*
-    for (auto colorRange : calibration.colorsRange) {
 
-        ObjectType objectName = whoseColor[colorRange.colorType];
 
-        if (objectName != ObjectType::Unknown) {
-            colorRecognizer->setColorRange(colorRange);
-            colorRecognizer->processImage(frame);
+    //if (timerOptimization.timeOut(1000)) {
+        for (auto colorRange : calibration.colorsRange) {
+            ObjectType objectName = whoseColor[colorRange.colorType];
 
-            ColorPosition colorPosition;
-            colorPosition.color = colorRange.colorType;
-            colorPosition.points = colorRecognizer->getCenters();
-
-            whosePosition[objectName] = colorPosition;
-
-             TO DRAW IN IMAGE 
-            auto rectangles = colorRecognizer->getRectangles();
-            for (unsigned int i = 0; i < rectangles.size(); i++) {
-                cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
+            if (objectName != ObjectType::Unknown) {
+                colorRecognizer->setColorRange(colorRange);
+                colorRecognizer->processImage(frame);
             }
+
+            cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
+            std::cout << toDescription(objectName) << ": " << colorRecognizer->getRectangles().size() << std::endl;
+
+            drawRectangle(frame, colorRecognizer->getRectangles());
         }
-    }
+/*    } else {
+        for (auto colorRange : calibration.colorsRange) {
+            ObjectType objectName = whoseColor[colorRange.colorType];
+
+            if (objectName != ObjectType::Unknown) {
+                colorRecognizer->setColorRange(colorRange);
+                colorRecognizer->processImageInsideSectors(frame, cutPosition[ colorRecognizer->getColor() ] , 20);
+            }
+
+            cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
+            std::cout << objectName << ": " << colorRecognizer->getRectangles().size() << std::endl;
+
+            drawRectangle(frame, colorRecognizer->getRectangles());
+        }
+    }*/
+
+/*
+    ColorPosition colorPosition;
+    colorPosition.color = colorRange.colorType;
+    colorPosition.points = colorRecognizer->getCenters();
+
+    whosePosition[objectName] = colorPosition;
 */
+
     return whosePosition;
 }
