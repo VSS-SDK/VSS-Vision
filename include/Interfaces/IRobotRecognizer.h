@@ -8,14 +8,14 @@
 #include <vector>
 #include "Domain/Ball.h"
 #include <Domain/Robot.h>
-#include <Domain/WhoseName.h>
+#include <Domain/ObjectType.h>
 #include <map>
 #include "ColorPosition.h"
 
 class IRobotRecognizer {
 
 public:
-    virtual void recognizeRobots(std::map<WhoseName,ColorPosition>) = 0;
+    virtual void recognizeRobots(std::map<ObjectType,ColorPosition>) = 0;
     virtual std::vector<vss::Robot> getBlueRobots() = 0;
     virtual std::vector<vss::Robot> getYellowRobots() = 0;
     virtual vss::Ball getBall() = 0;

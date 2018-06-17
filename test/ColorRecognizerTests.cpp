@@ -21,5 +21,5 @@ TEST(ColorRecognizer_getCenter, WhenGetCenter_ShouldGetRightCenter){
   auto sut = new ColorRecognizer();
   auto center = sut->getCenter(cv::Rect(cv::Point(0,0), cv::Point(10, 10)));
 
-  EXPECT_EQ(center, cv::Point(5,5));
+  EXPECT_EQ(center, cv::Point2f(5,5));
 }

@@ -18,7 +18,7 @@
 #include <ColorRecognizer.h>
 #include <ImageFileReader.h>
 #include <Domain/ProgramState.h>
-#include <Domain/WhoseName.h>
+#include <Domain/ObjectType.h>
 #include <Domain/ColorType.h>
 #include <Domain/ColorPosition.h>
 #include <Interfaces/IInputReader.h>
@@ -151,7 +151,7 @@ private:
 
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
-    std::map<ColorType, WhoseName> whoseColor;
+    std::map<ColorType, ObjectType> whoseColor;
 
     // Control method
     void initializeWidget();
@@ -177,7 +177,7 @@ private:
 
     void updateFpsLabel();
 
-    std::map<WhoseName, ColorPosition> getColorPosition();
+    std::map<ObjectType, ColorPosition> getColorPosition();
 
 };
 

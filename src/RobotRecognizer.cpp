@@ -15,11 +15,11 @@ RobotRecognizer::RobotRecognizer() {
     ball.x = ball.y = 0;
     ball.speedX = ball.speedY = 0;
 
-    lastRobotsPos.insert(std::make_pair(WhoseName::Robot1, initialRobot));
-    lastRobotsPos.insert(std::make_pair(WhoseName::Robot2, initialRobot));
-    lastRobotsPos.insert(std::make_pair(WhoseName::Robot3, initialRobot));
-    lastRobotsPos.insert(std::make_pair(WhoseName::Robot4, initialRobot));
-    lastRobotsPos.insert(std::make_pair(WhoseName::Robot5, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot1, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot2, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot3, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot4, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot5, initialRobot));
 
     lastBallPos = ball;
 
@@ -29,7 +29,7 @@ RobotRecognizer::RobotRecognizer() {
     maxDistance = 10;
 }
 
-void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsPos) {
+void RobotRecognizer::recognizeRobots(std::map<ObjectType, ColorPosition> colorsPos) {
 
     blueRobots.clear();
     yellowRobots.clear();
@@ -46,18 +46,18 @@ void RobotRecognizer::recognizeRobots(std::map<WhoseName, ColorPosition> colorsP
 
 }
 
-void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
+void RobotRecognizer::recognizeTeam(std::map<ObjectType,ColorPosition>& colors){
 
     // vector com os pontos onde, por exemplo, a cor azul do time foi encontrada
-    auto &teamPositions = colors[WhoseName::Team].points;
-    auto &teamColor = colors[WhoseName::Team].color;
+    auto &teamPositions = colors[ObjectType::Team].points;
+    auto &teamColor = colors[ObjectType::Team].color;
 
     if (teamColor == ColorType::UnknownType or teamPositions.empty()) return;
 
     // itera sobre as posicoes das cores de robot1, robot2, ..., robot5
-    for (int robotInt = WhoseName::Robot1; robotInt <= WhoseName::Robot5; robotInt++) {
+    for (int robotInt = ObjectType::Robot1; robotInt <= ObjectType::Robot5; robotInt++) {
 
-        auto robotNumber = static_cast<WhoseName>(robotInt);
+        auto robotNumber = static_cast<ObjectType>(robotInt);
 
         // vector com os pontos da cor do robot1, por exemplo
         auto &robotPositions = colors[robotNumber].points;
@@ -117,10 +117,10 @@ void RobotRecognizer::recognizeTeam(std::map<WhoseName,ColorPosition>& colors){
 
 }
 
-void RobotRecognizer::recognizeOpponent(std::map<WhoseName,ColorPosition>& colors){
+void RobotRecognizer::recognizeOpponent(std::map<ObjectType,ColorPosition>& colors){
 
-    auto &opponentPositions = colors[WhoseName::Team].points;
-    auto &opponentColor = colors[WhoseName::Team].color;
+    auto &opponentPositions = colors[ObjectType::Team].points;
+    auto &opponentColor = colors[ObjectType::Team].color;
 
     if (opponentColor == ColorType::UnknownType or opponentPositions.empty()) return;
 
@@ -140,12 +140,12 @@ void RobotRecognizer::recognizeOpponent(std::map<WhoseName,ColorPosition>& color
     }
 }
 
-void RobotRecognizer::recognizeBall(std::map<WhoseName,ColorPosition>& colors){
+void RobotRecognizer::recognizeBall(std::map<ObjectType,ColorPosition>& colors){
 
     // calculates ball values
-    if(not colors[WhoseName::Ball].points.empty()) {
-        ball.x = colors[WhoseName::Ball].points.front().x;
-        ball.y = colors[WhoseName::Ball].points.front().y;
+    if(not colors[ObjectType::Ball].points.empty()) {
+        ball.x = colors[ObjectType::Ball].points.front().x;
+        ball.y = colors[ObjectType::Ball].points.front().y;
 
         ball.speedX = (ball.x - lastBallPos.x) / rate;
         ball.speedY = (ball.y - lastBallPos.y) / rate;
@@ -155,7 +155,7 @@ void RobotRecognizer::recognizeBall(std::map<WhoseName,ColorPosition>& colors){
 
 }
 
-vss::Robot RobotRecognizer::calculateRobotsValues(cv::Point teamPos, cv::Point robotPos, WhoseName robotNumber) {
+vss::Robot RobotRecognizer::calculateRobotsValues(cv::Point teamPos, cv::Point robotPos, ObjectType robotNumber) {
     // with the closer point found update robot's values
     vss::Robot robot;
 

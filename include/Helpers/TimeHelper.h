@@ -15,10 +15,15 @@ public:
     void startCounting();
     void restartCounting();
     double getElapsedTime();
+    int fps();
+    bool timeOut(int);
+
 
 private:
 
     std::chrono::system_clock::time_point startTime;
+    int countFrame;
+    int framesPerSecond;
 };
 
 #endif //VSS_VISION_TIMEHELPER_H

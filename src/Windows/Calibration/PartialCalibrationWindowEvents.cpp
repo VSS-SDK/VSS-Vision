@@ -34,8 +34,8 @@ void CalibrationWindow::applyActualColorRangeToSlidersHSV(ColorType type, std::v
   scale[V_MIN]->set_value(calibration.colorsRange.at(actualColorRangeIndex).min[V]);
 }
 
-void CalibrationWindow::updateFpsLabel(){
-  string title = "CALIBRATION (" + to_string(fpsAmount) + ")";
+void CalibrationWindow::updateFpsLabel(int i){
+  string title = "CALIBRATION (" + to_string(i) + ")";
   window->set_title(title);
 }
 

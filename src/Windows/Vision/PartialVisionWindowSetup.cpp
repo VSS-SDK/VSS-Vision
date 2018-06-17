@@ -197,12 +197,12 @@ void VisionWindow::setSignals() {
 }
 
 void VisionWindow::initializeWhoseColor() {
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Red, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Blue, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Pink, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Green, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Brown, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Yellow, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Ball));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Purple, WhoseName::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Red, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Blue, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Pink, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Green, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Brown, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Yellow, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Orange, ObjectType::Ball));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Purple, ObjectType::Unknown));
 }

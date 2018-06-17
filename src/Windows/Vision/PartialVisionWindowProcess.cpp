@@ -29,26 +29,29 @@ void VisionWindow::receiveNewFrame(cv::Mat _frame) {
 }
 
 void VisionWindow::processFrame() {
+  /*
     changeRotation(frame, calibration.rotation);
 
     if(calibration.shouldCropImage){
         cropImage(frame, calibration.cut[0], calibration.cut[1]);
     }
 
-    map<WhoseName, ColorPosition> positions = getColorPosition();
+    map<ObjectType, ColorPosition> positions = getColorPosition();
 
     robotRecognizer->recognizeRobots(positions);
 
     signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
+    */
 }
 
-std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition() {
-    map<WhoseName, ColorPosition> whosePosition;
-
+std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition() {
+    map<ObjectType, ColorPosition> whosePosition;
+/*
     for (auto colorRange : calibration.colorsRange) {
-        WhoseName objectName = whoseColor[colorRange.colorType];
 
-        if (objectName != WhoseName::Unknown) {
+        ObjectType objectName = whoseColor[colorRange.colorType];
+
+        if (objectName != ObjectType::Unknown) {
             colorRecognizer->setColorRange(colorRange);
             colorRecognizer->processImage(frame);
 
@@ -58,13 +61,13 @@ std::map<WhoseName, ColorPosition> VisionWindow::getColorPosition() {
 
             whosePosition[objectName] = colorPosition;
 
-            /* TO DRAW IN IMAGE */
+             TO DRAW IN IMAGE 
             auto rectangles = colorRecognizer->getRectangles();
             for (unsigned int i = 0; i < rectangles.size(); i++) {
                 cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
             }
         }
     }
-
+*/
     return whosePosition;
 }

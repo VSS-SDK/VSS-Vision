@@ -21,7 +21,6 @@ CalibrationWindow::CalibrationWindow() {
   inputReader = new ImageFileReader();
   colorRecognizer = new ColorRecognizer();
 
-  fpsAmount = 0;
   shouldReadInput = true;
   actualColorRangeIndex = 0;
 }

@@ -31,7 +31,6 @@ Calibration CalibrationRepository::read(std::string pathName){
       setCalibrationCut(calibration, ifs);
     }
   }
-  std::cout << "amount " << calibration.colorsRange.size() << std::endl;
   return calibration;
 }
 
@@ -148,7 +147,7 @@ void CalibrationRepository::create(std::string pathName, Calibration calibration
     file << calibration.colorsRange[7].max[i] << " ";
   file << std::endl;
   file << std::endl;
-  
+
   file << "# Cuts" << std::endl;
   for(unsigned int i = 0 ; i < calibration.cut.size() ; i++)
     file << calibration.cut.at(i).x << " " << calibration.cut.at(i).y << std::endl;
