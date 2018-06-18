@@ -30,8 +30,8 @@ void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::R
 
     for (unsigned int i = 0; i < cutSquare.size(); i++) {
 
-        cutSquare[i].x -= increaseSquare / 2;
-        cutSquare[i].y -= increaseSquare / 2;
+        cutSquare[i].x -= int(increaseSquare / 2);
+        cutSquare[i].y -= int(increaseSquare / 2);
         cutSquare[i].width  += increaseSquare;
         cutSquare[i].height += increaseSquare;
 
@@ -105,6 +105,10 @@ std::vector<cv::Rect> ColorRecognizer::recognizesRectangles() {
     for(unsigned int i = 0; i < contours.size(); i++){
         approxPolyDP( cv::Mat(contours[i]), contours_poly[i], 0, true );
         boundRect[i] = boundingRect( cv::Mat(contours_poly[i]) );
+        boundRect[i].x -= 1;
+        boundRect[i].y -= 1;
+        boundRect[i].width  += 2;
+        boundRect[i].height += 2;
     }
 
     return boundRect;
@@ -129,7 +133,7 @@ void ColorRecognizer::calculateCenters() {
 }
 
 cv::Point2f ColorRecognizer::getCenter(cv::Rect rect) {
-    cv::Point2f point = (rect.br() + rect.tl())*0.5;
+    cv::Point2f point = (rect.br() + rect.tl()) * 0.5;
     return point;
 }
 
