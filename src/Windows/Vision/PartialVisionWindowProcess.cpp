@@ -9,23 +9,17 @@
 #include <Windows/Vision/VisionWindow.h>
 
 void VisionWindow::updateGtkImage() {
-    processFrame();
+    TimeHelper t;
+        processFrame();
+    std::cout << t.getElapsedTime() << '\n';
+
     screenImage->set_image(frame);
+    updateFpsLabel( timeHelper.fps() );
 }
 
 void VisionWindow::receiveNewFrame(cv::Mat _frame) {
     frame = _frame;
     dispatcher_update_gtkmm_frame.emit();
-
-    if(timeHelper.getElapsedTime() >= 1000){
-        updateFpsLabel();
-
-        timeHelper.restartCounting();
-        fpsAmount = 0;
-    } else {
-        fpsAmount++;
-    }
-
 }
 
 void VisionWindow::processFrame() {
@@ -38,9 +32,9 @@ void VisionWindow::processFrame() {
 
     map<ObjectType, ColorPosition> positions = getColorPosition();
 
-    //robotRecognizer->recognizeRobots(positions);
+    robotRecognizer->recognizeRobots(positions);
 
-    //signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
+    signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
 
 }
 
@@ -56,15 +50,14 @@ std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition() {
                 colorRecognizer->setColorRange(colorRange);
                 colorRecognizer->processImage(frame);
 
+                ColorPosition colorPosition;
+                colorPosition.color = colorRange.colorType;
+                colorPosition.points = colorRecognizer->getCenters();
+
+                whosePosition[objectName] = colorPosition;
+
                 cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
                 drawRectangle(frame, colorRecognizer->getRectangles());
-
-/*
-                std::cout << "ALL: " << toDescription(objectName) << " : ";
-                for (unsigned int m = 0; m < colorRecognizer->getRectangles().size(); m++ )
-                    std::cout << colorRecognizer->getRectangles()[m];
-                std::cout << std::endl;
-*/
             }
         }
 
@@ -76,27 +69,17 @@ std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition() {
                 colorRecognizer->setColorRange(colorRange);
                 colorRecognizer->processImageInsideSectors(frame, cutPosition[ colorRecognizer->getColor() ] , 20);
 
+                ColorPosition colorPosition;
+                colorPosition.color = colorRange.colorType;
+                colorPosition.points = colorRecognizer->getCenters();
+
+                whosePosition[objectName] = colorPosition;
+
                 cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
                 drawRectangle(frame, colorRecognizer->getRectangles());
-
-
-/*
-                std::cout << "CUT: " << toDescription(objectName) << " : ";
-                for (unsigned int m = 0; m < colorRecognizer->getRectangles().size(); m++ )
-                    std::cout << colorRecognizer->getRectangles()[m];
-                std::cout << std::endl;
-*/
             }
         }
     }
-
-/*
-    ColorPosition colorPosition;
-    colorPosition.color = colorRange.colorType;
-    colorPosition.points = colorRecognizer->getCenters();
-
-    whosePosition[objectName] = colorPosition;
-*/
 
     return whosePosition;
 }

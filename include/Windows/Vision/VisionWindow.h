@@ -108,8 +108,6 @@ private:
     bool playing;
     bool shouldReadInput;
 
-    int fpsAmount;
-
     // Opencv image
     cv::Mat frame;
 
@@ -177,7 +175,7 @@ private:
 
     void receiveNewFrame(cv::Mat);
 
-    void updateFpsLabel();
+    void updateFpsLabel(int);
 
     std::map<ObjectType, ColorPosition> getColorPosition();
 
