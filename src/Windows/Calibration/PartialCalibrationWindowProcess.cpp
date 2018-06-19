@@ -12,12 +12,12 @@
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
     frame = _frame;
-    processFrame();
 
     dispatcher_update_gtkmm_frame.emit();
 }
 
 void CalibrationWindow::updateGtkImage(){
+    processFrame();
     screenImage->set_image(frame);
     updateFpsLabel( timeHelper.fps() );
 }
@@ -29,14 +29,16 @@ void CalibrationWindow::processFrame() {
         cropImage(frame, calibration.cut[0], calibration.cut[1]);
     }
 
-    if (timerOptimization.timeOut(1000)) {
-        colorRecognizer->processImage(frame);
+//    TimeHelper t;
+        if (timerOptimization.timeOut(100)) {
+            colorRecognizer->processImage(frame);
 
-    } else {
-        colorRecognizer->processImageInsideSectors(frame, cutPosition[ colorRecognizer->getColor() ] , 20);
-    }
+        } else {
+            colorRecognizer->processImageInsideSectors(frame, cutPosition[ colorRecognizer->getColor() ] , 20);
+        }
+//    std::cout << t.getElapsedTime() << '\n';
 
-    std::cout << "Numbers of square: " << colorRecognizer->getRectangles().size() << std::endl;
+    //std::cout << "Numbers of square: " << colorRecognizer->getRectangles().size() << std::endl;
 
     cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
 

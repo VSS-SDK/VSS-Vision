@@ -2,6 +2,8 @@
 // Created by johnathan on 08/03/18.
 //
 
+#include <Helpers/TimeHelper.h>
+
 #include <unistd.h>
 
 #include <Domain/ColorRange.h>
@@ -20,7 +22,7 @@ void ColorRecognizer::processImage(cv::Mat frame) {
     originalFrame = frame.clone();
 
     binarizesImage(originalFrame);
-    rectangles = recognizesRectangles();
+    rectangles = recognizesRectangles(3);
     calculateCenters();
 }
 
@@ -43,7 +45,7 @@ void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::R
         cv::Mat cutFrame = cv::Mat(frame, cutSquare[i]).clone();
 
         binarizesImage(cutFrame);
-        std::vector<cv::Rect> cuttedRectangles = recognizesRectangles();
+        std::vector<cv::Rect> cuttedRectangles = recognizesRectangles(1);
 
         for (unsigned int j = 0; j < cuttedRectangles.size(); j++) {
             cuttedRectangles[j].x += cutSquare[i].x;
@@ -75,17 +77,19 @@ void ColorRecognizer::binarizesImage(cv::Mat image) {
 
     cv::cvtColor(image, processedHSV, cv::COLOR_RGB2HSV_FULL);
 
+    TimeHelper t;
     cv::inRange(processedHSV,
         cv::Scalar(colorRange.min[H], colorRange.min[S], colorRange.min[V]),
         cv::Scalar(colorRange.max[H], colorRange.max[S], colorRange.max[V]),
         processed);
 
+    std::cout << t.getElapsedTime() << '\n';
     cv::medianBlur(processed, processed, 3);
 
     binaryFrame = processed.clone();
 }
 
-std::vector<cv::Rect> ColorRecognizer::recognizesRectangles() {
+std::vector<cv::Rect> ColorRecognizer::recognizesRectangles(unsigned int maxNumberRect) {
     cv::Mat auxImage = binaryFrame.clone();
     std::vector<std::vector<cv::Point>> contours;
     std::vector<cv::Vec4i> hierarchy;
@@ -94,15 +98,19 @@ std::vector<cv::Rect> ColorRecognizer::recognizesRectangles() {
 
     // sort in crescent order the contours vector by found area
     sort(contours.begin(), contours.end(),
-    [](const std::vector<cv::Point> c1, const std::vector<cv::Point> c2){
-        return cv::contourArea(c1, false) > cv::contourArea(c2, false);
-    }
-);
+        [](const std::vector<cv::Point> c1, const std::vector<cv::Point> c2){
+            return cv::contourArea(c1, false) > cv::contourArea(c2, false);
+        }
+    );
 
-    std::vector<std::vector<cv::Point> > contours_poly( contours.size() );
-    std::vector<cv::Rect> boundRect( contours.size() );
+    unsigned int numberRectFound = contours.size();
 
-    for(unsigned int i = 0; i < contours.size(); i++){
+    if (numberRectFound > maxNumberRect) numberRectFound = maxNumberRect;
+
+    std::vector<std::vector<cv::Point> > contours_poly( numberRectFound );
+    std::vector<cv::Rect> boundRect( numberRectFound );
+
+    for(unsigned int i = 0; i < numberRectFound; i++){
         approxPolyDP( cv::Mat(contours[i]), contours_poly[i], 0, true );
         boundRect[i] = boundingRect( cv::Mat(contours_poly[i]) );
         boundRect[i].x -= 1;

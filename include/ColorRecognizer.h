@@ -18,7 +18,7 @@ public:
     ColorType getColor() override;
 
     void binarizesImage(cv::Mat);
-    std::vector<cv::Rect> recognizesRectangles();
+    std::vector<cv::Rect> recognizesRectangles(unsigned int = 1);
     void calculateCenters();
     cv::Point2f getCenter(cv::Rect);
     ColorRange getColorRange();
