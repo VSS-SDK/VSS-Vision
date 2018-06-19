@@ -146,7 +146,6 @@ private:
     void receiveNewFrame(cv::Mat);
 
     // Events
-    void applyRectangleToFrame();
     void getAllAttributsFromCapture(bool signal);
     void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
 

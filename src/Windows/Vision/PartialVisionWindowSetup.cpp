@@ -11,13 +11,12 @@
 #include <Repositories/CalibrationRepository.h>
 
 VisionWindow::VisionWindow() {
-//    inputReader = new CameraReader();
-    inputReader = new ImageFileReader();
 
     calibrationBuilderFromRepository = new CalibrationBuilder();
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
 
+    inputReader = new ImageFileReader();
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
 
@@ -70,6 +69,9 @@ void VisionWindow::configureInputReceivement(IInputReader* input){
 }
 
 void VisionWindow::initializeWidget() {
+
+    radioButtonImage->set_active();
+
     screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
 
     // show only .txt files
@@ -143,8 +145,6 @@ void VisionWindow::builderWidget() {
 void VisionWindow::setSignals() {
 
     dispatcher_update_gtkmm_frame.connect(sigc::mem_fun(this, &VisionWindow::updateGtkImage));
-
-    inputReader->signal_new_frame_from_reader.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
 
     signalRobotsNewPositions.connect(sigc::mem_fun(this, &VisionWindow::onRobotsNewPositions));
 

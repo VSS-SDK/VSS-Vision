@@ -77,13 +77,11 @@ void ColorRecognizer::binarizesImage(cv::Mat image) {
 
     cv::cvtColor(image, processedHSV, cv::COLOR_RGB2HSV_FULL);
 
-    TimeHelper t;
     cv::inRange(processedHSV,
         cv::Scalar(colorRange.min[H], colorRange.min[S], colorRange.min[V]),
         cv::Scalar(colorRange.max[H], colorRange.max[S], colorRange.max[V]),
         processed);
 
-    std::cout << t.getElapsedTime() << '\n';
     cv::medianBlur(processed, processed, 3);
 
     binaryFrame = processed.clone();

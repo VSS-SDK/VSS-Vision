@@ -9,10 +9,7 @@
 #include <Windows/Vision/VisionWindow.h>
 
 void VisionWindow::updateGtkImage() {
-    TimeHelper t;
-        processFrame();
-    std::cout << t.getElapsedTime() << '\n';
-
+    processFrame();
     screenImage->set_image(frame);
     updateFpsLabel( timeHelper.fps() );
 }

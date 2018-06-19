@@ -9,55 +9,55 @@
 #include <Helpers/DefaultFilesPath.h>
 
 ImageFileReader::ImageFileReader() {
-  source = "";
-  runningCapture = false;
-  shouldCloseReader = false;
+    source = "";
+    runningCapture = false;
+    shouldCloseReader = false;
 }
 
 void ImageFileReader::initializeReceivement() {
-  if(!isAValidFileSource(source)) {
-    std::cerr << "[Error] Invalid file source" << std::endl;
-    return;
-  }
-
-  auto imageSource = cv::imread(source);
-
-  while(!shouldCloseReader){
-    if(runningCapture){
-      actualFrame = imageSource.clone();
-
-      signal_new_frame_from_reader.emit(actualFrame);
-      usleep(15000); // Simula 30 FPS
-    }else{
-      usleep(1000000);
+    if(!isAValidFileSource(source)) {
+        std::cerr << "[Error] Invalid file source" << std::endl;
+        return;
     }
-  }
+
+    auto imageSource = cv::imread(source);
+
+
+    while(!shouldCloseReader){
+        if(runningCapture){
+            actualFrame = imageSource.clone();
+            signal_new_frame_from_reader.emit(actualFrame);
+            usleep(16666); // Simula 60 FPS
+        }else{
+            usleep(1000000);
+        }
+    }
 }
 
 std::vector<std::string> ImageFileReader::getAllPossibleSources() {
-  auto sources = std::vector<std::string>();
-  sources.push_back(defaultFilesPath + "/mock/images/model.jpg");
-  return sources;
+    auto sources = std::vector<std::string>();
+    sources.push_back(defaultFilesPath + "/mock/images/model.jpg");
+    return sources;
 }
 
 void ImageFileReader::setSource(std::string source) {
-  this->source = source;
+    this->source = source;
 }
 
 void ImageFileReader::pause() {
-  this->runningCapture = false;
+    this->runningCapture = false;
 }
 
 void ImageFileReader::start() {
-  this->runningCapture = true;
+    this->runningCapture = true;
 }
 
 void ImageFileReader::close() {
-  this->shouldCloseReader = true;
+    this->shouldCloseReader = true;
 }
 
 bool ImageFileReader::isAValidFileSource(std::string source) {
-  return source == "" ? false : true;
+    return source == "" ? false : true;
 }
 
 void ImageFileReader::setBrightness(float) {
@@ -77,17 +77,17 @@ void ImageFileReader::setContrast(float) {
 }
 
 float ImageFileReader::getBrightness() {
-  return 0;
+    return 0;
 }
 
 float ImageFileReader::getGain() {
-  return 0;
+    return 0;
 }
 
 float ImageFileReader::getSaturation() {
-  return 0;
+    return 0;
 }
 
 float ImageFileReader::getContrast() {
-  return 0;
+    return 0;
 }
