@@ -141,8 +141,8 @@ private:
     void cameraThreadWrapper();
 
     // Update frame
-    void updateGtkImage();
-    void processFrame();
+    cv::Mat processFrame(cv::Mat);
+    void updateGtkImage(cv::Mat);
     void receiveNewFrame(cv::Mat);
 
     // Events

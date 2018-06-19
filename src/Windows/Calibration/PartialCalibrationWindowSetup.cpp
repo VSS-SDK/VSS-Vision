@@ -142,7 +142,7 @@ void CalibrationWindow::builderWidget(){
 
 void CalibrationWindow::setSignals(){
 
-    dispatcher_update_gtkmm_frame.connect(sigc::mem_fun( this, &CalibrationWindow::updateGtkImage) );
+    dispatcher_update_gtkmm_frame.connect(sigc::bind<cv::Mat>(sigc::mem_fun( this, &CalibrationWindow::updateGtkImage), frame));
 
     inputReader->signal_loaded_capture.connect(sigc::mem_fun(this, &CalibrationWindow::getAllAttributsFromCapture));
 

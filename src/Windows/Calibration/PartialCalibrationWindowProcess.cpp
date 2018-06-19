@@ -11,31 +11,33 @@
 #include <Windows/Calibration/CalibrationWindow.h>
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
-    frame = _frame;
+    frame = _frame.clone();
     dispatcher_update_gtkmm_frame.emit();
 }
 
-void CalibrationWindow::updateGtkImage(){
-    processFrame();
-    screenImage->set_image(frame);
+void CalibrationWindow::updateGtkImage(cv::Mat _frame){
+    cv::Mat processedFrame = processFrame(_frame.clone());
+    screenImage->set_image(processedFrame);
     updateFpsLabel( timeHelper.fps() );
 }
 
-void CalibrationWindow::processFrame() {
-    changeRotation(frame, calibration.rotation);
+cv::Mat CalibrationWindow::processFrame(cv::Mat _frame) {
+    changeRotation(_frame, calibration.rotation);
 
     if(calibration.shouldCropImage) {
-        cropImage(frame, calibration.cut[0], calibration.cut[1]);
+        cropImage(_frame, calibration.cut[0], calibration.cut[1]);
     }
 
     if (timerOptimization.timeOut(100)) {
-        colorRecognizer->processImage(frame);
+        colorRecognizer->processImage(_frame);
 
     } else {
-        colorRecognizer->processImageInsideSectors(frame, cutPosition[ colorRecognizer->getColor() ] , 20);
+        colorRecognizer->processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 20);
     }
 
     cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
 
-    drawRectangle(frame, colorRecognizer->getRectangles());
+    drawRectangle(_frame, colorRecognizer->getRectangles());
+
+    return _frame;
 }
