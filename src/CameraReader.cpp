@@ -28,7 +28,7 @@ void CameraReader::initializeReceivement() {
     return;
   }
 
-  capture = cv::VideoCapture(1);
+  capture = cv::VideoCapture(0);
   signal_loaded_capture.emit(true);
 
   while(!shouldCloseReader){

@@ -10,20 +10,18 @@
 class TimeHelper {
 
 public:
-
     TimeHelper();
     void startCounting();
     void restartCounting();
     double getElapsedTime();
-    int fps();
+
+    int framesPerSecond();
     bool timeOut(int);
 
-
 private:
-
     std::chrono::system_clock::time_point startTime;
-    int countFrame;
-    int framesPerSecond;
+    int contFrame;
+    int numberFrame;
 };
 
 #endif //VSS_VISION_TIMEHELPER_H

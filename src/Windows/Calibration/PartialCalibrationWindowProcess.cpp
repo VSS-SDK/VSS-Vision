@@ -18,7 +18,7 @@ void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
 void CalibrationWindow::updateGtkImage(cv::Mat _frame){
     cv::Mat processedFrame = processFrame(_frame.clone());
     screenImage->set_image(processedFrame);
-    updateFpsLabel( timeHelper.fps() );
+    updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
 cv::Mat CalibrationWindow::processFrame(cv::Mat _frame) {

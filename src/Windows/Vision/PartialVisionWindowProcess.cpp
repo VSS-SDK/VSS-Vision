@@ -16,7 +16,7 @@ void VisionWindow::receiveNewFrame(cv::Mat _frame) {
 void VisionWindow::updateGtkImage(cv::Mat _frame) {
     cv::Mat processedFrame = processFrame(_frame.clone());
     screenImage->set_image(processedFrame);
-    updateFpsLabel( timeHelper.fps() );
+    updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
 cv::Mat VisionWindow::processFrame(cv::Mat _frame) {

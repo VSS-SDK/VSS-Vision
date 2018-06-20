@@ -5,8 +5,8 @@
 #include <Helpers/TimeHelper.h>
 
 TimeHelper::TimeHelper() {
-    countFrame = 0;
-    framesPerSecond = 0;
+    contFrame = 0;
+    numberFrame = 0;
     startTime = std::chrono::high_resolution_clock::now();
 }
 
@@ -19,11 +19,8 @@ void TimeHelper::restartCounting() {
 }
 
 double TimeHelper::getElapsedTime() {
-
     auto finish = std::chrono::high_resolution_clock::now();
-
     std::chrono::duration<double, std::milli> elapsed = finish - startTime;
-
     return elapsed.count();
 }
 
@@ -37,14 +34,15 @@ bool TimeHelper::timeOut(int i) {
     }
 }
 
-int TimeHelper::fps(){
+int TimeHelper::framesPerSecond(){
     if (getElapsedTime() >= 1000) {
-        framesPerSecond = countFrame;
-        countFrame = 0;
+        numberFrame = numberFrame * 0.7 + contFrame * 0.3;
+        contFrame = 0;
         restartCounting();
 
     } else {
-        countFrame++;
+        contFrame++;
     }
-    return framesPerSecond;
+
+    return numberFrame;
 }
