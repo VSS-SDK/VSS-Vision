@@ -143,7 +143,7 @@ void VisionWindow::builderWidget() {
 }
 
 void VisionWindow::setSignals() {
-    dispatcher_update_gtkmm_frame.connect(sigc::bind<cv::Mat>(sigc::mem_fun(this, &VisionWindow::updateGtkImage), frame));
+    dispatcher_update_gtkmm_frame.connect(sigc::mem_fun(this, &VisionWindow::updateGtkImage));
     signalRobotsNewPositions.connect(sigc::mem_fun(this, &VisionWindow::onRobotsNewPositions));
 
     window->signal_key_press_event().connect(sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);
