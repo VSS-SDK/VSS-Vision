@@ -55,8 +55,9 @@ public:
     void onRadioButtonCamera(Gtk::RadioButton *) override;
 
     void onComboBoxSelectPath(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorTeam1(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorTeam2(Gtk::ComboBox *) override;
+
+    void onComboBoxSelectColorTeam(Gtk::ComboBox *) override;
+    void onComboBoxSelectColorOpponent(Gtk::ComboBox *) override;
     void onComboBoxSelectColorRobot1(Gtk::ComboBox *) override;
     void onComboBoxSelectColorRobot2(Gtk::ComboBox *) override;
     void onComboBoxSelectColorRobot3(Gtk::ComboBox *) override;
