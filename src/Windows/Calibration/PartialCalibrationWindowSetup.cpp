@@ -18,6 +18,7 @@ CalibrationWindow::CalibrationWindow() {
 
     calibration = calibrationBuilder->getInstance();
 
+    //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
     colorRecognizer = new ColorRecognizer();
 
@@ -69,7 +70,7 @@ void CalibrationWindow::initializeWidget(){
 
     radioButtonImage->set_active();
 
-    screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
+    //screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
 
     // show only .txt files
     auto filterText = fileChooserDialog->get_filter();
@@ -142,7 +143,7 @@ void CalibrationWindow::builderWidget(){
 
 void CalibrationWindow::setSignals(){
 
-    dispatcher_update_gtkmm_frame.connect(sigc::bind<cv::Mat>(sigc::mem_fun( this, &CalibrationWindow::updateGtkImage), frame));
+    dispatcher_update_gtkmm_frame.connect(sigc::mem_fun( this, &CalibrationWindow::updateGtkImage));
 
     inputReader->signal_loaded_capture.connect(sigc::mem_fun(this, &CalibrationWindow::getAllAttributsFromCapture));
 

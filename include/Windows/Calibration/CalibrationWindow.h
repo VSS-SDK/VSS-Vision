@@ -142,7 +142,7 @@ private:
 
     // Update frame
     cv::Mat processFrame(cv::Mat);
-    void updateGtkImage(cv::Mat);
+    void updateGtkImage();
     void receiveNewFrame(cv::Mat);
 
     // Events

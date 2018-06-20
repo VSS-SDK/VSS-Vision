@@ -27,7 +27,7 @@ void ImageFileReader::initializeReceivement() {
         if(runningCapture){
             actualFrame = imageSource.clone();
             signal_new_frame_from_reader.emit(actualFrame);
-            
+
             usleep(15555); // Simula 60 FPS
         }else{
             usleep(1000000);
