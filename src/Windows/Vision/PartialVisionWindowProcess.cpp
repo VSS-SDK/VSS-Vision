@@ -50,7 +50,6 @@ std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& _fra
                 ColorPosition colorPosition;
                 colorPosition.color = colorRange.colorType;
                 colorPosition.points = colorRecognizer->getCenters();
-
                 whosePosition[objectName] = colorPosition;
 
                 cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
@@ -64,7 +63,7 @@ std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& _fra
 
             if (objectName != ObjectType::Unknown) {
                 colorRecognizer->setColorRange(colorRange);
-                colorRecognizer->processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 20);
+                colorRecognizer->processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 50);
 
                 ColorPosition colorPosition;
                 colorPosition.color = colorRange.colorType;

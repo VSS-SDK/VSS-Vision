@@ -10,7 +10,7 @@
 #include "Domain/Robot.h"
 
 class RobotRecognizer : public IRobotRecognizer {
-	
+
 public:
 
     RobotRecognizer();
@@ -38,7 +38,7 @@ private:
     void recognizeOpponent(std::map<ObjectType,ColorPosition>&);
     void recognizeBall(std::map<ObjectType,ColorPosition>&);
 
-    vss::Robot calculateRobotsValues(cv::Point teamPos, cv::Point robotPos, ObjectType robotNumber);
+    vss::Robot calculateRobotsValues(cv::Point2f teamPos, cv::Point2f robotPos, ObjectType robotNumber);
 };
 
 #endif

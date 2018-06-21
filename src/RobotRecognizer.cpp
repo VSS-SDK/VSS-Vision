@@ -155,7 +155,7 @@ void RobotRecognizer::recognizeBall(std::map<ObjectType,ColorPosition>& colors){
 
 }
 
-vss::Robot RobotRecognizer::calculateRobotsValues(cv::Point teamPos, cv::Point robotPos, ObjectType robotNumber) {
+vss::Robot RobotRecognizer::calculateRobotsValues(cv::Point2f teamPos, cv::Point2f robotPos, ObjectType robotNumber) {
     // with the closer point found update robot's values
     vss::Robot robot;
 
