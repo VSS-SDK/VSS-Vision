@@ -4,7 +4,7 @@
 
 #include "Helpers/Math.h"
 
-double Math::distance(cv::Point p1, cv::Point p2) {
+double Math::distance(cv::Point2f p1, cv::Point2f p2) {
     return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
 

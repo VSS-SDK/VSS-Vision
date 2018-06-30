@@ -10,7 +10,7 @@
 class Math {
 
 public:
-    static double distance(cv::Point, cv::Point);
+    static double distance(cv::Point2f, cv::Point2f);
     static cv::Point midPoint(cv::Point, cv::Point);
 
 };

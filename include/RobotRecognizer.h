@@ -14,7 +14,10 @@ class RobotRecognizer : public IRobotRecognizer {
 public:
 
     RobotRecognizer();
-    void recognizeRobots(std::map<ObjectType,ColorPosition>) override;
+
+    std::vector<vss::Robot> recognizeTeam(std::vector< std::vector<ColorPosition>>&, ColorType) override;
+    std::vector<vss::Robot> recognizeOpponent(std::vector< std::vector<ColorPosition>>&, ColorType) override;
+    vss::Ball recognizeBall(ColorPosition&) override;
 
     std::vector<vss::Robot> getBlueRobots() override;
     std::vector<vss::Robot> getYellowRobots() override;
@@ -26,17 +29,20 @@ private:
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
-    std::map<ObjectType, vss::Robot> lastRobotsPos;
+    std::vector<vss::Robot> lastRobotsPos;
 
     vss::Ball ball;
     vss::Ball lastBallPos;
 
     double rate;
-    double maxDistance;
 
-    void recognizeTeam(std::map<ObjectType,ColorPosition>&);
-    void recognizeOpponent(std::map<ObjectType,ColorPosition>&);
-    void recognizeBall(std::map<ObjectType,ColorPosition>&);
+    vss::Robot buildOpponent(cv::Point2f&);
+
+    vss::Robot buildRobot1(cv::Point2f&, std::vector<cv::Point2f>&, std::vector<cv::Point2f>&);
+    vss::Robot buildRobot2(cv::Point2f&, std::vector<cv::Point2f>&, std::vector<cv::Point2f>&);
+    vss::Robot buildRobot3(cv::Point2f&, std::vector<cv::Point2f>&, std::vector<cv::Point2f>&);
+
+    float calculateAngle(cv::Point2f, cv::Point2f);
 
     vss::Robot calculateRobotsValues(cv::Point2f teamPos, cv::Point2f robotPos, ObjectType robotNumber);
 };

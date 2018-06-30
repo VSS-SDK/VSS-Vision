@@ -15,7 +15,11 @@
 class IRobotRecognizer {
 
 public:
-    virtual void recognizeRobots(std::map<ObjectType,ColorPosition>) = 0;
+
+    virtual std::vector<vss::Robot> recognizeTeam(std::vector< std::vector<ColorPosition>>&, ColorType) = 0;
+    virtual std::vector<vss::Robot> recognizeOpponent(std::vector< std::vector<ColorPosition>>&, ColorType) = 0;
+    virtual vss::Ball recognizeBall(ColorPosition&) = 0;
+
     virtual std::vector<vss::Robot> getBlueRobots() = 0;
     virtual std::vector<vss::Robot> getYellowRobots() = 0;
     virtual vss::Ball getBall() = 0;
