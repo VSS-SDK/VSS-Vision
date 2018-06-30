@@ -93,7 +93,6 @@ private:
 
     bool shouldReadInput;
     unsigned int actualColorRangeIndex;
-    std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
     TimeHelper timeHelper;
     TimeHelper timerOptimization;

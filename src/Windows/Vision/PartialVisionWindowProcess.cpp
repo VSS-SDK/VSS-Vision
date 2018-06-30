@@ -26,7 +26,11 @@ cv::Mat VisionWindow::processFrame(cv::Mat _frame) {
         cropImage(_frame, calibration.cut[0], calibration.cut[1]);
     }
 
-    std::vector<ColorPosition> blue = getBluePosition(_frame);
+    TimeHelper t;
+    ColorPosition team = getOpponentPosition(_frame, ColorType::Blue);
+    //std::vector<std::vector<ColorPosition>> team = getTeamPosition(_frame, ColorType::Blue);
+    std::cout << t.getElapsedTime() << '\n';
+
     //map<ObjectType, ColorPosition> positions = getColorPosition(_frame);
 
     //robotRecognizer->recognizeRobots(positions);
@@ -36,88 +40,94 @@ cv::Mat VisionWindow::processFrame(cv::Mat _frame) {
     return _frame;
 }
 
-std::vector<ColorPosition> VisionWindow::getBluePosition(cv::Mat& _frame){
+std::vector<std::vector<ColorPosition>> VisionWindow::getTeamPosition(cv::Mat& _frame, ColorType colorTeam){
 
-    ColorRecognizer blueRecognizer, greenRecognizer, pinkRecognizer;
+    std::vector<vector<ColorPosition>> position;
 
-    ColorRange blueRange = calibration.getColorRange(ColorType::Blue);
-    ColorRange pinkRange = calibration.getColorRange(ColorType::Red);
+    ColorRecognizer teamRecognizer;
+
+    ColorRange teamRange = calibration.getColorRange(colorTeam);
+    ColorRange pinkRange = calibration.getColorRange(ColorType::Pink);
     ColorRange greenRange = calibration.getColorRange(ColorType::Green);
 
-    if (blueRange.colorType == ColorType::Blue) {
-        blueRecognizer.setColorRange(blueRange);
-        blueRecognizer.processImage(_frame);
+    if (teamRange.colorType == colorTeam) {
 
-        if (pinkRange.colorType == ColorType::Red) {
-            pinkRecognizer.setColorRange(pinkRange);
-            pinkRecognizer.processImageInsideSectors(_frame, blueRecognizer.getRectangles() , 50);
+        if (timerOptimization.timeOut(1000)) {
+            teamRecognizer.setColorRange(teamRange);
+            teamRecognizer.processImage(_frame);
+
+        } else {
+            teamRecognizer.setColorRange(teamRange);
+            teamRecognizer.processImageInsideSectors(_frame, teamRectanglesCut , 50, 1);
         }
 
-        if (greenRange.colorType == ColorType::Green) {
-            greenRecognizer.setColorRange(greenRange);
-            greenRecognizer.processImageInsideSectors(_frame, blueRecognizer.getRectangles() , 50);
-        }
+        teamRectanglesCut = teamRecognizer.getRectangles();
 
-        drawRectangle(_frame, blueRecognizer.getRectangles());
-        drawRectangle(_frame, pinkRecognizer.getRectangles());
-        drawRectangle(_frame, greenRecognizer.getRectangles());
+        for (unsigned int i = 0; i < teamRecognizer.getCenters().size(); i++) {
+
+            std::vector<cv::Point2f> teamCentersVector;
+                teamCentersVector.push_back( teamRecognizer.getCenters()[i] );
+
+            std::vector<cv::Rect> teamRectanglesVector;
+                teamRectanglesVector.push_back( teamRecognizer.getRectangles()[i] );
+
+            ColorRecognizer greenRecognizer, pinkRecognizer;
+
+            if (pinkRange.colorType == ColorType::Pink) {
+                pinkRecognizer.setColorRange(pinkRange);
+                pinkRecognizer.processImageInsideSectors(_frame, teamRectanglesVector , 50, 2);
+            }
+
+            if (greenRange.colorType == ColorType::Green) {
+                greenRecognizer.setColorRange(greenRange);
+                greenRecognizer.processImageInsideSectors(_frame, teamRectanglesVector , 50, 2);
+            }
+
+            drawRectangle(_frame, teamRectanglesVector);
+            drawRectangle(_frame, pinkRecognizer.getRectangles());
+            drawRectangle(_frame, greenRecognizer.getRectangles());
+
+            vector<ColorPosition> aux;
+
+            if (teamRecognizer.getCenters().size() > 0)
+                aux.push_back( ColorPosition( teamRecognizer.getColor(), teamCentersVector ) );
+
+            if (pinkRecognizer.getCenters().size() > 0)
+                aux.push_back( ColorPosition( pinkRecognizer.getColor(), pinkRecognizer.getCenters() ) );
+
+            if (greenRecognizer.getCenters().size() > 0)
+                aux.push_back( ColorPosition( greenRecognizer.getColor(), greenRecognizer.getCenters() ) );
+
+            position.push_back(aux);
+        }
     }
-
-    std::vector<ColorPosition> position;
-
-    if (blueRecognizer.getCenters().size() > 0)
-        position.push_back( ColorPosition( blueRecognizer.getColor(), blueRecognizer.getCenters() ) );
-
-    if (pinkRecognizer.getCenters().size() > 0)
-        position.push_back( ColorPosition( pinkRecognizer.getColor(), pinkRecognizer.getCenters() ) );
-
-    if (greenRecognizer.getCenters().size() > 0)
-        position.push_back( ColorPosition( greenRecognizer.getColor(), greenRecognizer.getCenters() ) );
 
     return position;
 }
 
-std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& _frame) {
-    map<ObjectType, ColorPosition> whosePosition;
+ColorPosition VisionWindow::getOpponentPosition(cv::Mat& _frame, ColorType colorOpponent){
 
-    if (timerOptimization.timeOut(1000)) {
-        for (auto colorRange : calibration.colorsRange) {
-            ObjectType objectName = whoseColor[colorRange.colorType];
+    ColorRecognizer opponentRecognizer;
 
-            if (objectName != ObjectType::Unknown) {
-                colorRecognizer->setColorRange(colorRange);
-                colorRecognizer->processImage(_frame);
+    ColorRange opponentRange = calibration.getColorRange(colorOpponent);
 
-                ColorPosition colorPosition;
-                colorPosition.color = colorRange.colorType;
-                colorPosition.points = colorRecognizer->getCenters();
+    if (opponentRange.colorType == colorOpponent) {
 
-                whosePosition[objectName] = colorPosition;
+        if (timerOptimization.timeOut(1000)) {
+            opponentRecognizer.setColorRange(opponentRange);
+            opponentRecognizer.processImage(_frame);
 
-                cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
-                drawRectangle(_frame, colorRecognizer->getRectangles());
-            }
+        } else {
+            opponentRecognizer.setColorRange(opponentRange);
+            opponentRecognizer.processImageInsideSectors(_frame, opponentRectanglesCut , 50, 1);
         }
 
-    } else {
-        for (auto colorRange : calibration.colorsRange) {
-            ObjectType objectName = whoseColor[colorRange.colorType];
+        opponentRectanglesCut = opponentRecognizer.getRectangles();
 
-            if (objectName != ObjectType::Unknown) {
-                colorRecognizer->setColorRange(colorRange);
-                colorRecognizer->processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 50);
+        drawRectangle(_frame, opponentRecognizer.getRectangles());
 
-                ColorPosition colorPosition;
-                colorPosition.color = colorRange.colorType;
-                colorPosition.points = colorRecognizer->getCenters();
 
-                whosePosition[objectName] = colorPosition;
-
-                cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
-                drawRectangle(_frame, colorRecognizer->getRectangles());
-            }
-        }
     }
 
-    return whosePosition;
+    return ColorPosition(opponentRecognizer.getColor(), opponentRecognizer.getCenters());
 }

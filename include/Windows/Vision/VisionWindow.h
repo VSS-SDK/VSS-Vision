@@ -150,8 +150,10 @@ private:
     void receiveNewFrame(cv::Mat);
     void updateFpsLabel(int);
 
-    std::map<ObjectType, ColorPosition> getColorPosition(cv::Mat&);
-    std::vector<ColorPosition> getBluePosition(cv::Mat&);
+    ColorPosition getOpponentPosition(cv::Mat&, ColorType);
+    std::vector<std::vector<ColorPosition>> getTeamPosition(cv::Mat&, ColorType);
+    std::vector<cv::Rect> teamRectanglesCut;
+    std::vector<cv::Rect> opponentRectanglesCut;
 
 };
 

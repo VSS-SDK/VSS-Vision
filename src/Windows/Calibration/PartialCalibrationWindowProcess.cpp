@@ -28,14 +28,7 @@ cv::Mat CalibrationWindow::processFrame(cv::Mat _frame) {
         cropImage(_frame, calibration.cut[0], calibration.cut[1]);
     }
 
-    if (timerOptimization.timeOut(100)) {
-        colorRecognizer->processImage(_frame);
-
-    } else {
-        colorRecognizer->processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 20);
-    }
-
-    cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
+    colorRecognizer->processImage(_frame);
 
     drawRectangle(_frame, colorRecognizer->getRectangles());
 
