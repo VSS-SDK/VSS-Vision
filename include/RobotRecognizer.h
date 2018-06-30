@@ -16,7 +16,7 @@ public:
     RobotRecognizer();
 
     std::vector<vss::Robot> recognizeTeam(std::vector< std::vector<ColorPosition>>&, ColorType) override;
-    std::vector<vss::Robot> recognizeOpponent(std::vector< std::vector<ColorPosition>>&, ColorType) override;
+    std::vector<vss::Robot> recognizeOpponent(ColorPosition&, ColorType) override;
     vss::Ball recognizeBall(ColorPosition&) override;
 
     std::vector<vss::Robot> getBlueRobots() override;

@@ -73,15 +73,13 @@ std::vector<vss::Robot> RobotRecognizer::recognizeTeam(std::vector< std::vector<
     return yellowRobots;
 }
 
-std::vector<vss::Robot> RobotRecognizer::recognizeOpponent(std::vector< std::vector<ColorPosition>>& opponentRobots, ColorType opponentColor){
+std::vector<vss::Robot> RobotRecognizer::recognizeOpponent(ColorPosition& opponentRobots, ColorType opponentColor){
 
-    for (auto &blob : opponentRobots) {
-        for (auto &p : blob) {
-            vss::Robot robot = buildOpponent(p.points[0]);
+    for (auto &point : opponentRobots.points) {
+        vss::Robot robot = buildOpponent(point);
 
-            if (opponentColor == ColorType::Blue) blueRobots.emplace_back(robot);
-            else yellowRobots.emplace_back(robot);
-        }
+        if (opponentColor == ColorType::Blue) blueRobots.emplace_back(robot);
+        else yellowRobots.emplace_back(robot);
     }
 
     if(opponentColor == ColorType::Blue){
