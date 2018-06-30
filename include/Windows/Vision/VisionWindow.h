@@ -151,6 +151,7 @@ private:
     void updateFpsLabel(int);
 
     std::map<ObjectType, ColorPosition> getColorPosition(cv::Mat&);
+    std::vector<ColorPosition> getBluePosition(cv::Mat&);
 
 };
 

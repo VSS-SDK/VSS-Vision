@@ -57,7 +57,7 @@ void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::R
             rectangles.push_back(cuttedRectangles[j]);
         }
     }
-    
+
     calculateCenters();
 }
 

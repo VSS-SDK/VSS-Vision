@@ -32,6 +32,8 @@ public:
 	Calibration();
 	Calibration( Calibration *calibration );
 
+	ColorRange getColorRange(ColorType);
+
 	friend std::ostream& operator<<( std::ostream& os, const Calibration& calibration );
 };
 
