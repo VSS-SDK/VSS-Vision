@@ -23,6 +23,9 @@ void ColorRecognizer::processImage(cv::Mat frame) {
     binarizesImage(originalFrame);
     rectangles = recognizesRectangles(3);
     calculateCenters();
+
+    //cv::imshow("teste", binaryFrame);
+    //cv::waitKey(5);
 }
 
 void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::Rect> cutSquare, int increaseSquare, int maxNumberRect) {

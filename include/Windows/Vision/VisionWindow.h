@@ -80,13 +80,15 @@ private:
     IInputReader *inputReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
-    IColorRecognizer *colorRecognizer;
+    //IColorRecognizer *colorRecognizer;
     IRobotRecognizer *robotRecognizer;
 
     Calibration calibration;
 
     TimeHelper timeHelper;
-    TimeHelper timerOptimization;
+    TimeHelper timerBall;
+    TimeHelper timerTeam;
+    TimeHelper timerOpponent;
     std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
     bool playing;
@@ -150,10 +152,16 @@ private:
     void receiveNewFrame(cv::Mat);
     void updateFpsLabel(int);
 
-    ColorPosition getOpponentPosition(cv::Mat&, ColorType);
-    std::vector<std::vector<ColorPosition>> getTeamPosition(cv::Mat&, ColorType);
+    ColorPosition getBallPosition(cv::Mat, ColorType);
+    ColorPosition getOpponentPosition(cv::Mat, ColorType);
+    std::vector<std::vector<ColorPosition>> getTeamPosition(cv::Mat, ColorType);
+
+    std::vector<cv::Rect> ballRectanglesCut;
     std::vector<cv::Rect> teamRectanglesCut;
     std::vector<cv::Rect> opponentRectanglesCut;
+
+    std::vector<std::vector<cv::Rect>> drawRectangleVector;
+
 
 };
 

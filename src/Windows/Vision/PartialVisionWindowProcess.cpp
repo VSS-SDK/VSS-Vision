@@ -26,21 +26,25 @@ cv::Mat VisionWindow::processFrame(cv::Mat _frame) {
         cropImage(_frame, calibration.cut[0], calibration.cut[1]);
     }
 
-    TimeHelper t;
-    ColorPosition team = getOpponentPosition(_frame, ColorType::Blue);
-    //std::vector<std::vector<ColorPosition>> team = getTeamPosition(_frame, ColorType::Blue);
-    std::cout << t.getElapsedTime() << '\n';
+    ColorPosition ball = getBallPosition(_frame.clone(), ColorType::Orange);
+    ColorPosition opponent = getOpponentPosition(_frame.clone(), ColorType::Blue);
+    std::vector<std::vector<ColorPosition>> team = getTeamPosition(_frame, ColorType::Yellow);
 
-    //map<ObjectType, ColorPosition> positions = getColorPosition(_frame);
+    robotRecognizer->recognizeBall(ball);
+    robotRecognizer->recognizeTeam(team, ColorType::Yellow);
+    robotRecognizer->recognizeOpponent(opponent, ColorType::Blue);
 
-    //robotRecognizer->recognizeRobots(positions);
+    signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
 
-    //signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
+    for (auto draw : drawRectangleVector) {
+        drawRectangle(_frame, draw);
+    }
+    drawRectangleVector.clear();
 
     return _frame;
 }
 
-std::vector<std::vector<ColorPosition>> VisionWindow::getTeamPosition(cv::Mat& _frame, ColorType colorTeam){
+std::vector<std::vector<ColorPosition>> VisionWindow::getTeamPosition(cv::Mat _frame, ColorType colorTeam){
 
     std::vector<vector<ColorPosition>> position;
 
@@ -52,7 +56,7 @@ std::vector<std::vector<ColorPosition>> VisionWindow::getTeamPosition(cv::Mat& _
 
     if (teamRange.colorType == colorTeam) {
 
-        if (timerOptimization.timeOut(1000)) {
+        if (timerTeam.timeOut(1000)) {
             teamRecognizer.setColorRange(teamRange);
             teamRecognizer.processImage(_frame);
 
@@ -83,9 +87,9 @@ std::vector<std::vector<ColorPosition>> VisionWindow::getTeamPosition(cv::Mat& _
                 greenRecognizer.processImageInsideSectors(_frame, teamRectanglesVector , 50, 2);
             }
 
-            drawRectangle(_frame, teamRectanglesVector);
-            drawRectangle(_frame, pinkRecognizer.getRectangles());
-            drawRectangle(_frame, greenRecognizer.getRectangles());
+            drawRectangleVector.push_back(teamRectanglesVector);
+            drawRectangleVector.push_back(pinkRecognizer.getRectangles());
+            drawRectangleVector.push_back(greenRecognizer.getRectangles());
 
             vector<ColorPosition> aux;
 
@@ -105,7 +109,7 @@ std::vector<std::vector<ColorPosition>> VisionWindow::getTeamPosition(cv::Mat& _
     return position;
 }
 
-ColorPosition VisionWindow::getOpponentPosition(cv::Mat& _frame, ColorType colorOpponent){
+ColorPosition VisionWindow::getOpponentPosition(cv::Mat _frame, ColorType colorOpponent){
 
     ColorRecognizer opponentRecognizer;
 
@@ -113,7 +117,7 @@ ColorPosition VisionWindow::getOpponentPosition(cv::Mat& _frame, ColorType color
 
     if (opponentRange.colorType == colorOpponent) {
 
-        if (timerOptimization.timeOut(1000)) {
+        if (timerOpponent.timeOut(1000)) {
             opponentRecognizer.setColorRange(opponentRange);
             opponentRecognizer.processImage(_frame);
 
@@ -122,12 +126,36 @@ ColorPosition VisionWindow::getOpponentPosition(cv::Mat& _frame, ColorType color
             opponentRecognizer.processImageInsideSectors(_frame, opponentRectanglesCut , 50, 1);
         }
 
+        std::cout << opponentRecognizer.getRectangles().size() << '\n';
+
         opponentRectanglesCut = opponentRecognizer.getRectangles();
 
-        drawRectangle(_frame, opponentRecognizer.getRectangles());
-
-
+        drawRectangleVector.push_back(opponentRecognizer.getRectangles());
     }
 
     return ColorPosition(opponentRecognizer.getColor(), opponentRecognizer.getCenters());
+}
+
+ColorPosition VisionWindow::getBallPosition(cv::Mat _frame, ColorType colorBall){
+    ColorRecognizer ballRecognizer;
+
+    ColorRange ballRange = calibration.getColorRange(colorBall);
+
+    if (ballRange.colorType == colorBall) {
+
+        if (timerBall.timeOut(1000)) {
+            ballRecognizer.setColorRange(ballRange);
+            ballRecognizer.processImage(_frame);
+
+        } else {
+            ballRecognizer.setColorRange(ballRange);
+            ballRecognizer.processImageInsideSectors(_frame, ballRectanglesCut , 50, 1);
+        }
+
+        ballRectanglesCut = ballRecognizer.getRectangles();
+
+        drawRectangleVector.push_back(ballRecognizer.getRectangles());
+    }
+
+    return ColorPosition(ballRecognizer.getColor(), ballRecognizer.getCenters());
 }

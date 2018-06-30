@@ -17,7 +17,7 @@ VisionWindow::VisionWindow() {
     calibration = calibrationBuilderFromRepository->getInstance();
 
     inputReader = new ImageFileReader();
-    colorRecognizer = new ColorRecognizer();
+    //colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
 
     stateSender = new StateSenderAdapter();
