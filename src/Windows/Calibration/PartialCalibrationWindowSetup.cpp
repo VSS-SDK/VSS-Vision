@@ -18,7 +18,6 @@ CalibrationWindow::CalibrationWindow() {
 
     calibration = calibrationBuilder->getInstance();
 
-    //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
     colorRecognizer = new ColorRecognizer();
 
@@ -31,6 +30,7 @@ CalibrationWindow::~CalibrationWindow() = default;
 int CalibrationWindow::run(int argc, char *argv[]){
 
     threadWindowControl = new thread(std::bind(&CalibrationWindow::windowThreadWrapper, this));
+    usleep(1000000);
     threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
 
     threadWindowControl->join();
