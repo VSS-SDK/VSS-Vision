@@ -19,7 +19,7 @@ public:
 
     void binarizesImage(cv::Mat);
     std::vector<cv::Rect> recognizesRectangles(unsigned int = 1);
-    void calculateCenters();
+    void calculateCenters(cv::Mat);
     cv::Point2f getCenter(cv::Rect);
     ColorRange getColorRange();
     cv::Mat getOriginalFrame();
@@ -27,7 +27,6 @@ public:
 
 private:
     ColorRange colorRange;
-    cv::Mat originalFrame;
     cv::Mat binaryFrame;
     std::vector<cv::Rect> rectangles;
     std::vector<cv::Point2f> centers;

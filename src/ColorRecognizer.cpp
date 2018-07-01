@@ -19,13 +19,9 @@ void ColorRecognizer::setColorRange(ColorRange colorRange) {
 }
 
 void ColorRecognizer::processImage(cv::Mat frame) {
-    originalFrame = frame.clone();
-    binarizesImage(originalFrame);
+    binarizesImage(frame);
     rectangles = recognizesRectangles(3);
-    calculateCenters();
-
-    //cv::imshow("teste", binaryFrame);
-    //cv::waitKey(5);
+    calculateCenters(frame);
 }
 
 void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::Rect> cutSquare, int increaseSquare, int maxNumberRect) {
@@ -60,7 +56,7 @@ void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::R
         }
     }
 
-    calculateCenters();
+    calculateCenters(frame);
 }
 
 std::vector<cv::Rect> ColorRecognizer::getRectangles() {
@@ -124,7 +120,7 @@ std::vector<cv::Rect> ColorRecognizer::recognizesRectangles(unsigned int maxNumb
     return boundRect;
 }
 
-void ColorRecognizer::calculateCenters() {
+void ColorRecognizer::calculateCenters(cv::Mat frame) {
     auto centers = std::vector<cv::Point2f>();
     auto centimeterPoint = cv::Point2f();
 
@@ -132,8 +128,8 @@ void ColorRecognizer::calculateCenters() {
         auto pixelPoint = getCenter(rectangles.at(i));
 
         centimeterPoint = {
-            (float) (pixelPoint.x * vss::MAX_COORDINATE_X) / originalFrame.cols,
-            (float) (pixelPoint.y * vss::MAX_COORDINATE_Y) / originalFrame.rows
+            (float) (pixelPoint.x * vss::MAX_COORDINATE_X) / frame.cols,
+            (float) (pixelPoint.y * vss::MAX_COORDINATE_Y) / frame.rows
         };
 
         centers.push_back(centimeterPoint);
@@ -149,10 +145,6 @@ cv::Point2f ColorRecognizer::getCenter(cv::Rect rect) {
 
 ColorRange ColorRecognizer::getColorRange() {
     return colorRange;
-}
-
-cv::Mat ColorRecognizer::getOriginalFrame() {
-    return originalFrame;
 }
 
 cv::Mat ColorRecognizer::getBinaryFrame() {

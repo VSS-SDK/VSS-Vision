@@ -70,8 +70,6 @@ void CalibrationWindow::initializeWidget(){
 
     radioButtonImage->set_active();
 
-    //screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
-
     // show only .txt files
     auto filterText = fileChooserDialog->get_filter();
     filterText->set_name("Text files");

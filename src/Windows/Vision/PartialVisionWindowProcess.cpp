@@ -126,8 +126,6 @@ ColorPosition VisionWindow::getOpponentPosition(cv::Mat _frame, ColorType colorO
             opponentRecognizer.processImageInsideSectors(_frame, opponentRectanglesCut , 50, 1);
         }
 
-        std::cout << opponentRecognizer.getRectangles().size() << '\n';
-
         opponentRectanglesCut = opponentRecognizer.getRectangles();
 
         drawRectangleVector.push_back(opponentRecognizer.getRectangles());

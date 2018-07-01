@@ -30,7 +30,7 @@ void ImageFileReader::initializeReceivement() {
 
             usleep(15555); // Simula 60 FPS
         }else{
-            usleep(1000000);
+            usleep(15555);
         }
     }
 }
