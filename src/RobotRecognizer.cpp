@@ -25,12 +25,11 @@ std::vector<vss::Robot> RobotRecognizer::recognizeTeam(std::vector< std::vector<
 
         for(auto& p : blob){
             if(p.color == ColorType::Pink) {
-                pinkPositions.emplace_back(p.points[0]);
+                pinkPositions.insert(pinkPositions.begin(), p.points.begin(), p.points.end());
             } else if(p.color == ColorType::Green) {
-                greenPositions.emplace_back(p.points[0]);
-            } else {
-                teamPosition = p.points[0];
-                teamColor = p.color;
+                greenPositions.insert(greenPositions.begin(), p.points.begin(), p.points.end());
+            } else if (p.color == teamColor){
+                teamPosition = p.points.front();
             }
         }
 
@@ -109,7 +108,6 @@ vss::Ball RobotRecognizer::recognizeBall(ColorPosition& ballPosition){
 }
 
 vss::Robot RobotRecognizer::buildRobot1(cv::Point2f& teamPoint, std::vector<cv::Point2f>& greenPositions, std::vector<cv::Point2f>& pinkPositions){
-
     vss::Robot vssRobot;
     vssRobot.x = teamPoint.x;
     vssRobot.y = teamPoint.y;
