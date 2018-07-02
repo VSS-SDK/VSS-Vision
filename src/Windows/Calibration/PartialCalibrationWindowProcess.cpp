@@ -11,21 +11,30 @@
 #include <Windows/Calibration/CalibrationWindow.h>
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
-    frame = _frame.clone();
+    TimeHelper t;
+    processFrame(_frame.clone());
+    cout << t.getElapsedTime() << endl;
     dispatcher_update_gtkmm_frame.emit();
 }
 
 void CalibrationWindow::updateGtkImage(){
-    cv::Mat processedFrame = processFrame(frame.clone());
-    screenImage->set_image(processedFrame, showBinaryImage);
+    mtx.lock();
+        cv::Mat _frame = frame.clone();
+    mtx.unlock();
+
+    screenImage->set_image(_frame, showBinaryImage);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
-cv::Mat CalibrationWindow::processFrame(cv::Mat _frame) {
-    changeRotation(_frame, calibration.rotation);
+void CalibrationWindow::processFrame(cv::Mat _frame) {
+    mtx.lock();
+        Calibration _calibration = calibration;
+    mtx.unlock();
 
-    if(calibration.shouldCropImage) {
-        cropImage(_frame, calibration.cut[0], calibration.cut[1]);
+    changeRotation(_frame, _calibration.rotation);
+
+    if(_calibration.shouldCropImage) {
+        cropImage(_frame, _calibration.cut[0], _calibration.cut[1]);
     }
 
     colorRecognizer->processImage(_frame);
@@ -36,5 +45,7 @@ cv::Mat CalibrationWindow::processFrame(cv::Mat _frame) {
 
     drawRectangle(_frame, colorRecognizer->getRectangles());
 
-    return _frame;
+    mtx.lock();
+        frame = _frame.clone();
+    mtx.unlock();
 }

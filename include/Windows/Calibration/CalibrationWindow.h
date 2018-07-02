@@ -79,6 +79,8 @@ private:
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
+    mutable std::mutex mtx;
+
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
 
@@ -90,9 +92,9 @@ private:
     ICalibrationRepository *calibrationRepository;
 
     Calibration calibration;
-
-    bool shouldReadInput;
+  
     bool showBinaryImage;
+
     unsigned int actualColorRangeIndex;
 
     TimeHelper timeHelper;
@@ -138,10 +140,10 @@ private:
     void configureInputReceivement(IInputReader*);
 
     void windowThreadWrapper();
-    void cameraThreadWrapper();
+    void frameThreadWrapper();
 
     // Update frame
-    cv::Mat processFrame(cv::Mat);
+    void processFrame(cv::Mat);
     void updateGtkImage();
     void receiveNewFrame(cv::Mat);
 

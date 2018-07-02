@@ -16,6 +16,8 @@ CameraReader::CameraReader() {
   camerasIndex.push_back(0);
 }
 
+cv::Mat CameraReader::getFrame(){ return cv::Mat(); }
+
 std::vector<std::string> CameraReader::getAllPossibleSources() {
   auto camerasIndex = std::vector<std::string>();
   camerasIndex.push_back("0");

@@ -17,6 +17,7 @@ public:
     virtual void pause() = 0;
     virtual void start() = 0;
     virtual void close() = 0;
+    virtual cv::Mat getFrame() = 0;
 
     virtual void setBrightness(float) = 0;
     virtual void setGain(float) = 0;
