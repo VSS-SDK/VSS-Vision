@@ -11,9 +11,7 @@
 #include <Windows/Calibration/CalibrationWindow.h>
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
-    TimeHelper t;
     processFrame(_frame.clone());
-    cout << t.getElapsedTime() << endl;
     dispatcher_update_gtkmm_frame.emit();
 }
 

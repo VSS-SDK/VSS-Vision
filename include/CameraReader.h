@@ -15,6 +15,7 @@
 class CameraReader : public IInputReader{
 public:
     CameraReader();
+    ~CameraReader();
 
     void initializeReceivement() override;
     std::vector<std::string> getAllPossibleSources() override;
