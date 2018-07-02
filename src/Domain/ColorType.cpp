@@ -52,5 +52,5 @@ ColorType toColorType(std::string colorName) {
   if(colorName == "Red")
     return ColorType::Red;
 
-  return ColorType::UnknownType;
+  return ColorType::Unknown;
 }

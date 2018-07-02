@@ -135,7 +135,7 @@ private:
     Gtk::FileChooserDialog *fileChooserDialog = nullptr;
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
-    std::map<ColorType, ObjectType> whoseColor;
+    std::map<ObjectType, ColorType> whoseColor;
 
     // Control method
     void initializeWidget();

@@ -8,7 +8,7 @@
 TEST(ColorRecognizer_setColorRange, WhenSetColorRange_ShouldChangeValue){
   auto sut = new ColorRecognizer();
 
-  EXPECT_EQ(sut->getColorRange().colorType, ColorType::UnknownType);
+  EXPECT_EQ(sut->getColorRange().colorType, ColorType::Unknown);
 
   float min[3] = {20, 20, 20};
   float max[3] = {50, 50, 50};

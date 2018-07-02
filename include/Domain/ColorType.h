@@ -7,8 +7,8 @@
 
 #include "iostream"
 
-enum ColorType {
-    UnknownType = 0,
+enum class ColorType {
+    Unknown = 0,
     Blue = 1,
     Yellow = 2,
     Orange = 3,

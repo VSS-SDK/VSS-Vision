@@ -17,7 +17,7 @@ Calibration CalibrationRepository::read(std::string pathName){
   for (std::string line; std::getline(ifs, line); )
   {
     auto colorType = hasColorType(line);
-    if(colorType != ColorType::UnknownType) {
+    if(colorType != ColorType::Unknown) {
       setCalibrationColorRange(calibration, ifs, colorType);
     }
 
@@ -256,7 +256,7 @@ ColorType CalibrationRepository::hasColorType(std::string name){
   if(name == "# Brown")
     return ColorType::Brown;
 
-  return ColorType::UnknownType;
+  return ColorType::Unknown;
 }
 
 // TODO: arrumar um jeito de melhorar essa verificação

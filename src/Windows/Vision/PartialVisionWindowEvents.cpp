@@ -31,7 +31,7 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std:
     std::vector<vss::Robot> teamPositions;
     std::vector<vss::Robot> opponentPositions;
 
-    if(whoseColor[ColorType::Blue] == ObjectType::Team) {
+    if(whoseColor[ObjectType::Team] == ColorType::Blue) {
         teamPositions = blueRobots;
         opponentPositions = yellowRobots;
     } else {
@@ -121,71 +121,74 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
 
-    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Team; });
-    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
-
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = ObjectType::Team;
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ObjectType, ColorType> a) {return a.second == colorType; });
+    if(result != whoseColor.end()) result->second = ColorType::Unknown;
+
+    whoseColor[ObjectType::Team] = colorType;
 }
 
 void VisionWindow::onComboBoxSelectColorOpponent(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
 
-    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Opponent; });
-    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
-
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = ObjectType::Opponent;
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ObjectType, ColorType> a) {return a.second == colorType; });
+    if(result != whoseColor.end()) result->second = ColorType::Unknown;
+
+    whoseColor[ObjectType::Opponent] = colorType;
 }
 
+
 void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox *combobox) {
-    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
-
-    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot1; });
-    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
-
-    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = ObjectType::Robot1;
+//    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+//
+//    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot1; });
+//    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+//
+//    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+//    whoseColor[colorType] = ObjectType::Robot1;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot2(Gtk::ComboBox *combobox) {
-    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
-
-    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot2; });
-    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
-
-    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = ObjectType::Robot2;
+//    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+//
+//    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot2; });
+//    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+//
+//    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+//    whoseColor[colorType] = ObjectType::Robot2;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot3(Gtk::ComboBox *combobox) {
-    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
-
-    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot3; });
-    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
-
-    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = ObjectType::Robot3;
+//    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+//
+//    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot3; });
+//    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+//
+//    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+//    whoseColor[colorType] = ObjectType::Robot3;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot4(Gtk::ComboBox *combobox) {
-    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
-
-    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot4; });
-    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
-
-    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = ObjectType::Robot4;
+//    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+//
+//    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot4; });
+//    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+//
+//    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+//    whoseColor[colorType] = ObjectType::Robot4;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox *combobox) {
-    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
-
-    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot5; });
-    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
-
-    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = ObjectType::Robot5;
+//    vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+//
+//    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot5; });
+//    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+//
+//    ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
+//    whoseColor[colorType] = ObjectType::Robot5;
 }
 
 void VisionWindow::updateFpsLabel(int i){

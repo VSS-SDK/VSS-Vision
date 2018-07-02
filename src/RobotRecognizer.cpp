@@ -9,6 +9,9 @@ RobotRecognizer::RobotRecognizer() {
 
     lastRobotsPos.resize(5, vss::Robot());
 
+    blueRobots.resize(5, vss::Robot());
+    yellowRobots.resize(5, vss::Robot());
+
     lastBallPos = vss::Ball();
 
     // 1/60
@@ -16,6 +19,9 @@ RobotRecognizer::RobotRecognizer() {
 }
 
 std::vector<vss::Robot> RobotRecognizer::recognizeTeam(std::vector< std::vector<ColorPosition>>& teamRobots, ColorType teamColor){
+
+    blueRobots.resize(5, vss::Robot());
+    yellowRobots.resize(5, vss::Robot());
 
     for(auto& blob : teamRobots){
 
@@ -207,26 +213,6 @@ float RobotRecognizer::calculateAngle(cv::Point2f robotPos, cv::Point2f teamPos)
     else angle += 45;
 
     return angle;
-}
-
-vss::Robot RobotRecognizer::calculateRobotsValues(cv::Point2f teamPos, cv::Point2f robotPos, ObjectType robotNumber) {
-    // with the closer point found update robot's values
-    vss::Robot robot;
-
-    robot.x = teamPos.x;
-    robot.y = teamPos.y;
-
-    // somando 180 para deixar no intervalo 0 e 360
-    robot.angle = atan2(robotPos.y - teamPos.y, robotPos.x - teamPos.x)*(180/M_PI)+180;
-
-    if(robot.angle >= 315) robot.angle -= 315;
-    else robot.angle += 45;
-
-    robot.speedAngle = (robot.angle - lastRobotsPos[robotNumber].angle) / rate;
-    robot.speedX = (robot.x - lastRobotsPos[robotNumber].x) / rate;
-    robot.speedY = (robot.y - lastRobotsPos[robotNumber].y) / rate;
-
-    return robot;
 }
 
 std::vector<vss::Robot> RobotRecognizer::getBlueRobots(){

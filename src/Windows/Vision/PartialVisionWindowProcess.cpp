@@ -27,12 +27,12 @@ cv::Mat VisionWindow::processFrame(cv::Mat _frame) {
     }
 
     ColorPosition ball = getBallPosition(_frame.clone(), ColorType::Orange);
-    ColorPosition opponent = getOpponentPosition(_frame.clone(), ColorType::Yellow);
-    std::vector<std::vector<ColorPosition>> team = getTeamPosition(_frame, ColorType::Blue);
+    ColorPosition opponent = getOpponentPosition(_frame.clone(), whoseColor[ObjectType::Opponent]);
+    std::vector<std::vector<ColorPosition>> team = getTeamPosition(_frame, whoseColor[ObjectType::Team]);
 
     robotRecognizer->recognizeBall(ball);
-    robotRecognizer->recognizeTeam(team, ColorType::Blue);
-    robotRecognizer->recognizeOpponent(opponent, ColorType::Yellow);
+    robotRecognizer->recognizeTeam(team, whoseColor[ObjectType::Team]);
+    robotRecognizer->recognizeOpponent(opponent, whoseColor[ObjectType::Opponent]);
 
     signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
 

@@ -7,7 +7,7 @@
 
 #include "iostream"
 
-enum ObjectType {
+enum class ObjectType {
     Unknown = 0,
     Team = 1,
     Opponent = 2,

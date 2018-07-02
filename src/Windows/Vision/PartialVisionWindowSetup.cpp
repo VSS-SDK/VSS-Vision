@@ -173,6 +173,9 @@ void VisionWindow::setSignals() {
 }
 
 void VisionWindow::initializeWhoseColor() {
+    whoseColor.insert(std::pair<ObjectType, ColorType>(ObjectType::Team, ColorType::Unknown));
+    whoseColor.insert(std::pair<ObjectType, ColorType>(ObjectType::Opponent, ColorType::Unknown));
+/*
     whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Red, ObjectType::Unknown));
     whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Blue, ObjectType::Unknown));
     whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Pink, ObjectType::Unknown));
@@ -181,4 +184,5 @@ void VisionWindow::initializeWhoseColor() {
     whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Yellow, ObjectType::Unknown));
     whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Orange, ObjectType::Ball));
     whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Purple, ObjectType::Unknown));
+*/
 }
