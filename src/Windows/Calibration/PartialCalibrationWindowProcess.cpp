@@ -17,7 +17,7 @@ void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
 
 void CalibrationWindow::updateGtkImage(){
     cv::Mat processedFrame = processFrame(frame.clone());
-    screenImage->set_image(processedFrame);
+    screenImage->set_image(processedFrame, showBinaryImage);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
@@ -29,6 +29,10 @@ cv::Mat CalibrationWindow::processFrame(cv::Mat _frame) {
     }
 
     colorRecognizer->processImage(_frame);
+
+    if(showBinaryImage){
+        return colorRecognizer->getBinaryFrame();
+    }
 
     drawRectangle(_frame, colorRecognizer->getRectangles());
 

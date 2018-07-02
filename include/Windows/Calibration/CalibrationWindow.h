@@ -92,6 +92,7 @@ private:
     Calibration calibration;
 
     bool shouldReadInput;
+    bool showBinaryImage;
     unsigned int actualColorRangeIndex;
 
     TimeHelper timeHelper;
