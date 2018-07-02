@@ -21,6 +21,7 @@ CalibrationWindow::CalibrationWindow() {
     inputReader = new ImageFileReader();
     colorRecognizer = new ColorRecognizer();
 
+    showBinaryImage = false;
     actualColorRangeIndex = 0;
 }
 

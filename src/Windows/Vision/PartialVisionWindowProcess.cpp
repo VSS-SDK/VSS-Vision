@@ -15,7 +15,7 @@ void VisionWindow::receiveNewFrame(cv::Mat _frame) {
 
 void VisionWindow::updateGtkImage() {
     cv::Mat processedFrame = processFrame(frame.clone());
-    screenImage->set_image(processedFrame);
+    screenImage->set_image(processedFrame, false);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
@@ -27,12 +27,12 @@ cv::Mat VisionWindow::processFrame(cv::Mat _frame) {
     }
 
     ColorPosition ball = getBallPosition(_frame.clone(), ColorType::Orange);
-    ColorPosition opponent = getOpponentPosition(_frame.clone(), ColorType::Blue);
-    std::vector<std::vector<ColorPosition>> team = getTeamPosition(_frame, ColorType::Yellow);
+    ColorPosition opponent = getOpponentPosition(_frame.clone(), ColorType::Yellow);
+    std::vector<std::vector<ColorPosition>> team = getTeamPosition(_frame, ColorType::Blue);
 
     robotRecognizer->recognizeBall(ball);
-    robotRecognizer->recognizeTeam(team, ColorType::Yellow);
-    robotRecognizer->recognizeOpponent(opponent, ColorType::Blue);
+    robotRecognizer->recognizeTeam(team, ColorType::Blue);
+    robotRecognizer->recognizeOpponent(opponent, ColorType::Yellow);
 
     signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
 

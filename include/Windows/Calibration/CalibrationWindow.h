@@ -92,6 +92,8 @@ private:
     ICalibrationRepository *calibrationRepository;
 
     Calibration calibration;
+  
+    bool showBinaryImage;
 
     unsigned int actualColorRangeIndex;
 
