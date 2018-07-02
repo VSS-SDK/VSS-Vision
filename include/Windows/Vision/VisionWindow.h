@@ -144,7 +144,7 @@ private:
     void initializeWhoseColor();
     void configureInputReceivement(IInputReader*);
     void windowThreadWrapper();
-    void cameraThreadWrapper();
+    void frameThreadWrapper();
 
     // Update frame
     cv::Mat processFrame(cv::Mat);

@@ -10,7 +10,7 @@
 
 bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
     if (event->keyval == GDK_KEY_space) {
-        window->hide();
+        //window->hide();
     } else if (event->keyval == GDK_KEY_Return) {
         window->hide();
     } else if (event->keyval == GDK_KEY_Escape) {

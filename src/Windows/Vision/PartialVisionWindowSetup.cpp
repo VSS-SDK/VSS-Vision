@@ -16,7 +16,7 @@ VisionWindow::VisionWindow() {
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
 
-    inputReader = new ImageFileReader();
+    inputReader = new CameraReader();
     robotRecognizer = new RobotRecognizer();
 
     stateSender = new StateSenderAdapter();
@@ -31,7 +31,7 @@ VisionWindow::~VisionWindow() = default;
 int VisionWindow::run(int argc, char *argv[]) {
 
     threadWindowControl = new thread(std::bind(&VisionWindow::windowThreadWrapper, this));
-    threadCameraReader = new thread(std::bind(&VisionWindow::cameraThreadWrapper, this));
+    threadCameraReader = new thread(std::bind(&VisionWindow::frameThreadWrapper, this));
 
     threadWindowControl->join();
 
@@ -42,11 +42,14 @@ int VisionWindow::run(int argc, char *argv[]) {
     return MENU;
 }
 
-void VisionWindow::cameraThreadWrapper() {
-    configureInputReceivement(inputReader);
+void VisionWindow::frameThreadWrapper() {
+    inputReader->setSource( inputReader->getAllPossibleSources().at(0) );
+    inputReader->start();
+    inputReader->initializeReceivement();
 
-    while(shouldReadInput) {
-        inputReader->initializeReceivement();
+    while(true) {
+        receiveNewFrame( inputReader->getFrame() );
+        //usleep(12000);
     }
 }
 
@@ -113,6 +116,12 @@ void VisionWindow::builderWidget() {
         builder->get_widget("combobox_robot_3", comboBoxColorRobot3);
         builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
         builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
+
+        comboBoxColorRobot1->set_sensitive(false);
+        comboBoxColorRobot2->set_sensitive(false);
+        comboBoxColorRobot3->set_sensitive(false);
+        comboBoxColorRobot4->set_sensitive(false);
+        comboBoxColorRobot5->set_sensitive(false);
 
         builder->get_widget("label_position_bal", labelPositionBall);
 

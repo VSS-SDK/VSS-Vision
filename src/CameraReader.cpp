@@ -13,7 +13,7 @@ CameraReader::CameraReader() {
   actualCameraIndex = -1;
 
   // Simulando uma camera
-  camerasIndex.push_back(0);
+  camerasIndex.push_back(1);
 }
 
 CameraReader::~CameraReader(){
@@ -22,13 +22,13 @@ CameraReader::~CameraReader(){
 
 std::vector<std::string> CameraReader::getAllPossibleSources() {
   auto camerasIndex = std::vector<std::string>();
-  camerasIndex.push_back("0");
+  camerasIndex.push_back("1");
   return camerasIndex;
 }
 
 cv::Mat CameraReader::getFrame() {
     capture >> actualFrame;
-    std::cout << actualFrame.size() << std::endl;
+    cv::imwrite("teste.jpg", actualFrame);
     return actualFrame;
  }
 
@@ -38,15 +38,12 @@ void CameraReader::initializeReceivement() {
     return;
   }
 
-  capture = cv::VideoCapture(0);
+  capture = cv::VideoCapture(1);
 
   capture.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
   capture.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
 
   capture >> actualFrame;
-  std::cout << actualFrame << std::endl;
-
-
 }
 
 void CameraReader::setSource(std::string actualCameraIndex) {
