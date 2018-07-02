@@ -40,7 +40,9 @@ void CalibrationWindow::processFrame(cv::Mat _frame) {
     colorRecognizer->processImage(_frame);
 
     if(showBinaryImage){
-        return colorRecognizer->getBinaryFrame();
+        mtx.lock();
+            frame =  colorRecognizer->getBinaryFrame().clone();
+        mtx.unlock();
     }
 
     drawRectangle(_frame, colorRecognizer->getRectangles());
