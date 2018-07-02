@@ -10,9 +10,15 @@
 
 ImageFileReader::ImageFileReader() {
     source = "";
-    runningCapture = false;
-    shouldCloseReader = false;
 }
+
+cv::Mat ImageFileReader::getFrame() {
+    return actualFrame;
+}
+
+void ImageFileReader::pause(){}
+void ImageFileReader::start(){}
+void ImageFileReader::close(){}
 
 void ImageFileReader::initializeReceivement() {
     if(!isAValidFileSource(source)) {
@@ -20,19 +26,7 @@ void ImageFileReader::initializeReceivement() {
         return;
     }
 
-    auto imageSource = cv::imread(source);
-
-
-    while(!shouldCloseReader){
-        if(runningCapture){
-            actualFrame = imageSource.clone();
-            signal_new_frame_from_reader.emit(actualFrame);
-
-            usleep(15555); // Simula 60 FPS
-        }else{
-            usleep(15555);
-        }
-    }
+    actualFrame = cv::imread(source);
 }
 
 std::vector<std::string> ImageFileReader::getAllPossibleSources() {
@@ -43,18 +37,6 @@ std::vector<std::string> ImageFileReader::getAllPossibleSources() {
 
 void ImageFileReader::setSource(std::string source) {
     this->source = source;
-}
-
-void ImageFileReader::pause() {
-    this->runningCapture = false;
-}
-
-void ImageFileReader::start() {
-    this->runningCapture = true;
-}
-
-void ImageFileReader::close() {
-    this->shouldCloseReader = true;
 }
 
 bool ImageFileReader::isAValidFileSource(std::string source) {

@@ -21,7 +21,6 @@ CalibrationWindow::CalibrationWindow() {
     inputReader = new ImageFileReader();
     colorRecognizer = new ColorRecognizer();
 
-    shouldReadInput = true;
     actualColorRangeIndex = 0;
 }
 
@@ -30,24 +29,12 @@ CalibrationWindow::~CalibrationWindow() = default;
 int CalibrationWindow::run(int argc, char *argv[]){
 
     threadWindowControl = new thread(std::bind(&CalibrationWindow::windowThreadWrapper, this));
-    usleep(1000000);
-    threadCameraReader = new thread( std::bind( &CalibrationWindow::cameraThreadWrapper, this ));
+    threadCameraReader = new thread( std::bind( &CalibrationWindow::frameThreadWrapper, this ));
 
     threadWindowControl->join();
-
-    inputReader->close();
-    shouldReadInput = false;
     threadCameraReader->detach();
 
     return MENU;
-}
-
-void CalibrationWindow::cameraThreadWrapper() {
-    configureInputReceivement(inputReader);
-
-    while(shouldReadInput) {
-        inputReader->initializeReceivement();
-    }
 }
 
 void CalibrationWindow::windowThreadWrapper() {
@@ -58,13 +45,18 @@ void CalibrationWindow::windowThreadWrapper() {
     Gtk::Main::run(*window);
 }
 
-void CalibrationWindow::configureInputReceivement(IInputReader* input){
-    input->signal_new_frame_from_reader.connect(sigc::mem_fun(this, &CalibrationWindow::receiveNewFrame));
+void CalibrationWindow::frameThreadWrapper() {
 
-    auto path = input->getAllPossibleSources();
-    input->setSource(path.at(0));
-    input->start();
+    inputReader->setSource( inputReader->getAllPossibleSources().at(0) );
+    inputReader->start();
+    inputReader->initializeReceivement();
+
+    while(true) {
+        receiveNewFrame( inputReader->getFrame() );
+        //usleep(12000);
+    }
 }
+
 
 void CalibrationWindow::initializeWidget(){
 

@@ -22,6 +22,7 @@ public:
     void pause() override;
     void start() override;
     void close() override;
+    cv::Mat getFrame() override;
 
     void setBrightness(float) override;
     void setGain(float) override;

@@ -15,9 +15,10 @@ public:
     void initializeReceivement() override;
     std::vector<std::string> getAllPossibleSources() override;
     void setSource(std::string) override;
-    void pause() override;
-    void start() override;
-    void close() override;
+    cv::Mat getFrame() override;
+    virtual void pause() override;
+    virtual void start() override;
+    virtual void close() override;
 
     void setBrightness(float) override;
     void setGain(float) override;
@@ -31,7 +32,6 @@ public:
 
 private:
     std::string source;
-    bool runningCapture;
     bool shouldCloseReader;
     cv::Mat actualFrame;
 
