@@ -9,11 +9,11 @@
 #include "Domain/Ball.h"
 #include "Domain/Robot.h"
 
-class RobotRecognizer : public IRobotRecognizer {
+class RobotRecognizerTwoColors : public IRobotRecognizer {
 
 public:
 
-    RobotRecognizer();
+    RobotRecognizerTwoColors();
 
     std::vector<vss::Robot> recognizeTeam(std::vector< std::vector<ColorPosition>>&, ColorType) override;
     std::vector<vss::Robot> recognizeOpponent(ColorPosition&, ColorType) override;

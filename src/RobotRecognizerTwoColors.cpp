@@ -3,9 +3,9 @@
 //
 
 #include <Helpers/Math.h>
-#include "RobotRecognizer.h"
+#include "RobotRecognizerTwoColors.h"
 
-RobotRecognizer::RobotRecognizer() {
+RobotRecognizerTwoColors::RobotRecognizerTwoColors() {
 
     lastRobotsPos.resize(5, vss::Robot());
 
@@ -18,7 +18,7 @@ RobotRecognizer::RobotRecognizer() {
     rate = 0.016;
 }
 
-std::vector<vss::Robot> RobotRecognizer::recognizeTeam(std::vector< std::vector<ColorPosition>>& teamColorPositions, ColorType teamColor){
+std::vector<vss::Robot> RobotRecognizerTwoColors::recognizeTeam(std::vector< std::vector<ColorPosition>>& teamColorPositions, ColorType teamColor){
 
     blueRobots.clear();
     yellowRobots.clear();
@@ -72,7 +72,7 @@ std::vector<vss::Robot> RobotRecognizer::recognizeTeam(std::vector< std::vector<
     return teamRobots;
 }
 
-std::vector<vss::Robot> RobotRecognizer::recognizeOpponent(ColorPosition& opponentColorPositions, ColorType opponentColor){
+std::vector<vss::Robot> RobotRecognizerTwoColors::recognizeOpponent(ColorPosition& opponentColorPositions, ColorType opponentColor){
 
     std::vector<vss::Robot> opponentsRobots;
 
@@ -93,7 +93,7 @@ std::vector<vss::Robot> RobotRecognizer::recognizeOpponent(ColorPosition& oppone
 
 }
 
-vss::Ball RobotRecognizer::recognizeBall(ColorPosition& ballPosition){
+vss::Ball RobotRecognizerTwoColors::recognizeBall(ColorPosition& ballPosition){
 
     // calculates ball values
     if(not ballPosition.points.empty()) {
@@ -109,7 +109,7 @@ vss::Ball RobotRecognizer::recognizeBall(ColorPosition& ballPosition){
     return ball;
 }
 
-vss::Robot RobotRecognizer::buildRobot1(cv::Point2f& teamPoint, std::vector<cv::Point2f>& greenPositions, std::vector<cv::Point2f>& pinkPositions){
+vss::Robot RobotRecognizerTwoColors::buildRobot1(cv::Point2f& teamPoint, std::vector<cv::Point2f>& greenPositions, std::vector<cv::Point2f>& pinkPositions){
     vss::Robot vssRobot;
     vssRobot.x = teamPoint.x;
     vssRobot.y = teamPoint.y;
@@ -125,7 +125,7 @@ vss::Robot RobotRecognizer::buildRobot1(cv::Point2f& teamPoint, std::vector<cv::
     return vssRobot;
 }
 
-vss::Robot RobotRecognizer::buildRobot2(cv::Point2f& teamPoint, std::vector<cv::Point2f>& greenPositions, std::vector<cv::Point2f>& pinkPositions){
+vss::Robot RobotRecognizerTwoColors::buildRobot2(cv::Point2f& teamPoint, std::vector<cv::Point2f>& greenPositions, std::vector<cv::Point2f>& pinkPositions){
     vss::Robot vssRobot;
 
     vssRobot.x = teamPoint.x;
@@ -159,7 +159,7 @@ vss::Robot RobotRecognizer::buildRobot2(cv::Point2f& teamPoint, std::vector<cv::
     return vssRobot;
 }
 
-vss::Robot RobotRecognizer::buildRobot3(cv::Point2f& teamPoint, std::vector<cv::Point2f>& greenPositions, std::vector<cv::Point2f>& pinkPositions){
+vss::Robot RobotRecognizerTwoColors::buildRobot3(cv::Point2f& teamPoint, std::vector<cv::Point2f>& greenPositions, std::vector<cv::Point2f>& pinkPositions){
     vss::Robot vssRobot;
 
     vssRobot.x = teamPoint.x;
@@ -193,7 +193,7 @@ vss::Robot RobotRecognizer::buildRobot3(cv::Point2f& teamPoint, std::vector<cv::
     return vssRobot;
 }
 
-vss::Robot RobotRecognizer::buildOpponent(cv::Point2f& p){
+vss::Robot RobotRecognizerTwoColors::buildOpponent(cv::Point2f& p){
     vss::Robot vssRobot;
     vssRobot.x = p.x;
     vssRobot.y = p.y;
@@ -201,7 +201,7 @@ vss::Robot RobotRecognizer::buildOpponent(cv::Point2f& p){
     return vssRobot;
 }
 
-float RobotRecognizer::calculateAngle(cv::Point2f robotPos, cv::Point2f teamPos){
+float RobotRecognizerTwoColors::calculateAngle(cv::Point2f robotPos, cv::Point2f teamPos){
     // somando 180 para deixar no intervalo 0 e 360
     float angle = atan2(robotPos.y - teamPos.y, robotPos.x - teamPos.x)*(180/M_PI)+180;
 
@@ -211,14 +211,14 @@ float RobotRecognizer::calculateAngle(cv::Point2f robotPos, cv::Point2f teamPos)
     return angle;
 }
 
-std::vector<vss::Robot> RobotRecognizer::getBlueRobots(){
+std::vector<vss::Robot> RobotRecognizerTwoColors::getBlueRobots(){
     return blueRobots;
 }
 
-std::vector<vss::Robot> RobotRecognizer::getYellowRobots(){
+std::vector<vss::Robot> RobotRecognizerTwoColors::getYellowRobots(){
     return yellowRobots;
 }
 
-vss::Ball RobotRecognizer::getBall(){
+vss::Ball RobotRecognizerTwoColors::getBall(){
     return ball;
 }

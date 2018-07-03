@@ -30,7 +30,7 @@
 #include <Domain/Ball.h>
 #include <Domain/Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
-#include <RobotRecognizer.h>
+#include <RobotRecognizerTwoColors.h>
 #include <StateSenderAdapter.h>
 #include "GImage.h"
 #include "IVisionWindow.h"

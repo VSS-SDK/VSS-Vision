@@ -15,10 +15,10 @@ VisionWindow::VisionWindow() {
     calibrationBuilderFromRepository = new CalibrationBuilder();
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
-
+    
     //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
-    robotRecognizer = new RobotRecognizer();
+    robotRecognizer = new RobotRecognizerTwoColors();
 
     stateSender = new StateSenderAdapter();
     stateSender->createSocket();
