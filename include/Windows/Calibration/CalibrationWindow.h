@@ -28,7 +28,7 @@
 #include <Builders/CalibrationBuilder.h>
 #include <ImageFileReader.h>
 #include <CameraReader.h>
-#include <ColorRecognizer.h>
+#include <ColorRecognizerTwoColors.h>
 
 using namespace std;
 

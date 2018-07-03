@@ -19,7 +19,7 @@ CalibrationWindow::CalibrationWindow() {
     calibration = calibrationBuilder->getInstance();
 
     inputReader = new CameraReader();
-    colorRecognizer = new ColorRecognizer();
+    colorRecognizer = new ColorRecognizerTwoColors();
 
     showBinaryImage = false;
 

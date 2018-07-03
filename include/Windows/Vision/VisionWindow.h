@@ -15,7 +15,7 @@
 
 #include "DefaultFilesPath.h"
 #include <CameraReader.h>
-#include <ColorRecognizer.h>
+#include <ColorRecognizerTwoColors.h>
 #include <ImageFileReader.h>
 #include <Domain/ProgramState.h>
 #include <Domain/ObjectType.h>

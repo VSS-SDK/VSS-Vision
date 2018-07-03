@@ -77,7 +77,7 @@ std::vector<std::vector<ColorPosition>> VisionWindow::getTeamPosition(cv::Mat _f
 
     std::vector<vector<ColorPosition>> position;
 
-    ColorRecognizer teamRecognizer;
+    ColorRecognizerTwoColors teamRecognizer;
 
     ColorRange teamRange = _calibration.getColorRange(colorTeam);
     ColorRange pinkRange = _calibration.getColorRange(ColorType::Pink);
@@ -104,7 +104,7 @@ std::vector<std::vector<ColorPosition>> VisionWindow::getTeamPosition(cv::Mat _f
             std::vector<cv::Rect> teamRectanglesVector;
                 teamRectanglesVector.push_back( teamRecognizer.getRectangles()[i] );
 
-            ColorRecognizer greenRecognizer, pinkRecognizer;
+            ColorRecognizerTwoColors greenRecognizer, pinkRecognizer;
 
             if (pinkRange.colorType == ColorType::Pink) {
                 pinkRecognizer.setColorRange(pinkRange);
@@ -143,7 +143,7 @@ ColorPosition VisionWindow::getOpponentPosition(cv::Mat _frame, ColorType colorO
         Calibration _calibration = calibration;
     mtx.unlock();
 
-    ColorRecognizer opponentRecognizer;
+    ColorRecognizerTwoColors opponentRecognizer;
 
     ColorRange opponentRange = _calibration.getColorRange(colorOpponent);
 
@@ -171,7 +171,7 @@ ColorPosition VisionWindow::getBallPosition(cv::Mat _frame, ColorType colorBall)
         Calibration _calibration = calibration;
     mtx.unlock();
 
-    ColorRecognizer ballRecognizer;
+    ColorRecognizerTwoColors ballRecognizer;
 
     ColorRange ballRange = _calibration.getColorRange(colorBall);
 
