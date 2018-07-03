@@ -35,12 +35,7 @@ void CalibrationWindow::processFrame(cv::Mat _frame) {
         cropImage(_frame, _calibration.cut[0], _calibration.cut[1]);
     }
 
-    if (timerOptimization.timeOut(100)) {
-        colorRecognizer->processImage(_frame);
-
-    } else {
-        colorRecognizer->processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 20);
-    }
+    colorRecognizer->processImage(_frame);
 
     cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
 
