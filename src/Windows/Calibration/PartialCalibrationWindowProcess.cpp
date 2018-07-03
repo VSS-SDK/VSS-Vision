@@ -11,21 +11,28 @@
 #include <Windows/Calibration/CalibrationWindow.h>
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
-    frame = _frame.clone();
+    processFrame(_frame.clone());
     dispatcher_update_gtkmm_frame.emit();
 }
 
 void CalibrationWindow::updateGtkImage(){
-    cv::Mat processedFrame = processFrame(frame.clone());
-    screenImage->set_image(processedFrame, showBinaryImage);
+    mtx.lock();
+        cv::Mat _frame = frame.clone();
+    mtx.unlock();
+
+    screenImage->set_image(_frame, showBinaryImage);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
-cv::Mat CalibrationWindow::processFrame(cv::Mat _frame) {
-    changeRotation(_frame, calibration.rotation);
+void CalibrationWindow::processFrame(cv::Mat _frame) {
+    mtx.lock();
+        Calibration _calibration = calibration;
+    mtx.unlock();
 
-    if(calibration.shouldCropImage) {
-        cropImage(_frame, calibration.cut[0], calibration.cut[1]);
+    changeRotation(_frame, _calibration.rotation);
+
+    if(_calibration.shouldCropImage) {
+        cropImage(_frame, _calibration.cut[0], _calibration.cut[1]);
     }
 
     if (timerOptimization.timeOut(100)) {
@@ -37,7 +44,15 @@ cv::Mat CalibrationWindow::processFrame(cv::Mat _frame) {
 
     cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
 
-    drawRectangle(_frame, colorRecognizer->getRectangles());
+    if(showBinaryImage){
+       mtx.lock();
+           frame =  colorRecognizer->getBinaryFrame().clone();
+       mtx.unlock();
 
-    return _frame;
+   } else {
+       drawRectangle(_frame, colorRecognizer->getRectangles());
+       mtx.lock();
+           frame = _frame.clone();
+       mtx.unlock();
+   }
 }

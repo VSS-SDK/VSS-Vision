@@ -13,13 +13,22 @@ CameraReader::CameraReader() {
   actualCameraIndex = -1;
 
   // Simulando uma camera
-  camerasIndex.push_back(0);
+  camerasIndex.push_back(1);
+}
+
+CameraReader::~CameraReader(){
+    capture.release();
 }
 
 std::vector<std::string> CameraReader::getAllPossibleSources() {
   auto camerasIndex = std::vector<std::string>();
-  camerasIndex.push_back("0");
+  camerasIndex.push_back("1");
   return camerasIndex;
+}
+
+cv::Mat CameraReader::getFrame() {
+    capture >> actualFrame;
+    return actualFrame;
 }
 
 void CameraReader::initializeReceivement() {
@@ -29,22 +38,14 @@ void CameraReader::initializeReceivement() {
   }
 
   capture = cv::VideoCapture(1);
+
+  if( !capture.isOpened() ){
+      std::cerr << "[Error] Camera cannot open" << std::endl;
+  }
+
   capture.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
   capture.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
 
-  signal_loaded_capture.emit(true);
-
-  while(!shouldCloseReader){
-    if(runningCapture){
-      capture >> actualFrame;
-      signal_new_frame_from_reader.emit(actualFrame);
-
-    }else{
-      usleep(1000000);
-    }
-  }
-
-    capture.release();
 }
 
 void CameraReader::setSource(std::string actualCameraIndex) {
@@ -64,16 +65,41 @@ void CameraReader::setSource(std::string actualCameraIndex) {
   }
 }
 
-void CameraReader::pause() {
-  this->runningCapture = false;
+
+bool CameraReader::isAValidCameraIndex(int cameraIndex) {
+  if(cameraIndex < 0)
+    return false;
+
+  for(unsigned int i = 0 ; i < camerasIndex.size() ; i++){
+    if(cameraIndex == camerasIndex.at(i))
+      return true;
+  }
+
+  return false;
 }
 
-void CameraReader::start() {
-  this->runningCapture = true;
+bool CameraReader::getShouldCloseReader() {
+  return shouldCloseReader;
 }
 
-void CameraReader::close() {
-    this->shouldCloseReader = true;
+bool CameraReader::getRunningCapture() {
+  return runningCapture;
+}
+
+int CameraReader::getActualCameraIndex() {
+  return actualCameraIndex;
+}
+
+cv::Mat CameraReader::getActualFrame() {
+  return actualFrame;
+}
+
+std::vector<int> CameraReader::getCamerasIndex() {
+  return camerasIndex;
+}
+
+cv::VideoCapture CameraReader::getCapture() {
+  return capture;
 }
 
 void CameraReader::setBrightness(float value) {
@@ -146,40 +172,4 @@ float CameraReader::getContrast() {
   }
 
   return static_cast<float>(capture.get(CV_CAP_PROP_CONTRAST)*100.0);
-}
-
-bool CameraReader::isAValidCameraIndex(int cameraIndex) {
-  if(cameraIndex < 0)
-    return false;
-
-  for(unsigned int i = 0 ; i < camerasIndex.size() ; i++){
-    if(cameraIndex == camerasIndex.at(i))
-      return true;
-  }
-
-  return false;
-}
-
-bool CameraReader::getShouldCloseReader() {
-  return shouldCloseReader;
-}
-
-bool CameraReader::getRunningCapture() {
-  return runningCapture;
-}
-
-int CameraReader::getActualCameraIndex() {
-  return actualCameraIndex;
-}
-
-cv::Mat CameraReader::getActualFrame() {
-  return actualFrame;
-}
-
-std::vector<int> CameraReader::getCamerasIndex() {
-  return camerasIndex;
-}
-
-cv::VideoCapture CameraReader::getCapture() {
-  return capture;
 }

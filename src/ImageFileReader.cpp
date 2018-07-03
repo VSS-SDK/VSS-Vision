@@ -10,8 +10,10 @@
 
 ImageFileReader::ImageFileReader() {
     source = "";
-    runningCapture = false;
-    shouldCloseReader = false;
+}
+
+cv::Mat ImageFileReader::getFrame() {
+    return frame;
 }
 
 void ImageFileReader::initializeReceivement() {
@@ -20,19 +22,7 @@ void ImageFileReader::initializeReceivement() {
         return;
     }
 
-    auto imageSource = cv::imread(source);
-
-
-    while(!shouldCloseReader){
-        if(runningCapture){
-            actualFrame = imageSource.clone();
-            signal_new_frame_from_reader.emit(actualFrame);
-
-            usleep(15555); // Simula 60 FPS
-        }else{
-            usleep(1000000);
-        }
-    }
+    frame = cv::imread(source);
 }
 
 std::vector<std::string> ImageFileReader::getAllPossibleSources() {
@@ -45,50 +35,16 @@ void ImageFileReader::setSource(std::string source) {
     this->source = source;
 }
 
-void ImageFileReader::pause() {
-    this->runningCapture = false;
-}
-
-void ImageFileReader::start() {
-    this->runningCapture = true;
-}
-
-void ImageFileReader::close() {
-    this->shouldCloseReader = true;
-}
-
 bool ImageFileReader::isAValidFileSource(std::string source) {
     return source == "" ? false : true;
 }
 
-void ImageFileReader::setBrightness(float) {
+void ImageFileReader::setBrightness(float) {}
+void ImageFileReader::setGain(float) {}
+void ImageFileReader::setSaturation(float) {}
+void ImageFileReader::setContrast(float) {}
 
-}
-
-void ImageFileReader::setGain(float) {
-
-}
-
-void ImageFileReader::setSaturation(float) {
-
-}
-
-void ImageFileReader::setContrast(float) {
-
-}
-
-float ImageFileReader::getBrightness() {
-    return 0;
-}
-
-float ImageFileReader::getGain() {
-    return 0;
-}
-
-float ImageFileReader::getSaturation() {
-    return 0;
-}
-
-float ImageFileReader::getContrast() {
-    return 0;
-}
+float ImageFileReader::getBrightness() { return 0; }
+float ImageFileReader::getGain() { return 0; }
+float ImageFileReader::getSaturation() { return 0; }
+float ImageFileReader::getContrast() { return 0; }

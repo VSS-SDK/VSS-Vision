@@ -79,6 +79,8 @@ private:
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
+    mutable std::mutex mtx;
+
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
 
@@ -91,7 +93,7 @@ private:
 
     Calibration calibration;
 
-    bool shouldReadInput;
+    bool showBinaryImage;
     unsigned int actualColorRangeIndex;
     std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
@@ -137,13 +139,12 @@ private:
     void initializeWidget();
     void setSignals();
     void builderWidget();
-    void configureInputReceivement(IInputReader*);
 
     void windowThreadWrapper();
     void cameraThreadWrapper();
 
     // Update frame
-    cv::Mat processFrame(cv::Mat);
+    void processFrame(cv::Mat);
     void updateGtkImage();
     void receiveNewFrame(cv::Mat);
 

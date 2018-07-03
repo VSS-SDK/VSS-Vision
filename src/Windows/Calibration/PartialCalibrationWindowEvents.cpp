@@ -132,17 +132,11 @@ void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChoos
 }
 
 void CalibrationWindow::onRadioButtonImage(Gtk::RadioButton* radioButton){
-    inputReader->close();
-
-    inputReader = new ImageFileReader();
-    configureInputReceivement(inputReader);
+    //inputReader = new ImageFileReader();
 }
 
 void CalibrationWindow::onRadioButtonCamera(Gtk::RadioButton* radioButton){
-    inputReader->close();
-
-    inputReader = new CameraReader();
-    configureInputReceivement(inputReader);
+    //inputReader = new CameraReader();
 }
 
 void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton){
