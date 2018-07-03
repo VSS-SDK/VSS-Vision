@@ -7,18 +7,14 @@
 
 #include <Interfaces/IInputReader.h>
 #include <opencv2/opencv.hpp>
-//#include <opencv2/imgcodecs.hpp> //imread ubuntu 18.04
 
 class ImageFileReader : public IInputReader{
 public:
     ImageFileReader();
-    void initializeReceivement() override;
+    cv::Mat getFrame() override;
     std::vector<std::string> getAllPossibleSources() override;
     void setSource(std::string) override;
-    cv::Mat getFrame() override;
-    virtual void pause() override;
-    virtual void start() override;
-    virtual void close() override;
+    void initializeReceivement() override;
 
     void setBrightness(float) override;
     void setGain(float) override;
@@ -32,9 +28,9 @@ public:
 
 private:
     std::string source;
-    bool shouldCloseReader;
-    cv::Mat actualFrame;
+    cv::Mat frame;
 
+    bool shouldCloseReader;
     bool isAValidFileSource(std::string);
 };
 #endif //VSS_VISION_IMAGEFILEREADER_H

@@ -7,17 +7,13 @@
 
 #include <vector>
 #include <cxcore.h>
-#include <sigc++/sigc++.h>
 
 class IInputReader{
 public:
-    virtual void initializeReceivement() = 0;
+    virtual cv::Mat getFrame() = 0;
     virtual std::vector<std::string> getAllPossibleSources() = 0;
     virtual void setSource(std::string) = 0;
-    virtual void pause() = 0;
-    virtual void start() = 0;
-    virtual void close() = 0;
-    virtual cv::Mat getFrame() = 0;
+    virtual void initializeReceivement() = 0;
 
     virtual void setBrightness(float) = 0;
     virtual void setGain(float) = 0;
@@ -28,9 +24,6 @@ public:
     virtual float getGain() = 0;
     virtual float getSaturation() = 0;
     virtual float getContrast() = 0;
-
-    sigc::signal <void, cv::Mat> signal_new_frame_from_reader;
-    sigc::signal <void, bool> signal_loaded_capture;
 };
 
 #endif //VSS_VISION_ICAMERAREADER_H

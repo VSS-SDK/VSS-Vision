@@ -13,12 +13,8 @@ ImageFileReader::ImageFileReader() {
 }
 
 cv::Mat ImageFileReader::getFrame() {
-    return actualFrame;
+    return frame;
 }
-
-void ImageFileReader::pause(){}
-void ImageFileReader::start(){}
-void ImageFileReader::close(){}
 
 void ImageFileReader::initializeReceivement() {
     if(!isAValidFileSource(source)) {
@@ -26,7 +22,7 @@ void ImageFileReader::initializeReceivement() {
         return;
     }
 
-    actualFrame = cv::imread(source);
+    frame = cv::imread(source);
 }
 
 std::vector<std::string> ImageFileReader::getAllPossibleSources() {
@@ -43,34 +39,12 @@ bool ImageFileReader::isAValidFileSource(std::string source) {
     return source == "" ? false : true;
 }
 
-void ImageFileReader::setBrightness(float) {
+void ImageFileReader::setBrightness(float) {}
+void ImageFileReader::setGain(float) {}
+void ImageFileReader::setSaturation(float) {}
+void ImageFileReader::setContrast(float) {}
 
-}
-
-void ImageFileReader::setGain(float) {
-
-}
-
-void ImageFileReader::setSaturation(float) {
-
-}
-
-void ImageFileReader::setContrast(float) {
-
-}
-
-float ImageFileReader::getBrightness() {
-    return 0;
-}
-
-float ImageFileReader::getGain() {
-    return 0;
-}
-
-float ImageFileReader::getSaturation() {
-    return 0;
-}
-
-float ImageFileReader::getContrast() {
-    return 0;
-}
+float ImageFileReader::getBrightness() { return 0; }
+float ImageFileReader::getGain() { return 0; }
+float ImageFileReader::getSaturation() { return 0; }
+float ImageFileReader::getContrast() { return 0; }

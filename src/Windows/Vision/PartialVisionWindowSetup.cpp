@@ -23,7 +23,6 @@ VisionWindow::VisionWindow() {
     stateSender->createSocket();
 
     playing = true;
-    shouldReadInput = true;
 }
 
 VisionWindow::~VisionWindow() = default;
@@ -34,9 +33,6 @@ int VisionWindow::run(int argc, char *argv[]) {
     threadCameraReader = new thread(std::bind(&VisionWindow::frameThreadWrapper, this));
 
     threadWindowControl->join();
-
-    inputReader->close();
-    shouldReadInput = false;
     threadCameraReader->detach();
 
     return MENU;
@@ -44,7 +40,6 @@ int VisionWindow::run(int argc, char *argv[]) {
 
 void VisionWindow::frameThreadWrapper() {
     inputReader->setSource( inputReader->getAllPossibleSources().at(0) );
-    inputReader->start();
     inputReader->initializeReceivement();
 
     while(true) {
@@ -60,14 +55,6 @@ void VisionWindow::windowThreadWrapper() {
     initializeWhoseColor();
 
     Gtk::Main::run(*window);
-}
-
-void VisionWindow::configureInputReceivement(IInputReader* input){
-    input->signal_new_frame_from_reader.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
-
-    auto path = input->getAllPossibleSources();
-    input->setSource(path.at(0));
-    input->start();
 }
 
 void VisionWindow::initializeWidget() {
@@ -150,7 +137,6 @@ void VisionWindow::builderWidget() {
 
 void VisionWindow::setSignals() {
     dispatcher_update_gtkmm_frame.connect(sigc::mem_fun(this, &VisionWindow::updateGtkImage));
-    signalRobotsNewPositions.connect(sigc::mem_fun(this, &VisionWindow::onRobotsNewPositions));
 
     window->signal_key_press_event().connect(sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);
 

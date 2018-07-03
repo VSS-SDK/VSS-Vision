@@ -28,9 +28,8 @@ std::vector<std::string> CameraReader::getAllPossibleSources() {
 
 cv::Mat CameraReader::getFrame() {
     capture >> actualFrame;
-    cv::imwrite("teste.jpg", actualFrame);
     return actualFrame;
- }
+}
 
 void CameraReader::initializeReceivement() {
   if(!isAValidCameraIndex(actualCameraIndex)) {
@@ -40,10 +39,13 @@ void CameraReader::initializeReceivement() {
 
   capture = cv::VideoCapture(1);
 
+  if( !capture.isOpened() ){
+      std::cerr << "[Error] Camera cannot open" << std::endl;
+  }
+
   capture.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
   capture.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
 
-  capture >> actualFrame;
 }
 
 void CameraReader::setSource(std::string actualCameraIndex) {
@@ -63,16 +65,41 @@ void CameraReader::setSource(std::string actualCameraIndex) {
   }
 }
 
-void CameraReader::pause() {
-  this->runningCapture = false;
+
+bool CameraReader::isAValidCameraIndex(int cameraIndex) {
+  if(cameraIndex < 0)
+    return false;
+
+  for(unsigned int i = 0 ; i < camerasIndex.size() ; i++){
+    if(cameraIndex == camerasIndex.at(i))
+      return true;
+  }
+
+  return false;
 }
 
-void CameraReader::start() {
-  this->runningCapture = true;
+bool CameraReader::getShouldCloseReader() {
+  return shouldCloseReader;
 }
 
-void CameraReader::close() {
-    this->shouldCloseReader = true;
+bool CameraReader::getRunningCapture() {
+  return runningCapture;
+}
+
+int CameraReader::getActualCameraIndex() {
+  return actualCameraIndex;
+}
+
+cv::Mat CameraReader::getActualFrame() {
+  return actualFrame;
+}
+
+std::vector<int> CameraReader::getCamerasIndex() {
+  return camerasIndex;
+}
+
+cv::VideoCapture CameraReader::getCapture() {
+  return capture;
 }
 
 void CameraReader::setBrightness(float value) {
@@ -145,40 +172,4 @@ float CameraReader::getContrast() {
   }
 
   return static_cast<float>(capture.get(CV_CAP_PROP_CONTRAST)*100.0);
-}
-
-bool CameraReader::isAValidCameraIndex(int cameraIndex) {
-  if(cameraIndex < 0)
-    return false;
-
-  for(unsigned int i = 0 ; i < camerasIndex.size() ; i++){
-    if(cameraIndex == camerasIndex.at(i))
-      return true;
-  }
-
-  return false;
-}
-
-bool CameraReader::getShouldCloseReader() {
-  return shouldCloseReader;
-}
-
-bool CameraReader::getRunningCapture() {
-  return runningCapture;
-}
-
-int CameraReader::getActualCameraIndex() {
-  return actualCameraIndex;
-}
-
-cv::Mat CameraReader::getActualFrame() {
-  return actualFrame;
-}
-
-std::vector<int> CameraReader::getCamerasIndex() {
-  return camerasIndex;
-}
-
-cv::VideoCapture CameraReader::getCapture() {
-  return capture;
 }

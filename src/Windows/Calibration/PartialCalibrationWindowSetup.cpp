@@ -50,7 +50,6 @@ void CalibrationWindow::windowThreadWrapper() {
 void CalibrationWindow::frameThreadWrapper() {
 
     inputReader->setSource( inputReader->getAllPossibleSources().at(0) );
-    inputReader->start();
     inputReader->initializeReceivement();
 
     while(true) {
@@ -136,8 +135,6 @@ void CalibrationWindow::builderWidget(){
 void CalibrationWindow::setSignals(){
 
     dispatcher_update_gtkmm_frame.connect(sigc::mem_fun( this, &CalibrationWindow::updateGtkImage));
-
-    inputReader->signal_loaded_capture.connect(sigc::mem_fun(this, &CalibrationWindow::getAllAttributsFromCapture));
 
     window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(this, &ICalibrationWindow::onKeyboard), window) , false);
 

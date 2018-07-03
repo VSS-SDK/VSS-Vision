@@ -24,10 +24,6 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std:
     //@TODO: diferenciar time e adversario
     //@TODO: adaptar para permitir mais de 3 robos
 
-    // send positions
-    if(playing)
-        stateSender->sendState(blueRobots, yellowRobots, ball);
-
     std::vector<vss::Robot> teamPositions;
     std::vector<vss::Robot> opponentPositions;
 
@@ -96,10 +92,7 @@ void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
-    inputReader->close();
-
-    inputReader = new ImageFileReader();
-    configureInputReceivement(inputReader);
+    //inputReader = new ImageFileReader();
 }
 
 void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
@@ -108,10 +101,7 @@ void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
 }
 
 void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
-    inputReader->close();
-
-    inputReader = new CameraReader();
-    configureInputReceivement(inputReader);
+    //inputReader = new CameraReader();
 }
 
 void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {

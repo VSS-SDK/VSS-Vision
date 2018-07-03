@@ -17,13 +17,10 @@ public:
     CameraReader();
     ~CameraReader();
 
-    void initializeReceivement() override;
+    cv::Mat getFrame() override;
     std::vector<std::string> getAllPossibleSources() override;
     void setSource(std::string) override;
-    void pause() override;
-    void start() override;
-    void close() override;
-    cv::Mat getFrame() override;
+    void initializeReceivement() override;
 
     void setBrightness(float) override;
     void setGain(float) override;

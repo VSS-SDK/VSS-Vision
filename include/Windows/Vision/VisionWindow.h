@@ -72,15 +72,15 @@ private:
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
+    mutable std::mutex mtx;
+
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
-    sigc::signal <void, std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
 
     // Classes
     IInputReader *inputReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
-    //IColorRecognizer *colorRecognizer;
     IRobotRecognizer *robotRecognizer;
 
     Calibration calibration;
@@ -92,7 +92,6 @@ private:
     std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
     bool playing;
-    bool shouldReadInput;
 
     // Opencv image
     cv::Mat frame;
@@ -142,15 +141,15 @@ private:
     void setSignals();
     void builderWidget();
     void initializeWhoseColor();
-    void configureInputReceivement(IInputReader*);
     void windowThreadWrapper();
     void frameThreadWrapper();
 
     // Update frame
-    cv::Mat processFrame(cv::Mat);
+    void processFrame(cv::Mat);
     void updateGtkImage();
     void receiveNewFrame(cv::Mat);
     void updateFpsLabel(int);
+    void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
 
     ColorPosition getBallPosition(cv::Mat, ColorType);
     ColorPosition getOpponentPosition(cv::Mat, ColorType);
@@ -161,8 +160,5 @@ private:
     std::vector<cv::Rect> opponentRectanglesCut;
 
     std::vector<std::vector<cv::Rect>> drawRectangleVector;
-
-
 };
-
 #endif
