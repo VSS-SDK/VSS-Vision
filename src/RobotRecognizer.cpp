@@ -18,12 +18,17 @@ RobotRecognizer::RobotRecognizer() {
     rate = 0.016;
 }
 
-std::vector<vss::Robot> RobotRecognizer::recognizeTeam(std::vector< std::vector<ColorPosition>>& teamRobots, ColorType teamColor){
+std::vector<vss::Robot> RobotRecognizer::recognizeTeam(std::vector< std::vector<ColorPosition>>& teamColorPositions, ColorType teamColor){
 
-    blueRobots.resize(5, vss::Robot());
-    yellowRobots.resize(5, vss::Robot());
+    blueRobots.clear();
+    yellowRobots.clear();
 
-    for(auto& blob : teamRobots){
+    blueRobots.resize(5);
+    yellowRobots.resize(5);
+
+    std::vector<vss::Robot> teamRobots(5, vss::Robot());
+
+    for(auto& blob : teamColorPositions){
 
         cv::Point2f teamPosition;
         std::vector<cv::Point2f> greenPositions;
@@ -45,55 +50,46 @@ std::vector<vss::Robot> RobotRecognizer::recognizeTeam(std::vector< std::vector<
         // de acordo com a quantidade de cores verde e rosa determina qual e o robo
         if(numberPinkPoints == 1 and numberGreenPoints == 1){
             vss::Robot robot = buildRobot1(teamPosition, greenPositions, pinkPositions);
-
-            if(teamColor == ColorType::Blue) blueRobots[0] = robot;
-            else yellowRobots[0] = robot;
+            teamRobots[0] = robot;
 
         } else if(numberPinkPoints == 1 and numberGreenPoints == 2){
             vss::Robot robot = buildRobot2(teamPosition, greenPositions, pinkPositions);
-
-            if(teamColor == ColorType::Blue) blueRobots[1] = robot;
-            else yellowRobots[1] = robot;
+            teamRobots[1] = robot;
 
         } else if(numberPinkPoints == 2 and numberGreenPoints == 1){
             vss::Robot robot = buildRobot3(teamPosition, greenPositions, pinkPositions);
-
-            if(teamColor == ColorType::Blue) blueRobots[2] = robot;
-            else yellowRobots[2] = robot;
-
-        } else {
-
-            if(teamColor == ColorType::Blue) blueRobots[2] = vss::Robot();
-            else yellowRobots[2] = vss::Robot();
+            teamRobots[2] = robot;
 
         }
     }
 
     if(teamColor == ColorType::Blue){
-        blueRobots.resize(5, vss::Robot());
-        return blueRobots;
+        blueRobots = teamRobots;
+    } else if(teamColor == ColorType::Yellow){
+        yellowRobots = teamRobots;
     }
 
-    yellowRobots.resize(5, vss::Robot());
-    return yellowRobots;
+    return teamRobots;
 }
 
-std::vector<vss::Robot> RobotRecognizer::recognizeOpponent(ColorPosition& opponentRobots, ColorType opponentColor){
+std::vector<vss::Robot> RobotRecognizer::recognizeOpponent(ColorPosition& opponentColorPositions, ColorType opponentColor){
 
-    for (auto &point : opponentRobots.points) {
+    std::vector<vss::Robot> opponentsRobots;
+
+    for (auto &point : opponentColorPositions.points) {
         vss::Robot robot = buildOpponent(point);
-
-        if (opponentColor == ColorType::Blue) blueRobots.emplace_back(robot);
-        else yellowRobots.emplace_back(robot);
+        opponentsRobots.emplace_back(robot);
     }
+
+    opponentsRobots.resize(5);
 
     if(opponentColor == ColorType::Blue){
-        blueRobots.resize(5);
-        return blueRobots;
+        blueRobots = opponentsRobots;
+    } else if(opponentColor == ColorType::Yellow){
+        yellowRobots = opponentsRobots;
     }
 
-    yellowRobots.resize(5);
-    return yellowRobots;
+    return opponentsRobots;
 
 }
 

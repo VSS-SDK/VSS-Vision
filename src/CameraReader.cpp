@@ -28,7 +28,6 @@ std::vector<std::string> CameraReader::getAllPossibleSources() {
 
 cv::Mat CameraReader::getFrame() {
     capture >> actualFrame;
-    cv::imwrite("teste.jpg", actualFrame);
     return actualFrame;
  }
 
