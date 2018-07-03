@@ -15,15 +15,15 @@ public:
     void processImageInsideSectors(cv::Mat, std::vector<cv::Rect>, int) override;
     std::vector<cv::Rect> getRectangles() override;
     std::vector<cv::Point2f> getCenters() override;
-    ColorType getColor() override;
+    cv::Mat getBinaryFrame() override;
 
+    ColorType getColor() override;
     void binarizesImage(cv::Mat);
     std::vector<cv::Rect> recognizesRectangles(unsigned int = 1);
     void calculateCenters();
     cv::Point2f getCenter(cv::Rect);
     ColorRange getColorRange();
     cv::Mat getOriginalFrame();
-    cv::Mat getBinaryFrame();
 
 private:
     ColorRange colorRange;

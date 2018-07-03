@@ -41,11 +41,13 @@ void CalibrationWindow::updateFpsLabel(int i){
 
 bool CalibrationWindow::onKeyboard(GdkEventKey* event, Gtk::Window* window){
   if(event->keyval == GDK_KEY_space) {
-    window->hide();
+//    window->hide();
   } else if(event->keyval == GDK_KEY_Return) {
     window->hide();
   } else if(event->keyval == GDK_KEY_Escape) {
     window->hide();
+  } else if(event->keyval == GDK_KEY_F1) {
+    showBinaryImage = !showBinaryImage;
   }
   return true;
 }
