@@ -9,7 +9,7 @@
 #include "ColorRange.h"
 
 ColorRange::ColorRange(){
-  colorType = ColorType::UnknownType;
+  colorType = ColorType::Unknown;
   for(int i = 0 ; i < 3 ; i++){
     this->min[i] = 0.0;
     this->max[i] = 0.0;

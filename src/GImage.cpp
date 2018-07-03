@@ -133,8 +133,13 @@ bool GImage::on_motion_notify_event (GdkEventMotion* event){
     return true;
 }
 
-void GImage::set_image(cv::Mat _cv_image){
-    cv::cvtColor(_cv_image, cv_image, cv::COLOR_BGR2RGB);
+void GImage::set_image(cv::Mat _cv_image, bool isBinary){
+
+    if(not isBinary) {
+        cv::cvtColor(_cv_image, cv_image, cv::COLOR_BGR2RGB);
+    } else {
+        cv::cvtColor(_cv_image, cv_image, cv::COLOR_GRAY2RGB);
+    }
 
     width_original_image = cv_image.cols;
     height_original_image = cv_image.rows;

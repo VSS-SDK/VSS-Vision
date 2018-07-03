@@ -2,12 +2,12 @@
 // Created by paulo on 06/05/18.
 //
 
-#ifndef VSS_VISION_WHOSENAME_H
-#define VSS_VISION_WHOSENAME_H
+#ifndef VSS_VISION_OBJECT_TYPE_H
+#define VSS_VISION_OBJECT_TYPE_H
 
 #include "iostream"
 
-enum WhoseName {
+enum class ObjectType {
     Unknown = 0,
     Team = 1,
     Opponent = 2,
@@ -19,8 +19,8 @@ enum WhoseName {
     Ball = 8
 };
 
-std::string toDescription(WhoseName);
+std::string toDescription(ObjectType);
 
-WhoseName toWhoseName(std::string);
+ObjectType toObjectType(std::string);
 
-#endif //VSS_VISION_WHOSENAME_H
+#endif //VSS_VISION_OBJECT_TYPE_H

@@ -12,6 +12,7 @@
 
 void changeRotation(cv::Mat&, float);
 void cropImage(cv::Mat&, vss::Point, vss::Point);
+void drawRectangle(cv::Mat&, std::vector<cv::Rect>);
 void changeBrightness(cv::Mat&, float);
 void changeContrast(cv::Mat&, float);
 void changeSaturation(cv::Mat&, float);

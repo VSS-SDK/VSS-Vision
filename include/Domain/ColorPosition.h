@@ -19,7 +19,12 @@ public:
     std::vector<cv::Point2f> points;
 
     ColorPosition(){
-        color = ColorType::UnknownType;
+        color = ColorType::Unknown;
+    }
+
+    ColorPosition(ColorType _color, std::vector<cv::Point2f> _points){
+        color = _color;
+        points = _points;
     }
 };
 

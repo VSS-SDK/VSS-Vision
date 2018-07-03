@@ -6,27 +6,27 @@
 #define VSS_VISION_COLORRECOGNIZER_H
 
 #include <Interfaces/IColorRecognizer.h>
-#include <Constants.h>
+#include <Domain/Constants.h>
 
-class ColorRecognizer : public IColorRecognizer{
+class ColorRecognizerTwoColors : public IColorRecognizer{
 public:
     void setColorRange(ColorRange) override;
     void processImage(cv::Mat) override;
-    void processImageInsideSectors(cv::Mat, std::vector<cv::Point>, int) override;
+    void processImageInsideSectors(cv::Mat, std::vector<cv::Rect>, int, int) override;
     std::vector<cv::Rect> getRectangles() override;
+    cv::Mat getBinaryFrame() override;
     std::vector<cv::Point2f> getCenters() override;
 
-    void binarizesImage();
-    void recognizesRectangles();
-    void calculateCenters();
-    cv::Point getCenter(cv::Rect);
+    ColorType getColor() override;
+    void binarizesImage(cv::Mat);
+    std::vector<cv::Rect> recognizesRectangles(unsigned int = 1);
+    void calculateCenters(cv::Mat);
+    cv::Point2f getCenter(cv::Rect);
     ColorRange getColorRange();
     cv::Mat getOriginalFrame();
-    cv::Mat getBinaryFrame();
 
 private:
     ColorRange colorRange;
-    cv::Mat originalFrame;
     cv::Mat binaryFrame;
     std::vector<cv::Rect> rectangles;
     std::vector<cv::Point2f> centers;

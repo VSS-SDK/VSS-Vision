@@ -1,56 +1,53 @@
 /*
- * This file is part of the VSS-Vision project.
- *
- * This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
- * v. 3.0. If a copy of the GPL was not distributed with this
- * file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
- */
+* This file is part of the VSS-Vision project.
+*
+* This Source Code Form is subject to the terms of the GNU GENERAL PUBLIC LICENSE,
+* v. 3.0. If a copy of the GPL was not distributed with this
+* file, You can obtain one at http://www.gnu.org/licenses/gpl-3.0/.
+*/
 
 #include <Repositories/CalibrationRepository.h>
 #include <CameraReader.h>
 #include <Windows/Calibration/CalibrationWindow.h>
 
 void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
-  frame = _frame;
-  dispatcher_update_gtkmm_frame.emit();
-
-  countFps();
+    processFrame(_frame.clone());
+    dispatcher_update_gtkmm_frame.emit();
 }
 
 void CalibrationWindow::updateGtkImage(){
-  //TimeHelper t;
-  //t.startCounting();
-  processFrame();
-  //std::cout << t.getElapsedTime() << std::endl;
-  screenImage->set_image(frame);
+    mtx.lock();
+        cv::Mat _frame = frame.clone();
+    mtx.unlock();
+
+    screenImage->set_image(_frame, showBinaryImage);
+    updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
-void CalibrationWindow::processFrame() {
-  changeRotation(frame, calibration.rotation);
+void CalibrationWindow::processFrame(cv::Mat _frame) {
+    mtx.lock();
+        Calibration _calibration = calibration;
+    mtx.unlock();
 
-  if(calibration.shouldCropImage) {
-      cropImage(frame, calibration.cut[0], calibration.cut[1]);
-  }
+    changeRotation(_frame, _calibration.rotation);
 
-  colorRecognizer->processImage(frame);
+    if(_calibration.shouldCropImage) {
+        cropImage(_frame, _calibration.cut[0], _calibration.cut[1]);
+    }
 
-  applyRectangleToFrame();
-}
+    colorRecognizer->processImage(_frame);
 
-void CalibrationWindow::applyRectangleToFrame(){
-  auto rectangles = colorRecognizer->getRectangles();
-  for(unsigned int i = 0 ; i < rectangles.size() ; i++){
-    cv::rectangle(frame, rectangles.at(i), cv::Scalar(255, 255, 255), 1, 1, 0);
-  }
-}
+    if(showBinaryImage){
 
-void CalibrationWindow::countFps(){
-  if(timeHelper.getElapsedTime() >= 1000){
-    updateFpsLabel();
-    timeHelper.restartCounting();
-    fpsAmount = 0;
+        mtx.lock();
+            frame =  colorRecognizer->getBinaryFrame().clone();
+        mtx.unlock();
 
-  } else {
-    fpsAmount++;
-  }
+    } else {
+
+        drawRectangle(_frame, colorRecognizer->getRectangles());
+        mtx.lock();
+            frame = _frame.clone();
+        mtx.unlock();
+    }
 }

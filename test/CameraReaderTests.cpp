@@ -25,27 +25,6 @@ TEST(CameraReader_getAllPossibleSources, WhenGetAllPossibleSources_ShouldReturnZ
   EXPECT_EQ(allPossibleSources.at(0), "0");
 }
 
-TEST(CameraReader_pause_start, WhenCallPauseAndStart_ShouldTogglerunningCapture){
-  auto sut = new CameraReader();
-
-  EXPECT_EQ(sut->getRunningCapture(), false);
-
-  sut->start();
-  EXPECT_EQ(sut->getRunningCapture(), true);
-
-  sut->pause();
-  EXPECT_EQ(sut->getRunningCapture(), false);
-}
-
-TEST(CameraReader_close, WhenCallClose_ShouldSetShouldCloseReaderToTrue){
-  auto sut = new CameraReader();
-
-  EXPECT_EQ(sut->getShouldCloseReader(), false);
-
-  sut->close();
-  EXPECT_EQ(sut->getShouldCloseReader(), true);
-}
-
 TEST(CameraReader_setSource, WhenTryToSetANotANumValue_ShouldNotSetActualCameraIndex){
   auto sut = new CameraReader();
 

@@ -31,6 +31,14 @@ Calibration::Calibration(Calibration *calibration){
   shouldCropImage = calibration->shouldCropImage;
 }
 
+ColorRange Calibration::getColorRange(ColorType type) {
+    for (auto range : colorsRange) {
+        if (range.colorType == type)
+            return range;
+    }
+    return ColorRange();
+}
+
 std::ostream& operator<<( std::ostream& os, const Calibration& calibration )
 {
   os << "gain: " << calibration.gain << std::endl;

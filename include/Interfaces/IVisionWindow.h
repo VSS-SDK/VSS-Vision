@@ -28,8 +28,8 @@ public:
     virtual void onRadioButtonCamera(Gtk::RadioButton*) = 0;
 	
     virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorTeam1(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorTeam2(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorTeam(Gtk::ComboBox *) = 0;
+	virtual void onComboBoxSelectColorOpponent(Gtk::ComboBox *) = 0;
     virtual void onComboBoxSelectColorRobot1(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorRobot2(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorRobot3(Gtk::ComboBox*) = 0;
