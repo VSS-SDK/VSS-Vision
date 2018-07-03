@@ -72,6 +72,8 @@ private:
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
+     mutable std::mutex mtx;
+
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
     sigc::signal <void, std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
@@ -90,7 +92,6 @@ private:
     std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
     bool playing;
-    bool shouldReadInput;
 
     // Opencv image
     cv::Mat frame;
@@ -140,15 +141,15 @@ private:
     void setSignals();
     void builderWidget();
     void initializeWhoseColor();
-    void configureInputReceivement(IInputReader*);
     void windowThreadWrapper();
     void cameraThreadWrapper();
 
     // Update frame
-    cv::Mat processFrame(cv::Mat);
+    void processFrame(cv::Mat);
     void updateGtkImage();
     void receiveNewFrame(cv::Mat);
     void updateFpsLabel(int);
+    void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
 
     std::map<ObjectType, ColorPosition> getColorPosition(cv::Mat&);
 

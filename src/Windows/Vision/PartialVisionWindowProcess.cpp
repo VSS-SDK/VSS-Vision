@@ -9,30 +9,55 @@
 #include <Windows/Vision/VisionWindow.h>
 
 void VisionWindow::receiveNewFrame(cv::Mat _frame) {
-    frame = _frame.clone();
-    dispatcher_update_gtkmm_frame.emit();
+    processFrame(_frame.clone());
+
+    send(robotRecognizer->getBlueRobots(),
+         robotRecognizer->getYellowRobots(),
+         robotRecognizer->getBall());
+
+         dispatcher_update_gtkmm_frame.emit();
+}
+
+void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
+    if(playing) {
+        mtx.lock();
+            stateSender->sendState(blueRobots, yellowRobots, ball);
+        mtx.unlock();
+    }
 }
 
 void VisionWindow::updateGtkImage() {
-    cv::Mat processedFrame = processFrame(frame.clone());
-    screenImage->set_image(processedFrame, false);
+    mtx.lock();
+        cv::Mat _frame = frame.clone();
+    mtx.unlock();
+
+    mtx.lock();
+        onRobotsNewPositions(robotRecognizer->getBlueRobots(),
+                             robotRecognizer->getYellowRobots(),
+                             robotRecognizer->getBall());
+    mtx.unlock();
+
+    screenImage->set_image(_frame, false);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
-cv::Mat VisionWindow::processFrame(cv::Mat _frame) {
-    changeRotation(_frame, calibration.rotation);
+void VisionWindow::processFrame(cv::Mat _frame) {
+    mtx.lock();
+        Calibration _calibration = calibration;
+    mtx.unlock();
 
-    if(calibration.shouldCropImage){
-        cropImage(_frame, calibration.cut[0], calibration.cut[1]);
+    changeRotation(_frame, _calibration.rotation);
+
+    if(_calibration.shouldCropImage){
+        cropImage(_frame, _calibration.cut[0], _calibration.cut[1]);
     }
 
     map<ObjectType, ColorPosition> positions = getColorPosition(_frame);
-
     robotRecognizer->recognizeRobots(positions);
 
-    signalRobotsNewPositions.emit(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
-
-    return _frame;
+    mtx.lock();
+        frame = _frame.clone();
+    mtx.unlock();
 
 }
 

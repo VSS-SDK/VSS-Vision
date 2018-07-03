@@ -97,8 +97,6 @@ private:
     unsigned int actualColorRangeIndex;
     std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
-    bool showBinaryImage;
-
     TimeHelper timeHelper;
     TimeHelper timerOptimization;
 
