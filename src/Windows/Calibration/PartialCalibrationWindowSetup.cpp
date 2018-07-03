@@ -23,6 +23,8 @@ CalibrationWindow::CalibrationWindow() {
     
     colorRecognizer = new ColorRecognizer();
 
+
+    showBinaryImage = false;
     actualColorRangeIndex = 0;
 }
 
