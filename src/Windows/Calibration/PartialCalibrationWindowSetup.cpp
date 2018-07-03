@@ -20,6 +20,7 @@ CalibrationWindow::CalibrationWindow() {
 
     //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
+    
     colorRecognizer = new ColorRecognizer();
 
     actualColorRangeIndex = 0;
