@@ -18,18 +18,17 @@ void ColorRecognizer::setColorRange(ColorRange colorRange) {
     this->colorRange = colorRange;
 }
 
-void ColorRecognizer::processImage(cv::Mat frame) {
+void ColorRecognizer::processImage(cv::Mat frame, int maxNumberSquare) {
     originalFrame = frame.clone();
 
     binarizesImage(originalFrame);
-    rectangles = recognizesRectangles(5);
+    rectangles = recognizesRectangles(maxNumberSquare);
     calculateCenters();
 }
 
 void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::Rect> cutSquare, int increaseSquare) {
-
     originalFrame = frame.clone();
-    
+
     rectangles.clear();
 
     for (unsigned int i = 0; i < cutSquare.size(); i++) {
@@ -56,7 +55,10 @@ void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::R
             if (cuttedRectangles[j].x > frame.cols) cuttedRectangles[j].x = frame.cols;
             if (cuttedRectangles[j].y > frame.rows) cuttedRectangles[j].y = frame.rows;
 
-            rectangles.push_back(cuttedRectangles[j]);
+            int trashMax = 10;
+            if (cuttedRectangles[j].width > trashMax && cuttedRectangles[j].height > trashMax) {
+                rectangles.push_back(cuttedRectangles[j]);
+            }
         }
     }
 

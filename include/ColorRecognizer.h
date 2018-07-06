@@ -11,7 +11,7 @@
 class ColorRecognizer : public IColorRecognizer{
 public:
     void setColorRange(ColorRange) override;
-    void processImage(cv::Mat) override;
+    void processImage(cv::Mat, int) override;
     void processImageInsideSectors(cv::Mat, std::vector<cv::Rect>, int) override;
     std::vector<cv::Rect> getRectangles() override;
     std::vector<cv::Point2f> getCenters() override;
