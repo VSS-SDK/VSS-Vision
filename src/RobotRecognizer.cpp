@@ -165,8 +165,6 @@ vss::Robot RobotRecognizer::calculateRobotsValues(cv::Point2f teamPos, cv::Point
     // somando 180 para deixar no intervalo 0 e 360
     robot.angle = atan2(robotPos.y - teamPos.y, robotPos.x - teamPos.x)*(180/M_PI)+180;
 
-    robot.angle = lastRobotsPos[robotNumber].angle * 0.5 + (robot.angle) * 0.5;
-
     if(robot.angle >= 315) robot.angle -= 315;
     else robot.angle += 45;
 
