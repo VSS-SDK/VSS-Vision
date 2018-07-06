@@ -22,7 +22,7 @@ void ColorRecognizer::processImage(cv::Mat frame) {
     originalFrame = frame.clone();
 
     binarizesImage(originalFrame);
-    rectangles = recognizesRectangles(3);
+    rectangles = recognizesRectangles(5);
     calculateCenters();
 }
 
@@ -57,7 +57,7 @@ void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::R
             rectangles.push_back(cuttedRectangles[j]);
         }
     }
-    
+
     calculateCenters();
 }
 
