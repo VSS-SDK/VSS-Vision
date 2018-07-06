@@ -28,6 +28,8 @@ void ColorRecognizer::processImage(cv::Mat frame) {
 
 void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::Rect> cutSquare, int increaseSquare) {
 
+    originalFrame = frame.clone();
+    
     rectangles.clear();
 
     for (unsigned int i = 0; i < cutSquare.size(); i++) {

@@ -26,7 +26,7 @@ RobotRecognizer::RobotRecognizer() {
     // 1/60
     rate = 0.016;
     // max distance in cm between colors to be considered a robot
-    maxDistance = 10;
+    maxDistance = 30;
 }
 
 void RobotRecognizer::recognizeRobots(std::map<ObjectType, ColorPosition> colorsPos) {
