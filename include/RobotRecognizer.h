@@ -10,11 +10,11 @@
 #include "Domain/Robot.h"
 
 class RobotRecognizer : public IRobotRecognizer {
-	
+
 public:
 
     RobotRecognizer();
-    void recognizeRobots(std::map<WhoseName,ColorPosition>) override;
+    void recognizeRobots(std::map<ObjectType,ColorPosition>) override;
 
     std::vector<vss::Robot> getBlueRobots() override;
     std::vector<vss::Robot> getYellowRobots() override;
@@ -26,7 +26,7 @@ private:
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
-    std::map<WhoseName, vss::Robot> lastRobotsPos;
+    std::map<ObjectType, vss::Robot> lastRobotsPos;
 
     vss::Ball ball;
     vss::Ball lastBallPos;
@@ -34,11 +34,11 @@ private:
     double rate;
     double maxDistance;
 
-    void recognizeTeam(std::map<WhoseName,ColorPosition>&);
-    void recognizeOpponent(std::map<WhoseName,ColorPosition>&);
-    void recognizeBall(std::map<WhoseName,ColorPosition>&);
+    void recognizeTeam(std::map<ObjectType,ColorPosition>&);
+    void recognizeOpponent(std::map<ObjectType,ColorPosition>&);
+    void recognizeBall(std::map<ObjectType,ColorPosition>&);
 
-    vss::Robot calculateRobotsValues(cv::Point teamPos, cv::Point robotPos, WhoseName robotNumber);
+    vss::Robot calculateRobotsValues(cv::Point2f teamPos, cv::Point2f robotPos, ObjectType robotNumber);
 };
 
 #endif

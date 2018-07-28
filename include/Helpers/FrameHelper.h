@@ -6,12 +6,13 @@
 #define VSS_VISION_FRAMEHELPER_H
 
 #include <opencv2/imgproc/imgproc.hpp>
+#include "opencv/highgui.h"
 #include <iostream>
-#include <cxcore.h>
 #include <Domain/Point.h>
 
 void changeRotation(cv::Mat&, float);
 void cropImage(cv::Mat&, vss::Point, vss::Point);
+void drawRectangle(cv::Mat&, std::vector<cv::Rect>);
 void changeBrightness(cv::Mat&, float);
 void changeContrast(cv::Mat&, float);
 void changeSaturation(cv::Mat&, float);

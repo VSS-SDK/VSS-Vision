@@ -10,7 +10,7 @@
 
 bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
     if (event->keyval == GDK_KEY_space) {
-        window->hide();
+//        window->hide();
     } else if (event->keyval == GDK_KEY_Return) {
         window->hide();
     } else if (event->keyval == GDK_KEY_Escape) {
@@ -24,14 +24,10 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std:
     //@TODO: diferenciar time e adversario
     //@TODO: adaptar para permitir mais de 3 robos
 
-    // send positions
-    if(playing)
-        stateSender->sendState(blueRobots, yellowRobots, ball);
-
     std::vector<vss::Robot> teamPositions;
     std::vector<vss::Robot> opponentPositions;
 
-    if(whoseColor[ColorType::Blue] == WhoseName::Team) {
+    if(whoseColor[ColorType::Blue] == ObjectType::Team) {
         teamPositions = blueRobots;
         opponentPositions = yellowRobots;
     } else {
@@ -44,30 +40,33 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std:
     ss << "[ " << ball.x << " x " << ball.y << " ]";
     labelPositionBall->set_text(ss.str());
 
-    ss.str("");
-    ss << "[ " << teamPositions[0].x << " x " << teamPositions[0].y << " ]";
-    labelPositionRobot1->set_text(ss.str());
+    if (not teamPositions.empty()) {
+        ss.str("");
+        ss << "[ " << teamPositions[0].x << " x " << teamPositions[0].y << " ]";
+        labelPositionRobot1->set_text(ss.str());
 
-    ss.str("");
-    ss << "[ " << teamPositions[1].x << " x " << teamPositions[1].y << " ]";
-    labelPositionRobot2->set_text(ss.str());
+        ss.str("");
+        ss << "[ " << teamPositions[1].x << " x " << teamPositions[1].y << " ]";
+        labelPositionRobot2->set_text(ss.str());
 
-    ss.str("");
-    ss << "[ " << teamPositions[2].x << " x " << teamPositions[2].y << " ]";
-    labelPositionRobot3->set_text(ss.str());
+        ss.str("");
+        ss << "[ " << teamPositions[2].x << " x " << teamPositions[2].y << " ]";
+        labelPositionRobot3->set_text(ss.str());
+    }
 
-    ss.str("");
-    ss << "[ " << opponentPositions[0].x << " x " << opponentPositions[0].y << " ]";
-    labelPositionOpponent1->set_text(ss.str());
+    if (not opponentPositions.empty()) {
+        ss.str("");
+        ss << "[ " << opponentPositions[0].x << " x " << opponentPositions[0].y << " ]";
+        labelPositionOpponent1->set_text(ss.str());
 
-    ss.str("");
-    ss << "[ " << opponentPositions[1].x << " x " << opponentPositions[1].y << " ]";
-    labelPositionOpponent2->set_text(ss.str());
+        ss.str("");
+        ss << "[ " << opponentPositions[1].x << " x " << opponentPositions[1].y << " ]";
+        labelPositionOpponent2->set_text(ss.str());
 
-    ss.str("");
-    ss << "[ " << opponentPositions[2].x << " x " << opponentPositions[2].y << " ]";
-    labelPositionOpponent3->set_text(ss.str());
-
+        ss.str("");
+        ss << "[ " << opponentPositions[2].x << " x " << opponentPositions[2].y << " ]";
+        labelPositionOpponent3->set_text(ss.str());
+    }
 }
 
 void VisionWindow::onButtonPlay(Gtk::ToggleButton * toggleButton) {
@@ -96,10 +95,7 @@ void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
-    inputReader->close();
-
-    inputReader = new ImageFileReader();
-    configureInputReceivement(inputReader);
+    //inputReader = new ImageFileReader();
 }
 
 void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
@@ -108,59 +104,84 @@ void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
 }
 
 void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
-    inputReader->close();
-
-    inputReader = new CameraReader();
-    configureInputReceivement(inputReader);
+    //inputReader = new CameraReader();
 }
 
 void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 //  std::cout << combobox->get_active_row_number() << std::endl;
 }
 
-void VisionWindow::onComboBoxSelectColorTeam1(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Team; });
+    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Team;
+    whoseColor[colorType] = ObjectType::Team;
 }
 
-void VisionWindow::onComboBoxSelectColorTeam2(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorOpponent(Gtk::ComboBox *combobox) {
     vector<string> color = {"Blue", "Yellow"};
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Opponent; });
+    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Opponent;
+    whoseColor[colorType] = ObjectType::Opponent;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot1(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot1; });
+    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot1;
+    whoseColor[colorType] = ObjectType::Robot1;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot2(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot2; });
+    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot2;
+    whoseColor[colorType] = ObjectType::Robot2;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot3(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot3; });
+    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot3;
+    whoseColor[colorType] = ObjectType::Robot3;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot4(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot4; });
+    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot4;
+    whoseColor[colorType] = ObjectType::Robot4;
 }
 
 void VisionWindow::onComboBoxSelectColorRobot5(Gtk::ComboBox *combobox) {
     vector<string> color = {"Green", "Pink", "Purple", "Red", "Brown"};
+
+    auto result = std::find_if(whoseColor.begin(), whoseColor.end(), [&](pair<ColorType, ObjectType> a) {return a.second == ObjectType::Robot5; });
+    if(result != whoseColor.end()) result->second = ObjectType::Unknown;
+
     ColorType colorType = toColorType(color[combobox->get_active_row_number()]);
-    whoseColor[colorType] = WhoseName::Robot5;
+    whoseColor[colorType] = ObjectType::Robot5;
 }
 
-void VisionWindow::updateFpsLabel(){
-    string title = "VISION (" + to_string(fpsAmount) + ")";
+void VisionWindow::updateFpsLabel(int i){
+    string title = "VISION (" + to_string(i) + ")";
     window->set_title(title);
 }

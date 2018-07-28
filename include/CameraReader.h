@@ -6,22 +6,19 @@
 #define VSS_VISION_CAMERAREADER_H
 
 #include <vector>
-#include <cxcore.h>
 #include <Interfaces/IInputReader.h>
 #include <opencv/highgui.h>
-#include <opencv2/opencv.hpp>
 //#include <opencv2/videoio.hpp> // VideoCapture
 
 class CameraReader : public IInputReader{
 public:
     CameraReader();
+    ~CameraReader();
 
-    void initializeReceivement() override;
+    cv::Mat getFrame() override;
     std::vector<std::string> getAllPossibleSources() override;
     void setSource(std::string) override;
-    void pause() override;
-    void start() override;
-    void close() override;
+    void initializeReceivement() override;
 
     void setBrightness(float) override;
     void setGain(float) override;

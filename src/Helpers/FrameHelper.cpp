@@ -19,6 +19,12 @@ void cropImage(cv::Mat &mat, vss::Point p1, vss::Point p2){
     }
 }
 
+void drawRectangle(cv::Mat &mat, std::vector<cv::Rect> rectangles) {
+    for (unsigned int i = 0; i < rectangles.size(); i++) {
+        cv::rectangle(mat, rectangles.at(i), cv::Scalar(255, 255, 255), 2, 2, 0);
+    }
+}
+
 void changeBrightness(cv::Mat &mat, float value) {
   cv::Mat aux;
   mat.convertTo(aux, -1, 1.0, value);

@@ -11,12 +11,13 @@
 #include <Repositories/CalibrationRepository.h>
 
 VisionWindow::VisionWindow() {
-//    inputReader = new CameraReader();
-    inputReader = new ImageFileReader();
 
     calibrationBuilderFromRepository = new CalibrationBuilder();
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
+
+    inputReader = new CameraReader();
+    //inputReader = new ImageFileReader();
 
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
@@ -25,9 +26,6 @@ VisionWindow::VisionWindow() {
     stateSender->createSocket();
 
     playing = true;
-    shouldReadInput = true;
-
-    fpsAmount = 0;
 }
 
 VisionWindow::~VisionWindow() = default;
@@ -38,19 +36,18 @@ int VisionWindow::run(int argc, char *argv[]) {
     threadCameraReader = new thread(std::bind(&VisionWindow::cameraThreadWrapper, this));
 
     threadWindowControl->join();
-
-    inputReader->close();
-    shouldReadInput = false;
     threadCameraReader->detach();
 
     return MENU;
 }
 
 void VisionWindow::cameraThreadWrapper() {
-    configureInputReceivement(inputReader);
+    inputReader->setSource( inputReader->getAllPossibleSources().at(0) );
+    inputReader->initializeReceivement();
 
-    while(shouldReadInput) {
-        inputReader->initializeReceivement();
+    while(true) {
+        receiveNewFrame( inputReader->getFrame() );
+        //usleep(12000);
     }
 }
 
@@ -63,16 +60,11 @@ void VisionWindow::windowThreadWrapper() {
     Gtk::Main::run(*window);
 }
 
-void VisionWindow::configureInputReceivement(IInputReader* input){
-    input->signal_new_frame_from_reader.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
-
-    auto path = input->getAllPossibleSources();
-    input->setSource(path.at(0));
-    input->start();
-}
-
 void VisionWindow::initializeWidget() {
-    screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
+
+    radioButtonImage->set_active();
+
+    screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"), false);
 
     // show only .txt files
     auto filterText = fileChooserDialog->get_filter();
@@ -143,66 +135,35 @@ void VisionWindow::builderWidget() {
 }
 
 void VisionWindow::setSignals() {
-
     dispatcher_update_gtkmm_frame.connect(sigc::mem_fun(this, &VisionWindow::updateGtkImage));
 
-    inputReader->signal_new_frame_from_reader.connect(sigc::mem_fun(this, &VisionWindow::receiveNewFrame));
+    window->signal_key_press_event().connect(sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);
 
-    signalRobotsNewPositions.connect(sigc::mem_fun(this, &VisionWindow::onRobotsNewPositions));
+    buttonPlay->signal_clicked().connect(sigc::bind<Gtk::ToggleButton *>(sigc::mem_fun(this, &IVisionWindow::onButtonPlay), buttonPlay));
+    buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad), fileChooserDialog));
+    buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog));
 
-    window->signal_key_press_event().connect(
-            sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);
+    radioButtonImage->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonImage), radioButtonImage));
+    radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonVideo), radioButtonVideo));
+    radioButtonCamera->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonCamera), radioButtonCamera));
 
-    buttonPlay->signal_clicked().connect(sigc::bind<Gtk::ToggleButton *>(
-            sigc::mem_fun(this, &IVisionWindow::onButtonPlay), buttonPlay));
-
-    buttonLoad->signal_clicked().connect(
-            sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad),
-                                                               fileChooserDialog));
-
-    buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(
-            sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog));
-
-    radioButtonImage->signal_pressed().connect(
-            sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonImage), radioButtonImage));
-    radioButtonVideo->signal_pressed().connect(
-            sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonVideo), radioButtonVideo));
-    radioButtonCamera->signal_pressed().connect(
-            sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonCamera),
-                                           radioButtonCamera));
-
-    comboBoxPath->signal_changed().connect(
-            sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
-    comboBoxColorTeam1->signal_changed().connect(
-            sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam1),
-                                        comboBoxColorTeam1));
-    comboBoxColorTeam2->signal_changed().connect(
-            sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam2),
-                                        comboBoxColorTeam2));
-    comboBoxColorRobot1->signal_changed().connect(
-            sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot1),
-                                        comboBoxColorRobot1));
-    comboBoxColorRobot2->signal_changed().connect(
-            sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot2),
-                                        comboBoxColorRobot2));
-    comboBoxColorRobot3->signal_changed().connect(
-            sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot3),
-                                        comboBoxColorRobot3));
-    comboBoxColorRobot4->signal_changed().connect(
-            sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot4),
-                                        comboBoxColorRobot4));
-    comboBoxColorRobot5->signal_changed().connect(
-            sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot5),
-                                        comboBoxColorRobot5));
+    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
+    comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam), comboBoxColorTeam1));
+    comboBoxColorTeam2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorOpponent), comboBoxColorTeam2));
+    comboBoxColorRobot1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot1), comboBoxColorRobot1));
+    comboBoxColorRobot2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot2), comboBoxColorRobot2));
+    comboBoxColorRobot3->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot3), comboBoxColorRobot3));
+    comboBoxColorRobot4->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot4), comboBoxColorRobot4));
+    comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot5), comboBoxColorRobot5));
 }
 
 void VisionWindow::initializeWhoseColor() {
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Red, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Blue, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Pink, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Green, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Brown, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Yellow, WhoseName::Unknown));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Orange, WhoseName::Ball));
-    whoseColor.insert(std::pair<ColorType, WhoseName>(ColorType::Purple, WhoseName::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Red, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Blue, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Pink, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Green, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Brown, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Yellow, ObjectType::Unknown));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Orange, ObjectType::Ball));
+    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Purple, ObjectType::Unknown));
 }
