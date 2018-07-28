@@ -8,11 +8,9 @@
 
 #include <Domain/ColorRange.h>
 #include <vector>
-#include <cxcore.h>
 #include <ColorRecognizer.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <Domain/ColorSpace.h>
-#include <highgui.h>
 
 void ColorRecognizer::setColorRange(ColorRange colorRange) {
     this->colorRange = colorRange;

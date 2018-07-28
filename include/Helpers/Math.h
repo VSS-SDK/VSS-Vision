@@ -5,7 +5,7 @@
 #ifndef VSS_VISION_MATH_H
 #define VSS_VISION_MATH_H
 
-#include <cxcore.h>
+#include "opencv/highgui.h"
 
 class Math {
 

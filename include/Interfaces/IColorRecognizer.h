@@ -6,8 +6,8 @@
 #define VSS_VISION_ICOLORRECOGNIZER_H
 
 #include <vector>
-#include <cxcore.h>
 #include <Domain/ColorRange.h>
+#include "opencv/highgui.h"
 
 class IColorRecognizer {
 public:

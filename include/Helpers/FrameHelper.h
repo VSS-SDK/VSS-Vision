@@ -6,8 +6,8 @@
 #define VSS_VISION_FRAMEHELPER_H
 
 #include <opencv2/imgproc/imgproc.hpp>
+#include "opencv/highgui.h"
 #include <iostream>
-#include <cxcore.h>
 #include <Domain/Point.h>
 
 void changeRotation(cv::Mat&, float);

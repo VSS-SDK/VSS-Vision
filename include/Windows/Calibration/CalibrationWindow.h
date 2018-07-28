@@ -9,12 +9,14 @@
 #ifndef GPROGRAM_H_
 #define GPROGRAM_H_
 
-#include "GImage.h"
-#include "ICalibrationWindow.h"
-#include "opencv2/highgui/highgui.hpp"
 #include <gtkmm.h>
 #include <iostream>
 #include <thread>
+#include "mutex"
+
+#include "GImage.h"
+#include "ICalibrationWindow.h"
+#include "opencv2/highgui/highgui.hpp"
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IInputReader.h>
