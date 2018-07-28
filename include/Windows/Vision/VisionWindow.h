@@ -10,6 +10,7 @@
 #define VISION_WINDOW_H_
 
 #include <thread>
+#include <mutex>
 #include <gtkmm.h>
 #include <iostream>
 

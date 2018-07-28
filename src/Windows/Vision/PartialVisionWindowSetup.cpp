@@ -18,6 +18,7 @@ VisionWindow::VisionWindow() {
 
     inputReader = new CameraReader();
     //inputReader = new ImageFileReader();
+
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
 

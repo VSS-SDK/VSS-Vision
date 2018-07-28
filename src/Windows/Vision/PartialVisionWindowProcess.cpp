@@ -11,19 +11,18 @@
 void VisionWindow::receiveNewFrame(cv::Mat _frame) {
     processFrame(_frame.clone());
 
+    mtx.lock();
     send(robotRecognizer->getBlueRobots(),
          robotRecognizer->getYellowRobots(),
          robotRecognizer->getBall());
+    mtx.unlock();
 
-         dispatcher_update_gtkmm_frame.emit();
+    dispatcher_update_gtkmm_frame.emit();
 }
 
 void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
-    if(playing) {
-        mtx.lock();
-            stateSender->sendState(blueRobots, yellowRobots, ball);
-        mtx.unlock();
-    }
+    if(playing)
+        stateSender->sendState(blueRobots, yellowRobots, ball);
 }
 
 void VisionWindow::updateGtkImage() {
@@ -76,7 +75,80 @@ std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& _fra
                 ColorPosition colorTeam;
                 colorTeam.color = colorRangeLoop.colorType;
                 colorTeam.points = colorRecognizer->getCenters();
+
                 whosePosition[objectNameTeam] = colorTeam;
+
+                cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
+
+                drawRect.push_back(colorRecognizer->getRectangles());
+
+                for (auto colorRangeRobot : calibration.colorsRange) {
+                    ObjectType objectNameRobot = whoseColor[colorRangeRobot.colorType];
+
+                    if (objectNameRobot == ObjectType::Robot1 || objectNameRobot == ObjectType::Robot2 || objectNameRobot == ObjectType::Robot3) {
+                        ColorRecognizer colorRobot;
+                        colorRobot.setColorRange(colorRangeRobot);
+                        colorRobot.processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 30);
+
+                        ColorPosition colorPositionRobot;
+                        colorPositionRobot.color = colorRangeRobot.colorType;
+                        colorPositionRobot.points = colorRobot.getCenters();
+
+                        whosePosition[objectNameRobot] = colorPositionRobot;
+
+                        cutPosition[ colorRobot.getColor() ] = colorRobot.getRectangles();
+
+                        drawRect.push_back(colorRobot.getRectangles());
+                    }
+                }
+            }
+
+            if (objectNameTeam == ObjectType::Opponent) {
+                ColorRecognizer colorRecognizerOpponent;
+                colorRecognizerOpponent.setColorRange(colorRangeLoop);
+                colorRecognizerOpponent.processImage(_frame, 3);
+
+                ColorPosition colorPositionOpponent;
+                colorPositionOpponent.color = colorRangeLoop.colorType;
+                colorPositionOpponent.points = colorRecognizerOpponent.getCenters();
+
+                whosePosition[objectNameTeam] = colorPositionOpponent;
+
+                cutPosition[ colorRecognizerOpponent.getColor() ] = colorRecognizerOpponent.getRectangles();
+
+                drawRect.push_back(colorRecognizerOpponent.getRectangles());
+            }
+
+            if (objectNameTeam == ObjectType::Ball) {
+                ColorRecognizer colorRecognizerBall;
+                colorRecognizerBall.setColorRange(colorRangeLoop);
+                colorRecognizerBall.processImage(_frame, 1);
+
+                ColorPosition colorPositionBall;
+                colorPositionBall.color = colorRangeLoop.colorType;
+                colorPositionBall.points = colorRecognizerBall.getCenters();
+
+                whosePosition[objectNameTeam] = colorPositionBall;
+
+                cutPosition[ colorRecognizerBall.getColor() ] = colorRecognizerBall.getRectangles();
+
+                drawRect.push_back(colorRecognizerBall.getRectangles());
+            }
+        }
+
+    } else {
+        for (auto colorRange : calibration.colorsRange) {
+            ObjectType objectName = whoseColor[colorRange.colorType];
+
+            if (objectName == ObjectType::Team) {
+                colorRecognizer->setColorRange(colorRange);
+                colorRecognizer->processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 50);
+
+                ColorPosition colorPosition;
+                colorPosition.color = colorRange.colorType;
+                colorPosition.points = colorRecognizer->getCenters();
+
+                whosePosition[objectName] = colorPosition;
 
                 cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
 
@@ -99,64 +171,8 @@ std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& _fra
                         cutPosition[ colorRobot.getColor() ] = colorRobot.getRectangles();
 
                         drawRect.push_back(colorRobot.getRectangles());
-
                     }
                 }
-            }
-
-            if (objectNameTeam == ObjectType::Opponent) {
-                ColorRecognizer colorRecognizerOpponent;
-                colorRecognizerOpponent.setColorRange(colorRangeLoop);
-                colorRecognizerOpponent.processImage(_frame, 3);
-
-                ColorPosition colorPositionOpponent;
-                colorPositionOpponent.color = colorRangeLoop.colorType;
-                colorPositionOpponent.points = colorRecognizerOpponent.getCenters();
-                whosePosition[objectNameTeam] = colorPositionOpponent;
-
-                cutPosition[ colorRecognizerOpponent.getColor() ] = colorRecognizerOpponent.getRectangles();
-
-                drawRect.push_back(colorRecognizerOpponent.getRectangles());
-            }
-
-            if (objectNameTeam == ObjectType::Ball) {
-                ColorRecognizer colorRecognizerBall;
-                colorRecognizerBall.setColorRange(colorRangeLoop);
-                colorRecognizerBall.processImage(_frame, 1);
-
-                ColorPosition colorPositionBall;
-                colorPositionBall.color = colorRangeLoop.colorType;
-                colorPositionBall.points = colorRecognizerBall.getCenters();
-                whosePosition[objectNameTeam] = colorPositionBall;
-
-                cutPosition[ colorRecognizerBall.getColor() ] = colorRecognizerBall.getRectangles();
-
-                drawRect.push_back(colorRecognizerBall.getRectangles());
-            }
-
-        }
-
-        for (unsigned int i = 0; i < drawRect.size(); i++ ){
-            drawRectangle(_frame, drawRect[i]);
-        }
-
-
-    } else {
-        for (auto colorRange : calibration.colorsRange) {
-            ObjectType objectName = whoseColor[colorRange.colorType];
-
-            if (objectName == ObjectType::Team) {
-                colorRecognizer->setColorRange(colorRange);
-                colorRecognizer->processImageInsideSectors(_frame, cutPosition[ colorRecognizer->getColor() ] , 50);
-
-                ColorPosition colorPosition;
-                colorPosition.color = colorRange.colorType;
-                colorPosition.points = colorRecognizer->getCenters();
-
-                whosePosition[objectName] = colorPosition;
-
-                cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
-                drawRectangle(_frame, colorRecognizer->getRectangles());
             }
 
             if (objectName == ObjectType::Ball || objectName == ObjectType::Opponent) {
@@ -170,13 +186,15 @@ std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& _fra
                 whosePosition[objectName] = colorPosition;
 
                 cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
-                drawRectangle(_frame, colorRecognizer->getRectangles());
+
+                drawRect.push_back(colorRecognizer->getRectangles());
             }
-
-
         }
     }
 
+    for (unsigned int i = 0; i < drawRect.size(); i++ ){
+        drawRectangle(_frame, drawRect[i]);
+    }
 
     return whosePosition;
 }

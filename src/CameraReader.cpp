@@ -13,7 +13,7 @@ CameraReader::CameraReader() {
   actualCameraIndex = -1;
 
   // Simulando uma camera
-  camerasIndex.push_back(0);
+  camerasIndex.push_back(1);
 }
 
 CameraReader::~CameraReader(){
@@ -22,7 +22,7 @@ CameraReader::~CameraReader(){
 
 std::vector<std::string> CameraReader::getAllPossibleSources() {
   auto camerasIndex = std::vector<std::string>();
-  camerasIndex.push_back("0");
+  camerasIndex.push_back("1");
   return camerasIndex;
 }
 
@@ -37,7 +37,7 @@ void CameraReader::initializeReceivement() {
     return;
   }
 
-  capture = cv::VideoCapture(0);
+  capture = cv::VideoCapture(1);
 
   if( !capture.isOpened() ){
       std::cerr << "[Error] Camera cannot open" << std::endl;
