@@ -15,6 +15,7 @@
 #include <gtkmm.h>
 #include <iostream>
 #include <thread>
+#include <mutex>
 #include <Interfaces/ICalibrationRepository.h>
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IInputReader.h>

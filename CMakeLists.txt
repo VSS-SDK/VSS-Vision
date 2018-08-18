@@ -22,7 +22,7 @@ include_directories(usr/local/include)
 file(GLOB_RECURSE SRC src/*.cpp)
 file(GLOB_RECURSE INCLUDE include/*.h)
 
-ADD_LIBRARY(vss-vision-core ${SRC} ${INCLUDE})
+ADD_LIBRARY(vss-vision-core ${SRC} ${INCLUDE} src/Domain/ColorPattern.cpp)
 TARGET_LINK_LIBRARIES(vss-vision-core LINK_PUBLIC ${VSS_CORE} ${PROTOBUF_LIBRARY} ${PROTOBUF_LIBRARIES} ${GTKMM_LIBRARIES} ${OpenCV_LIBS} ${Boost_LIBRARIES})
 
 ADD_EXECUTABLE(vss-vision src/main.cpp)
@@ -63,7 +63,7 @@ ELSE()
 
     file(GLOB_RECURSE TEST test/*.cpp)
 
-    ADD_EXECUTABLE(tests ${TEST})
+    ADD_EXECUTABLE(tests ${TEST} include/Domain/ColorPattern.h include/Domain/ColorSide.h)
 
     target_link_libraries(tests
             pthread
