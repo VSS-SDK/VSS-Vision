@@ -73,7 +73,8 @@ private:
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
-     mutable std::mutex mtx;
+     mutable std::mutex mtxGetRobots;
+     mutable std::mutex mtxUpdateFrame;
      mutable std::mutex mtxChangeInput;
 
     // Comunication between threads

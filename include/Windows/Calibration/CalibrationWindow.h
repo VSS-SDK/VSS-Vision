@@ -80,8 +80,8 @@ private:
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
-    mutable std::mutex mtx;
     mutable std::mutex mtxChangeInput;
+    mutable std::mutex mtxUpdateFrame;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;

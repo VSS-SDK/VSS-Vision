@@ -11,11 +11,11 @@
 void VisionWindow::receiveNewFrame(cv::Mat _frame) {
     processFrame(_frame.clone());
 
-    mtx.lock();
+    mtxGetRobots.lock();
     send(robotRecognizer->getBlueRobots(),
          robotRecognizer->getYellowRobots(),
          robotRecognizer->getBall());
-    mtx.unlock();
+    mtxGetRobots.unlock();
 
     dispatcher_update_gtkmm_frame.emit();
 }
@@ -26,24 +26,24 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
 }
 
 void VisionWindow::updateGtkImage() {
-    mtx.lock();
+    mtxUpdateFrame.lock();
         cv::Mat _frame = frame.clone();
-    mtx.unlock();
+    mtxUpdateFrame.unlock();
 
-    mtx.lock();
+    mtxGetRobots.lock();
         onRobotsNewPositions(robotRecognizer->getBlueRobots(),
                              robotRecognizer->getYellowRobots(),
                              robotRecognizer->getBall());
-    mtx.unlock();
+    mtxGetRobots.unlock();
 
     screenImage->set_image(_frame, false);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
 void VisionWindow::processFrame(cv::Mat _frame) {
-    mtx.lock();
+   // mtx.lock();
         Calibration _calibration = calibration;
-    mtx.unlock();
+   // mtx.unlock();
 
     changeRotation(_frame, _calibration.rotation);
 
@@ -54,9 +54,9 @@ void VisionWindow::processFrame(cv::Mat _frame) {
     map<ObjectType, ColorPosition> positions = getColorPosition(_frame);
     robotRecognizer->recognizeRobots(positions);
 
-    mtx.lock();
+    mtxUpdateFrame.lock();
         frame = _frame.clone();
-    mtx.unlock();
+    mtxUpdateFrame.unlock();
 
 }
 

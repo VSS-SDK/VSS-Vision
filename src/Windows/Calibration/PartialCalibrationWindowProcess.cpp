@@ -16,18 +16,18 @@ void CalibrationWindow::receiveNewFrame(cv::Mat _frame){
 }
 
 void CalibrationWindow::updateGtkImage(){
-    mtx.lock();
+    mtxUpdateFrame.lock();
         cv::Mat _frame = frame.clone();
-    mtx.unlock();
+    mtxUpdateFrame.unlock();
 
     screenImage->set_image(_frame, showBinaryImage);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
 void CalibrationWindow::processFrame(cv::Mat _frame) {
-    mtx.lock();
+//    mtx.lock();
         Calibration _calibration = calibration;
-    mtx.unlock();
+//    mtx.unlock();
 
     changeRotation(_frame, _calibration.rotation);
 
@@ -40,14 +40,14 @@ void CalibrationWindow::processFrame(cv::Mat _frame) {
     cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
 
     if(showBinaryImage){
-       mtx.lock();
+       mtxUpdateFrame.lock();
            frame =  colorRecognizer->getBinaryFrame().clone();
-       mtx.unlock();
+       mtxUpdateFrame.unlock();
 
    } else {
        drawRectangle(_frame, colorRecognizer->getRectangles());
-       mtx.lock();
+       mtxUpdateFrame.lock();
            frame = _frame.clone();
-       mtx.unlock();
+       mtxUpdateFrame.unlock();
    }
 }
