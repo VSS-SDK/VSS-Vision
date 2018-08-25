@@ -74,6 +74,7 @@ private:
     std::thread *threadWindowControl;
 
      mutable std::mutex mtx;
+     mutable std::mutex mtxChangeInput;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
@@ -93,6 +94,7 @@ private:
     std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
     bool playing;
+    bool shouldReadInput;
 
     // Opencv image
     cv::Mat frame;

@@ -95,7 +95,14 @@ void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
-    //inputReader = new ImageFileReader();
+    if(inputReader) {
+        mtxChangeInput.lock();
+            inputReader->stopReceivement();
+            inputReader = new ImageFileReader();
+            inputReader->setSource(inputReader->getAllPossibleSources().at(0));
+            inputReader->initializeReceivement();
+        mtxChangeInput.unlock();
+    }
 }
 
 void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
@@ -104,7 +111,14 @@ void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
 }
 
 void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
-    //inputReader = new CameraReader();
+    if(inputReader) {
+        mtxChangeInput.lock();
+            inputReader->stopReceivement();
+            inputReader = new CameraReader();
+            inputReader->setSource(inputReader->getAllPossibleSources().at(0));
+            inputReader->initializeReceivement();
+        mtxChangeInput.unlock();
+    }
 }
 
 void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {

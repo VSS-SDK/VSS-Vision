@@ -16,8 +16,8 @@ VisionWindow::VisionWindow() {
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
 
-    inputReader = new CameraReader();
-    //inputReader = new ImageFileReader();
+    //inputReader = new CameraReader();
+    inputReader = new ImageFileReader();
 
     colorRecognizer = new ColorRecognizer();
     robotRecognizer = new RobotRecognizer();
@@ -26,6 +26,7 @@ VisionWindow::VisionWindow() {
     stateSender->createSocket();
 
     playing = true;
+    shouldReadInput = true;
 }
 
 VisionWindow::~VisionWindow() = default;
@@ -38,6 +39,9 @@ int VisionWindow::run(int argc, char *argv[]) {
     threadWindowControl->join();
     threadCameraReader->detach();
 
+    shouldReadInput = false;
+    inputReader->stopReceivement();
+
     return MENU;
 }
 
@@ -45,10 +49,13 @@ void VisionWindow::cameraThreadWrapper() {
     inputReader->setSource( inputReader->getAllPossibleSources().at(0) );
     inputReader->initializeReceivement();
 
-    while(true) {
-        receiveNewFrame( inputReader->getFrame() );
-        //usleep(12000);
+    while(shouldReadInput) {
+        mtxChangeInput.lock();
+            receiveNewFrame( inputReader->getFrame() );
+        mtxChangeInput.unlock();
+        usleep(12000);
     }
+
 }
 
 void VisionWindow::windowThreadWrapper() {
