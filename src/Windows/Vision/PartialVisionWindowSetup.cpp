@@ -113,11 +113,11 @@ void VisionWindow::builderWidget() {
         builder->get_widget("combobox_path", comboBoxPath);
         builder->get_widget("combobox_team_1", comboBoxColorTeam1);
         builder->get_widget("combobox_team_2", comboBoxColorTeam2);
-        builder->get_widget("combobox_robot_1", comboBoxColorRobot1);
-        builder->get_widget("combobox_robot_2", comboBoxColorRobot2);
-        builder->get_widget("combobox_robot_3", comboBoxColorRobot3);
-        builder->get_widget("combobox_robot_4", comboBoxColorRobot4);
-        builder->get_widget("combobox_robot_5", comboBoxColorRobot5);
+        builder->get_widget("combobox_pattern_1", comboBoxColorRobot1);
+        builder->get_widget("combobox_pattern_2", comboBoxColorRobot2);
+        builder->get_widget("combobox_pattern_3", comboBoxColorRobot3);
+        builder->get_widget("combobox_pattern_4", comboBoxColorRobot4);
+        builder->get_widget("combobox_pattern_5", comboBoxColorRobot5);
 
         builder->get_widget("label_position_bal", labelPositionBall);
 
