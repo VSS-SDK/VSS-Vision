@@ -23,7 +23,7 @@ CalibrationWindow::CalibrationWindow() {
 
     colorRecognizer = new ColorRecognizer();
 
-
+    shouldReadInput = true;
     showBinaryImage = false;
     actualColorRangeIndex = 0;
 }
@@ -38,6 +38,9 @@ int CalibrationWindow::run(int argc, char *argv[]){
     threadWindowControl->join();
     threadCameraReader->detach();
 
+    shouldReadInput = false;
+    inputReader->stopReceivement();
+
     return MENU;
 }
 
@@ -45,7 +48,7 @@ void CalibrationWindow::cameraThreadWrapper() {
     inputReader->setSource( inputReader->getAllPossibleSources().at(0) );
     inputReader->initializeReceivement();
 
-    while(true) {
+    while(shouldReadInput) {
         mtxChangeInput.lock();
             cv::Mat receivedFrame = inputReader->getFrame();
         mtxChangeInput.unlock();
