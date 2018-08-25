@@ -21,6 +21,7 @@ public:
     std::vector<std::string> getAllPossibleSources() override;
     void setSource(std::string) override;
     void initializeReceivement() override;
+    void stopReceivement() override;
 
     void setBrightness(float) override;
     void setGain(float) override;

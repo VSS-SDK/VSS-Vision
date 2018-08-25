@@ -14,6 +14,7 @@ public:
     virtual std::vector<std::string> getAllPossibleSources() = 0;
     virtual void setSource(std::string) = 0;
     virtual void initializeReceivement() = 0;
+    virtual void stopReceivement() = 0;
 
     virtual void setBrightness(float) = 0;
     virtual void setGain(float) = 0;

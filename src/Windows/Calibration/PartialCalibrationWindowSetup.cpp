@@ -46,8 +46,10 @@ void CalibrationWindow::cameraThreadWrapper() {
     inputReader->initializeReceivement();
 
     while(true) {
-        receiveNewFrame( inputReader->getFrame() );
-        //usleep(12000);
+        mtxChangeInput.lock();
+            receiveNewFrame( inputReader->getFrame() );
+        mtxChangeInput.unlock();
+        usleep(12000);
     }
 }
 

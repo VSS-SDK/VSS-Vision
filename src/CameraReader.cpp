@@ -31,6 +31,10 @@ cv::Mat CameraReader::getFrame() {
     return actualFrame;
 }
 
+void CameraReader::stopReceivement() {
+    if(capture.isOpened()) capture.release();
+}
+
 void CameraReader::initializeReceivement() {
   if(!isAValidCameraIndex(actualCameraIndex)) {
     std::cerr << "[Error] Invalid camera index" << std::endl;

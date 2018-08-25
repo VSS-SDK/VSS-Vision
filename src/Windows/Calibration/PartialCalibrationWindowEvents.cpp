@@ -132,11 +132,25 @@ void CalibrationWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChoos
 }
 
 void CalibrationWindow::onRadioButtonImage(Gtk::RadioButton* radioButton){
-    //inputReader = new ImageFileReader();
+    if(inputReader) {
+        mtxChangeInput.lock();
+            inputReader->stopReceivement();
+            inputReader = new ImageFileReader();
+            inputReader->setSource(inputReader->getAllPossibleSources().at(0));
+            inputReader->initializeReceivement();
+        mtxChangeInput.unlock();
+    }
 }
 
 void CalibrationWindow::onRadioButtonCamera(Gtk::RadioButton* radioButton){
-    //inputReader = new CameraReader();
+    if(inputReader) {
+        mtxChangeInput.lock();
+            inputReader->stopReceivement();
+            inputReader = new CameraReader();
+            inputReader->setSource(inputReader->getAllPossibleSources().at(0));
+            inputReader->initializeReceivement();
+        mtxChangeInput.unlock();
+    }
 }
 
 void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton){
