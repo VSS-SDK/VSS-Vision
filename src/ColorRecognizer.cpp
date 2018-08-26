@@ -1,87 +1,18 @@
-//
-// Created by johnathan on 08/03/18.
-//
-
-#include <Helpers/TimeHelper.h>
-
-#include <unistd.h>
-
-#include <Domain/ColorRange.h>
-#include <vector>
-#include <cxcore.h>
 #include <ColorRecognizer.h>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <Domain/ColorSpace.h>
-#include <highgui.h>
 
-void ColorRecognizer::setColorRange(ColorRange colorRange) {
-    this->colorRange = colorRange;
+void ColorRecognizer::processImage(cv::Mat image) {
+    frame = image.clone();
+
+    binarizesImage();
+    recognizesRectangles();
+    calculateCenter();
 }
 
-void ColorRecognizer::processImage(cv::Mat frame, int maxNumberSquare) {
-    originalFrame = frame.clone();
-
-    binarizesImage(originalFrame);
-    rectangles = recognizesRectangles(maxNumberSquare);
-    calculateCenters();
-}
-
-void ColorRecognizer::processImageInsideSectors(cv::Mat frame, std::vector<cv::Rect> cutSquare, int increaseSquare) {
-    originalFrame = frame.clone();
-
-    rectangles.clear();
-
-    for (unsigned int i = 0; i < cutSquare.size(); i++) {
-
-        cutSquare[i].x -= int(increaseSquare / 2);
-        cutSquare[i].y -= int(increaseSquare / 2);
-        cutSquare[i].width  += increaseSquare;
-        cutSquare[i].height += increaseSquare;
-
-        if (cutSquare[i].x < 0) cutSquare[i].x = 0;
-        if (cutSquare[i].y < 0) cutSquare[i].y = 0;
-        if (cutSquare[i].x + cutSquare[i].width  > frame.cols) cutSquare[i].width  = frame.cols - cutSquare[i].x;
-        if (cutSquare[i].y + cutSquare[i].height > frame.rows) cutSquare[i].height = frame.rows - cutSquare[i].y;
-
-        cv::Mat cutFrame = cv::Mat(frame, cutSquare[i]).clone();
-
-        binarizesImage(cutFrame);
-        std::vector<cv::Rect> cuttedRectangles = recognizesRectangles(1);
-
-        for (unsigned int j = 0; j < cuttedRectangles.size(); j++) {
-            cuttedRectangles[j].x += cutSquare[i].x;
-            cuttedRectangles[j].y += cutSquare[i].y;
-
-            if (cuttedRectangles[j].x > frame.cols) cuttedRectangles[j].x = frame.cols;
-            if (cuttedRectangles[j].y > frame.rows) cuttedRectangles[j].y = frame.rows;
-
-            int trashMax = 10;
-            if (cuttedRectangles[j].width > trashMax && cuttedRectangles[j].height > trashMax) {
-                rectangles.push_back(cuttedRectangles[j]);
-            }
-        }
-    }
-
-    calculateCenters();
-}
-
-std::vector<cv::Rect> ColorRecognizer::getRectangles() {
-    return rectangles;
-}
-
-std::vector<cv::Point2f> ColorRecognizer::getCenters() {
-    return centers;
-}
-
-ColorType ColorRecognizer::getColor() {
-    return colorRange.colorType;
-}
-
-void ColorRecognizer::binarizesImage(cv::Mat image) {
+void ColorRecognizer::binarizesImage() {
     cv::Mat processed;
     cv::Mat processedHSV;
 
-    cv::cvtColor(image, processedHSV, cv::COLOR_RGB2HSV_FULL);
+    cv::cvtColor(frame, processedHSV, cv::COLOR_RGB2HSV_FULL);
 
     cv::inRange(processedHSV,
         cv::Scalar(colorRange.min[H], colorRange.min[S], colorRange.min[V]),
@@ -93,12 +24,11 @@ void ColorRecognizer::binarizesImage(cv::Mat image) {
     binaryFrame = processed.clone();
 }
 
-std::vector<cv::Rect> ColorRecognizer::recognizesRectangles(unsigned int maxNumberRect) {
-    cv::Mat auxImage = binaryFrame.clone();
-    std::vector<std::vector<cv::Point>> contours;
-    std::vector<cv::Vec4i> hierarchy;
+void ColorRecognizer::recognizesRectangles() {
+    std::vector< cv::Vec4i > hierarchy;
+    std::vector< std::vector<cv::Point> > contours;
 
-    cv::findContours(auxImage, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+    cv::findContours(binaryFrame.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 
     // sort in crescent order the contours vector by found area
     sort(contours.begin(), contours.end(),
@@ -107,56 +37,66 @@ std::vector<cv::Rect> ColorRecognizer::recognizesRectangles(unsigned int maxNumb
         }
     );
 
-    unsigned int numberRectFound = contours.size();
+    std::vector<cv::Rect> vectorRect( contours.size() );
+    std::vector<cv::RotatedRect> vectorRotatedRect( contours.size() );
+    std::vector<std::vector<cv::Point>> contours_poly( contours.size() );
 
-    if (numberRectFound > maxNumberRect) numberRectFound = maxNumberRect;
-
-    std::vector<std::vector<cv::Point> > contours_poly( numberRectFound );
-    std::vector<cv::Rect> boundRect( numberRectFound );
-
-    for(unsigned int i = 0; i < numberRectFound; i++){
+    for(unsigned int i = 0; i < contours.size(); i++){
+        vectorRotatedRect[i] = cv::minAreaRect( cv::Mat(contours[i]) );
         approxPolyDP( cv::Mat(contours[i]), contours_poly[i], 0, true );
-        boundRect[i] = boundingRect( cv::Mat(contours_poly[i]) );
-        boundRect[i].x -= 1;
-        boundRect[i].y -= 1;
-        boundRect[i].width  += 2;
-        boundRect[i].height += 2;
+        vectorRect[i] = boundingRect( cv::Mat(contours_poly[i]) );
+        vectorRect[i].x -= 1;
+        vectorRect[i].y -= 1;
+        vectorRect[i].width  += 2;
+        vectorRect[i].height += 2;
     }
 
-    return boundRect;
+    rectangles = vectorRect;
+    rotatedRectangles = vectorRotatedRect;
 }
 
-void ColorRecognizer::calculateCenters() {
-    auto centers = std::vector<cv::Point2f>();
-    auto centimeterPoint = cv::Point2f();
+void ColorRecognizer::getImageFromColor() {
+    for (unsigned int i = 0; i < rotatedRectangles.size(); i++ ) {
+        cv::Size rectSize = rotatedRectangles[i].size;
+            rectSize.width = int(rectSize.width * 1.3);
+            rectSize.height = int(rectSize.height * 1.3);
 
-    for(unsigned int i = 0 ; i < rectangles.size() ; i++){
-        auto pixelPoint = getCenter(rectangles.at(i));
+        cv::Mat rotated, cropped;
+        cv::Mat matrix = getRotationMatrix2D(rotatedRectangles[i].center, rotatedRectangles[i].angle, 1.0);
 
-        centimeterPoint = {
-            (float) (pixelPoint.x * vss::MAX_COORDINATE_X) / originalFrame.cols,
-            (float) (pixelPoint.y * vss::MAX_COORDINATE_Y) / originalFrame.rows
-        };
-
-        centers.push_back(centimeterPoint);
+        warpAffine(frame, rotated, matrix, frame.size(), cv::INTER_CUBIC);
+        getRectSubPix(rotated, rectSize, rotatedRectangles[i].center, cropped);
     }
-
-    this->centers = centers;
 }
 
-cv::Point2f ColorRecognizer::getCenter(cv::Rect rect) {
-    cv::Point2f point = (rect.br() + rect.tl()) * 0.5;
-    return point;
+void ColorRecognizer::calculateCenter(){
+    centers.clear();
+
+    for (auto r : rotatedRectangles) {
+        centers.push_back(r.center);
+    }
+}
+
+void ColorRecognizer::setColorRange(ColorRange colorRange) {
+    this->colorRange = colorRange;
+}
+
+std::vector<cv::Rect> ColorRecognizer::getRectangles() {
+    return rectangles;
+}
+
+std::vector<cv::RotatedRect> ColorRecognizer::getRotatedRectangles() {
+    return rotatedRectangles;
+}
+
+std::vector<cv::Point2f> ColorRecognizer::getCenters() {
+    return centers;
+}
+
+ColorType ColorRecognizer::getColor() {
+    return colorRange.colorType;
 }
 
 ColorRange ColorRecognizer::getColorRange() {
     return colorRange;
-}
-
-cv::Mat ColorRecognizer::getOriginalFrame() {
-    return originalFrame;
-}
-
-cv::Mat ColorRecognizer::getBinaryFrame() {
-    return binaryFrame;
 }

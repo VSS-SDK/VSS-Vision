@@ -34,7 +34,7 @@ void CalibrationWindow::processFrame(cv::Mat _frame) {
     if(_calibration.shouldCropImage) {
         cropImage(_frame, _calibration.cut[0], _calibration.cut[1]);
     }
-
+/*
     colorRecognizer->processImage(_frame, 3);
 
     cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
@@ -50,4 +50,5 @@ void CalibrationWindow::processFrame(cv::Mat _frame) {
            frame = _frame.clone();
        mtxUpdateFrame.unlock();
    }
+*/
 }

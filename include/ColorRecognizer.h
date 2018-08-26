@@ -1,35 +1,33 @@
-//
-// Created by johnathan on 08/03/18.
-//
-
 #ifndef VSS_VISION_COLORRECOGNIZER_H
 #define VSS_VISION_COLORRECOGNIZER_H
 
+#include <Domain/ColorSpace.h>
 #include <Interfaces/IColorRecognizer.h>
-#include <Domain/Constants.h>
+#include <opencv2/imgproc/imgproc.hpp>
+
 
 class ColorRecognizer : public IColorRecognizer{
 public:
+    void processImage(cv::Mat) override;
     void setColorRange(ColorRange) override;
-    void processImage(cv::Mat, int) override;
-    void processImageInsideSectors(cv::Mat, std::vector<cv::Rect>, int) override;
-    std::vector<cv::Rect> getRectangles() override;
-    std::vector<cv::Point2f> getCenters() override;
-    cv::Mat getBinaryFrame() override;
 
     ColorType getColor() override;
-    void binarizesImage(cv::Mat);
-    std::vector<cv::Rect> recognizesRectangles(unsigned int = 1);
-    void calculateCenters();
-    cv::Point2f getCenter(cv::Rect);
-    ColorRange getColorRange();
-    cv::Mat getOriginalFrame();
+    ColorRange getColorRange() override;
+    std::vector<cv::Point2f> getCenters() override;
+    std::vector<cv::Rect> getRectangles() override;
+    std::vector<cv::RotatedRect> getRotatedRectangles() override;
+
+    void binarizesImage();
+    void recognizesRectangles();
+    void getImageFromColor();
+    void calculateCenter();
 
 private:
-    ColorRange colorRange;
-    cv::Mat originalFrame;
+    cv::Mat frame;
     cv::Mat binaryFrame;
-    std::vector<cv::Rect> rectangles;
+    ColorRange colorRange;
     std::vector<cv::Point2f> centers;
+    std::vector<cv::Rect> rectangles;
+    std::vector<cv::RotatedRect> rotatedRectangles;
 };
-#endif //VSS_VISION_COLORRECOGNIZER_H
+#endif // VSS_VISION_COLORRECOGNIZER_H
