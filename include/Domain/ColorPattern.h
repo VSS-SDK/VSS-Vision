@@ -17,11 +17,8 @@ public:
     ColorType singleColor;
     ColorSide colorSide;
 
-    ColorPattern(ObjectType id, ColorType doubleColor, ColorType singleColor, ColorSide colorSide) :
-            id(id),
-            doubleColor(doubleColor),
-            singleColor(singleColor),
-            colorSide(colorSide) {}
+    ColorPattern();
+    ColorPattern(ObjectType id, ColorType doubleColor, ColorType singleColor, ColorSide colorSide);
 
     bool isEquals(ColorPattern colorPattern);
 };

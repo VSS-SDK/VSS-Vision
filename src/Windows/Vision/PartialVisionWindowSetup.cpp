@@ -28,10 +28,10 @@ VisionWindow::VisionWindow() {
     playing = true;
     shouldReadInput = true;
 
+    pattern.resize(9);
+    
     mainColorList = {ColorType::Blue, ColorType::Yellow};
     objectList = {ObjectType::Robot1, ObjectType::Robot2, ObjectType::Robot3, ObjectType::Robot4, ObjectType::Robot5};
-
-
 }
 
 VisionWindow::~VisionWindow() = default;
