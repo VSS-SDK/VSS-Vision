@@ -96,6 +96,7 @@ private:
     Calibration calibration;
 
     bool showBinaryImage;
+    bool shouldReadInput;
     unsigned int actualColorRangeIndex;
     std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
