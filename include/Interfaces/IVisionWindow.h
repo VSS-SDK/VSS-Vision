@@ -26,15 +26,15 @@ public:
     virtual void onRadioButtonImage(Gtk::RadioButton*) = 0;
     virtual void onRadioButtonVideo(Gtk::RadioButton*) = 0;
     virtual void onRadioButtonCamera(Gtk::RadioButton*) = 0;
-	
+
     virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorTeam(Gtk::ComboBox *) = 0;
 	virtual void onComboBoxSelectColorOpponent(Gtk::ComboBox *) = 0;
-    virtual void onComboBoxSelectColorRobot1(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorRobot2(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorRobot3(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorRobot4(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorRobot5(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorPattern1(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorPattern2(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorPattern3(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorPattern4(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectColorPattern5(Gtk::ComboBox*) = 0;
 
     virtual void onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) = 0;
 };

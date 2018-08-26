@@ -50,9 +50,13 @@ void VisionWindow::processFrame(cv::Mat _frame) {
     if(_calibration.shouldCropImage){
         cropImage(_frame, _calibration.cut[0], _calibration.cut[1]);
     }
+/*
+    for (auto colorRangeLoop : calibration.colorsRange) {
 
-//    map<ObjectType, ColorPosition> positions = getColorPosition(_frame);
-//    robotRecognizer->recognizeRobots(positions);
+
+
+        if (objectNameTeam == ObjectType::Team) {
+*/
 
     mtxUpdateFrame.lock();
         frame = _frame.clone();

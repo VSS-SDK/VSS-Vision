@@ -21,6 +21,7 @@
 #include <Domain/ProgramState.h>
 #include <Domain/ObjectType.h>
 #include <Domain/ColorType.h>
+#include <Domain/ColorPattern.h>
 #include <Domain/ColorPosition.h>
 #include <Interfaces/IInputReader.h>
 #include <Interfaces/ICalibrationRepository.h>
@@ -59,11 +60,11 @@ public:
 
     void onComboBoxSelectColorTeam(Gtk::ComboBox *) override;
     void onComboBoxSelectColorOpponent(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorRobot1(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorRobot2(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorRobot3(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorRobot4(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorRobot5(Gtk::ComboBox *) override;
+    void onComboBoxSelectColorPattern1(Gtk::ComboBox *) override;
+    void onComboBoxSelectColorPattern2(Gtk::ComboBox *) override;
+    void onComboBoxSelectColorPattern3(Gtk::ComboBox *) override;
+    void onComboBoxSelectColorPattern4(Gtk::ComboBox *) override;
+    void onComboBoxSelectColorPattern5(Gtk::ComboBox *) override;
     void onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) override;
 
 private:
@@ -139,6 +140,9 @@ private:
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
     std::map<ColorType, ObjectType> whoseColor;
+    std::vector<ColorType> mainColorList;
+    std::vector<ObjectType> objectList;
+    std::vector<ColorPattern> pattern;
 
     // Control method
     void initializeWidget();

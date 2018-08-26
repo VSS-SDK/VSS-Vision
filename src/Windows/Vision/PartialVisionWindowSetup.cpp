@@ -27,6 +27,11 @@ VisionWindow::VisionWindow() {
 
     playing = true;
     shouldReadInput = true;
+
+    mainColorList = {ColorType::Blue, ColorType::Yellow};
+    objectList = {ObjectType::Robot1, ObjectType::Robot2, ObjectType::Robot3, ObjectType::Robot4, ObjectType::Robot5};
+
+
 }
 
 VisionWindow::~VisionWindow() = default;
@@ -160,11 +165,11 @@ void VisionWindow::setSignals() {
     comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
     comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam), comboBoxColorTeam1));
     comboBoxColorTeam2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorOpponent), comboBoxColorTeam2));
-    comboBoxColorRobot1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot1), comboBoxColorRobot1));
-    comboBoxColorRobot2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot2), comboBoxColorRobot2));
-    comboBoxColorRobot3->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot3), comboBoxColorRobot3));
-    comboBoxColorRobot4->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot4), comboBoxColorRobot4));
-    comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorRobot5), comboBoxColorRobot5));
+    comboBoxColorRobot1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern1), comboBoxColorRobot1));
+    comboBoxColorRobot2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern2), comboBoxColorRobot2));
+    comboBoxColorRobot3->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern3), comboBoxColorRobot3));
+    comboBoxColorRobot4->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern4), comboBoxColorRobot4));
+    comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern5), comboBoxColorRobot5));
 }
 
 void VisionWindow::initializeWhoseColor() {
