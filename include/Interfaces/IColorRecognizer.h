@@ -19,6 +19,8 @@ public:
     virtual std::vector<cv::Point2f> getCenters() = 0;
     virtual std::vector<cv::Rect> getRectangles() = 0;
     virtual std::vector<cv::RotatedRect> getRotatedRectangles() = 0;
+    virtual std::vector<cv::Mat> getImageFromColor() = 0;
+    virtual cv::Mat getBinaryImage() = 0;
 };
 
 #endif // VSS_VISION_ICOLORRECOGNIZER_H

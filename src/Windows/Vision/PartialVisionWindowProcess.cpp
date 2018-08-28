@@ -8,8 +8,8 @@
 
 #include <Windows/Vision/VisionWindow.h>
 
-void VisionWindow::receiveNewFrame(cv::Mat _frame) {
-    processFrame(_frame.clone());
+void VisionWindow::receiveNewFrame(cv::Mat image) {
+    processFrame(image.clone());
 
     mtxGetRobots.lock();
     send(robotRecognizer->getBlueRobots(),
@@ -27,7 +27,7 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
 
 void VisionWindow::updateGtkImage() {
     mtxUpdateFrame.lock();
-        cv::Mat _frame = frame.clone();
+        cv::Mat image = frame.clone();
     mtxUpdateFrame.unlock();
 
     mtxGetRobots.lock();
@@ -36,35 +36,40 @@ void VisionWindow::updateGtkImage() {
                              robotRecognizer->getBall());
     mtxGetRobots.unlock();
 
-    screenImage->set_image(_frame, false);
+    screenImage->set_image(image, false);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
-void VisionWindow::processFrame(cv::Mat _frame) {
+void VisionWindow::processFrame(cv::Mat image) {
    // mtx.lock();
         Calibration _calibration = calibration;
    // mtx.unlock();
 
-    changeRotation(_frame, _calibration.rotation);
+    changeRotation(image, _calibration.rotation);
 
     if(_calibration.shouldCropImage){
-        cropImage(_frame, _calibration.cut[0], _calibration.cut[1]);
+        cropImage(image, _calibration.cut[0], _calibration.cut[1]);
     }
-/*
-    for (auto colorRangeLoop : calibration.colorsRange) {
-
-
-
-        if (objectNameTeam == ObjectType::Team) {
-*/
 
     mtxUpdateFrame.lock();
-        frame = _frame.clone();
+    frame = image.clone();
     mtxUpdateFrame.unlock();
 
+    ColorPattern team = pattern[ObjectType::Team];
+
+
+    if (team.id == ObjectType::Team) {
+        colorRecognizer->setColorRange(team.singleColorRange);
+        colorRecognizer->processImage(image);
+
+        if (colorRecognizer->getImageFromColor().size() > 0){
+            frame = colorRecognizer->getImageFromColor()[0];
+        }
+
+    }
 }
 
-std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& _frame) {
+std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& image) {
     map<ObjectType, ColorPosition> whosePosition;
     return whosePosition;
 }

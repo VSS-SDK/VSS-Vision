@@ -6,6 +6,7 @@
 #define VSS_VISION_ROBOTCOLORPATTERN_H
 
 #include <ColorType.h>
+#include <ColorRange.h>
 #include <ColorSide.h>
 #include <ObjectType.h>
 
@@ -13,12 +14,14 @@ class ColorPattern {
 public:
 
     ObjectType id;
-    ColorType doubleColor;
-    ColorType singleColor;
+    ColorType singleColorType;
+    ColorType doubleColorType;
+    ColorRange singleColorRange;
+    ColorRange doubleColorRange;
     ColorSide colorSide;
 
     ColorPattern();
-    ColorPattern(ObjectType id, ColorType doubleColor, ColorType singleColor, ColorSide colorSide);
+    ColorPattern(ObjectType, ColorType, ColorType, ColorRange, ColorRange, ColorSide);
 
     bool isEquals(ColorPattern colorPattern);
 };

@@ -6,6 +6,7 @@ void ColorRecognizer::processImage(cv::Mat image) {
     binarizesImage();
     recognizesRectangles();
     calculateCenter();
+    generateImageFromColor();
 }
 
 void ColorRecognizer::binarizesImage() {
@@ -25,6 +26,9 @@ void ColorRecognizer::binarizesImage() {
 }
 
 void ColorRecognizer::recognizesRectangles() {
+    rectangles.clear();
+    rotatedRectangles.clear();
+
     std::vector< cv::Vec4i > hierarchy;
     std::vector< std::vector<cv::Point> > contours;
 
@@ -55,7 +59,9 @@ void ColorRecognizer::recognizesRectangles() {
     rotatedRectangles = vectorRotatedRect;
 }
 
-void ColorRecognizer::getImageFromColor() {
+void ColorRecognizer::generateImageFromColor() {
+    imageFromColor.clear();
+
     for (unsigned int i = 0; i < rotatedRectangles.size(); i++ ) {
         cv::Size rectSize = rotatedRectangles[i].size;
             rectSize.width = int(rectSize.width * 1.3);
@@ -66,6 +72,8 @@ void ColorRecognizer::getImageFromColor() {
 
         warpAffine(frame, rotated, matrix, frame.size(), cv::INTER_CUBIC);
         getRectSubPix(rotated, rectSize, rotatedRectangles[i].center, cropped);
+
+        imageFromColor.push_back(cropped);
     }
 }
 
@@ -79,6 +87,10 @@ void ColorRecognizer::calculateCenter(){
 
 void ColorRecognizer::setColorRange(ColorRange colorRange) {
     this->colorRange = colorRange;
+}
+
+std::vector<cv::Mat> ColorRecognizer::getImageFromColor() {
+    return imageFromColor;
 }
 
 std::vector<cv::Rect> ColorRecognizer::getRectangles() {
@@ -99,4 +111,8 @@ ColorType ColorRecognizer::getColor() {
 
 ColorRange ColorRecognizer::getColorRange() {
     return colorRange;
+}
+
+cv::Mat ColorRecognizer::getBinaryImage(){
+    return binaryFrame;
 }

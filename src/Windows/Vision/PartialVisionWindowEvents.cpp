@@ -127,21 +127,29 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
     unsigned int row = combobox->get_active_row_number();
     pattern[ObjectType::Team].id = ObjectType::Team;
-    pattern[ObjectType::Team].singleColor = mainColorList[row];
+    pattern[ObjectType::Team].singleColorType = mainColorList[row];
+
+    for(auto range : calibration.colorsRange) {
+        if(range.colorType == pattern[ObjectType::Team].singleColorType){
+            pattern[ObjectType::Team].singleColorRange = range;
+            break;
+        }
+    }
+
 }
 
 void VisionWindow::onComboBoxSelectColorOpponent(Gtk::ComboBox *combobox) {
     unsigned int row = combobox->get_active_row_number();
     pattern[ObjectType::Opponent].id = ObjectType::Opponent;
-    pattern[ObjectType::Opponent].singleColor = mainColorList[row];
+    pattern[ObjectType::Opponent].singleColorType = mainColorList[row];
 }
 
 void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
     unsigned int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
     pattern[object].id = object;
-    pattern[object].singleColor = ColorType::Pink;
-    pattern[object].doubleColor = ColorType::Green;
+    pattern[object].singleColorType = ColorType::Pink;
+    pattern[object].doubleColorType = ColorType::Green;
     pattern[object].colorSide = ColorSide::Left;
 }
 
@@ -149,8 +157,8 @@ void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
     unsigned int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
     pattern[object].id = object;
-    pattern[object].singleColor = ColorType::Pink;
-    pattern[object].doubleColor = ColorType::Green;
+    pattern[object].singleColorType = ColorType::Pink;
+    pattern[object].doubleColorType = ColorType::Green;
     pattern[object].colorSide = ColorSide::Right;
 }
 
@@ -158,8 +166,8 @@ void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
     unsigned int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
     pattern[object].id = object;
-    pattern[object].singleColor = ColorType::Green;
-    pattern[object].doubleColor = ColorType::Pink;
+    pattern[object].singleColorType = ColorType::Green;
+    pattern[object].doubleColorType = ColorType::Pink;
     pattern[object].colorSide = ColorSide::Right;
 }
 
@@ -167,8 +175,8 @@ void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
     unsigned int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
     pattern[object].id = object;
-    pattern[object].singleColor = ColorType::Green;
-    pattern[object].doubleColor = ColorType::Pink;
+    pattern[object].singleColorType = ColorType::Green;
+    pattern[object].doubleColorType = ColorType::Pink;
     pattern[object].colorSide = ColorSide::Left;
 }
 
@@ -176,8 +184,8 @@ void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
     unsigned int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
     pattern[object].id = object;
-    pattern[object].singleColor = ColorType::Green;
-    pattern[object].doubleColor = ColorType::Red;
+    pattern[object].singleColorType = ColorType::Green;
+    pattern[object].doubleColorType = ColorType::Red;
     pattern[object].colorSide = ColorSide::Left;
 }
 

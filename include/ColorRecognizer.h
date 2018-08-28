@@ -16,10 +16,12 @@ public:
     std::vector<cv::Point2f> getCenters() override;
     std::vector<cv::Rect> getRectangles() override;
     std::vector<cv::RotatedRect> getRotatedRectangles() override;
+    std::vector<cv::Mat> getImageFromColor() override;
+    cv::Mat getBinaryImage();
 
     void binarizesImage();
     void recognizesRectangles();
-    void getImageFromColor();
+    void generateImageFromColor();
     void calculateCenter();
 
 private:
@@ -29,5 +31,6 @@ private:
     std::vector<cv::Point2f> centers;
     std::vector<cv::Rect> rectangles;
     std::vector<cv::RotatedRect> rotatedRectangles;
+    std::vector<cv::Mat> imageFromColor;
 };
 #endif // VSS_VISION_COLORRECOGNIZER_H
