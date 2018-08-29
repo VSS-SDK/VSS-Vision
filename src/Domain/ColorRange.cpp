@@ -8,34 +8,47 @@
 
 #include "ColorRange.h"
 
-ColorRange::ColorRange(){
-  colorType = ColorType::UnknownType;
-  for(int i = 0 ; i < 3 ; i++){
-    this->min[i] = 0.0;
-    this->max[i] = 0.0;
-  }
+ColorRange::ColorRange() {
+    colorType = ColorType::UnknownType;
+    for (int i = 0; i < 3; i++) {
+        this->min[i] = 0.0;
+        this->max[i] = 0.0;
+    }
 }
 
-ColorRange::ColorRange(ColorType colorType, float *min, float *max){
-  this->colorType = colorType;
-  for(int i = 0 ; i < 3 ; i++){
-    this->min[i] = min[i];
-    this->max[i] = max[i];
-  }
+ColorRange::ColorRange(ColorType colorType, float *min, float *max) {
+    this->colorType = colorType;
+    for (int i = 0; i < 3; i++) {
+        this->min[i] = min[i];
+        this->max[i] = max[i];
+    }
 }
 
-ColorRange::ColorRange( ColorRange *colorRange ){
-  colorType = colorRange->colorType;
-  for(int i = 0 ; i < 3 ; i++){
-    min[i] = colorRange->min[i];
-    max[i] = colorRange->max[i];
-  }
+ColorRange::ColorRange(ColorRange *colorRange) {
+    colorType = colorRange->colorType;
+    for (int i = 0; i < 3; i++) {
+        min[i] = colorRange->min[i];
+        max[i] = colorRange->max[i];
+    }
 }
-std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange )
-{
-  os << "colorType: " << toDescription(colorRange.colorType) << std::endl;
-  os << "min: (" << colorRange.min[0] << ", " << colorRange.min[1] << ", " << colorRange.min[2] << ")" << std::endl;
-  os << "max: (" << colorRange.max[0] << ", " << colorRange.max[1] << ", " << colorRange.max[2] << ")" << std::endl;
 
-  return os;
+ColorRange::ColorRange(std::vector<ColorRange> vectorRange, ColorType type) {
+    for (auto range : vectorRange) {
+        if (range.colorType == type){
+            this->colorType = range.colorType;
+            for (int i = 0; i < 3; i++) {
+                this->min[i] = range.min[i];
+                this->max[i] = range.max[i];
+            }
+            break;
+        }
+    }
+}
+
+std::ostream &operator<<(std::ostream &os, const ColorRange &colorRange) {
+    os << "colorType: " << toDescription(colorRange.colorType) << std::endl;
+    os << "min: (" << colorRange.min[0] << ", " << colorRange.min[1] << ", " << colorRange.min[2] << ")" << std::endl;
+    os << "max: (" << colorRange.max[0] << ", " << colorRange.max[1] << ", " << colorRange.max[2] << ")" << std::endl;
+
+    return os;
 }

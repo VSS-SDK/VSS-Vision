@@ -121,32 +121,31 @@ void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
 }
 
 void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
-//  std::cout << combobox->get_active_row_number() << std::endl;
+    // std::cout << combobox->get_active_row_number() << std::endl;
 }
 
 void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
-    unsigned int row = combobox->get_active_row_number();
+    int row = combobox->get_active_row_number();
+    ColorRange range(calibration.colorsRange, mainColorList[row] );
+
     pattern[ObjectType::Team].id = ObjectType::Team;
     pattern[ObjectType::Team].singleColorType = mainColorList[row];
-
-    for(auto range : calibration.colorsRange) {
-        if(range.colorType == pattern[ObjectType::Team].singleColorType){
-            pattern[ObjectType::Team].singleColorRange = range;
-            break;
-        }
-    }
-
+    pattern[ObjectType::Team].singleColorRange = range;
 }
 
 void VisionWindow::onComboBoxSelectColorOpponent(Gtk::ComboBox *combobox) {
-    unsigned int row = combobox->get_active_row_number();
+    int row = combobox->get_active_row_number();
+    ColorRange range(calibration.colorsRange, mainColorList[row] );
+
     pattern[ObjectType::Opponent].id = ObjectType::Opponent;
     pattern[ObjectType::Opponent].singleColorType = mainColorList[row];
+    pattern[ObjectType::Opponent].singleColorRange = range;
 }
 
 void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
-    unsigned int row = combobox->get_active_row_number();
+    int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
+
     pattern[object].id = object;
     pattern[object].singleColorType = ColorType::Pink;
     pattern[object].doubleColorType = ColorType::Green;
@@ -154,8 +153,9 @@ void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
 }
 
 void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
-    unsigned int row = combobox->get_active_row_number();
+    int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
+
     pattern[object].id = object;
     pattern[object].singleColorType = ColorType::Pink;
     pattern[object].doubleColorType = ColorType::Green;
@@ -163,8 +163,9 @@ void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
 }
 
 void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
-    unsigned int row = combobox->get_active_row_number();
+    int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
+
     pattern[object].id = object;
     pattern[object].singleColorType = ColorType::Green;
     pattern[object].doubleColorType = ColorType::Pink;
@@ -172,8 +173,9 @@ void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
 }
 
 void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
-    unsigned int row = combobox->get_active_row_number();
+    int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
+
     pattern[object].id = object;
     pattern[object].singleColorType = ColorType::Green;
     pattern[object].doubleColorType = ColorType::Pink;
@@ -181,8 +183,9 @@ void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
 }
 
 void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
-    unsigned int row = combobox->get_active_row_number();
+    int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
+
     pattern[object].id = object;
     pattern[object].singleColorType = ColorType::Green;
     pattern[object].doubleColorType = ColorType::Red;

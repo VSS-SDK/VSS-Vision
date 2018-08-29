@@ -86,7 +86,9 @@ private:
     IInputReader *inputReader;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
-    IColorRecognizer *colorRecognizer;
+    IColorRecognizer *teamColorRecognizer;
+    IColorRecognizer *colorRecognizer1;
+    IColorRecognizer *colorRecognizer2;
     IRobotRecognizer *robotRecognizer;
 
     Calibration calibration;
@@ -158,6 +160,8 @@ private:
     void receiveNewFrame(cv::Mat);
     void updateFpsLabel(int);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
+
+    void recognizeTeam(cv::Mat);
 
     std::map<ObjectType, ColorPosition> getColorPosition(cv::Mat&);
 

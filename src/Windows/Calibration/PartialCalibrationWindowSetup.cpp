@@ -21,7 +21,7 @@ CalibrationWindow::CalibrationWindow() {
     //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
 
-    colorRecognizer = new ColorRecognizer();
+    teamRecognizer = new ColorRecognizer();
 
     shouldReadInput = true;
     showBinaryImage = false;

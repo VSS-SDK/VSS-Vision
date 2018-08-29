@@ -29,23 +29,23 @@ void CalibrationWindow::processFrame(cv::Mat image) {
         Calibration _calibration = calibration;
 //    mtx.unlock();
 
-    changeRotation(image, _calibration.rotation);
+    image = changeRotation(image, _calibration.rotation);
 
     if(_calibration.shouldCropImage) {
-        cropImage(image, _calibration.cut[0], _calibration.cut[1]);
+        image = cropImage(image, _calibration.cut[0], _calibration.cut[1]);
     }
 
-    colorRecognizer->processImage(image);
+    teamRecognizer->processImage(image);
 
-    cutPosition[ colorRecognizer->getColor() ] = colorRecognizer->getRectangles();
+    cutPosition[ teamRecognizer->getColor() ] = teamRecognizer->getRectangles();
 
     if(showBinaryImage){
        mtxUpdateFrame.lock();
-           frame = colorRecognizer->getBinaryImage().clone();
+           frame = teamRecognizer->getBinaryImage().clone();
        mtxUpdateFrame.unlock();
 
    } else {
-       drawRectangle(image, colorRecognizer->getRectangles());
+       image = drawRectangle(image, teamRecognizer->getRectangles());
        mtxUpdateFrame.lock();
            frame = image.clone();
        mtxUpdateFrame.unlock();

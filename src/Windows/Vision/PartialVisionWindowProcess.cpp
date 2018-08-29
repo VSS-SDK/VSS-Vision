@@ -45,29 +45,48 @@ void VisionWindow::processFrame(cv::Mat image) {
         Calibration _calibration = calibration;
    // mtx.unlock();
 
-    changeRotation(image, _calibration.rotation);
+    image = changeRotation(image, _calibration.rotation);
 
     if(_calibration.shouldCropImage){
-        cropImage(image, _calibration.cut[0], _calibration.cut[1]);
+        image = cropImage(image, _calibration.cut[0], _calibration.cut[1]);
     }
 
     mtxUpdateFrame.lock();
     frame = image.clone();
     mtxUpdateFrame.unlock();
 
-    ColorPattern team = pattern[ObjectType::Team];
-
-
-    if (team.id == ObjectType::Team) {
-        colorRecognizer->setColorRange(team.singleColorRange);
-        colorRecognizer->processImage(image);
-
-        if (colorRecognizer->getImageFromColor().size() > 0){
-            frame = colorRecognizer->getImageFromColor()[0];
-        }
-
-    }
+    recognizeTeam(image);
 }
+
+void VisionWindow::recognizeTeam(cv::Mat image) {
+    ColorPattern teamPattern = pattern[ObjectType::Team];
+
+    if (teamPattern.id == ObjectType::Team) {
+        teamColorRecognizer->setColorRange(teamPattern.singleColorRange);
+        teamColorRecognizer->processImage(image);
+
+        for (cv::Rect rect: teamColorRecognizer->getRectangles()) {
+
+            cv::Mat cuttedImage = image(rect);
+
+            ColorRange colorRange1 (calibration.colorsRange, ColorType::Pink);
+            ColorRange colorRange2 (calibration.colorsRange, ColorType::Green);
+
+            colorRecognizer1->setColorRange(colorRange1);
+            colorRecognizer1->processImage(cuttedImage);
+
+            colorRecognizer2->setColorRange(colorRange2);
+            colorRecognizer2->processImage(cuttedImage);
+
+            cout << "1: " << colorRecognizer1->getRectangles().size() << endl;
+            cout << "2: " << colorRecognizer2->getRectangles().size() << endl;
+        }
+        cout << "Team: " << teamColorRecognizer->getRectangles().size() << endl;
+    }
+
+}
+
+
 
 std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& image) {
     map<ObjectType, ColorPosition> whosePosition;

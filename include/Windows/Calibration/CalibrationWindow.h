@@ -88,7 +88,7 @@ private:
 
     // Classes
     IInputReader *inputReader;
-    IColorRecognizer *colorRecognizer;
+    IColorRecognizer *teamRecognizer;
     ICalibrationBuilder *calibrationBuilder;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;

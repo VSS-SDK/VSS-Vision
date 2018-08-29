@@ -10,13 +10,12 @@
 #include <cxcore.h>
 #include <Domain/Point.h>
 
-void changeRotation(cv::Mat&, float);
-void cropImage(cv::Mat&, vss::Point, vss::Point);
-void drawRectangle(cv::Mat&, std::vector<cv::Rect>);
-void changeBrightness(cv::Mat&, float);
-void changeContrast(cv::Mat&, float);
-void changeSaturation(cv::Mat&, float);
-void changeExposure(cv::Mat&, float);
-void changeGain(cv::Mat&, float);
+cv::Mat changeRotation(cv::Mat, float);
+cv::Mat drawRectangle(cv::Mat, std::vector<cv::Rect>);
+cv::Mat cropImage(cv::Mat, cv::Rect);
+cv::Mat cropImage(cv::Mat, cv::Rect, float);
+cv::Mat cropImage(cv::Mat, vss::Point, vss::Point);
+bool rotatedRectangleContainPoint(cv::RotatedRect, cv::Point2f);
+std::vector<cv::Mat> generateRectImage(cv::Mat, std::vector<cv::Rect>);
 
 #endif //VSS_VISION_FRAMEHELPER_H

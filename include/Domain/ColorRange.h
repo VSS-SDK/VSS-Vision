@@ -9,6 +9,7 @@
 #ifndef COLOR_RANGE_H
 #define COLOR_RANGE_H
 
+#include <vector>
 #include "iostream"
 #include "ColorType.h"
 
@@ -21,6 +22,7 @@ public:
     ColorRange();
     ColorRange( ColorType colorType, float *min, float *max );
     ColorRange( ColorRange *colorRange );
+    ColorRange( std::vector<ColorRange>, ColorType);
 
     friend std::ostream& operator<<( std::ostream& os, const ColorRange& colorRange );
 };

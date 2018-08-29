@@ -19,7 +19,10 @@ VisionWindow::VisionWindow() {
     //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
 
-    colorRecognizer = new ColorRecognizer();
+    teamColorRecognizer = new ColorRecognizer();
+    colorRecognizer1 = new ColorRecognizer();
+    colorRecognizer2 = new ColorRecognizer();
+
     robotRecognizer = new RobotRecognizer();
 
     stateSender = new StateSenderAdapter();

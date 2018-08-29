@@ -160,32 +160,32 @@ void CalibrationWindow::onRadioButtonVideo(Gtk::RadioButton* radioButton){
 
 void CalibrationWindow::onScaleHMAX(Gtk::Scale* scale){
   calibration.colorsRange.at(actualColorRangeIndex).max[H] = static_cast<float>(scale->get_value());
-  colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
+  teamRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
 void CalibrationWindow::onScaleHMIN(Gtk::Scale* scale){
   calibration.colorsRange.at(actualColorRangeIndex).min[H] = static_cast<float>(scale->get_value());
-  colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
+  teamRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
 void CalibrationWindow::onScaleSMAX(Gtk::Scale* scale){
   calibration.colorsRange.at(actualColorRangeIndex).max[S] = static_cast<float>(scale->get_value());
-  colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
+  teamRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
 void CalibrationWindow::onScaleSMIN(Gtk::Scale* scale){
   calibration.colorsRange.at(actualColorRangeIndex).min[S] = static_cast<float>(scale->get_value());
-  colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
+  teamRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
 void CalibrationWindow::onScaleVMAX(Gtk::Scale* scale){
   calibration.colorsRange.at(actualColorRangeIndex).max[V] = static_cast<float>(scale->get_value());
-  colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
+  teamRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
 void CalibrationWindow::onScaleVMIN(Gtk::Scale* scale){
   calibration.colorsRange.at(actualColorRangeIndex).min[V] = static_cast<float>(scale->get_value());
-  colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
+  teamRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
 void CalibrationWindow::onScaleGain(Gtk::Scale* scale){

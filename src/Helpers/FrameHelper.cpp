@@ -4,49 +4,79 @@
 
 #include "FrameHelper.h"
 
-void changeRotation(cv::Mat &mat, float value) {
+cv::Mat changeRotation(cv::Mat mat, float value) {
     cv::warpAffine(mat, mat, cv::getRotationMatrix2D(cv::Point2f(mat.cols/2, mat.rows/2), value, 1.0), mat.size());
+    return mat;
 }
 
-void cropImage(cv::Mat &mat, vss::Point p1, vss::Point p2){
-    cv::Rect rect = cv::Rect(cv::Point((int)p1.x, (int)p1.y),
-                             cv::Point((int)p2.x, (int)p2.y));
-
+cv::Mat cropImage(cv::Mat mat, cv::Rect rect) {
     try{
         mat = mat(rect);
     } catch (std::exception& e){
         std::cout << "Exception cropping image" << std::endl;
     }
+    return mat;
 }
 
-void drawRectangle(cv::Mat &mat, std::vector<cv::Rect> rectangles) {
+cv::Mat cropImage(cv::Mat mat, vss::Point p1, vss::Point p2) {
+    cv::Rect rect = cv::Rect(cv::Point((int)p1.x, (int)p1.y),
+                             cv::Point((int)p2.x, (int)p2.y));
+
+    return cropImage(mat, rect);
+}
+
+cv::Mat cropImage(cv::Mat mat, cv::Rect rect, float increase){
+    rect.x = rect.x - int(rect.width * 0.2);
+    rect.y = rect.y - int(rect.height * 0.2);
+    rect.width = rect.width + int(rect.width * 0.2);
+    rect.height = rect.height + int(rect.height * 0.2);
+
+    if (rect.x < 0) rect.x = 0;
+    if (rect.y < 0) rect.y = 0;
+    if (rect.width > mat.cols) rect.x = mat.cols;
+    if (rect.height > mat.rows) rect.y = mat.rows;
+
+    return cropImage(mat, rect);
+}
+
+cv::Mat drawRectangle(cv::Mat mat, std::vector<cv::Rect> rectangles) {
     for (unsigned int i = 0; i < rectangles.size(); i++) {
         cv::rectangle(mat, rectangles.at(i), cv::Scalar(255, 255, 255), 2, 2, 0);
     }
+    return mat;
 }
 
-void changeBrightness(cv::Mat &mat, float value) {
-  cv::Mat aux;
-  mat.convertTo(aux, -1, 1.0, value);
-  mat = aux;
+bool rotatedRectangleContainPoint(cv::RotatedRect rectangle, cv::Point2f point) {
+
+    cv::Point2f corners[4];
+    rectangle.points(corners);
+
+    cv::Point2f *lastItemPointer = (corners + sizeof corners / sizeof corners[0]);
+    std::vector<cv::Point2f> contour(corners, lastItemPointer);
+
+    double indicator = pointPolygonTest(contour, point, false);
+
+    return indicator >= 0;
 }
 
-void changeContrast(cv::Mat &mat, float value) {
-  cv::Mat aux;
-  mat.convertTo(aux, -1, value, 0.0);
-  mat = aux;
-}
+std::vector<cv::Mat> generateRectImage(cv::Mat image, std::vector<cv::Rect> rectangles) {
+    std::vector<cv::Mat> rectImage;
 
-void changeSaturation(cv::Mat &mat, float value) {
-  cv::Mat aux;
-  mat.convertTo(aux, CV_8UC1, 1.0, value);
-  mat = aux;
-}
+    for (unsigned int i = 0; i < rectangles.size(); i++) {
 
-void changeExposure(cv::Mat &mat, float value) {
+        cv::Rect rect = rectangles[i];
+        rect.x = rect.x - int(rect.width * 0.2);
+        rect.y = rect.y - int(rect.height * 0.2);
+        rect.width = rect.width + int(rect.width * 0.2);
+        rect.height = rect.height + int(rect.height * 0.2);
 
-}
+        if (rect.x < 0) rect.x = 0;
+        if (rect.y < 0) rect.y = 0;
+        if (rect.width > image.cols) rect.x = image.cols;
+        if (rect.height > image.rows) rect.y = image.rows;
 
-void changeGain(cv::Mat &mat, float value) {
+        rectImage.push_back( image(rect) );
+    }
 
+    return rectImage;
 }
