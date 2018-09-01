@@ -26,10 +26,10 @@ cv::Mat cropImage(cv::Mat mat, vss::Point p1, vss::Point p2) {
 }
 
 cv::Mat cropImage(cv::Mat mat, cv::Rect rect, float increase){
-    rect.x = rect.x - int(rect.width * 0.2);
-    rect.y = rect.y - int(rect.height * 0.2);
-    rect.width = rect.width + int(rect.width * 0.2);
-    rect.height = rect.height + int(rect.height * 0.2);
+    rect.x = rect.x - int( float(rect.width) * increase );
+    rect.y = rect.y - int( float(rect.height) * increase );
+    rect.width = rect.width + int( float(rect.width) * increase ) * 2;
+    rect.height = rect.height + int( float(rect.height) * increase ) * 2;
 
     if (rect.x < 0) rect.x = 0;
     if (rect.y < 0) rect.y = 0;
@@ -57,26 +57,4 @@ bool rotatedRectangleContainPoint(cv::RotatedRect rectangle, cv::Point2f point) 
     double indicator = pointPolygonTest(contour, point, false);
 
     return indicator >= 0;
-}
-
-std::vector<cv::Mat> generateRectImage(cv::Mat image, std::vector<cv::Rect> rectangles) {
-    std::vector<cv::Mat> rectImage;
-
-    for (unsigned int i = 0; i < rectangles.size(); i++) {
-
-        cv::Rect rect = rectangles[i];
-        rect.x = rect.x - int(rect.width * 0.2);
-        rect.y = rect.y - int(rect.height * 0.2);
-        rect.width = rect.width + int(rect.width * 0.2);
-        rect.height = rect.height + int(rect.height * 0.2);
-
-        if (rect.x < 0) rect.x = 0;
-        if (rect.y < 0) rect.y = 0;
-        if (rect.width > image.cols) rect.x = image.cols;
-        if (rect.height > image.rows) rect.y = image.rows;
-
-        rectImage.push_back( image(rect) );
-    }
-
-    return rectImage;
 }

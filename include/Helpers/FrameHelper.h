@@ -16,6 +16,5 @@ cv::Mat cropImage(cv::Mat, cv::Rect);
 cv::Mat cropImage(cv::Mat, cv::Rect, float);
 cv::Mat cropImage(cv::Mat, vss::Point, vss::Point);
 bool rotatedRectangleContainPoint(cv::RotatedRect, cv::Point2f);
-std::vector<cv::Mat> generateRectImage(cv::Mat, std::vector<cv::Rect>);
 
 #endif //VSS_VISION_FRAMEHELPER_H

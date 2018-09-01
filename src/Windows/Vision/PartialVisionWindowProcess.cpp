@@ -36,7 +36,7 @@ void VisionWindow::updateGtkImage() {
                              robotRecognizer->getBall());
     mtxGetRobots.unlock();
 
-    screenImage->set_image(image, false);
+    screenImage->set_image(image);
     updateFpsLabel( timeHelper.framesPerSecond() );
 }
 
@@ -67,7 +67,8 @@ void VisionWindow::recognizeTeam(cv::Mat image) {
 
         for (cv::Rect rect: teamColorRecognizer->getRectangles()) {
 
-            cv::Mat cuttedImage = image(rect);
+            cv::Mat cuttedImage = cropImage(image, rect, 0.15);
+            frame = cuttedImage;
 
             ColorRange colorRange1 (calibration.colorsRange, ColorType::Pink);
             ColorRange colorRange2 (calibration.colorsRange, ColorType::Green);

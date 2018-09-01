@@ -20,7 +20,7 @@ public:
     virtual ~GImage();
     
     void set_cut_mode(bool);
-    void set_image(cv::Mat, bool);
+    void set_image(cv::Mat);
     cv::Point get_cut_point_1();
     cv::Point get_cut_point_2();
 

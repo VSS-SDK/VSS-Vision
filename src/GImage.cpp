@@ -133,8 +133,9 @@ bool GImage::on_motion_notify_event (GdkEventMotion* event){
     return true;
 }
 
-void GImage::set_image(cv::Mat _cv_image, bool isBinary){
-    if(not isBinary) {
+void GImage::set_image(cv::Mat _cv_image){
+
+    if(_cv_image.type() != 0) {
         cv::cvtColor(_cv_image, cv_image, cv::COLOR_BGR2RGB);
     } else {
         cv::cvtColor(_cv_image, cv_image, cv::COLOR_GRAY2RGB);
