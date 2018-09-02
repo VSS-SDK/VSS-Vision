@@ -26,6 +26,7 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std:
     std::vector<vss::Robot> teamPositions;
     std::vector<vss::Robot> opponentPositions;
 
+    /*
     if(whoseColor[ColorType::Blue] == ObjectType::Team) {
         teamPositions = blueRobots;
         opponentPositions = yellowRobots;
@@ -33,6 +34,7 @@ void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std:
         teamPositions = yellowRobots;
         opponentPositions = blueRobots;
     }
+    */
 
     // update positions label with new positions
     stringstream ss;

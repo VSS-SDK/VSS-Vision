@@ -13,6 +13,7 @@ class IColorRecognizer {
 public:
     virtual void processImage(cv::Mat) = 0;
     virtual void setColorRange(ColorRange) = 0;
+    virtual void deleteOutsidePoint(cv::RotatedRect) = 0;
 
     virtual ColorType getColor() = 0;
     virtual ColorRange getColorRange() = 0;
@@ -20,6 +21,7 @@ public:
     virtual std::vector<cv::Rect> getRectangles() = 0;
     virtual std::vector<cv::RotatedRect> getRotatedRectangles() = 0;
     virtual cv::Mat getBinaryImage() = 0;
+
 };
 
 #endif // VSS_VISION_ICOLORRECOGNIZER_H

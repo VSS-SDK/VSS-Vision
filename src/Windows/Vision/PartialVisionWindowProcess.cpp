@@ -55,41 +55,39 @@ void VisionWindow::processFrame(cv::Mat image) {
     frame = image.clone();
     mtxUpdateFrame.unlock();
 
-    recognizeTeam(image);
+    recognizeTeamColor(image);
+    recognizeRobotColor(image);
 }
 
-void VisionWindow::recognizeTeam(cv::Mat image) {
+void VisionWindow::recognizeTeamColor(cv::Mat image) {
     ColorPattern teamPattern = pattern[ObjectType::Team];
 
     if (teamPattern.id == ObjectType::Team) {
         teamColorRecognizer->setColorRange(teamPattern.singleColorRange);
         teamColorRecognizer->processImage(image);
-
-        for (cv::Rect rect: teamColorRecognizer->getRectangles()) {
-
-            cv::Mat cuttedImage = cropImage(image, rect, 0.15);
-            frame = cuttedImage;
-
-            ColorRange colorRange1 (calibration.colorsRange, ColorType::Pink);
-            ColorRange colorRange2 (calibration.colorsRange, ColorType::Green);
-
-            colorRecognizer1->setColorRange(colorRange1);
-            colorRecognizer1->processImage(cuttedImage);
-
-            colorRecognizer2->setColorRange(colorRange2);
-            colorRecognizer2->processImage(cuttedImage);
-
-            cout << "1: " << colorRecognizer1->getRectangles().size() << endl;
-            cout << "2: " << colorRecognizer2->getRectangles().size() << endl;
-        }
-        cout << "Team: " << teamColorRecognizer->getRectangles().size() << endl;
     }
-
 }
 
+void VisionWindow::recognizeRobotColor(cv::Mat image) {
+    std::vector<cv::Rect> rect = teamColorRecognizer->getRectangles();
+    std::vector<cv::RotatedRect> rotatedRect = teamColorRecognizer->getRotatedRectangles();
 
+    for (unsigned int i = 0; i < teamColorRecognizer->getRectangles().size(); i++) {
 
-std::map<ObjectType, ColorPosition> VisionWindow::getColorPosition(cv::Mat& image) {
-    map<ObjectType, ColorPosition> whosePosition;
-    return whosePosition;
+        // change coordinate
+        rotatedRect[i].center.x = abs(rotatedRect[i].center.x - rect[i].x);
+        rotatedRect[i].center.y = abs(rotatedRect[i].center.y - rect[i].y);
+
+        cv::Mat cuttedImage = cropImage(image, rect[i], 0.15);
+
+        ColorRange colorRange1 (calibration.colorsRange, ColorType::Pink);
+        colorRecognizer1->setColorRange(colorRange1);
+        colorRecognizer1->processImage(cuttedImage);
+        colorRecognizer1->deleteOutsidePoint(rotatedRect[i]);
+
+        ColorRange colorRange2 (calibration.colorsRange, ColorType::Green);
+        colorRecognizer2->setColorRange(colorRange2);
+        colorRecognizer2->processImage(cuttedImage);
+        colorRecognizer2->deleteOutsidePoint(rotatedRect[i]);
+    }
 }

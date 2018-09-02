@@ -73,7 +73,6 @@ void VisionWindow::windowThreadWrapper() {
     builderWidget();
     setSignals();
     initializeWidget();
-    initializeWhoseColor();
 
     Gtk::Main::run(*window);
 }
@@ -173,15 +172,4 @@ void VisionWindow::setSignals() {
     comboBoxColorRobot3->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern3), comboBoxColorRobot3));
     comboBoxColorRobot4->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern4), comboBoxColorRobot4));
     comboBoxColorRobot5->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern5), comboBoxColorRobot5));
-}
-
-void VisionWindow::initializeWhoseColor() {
-    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Red, ObjectType::Unknown));
-    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Blue, ObjectType::Unknown));
-    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Pink, ObjectType::Unknown));
-    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Green, ObjectType::Unknown));
-    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Brown, ObjectType::Unknown));
-    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Yellow, ObjectType::Unknown));
-    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Orange, ObjectType::Ball));
-    whoseColor.insert(std::pair<ColorType, ObjectType>(ColorType::Purple, ObjectType::Unknown));
 }

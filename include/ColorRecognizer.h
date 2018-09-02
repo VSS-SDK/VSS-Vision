@@ -2,6 +2,7 @@
 #define VSS_VISION_COLORRECOGNIZER_H
 
 #include <Domain/ColorSpace.h>
+#include <Helpers/FrameHelper.h>
 #include <Interfaces/IColorRecognizer.h>
 #include <opencv2/imgproc/imgproc.hpp>
 
@@ -10,6 +11,7 @@ class ColorRecognizer : public IColorRecognizer{
 public:
     void processImage(cv::Mat) override;
     void setColorRange(ColorRange) override;
+    void deleteOutsidePoint(cv::RotatedRect) override;
 
     ColorType getColor() override;
     ColorRange getColorRange() override;

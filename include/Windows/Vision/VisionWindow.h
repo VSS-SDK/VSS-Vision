@@ -51,13 +51,10 @@ public:
     void onButtonPlay(Gtk::ToggleButton *) override;
     void onButtonLoad(Gtk::FileChooserDialog *) override;
     void onButtonOpenLoadDialog(Gtk::FileChooserDialog *) override;
-
     void onRadioButtonImage(Gtk::RadioButton *) override;
     void onRadioButtonVideo(Gtk::RadioButton *) override;
     void onRadioButtonCamera(Gtk::RadioButton *) override;
-
     void onComboBoxSelectPath(Gtk::ComboBox *) override;
-
     void onComboBoxSelectColorTeam(Gtk::ComboBox *) override;
     void onComboBoxSelectColorOpponent(Gtk::ComboBox *) override;
     void onComboBoxSelectColorPattern1(Gtk::ComboBox *) override;
@@ -68,22 +65,20 @@ public:
     void onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) override;
 
 private:
-    IStateSenderAdapter* stateSender;
-
     // Threads
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
-     mutable std::mutex mtxGetRobots;
-     mutable std::mutex mtxUpdateFrame;
-     mutable std::mutex mtxChangeInput;
+    mutable std::mutex mtxGetRobots;
+    mutable std::mutex mtxUpdateFrame;
+    mutable std::mutex mtxChangeInput;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
-    sigc::signal <void, std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball> signalRobotsNewPositions;
 
     // Classes
     IInputReader *inputReader;
+    IStateSenderAdapter* stateSender;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
     IColorRecognizer *teamColorRecognizer;
@@ -91,19 +86,19 @@ private:
     IColorRecognizer *colorRecognizer2;
     IRobotRecognizer *robotRecognizer;
 
+    std::vector<ColorType> mainColorList;
+    std::vector<ObjectType> objectList;
+    std::vector<ColorPattern> pattern;
+
     Calibration calibration;
 
+    cv::Mat frame;
     TimeHelper timeHelper;
-    TimeHelper timerOptimization;
-    std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
     bool playing;
     bool shouldReadInput;
 
-    // Opencv image
-    cv::Mat frame;
-
-    // GTKMM - Calibration Window
+    // GTKMM
     Gtk::Window *window = nullptr;
     GImage *screenImage = nullptr;
 
@@ -121,13 +116,11 @@ private:
     Gtk::ComboBox *comboBoxColorRobot5 = nullptr;
 
     Gtk::Label *labelPositionBall = nullptr;
-
     Gtk::Label *labelPositionRobot1 = nullptr;
     Gtk::Label *labelPositionRobot2 = nullptr;
     Gtk::Label *labelPositionRobot3 = nullptr;
     Gtk::Label *labelPositionRobot4 = nullptr;
     Gtk::Label *labelPositionRobot5 = nullptr;
-
     Gtk::Label *labelPositionOpponent1 = nullptr;
     Gtk::Label *labelPositionOpponent2 = nullptr;
     Gtk::Label *labelPositionOpponent3 = nullptr;
@@ -141,16 +134,10 @@ private:
     Gtk::FileChooserDialog *fileChooserDialog = nullptr;
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
-    std::map<ColorType, ObjectType> whoseColor;
-    std::vector<ColorType> mainColorList;
-    std::vector<ObjectType> objectList;
-    std::vector<ColorPattern> pattern;
-
     // Control method
     void initializeWidget();
     void setSignals();
     void builderWidget();
-    void initializeWhoseColor();
     void windowThreadWrapper();
     void cameraThreadWrapper();
 
@@ -161,10 +148,8 @@ private:
     void updateFpsLabel(int);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
 
-    void recognizeTeam(cv::Mat);
-
-    std::map<ObjectType, ColorPosition> getColorPosition(cv::Mat&);
-
+    void recognizeTeamColor(cv::Mat);
+    void recognizeRobotColor(cv::Mat);
 };
 
 #endif

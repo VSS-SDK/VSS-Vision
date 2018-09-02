@@ -74,6 +74,26 @@ void ColorRecognizer::calculateCenter(){
     }
 }
 
+void ColorRecognizer::deleteOutsidePoint(cv::RotatedRect rotated) {
+
+    std::vector<cv::Point2f> auxCenters;
+    std::vector<cv::Rect> auxRectangles;
+    std::vector<cv::RotatedRect> auxRotatedRectangles;
+
+    for (unsigned int i = 0; i < rotatedRectangles.size(); i++) {
+
+        if (rotatedRectangleContainPoint( rotated, rotatedRectangles[i].center )) {
+            auxCenters.push_back(centers[i]);
+            auxRectangles.push_back(rectangles[i]);
+            auxRotatedRectangles.push_back(rotatedRectangles[i]);
+        }
+    }
+
+    centers = auxCenters;
+    rectangles = auxRectangles;
+    rotatedRectangles = auxRotatedRectangles;
+}
+
 void ColorRecognizer::setColorRange(ColorRange colorRange) {
     this->colorRange = colorRange;
 }
