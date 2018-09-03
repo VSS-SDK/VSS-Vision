@@ -153,6 +153,6 @@ private:
     void getAllAttributsFromCapture(bool signal);
     void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
 
-    void updateFpsLabel(int);
+    void updateLabel(int);
 };
 #endif

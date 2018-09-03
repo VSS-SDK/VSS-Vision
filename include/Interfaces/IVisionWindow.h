@@ -36,6 +36,5 @@ public:
     virtual void onComboBoxSelectColorPattern4(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorPattern5(Gtk::ComboBox*) = 0;
 
-    virtual void onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) = 0;
 };
 #endif

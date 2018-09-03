@@ -29,6 +29,7 @@
 #include <Interfaces/IColorRecognizer.h>
 #include <Helpers/FrameHelper.h>
 #include <Helpers/TimeHelper.h>
+#include <Helpers/Math.h>
 #include <Domain/Ball.h>
 #include <Domain/Robot.h>
 #include <Interfaces/IRobotRecognizer.h>
@@ -62,7 +63,6 @@ public:
     void onComboBoxSelectColorPattern3(Gtk::ComboBox *) override;
     void onComboBoxSelectColorPattern4(Gtk::ComboBox *) override;
     void onComboBoxSelectColorPattern5(Gtk::ComboBox *) override;
-    void onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) override;
 
 private:
     // Threads
@@ -109,11 +109,11 @@ private:
     Gtk::ComboBox *comboBoxPath = nullptr;
     Gtk::ComboBox *comboBoxColorTeam1 = nullptr;
     Gtk::ComboBox *comboBoxColorTeam2 = nullptr;
-    Gtk::ComboBox *comboBoxColorRobot1 = nullptr;
-    Gtk::ComboBox *comboBoxColorRobot2 = nullptr;
-    Gtk::ComboBox *comboBoxColorRobot3 = nullptr;
-    Gtk::ComboBox *comboBoxColorRobot4 = nullptr;
-    Gtk::ComboBox *comboBoxColorRobot5 = nullptr;
+    Gtk::ComboBox *comboBoxPattern1 = nullptr;
+    Gtk::ComboBox *comboBoxPattern2 = nullptr;
+    Gtk::ComboBox *comboBoxPattern3 = nullptr;
+    Gtk::ComboBox *comboBoxPattern4 = nullptr;
+    Gtk::ComboBox *comboBoxPattern5 = nullptr;
 
     Gtk::Label *labelPositionBall = nullptr;
     Gtk::Label *labelPositionRobot1 = nullptr;
@@ -145,11 +145,14 @@ private:
     void processFrame(cv::Mat);
     void updateGtkImage();
     void receiveNewFrame(cv::Mat);
-    void updateFpsLabel(int);
+    void updateLabel(int);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
 
     void recognizeTeamColor(cv::Mat);
     void recognizeRobotColor(cv::Mat);
-};
+    void recognizePattern();
+    void calculatePatternAngle(std::vector<cv::Point2f>, std::vector<cv::Point2f>, double&, double&);
+    void calculateSideAngle(double, double);
+    };
 
 #endif

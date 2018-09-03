@@ -19,57 +19,6 @@ bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
     return true;
 }
 
-void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
-
-    //@TODO: adaptar para permitir mais de 3 robos
-
-    std::vector<vss::Robot> teamPositions;
-    std::vector<vss::Robot> opponentPositions;
-
-    /*
-    if(whoseColor[ColorType::Blue] == ObjectType::Team) {
-        teamPositions = blueRobots;
-        opponentPositions = yellowRobots;
-    } else {
-        teamPositions = yellowRobots;
-        opponentPositions = blueRobots;
-    }
-    */
-
-    // update positions label with new positions
-    stringstream ss;
-    ss << "[ " << ball.x << " x " << ball.y << " ]";
-    labelPositionBall->set_text(ss.str());
-
-    if (not teamPositions.empty()) {
-        ss.str("");
-        ss << "[ " << teamPositions[0].x << " x " << teamPositions[0].y << " ]";
-        labelPositionRobot1->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << teamPositions[1].x << " x " << teamPositions[1].y << " ]";
-        labelPositionRobot2->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << teamPositions[2].x << " x " << teamPositions[2].y << " ]";
-        labelPositionRobot3->set_text(ss.str());
-    }
-
-    if (not opponentPositions.empty()) {
-        ss.str("");
-        ss << "[ " << opponentPositions[0].x << " x " << opponentPositions[0].y << " ]";
-        labelPositionOpponent1->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << opponentPositions[1].x << " x " << opponentPositions[1].y << " ]";
-        labelPositionOpponent2->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << opponentPositions[2].x << " x " << opponentPositions[2].y << " ]";
-        labelPositionOpponent3->set_text(ss.str());
-    }
-}
-
 void VisionWindow::onButtonPlay(Gtk::ToggleButton * toggleButton) {
     if(toggleButton->get_active())
         toggleButton->set_label("Pause");
@@ -194,7 +143,57 @@ void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
     pattern[object].colorSide = ColorSide::Left;
 }
 
-void VisionWindow::updateFpsLabel(int i){
-    string title = "VISION (" + to_string(i) + ")";
-    window->set_title(title);
+void VisionWindow::updateLabel(int i) {
+
+
+    window->set_title( "VISION (" + to_string(i) + ")" );
+
+/*
+
+    void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
+
+    std::vector<vss::Robot> teamPositions;
+    std::vector<vss::Robot> opponentPositions;
+
+    if(whoseColor[ColorType::Blue] == ObjectType::Team) {
+        teamPositions = blueRobots;
+        opponentPositions = yellowRobots;
+    } else {
+        teamPositions = yellowRobots;
+        opponentPositions = blueRobots;
+    }
+
+    // update positions label with new positions
+    stringstream ss;
+    ss << "[ " << ball.x << " x " << ball.y << " ]";
+    labelPositionBall->set_text(ss.str());
+
+    if (not teamPositions.empty()) {
+        ss.str("");
+        ss << "[ " << teamPositions[0].x << " x " << teamPositions[0].y << " ]";
+        labelPositionRobot1->set_text(ss.str());
+
+        ss.str("");
+        ss << "[ " << teamPositions[1].x << " x " << teamPositions[1].y << " ]";
+        labelPositionRobot2->set_text(ss.str());
+
+        ss.str("");
+        ss << "[ " << teamPositions[2].x << " x " << teamPositions[2].y << " ]";
+        labelPositionRobot3->set_text(ss.str());
+    }
+
+    if (not opponentPositions.empty()) {
+        ss.str("");
+        ss << "[ " << opponentPositions[0].x << " x " << opponentPositions[0].y << " ]";
+        labelPositionOpponent1->set_text(ss.str());
+
+        ss.str("");
+        ss << "[ " << opponentPositions[1].x << " x " << opponentPositions[1].y << " ]";
+        labelPositionOpponent2->set_text(ss.str());
+
+        ss.str("");
+        ss << "[ " << opponentPositions[2].x << " x " << opponentPositions[2].y << " ]";
+        labelPositionOpponent3->set_text(ss.str());
+    }
+ */
 }

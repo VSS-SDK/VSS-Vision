@@ -21,6 +21,7 @@ ColorPattern::ColorPattern(ObjectType id, ColorType singleType, ColorType double
 }
 
 bool ColorPattern::isEquals(ColorPattern colorPattern) {
-    return (colorPattern.id == this->id && colorPattern.doubleColorType == this->doubleColorType &&
-            colorPattern.singleColorType == this->singleColorType && colorPattern.colorSide == this->colorSide);
+    return (colorPattern.doubleColorType == this->doubleColorType &&
+            colorPattern.singleColorType == this->singleColorType &&
+            colorPattern.colorSide == this->colorSide);
 }

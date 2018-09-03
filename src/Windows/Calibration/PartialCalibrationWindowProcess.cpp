@@ -21,7 +21,7 @@ void CalibrationWindow::updateGtkImage(){
     mtxUpdateFrame.unlock();
 
     screenImage->set_image(image);
-    updateFpsLabel( timeHelper.framesPerSecond() );
+    updateLabel( timeHelper.framesPerSecond() );
 }
 
 void CalibrationWindow::processFrame(cv::Mat image) {
