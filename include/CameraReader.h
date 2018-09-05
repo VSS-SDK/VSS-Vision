@@ -41,6 +41,10 @@ public:
     cv::VideoCapture getCapture();
     bool isAValidCameraIndex(int);
 
+    void readCameraCoefficients();
+    void setMapsCalibration();
+    cv::Mat getFrameWithoutDistortion(cv::Mat);
+
 private:
     bool shouldCloseReader;
     bool runningCapture;
@@ -48,6 +52,11 @@ private:
     cv::Mat actualFrame;
     std::vector<int> camerasIndex;
     cv::VideoCapture capture;
+
+    cv::Mat cameraMatrix;
+    cv::Mat distortionCoefficients;
+    cv::Mat map1;
+    cv::Mat map2;
 };
 
 #endif //VSS_VISION_CAMERAREADER_H
