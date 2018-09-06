@@ -19,7 +19,7 @@ void ColorRecognizer::binarizesImage() {
         cv::Scalar(colorRange.max[H], colorRange.max[S], colorRange.max[V]),
         processed);
 
-    cv::medianBlur(processed, processed, 3);
+    cv::medianBlur(processed, processed, 5);
 
     binaryFrame = processed.clone();
 }

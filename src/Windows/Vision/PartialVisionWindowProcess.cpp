@@ -78,7 +78,7 @@ void VisionWindow::recognizeRobotColor(cv::Mat image) {
         rotatedRect[i].center.x = abs(rotatedRect[i].center.x - rect[i].x);
         rotatedRect[i].center.y = abs(rotatedRect[i].center.y - rect[i].y);
 
-        cv::Mat cuttedImage = cropImage(image, rect[i], 0);
+        cv::Mat cuttedImage = cropImage(image, rect[i], 0.3);
 
         ColorRange colorRange1 (calibration.colorsRange, ColorType::Pink);
         colorRecognizer1->setColorRange(colorRange1);
@@ -91,8 +91,23 @@ void VisionWindow::recognizeRobotColor(cv::Mat image) {
         colorRecognizer2->deleteOutsidePoint(rotatedRect[i]);
 
         frame = cuttedImage;
-        recognizePattern();
-    }
+        //recognizePattern();
+
+        // change coordinate
+        rotatedRect[i].center.x = abs(rotatedRect[i].center.x + rect[i].x);
+        rotatedRect[i].center.y = abs(rotatedRect[i].center.y + rect[i].y);
+
+        if (rotatedRect[i].size.width > rotatedRect[i].size.height) {
+            rotatedRect[i].size.height *= 1.8;
+            rotatedRect[i].size.width *= 1.2;
+
+        } else {
+            rotatedRect[i].size.height *= 1.2;
+            rotatedRect[i].size.width *= 1.8;
+        }
+
+        //frame = drawRotatedRectangle(frame, rotatedRect[i]);
+        }
 }
 
 void VisionWindow::recognizePattern() {
@@ -108,8 +123,10 @@ void VisionWindow::recognizePattern() {
         unsigned long int color1Amount = colorRecognizer1->getRectangles().size();
         unsigned long int color2Amount = colorRecognizer2->getRectangles().size();
 
-        double angleSingleColor;
-        double angleDoubleColor;
+        double angleSingleColor = 0;
+        double angleDoubleColor = 0;
+
+        cout << colorRecognizer1->getRectangles().size() << " - " << colorRecognizer2->getRectangles().size() << endl;
 
         if (color1Amount > 1) {
             recognize.singleColorType = ColorType::Green;
@@ -124,6 +141,7 @@ void VisionWindow::recognizePattern() {
             calculatePatternAngle(color2Position, color1Position, angleSingleColor, angleDoubleColor);
 
         }
+
 
         for (int i = ObjectType::Robot1; i >= ObjectType::Robot3; i++) {
             if (recognize.isEquals(pattern[i])) {
@@ -146,6 +164,9 @@ void VisionWindow::calculatePatternAngle(std::vector<cv::Point2f> position1, std
         angleSingleColor = atan2(position2[0].y - position1[1].y, position2[0].x - position1[1].x) * (180 / M_PI) + 180;
         angleDoubleColor = atan2(position1[0].y - position1[1].y, position1[0].x - position1[1].x) * (180 / M_PI) + 180;
     }
+
+    cout << angleSingleColor << " - " << angleDoubleColor << endl;
+
 }
 
 void VisionWindow::calculateSideAngle(double angleSingleColor, double angleDoubleColor){
@@ -153,7 +174,7 @@ void VisionWindow::calculateSideAngle(double angleSingleColor, double angleDoubl
 
     if (abs(diff) > 100){}
 
-    
+
     if (diff > 30 && diff < 60) {
 
     } else if (diff < -30 && diff > -60) {

@@ -31,7 +31,7 @@ void ImageFileReader::stopReceivement() {
 
 std::vector<std::string> ImageFileReader::getAllPossibleSources() {
     auto sources = std::vector<std::string>();
-    sources.push_back(defaultFilesPath + "/mock/images/model.jpg");
+    sources.push_back(defaultFilesPath + "/mock/images/model.png");
     return sources;
 }
 
