@@ -10,8 +10,9 @@
 class ColorRecognizer : public IColorRecognizer{
 public:
     void processImage(cv::Mat) override;
+    void processImageInSector(cv::Mat, std::vector<cv::Rect>) override;
     void setColorRange(ColorRange) override;
-    void deleteOutsidePoint(cv::RotatedRect) override;
+    void deleteOutsidePoint(cv::RotatedRect, cv::Rect) override;
 
     ColorType getColor() override;
     ColorRange getColorRange() override;
@@ -23,6 +24,7 @@ public:
     void binarizesImage();
     void recognizesRectangles();
     void calculateCenter();
+    void clear();
 
 private:
     cv::Mat frame;

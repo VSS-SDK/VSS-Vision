@@ -3,9 +3,35 @@
 void ColorRecognizer::processImage(cv::Mat image) {
     frame = image.clone();
 
+    clear();
+
     binarizesImage();
     recognizesRectangles();
     calculateCenter();
+}
+
+void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> rect) {
+    clear();
+    unsigned long changeCoordinateInVector = 0;
+
+    for (unsigned int i = 0; i < rect.size(); i++) {
+        frame = cropImage(image, rect[i], 0.3);
+
+        binarizesImage();
+        recognizesRectangles();
+        calculateCenter();
+
+        for (unsigned long j = changeCoordinateInVector; j < rectangles.size(); j++) {
+            rectangles[j].x += rect[i].x;
+            rectangles[j].y += rect[i].y;
+            rotatedRectangles[j].center.x += rect[i].x;
+            rotatedRectangles[j].center.y += rect[i].y;
+            centers[j].x += rect[i].x;
+            centers[j].y += rect[i].y;
+        }
+
+        changeCoordinateInVector = rectangles.size();
+    }
 }
 
 void ColorRecognizer::binarizesImage() {
@@ -25,9 +51,6 @@ void ColorRecognizer::binarizesImage() {
 }
 
 void ColorRecognizer::recognizesRectangles() {
-    rectangles.clear();
-    rotatedRectangles.clear();
-
     std::vector< cv::Vec4i > hierarchy;
     std::vector< std::vector<cv::Point> > allContours;
 
@@ -62,26 +85,29 @@ void ColorRecognizer::recognizesRectangles() {
         vectorRect[i].height += 2;
     }
 
-    rectangles = vectorRect;
-    rotatedRectangles = vectorRotatedRect;
+    for(unsigned int i = 0; i < contours.size(); i++) {
+        rectangles.push_back(vectorRect[i]);
+        rotatedRectangles.push_back(vectorRotatedRect[i]);
+    }
 }
 
 void ColorRecognizer::calculateCenter(){
-    centers.clear();
-
     for (auto r : rotatedRectangles) {
         centers.push_back(r.center);
     }
 }
 
-void ColorRecognizer::deleteOutsidePoint(cv::RotatedRect rotated) {
+void ColorRecognizer::deleteOutsidePoint(cv::RotatedRect rotated, cv::Rect rect) {
+
+    // change rotated rect global coordinate to local coordinate
+    rotated.center.x = abs(rotated.center.x - rect.x);
+    rotated.center.y = abs(rotated.center.y - rect.y);
 
     std::vector<cv::Point2f> auxCenters;
     std::vector<cv::Rect> auxRectangles;
     std::vector<cv::RotatedRect> auxRotatedRectangles;
 
     for (unsigned int i = 0; i < rotatedRectangles.size(); i++) {
-
         if (rotatedRectangleContainPoint( rotated, rotatedRectangles[i].center )) {
             auxCenters.push_back(centers[i]);
             auxRectangles.push_back(rectangles[i]);
@@ -92,6 +118,12 @@ void ColorRecognizer::deleteOutsidePoint(cv::RotatedRect rotated) {
     centers = auxCenters;
     rectangles = auxRectangles;
     rotatedRectangles = auxRotatedRectangles;
+}
+
+void ColorRecognizer::clear(){
+    rectangles.clear();
+    rotatedRectangles.clear();
+    centers.clear();
 }
 
 void ColorRecognizer::setColorRange(ColorRange colorRange) {

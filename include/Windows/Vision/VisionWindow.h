@@ -94,6 +94,7 @@ private:
 
     cv::Mat frame;
     TimeHelper timeHelper;
+    TimeHelper timeOptimization;
 
     bool playing;
     bool shouldReadInput;
@@ -150,7 +151,7 @@ private:
 
     void recognizeTeamColor(cv::Mat);
     void recognizeRobotColor(cv::Mat);
-    void recognizePattern();
+    void recognizePattern(cv::Mat);
     void calculatePatternAngle(std::vector<cv::Point2f>, std::vector<cv::Point2f>, double&, double&);
     void calculateSideAngle(double, double);
     };
