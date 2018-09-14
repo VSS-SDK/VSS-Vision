@@ -8,7 +8,7 @@
 #include <vector>
 #include <Interfaces/IInputReader.h>
 #include <opencv/highgui.h>
-//#include <opencv2/videoio.hpp> // VideoCapture
+#include <opencv2/videoio.hpp>
 
 class CameraReader : public IInputReader{
 public:

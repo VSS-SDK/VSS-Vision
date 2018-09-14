@@ -33,6 +33,7 @@
 #include <Interfaces/IRobotRecognizer.h>
 #include <RobotRecognizer.h>
 #include <StateSenderAdapter.h>
+#include <Domain/ExecutionConfig.h>
 #include "GImage.h"
 #include "IVisionWindow.h"
 #include "opencv2/highgui/highgui.hpp"
@@ -41,7 +42,7 @@ using namespace std;
 
 class VisionWindow : public IVisionWindow {
 public:
-    VisionWindow();
+    VisionWindow(vss::ExecutionConfig);
     virtual ~VisionWindow();
 
     int run(int argc, char *argv[]) override;
@@ -67,6 +68,7 @@ public:
     void onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) override;
 
 private:
+    vss::ExecutionConfig exeConfig;
     IStateSenderAdapter* stateSender;
 
     // Threads

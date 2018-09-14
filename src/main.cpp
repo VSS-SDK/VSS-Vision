@@ -9,31 +9,48 @@
 #include "Windows/Menu/MenuWindow.h"
 #include "Windows/Vision/VisionWindow.h"
 #include "Windows/Calibration/CalibrationWindow.h"
+#include <Domain/ExecutionConfig.h>
+#include <Builders/StdinInterpreterBuilder.h>
+
+vss::ExecutionConfig loadExecutionConfig(int argc, char** argv){
+    auto stdinInterpreterBuilder = new vss::StdinInterpreterBuilder();
+
+    stdinInterpreterBuilder
+            ->onStateSendAddr()
+            ->onStatePort();
+
+    auto stdinInterpreter = stdinInterpreterBuilder->buildInterpreter();
+
+    return stdinInterpreter->extractExecutionConfig(argc, argv);
+}
 
 int main(int argc, char *argv[]) {
+    auto exeConfig = loadExecutionConfig(argc, argv);
 
-  Gtk::Main kit(argc, argv);  
+    if(!exeConfig.isValidConfiguration)
+        return 0;
 
-  int programState = MENU;
+    Gtk::Main kit(argc, argv);
 
-  while (programState != EXIT){
+    int programState = MENU;
 
-    switch (programState){
+    while (programState != EXIT){
+        switch (programState){
 
-      case MENU : {
-        IMenuWindow *menuWindow = new MenuWindow();
-        programState = menuWindow->run(argc, argv);
-      } break;
+            case MENU : {
+                IMenuWindow *menuWindow = new MenuWindow();
+                programState = menuWindow->run(argc, argv);
+            } break;
 
-      case VISION : {
-        IVisionWindow *visionWindow = new VisionWindow();
-        programState = visionWindow->run(argc, argv);
-      } break;
+            case VISION : {
+                IVisionWindow *visionWindow = new VisionWindow(exeConfig);
+                programState = visionWindow->run(argc, argv);
+            } break;
 
-      case CALIBRATION : {
-        ICalibrationWindow *calibrationWindow = new CalibrationWindow();
-        programState = calibrationWindow->run(argc, argv);
-      } break;
+            case CALIBRATION : {
+                ICalibrationWindow *calibrationWindow = new CalibrationWindow();
+                programState = calibrationWindow->run(argc, argv);
+            } break;
+        }
     }
-  }
 }

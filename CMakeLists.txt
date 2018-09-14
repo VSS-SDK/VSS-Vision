@@ -30,19 +30,18 @@ TARGET_LINK_LIBRARIES(vss-vision vss-vision-core)
 
 SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++11 -pthread")
 
-SET(VSS_FILES_FOLDER $ENV{HOME}/.vss-files)
-
-# copying vss-vision files to ~/.vss-files
-FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/glade/ DESTINATION ${VSS_FILES_FOLDER}/glade)
-FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/mock/ DESTINATION ${VSS_FILES_FOLDER}/mock)
-FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/data/ DESTINATION ${VSS_FILES_FOLDER}/data)
-
 IF(RELEASE)
     SET(CMAKE_CXX_FLAGS "-Wall -Werror -o2 -std=c++11 -pthread")
 
     INCLUDE(CPack)
 
+    SET(VSS_FILES_FOLDER $ENV{HOME}/.vss-files)
+
     INSTALL(TARGETS vss-vision DESTINATION bin)
+    # copying vss-vision files to ~/.vss-files
+    FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/glade/ DESTINATION ${VSS_FILES_FOLDER}/glade)
+    FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/mock/ DESTINATION ${VSS_FILES_FOLDER}/mock)
+    FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/data/ DESTINATION ${VSS_FILES_FOLDER}/data)
 
     SET(CPACK_GENERATOR "DEB")
     SET(CPACK_DEBIAN_PACKAGE_NAME "vss-vision")

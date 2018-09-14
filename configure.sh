@@ -47,6 +47,13 @@ INSTALL_UBUNTU_16_04 () {
     INSTALLED=1
 }
 
+INSTALL_UBUNTU_18_04 () {
+    apt-get update && apt-get upgrade
+    apt-get -y install pkg-config
+    apt-get -y install libopencv-dev gtkmm-2.4
+    INSTALLED=1
+}
+
 INSTALL_MINT_18_2 () {
     apt-get update && apt-get upgrade
     apt-get -y install pkg-config
@@ -76,11 +83,14 @@ INIT_SUBMODULES() {
     git submodule update;
 }
 
-
 INSTALL () {
     INSTALL_BASE;
 
     # Ubuntu
+    if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "18.04" ]]; then
+        INSTALL_UBUNTU_18_04;
+    fi
+
     if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "16.04" ]]; then
         INSTALL_UBUNTU_16_04;
     fi

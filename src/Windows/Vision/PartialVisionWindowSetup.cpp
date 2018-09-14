@@ -10,7 +10,9 @@
 #include <Builders/CalibrationBuilder.h>
 #include <Repositories/CalibrationRepository.h>
 
-VisionWindow::VisionWindow() {
+VisionWindow::VisionWindow(vss::ExecutionConfig exeConfig) {
+    this->exeConfig = exeConfig;
+    playing = true;
 
     calibrationBuilderFromRepository = new CalibrationBuilder();
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
@@ -23,9 +25,7 @@ VisionWindow::VisionWindow() {
     robotRecognizer = new RobotRecognizer();
 
     stateSender = new StateSenderAdapter();
-    stateSender->createSocket();
-
-    playing = true;
+    stateSender->createSocket(exeConfig);
 }
 
 VisionWindow::~VisionWindow() = default;
@@ -61,7 +61,6 @@ void VisionWindow::windowThreadWrapper() {
 }
 
 void VisionWindow::initializeWidget() {
-
     radioButtonImage->set_active();
 
     screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"), false);

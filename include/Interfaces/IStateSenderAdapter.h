@@ -8,12 +8,13 @@
 #include <Domain/Robot.h>
 #include <vector>
 #include <Domain/Ball.h>
+#include <Domain/ExecutionConfig.h>
 
 class IStateSenderAdapter {
 
 public:
 
-    virtual void createSocket() = 0;
+    virtual void createSocket(vss::ExecutionConfig &exeConfig) = 0;
     virtual void sendState(std::vector<vss::Robot>& blueRobots, std::vector<vss::Robot>& yellowRobots, vss::Ball& ball) = 0;
 
 };

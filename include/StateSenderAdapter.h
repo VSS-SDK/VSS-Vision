@@ -17,7 +17,7 @@ class StateSenderAdapter : public IStateSenderAdapter {
 public:
 
     StateSenderAdapter();
-    void createSocket() override;
+    void createSocket(vss::ExecutionConfig &exeConfig) override;
     void sendState(std::vector<vss::Robot>& blueRobots, std::vector<vss::Robot>& yellowRobots, vss::Ball& ball) override;
 
 private:
