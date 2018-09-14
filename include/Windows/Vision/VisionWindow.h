@@ -81,9 +81,7 @@ private:
     IStateSenderAdapter* stateSender;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
-    IColorRecognizer *teamColorRecognizer;
-    IColorRecognizer *colorRecognizer1;
-    IColorRecognizer *colorRecognizer2;
+
     IRobotRecognizer *robotRecognizer;
 
     std::vector<ColorType> mainColorList;
@@ -94,7 +92,6 @@ private:
 
     cv::Mat frame;
     TimeHelper timeHelper;
-    TimeHelper timeOptimization;
 
     bool playing;
     bool shouldReadInput;
@@ -148,10 +145,6 @@ private:
     void receiveNewFrame(cv::Mat);
     void updateLabel(int);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
-
-    void recognizeTeamColor(cv::Mat);
-    void recognizeRobotColor(cv::Mat);
-    void recognizePattern(cv::Mat);
     };
 
 #endif
