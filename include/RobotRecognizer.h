@@ -4,6 +4,7 @@
 #include "Interfaces/IRobotRecognizer.h"
 #include "Domain/Ball.h"
 #include "Domain/Robot.h"
+#include "Domain/ColorSide.h"
 
 class RobotRecognizer : public IRobotRecognizer {
 
@@ -22,17 +23,15 @@ private:
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
-    std::map<ObjectType, vss::Robot> lastRobotsPos;
-
     vss::Ball ball;
     vss::Ball lastBallPos;
 
-    double rate;
-    double maxDistance;
+    void recognizeTeam(ColorPosition, std::vector<ColorPosition>);
+    void recognizeOpponent(ColorPosition);
+    void recognizeBall(ColorPosition);
 
-    void recognizeTeam(std::map<ObjectType,ColorPosition>&);
-    void recognizeOpponent(std::map<ObjectType,ColorPosition>&);
-    void recognizeBall(std::map<ObjectType,ColorPosition>&);
+    ColorSide recognizeSide(double farthestAngle, double closestAngle);
+
 
     vss::Robot calculateRobotsValues(cv::Point2f teamPos, cv::Point2f robotPos, ObjectType robotNumber);
 };

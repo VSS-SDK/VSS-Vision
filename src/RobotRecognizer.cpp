@@ -10,26 +10,6 @@
 #include "RobotRecognizer.h"
 
 RobotRecognizer::RobotRecognizer() {
-    vss::Robot initialRobot;
-    initialRobot.x = initialRobot.y = 0;
-    initialRobot.speedX = initialRobot.speedY = 0;
-    initialRobot.speedAngle = 0;
-
-    ball.x = ball.y = 0;
-    ball.speedX = ball.speedY = 0;
-
-    lastRobotsPos.insert(std::make_pair(ObjectType::Robot1, initialRobot));
-    lastRobotsPos.insert(std::make_pair(ObjectType::Robot2, initialRobot));
-    lastRobotsPos.insert(std::make_pair(ObjectType::Robot3, initialRobot));
-    lastRobotsPos.insert(std::make_pair(ObjectType::Robot4, initialRobot));
-    lastRobotsPos.insert(std::make_pair(ObjectType::Robot5, initialRobot));
-
-    lastBallPos = ball;
-
-    // 1/60
-    rate = 0.016;
-    // max distance in cm between colors to be considered a robot
-    maxDistance = 30;
 }
 
 void RobotRecognizer::recognizeRobots(std::map<ObjectType, ColorPosition> colorsPos) {
@@ -37,11 +17,11 @@ void RobotRecognizer::recognizeRobots(std::map<ObjectType, ColorPosition> colors
     blueRobots.clear();
     yellowRobots.clear();
 
-    if(not colorsPos.empty()) {
-        recognizeTeam(colorsPos);
-        recognizeOpponent(colorsPos);
-        recognizeBall(colorsPos);
-    }
+//    if(not colorsPos.empty()) {
+//        recognizeTeam(colorsPos);
+//        recognizeOpponent(colorsPos);
+//        recognizeBall(colorsPos);
+//    }
 
     // fill each vector with 3 robots
     blueRobots.resize(5, vss::Robot());
@@ -49,133 +29,107 @@ void RobotRecognizer::recognizeRobots(std::map<ObjectType, ColorPosition> colors
 
 }
 
-void RobotRecognizer::recognizeTeam(std::map<ObjectType,ColorPosition>& colors){
+void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPosition> playerColor){
+    for (unsigned int i = 0; i < teamColor.points.size(); i++){
+        double dist01 = Math::distance(playerColor[i].points[0], playerColor[i].points[1]);
+        double dist02 = Math::distance(playerColor[i].points[0], playerColor[i].points[2]);
+        double dist12 = Math::distance(playerColor[i].points[1], playerColor[i].points[2]);
 
-    // vector com os pontos onde, por exemplo, a cor azul do time foi encontrada
-    auto &teamPositions = colors[ObjectType::Team].points;
-    auto &teamColor = colors[ObjectType::Team].color;
+        unsigned int singleColorIndex;
+        unsigned int closestColorIndex;
+        unsigned int farthestColorIndex;
 
-    if (teamColor == ColorType::UnknownType or teamPositions.empty()) return;
+        if(dist01 < dist02 && dist01 < dist12){
+            singleColorIndex = 2;
 
-    // itera sobre as posicoes das cores de robot1, robot2, ..., robot5
-    for (int robotInt = ObjectType::Robot1; robotInt <= ObjectType::Robot5; robotInt++) {
-
-        auto robotNumber = static_cast<ObjectType>(robotInt);
-
-        // vector com os pontos da cor do robot1, por exemplo
-        auto &robotPositions = colors[robotNumber].points;
-        auto &robotColor = colors[robotNumber].color;
-
-        // if utilizado para manter robot1 na posicao 1, robot2 na posicao 2, etc
-        if (robotColor == ColorType::UnknownType or robotPositions.empty()){
-            // caso nao tenha encontrado a cor no campo ou a cor nao esteja definida entao adiciona um robo nulo no vetor
-            if(teamColor == ColorType::Yellow)
-                yellowRobots.emplace_back(vss::Robot());
-            else
-                blueRobots.emplace_back(vss::Robot());
-
-            continue;
-        }
-
-        auto itRobotPos = robotPositions.end();
-        auto itTeamPos = teamPositions.end();
-
-        double minDistance = 10000;
-
-        // procura pelo ponto do time que seja mais proximo do ponto do robo
-        for (unsigned int i = 0; i < robotPositions.size(); i++) {
-            for (unsigned int j = 0; j < teamPositions.size(); j++) {
-
-                double distance = Math::distance(robotPositions.at(i), teamPositions.at(j));
-
-                if (distance < minDistance and distance < maxDistance) {
-                    minDistance = distance;
-                    itRobotPos = robotPositions.begin() + i;
-                    itTeamPos = teamPositions.begin() + j;
-                }
+            if(dist02 < dist12){
+                closestColorIndex = 0;
+            }else{
+                farthestColorIndex = 1;
             }
 
-            // se encontrou um ponto, entao quebra o loop
-            if(itRobotPos != robotPositions.end()) break;
+        }else if(dist02 < dist01 && dist02 < dist12){
+            singleColorIndex = 1;
+
+            if (dist01 < dist12){
+                closestColorIndex = 0;
+            }else{
+                farthestColorIndex = 2;
+            }
+        }else if(dist12 < dist01 && dist12 < dist01){
+            singleColorIndex = 0;
+
+            if(dist01 < dist02){
+                closestColorIndex = 1;
+            }else{
+                farthestColorIndex = 2;
+            }
         }
 
-        if (itRobotPos != robotPositions.end() and itTeamPos != teamPositions.end()) {
+        double closestAngle = Math::angle(playerColor[i].points[singleColorIndex], playerColor[i].points[closestColorIndex]);
+        double farthestAngle = Math::angle(playerColor[i].points[singleColorIndex], playerColor[i].points[farthestColorIndex]);
 
-            vss::Robot robot = calculateRobotsValues(*itTeamPos, *itRobotPos, robotNumber);
-
-            // remove os pontos utilizados para otimizar e para que um mesmo ponto nao seja utilizado 2x
-            teamPositions.erase(itTeamPos);
-            robotPositions.erase(itRobotPos);
-
-            // atualiza ultima posicao para calculo de velocidade
-            lastRobotsPos[robotNumber] = robot;
-
-            if (teamColor == ColorType::Yellow)
-                yellowRobots.push_back(robot);
-            else
-                blueRobots.push_back(robot);
-
-        }
-    }
-
-}
-
-void RobotRecognizer::recognizeOpponent(std::map<ObjectType,ColorPosition>& colors){
-
-    auto &opponentPositions = colors[ObjectType::Team].points;
-    auto &opponentColor = colors[ObjectType::Team].color;
-
-    if (opponentColor == ColorType::UnknownType or opponentPositions.empty()) return;
-
-    for(auto opponentPoint : opponentPositions){
+        std::cout<<closestAngle<<farthestAngle<<std::endl;
+        //ColorSide colorSide = recognizeSide(farthestAngle, closestAngle);
 
         vss::Robot robot;
+        robot.x = teamColor.points[i].x;
+        robot.y = teamColor.points[i].y;
 
-        robot.x = opponentPoint.x;
-        robot.y = opponentPoint.y;
-
-        //@TODO: calcular velocidade dos adversarios
-
-        if(opponentColor == ColorType::Blue)
+        if(teamColor.color == ColorType::Blue){
             blueRobots.push_back(robot);
-        else
+        }else if(teamColor.color == ColorType::Yellow){
             yellowRobots.push_back(robot);
+        }
+
     }
 }
 
-void RobotRecognizer::recognizeBall(std::map<ObjectType,ColorPosition>& colors){
+void RobotRecognizer::recognizeOpponent(ColorPosition colors){
+    for(unsigned int i = 0; i < colors.points.size(); i++){
+        vss::Robot robot;
+        robot.x = colors.points[i].x;
+        robot.y = colors.points[i].y;
 
-    // calculates ball values
-    if(not colors[ObjectType::Ball].points.empty()) {
-        ball.x = colors[ObjectType::Ball].points.front().x;
-        ball.y = colors[ObjectType::Ball].points.front().y;
+        if(colors.color == ColorType::Blue){
+            blueRobots.push_back(robot);
+        }else if(colors.color == ColorType::Yellow){
+            yellowRobots.push_back(robot);
+        }
+    }
+}
 
-        ball.speedX = (ball.x - lastBallPos.x) / rate;
-        ball.speedY = (ball.y - lastBallPos.y) / rate;
+void RobotRecognizer::recognizeBall(ColorPosition colors){
 
-        lastBallPos = ball;
+    if(!colors.points.empty()){
+        ball.x = colors.points[0].x;
+        ball.y = colors.points[0].y;
     }
 
 }
 
-vss::Robot RobotRecognizer::calculateRobotsValues(cv::Point2f teamPos, cv::Point2f robotPos, ObjectType robotNumber) {
-    // with the closer point found update robot's values
-    vss::Robot robot;
 
-    robot.x = teamPos.x;
-    robot.y = teamPos.y;
+ColorSide RobotRecognizer::recognizeSide(double farthestAngle, double closestAngle) {
+    farthestAngle = farthestAngle + 360;
+    closestAngle = closestAngle + 360;
 
-    // somando 180 para deixar no intervalo 0 e 360
-    robot.angle = atan2(robotPos.y - teamPos.y, robotPos.x - teamPos.x)*(180/M_PI)+180;
+    double max1 = farthestAngle + 60;
+    double min1 = farthestAngle + 30;
 
-    if(robot.angle >= 315) robot.angle -= 315;
-    else robot.angle += 45;
+    double max2 = farthestAngle - 60;
+    double min2 = farthestAngle - 30;
 
-    robot.speedAngle = (robot.angle - lastRobotsPos[robotNumber].angle) / rate;
-    robot.speedX = (robot.x - lastRobotsPos[robotNumber].x) / rate;
-    robot.speedY = (robot.y - lastRobotsPos[robotNumber].y) / rate;
+    ColorSide colorSide;
 
-    return robot;
+    if(closestAngle < max1 && closestAngle > min1){
+        colorSide = ColorSide::Right;
+    }
+
+    if(closestAngle < max2 && closestAngle > min2){
+        colorSide = ColorSide ::Left;
+    }
+
+    return colorSide;
 }
 
 std::vector<vss::Robot> RobotRecognizer::getBlueRobots(){
