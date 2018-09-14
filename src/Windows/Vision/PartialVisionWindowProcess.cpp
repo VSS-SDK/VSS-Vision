@@ -61,16 +61,19 @@ void VisionWindow::processFrame(cv::Mat image) {
  * Transformar daqui para baixo em RobotRecognizer
  */
 
+void VisionWindow::recognizePattern(cv::Mat image) {
+    recognizeTeamColor(image);
+    recognizeRobotColor(image);
+}
+
 void VisionWindow::recognizeTeamColor(cv::Mat image) {
     ColorPattern teamPattern = pattern[ObjectType::Team];
 
     if (teamPattern.id == ObjectType::Team) {
-
         teamColorRecognizer->setColorRange(teamPattern.singleColorRange);
 
         if (timeOptimization.timeOut(1000)) {
             teamColorRecognizer->processImage(image);
-
         } else {
             teamColorRecognizer->processImageInSector(image, teamColorRecognizer->getRectangles());
         }
@@ -95,47 +98,25 @@ void VisionWindow::recognizeRobotColor(cv::Mat image) {
         colorRecognizer2->setColorRange(colorRange2);
         colorRecognizer2->processImage(cuttedImage);
         colorRecognizer2->deleteOutsidePoint(rotatedRect[i], rect[i]);
+    }
+}
 
-        //cout << "Green: " << colorRecognizer1->getCenters().size() << endl;
-        //cout << "Pink: " << colorRecognizer2->getCenters().size() << endl;
+/*
+    // DRAW RECTANGLES
+    for (unsigned int j = 0; j < colorRecognizer2->getRotatedRectangles().size(); j++) {
+        cv::RotatedRect r = colorRecognizer2->getRotatedRectangles()[j];
+        r.center.x += rect[i].x;
+        r.center.y += rect[i].y;
+
+        drawRotatedRectangle(image, r);
     }
 
+    for (unsigned int j = 0; j < colorRecognizer1->getRotatedRectangles().size(); j++) {
+        cv::RotatedRect r = colorRecognizer1->getRotatedRectangles()[j];
+            r.center.x += rect[i].x;
+            r.center.y += rect[i].y;
+
+        drawRotatedRectangle(image, r);
+    }
     frame = drawRectangle(image, rect);
-
-}
-
-void VisionWindow::recognizePattern(cv::Mat image) {
-    recognizeTeamColor(image);
-    recognizeRobotColor(image);
-}
-
-void VisionWindow::calculatePatternAngle(std::vector<cv::Point2f> position1, std::vector<cv::Point2f> position2, double &angleSingleColor, double &angleDoubleColor) {
-
-    double dist1 = Math::distance(position2[0], position1[0]);
-    double dist2 = Math::distance(position2[0], position1[1]);
-
-    if (dist1 > dist2) {
-        angleSingleColor = atan2(position2[0].y - position1[0].y, position2[0].x - position1[0].x) * (180 / M_PI) + 180;
-        angleDoubleColor = atan2(position1[1].y - position1[0].y, position1[1].x - position1[0].x) * (180 / M_PI) + 180;
-
-    } else {
-        angleSingleColor = atan2(position2[0].y - position1[1].y, position2[0].x - position1[1].x) * (180 / M_PI) + 180;
-        angleDoubleColor = atan2(position1[0].y - position1[1].y, position1[0].x - position1[1].x) * (180 / M_PI) + 180;
-    }
-
-    //cout << angleSingleColor << " - " << angleDoubleColor << endl;
-
-}
-
-void VisionWindow::calculateSideAngle(double angleSingleColor, double angleDoubleColor){
-    double diff = angleSingleColor - angleDoubleColor;
-
-    if (abs(diff) > 100){}
-
-
-    if (diff > 30 && diff < 60) {
-
-    } else if (diff < -30 && diff > -60) {
-
-    }
-}
+*/

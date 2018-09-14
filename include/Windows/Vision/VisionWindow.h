@@ -152,8 +152,6 @@ private:
     void recognizeTeamColor(cv::Mat);
     void recognizeRobotColor(cv::Mat);
     void recognizePattern(cv::Mat);
-    void calculatePatternAngle(std::vector<cv::Point2f>, std::vector<cv::Point2f>, double&, double&);
-    void calculateSideAngle(double, double);
     };
 
 #endif
