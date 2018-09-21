@@ -19,8 +19,6 @@ void PatternRecognizer::recognizePattern(cv::Mat image) {
     recognizeMainColor(image, opponentColorRecognizer, ObjectType::Opponent);
 
     recognizeSecondColor(image);
-
-    robotRecognizer->
 }
 
 void PatternRecognizer::recognizeMainColor(cv::Mat image, IColorRecognizer *recognizer, ObjectType type) {
