@@ -12,15 +12,22 @@
 #include <Domain/ObjectType.h>
 #include <Domain/Calibration.h>
 #include <Domain/ColorPattern.h>
+#include <Domain/ColorPosition.h>
 #include <Helpers/TimeHelper.h>
 #include <Helpers/FrameHelper.h>
 #include <Interfaces/IColorRecognizer.h>
 #include <Interfaces/IPatternRecognizer.h>
+#include <vector>
 
 class PatternRecognizer : public IPatternRecognizer{
 
 public:
     PatternRecognizer(Calibration, std::vector<ColorPattern>);
+
+    ColorPosition getBallColorPosition() override;
+    ColorPosition getTeamColorPosition() override;
+    ColorPosition getOpponnetColorPosition() override;
+    std::vector<ColorPosition> getPlayerColorPosition() override;
 
 private:
 
@@ -36,7 +43,10 @@ private:
 
     Calibration calibration;
     TimeHelper timeOptimization;
+
     std::vector<ColorPattern> pattern;
+    std::vector<ColorPosition> playerColorPosition;
+
 
 };
 

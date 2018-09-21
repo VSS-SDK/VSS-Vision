@@ -54,5 +54,10 @@ void VisionWindow::processFrame(cv::Mat image) {
     frame = image.clone();
     mtxUpdateFrame.unlock();
 
-    //recognizePattern(image);
+    patternRecognizer->recognizePattern(image);
+
+    recognizeRobots->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);    
+    recognizeRobots->recognizeOpponent(patternRecognizer->getOpponnetColorPosition());
+    recognizeRobots->recognizeBall(patternRecognizer->getBall());
+    
 }

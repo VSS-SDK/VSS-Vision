@@ -19,8 +19,6 @@ void PatternRecognizer::recognizePattern(cv::Mat image) {
     recognizeMainColor(image, opponentColorRecognizer, ObjectType::Opponent);
 
     recognizeSecondColor(image);
-
-    robotRecognizer->
 }
 
 void PatternRecognizer::recognizeMainColor(cv::Mat image, IColorRecognizer *recognizer, ObjectType type) {
@@ -35,7 +33,6 @@ void PatternRecognizer::recognizeMainColor(cv::Mat image, IColorRecognizer *reco
             recognizer->processImageInSector(image, recognizer->getRectangles());
         }
     }
-
 }
 
 void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
@@ -56,7 +53,47 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
         colorRecognizer2->setColorRange(colorRange2);
         colorRecognizer2->processImage(cuttedImage);
         colorRecognizer2->deleteOutsidePoint(rotatedRect[i], rect[i]);
+
+        playerColorPosition.clear();
+    
+        if (colorRecognizer1->getCenters().size() > colorRecognizer2->getCenters().size()) {
+            ColorPosition position;
+            position.color = colorRecognizer1->getColor();
+            position.points = colorRecognizer1->getCenters();
+            playerColorPosition.push_back (position);
+        
+        } else {
+            ColorPosition position;
+            position.color = colorRecognizer2->getColor();
+            position.points = colorRecognizer2->getCenters();
+            playerColorPosition.push_back(position);
+        }
     }
+}
+
+std::vector<ColorPosition> PatternRecognizer::getPlayerColorPosition() {
+    return playerColorPosition;
+}
+
+ColorPosition PatternRecognizer::getBallColorPosition() {
+    ColorPosition position;
+    position.color = ballColorRecognizer->getColor();
+    position.points = ballColorRecognizer->getCenters();
+    return position;
+}
+
+ColorPosition PatternRecognizer::getTeamColorPosition() {
+    ColorPosition position;
+    position.color = teamColorRecognizer->getColor();
+    position.points = teamColorRecognizer->getCenters();
+    return position;
+}
+
+ColorPosition PatternRecognizer::getOpponnetColorPosition() {
+    ColorPosition position;
+    position.color = opponentColorRecognizer->getColor();
+    position.points = opponentColorRecognizer->getCenters();
+    return position;
 }
 
 /*

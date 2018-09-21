@@ -20,6 +20,7 @@ VisionWindow::VisionWindow() {
     inputReader = new ImageFileReader();
 
     robotRecognizer = new RobotRecognizer();
+    patternRecognizer = new PatternRecognizer(calibration, pattern);
 
     stateSender = new StateSenderAdapter();
     stateSender->createSocket();

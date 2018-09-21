@@ -9,10 +9,14 @@
 #ifndef VSS_VISION_IPATTERNRECOGNIZER_H
 #define VSS_VISION_IPATTERNRECOGNIZER_H
 
+#include <Domain/ColorPosition.h>
 
 class IPatternRecognizer {
 public:
-
+    virtual ColorPosition getBallColorPosition() = 0;
+    virtual ColorPosition getTeamColorPosition() = 0;
+    virtual ColorPosition getOpponnetColorPosition() = 0;
+    virtual std::vector<ColorPosition> getPlayerColorPosition() = 0;
 };
 
 #endif // VSS_VISION_IPATTERNRECOGNIZER_H
