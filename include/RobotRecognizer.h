@@ -11,7 +11,6 @@ class RobotRecognizer : public IRobotRecognizer {
 public:
 
     RobotRecognizer();
-    void recognizeRobots(std::map<ObjectType,ColorPosition>) override;
 
     std::vector<vss::Robot> getBlueRobots() override;
     std::vector<vss::Robot> getYellowRobots() override;
@@ -26,7 +25,7 @@ private:
     vss::Ball ball;
     vss::Ball lastBallPos;
 
-    void recognizeTeam(ColorPosition, std::vector<ColorPosition>);
+    void recognizeTeam(ColorPosition, std::vector<ColorPosition>, std::vector<ColorPattern>);
     void recognizeOpponent(ColorPosition);
     void recognizeBall(ColorPosition);
 

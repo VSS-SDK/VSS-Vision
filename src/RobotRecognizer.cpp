@@ -7,37 +7,22 @@
  */
 
 #include <Helpers/Math.h>
+#include <Domain/ColorPattern.h>
 #include "RobotRecognizer.h"
 
 RobotRecognizer::RobotRecognizer() {
 }
 
-void RobotRecognizer::recognizeRobots(std::map<ObjectType, ColorPosition> colorsPos) {
-
-    blueRobots.clear();
-    yellowRobots.clear();
-
-//    if(not colorsPos.empty()) {
-//        recognizeTeam(colorsPos);
-//        recognizeOpponent(colorsPos);
-//        recognizeBall(colorsPos);
-//    }
-
-    // fill each vector with 3 robots
-    blueRobots.resize(5, vss::Robot());
-    yellowRobots.resize(5, vss::Robot());
-
-}
-
-void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPosition> playerColor){
+void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPosition> playerColor, std::vector<ColorPattern> pattern){
     for (unsigned int i = 0; i < teamColor.points.size(); i++){
+
         double dist01 = Math::distance(playerColor[i].points[0], playerColor[i].points[1]);
         double dist02 = Math::distance(playerColor[i].points[0], playerColor[i].points[2]);
         double dist12 = Math::distance(playerColor[i].points[1], playerColor[i].points[2]);
 
-        unsigned int singleColorIndex;
-        unsigned int closestColorIndex;
-        unsigned int farthestColorIndex;
+        unsigned int singleColorIndex = 0;
+        unsigned int closestColorIndex = 0;
+        unsigned int farthestColorIndex = 0;
 
         if(dist01 < dist02 && dist01 < dist12){
             singleColorIndex = 2;
@@ -69,19 +54,29 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
         double closestAngle = Math::angle(playerColor[i].points[singleColorIndex], playerColor[i].points[closestColorIndex]);
         double farthestAngle = Math::angle(playerColor[i].points[singleColorIndex], playerColor[i].points[farthestColorIndex]);
 
-        std::cout<<closestAngle<<farthestAngle<<std::endl;
-        //ColorSide colorSide = recognizeSide(farthestAngle, closestAngle);
+        ColorSide colorSide = recognizeSide(farthestAngle, closestAngle);
+
+        ColorPattern colorPattern;
+        colorPattern.colorSide = colorSide;
+        colorPattern.singleColorType = playerColor[i].color;
+        colorPattern.doubleColorType = playerColor[i].color;
 
         vss::Robot robot;
         robot.x = teamColor.points[i].x;
         robot.y = teamColor.points[i].y;
+        robot.angle = farthestAngle;
 
-        if(teamColor.color == ColorType::Blue){
-            blueRobots.push_back(robot);
-        }else if(teamColor.color == ColorType::Yellow){
-            yellowRobots.push_back(robot);
+        for(unsigned int j = 3; j < pattern.size() - 1; j++){
+
+            if(pattern[j].isEquals(colorPattern)){
+                if(teamColor.color == ColorType::Blue){
+                    blueRobots[j-3] = robot;
+                }else if(teamColor.color == ColorType::Yellow){
+                    yellowRobots[j-3] = robot;
+                }
+            }
+
         }
-
     }
 }
 
@@ -100,12 +95,10 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors){
 }
 
 void RobotRecognizer::recognizeBall(ColorPosition colors){
-
     if(!colors.points.empty()){
         ball.x = colors.points[0].x;
         ball.y = colors.points[0].y;
     }
-
 }
 
 
