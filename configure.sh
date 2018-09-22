@@ -34,6 +34,12 @@ CMAKE_INSTALL () {
 }
 
 INSTALL_OPENCV () {
+    OpenCV_Version="$(pkg-config --modversion opencv)"
+    if [ "$OpenCV_Version" == "3.4.2" ]
+    then
+        return
+    fi
+
     if [ ! -f "3.4.2.tar.gz" ]
     then
         wget https://github.com/opencv/opencv/archive/3.4.2.tar.gz
@@ -45,7 +51,7 @@ INSTALL_OPENCV () {
     fi
 
     cd opencv-3.4.2
-    mkdir build
+    mkdir -p build
     cd build
     cmake ..
     make
@@ -104,7 +110,7 @@ INIT_SUBMODULES() {
 
 INSTALL () {
     INSTALL_BASE;
-    #INSTALL_OPENCV;
+    INSTALL_OPENCV;
 
     # Ubuntu
     if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "18.04" ]]; then
