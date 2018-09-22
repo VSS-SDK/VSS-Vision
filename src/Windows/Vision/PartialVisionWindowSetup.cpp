@@ -31,7 +31,6 @@ VisionWindow::VisionWindow(vss::ExecutionConfig exeConfig) {
 VisionWindow::~VisionWindow() = default;
 
 int VisionWindow::run(int argc, char *argv[]) {
-
     threadWindowControl = new thread(std::bind(&VisionWindow::windowThreadWrapper, this));
     threadCameraReader = new thread(std::bind(&VisionWindow::cameraThreadWrapper, this));
 
