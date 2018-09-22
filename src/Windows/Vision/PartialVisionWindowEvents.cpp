@@ -33,10 +33,11 @@ void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
     string filename = fileChooser->get_filename();
 
     if (not filename.empty()){
-        calibration = calibrationRepository->read(filename);
-
-        screenImage->set_cut_point_1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
-        screenImage->set_cut_point_2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
+        mtxCalibration.lock();
+            calibration = calibrationRepository->read(filename);
+            screenImage->set_cut_point_1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
+            screenImage->set_cut_point_2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
+        mtxCalibration.unlock();
     }
 }
 
@@ -77,70 +78,90 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 
 void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
-    ColorRange range(calibration.colorsRange, mainColorList[row] );
 
-    pattern[ObjectType::Team].id = ObjectType::Team;
-    pattern[ObjectType::Team].singleColorType = mainColorList[row];
-    pattern[ObjectType::Team].singleColorRange = range;
+    mtxCalibration.lock();
+        ColorRange range(calibration.colorsRange, mainColorList[row] );
+    mtxCalibration.unlock();
+
+    mtxPattern.lock();
+        pattern[ObjectType::Team].id = ObjectType::Team;
+        pattern[ObjectType::Team].singleColorType = mainColorList[row];
+        pattern[ObjectType::Team].singleColorRange = range;
+    mtxPattern.unlock();
 }
 
 void VisionWindow::onComboBoxSelectColorOpponent(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
-    ColorRange range(calibration.colorsRange, mainColorList[row] );
 
-    pattern[ObjectType::Opponent].id = ObjectType::Opponent;
-    pattern[ObjectType::Opponent].singleColorType = mainColorList[row];
-    pattern[ObjectType::Opponent].singleColorRange = range;
+    mtxCalibration.lock();
+        ColorRange range(calibration.colorsRange, mainColorList[row] );
+    mtxCalibration.unlock();
+
+    mtxPattern.lock();
+        pattern[ObjectType::Opponent].id = ObjectType::Opponent;
+        pattern[ObjectType::Opponent].singleColorType = mainColorList[row];
+        pattern[ObjectType::Opponent].singleColorRange = range;
+    mtxPattern.unlock();
 }
 
 void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
-    pattern[object].id = object;
-    pattern[object].singleColorType = ColorType::Pink;
-    pattern[object].doubleColorType = ColorType::Green;
-    pattern[object].colorSide = ColorSide::Left;
+    mtxPattern.lock();
+        pattern[object].id = object;
+        pattern[object].singleColorType = ColorType::Pink;
+        pattern[object].doubleColorType = ColorType::Pink;
+        pattern[object].colorSide = ColorSide::Left;
+    mtxPattern.lock();    
 }
 
 void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
-    pattern[object].id = object;
-    pattern[object].singleColorType = ColorType::Pink;
-    pattern[object].doubleColorType = ColorType::Green;
-    pattern[object].colorSide = ColorSide::Right;
+    mtxPattern.lock();
+        pattern[object].id = object;
+        pattern[object].singleColorType = ColorType::Pink;
+        pattern[object].doubleColorType = ColorType::Pink;
+        pattern[object].colorSide = ColorSide::Right;
+    mtxPattern.lock();  
 }
 
 void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
-    pattern[object].id = object;
-    pattern[object].singleColorType = ColorType::Green;
-    pattern[object].doubleColorType = ColorType::Pink;
-    pattern[object].colorSide = ColorSide::Right;
+    mtxPattern.lock();
+        pattern[object].id = object;
+        pattern[object].singleColorType = ColorType::Green;
+        pattern[object].doubleColorType = ColorType::Green;
+        pattern[object].colorSide = ColorSide::Left;
+    mtxPattern.lock();  
 }
 
 void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
-    pattern[object].id = object;
-    pattern[object].singleColorType = ColorType::Green;
-    pattern[object].doubleColorType = ColorType::Pink;
-    pattern[object].colorSide = ColorSide::Left;
+    mtxPattern.lock();
+        pattern[object].id = object;
+        pattern[object].singleColorType = ColorType::Green;
+        pattern[object].doubleColorType = ColorType::Green;
+        pattern[object].colorSide = ColorSide::Right;
+    mtxPattern.lock();  
 }
 
 void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
-    pattern[object].id = object;
-    pattern[object].singleColorType = ColorType::Green;
-    pattern[object].doubleColorType = ColorType::Red;
-    pattern[object].colorSide = ColorSide::Left;
+    mtxPattern.lock();
+        pattern[object].id = object;
+        pattern[object].singleColorType = ColorType::Pink;
+        pattern[object].doubleColorType = ColorType::Green;
+        pattern[object].colorSide = ColorSide::Right;
+    mtxPattern.lock();  
 }
 
 void VisionWindow::updateLabel(int i) {

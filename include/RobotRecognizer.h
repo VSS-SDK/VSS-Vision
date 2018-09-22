@@ -5,6 +5,8 @@
 #include "Domain/Ball.h"
 #include "Domain/Robot.h"
 #include "Domain/ColorSide.h"
+#include "Domain/ColorPosition.h"
+#include "Domain/ColorPattern.h"
 
 class RobotRecognizer : public IRobotRecognizer {
 
@@ -12,10 +14,13 @@ public:
 
     RobotRecognizer();
 
-    std::vector<vss::Robot> getBlueRobots() override;
-    std::vector<vss::Robot> getYellowRobots() override;
+    void recognizeTeam(ColorPosition, std::vector<ColorPosition>, std::vector<ColorPattern>) override;
+    void recognizeOpponent(ColorPosition) override;
+    void recognizeBall(ColorPosition) override;
 
     vss::Ball getBall() override;
+    std::vector<vss::Robot> getBlueRobots() override;
+    std::vector<vss::Robot> getYellowRobots() override;
 
 private:
 
@@ -24,10 +29,6 @@ private:
 
     vss::Ball ball;
     vss::Ball lastBallPos;
-
-    void recognizeTeam(ColorPosition, std::vector<ColorPosition>, std::vector<ColorPattern>);
-    void recognizeOpponent(ColorPosition);
-    void recognizeBall(ColorPosition);
 
     ColorSide recognizeSide(double farthestAngle, double closestAngle);
 

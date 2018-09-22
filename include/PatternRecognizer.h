@@ -9,6 +9,7 @@
 #ifndef VSS_VISION_PATTERNRECOGNIZER_H
 #define VSS_VISION_PATTERNRECOGNIZER_H
 
+#include <ColorRecognizer.h>
 #include <Domain/ObjectType.h>
 #include <Domain/Calibration.h>
 #include <Domain/ColorPattern.h>
@@ -22,32 +23,31 @@
 class PatternRecognizer : public IPatternRecognizer{
 
 public:
-    PatternRecognizer(Calibration, std::vector<ColorPattern>);
+    PatternRecognizer();
+
+    void recognizeMainColor(cv::Mat, ObjectType) override;
+    void recognizeSecondColor(cv::Mat) override;
+    void setRangeVector(std::vector<ColorRange>) override;
+    void setPatternVector(std::vector<ColorPattern>) override;
 
     ColorPosition getBallColorPosition() override;
     ColorPosition getTeamColorPosition() override;
     ColorPosition getOpponnetColorPosition() override;
     std::vector<ColorPosition> getPlayerColorPosition() override;
 
+
 private:
-
-    void recognizeMainColor(cv::Mat, IColorRecognizer*, ObjectType);
-    void recognizeSecondColor(cv::Mat);
-    void recognizePattern(cv::Mat);
-
     IColorRecognizer *ballColorRecognizer;
     IColorRecognizer *teamColorRecognizer;
     IColorRecognizer *opponentColorRecognizer;
     IColorRecognizer *colorRecognizer1;
     IColorRecognizer *colorRecognizer2;
 
-    Calibration calibration;
     TimeHelper timeOptimization;
 
+    std::vector<ColorRange> range;
     std::vector<ColorPattern> pattern;
     std::vector<ColorPosition> playerColorPosition;
-
-
 };
 
 #endif //VSS_VISION_PATTERNRECOGNIZER_H

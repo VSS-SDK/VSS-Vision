@@ -42,22 +42,39 @@ void VisionWindow::updateGtkImage() {
 
 void VisionWindow::processFrame(cv::Mat image) {
 
-    Calibration _calibration = calibration;
-
-    image = changeRotation(image, _calibration.rotation);
-
-    if(_calibration.shouldCropImage){
-        image = cropImage(image, _calibration.cut[0], _calibration.cut[1]);
-    }
-
     mtxUpdateFrame.lock();
-    frame = image.clone();
+        frame = image.clone();
     mtxUpdateFrame.unlock();
 
-    patternRecognizer->recognizePattern(image);
-
-    recognizeRobots->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);    
-    recognizeRobots->recognizeOpponent(patternRecognizer->getOpponnetColorPosition());
-    recognizeRobots->recognizeBall(patternRecognizer->getBall());
+    mtxCalibration.lock();
+        Calibration processCalibration = calibration;
+    mtxCalibration.unlock();
     
+    mtxPattern.lock();
+        std::vector<ColorPattern> processPattern = pattern;
+    mtxPattern.unlock();
+
+    image = changeRotation(image, processCalibration.rotation);
+
+    if(processCalibration.shouldCropImage){
+        image = cropImage(image, processCalibration.cut[0], processCalibration.cut[1]);
+    }
+
+    patternRecognizer->setPatternVector(processPattern);
+    patternRecognizer->setRangeVector(processCalibration.colorsRange);
+
+    patternRecognizer->recognizeMainColor(image, ObjectType::Ball);
+    patternRecognizer->recognizeMainColor(image, ObjectType::Team);
+    patternRecognizer->recognizeMainColor(image, ObjectType::Opponent);
+    patternRecognizer->recognizeSecondColor(image);
+
+    //robotRecognizer->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);    
+    //robotRecognizer->recognizeOpponent(patternRecognizer->getOpponnetColorPosition());
+    //robotRecognizer->recognizeBall(patternRecognizer->getBallColorPosition());
+/*
+    for (auto r : robotRecognizer->getBlueRobots()) {
+        cout << r.x << endl;
+    }
+    cout << endl;
+*/
 }

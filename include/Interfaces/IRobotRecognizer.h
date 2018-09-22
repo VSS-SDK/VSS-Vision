@@ -9,19 +9,26 @@
 #ifndef VSS_VISION_IROBOTRECOGNIZER_H
 #define VSS_VISION_IROBOTRECOGNIZER_H
 
-#include <vector>
-#include "Domain/Ball.h"
 #include <Domain/Robot.h>
 #include <Domain/ObjectType.h>
+#include <Domain/ColorPosition.h>
+#include <Domain/ColorPattern.h>
+
+#include "Domain/Ball.h"
+
 #include <map>
-#include "ColorPosition.h"
+#include <vector>
 
 class IRobotRecognizer {
 
 public:
+    virtual void recognizeTeam(ColorPosition, std::vector<ColorPosition>, std::vector<ColorPattern>) = 0;
+    virtual void recognizeOpponent(ColorPosition) = 0;
+    virtual void recognizeBall(ColorPosition) = 0;
+    
+    virtual vss::Ball getBall() = 0;
     virtual std::vector<vss::Robot> getBlueRobots() = 0;
     virtual std::vector<vss::Robot> getYellowRobots() = 0;
-    virtual vss::Ball getBall() = 0;
 };
 
 #endif

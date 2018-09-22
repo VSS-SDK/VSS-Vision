@@ -78,6 +78,8 @@ private:
     mutable std::mutex mtxGetRobots;
     mutable std::mutex mtxUpdateFrame;
     mutable std::mutex mtxChangeInput;
+    mutable std::mutex mtxPattern;
+    mutable std::mutex mtxCalibration;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;

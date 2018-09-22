@@ -13,6 +13,11 @@
 
 class IPatternRecognizer {
 public:
+    virtual void recognizeMainColor(cv::Mat, ObjectType) = 0;
+    virtual void recognizeSecondColor(cv::Mat) = 0;
+    virtual void setRangeVector(std::vector<ColorRange>) = 0;
+    virtual void setPatternVector(std::vector<ColorPattern>) = 0;
+
     virtual ColorPosition getBallColorPosition() = 0;
     virtual ColorPosition getTeamColorPosition() = 0;
     virtual ColorPosition getOpponnetColorPosition() = 0;

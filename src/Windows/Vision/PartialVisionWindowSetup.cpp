@@ -20,7 +20,7 @@ VisionWindow::VisionWindow() {
     inputReader = new ImageFileReader();
 
     robotRecognizer = new RobotRecognizer();
-    patternRecognizer = new PatternRecognizer(calibration, pattern);
+    patternRecognizer = new PatternRecognizer();
 
     stateSender = new StateSenderAdapter();
     stateSender->createSocket();
@@ -60,10 +60,7 @@ void VisionWindow::cameraThreadWrapper() {
         mtxChangeInput.unlock();
 
         receiveNewFrame( receivedFrame );
-
-//        usleep(12000);
     }
-
 }
 
 void VisionWindow::windowThreadWrapper() {
