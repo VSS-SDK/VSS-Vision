@@ -41,4 +41,8 @@ Debug/*
 cmake-build-debug/*
 cmake-build-debug/
 .idea/*
+3.4.2.tar.gz
+opencv-3.4.2
+opencv-3.4.2/
+opencv-3.4.2/*
 

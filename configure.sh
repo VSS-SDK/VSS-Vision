@@ -33,44 +33,63 @@ CMAKE_INSTALL () {
     cd ..
 }
 
+INSTALL_OPENCV () {
+    if [ ! -f "3.4.2.tar.gz" ]
+    then
+        wget https://github.com/opencv/opencv/archive/3.4.2.tar.gz
+    fi
+
+    if [ ! -d "opencv-3.4.2" ]
+    then
+        tar -xzvf 3.4.2.tar.gz
+    fi
+
+    cd opencv-3.4.2
+    mkdir build
+    cd build
+    cmake ..
+    make
+    make install
+    cd ..
+}
 INSTALL_UBUNTU_14_04 () {
     apt-get update && apt-get upgrade
     apt-get -y install pkg-config
-    apt-get -y install libopencv-dev build-essential checkinstall yasm libtiff4-dev libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg
+    apt-get -y install build-essential checkinstall yasm libtiff4-dev libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg
     INSTALLED=1
 }
 
 INSTALL_UBUNTU_16_04 () {
     apt-get update && apt-get upgrade
     apt-get -y install pkg-config
-    apt-get -y install libopencv-dev gtkmm-2.4
+    apt-get -y install gtkmm-2.4
     INSTALLED=1
 }
 
 INSTALL_UBUNTU_18_04 () {
     apt-get update && apt-get upgrade
     apt-get -y install pkg-config
-    apt-get -y install libopencv-dev gtkmm-2.4
+    apt-get -y install gtkmm-2.4
     INSTALLED=1
 }
 
 INSTALL_MINT_18_2 () {
     apt-get update && apt-get upgrade
     apt-get -y install pkg-config
-    apt-get -y install libopencv-dev libgtkmm-2.4-dev
+    apt-get -y install libgtkmm-2.4-dev
     INSTALLED=1
 }
 
 INSTALL_DEBIAN_9 () {
     apt-get update && apt-get upgrade
     apt-get -y install pkgconf
-    apt-get -y install libopencv-dev libgtkmm-2.4-dev gtk2-engines-pixbuf
+    apt-get -y install libgtkmm-2.4-dev gtk2-engines-pixbuf
     INSTALLED=1
 }
 
 INSTALL_BASE() {
     apt-get update && apt-get upgrade
-    apt-get -y install lsb-release;
+    apt-get -y install lsb-release wget
 
     DISTRO=`lsb_release -si`
     RELEASE=`lsb_release -sr`
@@ -85,6 +104,7 @@ INIT_SUBMODULES() {
 
 INSTALL () {
     INSTALL_BASE;
+    #INSTALL_OPENCV;
 
     # Ubuntu
     if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "18.04" ]]; then
