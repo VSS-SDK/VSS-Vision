@@ -68,13 +68,12 @@ void VisionWindow::processFrame(cv::Mat image) {
     patternRecognizer->recognizeMainColor(image, ObjectType::Opponent);
     patternRecognizer->recognizeSecondColor(image);
 
-    //robotRecognizer->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);    
+    robotRecognizer->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);
     //robotRecognizer->recognizeOpponent(patternRecognizer->getOpponnetColorPosition());
     //robotRecognizer->recognizeBall(patternRecognizer->getBallColorPosition());
-/*
-    for (auto r : robotRecognizer->getBlueRobots()) {
-        cout << r.x << endl;
-    }
-    cout << endl;
-*/
+
+    //cout << "Blue:     " << robotRecognizer->getBlueRobots().size() << endl;
+    //cout << "Yellow:   " << robotRecognizer->getYellowRobots().size() << endl;
+
+    //cout << endl;
 }

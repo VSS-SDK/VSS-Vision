@@ -21,25 +21,25 @@ void ColorRecognizer::processImage(cv::Mat image) {
 void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> rect) {
     clear();
     unsigned long changeCoordinateInVector = 0;
-
+    
+    
     for (unsigned int i = 0; i < rect.size(); i++) {
         frame = cropImage(image, rect[i], 0.3);
 
         binarizesImage();
         recognizesRectangles();
-        calculateCenter();
 
         for (unsigned long j = changeCoordinateInVector; j < rectangles.size(); j++) {
             rectangles[j].x += rect[i].x;
             rectangles[j].y += rect[i].y;
             rotatedRectangles[j].center.x += rect[i].x;
             rotatedRectangles[j].center.y += rect[i].y;
-            centers[j].x += rect[i].x;
-            centers[j].y += rect[i].y;
         }
 
         changeCoordinateInVector = rectangles.size();
     }
+    
+    calculateCenter();
 }
 
 void ColorRecognizer::binarizesImage() {

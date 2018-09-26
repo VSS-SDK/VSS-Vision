@@ -32,7 +32,7 @@ void PatternRecognizer::recognizeMainColor(cv::Mat image, ObjectType type) {
         if (pattern[type].id == type) {
             ballColorRecognizer->setColorRange(pattern[type].singleColorRange);
             
-            if (timeOptimization.timeOut(1000)) { 
+            if (timeOptimization.timeOut(100)) { 
                 ballColorRecognizer->processImage(image); 
             } else { 
                 ballColorRecognizer->processImageInSector(image, ballColorRecognizer->getRectangles()); 
@@ -44,7 +44,7 @@ void PatternRecognizer::recognizeMainColor(cv::Mat image, ObjectType type) {
         if (pattern[type].id == type) {
             teamColorRecognizer->setColorRange(pattern[type].singleColorRange);
             
-            if (timeOptimization.timeOut(1000)) { 
+            if (timeOptimization.timeOut(100)) { 
                 teamColorRecognizer->processImage(image); 
             } else { 
                 teamColorRecognizer->processImageInSector(image, teamColorRecognizer->getRectangles()); 
@@ -56,7 +56,7 @@ void PatternRecognizer::recognizeMainColor(cv::Mat image, ObjectType type) {
         if (pattern[type].id == type) {
             opponentColorRecognizer->setColorRange(pattern[type].singleColorRange);
             
-            if (timeOptimization.timeOut(1000)) { 
+            if (timeOptimization.timeOut(100)) { 
                 opponentColorRecognizer->processImage(image); 
             } else { 
                 opponentColorRecognizer->processImageInSector(image, opponentColorRecognizer->getRectangles()); 
@@ -70,6 +70,8 @@ void PatternRecognizer::recognizeMainColor(cv::Mat image, ObjectType type) {
 void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
     std::vector<cv::Rect> rect = teamColorRecognizer->getRectangles();
     std::vector<cv::RotatedRect> rotatedRect = teamColorRecognizer->getRotatedRectangles();
+
+    playerColorPosition.clear();
 
     for (unsigned int i = 0; i < rect.size(); i++) {
         cv::Mat cuttedImage = cropImage(image, rect[i], 0.3);
@@ -85,15 +87,14 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
         colorRecognizer2->processImage(cuttedImage);
         colorRecognizer2->deleteOutsidePoint(rotatedRect[i], rect[i]);
 
-        playerColorPosition.clear();
-    
-        if (colorRecognizer1->getCenters().size() > colorRecognizer2->getCenters().size()) {
+        if (colorRecognizer1->getCenters().size() > 0) {
             ColorPosition position;
             position.color = colorRecognizer1->getColor();
             position.points = colorRecognizer1->getCenters();
             playerColorPosition.push_back (position);
-        
-        } else {
+        }
+
+        if (colorRecognizer2->getCenters().size() > 0){
             ColorPosition position;
             position.color = colorRecognizer2->getColor();
             position.points = colorRecognizer2->getCenters();

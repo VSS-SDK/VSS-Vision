@@ -113,7 +113,7 @@ void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
         pattern[object].singleColorType = ColorType::Pink;
         pattern[object].doubleColorType = ColorType::Pink;
         pattern[object].colorSide = ColorSide::Left;
-    mtxPattern.lock();    
+    mtxPattern.unlock();    
 }
 
 void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
@@ -125,7 +125,7 @@ void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
         pattern[object].singleColorType = ColorType::Pink;
         pattern[object].doubleColorType = ColorType::Pink;
         pattern[object].colorSide = ColorSide::Right;
-    mtxPattern.lock();  
+    mtxPattern.unlock();  
 }
 
 void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
@@ -137,7 +137,7 @@ void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
         pattern[object].singleColorType = ColorType::Green;
         pattern[object].doubleColorType = ColorType::Green;
         pattern[object].colorSide = ColorSide::Left;
-    mtxPattern.lock();  
+    mtxPattern.unlock();  
 }
 
 void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
@@ -149,7 +149,7 @@ void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
         pattern[object].singleColorType = ColorType::Green;
         pattern[object].doubleColorType = ColorType::Green;
         pattern[object].colorSide = ColorSide::Right;
-    mtxPattern.lock();  
+    mtxPattern.unlock();  
 }
 
 void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
@@ -161,7 +161,7 @@ void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
         pattern[object].singleColorType = ColorType::Pink;
         pattern[object].doubleColorType = ColorType::Green;
         pattern[object].colorSide = ColorSide::Right;
-    mtxPattern.lock();  
+    mtxPattern.unlock();  
 }
 
 void VisionWindow::updateLabel(int i) {

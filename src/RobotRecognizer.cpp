@@ -11,6 +11,8 @@
 #include "RobotRecognizer.h"
 
 RobotRecognizer::RobotRecognizer() {
+    blueRobots.resize(5, vss::Robot());
+    yellowRobots.resize(5, vss::Robot());
 }
 
 void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPosition> playerColor, std::vector<ColorPattern> pattern){
@@ -54,6 +56,8 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
         double closestAngle = Math::angle(playerColor[i].points[singleColorIndex], playerColor[i].points[closestColorIndex]);
         double farthestAngle = Math::angle(playerColor[i].points[singleColorIndex], playerColor[i].points[farthestColorIndex]);
 
+        std::cout << closestAngle << " - " << farthestAngle << std::endl;
+
         ColorSide colorSide = recognizeSide(farthestAngle, closestAngle);
 
         ColorPattern colorPattern;
@@ -66,6 +70,10 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
         robot.y = teamColor.points[i].y;
         robot.angle = farthestAngle;
 
+        //std::cout << colorPattern.colorSide << std::endl;
+        //std::cout << colorPattern.singleColorType << std::endl;
+        //std::cout << colorPattern.doubleColorType << std::endl << std::endl;
+
         for(unsigned int j = 3; j < pattern.size() - 1; j++){
 
             if(pattern[j].isEquals(colorPattern)){
@@ -75,12 +83,29 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                     yellowRobots[j-3] = robot;
                 }
             }
-
         }
     }
+    std::cout << std::endl;
+    blueRobots.resize(5, vss::Robot());
+    yellowRobots.resize(5, vss::Robot());
+
+/*
+    for (unsigned int j = 0; j < pattern.size(); j++ ) {
+        std::cout << j << ": " << pattern[j].colorSide << std::endl;
+        std::cout << j << ": " << pattern[j].singleColorType << std::endl;
+        std::cout << j << ": " << pattern[j].doubleColorType << std::endl << std::endl;
+    }
+*/
 }
 
 void RobotRecognizer::recognizeOpponent(ColorPosition colors){
+    
+    if(colors.color == ColorType::Blue){       
+        blueRobots.clear();
+    }else if(colors.color == ColorType::Yellow){
+        yellowRobots.clear();
+    }
+
     for(unsigned int i = 0; i < colors.points.size(); i++){
         vss::Robot robot;
         robot.x = colors.points[i].x;
@@ -92,6 +117,9 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors){
             yellowRobots.push_back(robot);
         }
     }
+
+    blueRobots.resize(5, vss::Robot());
+    yellowRobots.resize(5, vss::Robot());
 }
 
 void RobotRecognizer::recognizeBall(ColorPosition colors){
