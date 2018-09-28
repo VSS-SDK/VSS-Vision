@@ -104,7 +104,7 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
 }
 
 std::vector<ColorPosition> PatternRecognizer::getPlayerColorPosition() {
-    return playerColorPosition;
+        return playerColorPosition;
 }
 
 ColorPosition PatternRecognizer::getBallColorPosition() {
