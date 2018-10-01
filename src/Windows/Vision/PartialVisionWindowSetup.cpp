@@ -19,11 +19,8 @@ VisionWindow::VisionWindow() {
     //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
 
-    teamColorRecognizer = new ColorRecognizer();
-    colorRecognizer1 = new ColorRecognizer();
-    colorRecognizer2 = new ColorRecognizer();
-
     robotRecognizer = new RobotRecognizer();
+    patternRecognizer = new PatternRecognizer();
 
     stateSender = new StateSenderAdapter();
     stateSender->createSocket();
@@ -63,10 +60,7 @@ void VisionWindow::cameraThreadWrapper() {
         mtxChangeInput.unlock();
 
         receiveNewFrame( receivedFrame );
-
-//        usleep(12000);
     }
-
 }
 
 void VisionWindow::windowThreadWrapper() {

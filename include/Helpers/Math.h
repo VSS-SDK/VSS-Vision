@@ -12,6 +12,8 @@ class Math {
 public:
     static double distance(cv::Point, cv::Point);
     static cv::Point midPoint(cv::Point, cv::Point);
+    static double angle(cv::Point, cv::Point);
+    static double constrainAngle(double);
 
 };
 

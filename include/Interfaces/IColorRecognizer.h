@@ -12,8 +12,9 @@
 class IColorRecognizer {
 public:
     virtual void processImage(cv::Mat) = 0;
+    virtual void processImageInSector(cv::Mat, std::vector<cv::Rect>) = 0;
     virtual void setColorRange(ColorRange) = 0;
-    virtual void deleteOutsidePoint(cv::RotatedRect) = 0;
+    virtual void deleteOutsidePoint(cv::RotatedRect, cv::Rect) = 0;
 
     virtual ColorType getColor() = 0;
     virtual ColorRange getColorRange() = 0;

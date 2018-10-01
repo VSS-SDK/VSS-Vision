@@ -25,13 +25,11 @@ cv::Mat cropImage(cv::Mat mat, vss::Point p1, vss::Point p2) {
     return cropImage(mat, rect);
 }
 
-cv::Mat cropImage(cv::Mat mat, cv::Rect rect, float increase){
+cv::Mat cropImage(cv::Mat mat, cv::Rect &rect, float increase){
     rect.x = int (rect.x - rect.width * increase );
     rect.y = int (rect.y - rect.height * increase );
     rect.width = int (rect.width + (rect.width * increase ) * 2);
     rect.height = int (rect.height + (rect.height * increase ) * 2);
-
-    std::cout << rect.width << " - " << rect.height << std::endl;
 
     if (rect.x < 0) rect.x = 0;
     if (rect.y < 0) rect.y = 0;
@@ -53,7 +51,7 @@ cv::Mat drawRotatedRectangle(cv::Mat mat, cv::RotatedRect rotated) {
     rotated.points(vertices);
 
     for (int i = 0; i < 4; i++)
-        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(0,255,0), 2);
+        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(255,255,255), 2);
 
     return mat;
 }
@@ -69,4 +67,18 @@ bool rotatedRectangleContainPoint(cv::RotatedRect rectangle, cv::Point2f point) 
     double indicator = pointPolygonTest(contour, point, false);
 
     return indicator >= 0;
+}
+
+cv::RotatedRect increaseRotatedRect(cv::RotatedRect rectangle, float increase1, float increase2) {
+
+    if (rectangle.size.width > rectangle.size.height) {
+        rectangle.size.width  = int (rectangle.size.width * increase2);
+        rectangle.size.height = int (rectangle.size.height * increase1);
+
+    } else {
+        rectangle.size.width  = int (rectangle.size.width * increase1);
+        rectangle.size.height = int (rectangle.size.height * increase2);
+    }
+
+    return rectangle;
 }

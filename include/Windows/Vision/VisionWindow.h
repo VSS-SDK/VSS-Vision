@@ -9,35 +9,41 @@
 #ifndef VISION_WINDOW_H_
 #define VISION_WINDOW_H_
 
-#include <thread>
 #include <mutex>
-#include <gtkmm.h>
+#include <thread>
 #include <iostream>
+#include <gtkmm.h>
 
-#include "DefaultFilesPath.h"
 #include <CameraReader.h>
 #include <ColorRecognizer.h>
+#include <RobotRecognizer.h>
+#include <PatternRecognizer.h>
 #include <ImageFileReader.h>
-#include <Domain/ProgramState.h>
-#include <Domain/ObjectType.h>
+#include <StateSenderAdapter.h>
+
+#include "GImage.h"
+#include "IVisionWindow.h"
+#include "DefaultFilesPath.h"
+#include "opencv2/highgui/highgui.hpp"
+
+#include <Domain/Ball.h>
+#include <Domain/Robot.h>
 #include <Domain/ColorType.h>
+#include <Domain/ObjectType.h>
+#include <Domain/ProgramState.h>
 #include <Domain/ColorPattern.h>
 #include <Domain/ColorPosition.h>
+
 #include <Interfaces/IInputReader.h>
-#include <Interfaces/ICalibrationRepository.h>
-#include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IColorRecognizer.h>
+#include <Interfaces/IRobotRecognizer.h>
+#include <Interfaces/ICalibrationBuilder.h>
+#include <Interfaces/IPatternRecognizer.h>
+#include <Interfaces/ICalibrationRepository.h>
+
 #include <Helpers/FrameHelper.h>
 #include <Helpers/TimeHelper.h>
 #include <Helpers/Math.h>
-#include <Domain/Ball.h>
-#include <Domain/Robot.h>
-#include <Interfaces/IRobotRecognizer.h>
-#include <RobotRecognizer.h>
-#include <StateSenderAdapter.h>
-#include "GImage.h"
-#include "IVisionWindow.h"
-#include "opencv2/highgui/highgui.hpp"
 
 using namespace std;
 
@@ -72,6 +78,8 @@ private:
     mutable std::mutex mtxGetRobots;
     mutable std::mutex mtxUpdateFrame;
     mutable std::mutex mtxChangeInput;
+    mutable std::mutex mtxPattern;
+    mutable std::mutex mtxCalibration;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
@@ -81,10 +89,9 @@ private:
     IStateSenderAdapter* stateSender;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
-    IColorRecognizer *teamColorRecognizer;
-    IColorRecognizer *colorRecognizer1;
-    IColorRecognizer *colorRecognizer2;
+
     IRobotRecognizer *robotRecognizer;
+    IPatternRecognizer *patternRecognizer;
 
     std::vector<ColorType> mainColorList;
     std::vector<ObjectType> objectList;
@@ -147,12 +154,6 @@ private:
     void receiveNewFrame(cv::Mat);
     void updateLabel(int);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
-
-    void recognizeTeamColor(cv::Mat);
-    void recognizeRobotColor(cv::Mat);
-    void recognizePattern();
-    void calculatePatternAngle(std::vector<cv::Point2f>, std::vector<cv::Point2f>, double&, double&);
-    void calculateSideAngle(double, double);
     };
 
 #endif
