@@ -24,6 +24,9 @@ public:
     ColorPattern(ObjectType, ColorType, ColorType, ColorRange, ColorRange, ColorSide);
 
     bool isEquals(ColorPattern colorPattern);
+
+    friend bool operator==(const ColorPattern& a, const ColorPattern& b);
+
 };
 
 #endif //VSS_VISION_ROBOTCOLORPATTERN_H
