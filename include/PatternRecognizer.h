@@ -35,6 +35,9 @@ public:
     ColorPosition getOpponnetColorPosition() override;
     std::vector<ColorPosition> getPlayerColorPosition() override;
 
+    std::vector<cv::RotatedRect> getBallRotatedRect() override;
+    std::vector<cv::RotatedRect> getTeamRotatedRect() override;
+    std::vector<cv::RotatedRect> getOpponentRotatedRect() override;
 
 private:
     IColorRecognizer *ballColorRecognizer;

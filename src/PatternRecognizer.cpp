@@ -40,7 +40,7 @@ void PatternRecognizer::recognizeMainColor(cv::Mat image, ObjectType type) {
         }
     }
 
-    if (type == ObjectType::Team) {;
+    if (type == ObjectType::Team) {
         if (pattern[type].id == type) {
             teamColorRecognizer->setColorRange(pattern[type].singleColorRange);
             
@@ -127,6 +127,19 @@ ColorPosition PatternRecognizer::getOpponnetColorPosition() {
     position.points = opponentColorRecognizer->getCenters();
     return position;
 }
+
+std::vector<cv::RotatedRect> PatternRecognizer::getBallRotatedRect() {
+    return ballColorRecognizer->getRotatedRectangles();
+}
+
+std::vector<cv::RotatedRect> PatternRecognizer::getTeamRotatedRect() {
+    return teamColorRecognizer->getRotatedRectangles();
+}
+
+std::vector<cv::RotatedRect> PatternRecognizer::getOpponentRotatedRect() {
+    return opponentColorRecognizer->getRotatedRectangles();
+}
+
 
 /*
     // DRAW RECTANGLES

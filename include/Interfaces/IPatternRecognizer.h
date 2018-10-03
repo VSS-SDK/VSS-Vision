@@ -22,6 +22,10 @@ public:
     virtual ColorPosition getTeamColorPosition() = 0;
     virtual ColorPosition getOpponnetColorPosition() = 0;
     virtual std::vector<ColorPosition> getPlayerColorPosition() = 0;
+
+    virtual std::vector<cv::RotatedRect> getBallRotatedRect() = 0;
+    virtual std::vector<cv::RotatedRect> getTeamRotatedRect() = 0;
+    virtual std::vector<cv::RotatedRect> getOpponentRotatedRect() = 0;
 };
 
 #endif // VSS_VISION_IPATTERNRECOGNIZER_H

@@ -38,6 +38,16 @@ void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
             screenImage->set_cut_point_1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
             screenImage->set_cut_point_2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
         mtxCalibration.unlock();
+
+        mtxCalibration.lock();
+            ColorRange range(calibration.colorsRange, ColorType::Orange );
+        mtxCalibration.unlock();
+
+        mtxPattern.lock();
+            pattern[ObjectType::Ball].id = ObjectType::Ball;
+            pattern[ObjectType::Ball].singleColorType = ColorType::Orange;
+            pattern[ObjectType::Ball].singleColorRange = range;
+        mtxPattern.unlock();
     }
 }
 
