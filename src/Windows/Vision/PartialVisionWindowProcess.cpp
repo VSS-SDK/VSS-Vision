@@ -82,7 +82,7 @@ void VisionWindow::processFrame(cv::Mat image) {
     cv::RotatedRect rotated (cv::Point2f(robotRecognizer->getBall().x, robotRecognizer->getBall().y), cv::Size2f(10,10), 0);
     image = drawRotatedRectangle(image, rotated);
 
-    cout << robotRecognizer->getBall() << endl;
+    //cout << robotRecognizer->getBall() << endl;
     
     mtxUpdateFrame.lock();
         frame = image.clone();

@@ -13,6 +13,25 @@
 RobotRecognizer::RobotRecognizer() {
     blueRobots.resize(5, vss::Robot());
     yellowRobots.resize(5, vss::Robot());
+
+    vss::Robot initialRobot;
+    initialRobot.x = initialRobot.y = 0;
+    initialRobot.speedX = initialRobot.speedY = 0;
+    initialRobot.speedAngle = 0;
+
+    ball.x = ball.y = 0;
+    ball.speedX = ball.speedY = 0;
+
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot1, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot2, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot3, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot4, initialRobot));
+    lastRobotsPos.insert(std::make_pair(ObjectType::Robot5, initialRobot));
+
+    lastBallPos = ball;
+
+    // 1/60
+    rate = 0.016;
 }
 
 void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPosition> playerColor, std::vector<ColorPattern> pattern){
@@ -83,6 +102,11 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
 
                 for(unsigned int j = 3; j < pattern.size() - 1; j++){
                     if(pattern[j].isEquals(colorPattern)){
+
+                        robot = calculateRobotSpeeds(static_cast<ObjectType>(j - 3), robot);
+
+                        //std::cout<< j - 3 << " : " << robot.x << " " << robot.y << " " << robot.angle << " / " << robot.speedX << " " << robot.speedY << " " << robot.speedAngle << std::endl;
+
                         if(teamColor.color == ColorType::Blue){
                             blueRobots[j-3] = robot;
                         }else if(teamColor.color == ColorType::Yellow){
@@ -127,8 +151,29 @@ void RobotRecognizer::recognizeBall(ColorPosition colors){
         ball.x = colors.points[0].x;
         ball.y = colors.points[0].y;
     }
+
+    calculateBallSpeed();
+    lastBallPos = ball;
+    //std::cout<< ball.speedX << " " << ball.speedY << std::endl;
 }
 
+void RobotRecognizer::calculateBallSpeed() {
+
+    ball.speedX = (ball.x - lastBallPos.x) / rate;
+    ball.speedY = (ball.y - lastBallPos.y) / rate;
+
+}
+
+vss::Robot RobotRecognizer::calculateRobotSpeeds(ObjectType id, vss::Robot robot) {
+
+    robot.speedAngle = (robot.angle - lastRobotsPos[id].angle) / rate;
+    robot.speedX = (robot.x - lastRobotsPos[id].x) / rate;
+    robot.speedY = (robot.y - lastRobotsPos[id].y) / rate;
+
+    lastRobotsPos[id] = robot;
+
+    return robot;
+}
 
 ColorSide RobotRecognizer::recognizeSide(double farthestAngle, double closestAngle) {
 
