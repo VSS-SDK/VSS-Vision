@@ -27,13 +27,19 @@ private:
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
+    std::map<ObjectType, vss::Robot> lastRobotsPos;
+
     vss::Ball ball;
     vss::Ball lastBallPos;
 
+    double rate;
+
     ColorSide recognizeSide(double farthestAngle, double closestAngle);
 
+    void calculateBallSpeed();
+    vss::Robot calculateRobotSpeeds(ObjectType id, vss::Robot robot);
 
-    vss::Robot calculateRobotsValues(cv::Point2f teamPos, cv::Point2f robotPos, ObjectType robotNumber);
+
 };
 
 #endif

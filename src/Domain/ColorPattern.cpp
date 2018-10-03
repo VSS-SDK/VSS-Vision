@@ -20,6 +20,13 @@ ColorPattern::ColorPattern(ObjectType id, ColorType singleType, ColorType double
     this->colorSide = colorSide;
 }
 
+bool operator==(const ColorPattern& a, const ColorPattern& b) {
+    return (a.doubleColorType == b.doubleColorType) and
+            (a.singleColorType == b.singleColorType) and
+            (a.colorSide == b.colorSide);
+}
+
+
 bool ColorPattern::isEquals(ColorPattern colorPattern) {
     return (colorPattern.doubleColorType == this->doubleColorType &&
             colorPattern.singleColorType == this->singleColorType &&

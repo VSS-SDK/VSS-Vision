@@ -81,6 +81,8 @@ void VisionWindow::processFrame(cv::Mat image) {
         image = drawRotatedRectangle(image, r);
     }
 
+    //cout << robotRecognizer->getBall() << endl;
+    
     mtxUpdateFrame.lock();
         frame = image.clone();
     mtxUpdateFrame.unlock();

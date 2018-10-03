@@ -97,6 +97,11 @@ void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
         pattern[ObjectType::Team].id = ObjectType::Team;
         pattern[ObjectType::Team].singleColorType = mainColorList[row];
         pattern[ObjectType::Team].singleColorRange = range;
+
+        if(pattern[ObjectType::Opponent].singleColorType == mainColorList[row]){
+            comboBoxColorTeam2->set_active(-1);
+            pattern[ObjectType::Opponent] = ColorPattern();
+        }
     mtxPattern.unlock();
 }
 
@@ -111,6 +116,11 @@ void VisionWindow::onComboBoxSelectColorOpponent(Gtk::ComboBox *combobox) {
         pattern[ObjectType::Opponent].id = ObjectType::Opponent;
         pattern[ObjectType::Opponent].singleColorType = mainColorList[row];
         pattern[ObjectType::Opponent].singleColorRange = range;
+
+        if(pattern[ObjectType::Team].singleColorType == mainColorList[row]){
+            comboBoxColorTeam1->set_active(-1);
+            pattern[ObjectType::Team] = ColorPattern();
+        }
     mtxPattern.unlock();
 }
 
@@ -118,60 +128,107 @@ void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
+    ColorPattern colorPattern;
+    colorPattern.id = object;
+    colorPattern.singleColorType = ColorType::Pink;
+    colorPattern.doubleColorType = ColorType::Green;
+    colorPattern.colorSide = ColorSide::Left;
+
     mtxPattern.lock();
-        pattern[object].id = object;
-        pattern[object].singleColorType = ColorType::Pink;
-        pattern[object].doubleColorType = ColorType::Pink;
-        pattern[object].colorSide = ColorSide::Left;
-    mtxPattern.unlock();    
+        auto find = std::find(pattern.begin(), pattern.end(), colorPattern);
+
+        if(find != pattern.end()){
+            *find = ColorPattern();
+        }
+
+        pattern[object] = colorPattern;
+    mtxPattern.unlock();
 }
 
 void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
+    ColorPattern colorPattern;
+    colorPattern.id = object;
+    colorPattern.singleColorType = ColorType::Pink;
+    colorPattern.doubleColorType = ColorType::Green;
+    colorPattern.colorSide = ColorSide::Right;
+
     mtxPattern.lock();
-        pattern[object].id = object;
-        pattern[object].singleColorType = ColorType::Pink;
-        pattern[object].doubleColorType = ColorType::Pink;
-        pattern[object].colorSide = ColorSide::Right;
-    mtxPattern.unlock();  
+        auto find = std::find(pattern.begin(), pattern.end(), colorPattern);
+
+        if(find != pattern.end()){
+            *find = ColorPattern();
+        }
+
+        pattern[object] = colorPattern;
+    mtxPattern.unlock();
 }
 
 void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
+    ColorPattern colorPattern;
+    colorPattern.id = object;
+    colorPattern.singleColorType = ColorType::Green;
+    colorPattern.doubleColorType = ColorType::Pink;
+    colorPattern.colorSide = ColorSide::Right;
+
     mtxPattern.lock();
-        pattern[object].id = object;
-        pattern[object].singleColorType = ColorType::Green;
-        pattern[object].doubleColorType = ColorType::Green;
-        pattern[object].colorSide = ColorSide::Left;
-    mtxPattern.unlock();  
+        auto find = std::find(pattern.begin(), pattern.end(), colorPattern);
+
+        if(find != pattern.end()){
+            *find = ColorPattern();
+        }
+
+        pattern[object] = colorPattern;
+    mtxPattern.unlock();
+
 }
 
 void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
+    ColorPattern colorPattern;
+    colorPattern.id = object;
+    colorPattern.singleColorType = ColorType::Green;
+    colorPattern.doubleColorType = ColorType::Pink;
+    colorPattern.colorSide = ColorSide::Left;
+
     mtxPattern.lock();
-        pattern[object].id = object;
-        pattern[object].singleColorType = ColorType::Green;
-        pattern[object].doubleColorType = ColorType::Green;
-        pattern[object].colorSide = ColorSide::Right;
-    mtxPattern.unlock();  
+        auto find = std::find(pattern.begin(), pattern.end(), colorPattern);
+
+        if(find != pattern.end()){
+            *find = ColorPattern();
+        }
+
+        pattern[object] = colorPattern;
+    mtxPattern.unlock();
+
 }
 
 void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
+    ColorPattern colorPattern;
+    colorPattern.id = object;
+    colorPattern.singleColorType = ColorType::Green;
+    colorPattern.doubleColorType = ColorType::Red;
+    colorPattern.colorSide = ColorSide::Left;
+
     mtxPattern.lock();
-        pattern[object].id = object;
-        pattern[object].singleColorType = ColorType::Pink;
-        pattern[object].doubleColorType = ColorType::Green;
-        pattern[object].colorSide = ColorSide::Right;
-    mtxPattern.unlock();  
+        auto find = std::find(pattern.begin(), pattern.end(), colorPattern);
+
+        if(find != pattern.end()){
+            *find = ColorPattern();
+        }
+
+        pattern[object] = colorPattern;
+    mtxPattern.unlock();
 }
 
 void VisionWindow::updateLabel(int i) {
