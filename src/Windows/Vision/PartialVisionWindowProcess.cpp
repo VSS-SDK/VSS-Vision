@@ -15,7 +15,9 @@ void VisionWindow::receiveNewFrame(cv::Mat image) {
         send(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
     mtxGetRobots.unlock();
 
-    dispatcher_update_gtkmm_frame.emit();
+    mtxFps.lock();
+        timeHelper.calculateFramesPerSecond();
+    mtxFps.unlock();
 }
 
 void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
@@ -23,25 +25,30 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
         stateSender->sendState(blueRobots, yellowRobots, ball);
 }
 
+bool VisionWindow::emitUpdateGtkImage(){
+    dispatcher_update_gtkmm_frame.emit();
+    return true;
+}
+
 void VisionWindow::updateGtkImage() {
     mtxUpdateFrame.lock();
         cv::Mat image = frame.clone();
     mtxUpdateFrame.unlock();
 
-    mtxGetRobots.lock();
     /*
-        onRobotsNewPositions(robotRecognizer->getBlueRobots(),
-                             robotRecognizer->getYellowRobots(),
-                             robotRecognizer->getBall());
-    */
+    mtxGetRobots.lock();
+        onRobotsNewPositions(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
     mtxGetRobots.unlock();
+    */
 
     screenImage->set_image(image);
-    //updateLabel( timeHelper.framesPerSecond() );
+
+    mtxFps.lock();
+        updateLabel(timeHelper.getFramesPerSecond());
+    mtxFps.unlock();
 }
 
 void VisionWindow::processFrame(cv::Mat image) {
-
     mtxCalibration.lock();
         Calibration processCalibration = calibration;
     mtxCalibration.unlock();
@@ -50,8 +57,7 @@ void VisionWindow::processFrame(cv::Mat image) {
         std::vector<ColorPattern> processPattern = pattern;
     mtxPattern.unlock();
 
-   // image = changeRotation(image, processCalibration.rotation);
-    usleep(1000);
+    // image = changeRotation(image, processCalibration.rotation);
     
     if(processCalibration.shouldCropImage){
         image = cropImage(image, processCalibration.cut[0], processCalibration.cut[1]);

@@ -146,6 +146,8 @@ void VisionWindow::builderWidget() {
 }
 
 void VisionWindow::setSignals() {
+
+    connection_update_screen = Glib::signal_timeout().connect(sigc::mem_fun( this, &VisionWindow::emitUpdateGtkImage), 16);
     dispatcher_update_gtkmm_frame.connect(sigc::mem_fun(this, &VisionWindow::updateGtkImage));
 
     window->signal_key_press_event().connect(sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);

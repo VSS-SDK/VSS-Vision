@@ -80,9 +80,11 @@ private:
     mutable std::mutex mtxChangeInput;
     mutable std::mutex mtxPattern;
     mutable std::mutex mtxCalibration;
+    mutable std::mutex mtxFps;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
+    sigc::connection connection_update_screen;
 
     // Classes
     IInputReader *inputReader;
@@ -150,8 +152,11 @@ private:
 
     // Update frame
     void processFrame(cv::Mat);
-    void updateGtkImage();
     void receiveNewFrame(cv::Mat);
+    
+    void updateGtkImage();
+    bool emitUpdateGtkImage();
+    
     void updateLabel(int);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
     };
