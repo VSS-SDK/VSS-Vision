@@ -21,14 +21,16 @@ CalibrationWindow::CalibrationWindow() {
     //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
 
-    teamRecognizer = new ColorRecognizer();
+    colorRecognizer = new ColorRecognizer();
 
     shouldReadInput = true;
     showBinaryImage = false;
     actualColorRangeIndex = 0;
 }
 
-CalibrationWindow::~CalibrationWindow() = default;
+CalibrationWindow::~CalibrationWindow() {
+    connection_update_screen.disconnect();
+}
 
 int CalibrationWindow::run(int argc, char *argv[]){
 
@@ -140,6 +142,7 @@ void CalibrationWindow::builderWidget(){
 
 void CalibrationWindow::setSignals(){
 
+    connection_update_screen = Glib::signal_timeout().connect(sigc::mem_fun( this, &CalibrationWindow::emitUpdateGtkImage), 16);
     dispatcher_update_gtkmm_frame.connect(sigc::mem_fun( this, &CalibrationWindow::updateGtkImage));
 
     window->signal_key_press_event().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(this, &ICalibrationWindow::onKeyboard), window) , false);

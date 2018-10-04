@@ -14,8 +14,9 @@ public:
     void startCounting();
     void restartCounting();
     double getElapsedTime();
+    int getFramesPerSecond();
 
-    int framesPerSecond();
+    void calculateFramesPerSecond();
     bool timeOut(int);
 
 private:

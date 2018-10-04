@@ -12,7 +12,15 @@
 
 void CalibrationWindow::receiveNewFrame(cv::Mat image){
     processFrame(image.clone());
+    
+    mtxFps.lock();
+        timeHelper.calculateFramesPerSecond();
+    mtxFps.unlock();
+}
+
+bool CalibrationWindow::emitUpdateGtkImage(){
     dispatcher_update_gtkmm_frame.emit();
+    return true;
 }
 
 void CalibrationWindow::updateGtkImage(){
@@ -21,31 +29,33 @@ void CalibrationWindow::updateGtkImage(){
     mtxUpdateFrame.unlock();
 
     screenImage->set_image(image);
-    updateLabel( timeHelper.framesPerSecond() );
+
+    mtxFps.lock();
+        updateLabel(timeHelper.getFramesPerSecond());
+    mtxFps.unlock();
 }
 
 void CalibrationWindow::processFrame(cv::Mat image) {
-//    mtx.lock();
+    mtxCalibration.lock();
         Calibration _calibration = calibration;
-//    mtx.unlock();
+    mtxCalibration.unlock();
 
-    image = changeRotation(image, _calibration.rotation);
+    //image = changeRotation(image, _calibration.rotation);
 
     if(_calibration.shouldCropImage) {
         image = cropImage(image, _calibration.cut[0], _calibration.cut[1]);
     }
 
-    teamRecognizer->processImage(image);
-
-    cutPosition[ teamRecognizer->getColor() ] = teamRecognizer->getRectangles();
+    colorRecognizer->processImage(image);
 
     if(showBinaryImage){
        mtxUpdateFrame.lock();
-           frame = teamRecognizer->getBinaryImage().clone();
+           frame = colorRecognizer->getBinaryImage().clone();
        mtxUpdateFrame.unlock();
 
    } else {
-       image = drawRectangle(image, teamRecognizer->getRectangles());
+       image = drawRectangle(image, colorRecognizer->getRectangles());
+       
        mtxUpdateFrame.lock();
            frame = image.clone();
        mtxUpdateFrame.unlock();

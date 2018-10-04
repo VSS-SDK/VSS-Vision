@@ -37,7 +37,7 @@ void VisionWindow::updateGtkImage() {
     mtxGetRobots.unlock();
 
     screenImage->set_image(image);
-    updateLabel( timeHelper.framesPerSecond() );
+    //updateLabel( timeHelper.framesPerSecond() );
 }
 
 void VisionWindow::processFrame(cv::Mat image) {
@@ -50,8 +50,9 @@ void VisionWindow::processFrame(cv::Mat image) {
         std::vector<ColorPattern> processPattern = pattern;
     mtxPattern.unlock();
 
-    image = changeRotation(image, processCalibration.rotation);
-
+   // image = changeRotation(image, processCalibration.rotation);
+    usleep(1000);
+    
     if(processCalibration.shouldCropImage){
         image = cropImage(image, processCalibration.cut[0], processCalibration.cut[1]);
     }
@@ -59,11 +60,13 @@ void VisionWindow::processFrame(cv::Mat image) {
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
 
+    TimeHelper t;
     patternRecognizer->recognizeMainColor(image, ObjectType::Ball);
     patternRecognizer->recognizeMainColor(image, ObjectType::Team);
     patternRecognizer->recognizeMainColor(image, ObjectType::Opponent);
     
     patternRecognizer->recognizeSecondColor(image);
+    std::cout << t.getElapsedTime() << std::endl;
 
     robotRecognizer->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);
     robotRecognizer->recognizeOpponent(patternRecognizer->getOpponnetColorPosition());
@@ -73,15 +76,13 @@ void VisionWindow::processFrame(cv::Mat image) {
         image = drawRotatedRectangle(image, r);
     }
 
-    for (auto r : patternRecognizer->getTeamRotatedRect()) {
-        image = drawRotatedRectangle(image, r);
-    }
-
     for (auto r : patternRecognizer->getOpponentRotatedRect()) {
         image = drawRotatedRectangle(image, r);
     }
 
-    //cout << robotRecognizer->getBall() << endl;
+    for (auto r : patternRecognizer->getTeamRotatedRect()) {
+        image = drawRotatedRectangle(image, r);
+    }
     
     mtxUpdateFrame.lock();
         frame = image.clone();

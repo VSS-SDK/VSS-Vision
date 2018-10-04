@@ -46,7 +46,9 @@ private:
     IColorRecognizer *colorRecognizer1;
     IColorRecognizer *colorRecognizer2;
 
-    TimeHelper timeOptimization;
+    TimeHelper timeBall;
+    TimeHelper timeTeam;
+    TimeHelper timeOpponent;
 
     std::vector<ColorRange> range;
     std::vector<ColorPattern> pattern;

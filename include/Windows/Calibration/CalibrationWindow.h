@@ -80,15 +80,18 @@ private:
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
+    mutable std::mutex mtxCalibration;
     mutable std::mutex mtxChangeInput;
     mutable std::mutex mtxUpdateFrame;
+    mutable std::mutex mtxFps;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
+    sigc::connection connection_update_screen;
 
     // Classes
     IInputReader *inputReader;
-    IColorRecognizer *teamRecognizer;
+    IColorRecognizer *colorRecognizer;
     ICalibrationBuilder *calibrationBuilder;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
@@ -98,7 +101,6 @@ private:
     bool showBinaryImage;
     bool shouldReadInput;
     unsigned int actualColorRangeIndex;
-    std::map<ColorType, std::vector<cv::Rect>> cutPosition;
 
     TimeHelper timeHelper;
     TimeHelper timerOptimization;
@@ -146,8 +148,9 @@ private:
 
     // Update frame
     void processFrame(cv::Mat);
-    void updateGtkImage();
     void receiveNewFrame(cv::Mat);
+    void updateGtkImage();
+    bool emitUpdateGtkImage();
 
     // Events
     void getAllAttributsFromCapture(bool signal);

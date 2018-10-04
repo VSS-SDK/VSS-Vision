@@ -34,7 +34,7 @@ bool TimeHelper::timeOut(int i) {
     }
 }
 
-int TimeHelper::framesPerSecond(){
+void TimeHelper::calculateFramesPerSecond(){
     if (getElapsedTime() >= 1000) {
         numberFrame = numberFrame * 0.7 + contFrame * 0.3;
         contFrame = 0;
@@ -43,6 +43,8 @@ int TimeHelper::framesPerSecond(){
     } else {
         contFrame++;
     }
+}
 
+int TimeHelper::getFramesPerSecond() {
     return numberFrame;
 }
