@@ -51,7 +51,7 @@ cv::Mat drawRotatedRectangle(cv::Mat mat, cv::RotatedRect rotated) {
     rotated.points(vertices);
 
     for (int i = 0; i < 4; i++)
-        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(255,255,255), 2);
+        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(255,255,255), 1);
 
     return mat;
 }

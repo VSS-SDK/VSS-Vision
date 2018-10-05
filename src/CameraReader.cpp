@@ -11,7 +11,7 @@ CameraReader::CameraReader() {
     runningCapture = false;
     shouldCloseReader = false;
     actualCameraIndex = -1;
-    setMapsCalibration();
+    //setMapsCalibration();
 
     // Simulando uma camera
     camerasIndex.push_back(1);
@@ -29,7 +29,8 @@ std::vector<std::string> CameraReader::getAllPossibleSources() {
 
 cv::Mat CameraReader::getFrame() {
     capture >> actualFrame;
-    return getFrameWithoutDistortion(actualFrame);
+    //return getFrameWithoutDistortion(actualFrame);
+    return (actualFrame);
 }
 
 void CameraReader::stopReceivement() {
@@ -42,14 +43,13 @@ void CameraReader::initializeReceivement() {
         return;
     }
 
-    capture = cv::VideoCapture(0);
+    capture = cv::VideoCapture(1);
+    capture.set(CV_CAP_PROP_FRAME_WIDTH, 640);
+    capture.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
 
     if (!capture.isOpened()) {
         std::cerr << "[Error] Camera cannot open" << std::endl;
     }
-
-    capture.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
 
 }
 
@@ -123,76 +123,4 @@ std::vector<int> CameraReader::getCamerasIndex() {
 
 cv::VideoCapture CameraReader::getCapture() {
     return capture;
-}
-
-void CameraReader::setBrightness(float value) {
-    if (!capture.isOpened()) {
-        std::cerr << "[Error] capture is closed" << std::endl;
-        return;
-    }
-
-    capture.set(CV_CAP_PROP_BRIGHTNESS, value / 100.0);
-}
-
-void CameraReader::setGain(float value) {
-    if (!capture.isOpened()) {
-        std::cerr << "[Error] capture is closed" << std::endl;
-        return;
-    }
-
-    capture.set(CV_CAP_PROP_CONTRAST, value / 100.0);
-}
-
-void CameraReader::setSaturation(float value) {
-    if (!capture.isOpened()) {
-        std::cerr << "[Error] capture is closed" << std::endl;
-        return;
-    }
-
-    capture.set(CV_CAP_PROP_SATURATION, value / 100.0);
-}
-
-void CameraReader::setContrast(float value) {
-    if (!capture.isOpened()) {
-        std::cerr << "[Error] capture is closed" << std::endl;
-        return;
-    }
-
-    capture.set(CV_CAP_PROP_GAIN, value / 100.0);
-}
-
-float CameraReader::getBrightness() {
-    if (!capture.isOpened()) {
-        std::cerr << "[Error] capture is closed" << std::endl;
-        return 0;
-    }
-
-    return static_cast<float>(capture.get(CV_CAP_PROP_BRIGHTNESS) * 100.0);
-}
-
-float CameraReader::getGain() {
-    if (!capture.isOpened()) {
-        std::cerr << "[Error] capture is closed" << std::endl;
-        return 0;
-    }
-
-    return static_cast<float>(capture.get(CV_CAP_PROP_GAIN) * 100.0);
-}
-
-float CameraReader::getSaturation() {
-    if (!capture.isOpened()) {
-        std::cerr << "[Error] capture is closed" << std::endl;
-        return 0;
-    }
-
-    return static_cast<float>(capture.get(CV_CAP_PROP_SATURATION) * 100.0);
-}
-
-float CameraReader::getContrast() {
-    if (!capture.isOpened()) {
-        std::cerr << "[Error] capture is closed" << std::endl;
-        return 0;
-    }
-
-    return static_cast<float>(capture.get(CV_CAP_PROP_CONTRAST) * 100.0);
 }

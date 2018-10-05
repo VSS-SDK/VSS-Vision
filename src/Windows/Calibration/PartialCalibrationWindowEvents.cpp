@@ -11,14 +11,6 @@
 #include <Windows/Calibration/CalibrationWindow.h>
 #include <Domain/ColorSpace.h>
 
-
-void CalibrationWindow::getAllAttributsFromCapture(bool signal) {
-  scaleCameraConfig[Gain]->set_value(inputReader->getGain());
-  scaleCameraConfig[Contrast]->set_value(inputReader->getContrast());
-  scaleCameraConfig[Brightness]->set_value(inputReader->getBrightness());
-  scaleCameraConfig[Saturation]->set_value(inputReader->getSaturation());
-}
-
 void CalibrationWindow::applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*> scale) {
 
   for(unsigned int i = 0 ; i < calibration.colorsRange.size() ; i++) {
@@ -62,15 +54,10 @@ void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser, Gtk::E
   }
 }
 
-void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry, std::vector<Gtk::Scale*> scale_cam_config){
+void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry, Gtk::Scale* scale_rotation){
   if (entry->get_text_length() > 0){
     calibration = calibrationRepository->read(fileChooser->get_filename());
-    scale_cam_config[Saturation]->set_value(calibration.saturation);
-    scale_cam_config[Brightness]->set_value(calibration.brightness);
-    scale_cam_config[Exposure]->set_value(calibration.exposure);
-    scale_cam_config[Contrast]->set_value(calibration.contrast);
-    scale_cam_config[Rotation]->set_value(calibration.rotation);
-    scale_cam_config[Gain]->set_value(calibration.gain);
+    scale_rotation->set_value(calibration.rotation);
     fileChooser->hide();
   }
 }
@@ -188,30 +175,6 @@ void CalibrationWindow::onScaleVMIN(Gtk::Scale* scale){
   colorRecognizer->setColorRange(calibration.colorsRange.at(actualColorRangeIndex));
 }
 
-void CalibrationWindow::onScaleGain(Gtk::Scale* scale){
-  calibration.gain = static_cast<float>(scale->get_value());
-  inputReader->setGain(calibration.gain);
-}
-
-void CalibrationWindow::onScaleContrast(Gtk::Scale* scale){
-  calibration.contrast = static_cast<float>(scale->get_value());
-  inputReader->setContrast(calibration.contrast);
-}
-
 void CalibrationWindow::onScaleRotation(Gtk::Scale* scale){
   calibration.rotation = static_cast<float>(scale->get_value());
-}
-
-void CalibrationWindow::onScaleExposure(Gtk::Scale* scale){
-  //calibration.exposure = static_cast<float>(scale->get_value());
-}
-
-void CalibrationWindow::onScaleBrightness(Gtk::Scale* scale){
-  calibration.brightness = static_cast<float>(scale->get_value());
-  inputReader->setBrightness(calibration.brightness);
-}
-
-void CalibrationWindow::onScaleSaturation(Gtk::Scale* scale){
-  calibration.saturation = static_cast<float>(scale->get_value());
-  inputReader->setSaturation(calibration.saturation);
 }

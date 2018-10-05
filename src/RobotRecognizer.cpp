@@ -100,6 +100,8 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                 robot.y = teamColor.points[i].y;
                 robot.angle = farthestAngle;
 
+                std::cout << "TESTS: " << robot << std::endl;
+
                 for(unsigned int j = 3; j < pattern.size() - 1; j++){
                     if(pattern[j].isEquals(colorPattern)){
 

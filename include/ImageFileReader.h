@@ -17,16 +17,6 @@ public:
     void initializeReceivement() override;
     void stopReceivement() override;
 
-    void setBrightness(float) override;
-    void setGain(float) override;
-    void setSaturation(float) override;
-    void setContrast(float) override;
-
-    float getBrightness() override;
-    float getGain() override;
-    float getSaturation() override;
-    float getContrast() override;
-
 private:
     std::string source;
     cv::Mat frame;

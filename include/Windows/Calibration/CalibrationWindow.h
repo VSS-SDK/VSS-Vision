@@ -46,7 +46,7 @@ public:
     void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
     void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) override;
-    void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*, std::vector<Gtk::Scale*>) override;
+    void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*, Gtk::Scale*) override;
 
     void onScaleHMAX(Gtk::Scale*) override;
     void onScaleHMIN(Gtk::Scale*) override;
@@ -55,12 +55,7 @@ public:
     void onScaleVMAX(Gtk::Scale*) override;
     void onScaleVMIN(Gtk::Scale*) override;
 
-    void onScaleGain(Gtk::Scale*) override;
-    void onScaleContrast(Gtk::Scale*) override;
     void onScaleRotation(Gtk::Scale*) override;
-    void onScaleExposure(Gtk::Scale*) override;
-    void onScaleBrightness(Gtk::Scale*) override;
-    void onScaleSaturation(Gtk::Scale*) override;
 
     void onRadioButtonImage(Gtk::RadioButton*) override;
     void onRadioButtonVideo(Gtk::RadioButton*) override;
@@ -120,8 +115,8 @@ private:
     Gtk::ComboBox* comboBoxPath = nullptr;
     Gtk::ComboBox* comboBoxColor = nullptr;
 
+    Gtk::Scale* scaleRotation;
     std::vector<Gtk::Scale*> scaleHSV;
-    std::vector<Gtk::Scale*> scaleCameraConfig;
 
     Gtk::Button* buttonSave = nullptr;
     Gtk::Button* buttonRestoreCut = nullptr;
@@ -153,7 +148,6 @@ private:
     bool emitUpdateGtkImage();
 
     // Events
-    void getAllAttributsFromCapture(bool signal);
     void applyActualColorRangeToSlidersHSV(ColorType type, std::vector<Gtk::Scale*>);
 
     void updateLabel(int);
