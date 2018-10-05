@@ -21,6 +21,27 @@ void VisionWindow::receiveNewFrame(cv::Mat image) {
 }
 
 void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
+
+    mtxUpdateFrame.lock();
+        cv::Mat image = frame.clone();
+    mtxUpdateFrame.unlock();
+
+    for (auto &robot : blueRobots) {
+        robot.x = (robot.x * 170) / image.cols;
+        robot.y = (robot.y * 170) / image.cols;
+        cout << "Blue:\t" << robot << endl;
+    }
+
+    for (auto &robot : yellowRobots) {
+        robot.x = (robot.x * 170) / image.cols;
+        robot.y = (robot.y * 170) / image.cols;
+        cout << "Yellow:\t" << robot << endl;
+    }
+
+    ball.x = (ball.x * 170) / image.cols;
+    ball.y = (ball.y * 170) / image.cols;
+    cout << "Ball:\t" << ball << endl << endl;
+
     if(playing)
         stateSender->sendState(blueRobots, yellowRobots, ball);
 }
@@ -87,10 +108,6 @@ void VisionWindow::processFrame(cv::Mat image) {
     for (auto r : patternRecognizer->getTeamRotatedRect()) {
         image = drawRotatedRectangle(image, r);
     }
-
-    for (auto robot : robotRecognizer->getYellowRobots())
-        cout << robot << endl;
-    cout << endl;
 
     mtxUpdateFrame.lock();
         frame = image.clone();

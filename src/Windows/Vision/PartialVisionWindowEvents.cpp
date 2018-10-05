@@ -131,7 +131,7 @@ void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
     ColorPattern colorPattern;
     colorPattern.id = object;
     colorPattern.singleColorType = ColorType::Pink;
-    colorPattern.doubleColorType = ColorType::Green;
+    colorPattern.doubleColorType = ColorType::Pink;
     colorPattern.colorSide = ColorSide::Left;
 
     mtxPattern.lock();
@@ -152,7 +152,7 @@ void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
     ColorPattern colorPattern;
     colorPattern.id = object;
     colorPattern.singleColorType = ColorType::Pink;
-    colorPattern.doubleColorType = ColorType::Green;
+    colorPattern.doubleColorType = ColorType::Pink;
     colorPattern.colorSide = ColorSide::Right;
 
     mtxPattern.lock();
@@ -173,8 +173,8 @@ void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
     ColorPattern colorPattern;
     colorPattern.id = object;
     colorPattern.singleColorType = ColorType::Green;
-    colorPattern.doubleColorType = ColorType::Pink;
-    colorPattern.colorSide = ColorSide::Right;
+    colorPattern.doubleColorType = ColorType::Green;
+    colorPattern.colorSide = ColorSide::Left;
 
     mtxPattern.lock();
         auto find = std::find(pattern.begin(), pattern.end(), colorPattern);
@@ -195,8 +195,8 @@ void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
     ColorPattern colorPattern;
     colorPattern.id = object;
     colorPattern.singleColorType = ColorType::Green;
-    colorPattern.doubleColorType = ColorType::Pink;
-    colorPattern.colorSide = ColorSide::Left;
+    colorPattern.doubleColorType = ColorType::Green;
+    colorPattern.colorSide = ColorSide::Right;
 
     mtxPattern.lock();
         auto find = std::find(pattern.begin(), pattern.end(), colorPattern);
@@ -216,9 +216,9 @@ void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
 
     ColorPattern colorPattern;
     colorPattern.id = object;
-    colorPattern.singleColorType = ColorType::Green;
-    colorPattern.doubleColorType = ColorType::Red;
-    colorPattern.colorSide = ColorSide::Left;
+    colorPattern.singleColorType = ColorType::Pink;
+    colorPattern.doubleColorType = ColorType::Green;
+    colorPattern.colorSide = ColorSide::Right;
 
     mtxPattern.lock();
         auto find = std::find(pattern.begin(), pattern.end(), colorPattern);
