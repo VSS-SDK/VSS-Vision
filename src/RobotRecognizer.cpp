@@ -104,8 +104,6 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                 for(unsigned int j = 3; j < pattern.size() - 1; j++){
 
                     if(pattern[j].isEquals(colorPattern)){
-                        robot = calculateRobotSpeeds(static_cast<ObjectType>(j - 3), robot);
-
                         if(teamColor.color == ColorType::Blue){
                             blueRobots[j-3] = robot;
                         }else if(teamColor.color == ColorType::Yellow){
@@ -113,6 +111,17 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                         }
                     }
                 }
+
+                if(teamColor.color == ColorType::Blue){
+                    for(unsigned int i = 0; i < blueRobots.size(); i++){
+                        blueRobots[i] = calculateRobotSpeedsAndFilter(static_cast<ObjectType>(i), blueRobots[i]);
+                    }
+                }else if(teamColor.color == ColorType::Yellow){
+                    for(unsigned int i = 0; i < yellowRobots.size(); i++){
+                        yellowRobots[i] = calculateRobotSpeedsAndFilter(static_cast<ObjectType>(i), yellowRobots[i]);
+                    }
+                }
+
             }
         }
     }
@@ -150,6 +159,8 @@ void RobotRecognizer::recognizeBall(ColorPosition colors){
         ball.x = colors.points[0].x;
         ball.y = colors.points[0].y;
     }
+    ball.x = filter(ball.x, lastBallPos.x);
+    ball.y = filter(ball.y, lastBallPos.y);
 
     calculateBallSpeed();
     lastBallPos = ball;
@@ -161,13 +172,22 @@ void RobotRecognizer::calculateBallSpeed() {
     ball.speedX = (ball.x - lastBallPos.x) / rate;
     ball.speedY = (ball.y - lastBallPos.y) / rate;
 
+    ball.speedX = filter(ball.speedX, lastBallPos.speedX);
+    ball.speedY = filter(ball.speedY, lastBallPos.speedY);
 }
 
-vss::Robot RobotRecognizer::calculateRobotSpeeds(ObjectType id, vss::Robot robot) {
+vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(ObjectType id, vss::Robot robot) {
+    robot.x = filter(robot.x, lastRobotsPos[id].x);
+    robot.y = filter(robot.y, lastRobotsPos[id].y);
+    robot.angle = filter(robot.angle, lastRobotsPos[id].angle);
 
     robot.speedAngle = (robot.angle - lastRobotsPos[id].angle) / rate;
     robot.speedX = (robot.x - lastRobotsPos[id].x) / rate;
     robot.speedY = (robot.y - lastRobotsPos[id].y) / rate;
+
+    robot.speedAngle = filter(robot.speedAngle, lastRobotsPos[id].speedAngle);
+    robot.speedX = filter(robot.speedX, lastRobotsPos[id].speedX);
+    robot.speedY = filter(robot.speedY, lastRobotsPos[id].speedY);
 
     lastRobotsPos[id] = robot;
 
@@ -195,6 +215,13 @@ ColorSide RobotRecognizer::recognizeSide(double farthestAngle, double closestAng
         }
     }
     return colorSide;
+}
+
+double RobotRecognizer::filter(double current, double last) {
+    float weight = 0.9;
+    //return (last + (1-weight)*(current - last));
+    //return (weight*last + (1-weight)*current);
+    return (current + last)/2;
 }
 
 std::vector<vss::Robot> RobotRecognizer::getBlueRobots(){

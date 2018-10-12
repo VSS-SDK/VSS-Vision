@@ -37,8 +37,8 @@ private:
     ColorSide recognizeSide(double farthestAngle, double closestAngle);
 
     void calculateBallSpeed();
-    vss::Robot calculateRobotSpeeds(ObjectType id, vss::Robot robot);
-
+    vss::Robot calculateRobotSpeedsAndFilter(ObjectType id, vss::Robot robot);
+    double filter(double current, double last);
 
 };
 
