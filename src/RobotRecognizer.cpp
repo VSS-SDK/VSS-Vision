@@ -98,7 +98,7 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                 vss::Robot robot;
                 robot.x = teamColor.points[i].x;
                 robot.y = teamColor.points[i].y;
-                robot.angle = farthestAngle;
+                robot.angle = Math::constrainAngle(farthestAngle + 45);
 
 
                 for(unsigned int j = 3; j < pattern.size() - 1; j++){
@@ -218,7 +218,7 @@ ColorSide RobotRecognizer::recognizeSide(double farthestAngle, double closestAng
 }
 
 double RobotRecognizer::filter(double current, double last) {
-    float weight = 0.9;
+    //float weight = 0.9;
     //return (last + (1-weight)*(current - last));
     //return (weight*last + (1-weight)*current);
     return (current + last)/2;

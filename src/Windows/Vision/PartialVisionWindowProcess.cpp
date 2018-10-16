@@ -28,18 +28,18 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
 
     for (auto &robot : blueRobots) {
         robot.x = (robot.x * 170) / image.cols;
-        robot.y = (robot.y * 170) / image.cols;
+        robot.y = (robot.y * 130) / image.cols;
         cout << "Blue:\t" << robot << endl;
     }
 
     for (auto &robot : yellowRobots) {
         robot.x = (robot.x * 170) / image.cols;
-        robot.y = (robot.y * 170) / image.cols;
+        robot.y = (robot.y * 130) / image.cols;
         cout << "Yellow:\t" << robot << endl;
     }
 
     ball.x = (ball.x * 170) / image.cols;
-    ball.y = (ball.y * 170) / image.cols;
+    ball.y = (ball.y * 130) / image.cols;
     cout << "Ball:\t" << ball << endl << endl;
 
     if(playing)
@@ -98,6 +98,7 @@ void VisionWindow::processFrame(cv::Mat image) {
     robotRecognizer->recognizeBall(patternRecognizer->getBallColorPosition());
 
     for (auto r : patternRecognizer->getBallRotatedRect()) {
+        r.angle = 0;
         image = drawRotatedRectangle(image, r);
     }
 

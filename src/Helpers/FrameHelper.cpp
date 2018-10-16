@@ -26,15 +26,20 @@ cv::Mat cropImage(cv::Mat mat, vss::Point p1, vss::Point p2) {
 }
 
 cv::Mat cropImage(cv::Mat mat, cv::Rect &rect, float increase){
-    rect.x = int (rect.x - rect.width * increase );
-    rect.y = int (rect.y - rect.height * increase );
-    rect.width = int (rect.width + (rect.width * increase ) * 2);
-    rect.height = int (rect.height + (rect.height * increase ) * 2);
+
+    int increaseWidth = rect.width * increase;
+    int increaseHeight = rect.height * increase;
+
+    rect.x = rect.x - increaseWidth;
+    rect.y = rect.y - increaseHeight;
+
+    rect.width = rect.width + increaseWidth * 2;
+    rect.height = rect.height + increaseHeight * 2;
 
     if (rect.x < 0) rect.x = 0;
     if (rect.y < 0) rect.y = 0;
-    if (rect.width > mat.cols) rect.x = mat.cols;
-    if (rect.height > mat.rows) rect.y = mat.rows;
+    if (rect.x + rect.width > mat.cols) rect.width = mat.cols - rect.x;
+    if (rect.y + rect.height > mat.rows) rect.height = mat.rows - rect.y;
 
     return cropImage(mat, rect);
 }
@@ -51,7 +56,7 @@ cv::Mat drawRotatedRectangle(cv::Mat mat, cv::RotatedRect rotated) {
     rotated.points(vertices);
 
     for (int i = 0; i < 4; i++)
-        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(255,255,255), 1);
+        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(255,255,255), 2);
 
     return mat;
 }
