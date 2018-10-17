@@ -27,10 +27,11 @@ private:
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
-    std::map<ObjectType, vss::Robot> lastRobotsPos;
+    std::vector<std::map<ObjectType, vss::Robot>> lastsRobotsPos;
 
     vss::Ball ball;
-    vss::Ball lastBallPos;
+    std::vector<vss::Ball> lastsBallPos;
+    int lastsNumber = 3;
 
     double rate;
 
@@ -38,8 +39,8 @@ private:
 
     void calculateBallSpeed();
     vss::Robot calculateRobotSpeedsAndFilter(ObjectType id, vss::Robot robot);
-    double filter(double current, double last);
-
+    void filterBallPosition();
+    void filterBallSpeed();
 };
 
 #endif
