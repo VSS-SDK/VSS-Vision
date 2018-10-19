@@ -18,11 +18,15 @@ public:
     void recognizeOpponent(ColorPosition) override;
     void recognizeBall(ColorPosition) override;
 
+    void setImage(cv::Mat image) override;
+
     vss::Ball getBall() override;
     std::vector<vss::Robot> getBlueRobots() override;
     std::vector<vss::Robot> getYellowRobots() override;
 
 private:
+
+    cv::Mat image;
 
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
@@ -41,6 +45,9 @@ private:
     vss::Robot calculateRobotSpeedsAndFilter(ObjectType id, vss::Robot robot);
     void filterBallPosition();
     void filterBallSpeed();
+
+    vss::Robot convertRobotPosePixelToCentimeter(vss::Robot);
+    void convertBallPosePixelToCentimeter();
 };
 
 #endif

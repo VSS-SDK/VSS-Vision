@@ -27,19 +27,13 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
     mtxUpdateFrame.unlock();
 
     for (auto &robot : blueRobots) {
-        robot.x = (robot.x * 170) / image.cols;
-        robot.y = (robot.y * 130) / image.cols;
         cout << "Blue:\t" << robot << endl;
     }
 
     for (auto &robot : yellowRobots) {
-        robot.x = (robot.x * 170) / image.cols;
-        robot.y = (robot.y * 130) / image.cols;
         cout << "Yellow:\t" << robot << endl;
     }
 
-    ball.x = (ball.x * 170) / image.cols;
-    ball.y = (ball.y * 130) / image.cols;
     cout << "Ball:\t" << ball << endl << endl;
 
     if(playing)
@@ -93,6 +87,7 @@ void VisionWindow::processFrame(cv::Mat image) {
     
     patternRecognizer->recognizeSecondColor(image);
 
+    robotRecognizer->setImage(image);
     robotRecognizer->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);
     robotRecognizer->recognizeOpponent(patternRecognizer->getOpponnetColorPosition());
     robotRecognizer->recognizeBall(patternRecognizer->getBallColorPosition());

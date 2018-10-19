@@ -106,6 +106,8 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                 robot.y = teamColor.points[i].y;
                 robot.angle = Math::constrainAngle(farthestAngle + 45);
 
+                robot = convertRobotPosePixelToCentimeter(robot);
+
 
                 for(unsigned int j = 3; j < pattern.size() - 1; j++){
 
@@ -165,6 +167,8 @@ void RobotRecognizer::recognizeBall(ColorPosition colors){
         ball.x = colors.points[0].x;
         ball.y = colors.points[0].y;
     }
+
+    convertBallPosePixelToCentimeter();
 
     filterBallPosition();
     calculateBallSpeed();
@@ -277,6 +281,21 @@ ColorSide RobotRecognizer::recognizeSide(double farthestAngle, double closestAng
         }
     }
     return colorSide;
+}
+
+vss::Robot RobotRecognizer::convertRobotPosePixelToCentimeter(vss::Robot robot){
+    robot.x = (robot.x * 170) / image.cols;
+    robot.y = (robot.y * 130) / image.rows;
+    return robot;
+}
+
+void RobotRecognizer::convertBallPosePixelToCentimeter() {
+    ball.x = (ball.x * 170) / image.cols;
+    ball.y = (ball.y * 130) / image.rows;
+}
+
+void RobotRecognizer::setImage(cv::Mat image) {
+    this->image = image;
 }
 
 std::vector<vss::Robot> RobotRecognizer::getBlueRobots(){

@@ -25,6 +25,8 @@ public:
     virtual void recognizeTeam(ColorPosition, std::vector<ColorPosition>, std::vector<ColorPattern>) = 0;
     virtual void recognizeOpponent(ColorPosition) = 0;
     virtual void recognizeBall(ColorPosition) = 0;
+
+    virtual void setImage(cv::Mat) = 0;
     
     virtual vss::Ball getBall() = 0;
     virtual std::vector<vss::Robot> getBlueRobots() = 0;
