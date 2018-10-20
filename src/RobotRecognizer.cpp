@@ -22,6 +22,7 @@ RobotRecognizer::RobotRecognizer() {
     ball.x = ball.y = 0;
     ball.speedX = ball.speedY = 0;
 
+
     for(int i = 0; i < lastsNumber; i++){
         std::map<ObjectType, vss::Robot> lastRobotsPos;
         lastRobotsPos.insert(std::make_pair(ObjectType::Robot1, initialRobot));
@@ -36,6 +37,15 @@ RobotRecognizer::RobotRecognizer() {
 
     // 1/60
     rate = 0.016;
+
+    RobotTeamKalmanFilter robotTeamKalmanFilter;
+    robotTeamKalmanFilter.setDeltaTime(rate);
+
+    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot1, robotTeamKalmanFilter));
+    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot2, robotTeamKalmanFilter));
+    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot3, robotTeamKalmanFilter));
+    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot4, robotTeamKalmanFilter));
+    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot5, robotTeamKalmanFilter));
 
     ballKalmanFilter.setDeltaTime(rate);
 }
@@ -229,7 +239,7 @@ void RobotRecognizer::filterBallSpeed() {
 }
 
 vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(ObjectType id, vss::Robot robot) {
-    double sumX = robot.x;
+    /*double sumX = robot.x;
     double sumY = robot.y;
     double sumAngle = robot.angle;
 
@@ -268,7 +278,16 @@ vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(ObjectType id, vss::Ro
     lastsRobotsPos[0][id] = robot;
     for(int i = 1; i < lastsNumber; i++){
         lastsRobotsPos[i][id] = lastsRobotsPosAux[i-1][id];
-    }
+    }*/
+    //if(id == 0){
+        //std::cout<<"Medição do robô: "<<id<<std::endl;
+        //std::cout<<robot<<std::endl;
+    //}
+    robotsTeamKalmanFilter[id].setFoundFlag(true);
+    robotsTeamKalmanFilter[id].setRobot(robot);
+    robotsTeamKalmanFilter[id].predict();
+    robotsTeamKalmanFilter[id].update();
+    robot = robotsTeamKalmanFilter[id].getRobot();
 
     return robot;
 }

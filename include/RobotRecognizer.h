@@ -7,7 +7,8 @@
 #include "Domain/ColorSide.h"
 #include "Domain/ColorPosition.h"
 #include "Domain/ColorPattern.h"
-#include "BallKalmanFIlter.h"
+#include "BallKalmanFilter.h"
+#include "RobotTeamKalmanFilter.h"
 
 class RobotRecognizer : public IRobotRecognizer {
 
@@ -32,6 +33,7 @@ private:
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
+    std::map<ObjectType, RobotTeamKalmanFilter> robotsTeamKalmanFilter;;
     std::vector<std::map<ObjectType, vss::Robot>> lastsRobotsPos;
 
     vss::Ball ball;

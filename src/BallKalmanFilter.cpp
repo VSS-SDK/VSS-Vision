@@ -2,7 +2,7 @@
 // Created by paulo on 19/10/18.
 //
 
-#include "BallKalmanFIlter.h"
+#include "BallKalmanFilter.h"
 
 BallKalmanFilter::BallKalmanFilter(){
     notFoundCount = 0;
@@ -38,8 +38,6 @@ void BallKalmanFilter::init() {
     // Measure Matrix H
     // [ 1 0 0 0 ]
     // [ 0 1 0 0 ]
-    // [ 0 0 0 0 ]
-    // [ 0 0 0 0 ]
     kalmanFilter.measurementMatrix = cv::Mat::zeros(measSize, stateSize, type);
     kalmanFilter.measurementMatrix.at<float>(0) = 1.0f;
     kalmanFilter.measurementMatrix.at<float>(5) = 1.0f;
