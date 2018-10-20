@@ -22,8 +22,6 @@ RobotRecognizer::RobotRecognizer() {
     ball.x = ball.y = 0;
     ball.speedX = ball.speedY = 0;
 
-    std::cout<<"start"<<std::endl;
-
     for(int i = 0; i < lastsNumber; i++){
         std::map<ObjectType, vss::Robot> lastRobotsPos;
         lastRobotsPos.insert(std::make_pair(ObjectType::Robot1, initialRobot));
@@ -38,6 +36,8 @@ RobotRecognizer::RobotRecognizer() {
 
     // 1/60
     rate = 0.016;
+
+    ballKalmanFilter.setDeltaTime(rate);
 }
 
 void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPosition> playerColor, std::vector<ColorPattern> pattern){
@@ -167,12 +167,25 @@ void RobotRecognizer::recognizeBall(ColorPosition colors){
         ball.x = colors.points[0].x;
         ball.y = colors.points[0].y;
     }
-
     convertBallPosePixelToCentimeter();
+    //std::cout << ball << std::endl;
 
-    filterBallPosition();
-    calculateBallSpeed();
-    filterBallSpeed();
+    //convertBallPosePixelToCentimeter();
+    if(ball.x <= 0.1 && ball.y <= 0.1 && ball.y <= -0.1 && ball.x <= -0.1 ){
+        ballKalmanFilter.setFoundFlag(false);
+        //std::cout<<"sumiu"<<std::endl;
+    }else{
+        ballKalmanFilter.setFoundFlag(true);
+    }
+
+    ballKalmanFilter.setBall(ball);
+    ballKalmanFilter.predict();
+    ballKalmanFilter.update();
+    ball = ballKalmanFilter.getBall();
+
+    //filterBallPosition();
+    //calculateBallSpeed();
+    //filterBallSpeed();
 
     std::vector<vss::Ball> lastsBallPosAux = lastsBallPos;
     lastsBallPos[0] = ball;

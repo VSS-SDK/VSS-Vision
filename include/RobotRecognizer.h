@@ -7,6 +7,7 @@
 #include "Domain/ColorSide.h"
 #include "Domain/ColorPosition.h"
 #include "Domain/ColorPattern.h"
+#include "BallKalmanFIlter.h"
 
 class RobotRecognizer : public IRobotRecognizer {
 
@@ -48,6 +49,8 @@ private:
 
     vss::Robot convertRobotPosePixelToCentimeter(vss::Robot);
     void convertBallPosePixelToCentimeter();
+
+    BallKalmanFilter ballKalmanFilter;
 };
 
 #endif
