@@ -279,10 +279,10 @@ vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(ObjectType id, vss::Ro
     for(int i = 1; i < lastsNumber; i++){
         lastsRobotsPos[i][id] = lastsRobotsPosAux[i-1][id];
     }*/
-    //if(id == 0){
-        //std::cout<<"Medição do robô: "<<id<<std::endl;
-        //std::cout<<robot<<std::endl;
-    //}
+    if(id == 0){
+        std::cout<<"Medição do robô: "<<id<<std::endl;
+        std::cout<<robot<<std::endl;
+    }
     robotsTeamKalmanFilter[id].setFoundFlag(true);
     robotsTeamKalmanFilter[id].setRobot(robot);
     robotsTeamKalmanFilter[id].predict();

@@ -26,18 +26,18 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
         cv::Mat image = frame.clone();
     mtxUpdateFrame.unlock();
 
-    //cout<<"Predição do robo: "<<std::endl;
-    //cout<<yellowRobots[0]<<endl;
+    cout<<"Predição do robo: "<<std::endl;
+    cout<<yellowRobots[0]<<endl;
 
 //    for (auto &robot : blueRobots) {
 //        cout << "Blue:\t" << robot << endl;
 //    }
 
-    for (auto &robot : yellowRobots) {
-        cout << "Yellow:\t" << robot << endl;
-    }
+//    for (auto &robot : yellowRobots) {
+//        cout << "Yellow:\t" << robot << endl;
+//    }
 //
-    cout << "Ball:\t" << ball << endl << endl;
+//    cout << "Ball:\t" << ball << endl << endl;
 
     if(playing)
         stateSender->sendState(blueRobots, yellowRobots, ball);
