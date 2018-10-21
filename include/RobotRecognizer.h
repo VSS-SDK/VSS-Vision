@@ -36,26 +36,19 @@ private:
     std::vector<vss::Robot> lastBlueRobots;
     std::vector<vss::Robot> lastYellowRobots;
 
-    std::vector<std::map<ObjectType, vss::Robot>> lastsRobotsPos;
-
     vss::Ball ball;
-    std::vector<vss::Ball> lastsBallPos;
-    int lastsNumber = 3;
 
     double rate;
 
     ColorSide recognizeSide(double farthestAngle, double closestAngle);
+    vss::Robot calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot);
 
-    void calculateBallSpeed();
-    vss::Robot calculateRobotSpeedsAndFilter(ObjectType id, vss::Robot robot);
-    void filterBallPosition();
-    void filterBallSpeed();
 
     vss::Robot convertRobotPosePixelToCentimeter(vss::Robot);
     void convertBallPosePixelToCentimeter();
 
     BallKalmanFilter ballKalmanFilter;
-    std::map<ObjectType, RobotTeamKalmanFilter> robotsTeamKalmanFilter;
+    std::vector<RobotTeamKalmanFilter> robotsTeamKalmanFilter;
 
     void keepOpponentOrder(ColorType);
 

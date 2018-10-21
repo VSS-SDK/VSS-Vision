@@ -84,7 +84,7 @@ void RobotTeamKalmanFilter::predict() {
         robotPredicted.speedAngle = state.at<float>(5);
 
         //std::cout<<"Predição do robo:"<<std::endl;
-        //std::cout<<"( "<<state.at<float>(0)<<" , "<<state.at<float>(1)<<" , "<<state.at<float>(2)<<" , "<<state.at<float>(3)<<" , "<<state.at<float>(4)<<" , "<<state.at<float>(5)<<std::endl;
+        //std::cout<<"( "<<state.at<float>(0)<<" , "<<state.at<float>(1)<<" , "<<state.at<float>(2)<<" , "<<state.at<float>(3)<<" , "<<state.at<float>(4)<<" , "<<state.at<float>(5)<<")"<<std::endl;
     }
 }
 

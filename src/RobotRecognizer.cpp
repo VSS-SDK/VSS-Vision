@@ -17,40 +17,17 @@ RobotRecognizer::RobotRecognizer() {
     lastBlueRobots.resize(5, vss::Robot());
     lastYellowRobots.resize(5, vss::Robot());
 
-
-    vss::Robot initialRobot;
-    initialRobot.x = initialRobot.y = 0;
-    initialRobot.speedX = initialRobot.speedY = 0;
-    initialRobot.speedAngle = 0;
-
-    ball.x = ball.y = 0;
-    ball.speedX = ball.speedY = 0;
-
     init = true;
-
-    for (int i = 0; i < lastsNumber; i++) {
-        std::map<ObjectType, vss::Robot> lastRobotsPos;
-        lastRobotsPos.insert(std::make_pair(ObjectType::Robot1, initialRobot));
-        lastRobotsPos.insert(std::make_pair(ObjectType::Robot2, initialRobot));
-        lastRobotsPos.insert(std::make_pair(ObjectType::Robot3, initialRobot));
-        lastRobotsPos.insert(std::make_pair(ObjectType::Robot4, initialRobot));
-        lastRobotsPos.insert(std::make_pair(ObjectType::Robot5, initialRobot));
-
-        lastsRobotsPos.push_back(lastRobotsPos);
-        lastsBallPos.push_back(ball);
-    }
 
     // 1/60
     rate = 0.016;
 
-    RobotTeamKalmanFilter robotTeamKalmanFilter;
-    robotTeamKalmanFilter.setDeltaTime(rate);
+    for (int i = 0; i < 5; i++) {
+        RobotTeamKalmanFilter robotTeamKalmanFilter;
+        robotTeamKalmanFilter.setDeltaTime(rate);
+        robotsTeamKalmanFilter.push_back(robotTeamKalmanFilter);
+    }
 
-    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot1, robotTeamKalmanFilter));
-    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot2, robotTeamKalmanFilter));
-    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot3, robotTeamKalmanFilter));
-    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot4, robotTeamKalmanFilter));
-    robotsTeamKalmanFilter.insert(std::make_pair(ObjectType::Robot5, robotTeamKalmanFilter));
 
     ballKalmanFilter.setDeltaTime(rate);
 }
@@ -140,11 +117,11 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
 
                 if (teamColor.color == ColorType::Blue) {
                     for (unsigned int i = 0; i < blueRobots.size(); i++) {
-                        blueRobots[i] = calculateRobotSpeedsAndFilter(static_cast<ObjectType>(i), blueRobots[i]);
+                        blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
                     }
                 } else if (teamColor.color == ColorType::Yellow) {
                     for (unsigned int i = 0; i < yellowRobots.size(); i++) {
-                        yellowRobots[i] = calculateRobotSpeedsAndFilter(static_cast<ObjectType>(i), yellowRobots[i]);
+                        yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
                     }
                 }
 
@@ -284,12 +261,9 @@ void RobotRecognizer::recognizeBall(ColorPosition colors) {
         ball.y = colors.points[0].y;
     }
     convertBallPosePixelToCentimeter();
-    //std::cout << ball << std::endl;
 
-    //convertBallPosePixelToCentimeter();
     if (ball.x <= 0.1 && ball.y <= 0.1 && ball.y <= -0.1 && ball.x <= -0.1) {
         ballKalmanFilter.setFoundFlag(false);
-        //std::cout<<"sumiu"<<std::endl;
     } else {
         ballKalmanFilter.setFoundFlag(true);
     }
@@ -299,96 +273,10 @@ void RobotRecognizer::recognizeBall(ColorPosition colors) {
     ballKalmanFilter.update();
     ball = ballKalmanFilter.getBall();
 
-    //filterBallPosition();
-    //calculateBallSpeed();
-    //filterBallSpeed();
-
-    std::vector<vss::Ball> lastsBallPosAux = lastsBallPos;
-    lastsBallPos[0] = ball;
-    for (int i = 1; i < lastsNumber; i++) {
-        lastsBallPos[i] = lastsBallPosAux[i - 1];
-    }
-
 }
 
-void RobotRecognizer::calculateBallSpeed() {
+vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot) {
 
-    ball.speedX = (ball.x - lastsBallPos[0].x) / rate;
-    ball.speedY = (ball.y - lastsBallPos[0].y) / rate;
-
-}
-
-void RobotRecognizer::filterBallPosition() {
-    double sumX = ball.x;
-    double sumY = ball.y;
-
-    for (int i = 0; i < lastsNumber; i++) {
-        sumX += lastsBallPos[i].x;
-        sumY += lastsBallPos[i].y;
-    }
-
-    ball.x = sumX / (lastsNumber + 1);
-    ball.y = sumY / (lastsNumber + 1);
-}
-
-void RobotRecognizer::filterBallSpeed() {
-    double sumXSpeed = ball.speedX;
-    double sumYSpeed = ball.speedY;
-
-    for (int i = 0; i < lastsNumber; i++) {
-        sumXSpeed += lastsBallPos[i].speedX;
-        sumYSpeed += lastsBallPos[i].speedY;
-    }
-
-    ball.speedX = int(sumXSpeed / (lastsNumber + 1));
-    ball.speedY = int(sumYSpeed / (lastsNumber + 1));
-}
-
-vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(ObjectType id, vss::Robot robot) {
-    /*double sumX = robot.x;
-    double sumY = robot.y;
-    double sumAngle = robot.angle;
-
-    for(int i = 0;i < lastsNumber; i++){
-        sumX += lastsRobotsPos[i][id].x;
-        sumY += lastsRobotsPos[i][id].y;
-        sumAngle += lastsRobotsPos[i][id].angle;
-
-    }
-
-    robot.x = sumX/(lastsNumber + 1);
-    robot.y = sumY/(lastsNumber + 1);
-    robot.angle = sumAngle/(lastsNumber + 1);
-
-
-    robot.speedAngle = (robot.angle - lastsRobotsPos[0][id].angle) / rate;
-    robot.speedX = (robot.x - lastsRobotsPos[0][id].x) / rate;
-    robot.speedY = (robot.y - lastsRobotsPos[0][id].y) / rate;
-
-    double sumXSpeed = robot.speedX;
-    double sumYSpeed = robot.speedY;
-    double sumAngleSpeed = robot.speedAngle;
-
-    for(int i = 0;i < lastsNumber; i++){
-        sumXSpeed += lastsRobotsPos[i][id].speedX;
-        sumYSpeed += lastsRobotsPos[i][id].speedY;
-        sumAngleSpeed += lastsRobotsPos[i][id].speedAngle;
-
-    }
-
-    robot.speedX = int (sumXSpeed/(lastsNumber + 1));
-    robot.speedY = int (sumYSpeed/(lastsNumber + 1));
-    robot.speedAngle = int (sumAngleSpeed/(lastsNumber + 1));
-
-    std::vector<std::map<ObjectType, vss::Robot>> lastsRobotsPosAux = lastsRobotsPos;
-    lastsRobotsPos[0][id] = robot;
-    for(int i = 1; i < lastsNumber; i++){
-        lastsRobotsPos[i][id] = lastsRobotsPosAux[i-1][id];
-    }*/
-    //if(id == 0){
-    //    std::cout<<"Medição do robô: "<<id<<std::endl;
-    //    std::cout<<robot<<std::endl;
-    //}
     robotsTeamKalmanFilter[id].setFoundFlag(true);
     robotsTeamKalmanFilter[id].setRobot(robot);
     robotsTeamKalmanFilter[id].predict();
