@@ -5,7 +5,30 @@
 #include "FrameHelper.h"
 
 cv::Mat changeRotation(cv::Mat mat, float value) {
-    cv::warpAffine(mat, mat, cv::getRotationMatrix2D(cv::Point2f(mat.cols/2, mat.rows/2), value, 1.0), mat.size());
+    try {
+        cv::warpAffine(mat, mat, cv::getRotationMatrix2D(cv::Point2f(mat.cols/2, mat.rows/2), value, 1.0), mat.size());
+    } catch (std::exception& e) {
+        std::cout << "Exception change image rotation" << std::endl;
+    }
+    return mat;
+}
+
+cv::Mat changeColorSpace(cv::Mat mat, int colorSpace) {
+    cv::Mat processed;
+    try {
+        cv::cvtColor(mat, processed, colorSpace);
+    } catch (std::exception& e) {
+        std::cout << "Exception change image color space" << std::endl;
+    }
+    return processed;
+}
+
+cv::Mat resizeImage(cv::Mat mat, cv::Point point) {
+    try {
+        cv::resize(mat, mat, point, 0, 0, cv::INTER_LINEAR);
+    } catch (std::exception& e) {
+        std::cout << "Exception resizing image" << std::endl;
+    }
     return mat;
 }
 

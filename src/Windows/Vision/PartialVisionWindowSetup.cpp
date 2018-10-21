@@ -75,7 +75,7 @@ void VisionWindow::initializeWidget() {
 
     radioButtonImage->set_active();
 
-    screenImage->set_image(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
+    screenImage->setImage(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
 
     // show only .txt files
     auto filterText = fileChooserDialog->get_filter();

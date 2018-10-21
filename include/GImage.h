@@ -11,6 +11,7 @@
 
 #include <gtkmm.h>
 #include <iostream>
+#include "FrameHelper.h"
 
 #include "opencv2/imgproc/imgproc.hpp"
 
@@ -19,13 +20,14 @@ public:
     GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
     virtual ~GImage();
     
-    void set_cut_mode(bool);
-    void set_image(cv::Mat);
-    cv::Point get_cut_point_1();
-    cv::Point get_cut_point_2();
+    void setCutMode(bool);
+    void setImage(cv::Mat);
+    cv::Point getCutPoint1();
+    cv::Point getCutPoint2();
 
-    void set_cut_point_1(cv::Point);
-    void set_cut_point_2(cv::Point);
+    void setCutPoint1(cv::Point);
+    void setCutPoint2(cv::Point);
+    void processImage(cv::Mat);
 
 
 protected:
@@ -35,6 +37,9 @@ protected:
     bool on_button_release_event(GdkEventButton* event) override;
 
 private:
+
+    cv::Point checkPointInsideImage(cv::Point);
+
     cv::Mat cv_image;
 
     cv::Point cut_point_1;
@@ -46,7 +51,6 @@ private:
 
     int width_image;
     int height_image;
-
     int width_original_image;
     int height_original_image;
 };

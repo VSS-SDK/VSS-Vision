@@ -28,7 +28,7 @@ void CalibrationWindow::updateGtkImage(){
         cv::Mat image = frame.clone();
     mtxUpdateFrame.unlock();
 
-    screenImage->set_image(image);
+    screenImage->setImage(image);
 
     mtxFps.lock();
         updateLabel(timeHelper.getFramesPerSecond());

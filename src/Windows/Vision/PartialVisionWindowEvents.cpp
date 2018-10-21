@@ -35,8 +35,8 @@ void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
     if (not filename.empty()){
         mtxCalibration.lock();
             calibration = calibrationRepository->read(filename);
-            screenImage->set_cut_point_1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
-            screenImage->set_cut_point_2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
+            screenImage->setCutPoint1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
+            screenImage->setCutPoint2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
         mtxCalibration.unlock();
 
         mtxCalibration.lock();

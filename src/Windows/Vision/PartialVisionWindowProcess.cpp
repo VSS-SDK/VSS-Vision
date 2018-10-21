@@ -59,7 +59,7 @@ void VisionWindow::updateGtkImage() {
     mtxGetRobots.unlock();
     */
 
-    screenImage->set_image(image);
+    screenImage->setImage(image);
 
     mtxFps.lock();
         updateLabel(timeHelper.getFramesPerSecond());
