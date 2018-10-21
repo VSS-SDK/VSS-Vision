@@ -151,6 +151,8 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
         robot.x = colors.points[i].x;
         robot.y = colors.points[i].y;
 
+        robot = convertRobotPosePixelToCentimeter(robot);
+
         if (colors.color == ColorType::Blue) {
             blueRobots.push_back(robot);
         } else if (colors.color == ColorType::Yellow) {
