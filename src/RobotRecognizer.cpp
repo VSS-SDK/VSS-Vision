@@ -28,6 +28,12 @@ RobotRecognizer::RobotRecognizer() {
         robotsTeamKalmanFilter.push_back(robotTeamKalmanFilter);
     }
 
+    for (int i = 0; i < 5; i++) {
+        RobotOpponentKalmanFilter robotOpponentKalmanFilter;
+        robotOpponentKalmanFilter.setDeltaTime(rate);
+        robotsOpponentKalmanFilter.push_back(robotOpponentKalmanFilter);
+    }
+
 
     ballKalmanFilter.setDeltaTime(rate);
 }
@@ -168,8 +174,30 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
     keepOpponentOrder(colors.color);
 
     if (colors.color == ColorType::Blue) {
+        for(unsigned int i = 0; i < blueRobots.size(); i++){
+
+            robotsOpponentKalmanFilter[i].setFoundFlag(true);
+            robotsOpponentKalmanFilter[i].setRobot(blueRobots[i]);
+            robotsOpponentKalmanFilter[i].predict();
+            robotsOpponentKalmanFilter[i].update();
+            blueRobots[i] = robotsOpponentKalmanFilter[i].getRobot();
+
+        }
+
         lastBlueRobots = blueRobots;
+
     } else if (colors.color == ColorType::Yellow) {
+
+        for(unsigned int i = 0; i < yellowRobots.size(); i++){
+
+            robotsOpponentKalmanFilter[i].setFoundFlag(true);
+            robotsOpponentKalmanFilter[i].setRobot(yellowRobots[i]);
+            robotsOpponentKalmanFilter[i].predict();
+            robotsOpponentKalmanFilter[i].update();
+            yellowRobots[i] = robotsOpponentKalmanFilter[i].getRobot();
+
+        }
+
         lastYellowRobots = yellowRobots;
     }
 }

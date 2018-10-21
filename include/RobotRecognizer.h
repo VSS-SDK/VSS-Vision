@@ -9,6 +9,7 @@
 #include "Domain/ColorPattern.h"
 #include "BallKalmanFilter.h"
 #include "RobotTeamKalmanFilter.h"
+#include "RobotOpponentKalmanFilter.h"
 
 class RobotRecognizer : public IRobotRecognizer {
 
@@ -39,20 +40,22 @@ private:
     vss::Ball ball;
 
     double rate;
+    bool init;
+
+    BallKalmanFilter ballKalmanFilter;
+    std::vector<RobotTeamKalmanFilter> robotsTeamKalmanFilter;
+    std::vector<RobotOpponentKalmanFilter> robotsOpponentKalmanFilter;
 
     ColorSide recognizeSide(double farthestAngle, double closestAngle);
-    vss::Robot calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot);
 
+    vss::Robot calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot);
 
     vss::Robot convertRobotPosePixelToCentimeter(vss::Robot);
     void convertBallPosePixelToCentimeter();
 
-    BallKalmanFilter ballKalmanFilter;
-    std::vector<RobotTeamKalmanFilter> robotsTeamKalmanFilter;
-
     void keepOpponentOrder(ColorType);
 
-    bool init;
+
 
 };
 
