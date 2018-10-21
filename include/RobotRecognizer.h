@@ -33,7 +33,9 @@ private:
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
-    std::map<ObjectType, RobotTeamKalmanFilter> robotsTeamKalmanFilter;;
+    std::vector<vss::Robot> lastBlueRobots;
+    std::vector<vss::Robot> lastYellowRobots;
+
     std::vector<std::map<ObjectType, vss::Robot>> lastsRobotsPos;
 
     vss::Ball ball;
@@ -53,6 +55,12 @@ private:
     void convertBallPosePixelToCentimeter();
 
     BallKalmanFilter ballKalmanFilter;
+    std::map<ObjectType, RobotTeamKalmanFilter> robotsTeamKalmanFilter;
+
+    void keepOpponentOrder(ColorType);
+
+    bool init;
+
 };
 
 #endif

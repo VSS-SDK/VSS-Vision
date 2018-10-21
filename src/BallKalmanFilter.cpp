@@ -4,7 +4,7 @@
 
 #include "BallKalmanFilter.h"
 
-BallKalmanFilter::BallKalmanFilter(){
+BallKalmanFilter::BallKalmanFilter() {
     notFoundCount = 0;
     maxNotFoundCount = 100;
     foundDelayFlag = false;
@@ -58,7 +58,7 @@ void BallKalmanFilter::init() {
 
 void BallKalmanFilter::predict() {
 
-    if(foundDelayFlag){
+    if (foundDelayFlag) {
         // >>>> Matrix A
         kalmanFilter.transitionMatrix.at<float>(2) = deltaTime;
         kalmanFilter.transitionMatrix.at<float>(7) = deltaTime;
@@ -76,21 +76,20 @@ void BallKalmanFilter::predict() {
 }
 
 void BallKalmanFilter::update() {
-    if(!foundFlag){
+    if (!foundFlag) {
         notFoundCount++;
         //std::cout << "notFoundCount:" << notFoundCount << std::endl;
-        if( notFoundCount >= maxNotFoundCount )
-        {
+        if (notFoundCount >= maxNotFoundCount) {
             foundDelayFlag = false;
-           // std::cout<<"Saiu"<<std::endl;
+            // std::cout<<"Saiu"<<std::endl;
         }
-    }else{
+    } else {
         notFoundCount = 0;
 
         measure.at<float>(0) = ballMesured.x;
         measure.at<float>(1) = ballMesured.y;
 
-        if(!foundDelayFlag){
+        if (!foundDelayFlag) {
             // >>>> Initialization
             kalmanFilter.errorCovPre.at<float>(0) = 1; // px
             kalmanFilter.errorCovPre.at<float>(5) = 1; // px
@@ -108,12 +107,12 @@ void BallKalmanFilter::update() {
             kalmanFilter.statePost = state;
 
             foundDelayFlag = true;
-        }else{
+        } else {
             kalmanFilter.correct(measure); // Kalman Correction
         }
 
         //std::cout<<"Medição da bola:"<<std::endl;
-       // std::cout<<"( "<<measure.at<float>(0)<<" , "<<measure.at<float>(1)<<" )"<<std::endl;
+        // std::cout<<"( "<<measure.at<float>(0)<<" , "<<measure.at<float>(1)<<" )"<<std::endl;
     }
 }
 
@@ -128,6 +127,7 @@ void BallKalmanFilter::setDeltaTime(double deltaTime) {
 void BallKalmanFilter::setFoundFlag(bool flag) {
     foundFlag = flag;
 }
+
 vss::Ball BallKalmanFilter::getBall() {
     return ballPredicted;
 }
