@@ -24,7 +24,8 @@ void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> 
     
     
     for (unsigned int i = 0; i < rect.size(); i++) {
-        frame = cropImage(image, rect[i], 0.3);
+        rect[i] = increaseRect(image, rect[i], 0.5 ,0.5);
+        frame = cropImage(image, rect[i]);
 
         binarizesImage();
         recognizesRectangles();
@@ -53,37 +54,34 @@ void ColorRecognizer::binarizesImage() {
         cv::Scalar(colorRange.max[H], colorRange.max[S], colorRange.max[V]),
         processed);
 
-    cv::medianBlur(processed, processed, 5);
+    //cv::medianBlur(processed, processed, 3);
 
     binaryFrame = processed.clone();
 }
 
 void ColorRecognizer::recognizesRectangles() {
     std::vector< cv::Vec4i > hierarchy;
-    std::vector< std::vector<cv::Point> > allContours;
+    std::vector< std::vector<cv::Point> > contours;
 
-    cv::findContours(binaryFrame.clone(), allContours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+    cv::findContours(binaryFrame.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 
     // sort in crescent order the contours vector by found area
-    sort(allContours.begin(), allContours.end(),
+    sort(contours.begin(), contours.end(),
         [](const std::vector<cv::Point> c1, const std::vector<cv::Point> c2){
             return cv::contourArea(c1, false) > cv::contourArea(c2, false);
         }
     );
 
-    // eliminate small noises
-    std::vector< std::vector<cv::Point> > contours;
-    for(unsigned int i = 0; i < allContours.size(); i++) {
-        if ( cv::contourArea(allContours[i], false) > (cv::contourArea(allContours[0], false) * 0.5) ) {
-            contours.push_back( allContours[i] );
-        }
-    }
+    unsigned long maxRecognizesRectangles = 0;
 
-    std::vector<cv::Rect> vectorRect( contours.size() );
-    std::vector<cv::RotatedRect> vectorRotatedRect( contours.size() );
-    std::vector<std::vector<cv::Point>> contours_poly( contours.size() );
+    if (contours.size() < maxRecognizesRectangles)
+        maxRecognizesRectangles = contours.size();
 
-    for(unsigned int i = 0; i < contours.size(); i++){
+    std::vector<cv::Rect> vectorRect( maxRecognizesRectangles );
+    std::vector<cv::RotatedRect> vectorRotatedRect( maxRecognizesRectangles );
+    std::vector<std::vector<cv::Point>> contours_poly( maxRecognizesRectangles );
+
+    for(unsigned int i = 0; i < maxRecognizesRectangles; i++){
         vectorRotatedRect[i] = cv::minAreaRect( cv::Mat(contours[i]) );
         approxPolyDP( cv::Mat(contours[i]), contours_poly[i], 0, true );
         vectorRect[i] = boundingRect( cv::Mat(contours_poly[i]) );
@@ -93,7 +91,7 @@ void ColorRecognizer::recognizesRectangles() {
         vectorRect[i].height += 2;
     }
 
-    for(unsigned int i = 0; i < contours.size(); i++) {
+    for(unsigned int i = 0; i < maxRecognizesRectangles; i++) {
         rectangles.push_back(vectorRect[i]);
         rotatedRectangles.push_back(vectorRotatedRect[i]);
     }
@@ -160,4 +158,8 @@ ColorRange ColorRecognizer::getColorRange() {
 
 cv::Mat ColorRecognizer::getBinaryImage(){
     return binaryFrame;
+}
+
+cv::Mat ColorRecognizer::getTestImage(){
+    return testImage;
 }

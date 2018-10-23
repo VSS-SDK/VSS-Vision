@@ -26,9 +26,6 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
         cv::Mat image = frame.clone();
     mtxUpdateFrame.unlock();
 
-    cout<<"Predição do robo: "<<std::endl;
-    cout<<yellowRobots[0]<<endl;
-
 //    for (auto &robot : blueRobots) {
 //        cout << "Blue:\t" << robot << endl;
 //    }
@@ -84,17 +81,18 @@ void VisionWindow::processFrame(cv::Mat image) {
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
 
-    patternRecognizer->recognizeMainColor(image, ObjectType::Ball);
-    patternRecognizer->recognizeMainColor(image, ObjectType::Team);
-    patternRecognizer->recognizeMainColor(image, ObjectType::Opponent);
+    patternRecognizer->recognizeMainColorBall(image);
+    patternRecognizer->recognizeMainColorTeam(image);
+    patternRecognizer->recognizeMainColorOpponent(image);
     
     patternRecognizer->recognizeSecondColor(image);
 
     robotRecognizer->setImage(image);
-    robotRecognizer->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);
-    robotRecognizer->recognizeOpponent(patternRecognizer->getOpponnetColorPosition());
-    robotRecognizer->recognizeBall(patternRecognizer->getBallColorPosition());
+    robotRecognizer->recognizeTeam(patternRecognizer->getTeamMainColorPosition(), patternRecognizer->getTeamSecondColorPosition(), pattern);
+    robotRecognizer->recognizeOpponent(patternRecognizer->getOpponentMainColorPosition());
+    robotRecognizer->recognizeBall(patternRecognizer->getBallMainColorPosition());
 
+    /*
     for (auto r : patternRecognizer->getBallRotatedRect()) {
         r.angle = 0;
         image = drawRotatedRectangle(image, r);
@@ -107,6 +105,13 @@ void VisionWindow::processFrame(cv::Mat image) {
     for (auto r : patternRecognizer->getTeamRotatedRect()) {
         image = drawRotatedRectangle(image, r);
     }
+    */
+
+    //drawRectangle(image, patternRecognizer->getRect());
+    //drawRotatedRectangle(image, patternRecognizer->getRotatedRect());
+
+    if (!patternRecognizer->getRect().empty())
+        image = patternRecognizer->getImage();
 
     mtxUpdateFrame.lock();
         frame = image.clone();

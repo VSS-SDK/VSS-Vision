@@ -28,6 +28,7 @@ public:
     std::vector<cv::Rect> getRectangles() override;
     std::vector<cv::RotatedRect> getRotatedRectangles() override;
     cv::Mat getBinaryImage() override;
+    cv::Mat getTestImage() override;
 
     void binarizesImage();
     void recognizesRectangles();
@@ -37,6 +38,7 @@ public:
 private:
     cv::Mat frame;
     cv::Mat binaryFrame;
+    cv::Mat testImage;
     ColorRange colorRange;
     std::vector<cv::Point2f> centers;
     std::vector<cv::Rect> rectangles;
