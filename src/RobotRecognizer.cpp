@@ -140,6 +140,11 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
 }
 
 void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
+
+    if(colors.points.size() > 5){
+        colors.points.resize(5, cv::Point2f());
+    }
+
     if (colors.color == ColorType::Blue) {
         blueRobots.clear();
     } else if (colors.color == ColorType::Yellow) {
@@ -159,10 +164,6 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
             yellowRobots.push_back(robot);
         }
     }
-
-    blueRobots.resize(5, vss::Robot());
-    yellowRobots.resize(5, vss::Robot());
-
 
     if (init) {
         if (colors.color == ColorType::Blue) {
@@ -202,6 +203,11 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
 
         lastYellowRobots = yellowRobots;
     }
+
+    blueRobots.resize(5, vss::Robot());
+    yellowRobots.resize(5, vss::Robot());
+    lastBlueRobots.resize(5, vss::Robot());
+    lastYellowRobots.resize(5, vss::Robot());
 }
 
 void RobotRecognizer::keepOpponentOrder(ColorType color) {
@@ -229,7 +235,7 @@ void RobotRecognizer::keepOpponentOrder(ColorType color) {
 
                         //Find the closest last point from the current, the last must be different from 0,0
                         if (lastRobot.x != 0 && lastRobot.y != 0) {
-                            if (Math::distance(currentRobot, lastRobot) <= distance) {
+                            if (Math::distance(currentRobot, lastRobot) < distance) {
                                 distance = Math::distance(currentRobot, lastRobot);
                                 id = j + 1;
                             }
@@ -266,9 +272,10 @@ void RobotRecognizer::keepOpponentOrder(ColorType color) {
 
                         //Find the closest last point from the current, the last must be different from 0,0
                         if (lastRobot.x != 0 && lastRobot.y != 0) {
-                            if (Math::distance(currentRobot, lastRobot) <= distance) {
+                            if (Math::distance(currentRobot, lastRobot) < distance) {
                                 distance = Math::distance(currentRobot, lastRobot);
                                 id = j + 1;
+
                             }
                         }
                     }
