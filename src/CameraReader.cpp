@@ -28,7 +28,13 @@ std::vector<std::string> CameraReader::getAllPossibleSources() {
 }
 
 cv::Mat CameraReader::getFrame() {
-    capture >> actualFrame;
+    cv::Mat newFrame;
+    capture >> newFrame;
+
+   // if (!newFrame.empty()) {
+        actualFrame = newFrame;
+   // }
+
     //return getFrameWithoutDistortion(actualFrame);
     return (actualFrame);
 }
@@ -44,8 +50,8 @@ void CameraReader::initializeReceivement() {
     }
 
     capture = cv::VideoCapture(1);
-    capture.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
+    capture.set(CV_CAP_PROP_FRAME_WIDTH, 640);
+    capture.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
 
     if (!capture.isOpened()) {
         std::cerr << "[Error] Camera cannot open" << std::endl;

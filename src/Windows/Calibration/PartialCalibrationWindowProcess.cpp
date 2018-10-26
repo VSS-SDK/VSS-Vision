@@ -46,7 +46,7 @@ void CalibrationWindow::processFrame(cv::Mat image) {
         image = cropImage(image, _calibration.cut[0], _calibration.cut[1]);
     }
 
-    colorRecognizer->processImage(image);
+    colorRecognizer->processImage(image, 3);
 
     if(showBinaryImage){
        mtxUpdateFrame.lock();

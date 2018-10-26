@@ -8,17 +8,17 @@
 
 #include <ColorRecognizer.h>
 
-void ColorRecognizer::processImage(cv::Mat image) {
+void ColorRecognizer::processImage(cv::Mat image, int maxRecognizesRectangles, bool filter = true) {
     frame = image.clone();
 
     clear();
 
-    binarizesImage();
-    recognizesRectangles();
+    binarizesImage(filter);
+    recognizesRectangles(maxRecognizesRectangles);
     calculateCenter();
 }
 
-void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> rect) {
+void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> rect, int maxRecognizesRectangles, bool filter = true) {
     clear();
     unsigned long changeCoordinateInVector = 0;
     
@@ -27,8 +27,8 @@ void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> 
         rect[i] = increaseRect(image, rect[i], 0.5 ,0.5);
         frame = cropImage(image, rect[i]);
 
-        binarizesImage();
-        recognizesRectangles();
+        binarizesImage(filter);
+        recognizesRectangles(maxRecognizesRectangles);
 
         for (unsigned long j = changeCoordinateInVector; j < rectangles.size(); j++) {
             rectangles[j].x += rect[i].x;
@@ -43,7 +43,7 @@ void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> 
     calculateCenter();
 }
 
-void ColorRecognizer::binarizesImage() {
+void ColorRecognizer::binarizesImage(bool filter) {
     cv::Mat processed;
     cv::Mat processedHSV;
 
@@ -54,12 +54,15 @@ void ColorRecognizer::binarizesImage() {
         cv::Scalar(colorRange.max[H], colorRange.max[S], colorRange.max[V]),
         processed);
 
-    //cv::medianBlur(processed, processed, 3);
+    if (filter) {
+        cv::medianBlur(processed, processed, 3);
+        //cv::GaussianBlur(processed, processed, cv::Size(5,5), 2);
+    }
 
     binaryFrame = processed.clone();
 }
 
-void ColorRecognizer::recognizesRectangles() {
+void ColorRecognizer::recognizesRectangles(unsigned int maxRecognizesRectangles) {
     std::vector< cv::Vec4i > hierarchy;
     std::vector< std::vector<cv::Point> > contours;
 
@@ -71,8 +74,6 @@ void ColorRecognizer::recognizesRectangles() {
             return cv::contourArea(c1, false) > cv::contourArea(c2, false);
         }
     );
-
-    unsigned long maxRecognizesRectangles = 0;
 
     if (contours.size() < maxRecognizesRectangles)
         maxRecognizesRectangles = contours.size();

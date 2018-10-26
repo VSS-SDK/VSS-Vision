@@ -29,9 +29,9 @@ void PatternRecognizer::recognizeMainColorBall(cv::Mat image) {
         ballColorRecognizer->setColorRange(pattern[ObjectType::Ball].singleColorRange);
 
         if (timeBall.timeOut(1000)) {
-            ballColorRecognizer->processImage(image);
+            ballColorRecognizer->processImage(image, 1);
         } else {
-            ballColorRecognizer->processImageInSector(image, ballColorRecognizer->getRectangles());
+            ballColorRecognizer->processImageInSector(image, ballColorRecognizer->getRectangles(), 1);
         }
     }
 }
@@ -41,9 +41,9 @@ void PatternRecognizer::recognizeMainColorTeam(cv::Mat image) {
         teamColorRecognizer->setColorRange(pattern[ObjectType::Team].singleColorRange);
 
         if (timeTeam.timeOut(1000)) {
-            teamColorRecognizer->processImage(image);
+            teamColorRecognizer->processImage(image, 3);
         } else {
-            teamColorRecognizer->processImageInSector(image, teamColorRecognizer->getRectangles());
+            teamColorRecognizer->processImageInSector(image, teamColorRecognizer->getRectangles(), 3);
         }
     }
 }
@@ -53,9 +53,9 @@ void PatternRecognizer::recognizeMainColorOpponent(cv::Mat image) {
         opponentColorRecognizer->setColorRange(pattern[ObjectType::Opponent].singleColorRange);
 
         if (timeOpponent.timeOut(1000)) {
-            opponentColorRecognizer->processImage(image);
+            opponentColorRecognizer->processImage(image, 3);
         } else {
-            opponentColorRecognizer->processImageInSector(image, opponentColorRecognizer->getRectangles());
+            opponentColorRecognizer->processImageInSector(image, opponentColorRecognizer->getRectangles(), 3);
         }
     }
 }
@@ -75,12 +75,12 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
 
         ColorRange colorRange1 (range, ColorType::Green);
         colorRecognizer1->setColorRange(colorRange1);
-        colorRecognizer1->processImage(cuttedImage);
-        colorRecognizer1->deleteOutsidePoint(teamRotatedRect[i], teamRect[i]);
+        colorRecognizer1->processImage(cuttedImage, 3);
+        //colorRecognizer1->deleteOutsidePoint(teamRotatedRect[i], teamRect[i]);
 
         ColorRange colorRange2 (range, ColorType::Pink);
         colorRecognizer2->setColorRange(colorRange2);
-        colorRecognizer2->processImage(cuttedImage);
+        colorRecognizer2->processImage(cuttedImage, 3);
         //colorRecognizer2->deleteOutsidePoint(teamRotatedRect[i], teamRect[i]);
 
         if (colorRecognizer1->getCenters().size() == 3) {
@@ -88,6 +88,8 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
             position.color = colorRecognizer1->getColor();
             position.points = colorRecognizer1->getCenters();
             playerColorPosition.push_back (position);
+        } else {
+            //std::cout << "Green color founded: " << colorRecognizer1->getCenters().size() << std::endl;
         }
 
         if (colorRecognizer2->getCenters().size() == 3){
@@ -95,8 +97,10 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
             position.color = colorRecognizer2->getColor();
             position.points = colorRecognizer2->getCenters();
             playerColorPosition.push_back(position);
+        } else {
+            std::cout << "Pink color founded: " << colorRecognizer2->getCenters().size() << std::endl;
         }
-        std::cout << colorRecognizer2->getCenters().size() << std::endl;
+
         testImage = colorRecognizer2->getBinaryImage();
 
         i = teamRect.size();
