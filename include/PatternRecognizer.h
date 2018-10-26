@@ -25,19 +25,25 @@ class PatternRecognizer : public IPatternRecognizer{
 public:
     PatternRecognizer();
 
-    void recognizeMainColor(cv::Mat, ObjectType) override;
+    void recognizeMainColorBall(cv::Mat) override;
+    void recognizeMainColorTeam(cv::Mat) override;
+    void recognizeMainColorOpponent(cv::Mat) override;
     void recognizeSecondColor(cv::Mat) override;
     void setRangeVector(std::vector<ColorRange>) override;
     void setPatternVector(std::vector<ColorPattern>) override;
 
-    ColorPosition getBallColorPosition() override;
-    ColorPosition getTeamColorPosition() override;
-    ColorPosition getOpponnetColorPosition() override;
-    std::vector<ColorPosition> getPlayerColorPosition() override;
+    ColorPosition getBallMainColorPosition() override;
+    ColorPosition getTeamMainColorPosition() override;
+    ColorPosition getOpponentMainColorPosition() override;
+    std::vector<ColorPosition> getTeamSecondColorPosition() override;
 
     std::vector<cv::RotatedRect> getBallRotatedRect() override;
     std::vector<cv::RotatedRect> getTeamRotatedRect() override;
     std::vector<cv::RotatedRect> getOpponentRotatedRect() override;
+
+    cv::Mat getImage() override;
+    std::vector<cv::Rect> getRect() override;
+    std::vector<cv::RotatedRect> getRotatedRect() override;
 
 private:
     IColorRecognizer *ballColorRecognizer;
@@ -53,6 +59,10 @@ private:
     std::vector<ColorRange> range;
     std::vector<ColorPattern> pattern;
     std::vector<ColorPosition> playerColorPosition;
+
+    cv::Mat testImage;
+    std::vector<cv::Rect> testRect;
+    std::vector<cv::RotatedRect> testRotatedRect;
 };
 
 #endif //VSS_VISION_PATTERNRECOGNIZER_H

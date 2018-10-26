@@ -319,7 +319,7 @@ vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(unsigned int id, vss::
     robotsTeamKalmanFilter[id].predict();
     robotsTeamKalmanFilter[id].update();
     robot = robotsTeamKalmanFilter[id].getRobot();
-
+    */
     return robot;
 }
 

@@ -9,23 +9,33 @@
 #ifndef VSS_VISION_IPATTERNRECOGNIZER_H
 #define VSS_VISION_IPATTERNRECOGNIZER_H
 
+#include <Domain/ObjectType.h>
+#include <Domain/ColorRange.h>
+#include <Domain/ColorPattern.h>
 #include <Domain/ColorPosition.h>
 
 class IPatternRecognizer {
 public:
-    virtual void recognizeMainColor(cv::Mat, ObjectType) = 0;
+    virtual void recognizeMainColorBall(cv::Mat) = 0;
+    virtual void recognizeMainColorTeam(cv::Mat) = 0;
+    virtual void recognizeMainColorOpponent(cv::Mat) = 0;
     virtual void recognizeSecondColor(cv::Mat) = 0;
     virtual void setRangeVector(std::vector<ColorRange>) = 0;
     virtual void setPatternVector(std::vector<ColorPattern>) = 0;
 
-    virtual ColorPosition getBallColorPosition() = 0;
-    virtual ColorPosition getTeamColorPosition() = 0;
-    virtual ColorPosition getOpponnetColorPosition() = 0;
-    virtual std::vector<ColorPosition> getPlayerColorPosition() = 0;
+    virtual ColorPosition getBallMainColorPosition() = 0;
+    virtual ColorPosition getTeamMainColorPosition() = 0;
+    virtual ColorPosition getOpponentMainColorPosition() = 0;
+    virtual std::vector<ColorPosition> getTeamSecondColorPosition() = 0;
 
     virtual std::vector<cv::RotatedRect> getBallRotatedRect() = 0;
     virtual std::vector<cv::RotatedRect> getTeamRotatedRect() = 0;
     virtual std::vector<cv::RotatedRect> getOpponentRotatedRect() = 0;
+
+    virtual cv::Mat getImage() = 0;
+    virtual std::vector<cv::Rect> getRect() = 0;
+    virtual std::vector<cv::RotatedRect> getRotatedRect() = 0;
+
 };
 
 #endif // VSS_VISION_IPATTERNRECOGNIZER_H

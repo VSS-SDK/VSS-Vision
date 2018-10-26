@@ -55,7 +55,6 @@ void CalibrationWindow::cameraThreadWrapper() {
             cv::Mat receivedFrame = inputReader->getFrame();
         mtxChangeInput.unlock();
         receiveNewFrame( receivedFrame );
-        //usleep(12000);
     }
 }
 

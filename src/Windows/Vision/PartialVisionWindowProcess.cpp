@@ -56,7 +56,7 @@ void VisionWindow::updateGtkImage() {
     mtxGetRobots.unlock();
     */
 
-    screenImage->set_image(image);
+    screenImage->setImage(image);
 
     mtxFps.lock();
         updateLabel(timeHelper.getFramesPerSecond());
@@ -78,19 +78,30 @@ void VisionWindow::processFrame(cv::Mat image) {
         image = cropImage(image, processCalibration.cut[0], processCalibration.cut[1]);
     }
 
+    //std::cout << "DEBUG 1" << std::endl;
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
+    //std::cout << "DEBUG 2" << std::endl;
 
-    patternRecognizer->recognizeMainColor(image, ObjectType::Ball);
-    patternRecognizer->recognizeMainColor(image, ObjectType::Team);
-    patternRecognizer->recognizeMainColor(image, ObjectType::Opponent);
-    
+    patternRecognizer->recognizeMainColorBall(image);
+    patternRecognizer->recognizeMainColorTeam(image);
+    patternRecognizer->recognizeMainColorOpponent(image);
+    //std::cout << "DEBUG 3" << std::endl;
+
     patternRecognizer->recognizeSecondColor(image);
+    //std::cout << "DEBUG 4" << std::endl;
 
     robotRecognizer->setImage(image);
-    robotRecognizer->recognizeTeam(patternRecognizer->getTeamColorPosition(), patternRecognizer->getPlayerColorPosition(), pattern);
-    robotRecognizer->recognizeOpponent(patternRecognizer->getOpponnetColorPosition());
-    robotRecognizer->recognizeBall(patternRecognizer->getBallColorPosition());
+    //std::cout << "DEBUG 5" << std::endl;
+
+    robotRecognizer->recognizeTeam(patternRecognizer->getTeamMainColorPosition(), patternRecognizer->getTeamSecondColorPosition(), pattern);
+    //std::cout << "DEBUG 6" << std::endl;
+
+    robotRecognizer->recognizeOpponent(patternRecognizer->getOpponentMainColorPosition());
+    //std::cout << "DEBUG 7" << std::endl;
+
+    robotRecognizer->recognizeBall(patternRecognizer->getBallMainColorPosition());
+    //std::cout << "DEBUG 8" << std::endl;
 
     for (auto r : patternRecognizer->getBallRotatedRect()) {
         r.angle = 0;
@@ -104,6 +115,14 @@ void VisionWindow::processFrame(cv::Mat image) {
     for (auto r : patternRecognizer->getTeamRotatedRect()) {
         image = drawRotatedRectangle(image, r);
     }
+
+
+    //drawRectangle(image, patternRecognizer->getRect());
+    //drawRotatedRectangle(image, patternRecognizer->getRotatedRect());
+
+
+    if (!patternRecognizer->getRect().empty())
+        image = patternRecognizer->getImage();
 
     mtxUpdateFrame.lock();
         frame = image.clone();
