@@ -9,6 +9,7 @@
 #include "Domain/ColorPattern.h"
 #include "BallKalmanFilter.h"
 #include "RobotTeamKalmanFilter.h"
+#include "RobotOpponentKalmanFilter.h"
 
 class RobotRecognizer : public IRobotRecognizer {
 
@@ -33,26 +34,29 @@ private:
     std::vector<vss::Robot> blueRobots;
     std::vector<vss::Robot> yellowRobots;
 
-    std::map<ObjectType, RobotTeamKalmanFilter> robotsTeamKalmanFilter;;
-    std::vector<std::map<ObjectType, vss::Robot>> lastsRobotsPos;
+    std::vector<vss::Robot> lastBlueRobots;
+    std::vector<vss::Robot> lastYellowRobots;
 
     vss::Ball ball;
-    std::vector<vss::Ball> lastsBallPos;
-    int lastsNumber = 3;
 
     double rate;
+    bool init;
+
+    BallKalmanFilter ballKalmanFilter;
+    std::vector<RobotTeamKalmanFilter> robotsTeamKalmanFilter;
+    std::vector<RobotOpponentKalmanFilter> robotsOpponentKalmanFilter;
 
     ColorSide recognizeSide(double farthestAngle, double closestAngle);
 
-    void calculateBallSpeed();
-    vss::Robot calculateRobotSpeedsAndFilter(ObjectType id, vss::Robot robot);
-    void filterBallPosition();
-    void filterBallSpeed();
+    vss::Robot calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot);
 
     vss::Robot convertRobotPosePixelToCentimeter(vss::Robot);
     void convertBallPosePixelToCentimeter();
 
-    BallKalmanFilter ballKalmanFilter;
+    void keepOpponentOrder(ColorType);
+
+
+
 };
 
 #endif

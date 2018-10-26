@@ -4,7 +4,7 @@
 
 #include "RobotTeamKalmanFilter.h"
 
-RobotTeamKalmanFilter::RobotTeamKalmanFilter(){
+RobotTeamKalmanFilter::RobotTeamKalmanFilter() {
     notFoundCount = 0;
     maxNotFoundCount = 100;
     foundDelayFlag = false;
@@ -67,7 +67,7 @@ void RobotTeamKalmanFilter::init() {
 
 void RobotTeamKalmanFilter::predict() {
 
-    if(foundDelayFlag){
+    if (foundDelayFlag) {
         // >>>> Matrix A
         kalmanFilter.transitionMatrix.at<float>(3) = deltaTime;
         kalmanFilter.transitionMatrix.at<float>(10) = deltaTime;
@@ -84,27 +84,26 @@ void RobotTeamKalmanFilter::predict() {
         robotPredicted.speedAngle = state.at<float>(5);
 
         //std::cout<<"Predição do robo:"<<std::endl;
-        //std::cout<<"( "<<state.at<float>(0)<<" , "<<state.at<float>(1)<<" , "<<state.at<float>(2)<<" , "<<state.at<float>(3)<<" , "<<state.at<float>(4)<<" , "<<state.at<float>(5)<<std::endl;
+        //std::cout<<"( "<<state.at<float>(0)<<" , "<<state.at<float>(1)<<" , "<<state.at<float>(2)<<" , "<<state.at<float>(3)<<" , "<<state.at<float>(4)<<" , "<<state.at<float>(5)<<")"<<std::endl;
     }
 }
 
 void RobotTeamKalmanFilter::update() {
-    if(!foundFlag){
+    if (!foundFlag) {
         notFoundCount++;
         //std::cout << "notFoundCount:" << notFoundCount << std::endl;
-        if( notFoundCount >= maxNotFoundCount )
-        {
+        if (notFoundCount >= maxNotFoundCount) {
             foundDelayFlag = false;
             // std::cout<<"Saiu"<<std::endl;
         }
-    }else{
+    } else {
         notFoundCount = 0;
 
         measure.at<float>(0) = robotMesured.x;
         measure.at<float>(1) = robotMesured.y;
         measure.at<float>(2) = robotMesured.angle;
 
-        if(!foundDelayFlag){
+        if (!foundDelayFlag) {
             // >>>> Initialization
             kalmanFilter.errorCovPre.at<float>(0) = 1; // px
             kalmanFilter.errorCovPre.at<float>(7) = 1; // px
@@ -126,7 +125,7 @@ void RobotTeamKalmanFilter::update() {
             kalmanFilter.statePost = state;
 
             foundDelayFlag = true;
-        }else{
+        } else {
             kalmanFilter.correct(measure); // Kalman Correction
         }
 
@@ -146,6 +145,7 @@ void RobotTeamKalmanFilter::setDeltaTime(double deltaTime) {
 void RobotTeamKalmanFilter::setFoundFlag(bool flag) {
     foundFlag = flag;
 }
+
 vss::Robot RobotTeamKalmanFilter::getRobot() {
     return robotPredicted;
 }

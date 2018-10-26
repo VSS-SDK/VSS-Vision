@@ -1,10 +1,10 @@
 //
-// Created by paulo on 19/10/18.
+// Created by paulo on 20/10/18.
 //
 
-#include "BallKalmanFilter.h"
+#include "RobotOpponentKalmanFilter.h"
 
-BallKalmanFilter::BallKalmanFilter() {
+RobotOpponentKalmanFilter::RobotOpponentKalmanFilter() {
     notFoundCount = 0;
     maxNotFoundCount = 100;
     foundDelayFlag = false;
@@ -12,7 +12,7 @@ BallKalmanFilter::BallKalmanFilter() {
     init();
 }
 
-void BallKalmanFilter::init() {
+void RobotOpponentKalmanFilter::init() {
     int stateSize = 4; // Variable states: [X,Y XSPEED, YSPEED]
     int measSize = 2; // Measure vector: [X, Y]
     int contrSize = 0; // No control
@@ -56,7 +56,7 @@ void BallKalmanFilter::init() {
     cv::setIdentity(kalmanFilter.measurementNoiseCov, cv::Scalar(1e-1));
 }
 
-void BallKalmanFilter::predict() {
+void RobotOpponentKalmanFilter::predict() {
 
     if (foundDelayFlag) {
         // >>>> Matrix A
@@ -65,17 +65,17 @@ void BallKalmanFilter::predict() {
 
         state = kalmanFilter.predict();
 
-        ballPredicted.x = state.at<float>(0);
-        ballPredicted.y = state.at<float>(1);
-        ballPredicted.speedX = state.at<float>(2);
-        ballPredicted.speedY = state.at<float>(3);
+        robotPredicted.x = state.at<float>(0);
+        robotPredicted.y = state.at<float>(1);
+        robotPredicted.speedX = state.at<float>(2);
+        robotPredicted.speedY = state.at<float>(3);
 
         //std::cout<<"Predição da bola:"<<std::endl;
         //std::cout<<"( "<<state.at<float>(0)<<" , "<<state.at<float>(1)<<" , "<<state.at<float>(2)<<" , "<<state.at<float>(3)<<std::endl;
     }
 }
 
-void BallKalmanFilter::update() {
+void RobotOpponentKalmanFilter::update() {
     if (!foundFlag) {
         notFoundCount++;
         //std::cout << "notFoundCount:" << notFoundCount << std::endl;
@@ -86,8 +86,8 @@ void BallKalmanFilter::update() {
     } else {
         notFoundCount = 0;
 
-        measure.at<float>(0) = ballMesured.x;
-        measure.at<float>(1) = ballMesured.y;
+        measure.at<float>(0) = robotMesured.x;
+        measure.at<float>(1) = robotMesured.y;
 
         if (!foundDelayFlag) {
             // >>>> Initialization
@@ -116,18 +116,18 @@ void BallKalmanFilter::update() {
     }
 }
 
-void BallKalmanFilter::setBall(vss::Ball ball) {
-    ballMesured = ball;
+void RobotOpponentKalmanFilter::setRobot(vss::Robot robot) {
+    robotMesured = robot;
 }
 
-void BallKalmanFilter::setDeltaTime(double deltaTime) {
+void RobotOpponentKalmanFilter::setDeltaTime(double deltaTime) {
     this->deltaTime = deltaTime;
 }
 
-void BallKalmanFilter::setFoundFlag(bool flag) {
+void RobotOpponentKalmanFilter::setFoundFlag(bool flag) {
     foundFlag = flag;
 }
 
-vss::Ball BallKalmanFilter::getBall() {
-    return ballPredicted;
+vss::Robot RobotOpponentKalmanFilter::getRobot() {
+    return robotPredicted;
 }
