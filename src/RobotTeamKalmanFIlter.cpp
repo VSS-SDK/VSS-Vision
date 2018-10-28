@@ -79,6 +79,10 @@ void RobotTeamKalmanFilter::predict() {
         robotPredicted.y = state.at<float>(1);
         robotPredicted.angle = state.at<float>(2);
 
+        if (robotPredicted.angle < 0 || abs(robotPredicted.angle - robotMesured.angle) > 50){
+            robotPredicted.angle = robotMesured.angle;
+        }
+
         robotPredicted.speedX = state.at<float>(3);
         robotPredicted.speedY = state.at<float>(4);
         robotPredicted.speedAngle = state.at<float>(5);

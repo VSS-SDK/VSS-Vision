@@ -231,21 +231,17 @@ void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
     mtxPattern.unlock();
 }
 
-void VisionWindow::updateLabel(int i) {
-
+void VisionWindow::updateLabel(int i, std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
 
     window->set_title( "VISION (" + to_string(i) + ")" );
-
-/*
-
-    void VisionWindow::onRobotsNewPositions(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
 
     std::vector<vss::Robot> teamPositions;
     std::vector<vss::Robot> opponentPositions;
 
-    if(whoseColor[ColorType::Blue] == ObjectType::Team) {
+    if (pattern[ObjectType::Team].singleColorType == ColorType::Blue) {
         teamPositions = blueRobots;
         opponentPositions = yellowRobots;
+
     } else {
         teamPositions = yellowRobots;
         opponentPositions = blueRobots;
@@ -283,5 +279,4 @@ void VisionWindow::updateLabel(int i) {
         ss << "[ " << opponentPositions[2].x << " x " << opponentPositions[2].y << " ]";
         labelPositionOpponent3->set_text(ss.str());
     }
- */
 }

@@ -78,7 +78,7 @@ cv::Mat drawRotatedRectangle(cv::Mat mat, cv::RotatedRect rotated) {
     rotated.points(vertices);
 
     for (int i = 0; i < 4; i++)
-        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(255,0,0), 1);
+        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(0,255,0), 2);
 
     } catch (std::exception& e) {
         std::cout << "Exception draw rotated rect" << std::endl;

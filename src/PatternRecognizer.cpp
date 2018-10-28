@@ -43,7 +43,7 @@ void PatternRecognizer::recognizeMainColorTeam(cv::Mat image) {
         if (timeTeam.timeOut(1000)) {
             teamColorRecognizer->processImage(image, 3);
         } else {
-            teamColorRecognizer->processImageInSector(image, teamColorRecognizer->getRectangles(), 3);
+            teamColorRecognizer->processImageInSector(image, teamColorRecognizer->getRectangles(), 1);
         }
     }
 }
@@ -55,7 +55,7 @@ void PatternRecognizer::recognizeMainColorOpponent(cv::Mat image) {
         if (timeOpponent.timeOut(1000)) {
             opponentColorRecognizer->processImage(image, 3);
         } else {
-            opponentColorRecognizer->processImageInSector(image, opponentColorRecognizer->getRectangles(), 3);
+            opponentColorRecognizer->processImageInSector(image, opponentColorRecognizer->getRectangles(), 1);
         }
     }
 }

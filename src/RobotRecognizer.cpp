@@ -20,10 +20,10 @@ RobotRecognizer::RobotRecognizer() {
     init = true;
 
     // 1/60
-    rate = 0.016;
+    rate = 0.0105;
 
     for (int i = 0; i < 5; i++) {
-        RobotTeamKalmanFilter robotTeamKalmanFilter;
+        RobotOpponentKalmanFilter robotTeamKalmanFilter;
         robotTeamKalmanFilter.setDeltaTime(rate);
         robotsTeamKalmanFilter.push_back(robotTeamKalmanFilter);
     }
@@ -41,96 +41,92 @@ RobotRecognizer::RobotRecognizer() {
 void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPosition> playerColor,
                                     std::vector<ColorPattern> pattern) {
 
-    if (not playerColor.empty()) {
+    for (unsigned int i = 0; i < playerColor.size(); i++){
 
-        for (unsigned int i = 0; i < teamColor.points.size(); i++) {
+        if (playerColor[i].points.size() == 3) {
 
-            if (playerColor[i].points.size() == 3) {
+            double dist01 = Math::distance(playerColor[i].points[0], playerColor[i].points[1]);
+            double dist02 = Math::distance(playerColor[i].points[0], playerColor[i].points[2]);
+            double dist12 = Math::distance(playerColor[i].points[1], playerColor[i].points[2]);
 
-                double dist01 = Math::distance(playerColor[i].points[0], playerColor[i].points[1]);
-                double dist02 = Math::distance(playerColor[i].points[0], playerColor[i].points[2]);
-                double dist12 = Math::distance(playerColor[i].points[1], playerColor[i].points[2]);
+            unsigned int singleColorIndex = 0;
+            unsigned int closestColorIndex = 0;
+            unsigned int farthestColorIndex = 0;
 
-                unsigned int singleColorIndex = 0;
-                unsigned int closestColorIndex = 0;
-                unsigned int farthestColorIndex = 0;
+            if (dist01 < dist02 && dist01 < dist12) {
+                singleColorIndex = 2;
 
-                if (dist01 < dist02 && dist01 < dist12) {
-                    singleColorIndex = 2;
-
-                    if (dist02 < dist12) {
-                        closestColorIndex = 0;
-                        farthestColorIndex = 1;
-                    } else {
-                        closestColorIndex = 1;
-                        farthestColorIndex = 0;
-                    }
-
-                } else if (dist02 < dist01 && dist02 < dist12) {
-                    singleColorIndex = 1;
-
-                    if (dist01 < dist12) {
-                        closestColorIndex = 0;
-                        farthestColorIndex = 2;
-                    } else {
-                        closestColorIndex = 2;
-                        farthestColorIndex = 0;
-                    }
-
-                } else if (dist12 < dist01 && dist12 < dist02) {
-                    singleColorIndex = 0;
-
-                    if (dist01 < dist02) {
-                        closestColorIndex = 1;
-                        farthestColorIndex = 2;
-
-                    } else {
-                        closestColorIndex = 2;
-                        farthestColorIndex = 1;
-                    }
+                if (dist02 < dist12) {
+                    closestColorIndex = 0;
+                    farthestColorIndex = 1;
+                } else {
+                    closestColorIndex = 1;
+                    farthestColorIndex = 0;
                 }
 
-                double closestAngle = Math::angle(playerColor[i].points[singleColorIndex],
-                                                  playerColor[i].points[closestColorIndex]);
-                double farthestAngle = Math::angle(playerColor[i].points[singleColorIndex],
-                                                   playerColor[i].points[farthestColorIndex]);
+            } else if (dist02 < dist01 && dist02 < dist12) {
+                singleColorIndex = 1;
 
-                ColorSide colorSide = recognizeSide(farthestAngle, closestAngle);
-
-                ColorPattern colorPattern;
-                colorPattern.colorSide = colorSide;
-                colorPattern.singleColorType = playerColor[i].color;
-                colorPattern.doubleColorType = playerColor[i].color;
-
-                vss::Robot robot;
-                robot.x = teamColor.points[i].x;
-                robot.y = teamColor.points[i].y;
-                robot.angle = Math::constrainAngle(farthestAngle + 45);
-
-                robot = convertRobotPosePixelToCentimeter(robot);
-
-
-                for (unsigned int j = 3; j < pattern.size() - 1; j++) {
-
-                    if (pattern[j].isEquals(colorPattern)) {
-                        if (teamColor.color == ColorType::Blue) {
-                            blueRobots[j - 3] = robot;
-                        } else if (teamColor.color == ColorType::Yellow) {
-                            yellowRobots[j - 3] = robot;
-                        }
-                    }
+                if (dist01 < dist12) {
+                    closestColorIndex = 0;
+                    farthestColorIndex = 2;
+                } else {
+                    closestColorIndex = 2;
+                    farthestColorIndex = 0;
                 }
 
-                if (teamColor.color == ColorType::Blue) {
-                    for (unsigned int i = 0; i < blueRobots.size(); i++) {
-                        blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
-                    }
-                } else if (teamColor.color == ColorType::Yellow) {
-                    for (unsigned int i = 0; i < yellowRobots.size(); i++) {
-                        yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
+            } else if (dist12 < dist01 && dist12 < dist02) {
+                singleColorIndex = 0;
+
+                if (dist01 < dist02) {
+                    closestColorIndex = 1;
+                    farthestColorIndex = 2;
+
+                } else {
+                    closestColorIndex = 2;
+                    farthestColorIndex = 1;
+                }
+            }
+
+            double closestAngle = Math::angle(playerColor[i].points[singleColorIndex],
+                                              playerColor[i].points[closestColorIndex]);
+            double farthestAngle = Math::angle(playerColor[i].points[singleColorIndex],
+                                               playerColor[i].points[farthestColorIndex]);
+
+            ColorSide colorSide = recognizeSide(farthestAngle, closestAngle);
+
+            ColorPattern colorPattern;
+            colorPattern.colorSide = colorSide;
+            colorPattern.singleColorType = playerColor[i].color;
+            colorPattern.doubleColorType = playerColor[i].color;
+
+            vss::Robot robot;
+            robot.x = teamColor.points[i].x;
+            robot.y = teamColor.points[i].y;
+            robot.angle = Math::constrainAngle(farthestAngle + 45);
+
+            robot = convertRobotPosePixelToCentimeter(robot);
+
+
+            for (unsigned int j = 3; j < pattern.size() - 1; j++) {
+
+                if (pattern[j].isEquals(colorPattern)) {
+                    if (teamColor.color == ColorType::Blue) {
+                        blueRobots[j - 3] = robot;
+                    } else if (teamColor.color == ColorType::Yellow) {
+                        yellowRobots[j - 3] = robot;
                     }
                 }
+            }
 
+            if (teamColor.color == ColorType::Blue) {
+                for (unsigned int i = 0; i < blueRobots.size(); i++) {
+                    blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
+                }
+            } else if (teamColor.color == ColorType::Yellow) {
+                for (unsigned int i = 0; i < yellowRobots.size(); i++) {
+                    yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
+                }
             }
         }
     }
@@ -319,7 +315,7 @@ vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(unsigned int id, vss::
     robotsTeamKalmanFilter[id].predict();
     robotsTeamKalmanFilter[id].update();
     robot = robotsTeamKalmanFilter[id].getRobot();
-    */
+
     return robot;
 }
 

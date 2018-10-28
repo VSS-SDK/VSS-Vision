@@ -11,7 +11,7 @@ CameraReader::CameraReader() {
     runningCapture = false;
     shouldCloseReader = false;
     actualCameraIndex = -1;
-    //setMapsCalibration();
+    setMapsCalibration();
 
     // Simulando uma camera
     camerasIndex.push_back(1);
@@ -29,14 +29,18 @@ std::vector<std::string> CameraReader::getAllPossibleSources() {
 
 cv::Mat CameraReader::getFrame() {
     cv::Mat newFrame;
-    capture >> newFrame;
 
-   // if (!newFrame.empty()) {
+    do {
+        capture >> newFrame;
         actualFrame = newFrame;
-   // }
 
-    //return getFrameWithoutDistortion(actualFrame);
-    return (actualFrame);
+        if (newFrame.empty())
+            std::cout << "Empty image from camera" << std::endl;
+
+    } while (newFrame.empty());
+
+//    return actualFrame;
+    return getFrameWithoutDistortion(actualFrame);
 }
 
 void CameraReader::stopReceivement() {
@@ -56,7 +60,6 @@ void CameraReader::initializeReceivement() {
     if (!capture.isOpened()) {
         std::cerr << "[Error] Camera cannot open" << std::endl;
     }
-
 }
 
 void CameraReader::setSource(std::string actualCameraIndex) {
@@ -85,7 +88,7 @@ void CameraReader::readCameraCoefficients() {
 void CameraReader::setMapsCalibration() {
     readCameraCoefficients();
     cv::initUndistortRectifyMap(cameraMatrix, distortionCoefficients,
-                                cv::Mat(), cameraMatrix, cv::Size(1280, 720),
+                                cv::Mat(), cameraMatrix, cv::Size(640, 480),
                                 CV_16SC2, map1, map2);
 }
 

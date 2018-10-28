@@ -67,6 +67,7 @@ void RobotOpponentKalmanFilter::predict() {
 
         robotPredicted.x = state.at<float>(0);
         robotPredicted.y = state.at<float>(1);
+        robotPredicted.angle = robotMesured.angle;
         robotPredicted.speedX = state.at<float>(2);
         robotPredicted.speedY = state.at<float>(3);
 

@@ -43,7 +43,7 @@ private:
     bool init;
 
     BallKalmanFilter ballKalmanFilter;
-    std::vector<RobotTeamKalmanFilter> robotsTeamKalmanFilter;
+    std::vector<RobotOpponentKalmanFilter> robotsTeamKalmanFilter;
     std::vector<RobotOpponentKalmanFilter> robotsOpponentKalmanFilter;
 
     ColorSide recognizeSide(double farthestAngle, double closestAngle);

@@ -26,16 +26,6 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
         cv::Mat image = frame.clone();
     mtxUpdateFrame.unlock();
 
-    for (auto &robot : blueRobots) {
-        cout << "Blue:\t" << robot << endl;
-    }
-
-    for (auto &robot : yellowRobots) {
-        cout << "Yellow:\t" << robot << endl;
-    }
-
-    cout << "Ball:\t" << ball << endl << endl;
-
     if(playing)
         stateSender->sendState(blueRobots, yellowRobots, ball);
 }
@@ -50,17 +40,14 @@ void VisionWindow::updateGtkImage() {
         cv::Mat image = frame.clone();
     mtxUpdateFrame.unlock();
 
-    /*
-    mtxGetRobots.lock();
-        onRobotsNewPositions(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
-    mtxGetRobots.unlock();
-    */
-
     screenImage->setImage(image);
 
+    mtxGetRobots.lock();
     mtxFps.lock();
-        updateLabel(timeHelper.getFramesPerSecond());
+        updateLabel(timeHelper.getFramesPerSecond(), robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
     mtxFps.unlock();
+    mtxGetRobots.unlock();
+
 }
 
 void VisionWindow::processFrame(cv::Mat image) {
@@ -78,30 +65,18 @@ void VisionWindow::processFrame(cv::Mat image) {
         image = cropImage(image, processCalibration.cut[0], processCalibration.cut[1]);
     }
 
-    //std::cout << "DEBUG 1" << std::endl;
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
-    //std::cout << "DEBUG 2" << std::endl;
-
     patternRecognizer->recognizeMainColorBall(image);
     patternRecognizer->recognizeMainColorTeam(image);
     patternRecognizer->recognizeMainColorOpponent(image);
-    //std::cout << "DEBUG 3" << std::endl;
 
     patternRecognizer->recognizeSecondColor(image);
-    //std::cout << "DEBUG 4" << std::endl;
 
     robotRecognizer->setImage(image);
-    //std::cout << "DEBUG 5" << std::endl;
-
     robotRecognizer->recognizeTeam(patternRecognizer->getTeamMainColorPosition(), patternRecognizer->getTeamSecondColorPosition(), pattern);
-    //std::cout << "DEBUG 6" << std::endl;
-
     robotRecognizer->recognizeOpponent(patternRecognizer->getOpponentMainColorPosition());
-    //std::cout << "DEBUG 7" << std::endl;
-
     robotRecognizer->recognizeBall(patternRecognizer->getBallMainColorPosition());
-    //std::cout << "DEBUG 8" << std::endl;
 
     for (auto r : patternRecognizer->getBallRotatedRect()) {
         r.angle = 0;
@@ -116,13 +91,24 @@ void VisionWindow::processFrame(cv::Mat image) {
         image = drawRotatedRectangle(image, r);
     }
 
+    /*
+    mtxGetRobots.lock();
+        if (pattern[ObjectType::Team].singleColorType == ColorType::Blue) {
+            for (auto robot : robotRecognizer->getBlueRobots()) {
+                cv::RotatedRect r(cv::Point2f(robot.x, robot.y), cv::Size2f(20,20), robot.angle);
+                image = drawRotatedRectangle(image, r);
+            }
 
-    //drawRectangle(image, patternRecognizer->getRect());
-    //drawRotatedRectangle(image, patternRecognizer->getRotatedRect());
+        } else {
+            for (auto robot : robotRecognizer->getBlueRobots()) {
+                cv::RotatedRect r(cv::Point2f(robot.x, robot.y), cv::Size2f(20,20), robot.angle);
+                image = drawRotatedRectangle(image, r);
 
+            }
 
-    if (!patternRecognizer->getRect().empty())
-        image = patternRecognizer->getImage();
+        }
+    mtxGetRobots.unlock();
+    */
 
     mtxUpdateFrame.lock();
         frame = image.clone();

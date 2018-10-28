@@ -55,7 +55,7 @@ void CalibrationWindow::processFrame(cv::Mat image) {
 
    } else {
        image = drawRectangle(image, colorRecognizer->getRectangles());
-       
+
        mtxUpdateFrame.lock();
            frame = image.clone();
        mtxUpdateFrame.unlock();
