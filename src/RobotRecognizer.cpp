@@ -103,7 +103,12 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
             vss::Robot robot;
             robot.x = teamColor.points[i].x;
             robot.y = teamColor.points[i].y;
-            robot.angle = Math::constrainAngle(farthestAngle + 45);
+
+            if (colorSide == ColorSide::Right)
+                robot.angle = Math::constrainAngle(farthestAngle + 45);
+
+            if (colorSide == ColorSide::Left)
+                robot.angle = Math::constrainAngle(farthestAngle - 45);
 
             robot = convertRobotPosePixelToCentimeter(robot);
 

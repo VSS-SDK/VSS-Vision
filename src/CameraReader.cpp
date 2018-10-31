@@ -39,7 +39,7 @@ cv::Mat CameraReader::getFrame() {
 
     } while (newFrame.empty());
 
-//    return actualFrame;
+    //return actualFrame;
     return getFrameWithoutDistortion(actualFrame);
 }
 
@@ -80,9 +80,19 @@ void CameraReader::setSource(std::string actualCameraIndex) {
 
 void CameraReader::readCameraCoefficients() {
     cv::FileStorage fs;
-    fs.open("cameraCoefficients.xml", cv::FileStorage::READ);
-    fs["Camera_Matrix"] >> cameraMatrix;
-    fs["Distortion_Coefficients"] >> distortionCoefficients;
+    try{
+        fs.open("cameraCoefficients.xml", cv::FileStorage::READ);
+        if(!fs.isOpened()){
+            std::cerr << "[Error] XML of Camera Coefficients not found" << std::endl;
+            return;
+        }
+
+        fs["Camera_Matrix"] >> cameraMatrix;
+        fs["Distortion_Coefficients"] >> distortionCoefficients;
+
+    } catch (std::exception const &e) {
+        std::cerr << "[Error] XML of Camera Coefficients not found" << std::endl;
+    }
 }
 
 void CameraReader::setMapsCalibration() {
