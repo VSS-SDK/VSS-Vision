@@ -129,15 +129,17 @@ void GImage::processImage(cv::Mat image) {
     width_image  = get_allocation().get_width();
     height_image = get_allocation().get_height();
 
-    do {
-        float ratio = float(width_image) / float(cv_image.cols);
+    if (width_original_image > width_image || height_original_image > height_image) {
+        do {
+            float ratio = float(width_image) / float(cv_image.cols);
 
-        width_image  = width_image - 1;
-        height_image = cv_image.rows * ratio;
+            width_image = width_image - 1;
+            height_image = cv_image.rows * ratio;
 
-    } while (height_image > get_allocation().get_height());
+        } while (height_image > get_allocation().get_height());
 
-    cv_image = resizeImage(cv_image, cv::Point(width_image , height_image));
+        cv_image = resizeImage(cv_image, cv::Point(width_image, height_image));
+    }
 
     queue_draw();
 }

@@ -294,12 +294,14 @@ void RobotRecognizer::keepOpponentOrder(ColorType color) {
 }
 
 void RobotRecognizer::recognizeBall(ColorPosition colors) {
+
     if (!colors.points.empty()) {
         ball.x = colors.points[0].x;
         ball.y = colors.points[0].y;
     }
-    convertBallPosePixelToCentimeter();
 
+    convertBallPosePixelToCentimeter();
+/*
     if (ball.x <= 0.1 && ball.y <= 0.1 && ball.y <= -0.1 && ball.x <= -0.1) {
         ballKalmanFilter.setFoundFlag(false);
     } else {
@@ -310,7 +312,7 @@ void RobotRecognizer::recognizeBall(ColorPosition colors) {
     ballKalmanFilter.predict();
     ballKalmanFilter.update();
     ball = ballKalmanFilter.getBall();
-
+*/
 }
 
 vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot) {

@@ -68,14 +68,14 @@ void VisionWindow::processFrame(cv::Mat image) {
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
     patternRecognizer->recognizeMainColorBall(image);
-    patternRecognizer->recognizeMainColorTeam(image);
-    patternRecognizer->recognizeMainColorOpponent(image);
+//    patternRecognizer->recognizeMainColorTeam(image);
+//    patternRecognizer->recognizeMainColorOpponent(image);
 
-    patternRecognizer->recognizeSecondColor(image);
-
-    robotRecognizer->setImage(image);
-    robotRecognizer->recognizeTeam(patternRecognizer->getTeamMainColorPosition(), patternRecognizer->getTeamSecondColorPosition(), pattern);
-    robotRecognizer->recognizeOpponent(patternRecognizer->getOpponentMainColorPosition());
+//    patternRecognizer->recognizeSecondColor(image);
+//
+//    robotRecognizer->setImage(image);
+//    robotRecognizer->recognizeTeam(patternRecognizer->getTeamMainColorPosition(), patternRecognizer->getTeamSecondColorPosition(), pattern);
+//    robotRecognizer->recognizeOpponent(patternRecognizer->getOpponentMainColorPosition());
     robotRecognizer->recognizeBall(patternRecognizer->getBallMainColorPosition());
 
     for (auto r : patternRecognizer->getBallRotatedRect()) {

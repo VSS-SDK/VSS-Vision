@@ -54,8 +54,6 @@ void CameraReader::initializeReceivement() {
     }
 
     capture = cv::VideoCapture(1);
-    capture.set(CV_CAP_PROP_FRAME_WIDTH, 640);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
 
     if (!capture.isOpened()) {
         std::cerr << "[Error] Camera cannot open" << std::endl;
