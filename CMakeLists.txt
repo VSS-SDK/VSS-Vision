@@ -38,7 +38,7 @@ FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/mock/ DESTINATION ${VSS_FILES_FOLDER}/mock)
 FILE(INSTALL ${CMAKE_HOME_DIRECTORY}/data/ DESTINATION ${VSS_FILES_FOLDER}/data)
 
 IF(RELEASE)
-    SET(CMAKE_CXX_FLAGS "-Wall -Werror -o2 -std=c++11 -pthread")
+    SET(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++11 -pthread")
 
     INCLUDE(CPack)
 

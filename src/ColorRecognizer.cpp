@@ -24,7 +24,7 @@ void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> 
     
     
     for (unsigned int i = 0; i < rect.size(); i++) {
-        rect[i] = increaseRect(image, rect[i], 0.5 ,0.5);
+        rect[i] = increaseRect(image, rect[i], 1 ,1);
         frame = cropImage(image, rect[i]);
 
         binarizesImage();
@@ -35,8 +35,6 @@ void ColorRecognizer::processImageInSector(cv::Mat image, std::vector<cv::Rect> 
             rectangles[j].y += rect[i].y;
             rotatedRectangles[j].center.x += rect[i].x;
             rotatedRectangles[j].center.y += rect[i].y;
-
-            std::cout << "Teste: " << rectangles[j] << std::endl;
         }
 
         changeCoordinateInVector = rectangles.size();

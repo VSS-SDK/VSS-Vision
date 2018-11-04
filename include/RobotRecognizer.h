@@ -1,6 +1,7 @@
 #ifndef VSS_VISION_ROBOTRECOGNIZER_H
 #define VSS_VISION_ROBOTRECOGNIZER_H
 
+#include <Helpers/TimeHelper.h>
 #include "Interfaces/IRobotRecognizer.h"
 #include "Domain/Ball.h"
 #include "Domain/Robot.h"
@@ -50,8 +51,8 @@ private:
 
     vss::Robot calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot);
 
-    vss::Robot convertRobotPosePixelToCentimeter(vss::Robot);
-    void convertBallPosePixelToCentimeter();
+    vss::Robot convertPointPosePixelToCentimeter(vss::Robot);
+    vss::Ball convertPointPosePixelToCentimeter(vss::Ball);
 
     void keepOpponentOrder(ColorType);
 

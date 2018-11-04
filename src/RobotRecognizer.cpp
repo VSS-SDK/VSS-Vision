@@ -41,97 +41,38 @@ RobotRecognizer::RobotRecognizer() {
 void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPosition> playerColor,
                                     std::vector<ColorPattern> pattern) {
 
-    for (unsigned int i = 0; i < playerColor.size(); i++){
+    for (unsigned int i = 0; i < teamColor.points.size(); i++) {
 
-        if (playerColor[i].points.size() == 3) {
+        float angle = Math::angle(teamColor.points[i], playerColor[i].points[0]);
 
-            double dist01 = Math::distance(playerColor[i].points[0], playerColor[i].points[1]);
-            double dist02 = Math::distance(playerColor[i].points[0], playerColor[i].points[2]);
-            double dist12 = Math::distance(playerColor[i].points[1], playerColor[i].points[2]);
+        ColorPattern colorPattern;
+        colorPattern.singleColorType = playerColor[i].color;
 
-            unsigned int singleColorIndex = 0;
-            unsigned int closestColorIndex = 0;
-            unsigned int farthestColorIndex = 0;
+        vss::Robot robot;
+        robot.x = teamColor.points[i].x;
+        robot.y = teamColor.points[i].y;
+        robot.angle = angle;
 
-            if (dist01 < dist02 && dist01 < dist12) {
-                singleColorIndex = 2;
+        robot = convertPointPosePixelToCentimeter(robot);
 
-                if (dist02 < dist12) {
-                    closestColorIndex = 0;
-                    farthestColorIndex = 1;
-                } else {
-                    closestColorIndex = 1;
-                    farthestColorIndex = 0;
-                }
+        for (unsigned int j = 3; j < pattern.size() - 1; j++) {
+            if (pattern[j] == colorPattern) {
+                if (teamColor.color == ColorType::Blue) {
+                    blueRobots[j - 3] = robot;
 
-            } else if (dist02 < dist01 && dist02 < dist12) {
-                singleColorIndex = 1;
-
-                if (dist01 < dist12) {
-                    closestColorIndex = 0;
-                    farthestColorIndex = 2;
-                } else {
-                    closestColorIndex = 2;
-                    farthestColorIndex = 0;
-                }
-
-            } else if (dist12 < dist01 && dist12 < dist02) {
-                singleColorIndex = 0;
-
-                if (dist01 < dist02) {
-                    closestColorIndex = 1;
-                    farthestColorIndex = 2;
-
-                } else {
-                    closestColorIndex = 2;
-                    farthestColorIndex = 1;
+                } else if (teamColor.color == ColorType::Yellow) {
+                    yellowRobots[j - 3] = robot;
                 }
             }
+        }
 
-            double closestAngle = Math::angle(playerColor[i].points[singleColorIndex],
-                                              playerColor[i].points[closestColorIndex]);
-            double farthestAngle = Math::angle(playerColor[i].points[singleColorIndex],
-                                               playerColor[i].points[farthestColorIndex]);
-
-            ColorSide colorSide = recognizeSide(farthestAngle, closestAngle);
-
-            ColorPattern colorPattern;
-            colorPattern.colorSide = colorSide;
-            colorPattern.singleColorType = playerColor[i].color;
-            colorPattern.doubleColorType = playerColor[i].color;
-
-            vss::Robot robot;
-            robot.x = teamColor.points[i].x;
-            robot.y = teamColor.points[i].y;
-
-            if (colorSide == ColorSide::Left)
-                robot.angle = Math::constrainAngle(farthestAngle + 45);
-
-            if (colorSide == ColorSide::Right)
-                robot.angle = Math::constrainAngle(farthestAngle - 45);
-
-            robot = convertRobotPosePixelToCentimeter(robot);
-
-
-            for (unsigned int j = 3; j < pattern.size() - 1; j++) {
-
-                if (pattern[j].isEquals(colorPattern)) {
-                    if (teamColor.color == ColorType::Blue) {
-                        blueRobots[j - 3] = robot;
-                    } else if (teamColor.color == ColorType::Yellow) {
-                        yellowRobots[j - 3] = robot;
-                    }
-                }
+        if (teamColor.color == ColorType::Blue) {
+            for (unsigned int i = 0; i < blueRobots.size(); i++) {
+                blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
             }
-
-            if (teamColor.color == ColorType::Blue) {
-                for (unsigned int i = 0; i < blueRobots.size(); i++) {
-                    blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
-                }
-            } else if (teamColor.color == ColorType::Yellow) {
-                for (unsigned int i = 0; i < yellowRobots.size(); i++) {
-                    yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
-                }
+        } else if (teamColor.color == ColorType::Yellow) {
+            for (unsigned int i = 0; i < yellowRobots.size(); i++) {
+                yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
             }
         }
     }
@@ -157,7 +98,7 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
         robot.x = colors.points[i].x;
         robot.y = colors.points[i].y;
 
-        robot = convertRobotPosePixelToCentimeter(robot);
+        robot = convertPointPosePixelToCentimeter(robot);
 
         if (colors.color == ColorType::Blue) {
             blueRobots.push_back(robot);
@@ -298,21 +239,16 @@ void RobotRecognizer::recognizeBall(ColorPosition colors) {
     if (!colors.points.empty()) {
         ball.x = colors.points[0].x;
         ball.y = colors.points[0].y;
+
+        ball = convertPointPosePixelToCentimeter(ball);
     }
 
-    convertBallPosePixelToCentimeter();
-/*
-    if (ball.x <= 0.1 && ball.y <= 0.1 && ball.y <= -0.1 && ball.x <= -0.1) {
-        ballKalmanFilter.setFoundFlag(false);
-    } else {
-        ballKalmanFilter.setFoundFlag(true);
-    }
-
+    ballKalmanFilter.setFoundFlag(true);
     ballKalmanFilter.setBall(ball);
     ballKalmanFilter.predict();
     ballKalmanFilter.update();
     ball = ballKalmanFilter.getBall();
-*/
+
 }
 
 vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot) {
@@ -349,16 +285,18 @@ ColorSide RobotRecognizer::recognizeSide(double farthestAngle, double closestAng
     return colorSide;
 }
 
-vss::Robot RobotRecognizer::convertRobotPosePixelToCentimeter(vss::Robot robot) {
+vss::Robot RobotRecognizer::convertPointPosePixelToCentimeter(vss::Robot robot) {
     robot.x = (robot.x * 170) / image.cols;
     robot.y = (robot.y * 130) / image.rows;
     return robot;
 }
 
-void RobotRecognizer::convertBallPosePixelToCentimeter() {
+vss::Ball RobotRecognizer::convertPointPosePixelToCentimeter(vss::Ball ball){
     ball.x = (ball.x * 170) / image.cols;
     ball.y = (ball.y * 130) / image.rows;
+    return ball;
 }
+
 
 void RobotRecognizer::setImage(cv::Mat image) {
     this->image = image;
