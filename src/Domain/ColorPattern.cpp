@@ -7,28 +7,14 @@
 ColorPattern::ColorPattern() {
     this->id = ObjectType::Unknown;
     this->singleColorType = ColorType::UnknownType;
-    this->doubleColorType = ColorType::UnknownType;
-    this->colorSide = ColorSide::UnknownSide;
 }
 
-ColorPattern::ColorPattern(ObjectType id, ColorType singleType, ColorType doubleType, ColorRange singleRange, ColorRange doubleRange, ColorSide colorSide) {
+ColorPattern::ColorPattern(ObjectType id, ColorType singleType, ColorRange singleRange) {
     this->id = id;
     this->singleColorType = singleType;
-    this->doubleColorType = doubleType;
     this->singleColorRange = singleRange;
-    this->doubleColorRange = doubleRange;
-    this->colorSide = colorSide;
 }
 
 bool operator==(const ColorPattern& a, const ColorPattern& b) {
-    return (a.doubleColorType == b.doubleColorType) and
-            (a.singleColorType == b.singleColorType) and
-            (a.colorSide == b.colorSide);
-}
-
-
-bool ColorPattern::isEquals(ColorPattern colorPattern) {
-    return (colorPattern.doubleColorType == this->doubleColorType &&
-            colorPattern.singleColorType == this->singleColorType &&
-            colorPattern.colorSide == this->colorSide);
+    return (a.singleColorType == b.singleColorType);
 }

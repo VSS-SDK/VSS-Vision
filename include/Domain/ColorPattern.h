@@ -7,7 +7,6 @@
 
 #include <ColorType.h>
 #include <ColorRange.h>
-#include <ColorSide.h>
 #include <ObjectType.h>
 
 class ColorPattern {
@@ -15,15 +14,10 @@ public:
 
     ObjectType id;
     ColorType singleColorType;
-    ColorType doubleColorType;
     ColorRange singleColorRange;
-    ColorRange doubleColorRange;
-    ColorSide colorSide;
 
     ColorPattern();
-    ColorPattern(ObjectType, ColorType, ColorType, ColorRange, ColorRange, ColorSide);
-
-    bool isEquals(ColorPattern colorPattern);
+    ColorPattern(ObjectType, ColorType, ColorRange);
 
     friend bool operator==(const ColorPattern& a, const ColorPattern& b);
 
