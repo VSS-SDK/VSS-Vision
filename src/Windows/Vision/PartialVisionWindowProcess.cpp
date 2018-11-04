@@ -63,7 +63,6 @@ void VisionWindow::processFrame(cv::Mat image) {
     mtxPattern.lock();
         std::vector<ColorPattern> processPattern = pattern;
     mtxPattern.unlock();
-
     // image = changeRotation(image, processCalibration.rotation);
     
     if(processCalibration.shouldCropImage){
@@ -79,9 +78,19 @@ void VisionWindow::processFrame(cv::Mat image) {
     patternRecognizer->recognizeSecondColor(image);
 
     robotRecognizer->setImage(image);
+    std::cout << "TESTE 0" << std::endl;
+
     robotRecognizer->recognizeTeam(patternRecognizer->getTeamMainColorPosition(), patternRecognizer->getTeamSecondColorPosition(), pattern);
+
+    std::cout << "TESTE 9" << std::endl;
+
     robotRecognizer->recognizeOpponent(patternRecognizer->getOpponentMainColorPosition());
+
+    std::cout << "TESTE 10" << std::endl;
+
     robotRecognizer->recognizeBall(patternRecognizer->getBallMainColorPosition());
+
+    std::cout << "TESTE 11" << std::endl;
 
     for (auto r : patternRecognizer->getBallRotatedRect()) {
         r.angle = 0;

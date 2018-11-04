@@ -82,8 +82,13 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
             ColorPosition position;
             position.color = colorRecognizer2->getColor();
             position.points = colorRecognizer2->getCenters();
+
+            position.points[0].x += teamRect[i].x;
+            position.points[0].y += teamRect[i].y;
+
             playerColorPosition.push_back(position);
         } else {
+            playerColorPosition.push_back(ColorPosition());
             std::cout << "Pink color founded: " << colorRecognizer2->getCenters().size() << std::endl;
         }
 
@@ -91,7 +96,6 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
 
         testImage = cuttedImage;
     }
-
 }
 
 cv::Mat PatternRecognizer::getImage() {

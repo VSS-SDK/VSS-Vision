@@ -5,7 +5,6 @@
 #include "Interfaces/IRobotRecognizer.h"
 #include "Domain/Ball.h"
 #include "Domain/Robot.h"
-#include "Domain/ColorSide.h"
 #include "Domain/ColorPosition.h"
 #include "Domain/ColorPattern.h"
 #include "BallKalmanFilter.h"
@@ -46,8 +45,6 @@ private:
     BallKalmanFilter ballKalmanFilter;
     std::vector<RobotOpponentKalmanFilter> robotsTeamKalmanFilter;
     std::vector<RobotOpponentKalmanFilter> robotsOpponentKalmanFilter;
-
-    ColorSide recognizeSide(double farthestAngle, double closestAngle);
 
     vss::Robot calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot);
 

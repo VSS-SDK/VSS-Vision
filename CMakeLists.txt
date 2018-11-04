@@ -63,7 +63,7 @@ ELSE()
 
     file(GLOB_RECURSE TEST test/*.cpp)
 
-    ADD_EXECUTABLE(tests ${TEST} include/Domain/ColorPattern.h include/Domain/ColorSide.h)
+    ADD_EXECUTABLE(tests ${TEST})
 
     target_link_libraries(tests
             pthread

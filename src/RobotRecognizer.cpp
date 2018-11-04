@@ -43,39 +43,61 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
 
     for (unsigned int i = 0; i < teamColor.points.size(); i++) {
 
-        float angle = Math::angle(teamColor.points[i], playerColor[i].points[0]);
+        if ( not playerColor[i].points.empty() ) {
 
-        ColorPattern colorPattern;
-        colorPattern.singleColorType = playerColor[i].color;
+            std::cout << "TESTE 1" << std::endl;
 
-        vss::Robot robot;
-        robot.x = teamColor.points[i].x;
-        robot.y = teamColor.points[i].y;
-        robot.angle = angle;
+            std::cout << teamColor.points[i] << "\t" << playerColor[i].points[0] << std::endl;
 
-        robot = convertPointPosePixelToCentimeter(robot);
+            float angle = Math::angle(teamColor.points[i], playerColor[i].points[0]);
 
-        for (unsigned int j = 3; j < pattern.size() - 1; j++) {
-            if (pattern[j] == colorPattern) {
-                if (teamColor.color == ColorType::Blue) {
-                    blueRobots[j - 3] = robot;
+            ColorPattern colorPattern;
+            colorPattern.singleColorType = playerColor[i].color;
 
-                } else if (teamColor.color == ColorType::Yellow) {
-                    yellowRobots[j - 3] = robot;
+            std::cout << "TESTE 2" << std::endl;
+
+            vss::Robot robot;
+            robot.x = (teamColor.points[i].x + playerColor[i].points[0].x) / 2;
+            robot.y = (teamColor.points[i].y + playerColor[i].points[0].y) / 2;
+            robot.angle = Math::constrainAngle(angle + 45);
+
+            std::cout << "TESTE 3" << std::endl;
+
+            robot = convertPointPosePixelToCentimeter(robot);
+
+            std::cout << "TESTE 4" << std::endl;
+
+
+            for (unsigned int j = 3; j < pattern.size() - 1; j++) {
+                if (pattern[j] == colorPattern) {
+                    if (teamColor.color == ColorType::Blue) {
+                        blueRobots[j - 3] = robot;
+
+                    } else if (teamColor.color == ColorType::Yellow) {
+                        yellowRobots[j - 3] = robot;
+                    }
                 }
             }
+
+            std::cout << "TESTE 5" << std::endl;
+
+            if (teamColor.color == ColorType::Blue) {
+                for (unsigned int i = 0; i < blueRobots.size(); i++) {
+                    blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
+                }
+            } else if (teamColor.color == ColorType::Yellow) {
+                for (unsigned int i = 0; i < yellowRobots.size(); i++) {
+                    yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
+                }
+            }
+            std::cout << "TESTE 6" << std::endl;
         }
 
-        if (teamColor.color == ColorType::Blue) {
-            for (unsigned int i = 0; i < blueRobots.size(); i++) {
-                blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
-            }
-        } else if (teamColor.color == ColorType::Yellow) {
-            for (unsigned int i = 0; i < yellowRobots.size(); i++) {
-                yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
-            }
-        }
+        std::cout << "TESTE 7" << std::endl;
+
     }
+
+    std::cout << "TESTE 8" << std::endl;
 
     blueRobots.resize(5, vss::Robot());
     yellowRobots.resize(5, vss::Robot());
@@ -83,15 +105,21 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
 
 void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
 
+    std::cout << "TESTE OPONENTE 1 " << std::endl;
+
     if(colors.points.size() > 5){
         colors.points.resize(5, cv::Point2f());
     }
+
+    std::cout << "TESTE OPONENTE 2 " << std::endl;
 
     if (colors.color == ColorType::Blue) {
         blueRobots.clear();
     } else if (colors.color == ColorType::Yellow) {
         yellowRobots.clear();
     }
+
+    std::cout << "TESTE OPONENTE 3 " << std::endl;
 
     for (unsigned int i = 0; i < colors.points.size(); i++) {
         vss::Robot robot;
@@ -107,6 +135,8 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
         }
     }
 
+    std::cout << "TESTE OPONENTE 4 " << std::endl;
+
     if (init) {
         if (colors.color == ColorType::Blue) {
             lastBlueRobots = blueRobots;
@@ -116,7 +146,11 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
         init = false;
     }
 
+    std::cout << "TESTE OPONENTE 5 " << std::endl;
+
     keepOpponentOrder(colors.color);
+
+    std::cout << "TESTE OPONENTE 6 " << std::endl;
 
     if (colors.color == ColorType::Blue) {
         for(unsigned int i = 0; i < blueRobots.size(); i++){
@@ -146,10 +180,16 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
         lastYellowRobots = yellowRobots;
     }
 
+    std::cout << "TESTE OPONENTE 7 " << std::endl;
+
     blueRobots.resize(5, vss::Robot());
     yellowRobots.resize(5, vss::Robot());
+
+    std::cout << "TESTE OPONENTE 8 " << std::endl;
     lastBlueRobots.resize(5, vss::Robot());
     lastYellowRobots.resize(5, vss::Robot());
+
+    std::cout << "TESTE OPONENTE 9 " << std::endl;
 }
 
 void RobotRecognizer::keepOpponentOrder(ColorType color) {
@@ -262,29 +302,6 @@ vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(unsigned int id, vss::
     return robot;
 }
 
-ColorSide RobotRecognizer::recognizeSide(double farthestAngle, double closestAngle) {
-
-    ColorSide colorSide;
-
-    if (abs(closestAngle - farthestAngle) > 90) {
-        if (closestAngle > farthestAngle) {
-            colorSide = ColorSide::Right;
-
-        } else {
-            colorSide = ColorSide::Left;
-        }
-
-    } else {
-        if (closestAngle > farthestAngle) {
-            colorSide = ColorSide::Left;
-
-        } else {
-            colorSide = ColorSide::Right;
-        }
-    }
-    return colorSide;
-}
-
 vss::Robot RobotRecognizer::convertPointPosePixelToCentimeter(vss::Robot robot) {
     robot.x = (robot.x * 170) / image.cols;
     robot.y = (robot.y * 130) / image.rows;
@@ -296,7 +313,6 @@ vss::Ball RobotRecognizer::convertPointPosePixelToCentimeter(vss::Ball ball){
     ball.y = (ball.y * 130) / image.rows;
     return ball;
 }
-
 
 void RobotRecognizer::setImage(cv::Mat image) {
     this->image = image;
