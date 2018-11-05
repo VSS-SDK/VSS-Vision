@@ -16,6 +16,7 @@
 #include <Domain/ColorPosition.h>
 #include <Helpers/TimeHelper.h>
 #include <Helpers/FrameHelper.h>
+#include <Helpers/Math.h>
 #include <Interfaces/IColorRecognizer.h>
 #include <Interfaces/IPatternRecognizer.h>
 #include <vector>
@@ -31,6 +32,7 @@ public:
     void recognizeSecondColor(cv::Mat) override;
     void setRangeVector(std::vector<ColorRange>) override;
     void setPatternVector(std::vector<ColorPattern>) override;
+
 
     ColorPosition getBallMainColorPosition() override;
     ColorPosition getTeamMainColorPosition() override;
@@ -51,6 +53,7 @@ private:
     IColorRecognizer *opponentColorRecognizer;
     IColorRecognizer *colorRecognizer1;
     IColorRecognizer *colorRecognizer2;
+    IColorRecognizer *colorRecognizer3;
 
     TimeHelper timeBall;
     TimeHelper timeTeam;

@@ -47,11 +47,11 @@ void VisionWindow::updateGtkImage() {
 
     screenImage->setImage(image);
 
-    mtxGetRobots.lock();
-    mtxFps.lock();
-        updateLabel(timeHelper.getFramesPerSecond(), robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
-    mtxFps.unlock();
-    mtxGetRobots.unlock();
+//    mtxGetRobots.lock();
+//    mtxFps.lock();
+//        updateLabel(timeHelper.getFramesPerSecond(), robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
+//    mtxFps.unlock();
+//    mtxGetRobots.unlock();
 
 }
 
@@ -78,19 +78,10 @@ void VisionWindow::processFrame(cv::Mat image) {
     patternRecognizer->recognizeSecondColor(image);
 
     robotRecognizer->setImage(image);
-    std::cout << "TESTE 0" << std::endl;
-
     robotRecognizer->recognizeTeam(patternRecognizer->getTeamMainColorPosition(), patternRecognizer->getTeamSecondColorPosition(), pattern);
-
-    std::cout << "TESTE 9" << std::endl;
-
     robotRecognizer->recognizeOpponent(patternRecognizer->getOpponentMainColorPosition());
-
-    std::cout << "TESTE 10" << std::endl;
-
+    std::cout << "TESTE OPONENTE 10 " << std::endl;
     robotRecognizer->recognizeBall(patternRecognizer->getBallMainColorPosition());
-
-    std::cout << "TESTE 11" << std::endl;
 
     for (auto r : patternRecognizer->getBallRotatedRect()) {
         r.angle = 0;
@@ -126,12 +117,9 @@ void VisionWindow::processFrame(cv::Mat image) {
 
     std::cout << std::endl;
 
-
     mtxUpdateFrame.lock();
         frame = image.clone();
     mtxUpdateFrame.unlock();
 
     //frame = patternRecognizer->getImage();
-
-
 }

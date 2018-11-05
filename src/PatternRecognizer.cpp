@@ -14,6 +14,7 @@ PatternRecognizer::PatternRecognizer() {
     opponentColorRecognizer = new ColorRecognizer;
     colorRecognizer1 = new ColorRecognizer;
     colorRecognizer2 = new ColorRecognizer;
+    colorRecognizer3 = new ColorRecognizer;
 }
 
 void PatternRecognizer::setPatternVector(std::vector<ColorPattern> p) {
@@ -62,39 +63,73 @@ void PatternRecognizer::recognizeMainColorOpponent(cv::Mat image) {
 
 void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
     std::vector<cv::Rect> teamRect = teamColorRecognizer->getRectangles();
-    std::vector<cv::RotatedRect> teamRotatedRect = teamColorRecognizer->getRotatedRectangles();
 
-    std::vector<ColorPosition> aux = playerColorPosition;
     playerColorPosition.clear();
 
     for (unsigned int i = 0; i < teamRect.size(); i++) {
         teamRect[i] = increaseRect(image, teamRect[i], 1.5, 1.5);
-        //teamRotatedRect[i] = increaseRotatedRect(image, teamRotatedRect[i], 2, 1.2);
-
         cv::Mat cuttedImage = cropImage(image, teamRect[i]);
+        cv::Point2f center = cv::Point2f(teamRect[i].x/2, teamRect[i].y/2);
 
-        ColorRange colorRange2 (range, ColorType::Pink);
+        ColorRange colorRange1 (range, ColorType::Pink);
+        colorRecognizer1->setColorRange(colorRange1);
+        colorRecognizer1->processImage(cuttedImage, 1);
+
+        ColorRange colorRange2 (range, ColorType::Green);
         colorRecognizer2->setColorRange(colorRange2);
-        colorRecognizer2->processImage(cuttedImage, 3);
-        //colorRecognizer2->deleteOutsidePoint(teamRotatedRect[i], teamRect[i]);
+        colorRecognizer2->processImage(cuttedImage, 1);
 
-        if (colorRecognizer2->getCenters().size() == 1){
-            ColorPosition position;
-            position.color = colorRecognizer2->getColor();
-            position.points = colorRecognizer2->getCenters();
+        ColorRange colorRange3 (range, ColorType::Red);
+        colorRecognizer3->setColorRange(colorRange3);
+        colorRecognizer3->processImage(cuttedImage, 1);
 
-            position.points[0].x += teamRect[i].x;
-            position.points[0].y += teamRect[i].y;
+        float minDistance = 10000;
 
-            playerColorPosition.push_back(position);
-        } else {
-            playerColorPosition.push_back(ColorPosition());
-            std::cout << "Pink color founded: " << colorRecognizer2->getCenters().size() << std::endl;
+        ColorPosition position;
+
+        for (unsigned int j = 0; j < colorRecognizer1->getCenters().size(); j++) {
+            cv::Point2f point (colorRecognizer1->getCenters()[j].x + teamRect[i].x, colorRecognizer1->getCenters()[j].y + teamRect[i].y);
+
+            float distance = Math::distance(center, point);
+            if (distance < minDistance) {
+                position.color = colorRecognizer1->getColor();
+                position.points = colorRecognizer1->getCenters();
+                minDistance = distance;
+            }
         }
 
-        std::cout << colorRecognizer2->getCenters().size() << std::endl;
+        for (unsigned int j = 0; j < colorRecognizer2->getCenters().size(); j++) {
+            cv::Point2f point (colorRecognizer2->getCenters()[j].x + teamRect[i].x, colorRecognizer2->getCenters()[j].y + teamRect[i].y);
 
-        testImage = cuttedImage;
+            float distance = Math::distance(center, point);
+            if (distance < minDistance) {
+                position.color = colorRecognizer2->getColor();
+                position.points = colorRecognizer2->getCenters();
+                minDistance = distance;
+            }
+        }
+
+        for (unsigned int j = 0; j < colorRecognizer3->getCenters().size(); j++) {
+            cv::Point2f point (colorRecognizer3->getCenters()[j].x + teamRect[i].x, colorRecognizer3->getCenters()[j].y + teamRect[i].y);
+
+            float distance = Math::distance(center, point);
+            if (distance < minDistance) {
+                position.color = colorRecognizer3->getColor();
+                position.points = colorRecognizer3->getCenters();
+                minDistance = distance;
+            }
+        }
+
+        for (unsigned int j = 0; j < position.points.size(); j++) {
+            position.points[j].x += teamRect[i].x;
+            position.points[j].y += teamRect[i].y;
+            playerColorPosition.push_back(position);
+        }
+
+        if (position.points.empty()) {
+            playerColorPosition.push_back(position);
+        }
+
     }
 }
 

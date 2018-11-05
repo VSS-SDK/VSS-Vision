@@ -56,6 +56,9 @@
     </columns>
     <data>
       <row>
+        <col id="0" translatable="yes">Robot 0</col>
+      </row>
+      <row>
         <col id="0" translatable="yes">Robot 1</col>
       </row>
       <row>
@@ -66,9 +69,6 @@
       </row>
       <row>
         <col id="0" translatable="yes">Robot 4</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Robot 5</col>
       </row>
     </data>
   </object>

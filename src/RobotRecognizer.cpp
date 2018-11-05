@@ -45,28 +45,17 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
 
         if ( not playerColor[i].points.empty() ) {
 
-            std::cout << "TESTE 1" << std::endl;
-
-            std::cout << teamColor.points[i] << "\t" << playerColor[i].points[0] << std::endl;
-
             float angle = Math::angle(teamColor.points[i], playerColor[i].points[0]);
 
             ColorPattern colorPattern;
             colorPattern.singleColorType = playerColor[i].color;
-
-            std::cout << "TESTE 2" << std::endl;
 
             vss::Robot robot;
             robot.x = (teamColor.points[i].x + playerColor[i].points[0].x) / 2;
             robot.y = (teamColor.points[i].y + playerColor[i].points[0].y) / 2;
             robot.angle = Math::constrainAngle(angle + 45);
 
-            std::cout << "TESTE 3" << std::endl;
-
             robot = convertPointPosePixelToCentimeter(robot);
-
-            std::cout << "TESTE 4" << std::endl;
-
 
             for (unsigned int j = 3; j < pattern.size() - 1; j++) {
                 if (pattern[j] == colorPattern) {
@@ -79,8 +68,6 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                 }
             }
 
-            std::cout << "TESTE 5" << std::endl;
-
             if (teamColor.color == ColorType::Blue) {
                 for (unsigned int i = 0; i < blueRobots.size(); i++) {
                     blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
@@ -90,14 +77,8 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                     yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
                 }
             }
-            std::cout << "TESTE 6" << std::endl;
         }
-
-        std::cout << "TESTE 7" << std::endl;
-
     }
-
-    std::cout << "TESTE 8" << std::endl;
 
     blueRobots.resize(5, vss::Robot());
     yellowRobots.resize(5, vss::Robot());
@@ -105,21 +86,15 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
 
 void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
 
-    std::cout << "TESTE OPONENTE 1 " << std::endl;
-
-    if(colors.points.size() > 5){
-        colors.points.resize(5, cv::Point2f());
-    }
-
-    std::cout << "TESTE OPONENTE 2 " << std::endl;
+    //if(colors.points.size() > 5){
+    //    colors.points.resize(5, cv::Point2f());
+    //}
 
     if (colors.color == ColorType::Blue) {
         blueRobots.clear();
     } else if (colors.color == ColorType::Yellow) {
         yellowRobots.clear();
     }
-
-    std::cout << "TESTE OPONENTE 3 " << std::endl;
 
     for (unsigned int i = 0; i < colors.points.size(); i++) {
         vss::Robot robot;
@@ -182,12 +157,12 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
 
     std::cout << "TESTE OPONENTE 7 " << std::endl;
 
-    blueRobots.resize(5, vss::Robot());
-    yellowRobots.resize(5, vss::Robot());
+    blueRobots.resize(5);
+    yellowRobots.resize(5);
 
     std::cout << "TESTE OPONENTE 8 " << std::endl;
-    lastBlueRobots.resize(5, vss::Robot());
-    lastYellowRobots.resize(5, vss::Robot());
+    lastBlueRobots.resize(5);
+    lastYellowRobots.resize(5);
 
     std::cout << "TESTE OPONENTE 9 " << std::endl;
 }
