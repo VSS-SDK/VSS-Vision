@@ -6,11 +6,12 @@
 #define VSS_VISION_ROBOTOPPONENTKALMANFILTER_H
 
 #include "IRobotOpponentKalmanFilter.h"
+#include "Helpers/TimeHelper.h"
 
-class RobotOpponentKalmanFilter : public IRobotOpponentKalmanFilter {
+class KalmanFilter : public IRobotOpponentKalmanFilter {
 
 public:
-    RobotOpponentKalmanFilter();
+    KalmanFilter();
 
     void setRobot(vss::Robot) override;
     void setDeltaTime (double) override;

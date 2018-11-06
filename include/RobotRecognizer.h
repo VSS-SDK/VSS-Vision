@@ -8,8 +8,7 @@
 #include "Domain/ColorPosition.h"
 #include "Domain/ColorPattern.h"
 #include "BallKalmanFilter.h"
-#include "RobotTeamKalmanFilter.h"
-#include "RobotOpponentKalmanFilter.h"
+#include "KalmanFilter.h"
 
 class RobotRecognizer : public IRobotRecognizer {
 
@@ -43,8 +42,8 @@ private:
     bool init;
 
     BallKalmanFilter ballKalmanFilter;
-    std::vector<RobotOpponentKalmanFilter> robotsTeamKalmanFilter;
-    std::vector<RobotOpponentKalmanFilter> robotsOpponentKalmanFilter;
+    std::vector<KalmanFilter> robotsTeamKalmanFilter;
+    std::vector<KalmanFilter> robotsOpponentKalmanFilter;
 
     vss::Robot calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot);
 

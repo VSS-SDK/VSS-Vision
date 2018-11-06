@@ -23,13 +23,13 @@ RobotRecognizer::RobotRecognizer() {
     rate = 0.0105;
 
     for (int i = 0; i < 5; i++) {
-        RobotOpponentKalmanFilter robotTeamKalmanFilter;
+        KalmanFilter robotTeamKalmanFilter;
         robotTeamKalmanFilter.setDeltaTime(rate);
         robotsTeamKalmanFilter.push_back(robotTeamKalmanFilter);
     }
 
     for (int i = 0; i < 5; i++) {
-        RobotOpponentKalmanFilter robotOpponentKalmanFilter;
+        KalmanFilter robotOpponentKalmanFilter;
         robotOpponentKalmanFilter.setDeltaTime(rate);
         robotsOpponentKalmanFilter.push_back(robotOpponentKalmanFilter);
     }
@@ -67,16 +67,16 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
                     }
                 }
             }
+        }
+    }
 
-            if (teamColor.color == ColorType::Blue) {
-                for (unsigned int i = 0; i < blueRobots.size(); i++) {
-                    blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
-                }
-            } else if (teamColor.color == ColorType::Yellow) {
-                for (unsigned int i = 0; i < yellowRobots.size(); i++) {
-                    yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
-                }
-            }
+    if (teamColor.color == ColorType::Blue) {
+        for (unsigned int i = 0; i < blueRobots.size(); i++) {
+            blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
+        }
+    } else if (teamColor.color == ColorType::Yellow) {
+        for (unsigned int i = 0; i < yellowRobots.size(); i++) {
+            yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
         }
     }
 
@@ -85,10 +85,6 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
 }
 
 void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
-
-    //if(colors.points.size() > 5){
-    //    colors.points.resize(5, cv::Point2f());
-    //}
 
     if (colors.color == ColorType::Blue) {
         blueRobots.clear();
@@ -110,8 +106,6 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
         }
     }
 
-    std::cout << "TESTE OPONENTE 4 " << std::endl;
-
     if (init) {
         if (colors.color == ColorType::Blue) {
             lastBlueRobots = blueRobots;
@@ -121,11 +115,7 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
         init = false;
     }
 
-    std::cout << "TESTE OPONENTE 5 " << std::endl;
-
     keepOpponentOrder(colors.color);
-
-    std::cout << "TESTE OPONENTE 6 " << std::endl;
 
     if (colors.color == ColorType::Blue) {
         for(unsigned int i = 0; i < blueRobots.size(); i++){
@@ -149,22 +139,16 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
             robotsOpponentKalmanFilter[i].predict();
             robotsOpponentKalmanFilter[i].update();
             yellowRobots[i] = robotsOpponentKalmanFilter[i].getRobot();
-
         }
 
         lastYellowRobots = yellowRobots;
     }
 
-    std::cout << "TESTE OPONENTE 7 " << std::endl;
-
     blueRobots.resize(5);
     yellowRobots.resize(5);
 
-    std::cout << "TESTE OPONENTE 8 " << std::endl;
     lastBlueRobots.resize(5);
     lastYellowRobots.resize(5);
-
-    std::cout << "TESTE OPONENTE 9 " << std::endl;
 }
 
 void RobotRecognizer::keepOpponentOrder(ColorType color) {
@@ -203,7 +187,6 @@ void RobotRecognizer::keepOpponentOrder(ColorType color) {
                         robots[id - 1] = blueRobots[i];
                     }
                 }
-
             }
         }
 
@@ -232,7 +215,6 @@ void RobotRecognizer::keepOpponentOrder(ColorType color) {
                             if (Math::distance(currentRobot, lastRobot) < distance) {
                                 distance = Math::distance(currentRobot, lastRobot);
                                 id = j + 1;
-
                             }
                         }
                     }
@@ -241,7 +223,6 @@ void RobotRecognizer::keepOpponentOrder(ColorType color) {
                         robots[id - 1] = yellowRobots[i];
                     }
                 }
-
             }
         }
 
@@ -262,12 +243,12 @@ void RobotRecognizer::recognizeBall(ColorPosition colors) {
     ballKalmanFilter.setBall(ball);
     ballKalmanFilter.predict();
     ballKalmanFilter.update();
+
     ball = ballKalmanFilter.getBall();
 
 }
 
 vss::Robot RobotRecognizer::calculateRobotSpeedsAndFilter(unsigned int id, vss::Robot robot) {
-
     robotsTeamKalmanFilter[id].setFoundFlag(true);
     robotsTeamKalmanFilter[id].setRobot(robot);
     robotsTeamKalmanFilter[id].predict();

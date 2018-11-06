@@ -2,9 +2,9 @@
 // Created by paulo on 20/10/18.
 //
 
-#include "RobotOpponentKalmanFilter.h"
+#include "KalmanFilter.h"
 
-RobotOpponentKalmanFilter::RobotOpponentKalmanFilter() {
+KalmanFilter::KalmanFilter() {
     notFoundCount = 0;
     maxNotFoundCount = 100;
     foundDelayFlag = false;
@@ -12,7 +12,7 @@ RobotOpponentKalmanFilter::RobotOpponentKalmanFilter() {
     init();
 }
 
-void RobotOpponentKalmanFilter::init() {
+void KalmanFilter::init() {
     int stateSize = 4; // Variable states: [X,Y XSPEED, YSPEED]
     int measSize = 2; // Measure vector: [X, Y]
     int contrSize = 0; // No control
@@ -56,10 +56,9 @@ void RobotOpponentKalmanFilter::init() {
     cv::setIdentity(kalmanFilter.measurementNoiseCov, cv::Scalar(1e-1));
 }
 
-void RobotOpponentKalmanFilter::predict() {
+void KalmanFilter::predict() {
 
     if (foundDelayFlag) {
-        // >>>> Matrix A
         kalmanFilter.transitionMatrix.at<float>(2) = deltaTime;
         kalmanFilter.transitionMatrix.at<float>(7) = deltaTime;
 
@@ -70,20 +69,16 @@ void RobotOpponentKalmanFilter::predict() {
         robotPredicted.angle = robotMesured.angle;
         robotPredicted.speedX = state.at<float>(2);
         robotPredicted.speedY = state.at<float>(3);
-
-        //std::cout<<"Predição da bola:"<<std::endl;
-        //std::cout<<"( "<<state.at<float>(0)<<" , "<<state.at<float>(1)<<" , "<<state.at<float>(2)<<" , "<<state.at<float>(3)<<std::endl;
     }
 }
 
-void RobotOpponentKalmanFilter::update() {
+void KalmanFilter::update() {
     if (!foundFlag) {
         notFoundCount++;
-        //std::cout << "notFoundCount:" << notFoundCount << std::endl;
         if (notFoundCount >= maxNotFoundCount) {
             foundDelayFlag = false;
-            // std::cout<<"Saiu"<<std::endl;
         }
+
     } else {
         notFoundCount = 0;
 
@@ -91,44 +86,37 @@ void RobotOpponentKalmanFilter::update() {
         measure.at<float>(1) = robotMesured.y;
 
         if (!foundDelayFlag) {
-            // >>>> Initialization
             kalmanFilter.errorCovPre.at<float>(0) = 1; // px
             kalmanFilter.errorCovPre.at<float>(5) = 1; // px
             kalmanFilter.errorCovPre.at<float>(10) = 1;
             kalmanFilter.errorCovPre.at<float>(15) = 1;
 
-            //std::cout<<"ENtro"<<std::endl;
-
             state.at<float>(0) = measure.at<float>(0);
             state.at<float>(1) = measure.at<float>(1);
             state.at<float>(2) = 0;
             state.at<float>(3) = 0;
-            // <<<< Initialization
 
             kalmanFilter.statePost = state;
-
             foundDelayFlag = true;
+
         } else {
             kalmanFilter.correct(measure); // Kalman Correction
         }
-
-        //std::cout<<"Medição da bola:"<<std::endl;
-        // std::cout<<"( "<<measure.at<float>(0)<<" , "<<measure.at<float>(1)<<" )"<<std::endl;
     }
 }
 
-void RobotOpponentKalmanFilter::setRobot(vss::Robot robot) {
+void KalmanFilter::setRobot(vss::Robot robot) {
     robotMesured = robot;
 }
 
-void RobotOpponentKalmanFilter::setDeltaTime(double deltaTime) {
+void KalmanFilter::setDeltaTime(double deltaTime) {
     this->deltaTime = deltaTime;
 }
 
-void RobotOpponentKalmanFilter::setFoundFlag(bool flag) {
+void KalmanFilter::setFoundFlag(bool flag) {
     foundFlag = flag;
 }
 
-vss::Robot RobotOpponentKalmanFilter::getRobot() {
+vss::Robot KalmanFilter::getRobot() {
     return robotPredicted;
 }
