@@ -82,26 +82,46 @@ void VisionWindow::processFrame(cv::Mat image) {
     robotRecognizer->recognizeTeam(patternRecognizer->getTeamMainColorPosition(), patternRecognizer->getTeamSecondColorPosition(), pattern);
     robotRecognizer->recognizeOpponent(patternRecognizer->getOpponentMainColorPosition());
     robotRecognizer->recognizeBall(patternRecognizer->getBallMainColorPosition());
+
+    image = drawRobot(image, robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
     mtxGetRobots.unlock();
-
-    for (auto r : patternRecognizer->getBallRotatedRect()) {
-        r.angle = 0;
-        image = drawRotatedRectangle(image, r);
-    }
-
-    for (auto r : patternRecognizer->getOpponentRotatedRect()) {
-        r.angle = 0;
-        image = drawRotatedRectangle(image, r);
-    }
-
-    for (auto r : patternRecognizer->getTeamRotatedRect()) {
-        r.angle = 0;
-        image = drawRotatedRectangle(image, r);
-    }
 
     mtxUpdateFrame.lock();
         frame = image.clone();
     mtxUpdateFrame.unlock();
 
     //frame = patternRecognizer->getImage();
+}
+
+cv::Mat VisionWindow::drawRobot(cv::Mat image, std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
+
+    for (auto robot : blueRobots) {
+        cv::RotatedRect r;
+        r.angle = robot.angle;
+        r.size = cv::Point2f(image.cols*0.05, image.cols*0.05);
+        r.center.x = int ((robot.x * image.cols) / 170);
+        r.center.y = int ((robot.y * image.rows) / 130);
+
+        image = drawRotatedRectangle(image, r);
+    }
+
+    for (auto robot : yellowRobots) {
+        cv::RotatedRect r;
+        r.angle = robot.angle;
+        r.size = cv::Point2f(image.cols*0.05, image.cols*0.05);
+        r.center.x = int ((robot.x * image.cols) / 170);
+        r.center.y = int ((robot.y * image.rows) / 130);
+
+        image = drawRotatedRectangle(image, r);
+    }
+
+    cv::RotatedRect r;
+    r.angle = 0;
+    r.size = cv::Point2f(image.cols*0.02, image.cols*0.02);
+    r.center.x = (ball.x * image.cols) / 170;
+    r.center.y = (ball.y * image.rows) / 130;
+
+    image = drawRotatedRectangle(image, r);
+
+    return image;
 }

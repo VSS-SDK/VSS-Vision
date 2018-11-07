@@ -159,6 +159,7 @@ private:
     
     void updateLabel(int, std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
+    cv::Mat drawRobot(cv::Mat, std::vector<vss::Robot> , std::vector<vss::Robot>, vss::Ball);
     };
 
 #endif

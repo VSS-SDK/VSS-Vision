@@ -83,10 +83,10 @@ void ColorRecognizer::recognizesRectangles(unsigned int maxRecognizesRectangles)
         vectorRotatedRect[i] = cv::minAreaRect( cv::Mat(contours[i]) );
         approxPolyDP( cv::Mat(contours[i]), contours_poly[i], 0, true );
         vectorRect[i] = boundingRect( cv::Mat(contours_poly[i]) );
-//        vectorRect[i].x -= 1;
-//        vectorRect[i].y -= 1;
-//        vectorRect[i].width  += 2;
-//        vectorRect[i].height += 2;
+        vectorRect[i].x -= 1;
+        vectorRect[i].y -= 1;
+        vectorRect[i].width  += 2;
+        vectorRect[i].height += 2;
     }
 
     for(unsigned int i = 0; i < maxRecognizesRectangles; i++) {
