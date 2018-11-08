@@ -106,43 +106,43 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
         }
     }
 
-    if (init) {
-        if (colors.color == ColorType::Blue) {
-            lastBlueRobots = blueRobots;
-        } else if (colors.color == ColorType::Yellow) {
-            lastYellowRobots = yellowRobots;
-        }
-        init = false;
-    }
-
-    keepOpponentOrder(colors.color);
-
-    if (colors.color == ColorType::Blue) {
-        for(unsigned int i = 0; i < blueRobots.size(); i++){
-
-            robotsOpponentKalmanFilter[i].setFoundFlag(true);
-            robotsOpponentKalmanFilter[i].setRobot(blueRobots[i]);
-            robotsOpponentKalmanFilter[i].predict();
-            robotsOpponentKalmanFilter[i].update();
-            blueRobots[i] = robotsOpponentKalmanFilter[i].getRobot();
-
-        }
-
-        lastBlueRobots = blueRobots;
-
-    } else if (colors.color == ColorType::Yellow) {
-
-        for(unsigned int i = 0; i < yellowRobots.size(); i++){
-
-            robotsOpponentKalmanFilter[i].setFoundFlag(true);
-            robotsOpponentKalmanFilter[i].setRobot(yellowRobots[i]);
-            robotsOpponentKalmanFilter[i].predict();
-            robotsOpponentKalmanFilter[i].update();
-            yellowRobots[i] = robotsOpponentKalmanFilter[i].getRobot();
-        }
-
-        lastYellowRobots = yellowRobots;
-    }
+//    if (init) {
+//        if (colors.color == ColorType::Blue) {
+//            lastBlueRobots = blueRobots;
+//        } else if (colors.color == ColorType::Yellow) {
+//            lastYellowRobots = yellowRobots;
+//        }
+//        init = false;
+//    }
+//
+//    keepOpponentOrder(colors.color);
+//
+//    if (colors.color == ColorType::Blue) {
+//        for(unsigned int i = 0; i < blueRobots.size(); i++){
+//
+//            robotsOpponentKalmanFilter[i].setFoundFlag(true);
+//            robotsOpponentKalmanFilter[i].setRobot(blueRobots[i]);
+//            robotsOpponentKalmanFilter[i].predict();
+//            robotsOpponentKalmanFilter[i].update();
+//            blueRobots[i] = robotsOpponentKalmanFilter[i].getRobot();
+//
+//        }
+//
+//        lastBlueRobots = blueRobots;
+//
+//    } else if (colors.color == ColorType::Yellow) {
+//
+//        for(unsigned int i = 0; i < yellowRobots.size(); i++){
+//
+//            robotsOpponentKalmanFilter[i].setFoundFlag(true);
+//            robotsOpponentKalmanFilter[i].setRobot(yellowRobots[i]);
+//            robotsOpponentKalmanFilter[i].predict();
+//            robotsOpponentKalmanFilter[i].update();
+//            yellowRobots[i] = robotsOpponentKalmanFilter[i].getRobot();
+//        }
+//
+//        lastYellowRobots = yellowRobots;
+//    }
 
     blueRobots.resize(5);
     yellowRobots.resize(5);

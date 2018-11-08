@@ -29,7 +29,7 @@ void PatternRecognizer::recognizeMainColorBall(cv::Mat image) {
     if (pattern[ObjectType::Ball].id == ObjectType::Ball) {
         ballColorRecognizer->setColorRange(pattern[ObjectType::Ball].singleColorRange);
 
-        if (timeBall.timeOut(1000)) {
+        if (timeBall.timeOut(500)) {
             ballColorRecognizer->processImage(image, 1);
         } else {
             ballColorRecognizer->processImageInSector(image, ballColorRecognizer->getRectangles(), 1);
@@ -41,7 +41,7 @@ void PatternRecognizer::recognizeMainColorTeam(cv::Mat image) {
     if (pattern[ObjectType::Team].id == ObjectType::Team) {
         teamColorRecognizer->setColorRange(pattern[ObjectType::Team].singleColorRange);
 
-        if (timeTeam.timeOut(1000)) {
+        if (timeTeam.timeOut(500)) {
             teamColorRecognizer->processImage(image, 3);
         } else {
             teamColorRecognizer->processImageInSector(image, teamColorRecognizer->getRectangles(), 1);
@@ -53,7 +53,7 @@ void PatternRecognizer::recognizeMainColorOpponent(cv::Mat image) {
     if (pattern[ObjectType::Opponent].id == ObjectType::Opponent) {
         opponentColorRecognizer->setColorRange(pattern[ObjectType::Opponent].singleColorRange);
 
-        if (timeOpponent.timeOut(1000)) {
+        if (timeOpponent.timeOut(500)) {
             opponentColorRecognizer->processImage(image, 3);
         } else {
             opponentColorRecognizer->processImageInSector(image, opponentColorRecognizer->getRectangles(), 1);
