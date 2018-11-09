@@ -29,7 +29,7 @@ void PatternRecognizer::recognizeMainColorBall(cv::Mat image) {
     if (pattern[ObjectType::Ball].id == ObjectType::Ball) {
         ballColorRecognizer->setColorRange(pattern[ObjectType::Ball].singleColorRange);
 
-        if (timeBall.timeOut(500)) {
+        if (timeBall.timeOut(50)) {
             ballColorRecognizer->processImage(image, 1);
         } else {
             ballColorRecognizer->processImageInSector(image, ballColorRecognizer->getRectangles(), 1);
@@ -69,7 +69,8 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
     for (unsigned int i = 0; i < teamRect.size(); i++) {
         teamRect[i] = increaseRect(image, teamRect[i], 1.5, 1.5);
         cv::Mat cuttedImage = cropImage(image, teamRect[i]);
-        cv::Point2f center = cv::Point2f(teamRect[i].x/2, teamRect[i].y/2);
+
+        cv::Point2f center = cv::Point2f(teamRect[i].x + teamRect[i].width/2, teamRect[i].y + teamRect[i].height/2);
 
         ColorRange colorRange1 (range, ColorType::Pink);
         colorRecognizer1->setColorRange(colorRange1);
