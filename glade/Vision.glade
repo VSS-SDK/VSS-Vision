@@ -8,7 +8,6 @@
     <property name="role">GtkFileChooserDialog</property>
     <property name="type_hint">dialog</property>
     <property name="create_folders">False</property>
-    <property name="filter">filefilter2</property>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -48,6 +47,7 @@
       <action-widget response="0">button_load_calibration</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkFileFilter" id="filefilter2"/>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
     <child>
@@ -287,7 +287,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
-                        <property name="model">liststore_team</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext1"/>
                           <attributes>
@@ -317,7 +316,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
-                        <property name="model">liststore_team</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext2"/>
                           <attributes>
@@ -386,7 +384,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
-                        <property name="model">liststore_robot</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext4"/>
                           <attributes>
@@ -414,7 +411,6 @@
                       <object class="GtkComboBox" id="combobox_pattern_2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="model">liststore_robot</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext3"/>
                           <attributes>
@@ -442,7 +438,6 @@
                       <object class="GtkComboBox" id="combobox_pattern_3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="model">liststore_robot</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext5"/>
                           <attributes>
@@ -470,7 +465,6 @@
                       <object class="GtkComboBox" id="combobox_pattern_4">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="model">liststore_robot</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext6"/>
                           <attributes>
@@ -498,7 +492,6 @@
                       <object class="GtkComboBox" id="combobox_pattern_5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="model">liststore_robot</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext7"/>
                           <attributes>
