@@ -16,7 +16,6 @@ VisionWindow::VisionWindow() {
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
 
-    //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
 
     robotRecognizer = new RobotRecognizer();
@@ -77,15 +76,6 @@ void VisionWindow::initializeWidget() {
 
     screenImage->setImage(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
 
-    // show only .txt files
-    auto filterText = fileChooserDialog->get_filter();
-    filterText->set_name("Text files");
-    filterText->add_pattern("*.txt");
-    //fileChooserDialog->add_filter(*filterText);
-
-    // define initial folder for file chooser
-    fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
-
     window->maximize();
     window->show_all_children();
 }
@@ -102,10 +92,7 @@ void VisionWindow::builderWidget() {
         builder->get_widget_derived("drawingarea_frame", screenImage);
 
         builder->get_widget("togglebutton_play", buttonPlay);
-        builder->get_widget("button_load_calibration", buttonLoad);
         builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
-
-        builder->get_widget("file_chooser_dialog", fileChooserDialog);
 
         builder->get_widget("radiobutton_image", radioButtonImage);
         builder->get_widget("radiobutton_video", radioButtonVideo);
@@ -153,8 +140,7 @@ void VisionWindow::setSignals() {
     window->signal_key_press_event().connect(sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);
 
     buttonPlay->signal_clicked().connect(sigc::bind<Gtk::ToggleButton *>(sigc::mem_fun(this, &IVisionWindow::onButtonPlay), buttonPlay));
-    buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad), fileChooserDialog));
-    buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog));
+    buttonOpenLoadDialog->signal_clicked().connect(sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog));
 
     radioButtonImage->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonImage), radioButtonImage));
     radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonVideo), radioButtonVideo));

@@ -27,32 +27,60 @@ void VisionWindow::onButtonPlay(Gtk::ToggleButton * toggleButton) {
 
     playing = !playing;
 }
-
+/*
 void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
     fileChooser->hide();
     string filename = fileChooser->get_filename();
 
+
     if (not filename.empty()){
-        mtxCalibration.lock();
-            calibration = calibrationRepository->read(filename);
-            screenImage->setCutPoint1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
-            screenImage->setCutPoint2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
-        mtxCalibration.unlock();
 
-        mtxCalibration.lock();
-            ColorRange range(calibration.colorsRange, ColorType::Orange );
-        mtxCalibration.unlock();
-
-        mtxPattern.lock();
-            pattern[ObjectType::Ball].id = ObjectType::Ball;
-            pattern[ObjectType::Ball].singleColorType = ColorType::Orange;
-            pattern[ObjectType::Ball].singleColorRange = range;
-        mtxPattern.unlock();
     }
 }
+ */
 
-void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
-    fileChooser->run();
+void VisionWindow::onButtonOpenLoadDialog() {
+    Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FILE_CHOOSER_ACTION_OPEN);
+
+    dialog.set_transient_for(*window);
+    dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+    dialog.add_button("_Open", Gtk::RESPONSE_OK);
+    dialog.set_current_folder(defaultFilesPath + "/data");
+
+    auto filter_text = Gtk::FileFilter::create();
+    filter_text->set_name("Text files");
+    filter_text->add_mime_type("text/plain");
+    dialog.add_filter(filter_text);
+
+    switch( dialog.run() ) {
+        case(Gtk::RESPONSE_OK) : {
+            std::string filename = dialog.get_filename();
+
+            mtxCalibration.lock();
+                calibration = calibrationRepository->read(filename);
+                screenImage->setCutPoint1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
+                screenImage->setCutPoint2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
+            mtxCalibration.unlock();
+
+            mtxCalibration.lock();
+                ColorRange range(calibration.colorsRange, ColorType::Orange );
+            mtxCalibration.unlock();
+
+            mtxPattern.lock();
+                pattern[ObjectType::Ball].id = ObjectType::Ball;
+                pattern[ObjectType::Ball].singleColorType = ColorType::Orange;
+                pattern[ObjectType::Ball].singleColorRange = range;
+            mtxPattern.unlock();
+
+            break;
+        }
+        case(Gtk::RESPONSE_CANCEL) : {
+            break;
+        }
+        default : {
+            break;
+        }
+    }
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {

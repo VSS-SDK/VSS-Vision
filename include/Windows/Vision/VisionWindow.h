@@ -56,8 +56,7 @@ public:
 
     bool onKeyboard(GdkEventKey *, Gtk::Window *) override;
     void onButtonPlay(Gtk::ToggleButton *) override;
-    void onButtonLoad(Gtk::FileChooserDialog *) override;
-    void onButtonOpenLoadDialog(Gtk::FileChooserDialog *) override;
+    void onButtonOpenLoadDialog() override;
     void onRadioButtonImage(Gtk::RadioButton *) override;
     void onRadioButtonVideo(Gtk::RadioButton *) override;
     void onRadioButtonCamera(Gtk::RadioButton *) override;
@@ -136,11 +135,7 @@ private:
     Gtk::Label *labelPositionOpponent4 = nullptr;
     Gtk::Label *labelPositionOpponent5 = nullptr;
 
-    Gtk::Button *buttonLoad = nullptr;
     Gtk::ToggleButton *buttonPlay = nullptr;
-
-    // GTKMM - File Chooser Window
-    Gtk::FileChooserDialog *fileChooserDialog = nullptr;
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
     // Control method

@@ -26,13 +26,11 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
 GImage::~GImage(){
 }
 
-/*
-bool GImage::on_expose_event(GdkEventExpose* event) {
+
+bool GImage::on_draw(const Cairo::RefPtr<Cairo::Context>& c) {
 
     try{
         Glib::RefPtr<Gdk::Window> window = get_window();
-
-        Cairo::RefPtr<Cairo::Context> c = window->create_cairo_context();
 
         Glib::RefPtr<Gdk::Pixbuf> pixbuf =  Gdk::Pixbuf::create_from_data( cv_image.data, Gdk::COLORSPACE_RGB, false, 8, cv_image.cols, cv_image.rows, cv_image.step);
         Gdk::Cairo::set_source_pixbuf(c, pixbuf);
@@ -58,7 +56,7 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
 
     return true;
 }
- */
+
 
 bool GImage::on_button_press_event (GdkEventButton* event){
     if (event->button == 1 && cut_mode) {

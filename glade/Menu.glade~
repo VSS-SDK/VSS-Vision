@@ -5,13 +5,17 @@
   <object class="GtkWindow" id="window">
     <property name="width_request">0</property>
     <property name="can_focus">False</property>
-    <property name="default_width">600</property>
-    <property name="default_height">400</property>
+    <property name="window_position">center</property>
     <child>
       <object class="GtkBox" id="box_main">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="margin_left">100</property>
+        <property name="margin_right">100</property>
+        <property name="margin_top">30</property>
+        <property name="margin_bottom">30</property>
         <property name="orientation">vertical</property>
+        <property name="spacing">20</property>
         <property name="homogeneous">True</property>
         <child>
           <object class="GtkButton" id="button_vision">
@@ -51,6 +55,8 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">5</property>
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkCheckButton">

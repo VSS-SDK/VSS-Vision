@@ -20,8 +20,7 @@ public:
     virtual bool onKeyboard(GdkEventKey*, Gtk::Window*) = 0;
 
     virtual void onButtonPlay(Gtk::ToggleButton *) = 0;
-    virtual void onButtonLoad(Gtk::FileChooserDialog*) = 0;
-	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*) = 0;
+	virtual void onButtonOpenLoadDialog() = 0;
 
     virtual void onRadioButtonImage(Gtk::RadioButton*) = 0;
     virtual void onRadioButtonVideo(Gtk::RadioButton*) = 0;
