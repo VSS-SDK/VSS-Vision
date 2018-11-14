@@ -104,8 +104,8 @@ void ColorRecognizer::calculateCenter(){
 void ColorRecognizer::deleteOutsidePoint(cv::RotatedRect rotated, cv::Rect rect) {
 
     // change rotated rect global coordinate to local coordinate
-    rotated.center.x = abs(rotated.center.x - rect.x);
-    rotated.center.y = abs(rotated.center.y - rect.y);
+    rotated.center.x = fabs(rotated.center.x - rect.x);
+    rotated.center.y = fabs(rotated.center.y - rect.y);
 
     std::vector<cv::Point2f> auxCenters;
     std::vector<cv::Rect> auxRectangles;

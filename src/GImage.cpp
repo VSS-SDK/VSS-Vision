@@ -26,6 +26,7 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
 GImage::~GImage(){
 }
 
+/*
 bool GImage::on_expose_event(GdkEventExpose* event) {
 
     try{
@@ -57,6 +58,7 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
 
     return true;
 }
+ */
 
 bool GImage::on_button_press_event (GdkEventButton* event){
     if (event->button == 1 && cut_mode) {
