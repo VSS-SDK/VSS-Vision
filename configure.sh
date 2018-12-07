@@ -86,6 +86,7 @@ INSTALL_OPENCV3 () {
     make install
     sudo ldconfig
     rm -rf opencv
+    INSTALLED=1
 }
 
 INIT_SUBMODULES() {
@@ -114,6 +115,8 @@ INSTALL () {
     if [[ "$DISTRO" == "LinuxMint" ]]; then
         INSTALL_MINT_18_2;
     fi
+
+    INSTALL_OPENCV3;
 
     if [[ $INSTALLED == 0 ]]; then
         echo "Sistema Operacional Incompatível";
