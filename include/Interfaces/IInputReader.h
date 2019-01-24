@@ -6,7 +6,7 @@
 #define VSS_VISION_ICAMERAREADER_H
 
 #include <vector>
-#include <cxcore.h>
+#include <opencv/cxcore.h>
 
 class IInputReader{
 public:

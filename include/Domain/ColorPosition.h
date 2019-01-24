@@ -10,7 +10,7 @@
 #define COLOR_POSITION_H
 
 #include <vector>
-#include <cxcore.h>
+#include <opencv/cxcore.h>
 #include "ColorType.h"
 
 class ColorPosition {

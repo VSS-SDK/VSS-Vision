@@ -6,7 +6,7 @@
 #define VSS_VISION_CAMERAREADER_H
 
 #include <vector>
-#include <cxcore.h>
+#include <opencv/cxcore.h>
 #include <Interfaces/IInputReader.h>
 #include <opencv/highgui.h>
 #include <opencv2/opencv.hpp>

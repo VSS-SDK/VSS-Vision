@@ -63,7 +63,7 @@ void ColorRecognizer::recognizesRectangles(unsigned int maxRecognizesRectangles)
     std::vector< cv::Vec4i > hierarchy;
     std::vector< std::vector<cv::Point> > contours;
 
-    cv::findContours(binaryFrame.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+    cv::findContours(binaryFrame.clone(), contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 
     // sort in crescent order the contours vector by found area
     sort(contours.begin(), contours.end(),

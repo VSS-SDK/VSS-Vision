@@ -7,7 +7,7 @@
 
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
-#include <cxcore.h>
+#include <opencv/cxcore.h>
 #include <Domain/Point.h>
 
 cv::Mat changeRotation(cv::Mat, float);
