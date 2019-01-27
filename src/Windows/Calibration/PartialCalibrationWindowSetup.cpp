@@ -70,12 +70,6 @@ void CalibrationWindow::initializeWidget(){
 
     radioButtonImage->set_active();
 
-    // show only .txt files
-    auto filterText = fileChooserDialog->get_filter();
-    filterText->set_name("Text files");
-    filterText->add_pattern("*.txt");
-    //fileChooserDialog->add_filter(*filterText);
-
     // define initial folder for file chooser
     fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
 
