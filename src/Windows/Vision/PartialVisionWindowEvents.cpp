@@ -133,25 +133,6 @@ void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
     mtxPattern.unlock();
 }
 
-void VisionWindow::onComboBoxSelectColorOpponent(Gtk::ComboBox *combobox) {
-    int row = combobox->get_active_row_number();
-
-    mtxCalibration.lock();
-        ColorRange range(calibration.colorsRange, mainColorList[row] );
-    mtxCalibration.unlock();
-
-    mtxPattern.lock();
-        pattern[ObjectType::Opponent].id = ObjectType::Opponent;
-        pattern[ObjectType::Opponent].singleColorType = mainColorList[row];
-        pattern[ObjectType::Opponent].singleColorRange = range;
-
-        if(pattern[ObjectType::Team].singleColorType == mainColorList[row]){
-//            comboBoxColorTeam1->set_active(-1);
-            pattern[ObjectType::Team] = ColorPattern();
-        }
-    mtxPattern.unlock();
-}
-
 void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];

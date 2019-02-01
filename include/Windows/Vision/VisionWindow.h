@@ -62,7 +62,6 @@ public:
     void onRadioButtonCamera(Gtk::RadioButton *) override;
     void onComboBoxSelectPath(Gtk::ComboBox *) override;
     void onComboBoxSelectColorTeam(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorOpponent(Gtk::ComboBox *) override;
     void onComboBoxSelectColorPattern1(Gtk::ComboBox *) override;
     void onComboBoxSelectColorPattern2(Gtk::ComboBox *) override;
     void onComboBoxSelectColorPattern3(Gtk::ComboBox *) override;
@@ -114,14 +113,13 @@ private:
     Gtk::RadioButton *radioButtonVideo = nullptr;
     Gtk::RadioButton *radioButtonCamera = nullptr;
 
-    Gtk::ComboBox *comboBoxPath = nullptr;
-    Gtk::ComboBox *comboBoxColorTeam1 = nullptr;
-    Gtk::ComboBox *comboBoxColorTeam2 = nullptr;
-    Gtk::ComboBox *comboBoxPattern1 = nullptr;
-    Gtk::ComboBox *comboBoxPattern2 = nullptr;
-    Gtk::ComboBox *comboBoxPattern3 = nullptr;
-    Gtk::ComboBox *comboBoxPattern4 = nullptr;
-    Gtk::ComboBox *comboBoxPattern5 = nullptr;
+    Gtk::ComboBoxText *comboBoxPath = nullptr;
+    Gtk::ComboBoxText *comboBoxColorTeam1 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern1 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern2 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern3 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern4 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern5 = nullptr;
 
     Gtk::Label *labelPositionBall = nullptr;
     Gtk::Label *labelPositionRobot1 = nullptr;

@@ -28,7 +28,6 @@ public:
 
     virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorTeam(Gtk::ComboBox *) = 0;
-	virtual void onComboBoxSelectColorOpponent(Gtk::ComboBox *) = 0;
     virtual void onComboBoxSelectColorPattern1(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorPattern2(Gtk::ComboBox*) = 0;
     virtual void onComboBoxSelectColorPattern3(Gtk::ComboBox*) = 0;

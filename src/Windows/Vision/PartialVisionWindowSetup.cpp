@@ -100,7 +100,6 @@ void VisionWindow::builderWidget() {
 
         builder->get_widget("combobox_path", comboBoxPath);
         builder->get_widget("combobox_team_1", comboBoxColorTeam1);
-        builder->get_widget("combobox_team_2", comboBoxColorTeam2);
         builder->get_widget("combobox_pattern_1", comboBoxPattern1);
         builder->get_widget("combobox_pattern_2", comboBoxPattern2);
         builder->get_widget("combobox_pattern_3", comboBoxPattern3);
@@ -148,7 +147,6 @@ void VisionWindow::setSignals() {
 
     comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
     comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam), comboBoxColorTeam1));
-    comboBoxColorTeam2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorOpponent), comboBoxColorTeam2));
     comboBoxPattern1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern1), comboBoxPattern1));
     comboBoxPattern2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern2), comboBoxPattern2));
     comboBoxPattern3->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern3), comboBoxPattern3));
