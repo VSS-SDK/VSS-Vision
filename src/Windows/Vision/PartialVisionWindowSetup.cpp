@@ -54,9 +54,9 @@ void VisionWindow::cameraThreadWrapper() {
     inputReader->initializeReceivement();
 
     while(shouldReadInput) {
-        mtxChangeInput.lock();
+        mutexChangeInput.lock();
             cv::Mat receivedFrame = inputReader->getFrame();
-        mtxChangeInput.unlock();
+        mutexChangeInput.unlock();
 
         receiveNewFrame( receivedFrame );
     }

@@ -8,13 +8,11 @@
 #include <zconf.h>
 
 CameraReader::CameraReader() {
-    runningCapture = false;
-    shouldCloseReader = false;
     actualCameraIndex = -1;
-    setMapsCalibration();
-
-    // Simulando uma camera
     camerasIndex.push_back(1);
+    hasCameraCoefficients = false;
+
+    undistortedCoefficients();
 }
 
 CameraReader::~CameraReader() {
@@ -28,19 +26,25 @@ std::vector<std::string> CameraReader::getAllPossibleSources() {
 }
 
 cv::Mat CameraReader::getFrame() {
-    cv::Mat newFrame;
+    cv::Mat frame;
 
     do {
-        capture >> newFrame;
-        actualFrame = newFrame;
+        capture >> frame;
 
-        if (newFrame.empty())
+        if (frame.empty())
             std::cout << "Empty image from camera" << std::endl;
 
-    } while (newFrame.empty());
+    } while (frame.empty());
 
-    //return actualFrame;
-    return getFrameWithoutDistortion(actualFrame);
+    if (hasCameraCoefficients)
+        return undistortedFrame(frame);
+    else
+        return frame;
+}
+
+cv::Mat CameraReader::undistortedFrame(cv::Mat frame) {
+    remap(frame, frame, map1, map2, cv::INTER_LINEAR, cv::BORDER_CONSTANT);
+    return frame;
 }
 
 void CameraReader::stopReceivement() {
@@ -53,7 +57,7 @@ void CameraReader::initializeReceivement() {
         return;
     }
 
-    capture = cv::VideoCapture(1);
+    capture = cv::VideoCapture(0);
 
     if (!capture.isOpened()) {
         std::cerr << "[Error] Camera cannot open" << std::endl;
@@ -77,33 +81,30 @@ void CameraReader::setSource(std::string actualCameraIndex) {
 }
 
 void CameraReader::readCameraCoefficients() {
-    cv::FileStorage fs;
-    try{
-        fs.open("cameraCoefficients.xml", cv::FileStorage::READ);
-        if(!fs.isOpened()){
-            std::cerr << "[Error] XML of Camera Coefficients not found" << std::endl;
-            return;
-        }
 
+    std::string user(getenv("USER"));
+    std::string folder = "/home/" + user + "/.vss-files/cameraCoefficients.xml";
+
+    cv::FileStorage fs;
+    fs.open(folder, cv::FileStorage::READ);
+
+    if(fs.isOpened()){
         fs["Camera_Matrix"] >> cameraMatrix;
         fs["Distortion_Coefficients"] >> distortionCoefficients;
 
-    } catch (std::exception const &e) {
-        std::cerr << "[Error] XML of Camera Coefficients not found" << std::endl;
+        hasCameraCoefficients = true;
+        std::cout << "XML of Camera Coefficients founded" << std::endl;
+
+    } else {
+        std::cout << "XML of Camera Coefficients not found" << std::endl;
     }
 }
 
-void CameraReader::setMapsCalibration() {
+void CameraReader::undistortedCoefficients() {
     readCameraCoefficients();
-    cv::initUndistortRectifyMap(cameraMatrix, distortionCoefficients,
-                                cv::Mat(), cameraMatrix, cv::Size(640, 480),
-                                CV_16SC2, map1, map2);
-}
 
-cv::Mat CameraReader::getFrameWithoutDistortion(cv::Mat frame) {
-    cv::Mat frameWithoutDistortion;
-    remap(frame, frameWithoutDistortion, map1, map2, cv::INTER_LINEAR, cv::BORDER_CONSTANT);
-    return frameWithoutDistortion;
+    if (hasCameraCoefficients)
+        cv::initUndistortRectifyMap(cameraMatrix, distortionCoefficients, cv::Mat(), cameraMatrix, cv::Size(640, 480), CV_16SC2, map1, map2);
 }
 
 bool CameraReader::isAValidCameraIndex(int cameraIndex) {
@@ -116,26 +117,6 @@ bool CameraReader::isAValidCameraIndex(int cameraIndex) {
     }
 
     return false;
-}
-
-bool CameraReader::getShouldCloseReader() {
-    return shouldCloseReader;
-}
-
-bool CameraReader::getRunningCapture() {
-    return runningCapture;
-}
-
-int CameraReader::getActualCameraIndex() {
-    return actualCameraIndex;
-}
-
-cv::Mat CameraReader::getActualFrame() {
-    return actualFrame;
-}
-
-std::vector<int> CameraReader::getCamerasIndex() {
-    return camerasIndex;
 }
 
 cv::VideoCapture CameraReader::getCapture() {

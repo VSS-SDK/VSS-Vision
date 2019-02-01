@@ -21,7 +21,6 @@ private:
     std::string source;
     cv::Mat frame;
 
-    bool shouldCloseReader;
     bool isAValidFileSource(std::string);
 };
 #endif //VSS_VISION_IMAGEFILEREADER_H

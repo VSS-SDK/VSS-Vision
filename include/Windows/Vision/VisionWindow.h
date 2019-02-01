@@ -74,11 +74,11 @@ private:
     std::thread *threadWindowControl;
 
     mutable std::mutex mtxGetRobots;
-    mutable std::mutex mtxUpdateFrame;
-    mutable std::mutex mtxChangeInput;
+    mutable std::mutex mutexFrame;
+    mutable std::mutex mutexChangeInput;
     mutable std::mutex mtxPattern;
-    mutable std::mutex mtxCalibration;
-    mutable std::mutex mtxFps;
+    mutable std::mutex mutexCalibration;
+    mutable std::mutex mutexFPS;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;

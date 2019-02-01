@@ -25,13 +25,10 @@ public:
     void create(std::string pathName, Calibration calibration) override;
 
     ColorType hasColorType(std::string name);
-    ConfigurationType hasConfigurationType(std::string name);
     CutType hasCutType(std::string name);
 
     void setCalibrationCut(Calibration &calibration, std::ifstream &file);
     void setCalibrationColorRange(Calibration &calibration, std::ifstream &file, ColorType &colorType);
-    void setCalibrationConfiguration(Calibration &calibration, std::ifstream &file,
-                                     ConfigurationType &configurationType);
     ICalibrationBuilder* getCalibrationBuilder();
 private:
     ICalibrationBuilder *calibrationBuilder;

@@ -9,37 +9,15 @@
 #include "Calibration.h"
 
 Calibration::Calibration(){
-  rotation = 0.0;
-  brightness = 0.0;
-  contrast = 1.0;
-  saturation = 0.0;
-  exposure = 0.0;
-  gain = 0.0;
 }
 
 Calibration::Calibration(Calibration *calibration){
-  rotation = calibration->rotation;
-  brightness = calibration->brightness;
-  contrast = calibration->contrast;
-  saturation = calibration->saturation;
-  exposure = calibration->exposure;
-  gain = calibration->gain;
-
   colorsRange = calibration->colorsRange;
   cut = calibration->cut;
-
-  shouldCropImage = calibration->shouldCropImage;
 }
 
 std::ostream& operator<<( std::ostream& os, const Calibration& calibration )
 {
-  os << "gain: " << calibration.gain << std::endl;
-  os << "rotation: " << calibration.rotation << std::endl;
-  os << "brightness: " << calibration.brightness << std::endl;
-  os << "contrast: " << calibration.contrast << std::endl;
-  os << "saturation: " << calibration.saturation << std::endl;
-  os << "exposure: " << calibration.exposure << std:: endl;
-
   os << std::endl;
   for(unsigned int i = 0 ; i < calibration.colorsRange.size() ; i++){
     os << calibration.colorsRange.at(i);

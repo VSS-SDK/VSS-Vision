@@ -10,7 +10,8 @@
 #include <opencv/cxcore.h>
 #include <Domain/Point.h>
 
-cv::Mat changeRotation(cv::Mat, float);
+cv::Mat getPerspectiveMatrix(cv::Mat, std::vector<vss::Point>);
+cv::Mat changePerspective(cv::Mat, cv::Mat);
 cv::Mat changeColorSpace(cv::Mat, int);
 cv::Mat resizeImage(cv::Mat, cv::Point);
 

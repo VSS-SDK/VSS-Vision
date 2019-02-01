@@ -27,8 +27,6 @@ Calibration CalibrationBuilder::getInstance() {
   if(haveToInitializeCuts)
     calibration->cut = getCuts();
 
-  calibration->shouldCropImage = false;
-
   return calibration;
 }
 
@@ -67,6 +65,8 @@ std::vector<ColorRange> CalibrationBuilder::getColorsRange() {
 std::vector<vss::Point> CalibrationBuilder::getCuts() {
   std::vector<vss::Point> cuts;
 
+  cuts.push_back(vss::Point(0,0));
+  cuts.push_back(vss::Point(0,0));
   cuts.push_back(vss::Point(0,0));
   cuts.push_back(vss::Point(0,0));
 

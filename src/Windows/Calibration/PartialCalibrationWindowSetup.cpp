@@ -51,9 +51,9 @@ void CalibrationWindow::cameraThreadWrapper() {
     inputReader->initializeReceivement();
 
     while(shouldReadInput) {
-        mtxChangeInput.lock();
+        mutexChangeInput.lock();
             cv::Mat receivedFrame = inputReader->getFrame();
-        mtxChangeInput.unlock();
+        mutexChangeInput.unlock();
         receiveNewFrame( receivedFrame );
     }
 }
@@ -104,8 +104,6 @@ void CalibrationWindow::builderWidget(){
         builder->get_widget("hscale_vmax", scaleHSV[V_MAX]);
         builder->get_widget("hscale_vmin", scaleHSV[V_MIN]);
 
-        builder->get_widget("hscale_rotation", scaleRotation);
-
         builder->get_widget("radiobutton_image", radioButtonImage);
         builder->get_widget("radiobutton_video", radioButtonVideo);
         builder->get_widget("radiobutton_camera", radioButtonCamera);
@@ -138,7 +136,8 @@ void CalibrationWindow::setSignals(){
     buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog ));
 
     buttonSave->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonSave), fileChooserDialog, entryChooserDialog ));
-    buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*, Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonLoad), fileChooserDialog, entryChooserDialog, scaleRotation ));
+    buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonLoad), fileChooserDialog, entryChooserDialog));
+
 
     scaleHSV[H_MAX]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleHMAX), scaleHSV[H_MAX]));
     scaleHSV[H_MIN]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleHMIN), scaleHSV[H_MIN]));
@@ -147,7 +146,6 @@ void CalibrationWindow::setSignals(){
     scaleHSV[V_MAX]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleVMAX), scaleHSV[V_MAX]));
     scaleHSV[V_MIN]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleVMIN), scaleHSV[V_MIN]));
 
-    scaleRotation->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleRotation), scaleRotation));
 
     radioButtonImage->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonImage), radioButtonImage));
     radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonVideo), radioButtonVideo));

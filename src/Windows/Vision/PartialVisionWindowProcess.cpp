@@ -15,9 +15,9 @@ void VisionWindow::receiveNewFrame(cv::Mat image) {
         send(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
     mtxGetRobots.unlock();
 
-    mtxFps.lock();
+    mutexFPS.lock();
         timeHelper.calculateFramesPerSecond();
-    mtxFps.unlock();
+    mutexFPS.unlock();
 }
 
 void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
@@ -27,9 +27,9 @@ void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Rob
 //        std::cout << blueRobots[i] << std::endl;
 //    }
 
-    mtxUpdateFrame.lock();
+    mutexFrame.lock();
         cv::Mat image = frame.clone();
-    mtxUpdateFrame.unlock();
+    mutexFrame.unlock();
 
     if(playing)
         stateSender->sendState(blueRobots, yellowRobots, ball);
@@ -41,33 +41,29 @@ bool VisionWindow::emitUpdateGtkImage(){
 }
 
 void VisionWindow::updateGtkImage() {
-    mtxUpdateFrame.lock();
+    mutexFrame.lock();
         cv::Mat image = frame.clone();
-    mtxUpdateFrame.unlock();
+    mutexFrame.unlock();
 
     screenImage->setImage(image);
 
     mtxGetRobots.lock();
-    mtxFps.lock();
+    mutexFPS.lock();
         updateLabel(timeHelper.getFramesPerSecond(), robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
-    mtxFps.unlock();
+    mutexFPS.unlock();
     mtxGetRobots.unlock();
 }
 
 void VisionWindow::processFrame(cv::Mat image) {
-    mtxCalibration.lock();
+    mutexCalibration.lock();
         Calibration processCalibration = calibration;
-    mtxCalibration.unlock();
+    mutexCalibration.unlock();
     
     mtxPattern.lock();
         std::vector<ColorPattern> processPattern = pattern;
     mtxPattern.unlock();
 
     // image = changeRotation(image, processCalibration.rotation);
-    
-    if(processCalibration.shouldCropImage){
-        image = cropImage(image, processCalibration.cut[0], processCalibration.cut[1]);
-    }
 
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
@@ -86,9 +82,9 @@ void VisionWindow::processFrame(cv::Mat image) {
     image = drawRobot(image, robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
     mtxGetRobots.unlock();
 
-    mtxUpdateFrame.lock();
+    mutexFrame.lock();
         frame = image.clone();
-    mtxUpdateFrame.unlock();
+    mutexFrame.unlock();
 
     //frame = patternRecognizer->getImage();
 }

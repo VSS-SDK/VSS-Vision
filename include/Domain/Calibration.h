@@ -17,17 +17,8 @@
 
 class Calibration {
 public:
-	float rotation;
-	float brightness;
-	float contrast;
-	float saturation;
-	float exposure;
-	float gain;
-
 	std::vector<ColorRange> colorsRange;
 	std::vector<vss::Point> cut;
-
-	bool shouldCropImage;
 
 	Calibration();
 	Calibration( Calibration *calibration );

@@ -56,15 +56,13 @@ void VisionWindow::onButtonOpenLoadDialog() {
         case(Gtk::RESPONSE_OK) : {
             std::string filename = dialog.get_filename();
 
-            mtxCalibration.lock();
+            mutexCalibration.lock();
                 calibration = calibrationRepository->read(filename);
-                screenImage->setCutPoint1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
-                screenImage->setCutPoint2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
-            mtxCalibration.unlock();
+            mutexCalibration.unlock();
 
-            mtxCalibration.lock();
+            mutexCalibration.lock();
                 ColorRange range(calibration.colorsRange, ColorType::Orange );
-            mtxCalibration.unlock();
+            mutexCalibration.unlock();
 
             mtxPattern.lock();
                 pattern[ObjectType::Ball].id = ObjectType::Ball;
@@ -85,12 +83,12 @@ void VisionWindow::onButtonOpenLoadDialog() {
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
     if(inputReader) {
-        mtxChangeInput.lock();
+        mutexChangeInput.lock();
             inputReader->stopReceivement();
             inputReader = new ImageFileReader();
             inputReader->setSource(inputReader->getAllPossibleSources().at(0));
             inputReader->initializeReceivement();
-        mtxChangeInput.unlock();
+        mutexChangeInput.unlock();
     }
 }
 
@@ -101,12 +99,12 @@ void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
 
 void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
     if(inputReader) {
-        mtxChangeInput.lock();
+        mutexChangeInput.lock();
             inputReader->stopReceivement();
             inputReader = new CameraReader();
             inputReader->setSource(inputReader->getAllPossibleSources().at(0));
             inputReader->initializeReceivement();
-        mtxChangeInput.unlock();
+        mutexChangeInput.unlock();
     }
 }
 
@@ -117,9 +115,9 @@ void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
 void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
     int row = combobox->get_active_row_number();
 
-    mtxCalibration.lock();
+    mutexCalibration.lock();
         ColorRange range(calibration.colorsRange, mainColorList[row] );
-    mtxCalibration.unlock();
+    mutexCalibration.unlock();
 
     mtxPattern.lock();
         pattern[ObjectType::Team].id = ObjectType::Team;
