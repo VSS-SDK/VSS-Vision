@@ -27,17 +27,6 @@ void VisionWindow::onButtonPlay(Gtk::ToggleButton * toggleButton) {
 
     playing = !playing;
 }
-/*
-void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
-    fileChooser->hide();
-    string filename = fileChooser->get_filename();
-
-
-    if (not filename.empty()){
-
-    }
-}
- */
 
 void VisionWindow::onButtonOpenLoadDialog() {
     Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FILE_CHOOSER_ACTION_OPEN);

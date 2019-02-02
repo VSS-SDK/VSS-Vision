@@ -22,17 +22,14 @@ void VisionWindow::receiveNewFrame(cv::Mat image) {
 
 void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
 
-
-//    for (uint i = 0; i < blueRobots.size(); i++) {
-//        std::cout << blueRobots[i] << std::endl;
-//    }
-
     mutexFrame.lock();
         cv::Mat image = frame.clone();
     mutexFrame.unlock();
 
-    if(playing)
-        stateSender->sendState(blueRobots, yellowRobots, ball);
+    if(playing) {
+        vss::State state(ball, blueRobots, yellowRobots);
+        stateSender->sendState(state);
+    }
 }
 
 bool VisionWindow::emitUpdateGtkImage(){

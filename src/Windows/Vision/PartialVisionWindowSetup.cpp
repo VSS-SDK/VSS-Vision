@@ -21,7 +21,7 @@ VisionWindow::VisionWindow() {
     robotRecognizer = new RobotRecognizer();
     patternRecognizer = new PatternRecognizer();
 
-    stateSender = new StateSenderAdapter();
+    stateSender = new vss::StateSender();
     stateSender->createSocket();
 
     playing = true;
@@ -33,7 +33,9 @@ VisionWindow::VisionWindow() {
     objectList = {ObjectType::Robot1, ObjectType::Robot2, ObjectType::Robot3, ObjectType::Robot4, ObjectType::Robot5};
 }
 
-VisionWindow::~VisionWindow() = default;
+VisionWindow::~VisionWindow() {
+    stateSender->closeSocket();
+}
 
 int VisionWindow::run(int argc, char *argv[]) {
 

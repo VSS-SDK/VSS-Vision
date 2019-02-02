@@ -19,7 +19,6 @@
 #include <RobotRecognizer.h>
 #include <PatternRecognizer.h>
 #include <ImageFileReader.h>
-#include <StateSenderAdapter.h>
 
 #include "GImage.h"
 #include "IVisionWindow.h"
@@ -40,6 +39,8 @@
 #include <Interfaces/ICalibrationBuilder.h>
 #include <Interfaces/IPatternRecognizer.h>
 #include <Interfaces/ICalibrationRepository.h>
+
+#include <Communications/StateSender.h>
 
 #include <Helpers/FrameHelper.h>
 #include <Helpers/TimeHelper.h>
@@ -85,8 +86,9 @@ private:
     sigc::connection connection_update_screen;
 
     // Classes
+    vss::IStateSender* stateSender;
+
     IInputReader *inputReader;
-    IStateSenderAdapter* stateSender;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
 
