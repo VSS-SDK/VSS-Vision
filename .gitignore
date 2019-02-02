@@ -49,3 +49,4 @@ opencv-3.4.2/*
 third-party
 third-party/
 third-party/*
+*.glade~
