@@ -122,6 +122,19 @@ void VisionWindow::builderWidget() {
         builder->get_widget("label_position_opponent_4", labelPositionOpponent4);
         builder->get_widget("label_position_opponent_5", labelPositionOpponent5);
 
+        builder->get_widget("label_position_ball", labelBall);
+        builder->get_widget("label_position_robot_1_1", labelRobot1);
+        builder->get_widget("label_position_robot_2_2", labelRobot2);
+        builder->get_widget("label_position_robot_3_3", labelRobot3);
+        builder->get_widget("label_position_robot_4_4", labelRobot4);
+        builder->get_widget("label_position_robot_5_5", labelRobot5);
+
+        builder->get_widget("label_position_opponent_1_1", labelOpponent1);
+        builder->get_widget("label_position_opponent_2_2", labelOpponent2);
+        builder->get_widget("label_position_opponent_3_3", labelOpponent3);
+        builder->get_widget("label_position_opponent_4_4", labelOpponent4);
+        builder->get_widget("label_position_opponent_5_5", labelOpponent5);
+
     } catch (const Glib::FileError &ex) {
         std::cerr << "FileError: " << ex.what() << std::endl;
 
