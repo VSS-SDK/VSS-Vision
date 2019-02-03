@@ -7,6 +7,7 @@
  */
 
 #include <Windows/Vision/VisionWindow.h>
+#include <Helpers/RobotHelper.h>
 
 bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
     if (event->keyval == GDK_KEY_space) {
@@ -233,36 +234,38 @@ void VisionWindow::updateLabel(int i, std::vector<vss::Robot> blueRobots, std::v
         opponentPositions = blueRobots;
     }
 
-    // update positions label with new positions
+    handleLabel(labelBall, labelPositionBall, ball);
+
+    if (teamPositions.size() == 5) {
+        handleLabel(labelRobot1, labelPositionRobot1, teamPositions[0]);
+        handleLabel(labelRobot2, labelPositionRobot2, teamPositions[1]);
+        handleLabel(labelRobot3, labelPositionRobot3, teamPositions[2]);
+        handleLabel(labelRobot4, labelPositionRobot4, teamPositions[3]);
+        handleLabel(labelRobot5, labelPositionRobot5, teamPositions[4]);
+    }
+
+    if (opponentPositions.size() == 5) {
+        handleLabel(labelOpponent1, labelPositionOpponent1, opponentPositions[0]);
+        handleLabel(labelOpponent2, labelPositionOpponent2, opponentPositions[1]);
+        handleLabel(labelOpponent3, labelPositionOpponent3, opponentPositions[2]);
+        handleLabel(labelOpponent4, labelPositionOpponent4, opponentPositions[3]);
+        handleLabel(labelOpponent5, labelPositionOpponent5, opponentPositions[4]);
+    }
+}
+
+void VisionWindow::handleLabel(Gtk::Label* label, Gtk::Label* labelPosition, vss::Point robot){
+
     stringstream ss;
-    ss << "[ " << ball.x << " x " << ball.y << " ]";
-    labelPositionBall->set_text(ss.str());
 
-    if (not teamPositions.empty()) {
-        ss.str("");
-        ss << "[ " << teamPositions[0].x << " x " << teamPositions[0].y << " ]";
-        labelPositionRobot1->set_text(ss.str());
+    if (isEmpty(robot)) {
+        label->hide();
+        labelPosition->hide();
+    } else {
+        ss << "[ " << robot.x << " x " << robot.y << " ]";
+        labelPosition->set_text(ss.str());
 
-        ss.str("");
-        ss << "[ " << teamPositions[1].x << " x " << teamPositions[1].y << " ]";
-        labelPositionRobot2->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << teamPositions[2].x << " x " << teamPositions[2].y << " ]";
-        labelPositionRobot3->set_text(ss.str());
+        labelPosition->show();
+        label->show();
     }
 
-    if (not opponentPositions.empty()) {
-        ss.str("");
-        ss << "[ " << opponentPositions[0].x << " x " << opponentPositions[0].y << " ]";
-        labelPositionOpponent1->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << opponentPositions[1].x << " x " << opponentPositions[1].y << " ]";
-        labelPositionOpponent2->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << opponentPositions[2].x << " x " << opponentPositions[2].y << " ]";
-        labelPositionOpponent3->set_text(ss.str());
-    }
 }

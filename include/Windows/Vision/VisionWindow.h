@@ -129,11 +129,26 @@ private:
     Gtk::Label *labelPositionRobot3 = nullptr;
     Gtk::Label *labelPositionRobot4 = nullptr;
     Gtk::Label *labelPositionRobot5 = nullptr;
+
     Gtk::Label *labelPositionOpponent1 = nullptr;
     Gtk::Label *labelPositionOpponent2 = nullptr;
     Gtk::Label *labelPositionOpponent3 = nullptr;
     Gtk::Label *labelPositionOpponent4 = nullptr;
     Gtk::Label *labelPositionOpponent5 = nullptr;
+
+    Gtk::Label *labelBall = nullptr;
+    Gtk::Label *labelRobot1 = nullptr;
+    Gtk::Label *labelRobot2 = nullptr;
+    Gtk::Label *labelRobot3 = nullptr;
+    Gtk::Label *labelRobot4 = nullptr;
+    Gtk::Label *labelRobot5 = nullptr;
+    Gtk::Label *labelOpponent1 = nullptr;
+    Gtk::Label *labelOpponent2 = nullptr;
+    Gtk::Label *labelOpponent3 = nullptr;
+    Gtk::Label *labelOpponent4 = nullptr;
+    Gtk::Label *labelOpponent5 = nullptr;
+
+    TimeHelper time;
 
     Gtk::ToggleButton *buttonPlay = nullptr;
     Gtk::Button *buttonOpenLoadDialog = nullptr;
@@ -148,13 +163,15 @@ private:
     // Update frame
     void processFrame(cv::Mat);
     void receiveNewFrame(cv::Mat);
-    
+
     void updateGtkImage();
     bool emitUpdateGtkImage();
-    
+
     void updateLabel(int, std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
     cv::Mat drawRobot(cv::Mat, std::vector<vss::Robot> , std::vector<vss::Robot>, vss::Ball);
-    };
+
+    void handleLabel(Gtk::Label*, Gtk::Label*, vss::Point);
+};
 
 #endif
