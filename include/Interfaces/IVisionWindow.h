@@ -26,13 +26,13 @@ public:
     virtual void onRadioButtonVideo(Gtk::RadioButton*) = 0;
     virtual void onRadioButtonCamera(Gtk::RadioButton*) = 0;
 
-    virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorTeam(Gtk::ComboBox *) = 0;
-    virtual void onComboBoxSelectColorPattern1(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorPattern2(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorPattern3(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorPattern4(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColorPattern5(Gtk::ComboBox*) = 0;
+    virtual void onComboBoxSelectPath(Gtk::ComboBoxText*) = 0;
+    virtual void onComboBoxSelectColorTeam(Gtk::ComboBoxText *) = 0;
+    virtual void onComboBoxSelectColorPattern1(Gtk::ComboBoxText*) = 0;
+    virtual void onComboBoxSelectColorPattern2(Gtk::ComboBoxText*) = 0;
+    virtual void onComboBoxSelectColorPattern3(Gtk::ComboBoxText*) = 0;
+    virtual void onComboBoxSelectColorPattern4(Gtk::ComboBoxText*) = 0;
+    virtual void onComboBoxSelectColorPattern5(Gtk::ComboBoxText*) = 0;
 
 };
 #endif

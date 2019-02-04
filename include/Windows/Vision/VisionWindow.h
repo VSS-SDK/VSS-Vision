@@ -61,13 +61,13 @@ public:
     void onRadioButtonImage(Gtk::RadioButton *) override;
     void onRadioButtonVideo(Gtk::RadioButton *) override;
     void onRadioButtonCamera(Gtk::RadioButton *) override;
-    void onComboBoxSelectPath(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorTeam(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern1(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern2(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern3(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern4(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern5(Gtk::ComboBox *) override;
+    void onComboBoxSelectPath(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorTeam(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern1(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern2(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern3(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern4(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern5(Gtk::ComboBoxText *) override;
 
 private:
     // Threads

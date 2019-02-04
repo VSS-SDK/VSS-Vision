@@ -156,6 +156,6 @@ void CalibrationWindow::setSignals(){
 
     fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog ));
 
-    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectPath), comboBoxPath));
-    comboBoxColor->signal_changed().connect(sigc::bind<Gtk::ComboBox*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectColor), comboBoxColor, scaleHSV));
+    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectPath), comboBoxPath));
+    comboBoxColor->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectColor), comboBoxColor, scaleHSV));
 }

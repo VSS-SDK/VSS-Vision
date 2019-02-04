@@ -44,8 +44,8 @@ public:
 
     virtual void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 	
-    virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColor(Gtk::ComboBox*, std::vector<Gtk::Scale*>) = 0;
+    virtual void onComboBoxSelectPath(Gtk::ComboBoxText*) = 0;
+    virtual void onComboBoxSelectColor(Gtk::ComboBoxText*, std::vector<Gtk::Scale*>) = 0;
 
 };
 #endif

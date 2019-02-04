@@ -160,11 +160,11 @@ void VisionWindow::setSignals() {
     radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonVideo), radioButtonVideo));
     radioButtonCamera->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonCamera), radioButtonCamera));
 
-    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
-    comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam), comboBoxColorTeam1));
-    comboBoxPattern1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern1), comboBoxPattern1));
-    comboBoxPattern2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern2), comboBoxPattern2));
-    comboBoxPattern3->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern3), comboBoxPattern3));
-    comboBoxPattern4->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern4), comboBoxPattern4));
-    comboBoxPattern5->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern5), comboBoxPattern5));
+    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
+    comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam), comboBoxColorTeam1));
+    comboBoxPattern1->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern1), comboBoxPattern1));
+    comboBoxPattern2->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern2), comboBoxPattern2));
+    comboBoxPattern3->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern3), comboBoxPattern3));
+    comboBoxPattern4->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern4), comboBoxPattern4));
+    comboBoxPattern5->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern5), comboBoxPattern5));
 }

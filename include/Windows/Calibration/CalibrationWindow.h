@@ -64,8 +64,8 @@ public:
 
     void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
-    void onComboBoxSelectPath(Gtk::ComboBox*) override;
-    void onComboBoxSelectColor(Gtk::ComboBox*, std::vector<Gtk::Scale*>) override;
+    void onComboBoxSelectPath(Gtk::ComboBoxText*) override;
+    void onComboBoxSelectColor(Gtk::ComboBoxText*, std::vector<Gtk::Scale*>) override;
 
 private:
 
@@ -110,8 +110,8 @@ private:
     Gtk::RadioButton* radioButtonVideo = nullptr;
     Gtk::RadioButton* radioButtonCamera = nullptr;
 
-    Gtk::ComboBox* comboBoxPath = nullptr;
-    Gtk::ComboBox* comboBoxColor = nullptr;
+    Gtk::ComboBoxText* comboBoxPath = nullptr;
+    Gtk::ComboBoxText* comboBoxColor = nullptr;
 
     std::vector<Gtk::Scale*> scaleHSV;
 

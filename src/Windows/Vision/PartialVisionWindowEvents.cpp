@@ -98,11 +98,12 @@ void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
     }
 }
 
-void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectPath(Gtk::ComboBoxText *combobox) {
     // std::cout << combobox->get_active_row_number() << std::endl;
 }
 
-void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBoxText *combobox) {
+    string s = combobox->get_active_text();
     int row = combobox->get_active_row_number();
 
     mutexCalibration.lock();
@@ -121,7 +122,7 @@ void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
     mtxPattern.unlock();
 }
 
-void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -140,7 +141,7 @@ void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
     mtxPattern.unlock();
 }
 
-void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -159,7 +160,7 @@ void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
     mtxPattern.unlock();
 }
 
-void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -179,7 +180,7 @@ void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
 
 }
 
-void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -199,7 +200,7 @@ void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
 
 }
 
-void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
     <property name="border_width">10</property>
     <property name="title" translatable="yes">VISION</property>
-    <child>
-      <placeholder/>
-    </child>
     <child>
       <object class="GtkBox">
         <property name="can_focus">False</property>
@@ -326,7 +323,7 @@
                                   <object class="GtkImage" id="pattern_2">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="pixbuf">../mock/icons/1.png</property>
+                                    <property name="pixbuf">../mock/icons/2.png</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -337,7 +334,7 @@
                                   <object class="GtkImage" id="pattern_3">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="pixbuf">../mock/icons/1.png</property>
+                                    <property name="pixbuf">../mock/icons/3.png</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -348,7 +345,7 @@
                                   <object class="GtkImage" id="pattern_4">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="pixbuf">../mock/icons/1.png</property>
+                                    <property name="pixbuf">../mock/icons/4.png</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -370,7 +367,7 @@
                                   <object class="GtkImage" id="pattern_5">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="pixbuf">../mock/icons/1.png</property>
+                                    <property name="pixbuf">../mock/icons/5.png</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>

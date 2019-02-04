@@ -94,11 +94,11 @@ void CalibrationWindow::onSignalSelectFileInDialog(Gtk::FileChooserDialog* fileC
     entry->set_text(str.substr(sub_str+1));
 }
 
-void CalibrationWindow::onComboBoxSelectPath(Gtk::ComboBox* inputPath){
+void CalibrationWindow::onComboBoxSelectPath(Gtk::ComboBoxText* inputPath){
     // std::cout << inputPath->get_active_row_number() << std::endl;
 }
 
-void CalibrationWindow::onComboBoxSelectColor(Gtk::ComboBox* combobox, std::vector<Gtk::Scale*> scale){
+void CalibrationWindow::onComboBoxSelectColor(Gtk::ComboBoxText* combobox, std::vector<Gtk::Scale*> scale){
     vector<string> color = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
     int row = combobox->get_active_row_number();
     auto actualColorToCalibrate = toColorType(color[row]);
