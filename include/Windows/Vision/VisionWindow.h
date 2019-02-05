@@ -70,6 +70,9 @@ public:
     void onComboBoxSelectColorPattern5(Gtk::ComboBoxText *) override;
 
 private:
+
+    std::vector<string> listOptions;
+
     // Threads
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;

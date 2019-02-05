@@ -31,6 +31,7 @@ VisionWindow::VisionWindow() {
     
     mainColorList = {ColorType::Blue, ColorType::Yellow};
     objectList = {ObjectType::Robot1, ObjectType::Robot2, ObjectType::Robot3, ObjectType::Robot4, ObjectType::Robot5};
+    listOptions = {"Robot 1", "Robot 2", "Robot 3", "Robot 4", "Robot 5"};
 }
 
 VisionWindow::~VisionWindow() {
@@ -73,6 +74,14 @@ void VisionWindow::windowThreadWrapper() {
 }
 
 void VisionWindow::initializeWidget() {
+
+    for (unsigned int i = 0; i < listOptions.size(); i++){
+        comboBoxPattern1->append(to_string(i),listOptions[i]);
+        comboBoxPattern2->append(to_string(i),listOptions[i]);
+        comboBoxPattern3->append(to_string(i),listOptions[i]);
+        comboBoxPattern4->append(to_string(i),listOptions[i]);
+        comboBoxPattern5->append(to_string(i),listOptions[i]);
+    }
 
     radioButtonImage->set_active();
 
