@@ -70,8 +70,18 @@ void CalibrationWindow::initializeWidget(){
 
     radioButtonImage->set_active();
 
+    listColors = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
+
+    int sizeListColors = listColors.size();
+
+    for (int i=0; i<sizeListColors; i++){
+        comboBoxColor->append(listColors[i]);
+    }
+
     // define initial folder for file chooser
     fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
+
+
 
     window->maximize();
     window->show_all_children();

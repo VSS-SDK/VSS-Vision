@@ -113,6 +113,8 @@ private:
     Gtk::ComboBoxText* comboBoxPath = nullptr;
     Gtk::ComboBoxText* comboBoxColor = nullptr;
 
+    std::vector<string> listColors;
+
     std::vector<Gtk::Scale*> scaleHSV;
 
     Gtk::Button* buttonSave = nullptr;
