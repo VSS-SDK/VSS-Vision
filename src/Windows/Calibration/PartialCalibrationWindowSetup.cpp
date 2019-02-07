@@ -80,9 +80,7 @@ void CalibrationWindow::initializeWidget(){
 
     // define initial folder for file chooser
     fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
-
-
-
+    
     window->maximize();
     window->show_all_children();
 }
