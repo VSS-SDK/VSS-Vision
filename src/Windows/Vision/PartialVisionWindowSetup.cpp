@@ -85,6 +85,9 @@ void VisionWindow::initializeWidget() {
 
     radioButtonImage->set_active();
 
+    comboBoxColorTeam1->append("Blue");
+    comboBoxColorTeam1->append("Yellow");
+
     screenImage->setImage(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
 
     window->maximize();
