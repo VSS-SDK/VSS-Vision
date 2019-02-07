@@ -10,6 +10,8 @@
 #include <Interfaces/IInputReader.h>
 #include <opencv/highgui.h>
 #include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
 
 #include <string>
 #include <iostream>
