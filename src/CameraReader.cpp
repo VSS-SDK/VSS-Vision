@@ -57,8 +57,8 @@ void CameraReader::initializeReceivement() {
         return;
     }
 
-    capture = cv::VideoCapture(0);
-    capture.set(cv::CAP_PROP_FOURCC,  cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
+    capture = cv::VideoCapture(1);
+    capture.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
 
     if (!capture.isOpened()) {
         std::cerr << "[Error] Camera cannot open" << std::endl;
