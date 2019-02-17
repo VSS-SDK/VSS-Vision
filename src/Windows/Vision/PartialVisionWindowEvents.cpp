@@ -115,17 +115,14 @@ void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBoxText *combobox) {
         pattern[ObjectType::Team].singleColorType = mainColorList[row];
         pattern[ObjectType::Team].singleColorRange = range;
 
-        pattern[ObjectType::Opponent].id = ObjectType ::Opponent;
-
+        pattern[ObjectType::Opponent].id = ObjectType::Opponent;
         if(pattern[ObjectType::Team].singleColorType == mainColorList[0]){
-//            comboBoxColorTeam2->set_active(-1);
-//            pattern[ObjectType::Opponent] = ColorPattern();
-
             pattern[ObjectType::Opponent].singleColorType = mainColorList[1];
+            pattern[ObjectType::Opponent].singleColorRange = ColorRange(calibration.colorsRange, mainColorList[1]);
+        } else {
+            pattern[ObjectType::Opponent].singleColorType = mainColorList[0];
+            pattern[ObjectType::Opponent].singleColorRange = ColorRange(calibration.colorsRange, mainColorList[0]);
         }
-        else pattern[ObjectType::Opponent].singleColorType = mainColorList[0];
-
-        pattern[ObjectType::Opponent].singleColorRange = range;
 
     mtxPattern.unlock();
 
@@ -271,7 +268,7 @@ void VisionWindow::handleLabel(Gtk::Label* label, Gtk::Label* labelPosition, vss
         label->hide();
         labelPosition->hide();
     } else {
-        ss << "[ " << robot.x << " x " << robot.y << " ]";
+        ss << "[ " << int(robot.x) << " x " << int(robot.y)  << " ]";
         labelPosition->set_text(ss.str());
 
         labelPosition->show();
