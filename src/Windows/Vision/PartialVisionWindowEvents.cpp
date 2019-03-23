@@ -48,9 +48,8 @@ void VisionWindow::onButtonOpenLoadDialog() {
 
             mutexCalibration.lock();
                 calibration = calibrationRepository->read(filename);
-            mutexCalibration.unlock();
+                perspectiveMatrix = getPerspectiveMatrix(frame, calibration.cut);
 
-            mutexCalibration.lock();
                 ColorRange range(calibration.colorsRange, ColorType::Orange );
             mutexCalibration.unlock();
 

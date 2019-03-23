@@ -107,6 +107,8 @@ private:
     Calibration calibration;
 
     cv::Mat frame;
+    cv::Mat perspectiveMatrix;
+
     TimeHelper timeHelper;
 
     bool playing;

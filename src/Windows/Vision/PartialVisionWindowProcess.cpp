@@ -61,7 +61,8 @@ void VisionWindow::processFrame(cv::Mat image) {
         std::vector<ColorPattern> processPattern = pattern;
     mtxPattern.unlock();
 
-    // image = changeRotation(image, processCalibration.rotation);
+    if (not perspectiveMatrix.empty())
+        image = changePerspective(image, perspectiveMatrix);
 
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
