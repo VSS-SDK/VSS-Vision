@@ -20,8 +20,9 @@ cv::Mat cropImage(cv::Mat, vss::Point, vss::Point);
 
 cv::Mat drawRectangle(cv::Mat, cv::Rect);
 cv::Mat drawRectangle(cv::Mat, std::vector<cv::Rect>);
-cv::Mat drawRotatedRectangle(cv::Mat, cv::RotatedRect);
-cv::Mat drawRotatedRectangle(cv::Mat, std::vector<cv::RotatedRect>);
+cv::Mat drawRotatedRectangle(cv::Mat, cv::RotatedRect, cv::Scalar);
+cv::Mat drawRotatedRectangle(cv::Mat, std::vector<cv::RotatedRect>, cv::Scalar);
+cv::Mat insertText(cv::Mat, std::string, cv::Point2f, cv::Scalar);
 
 bool rotatedRectangleContainPoint(cv::RotatedRect, cv::Point2f);
 cv::Rect increaseRect(cv::Mat, cv::Rect, float, float);
