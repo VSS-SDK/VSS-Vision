@@ -2,8 +2,7 @@
 // Created by johnathan on 17/03/18.
 //
 
-
-#include <include/gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <Repositories/CalibrationRepository.h>
 #include <Builders/CalibrationBuilder.h>
 
