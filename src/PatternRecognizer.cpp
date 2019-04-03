@@ -15,19 +15,21 @@ PatternRecognizer::PatternRecognizer() {
     colorRecognizer1 = new ColorRecognizer;
     colorRecognizer2 = new ColorRecognizer;
     colorRecognizer3 = new ColorRecognizer;
+
+    colorRecognizer.resize(8);
 }
 
 void PatternRecognizer::setPatternVector(std::vector<ColorPattern> p) {
-    pattern = p;
+    objectsPattern = p;
 }
 
 void PatternRecognizer::setRangeVector(std::vector<ColorRange> r) {
-    range = r;
+    colorsRange = r;
 }
 
 void PatternRecognizer::recognizeMainColorBall(cv::Mat image) {
-    if (pattern[ObjectType::Ball].id == ObjectType::Ball) {
-        ballColorRecognizer->setColorRange(pattern[ObjectType::Ball].singleColorRange);
+    if (objectsPattern[ObjectType::Ball].id == ObjectType::Ball) {
+        ballColorRecognizer->setColorRange(objectsPattern[ObjectType::Ball].singleColorRange);
 
         if (timeBall.timeOut(50)) {
             ballColorRecognizer->processImage(image, 1);
@@ -38,8 +40,8 @@ void PatternRecognizer::recognizeMainColorBall(cv::Mat image) {
 }
 
 void PatternRecognizer::recognizeMainColorTeam(cv::Mat image) {
-    if (pattern[ObjectType::Team].id == ObjectType::Team) {
-        teamColorRecognizer->setColorRange(pattern[ObjectType::Team].singleColorRange);
+    if (objectsPattern[ObjectType::Team].id == ObjectType::Team) {
+        teamColorRecognizer->setColorRange(objectsPattern[ObjectType::Team].singleColorRange);
 
         if (timeTeam.timeOut(500)) {
             teamColorRecognizer->processImage(image, 3);
@@ -50,8 +52,8 @@ void PatternRecognizer::recognizeMainColorTeam(cv::Mat image) {
 }
 
 void PatternRecognizer::recognizeMainColorOpponent(cv::Mat image) {
-    if (pattern[ObjectType::Opponent].id == ObjectType::Opponent) {
-        opponentColorRecognizer->setColorRange(pattern[ObjectType::Opponent].singleColorRange);
+    if (objectsPattern[ObjectType::Opponent].id == ObjectType::Opponent) {
+        opponentColorRecognizer->setColorRange(objectsPattern[ObjectType::Opponent].singleColorRange);
 
         if (timeOpponent.timeOut(500)) {
             opponentColorRecognizer->processImage(image, 3);
@@ -72,54 +74,42 @@ void PatternRecognizer::recognizeSecondColor(cv::Mat image) {
 
         cv::Point2f center = cv::Point2f(teamRect[i].x + teamRect[i].width/2, teamRect[i].y + teamRect[i].height/2);
 
-        ColorRange colorRange1 (range, ColorType::Pink);
-        colorRecognizer1->setColorRange(colorRange1);
-        colorRecognizer1->processImage(cuttedImage, 1);
+        int cont=0;
 
-        ColorRange colorRange2 (range, ColorType::Green);
-        colorRecognizer2->setColorRange(colorRange2);
-        colorRecognizer2->processImage(cuttedImage, 1);
+        for (unsigned int j = 3; j < 7; j++){ //varre todas as possibilidades de cores
 
-        ColorRange colorRange3 (range, ColorType::Red);
-        colorRecognizer3->setColorRange(colorRange3);
-        colorRecognizer3->processImage(cuttedImage, 1);
+            for (unsigned int k = 0; k<colorPossibilities.size(); k++) {
+
+                if (objectsPattern[j].singleColorType == colorPossibilities[k]) { //verifica se e uma cor valida
+
+                    ColorRange colorRange(colorsRange, objectsPattern[j].singleColorType);
+
+                    colorRecognizer[cont].setColorRange(colorRange); //seta o recognizer pras validas
+                    colorRecognizer[cont].processImage(cuttedImage, 1);
+
+                    cont++; //conta as cores validas
+                }
+            }
+        }
 
         float minDistance = 10000;
 
         ColorPosition position;
 
-        for (unsigned int j = 0; j < colorRecognizer1->getCenters().size(); j++) {
-            cv::Point2f point (colorRecognizer1->getCenters()[j].x + teamRect[i].x, colorRecognizer1->getCenters()[j].y + teamRect[i].y);
+        for (int k = 0; k < cont; k++) {
+            for (unsigned int j = 0; j < colorRecognizer[k].getCenters().size(); j++) {
+                cv::Point2f point(colorRecognizer[k].getCenters()[j].x + teamRect[i].x,
+                                  colorRecognizer[k].getCenters()[j].y + teamRect[i].y);
 
-            float distance = Math::distance(center, point);
-            if (distance < minDistance) {
-                position.color = colorRecognizer1->getColor();
-                position.points = colorRecognizer1->getCenters();
-                minDistance = distance;
+                float distance = Math::distance(center, point);
+                if (distance < minDistance) {
+                    position.color = colorRecognizer[k].getColor();
+                    position.points = colorRecognizer[k].getCenters();
+                    minDistance = distance;
+                }
             }
         }
 
-        for (unsigned int j = 0; j < colorRecognizer2->getCenters().size(); j++) {
-            cv::Point2f point (colorRecognizer2->getCenters()[j].x + teamRect[i].x, colorRecognizer2->getCenters()[j].y + teamRect[i].y);
-
-            float distance = Math::distance(center, point);
-            if (distance < minDistance) {
-                position.color = colorRecognizer2->getColor();
-                position.points = colorRecognizer2->getCenters();
-                minDistance = distance;
-            }
-        }
-
-        for (unsigned int j = 0; j < colorRecognizer3->getCenters().size(); j++) {
-            cv::Point2f point (colorRecognizer3->getCenters()[j].x + teamRect[i].x, colorRecognizer3->getCenters()[j].y + teamRect[i].y);
-
-            float distance = Math::distance(center, point);
-            if (distance < minDistance) {
-                position.color = colorRecognizer3->getColor();
-                position.points = colorRecognizer3->getCenters();
-                minDistance = distance;
-            }
-        }
 
         for (unsigned int j = 0; j < position.points.size(); j++) {
             position.points[j].x += teamRect[i].x;
