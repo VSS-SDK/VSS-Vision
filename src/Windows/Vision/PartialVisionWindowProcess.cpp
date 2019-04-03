@@ -8,6 +8,7 @@
 
 #include <Windows/Vision/VisionWindow.h>
 
+
 void VisionWindow::receiveNewFrame(cv::Mat image) {
     processFrame(image.clone());
 
@@ -60,7 +61,8 @@ void VisionWindow::processFrame(cv::Mat image) {
         std::vector<ColorPattern> processPattern = pattern;
     mtxPattern.unlock();
 
-    // image = changeRotation(image, processCalibration.rotation);
+    if (not perspectiveMatrix.empty())
+        image = changePerspective(image, perspectiveMatrix);
 
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
@@ -88,33 +90,19 @@ void VisionWindow::processFrame(cv::Mat image) {
 
 cv::Mat VisionWindow::drawRobot(cv::Mat image, std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
 
-    for (auto robot : blueRobots) {
-        cv::RotatedRect r;
-        r.angle = robot.angle;
-        r.size = cv::Point2f(image.cols*0.05, image.cols*0.05);
-        r.center.x = int ((robot.x * image.cols) / 170);
-        r.center.y = int ((robot.y * image.rows) / 130);
+    std::string colorName = toDescription(patternRecognizer->getTeamMainColorPosition().color);
 
-        image = drawRotatedRectangle(image, r);
+    for (auto position : patternRecognizer->getTeamRotatedRect() ) {
+        image = drawRotatedRectangle(image, position,Scalar(255,255,255));
+        insertText(image, colorName,cv::Point2f (position.center.x+15, position.center.y+15), colorRGB(colorName));
     }
 
-    for (auto robot : yellowRobots) {
-        cv::RotatedRect r;
-        r.angle = robot.angle;
-        r.size = cv::Point2f(image.cols*0.05, image.cols*0.05);
-        r.center.x = int ((robot.x * image.cols) / 170);
-        r.center.y = int ((robot.y * image.rows) / 130);
+    colorName = toDescription(patternRecognizer->getOpponentMainColorPosition().color);
 
-        image = drawRotatedRectangle(image, r);
+    for (auto position : patternRecognizer->getOpponentRotatedRect() ) {
+        image = drawRotatedRectangle(image, position, Scalar(255,255,255));
+        insertText(image, colorName,cv::Point2f (position.center.x+15, position.center.y+15), colorRGB(colorName));
     }
-
-    cv::RotatedRect r;
-    r.angle = 0;
-    r.size = cv::Point2f(image.cols*0.02, image.cols*0.02);
-    r.center.x = (ball.x * image.cols) / 170;
-    r.center.y = (ball.y * image.rows) / 130;
-
-    image = drawRotatedRectangle(image, r);
-
+    
     return image;
 }

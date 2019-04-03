@@ -35,29 +35,29 @@ std::vector<ColorRange> CalibrationBuilder::getColorsRange() {
 
   auto colorRangeAux = new ColorRange();
 
-  colorRangeAux->colorType = ColorType::Red;
-  colorsRange.push_back(colorRangeAux);
+  colorRangeAux->colorType = ColorType::Blue;
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Yellow;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Orange;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Green;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Pink;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Purple;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
+
+  colorRangeAux->colorType = ColorType::Red;
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Brown;
-  colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Blue;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   return colorsRange;
 }

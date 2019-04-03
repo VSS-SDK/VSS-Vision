@@ -2,7 +2,7 @@
 // Created by johnathan on 17/03/18.
 //
 
-#include <include/gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <ColorRecognizer.h>
 /*
 TEST(ColorRecognizer_setColorRange, WhenSetColorRange_ShouldChangeValue){

@@ -57,7 +57,7 @@ void CameraReader::initializeReceivement() {
         return;
     }
 
-    capture = cv::VideoCapture(1);
+    capture = cv::VideoCapture(0);
     capture.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
 
     if (!capture.isOpened()) {

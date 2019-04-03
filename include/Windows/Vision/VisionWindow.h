@@ -24,6 +24,7 @@
 #include "IVisionWindow.h"
 #include "DefaultFilesPath.h"
 #include "opencv2/highgui/highgui.hpp"
+#include "opencv2/core/core.hpp"
 
 #include <Domain/Ball.h>
 #include <Domain/Robot.h>
@@ -47,6 +48,7 @@
 #include <Helpers/Math.h>
 
 using namespace std;
+using namespace cv;
 
 class VisionWindow : public IVisionWindow {
 public:
@@ -105,6 +107,8 @@ private:
     Calibration calibration;
 
     cv::Mat frame;
+    cv::Mat perspectiveMatrix;
+
     TimeHelper timeHelper;
 
     bool playing;

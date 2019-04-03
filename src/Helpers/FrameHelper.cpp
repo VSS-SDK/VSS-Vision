@@ -79,22 +79,26 @@ cv::Mat drawRectangle(cv::Mat mat, cv::Rect rect) {
     }
     return mat;
 }
+cv::Mat insertText(cv::Mat mat, std::string text, cv::Point2f point, cv::Scalar color){
+    cv::putText(mat, text, point, cv::FONT_HERSHEY_PLAIN, 1, color, 1);
+    return mat;
+}
 
-cv::Mat drawRotatedRectangle(cv::Mat mat, std::vector<cv::RotatedRect> rotated) {
+cv::Mat drawRotatedRectangle(cv::Mat mat, std::vector<cv::RotatedRect> rotated, cv::Scalar color ) {
     for (auto rotatedRect : rotated) {
-        drawRotatedRectangle(mat, rotatedRect);
+        drawRotatedRectangle(mat, rotatedRect, color);
     }
     return mat;
 }
 
-cv::Mat drawRotatedRectangle(cv::Mat mat, cv::RotatedRect rotated) {
+cv::Mat drawRotatedRectangle(cv::Mat mat, cv::RotatedRect rotated, cv::Scalar color) {
     try {
 
     cv::Point2f vertices[4];
     rotated.points(vertices);
 
     for (int i = 0; i < 4; i++)
-        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(0,255,0), 2);
+        line(mat, vertices[i], vertices[(i+1)%4], color, 2);
 
     } catch (std::exception& e) {
         std::cout << "Exception draw rotated rect" << std::endl;

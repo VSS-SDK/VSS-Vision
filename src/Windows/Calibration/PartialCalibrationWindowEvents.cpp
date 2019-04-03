@@ -54,11 +54,17 @@ void CalibrationWindow::onButtonSave(Gtk::FileChooserDialog* fileChooser, Gtk::E
     }
 }
 
-void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry){
-    if (entry->get_text_length() > 0){
+void CalibrationWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser, Gtk::Entry* entry) {
+    if (entry->get_text_length() > 0) {
         calibration = calibrationRepository->read(fileChooser->get_filename());
         fileChooser->hide();
     }
+
+    mutexFrame.lock();
+    cv::Mat image = frame;
+    mutexFrame.unlock();
+
+    perspectiveMatrix = getPerspectiveMatrix(image, calibration.cut);
 }
 
 void CalibrationWindow::onToggleButtonCutMode(Gtk::ToggleButton* toggleButton){

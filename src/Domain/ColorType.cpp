@@ -4,6 +4,7 @@
 
 #include <Domain/ColorType.h>
 
+
 std::string toDescription(ColorType colorType) {
   switch (colorType){
     case ColorType::Brown:
@@ -53,4 +54,32 @@ ColorType toColorType(std::string colorName) {
     return ColorType::Red;
 
   return ColorType::UnknownType;
+}
+
+cv::Scalar colorRGB(std::string colorName){
+  if(colorName == "Brown")
+    return cv::Scalar(23,51,92);
+
+  if(colorName == "Purple")
+    return cv::Scalar(142,35,107);
+
+  if(colorName == "Pink")
+    return cv::Scalar(255,0,255);
+
+  if(colorName == "Green")
+    return cv::Scalar(0,255,0);
+
+  if(colorName == "Orange")
+    return cv::Scalar(51,120,228);
+
+  if(colorName == "Yellow")
+    return cv::Scalar(0,255,255);
+
+  if(colorName == "Blue")
+    return cv::Scalar(255,0,0);
+
+  if(colorName == "Red")
+    return cv::Scalar(0,0,255);
+
+  return cv::Scalar(0,0,0);
 }

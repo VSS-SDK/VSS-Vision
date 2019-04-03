@@ -132,19 +132,19 @@ void CalibrationRepository::setCalibrationCut(Calibration &calibration, std::ifs
 
     std::getline(file, line);
     auto cutValues1 = explode(line, ' ');
-    calibration.cut.push_back(vss::Point(stof(cutValues1.at(0)), stof(cutValues1.at(1))));
+    calibration.cut.emplace_back(vss::Point(stof(cutValues1.at(0)), stof(cutValues1.at(1))));
 
     std::getline(file, line);
     auto cutValues2 = explode(line, ' ');
-    calibration.cut.push_back(vss::Point(stof(cutValues2.at(0)), stof(cutValues2.at(1))));
+    calibration.cut.emplace_back(vss::Point(stof(cutValues2.at(0)), stof(cutValues2.at(1))));
 
     std::getline(file, line);
     auto cutValues3 = explode(line, ' ');
-    calibration.cut.push_back(vss::Point(stof(cutValues3.at(0)), stof(cutValues3.at(1))));
+    calibration.cut.emplace_back(vss::Point(stof(cutValues3.at(0)), stof(cutValues3.at(1))));
 
     std::getline(file, line);
     auto cutValues4 = explode(line, ' ');
-    calibration.cut.push_back(vss::Point(stof(cutValues4.at(0)), stof(cutValues4.at(1))));
+    calibration.cut.emplace_back(vss::Point(stof(cutValues4.at(0)), stof(cutValues4.at(1))));
 }
 
 void CalibrationRepository::setCalibrationColorRange(Calibration &calibration, std::ifstream &file, ColorType &colorType) {
@@ -165,7 +165,7 @@ void CalibrationRepository::setCalibrationColorRange(Calibration &calibration, s
     for(unsigned int i = 0 ; i < maxValues.size() || i < 3; i++)
         colorRange->max[i] = stof(maxValues.at(i));
 
-    calibration.colorsRange.push_back(colorRange);
+    calibration.colorsRange.emplace_back(colorRange);
 }
 
 // TODO: arrumar um jeito de melhorar essa verificação
