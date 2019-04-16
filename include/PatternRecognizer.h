@@ -54,13 +54,17 @@ private:
     IColorRecognizer *colorRecognizer1;
     IColorRecognizer *colorRecognizer2;
     IColorRecognizer *colorRecognizer3;
+    IColorRecognizer *secondColorRecognizer;
+    std::vector<ColorRecognizer> colorRecognizer;
 
     TimeHelper timeBall;
     TimeHelper timeTeam;
     TimeHelper timeOpponent;
 
-    std::vector<ColorRange> range;
-    std::vector<ColorPattern> pattern;
+
+    std::vector<ColorType> colorPossibilities = {ColorType::Blue, ColorType::Brown, ColorType::Yellow, ColorType::Orange, ColorType::Green, ColorType::Red, ColorType::Pink, ColorType::Purple};
+    std::vector<ColorRange> colorsRange;
+    std::vector<ColorPattern> objectsPattern;
     std::vector<ColorPosition> playerColorPosition;
 
     cv::Mat testImage;
