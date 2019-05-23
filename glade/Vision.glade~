@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.22.1 -->
 <interface>
-  <requires lib="gtk+" version="3.18"/>
+  <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
     <property name="border_width">10</property>
@@ -572,7 +572,6 @@
                               <object class="GtkLabel" id="label_position_robot_4_4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">Robot 4</property>
                               </object>
                               <packing>
@@ -585,7 +584,6 @@
                               <object class="GtkLabel" id="label_position_robot_5_5">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">Robot 5</property>
                               </object>
                               <packing>
@@ -609,7 +607,6 @@
                               <object class="GtkLabel" id="label_position_opponent_1_1">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">Opponent 1</property>
                               </object>
                               <packing>
@@ -622,7 +619,6 @@
                               <object class="GtkLabel" id="label_position_opponent_2_2">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">Opponent 2</property>
                               </object>
                               <packing>
@@ -635,7 +631,6 @@
                               <object class="GtkLabel" id="label_position_opponent_3_3">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">Opponent 3</property>
                               </object>
                               <packing>
@@ -648,7 +643,6 @@
                               <object class="GtkLabel" id="label_position_opponent_4_4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">Opponent 4</property>
                               </object>
                               <packing>
@@ -661,7 +655,6 @@
                               <object class="GtkLabel" id="label_position_opponent_5_5">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">Opponent 5</property>
                               </object>
                               <packing>
@@ -746,7 +739,6 @@
                               <object class="GtkLabel" id="label_position_robot_4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">[ 0 x 0 ]</property>
                               </object>
                               <packing>
@@ -759,7 +751,6 @@
                               <object class="GtkLabel" id="label_position_robot_5">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">[ 0 x 0 ]</property>
                               </object>
                               <packing>
@@ -783,7 +774,6 @@
                               <object class="GtkLabel" id="label_position_opponent_1">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">[ 0 x 0 ]</property>
                               </object>
                               <packing>
@@ -796,7 +786,6 @@
                               <object class="GtkLabel" id="label_position_opponent_2">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">[ 0 x 0 ]</property>
                               </object>
                               <packing>
@@ -809,7 +798,6 @@
                               <object class="GtkLabel" id="label_position_opponent_3">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">[ 0 x 0 ]</property>
                               </object>
                               <packing>
@@ -822,7 +810,6 @@
                               <object class="GtkLabel" id="label_position_opponent_4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">[ 0 x 0 ]</property>
                               </object>
                               <packing>
@@ -835,7 +822,6 @@
                               <object class="GtkLabel" id="label_position_opponent_5">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="ypad">10</property>
                                 <property name="label" translatable="yes">[ 0 x 0 ]</property>
                               </object>
                               <packing>

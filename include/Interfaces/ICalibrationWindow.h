@@ -26,7 +26,7 @@ public:
 	virtual void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
     virtual void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
-    virtual void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*, Gtk::Scale*) = 0;
+    virtual void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 
     virtual void onScaleHMAX(Gtk::Scale*) = 0;
     virtual void onScaleHMIN(Gtk::Scale*) = 0;
@@ -34,8 +34,6 @@ public:
     virtual void onScaleSMIN(Gtk::Scale*) = 0;
     virtual void onScaleVMAX(Gtk::Scale*) = 0;
     virtual void onScaleVMIN(Gtk::Scale*) = 0;
-
-    virtual void onScaleRotation(Gtk::Scale*) = 0;
 
     virtual void onRadioButtonImage(Gtk::RadioButton*) = 0;
     virtual void onRadioButtonVideo(Gtk::RadioButton*) = 0;
@@ -46,8 +44,8 @@ public:
 
     virtual void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) = 0;
 	
-    virtual void onComboBoxSelectPath(Gtk::ComboBox*) = 0;
-    virtual void onComboBoxSelectColor(Gtk::ComboBox*, std::vector<Gtk::Scale*>) = 0;
+    virtual void onComboBoxSelectPath(Gtk::ComboBoxText*) = 0;
+    virtual void onComboBoxSelectColor(Gtk::ComboBoxText*, std::vector<Gtk::Scale*>) = 0;
 
 };
 #endif

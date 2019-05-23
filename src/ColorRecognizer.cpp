@@ -63,7 +63,7 @@ void ColorRecognizer::recognizesRectangles(unsigned int maxRecognizesRectangles)
     std::vector< cv::Vec4i > hierarchy;
     std::vector< std::vector<cv::Point> > contours;
 
-    cv::findContours(binaryFrame.clone(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+    cv::findContours(binaryFrame.clone(), contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 
     // sort in crescent order the contours vector by found area
     sort(contours.begin(), contours.end(),
@@ -104,8 +104,8 @@ void ColorRecognizer::calculateCenter(){
 void ColorRecognizer::deleteOutsidePoint(cv::RotatedRect rotated, cv::Rect rect) {
 
     // change rotated rect global coordinate to local coordinate
-    rotated.center.x = abs(rotated.center.x - rect.x);
-    rotated.center.y = abs(rotated.center.y - rect.y);
+    rotated.center.x = fabs(rotated.center.x - rect.x);
+    rotated.center.y = fabs(rotated.center.y - rect.y);
 
     std::vector<cv::Point2f> auxCenters;
     std::vector<cv::Rect> auxRectangles;

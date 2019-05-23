@@ -34,35 +34,40 @@ CMAKE_INSTALL () {
 }
 
 INSTALL_UBUNTU_14_04 () {
-    apt-get update && apt-get upgrade
-    apt-get -y install pkg-config
-    apt-get -y install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev build-essential checkinstall yasm libtiff4-dev libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg
+    apt-get update
+    apt-get -y install build-essential libgtkmm-3.0-dev checkinstall yasm libtiff4-dev libjpeg-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev python-dev python-numpy libtbb-dev libqt4-dev libgtk2.0-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils ffmpeg
     INSTALLED=1
 }
 
 INSTALL_UBUNTU_16_04 () {
-    apt-get update && apt-get upgrade
+    apt-get update
+    apt-get -y install libgtkmm-3.0-dev
+    INSTALLED=1
+}
+
+INSTALL_UBUNTU_18_04 () {
+    apt-get update
     apt-get -y install pkg-config
-    apt-get -y install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev gtkmm-2.4
+    apt-get -y install libgtkmm-3.0-dev
     INSTALLED=1
 }
 
 INSTALL_MINT_18_2 () {
-    apt-get update && apt-get upgrade
+    apt-get update
     apt-get -y install pkg-config
-    apt-get -y install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev libgtkmm-2.4-dev
+    apt-get -y install libgtkmm-3.0-dev
     INSTALLED=1
 }
 
 INSTALL_DEBIAN_9 () {
-    apt-get update && apt-get upgrade
+    apt-get update
     apt-get -y install pkgconf
-    apt-get -y install g++ cmake protobuf-compiler libprotobuf-dev libboost-all-dev libopencv-dev libgtkmm-2.4-dev gtk2-engines-pixbuf
+    apt-get -y install libopencv-dev libgtkmm-3.0-dev
     INSTALLED=1
 }
 
 INSTALL_BASE() {
-    apt-get update && apt-get upgrade
+    apt-get update
     apt-get -y install lsb-release;
 
     DISTRO=`lsb_release -si`
@@ -71,16 +76,47 @@ INSTALL_BASE() {
     ARCHITECTURE=`uname -m`
 }
 
+INSTALL_OPENCV () {
+    OpenCV_Version="$(pkg-config --modversion opencv)"
+    if [ "$OpenCV_Version" == "3.4.2" ]
+    then
+        return
+    fi
+
+    if [ ! -f "3.4.2.tar.gz" ]
+    then
+        wget https://github.com/opencv/opencv/archive/3.4.2.tar.gz
+    fi
+
+    if [ ! -d "opencv-3.4.2" ]
+    then
+        tar -xzvf 3.4.2.tar.gz
+    fi
+
+    cd opencv-3.4.2
+    mkdir -p build
+    cd build
+    cmake ..
+    make
+    make install
+    cd ..
+    cd ..
+}
+
 INIT_SUBMODULES() {
     git submodule init;
     git submodule update;
 }
 
-
 INSTALL () {
     INSTALL_BASE;
+    INSTALL_OPENCV;
 
     # Ubuntu
+    if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "18.04" ]]; then
+        INSTALL_UBUNTU_18_04;
+    fi
+
     if [[ "$DISTRO" == "Ubuntu" ]] && [[ "$RELEASE" == "16.04" ]]; then
         INSTALL_UBUNTU_16_04;
     fi

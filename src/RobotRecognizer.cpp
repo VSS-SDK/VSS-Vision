@@ -74,14 +74,13 @@ void RobotRecognizer::recognizeTeam(ColorPosition teamColor, std::vector<ColorPo
         for (unsigned int i = 0; i < blueRobots.size(); i++) {
             blueRobots[i] = calculateRobotSpeedsAndFilter(i, blueRobots[i]);
         }
+        blueRobots.resize(5, vss::Robot());
     } else if (teamColor.color == ColorType::Yellow) {
         for (unsigned int i = 0; i < yellowRobots.size(); i++) {
             yellowRobots[i] = calculateRobotSpeedsAndFilter(i, yellowRobots[i]);
         }
+        yellowRobots.resize(5, vss::Robot());
     }
-
-    blueRobots.resize(5, vss::Robot());
-    yellowRobots.resize(5, vss::Robot());
 }
 
 void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
@@ -144,11 +143,14 @@ void RobotRecognizer::recognizeOpponent(ColorPosition colors) {
 //        lastYellowRobots = yellowRobots;
 //    }
 
-    blueRobots.resize(5);
-    yellowRobots.resize(5);
+    if (colors.color == ColorType::Blue) {
+        blueRobots.resize(5);
+        lastBlueRobots.resize(5);
+    } else if (colors.color == ColorType::Yellow) {
+        yellowRobots.resize(5);
+        lastYellowRobots.resize(5);
+    }
 
-    lastBlueRobots.resize(5);
-    lastYellowRobots.resize(5);
 }
 
 void RobotRecognizer::keepOpponentOrder(ColorType color) {

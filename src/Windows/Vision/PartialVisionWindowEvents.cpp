@@ -7,6 +7,7 @@
  */
 
 #include <Windows/Vision/VisionWindow.h>
+#include <Helpers/RobotHelper.h>
 
 bool VisionWindow::onKeyboard(GdkEventKey *event, Gtk::Window *) {
     if (event->keyval == GDK_KEY_space) {
@@ -28,41 +29,55 @@ void VisionWindow::onButtonPlay(Gtk::ToggleButton * toggleButton) {
     playing = !playing;
 }
 
-void VisionWindow::onButtonLoad(Gtk::FileChooserDialog* fileChooser) {
-    fileChooser->hide();
-    string filename = fileChooser->get_filename();
+void VisionWindow::onButtonOpenLoadDialog() {
+    Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FILE_CHOOSER_ACTION_OPEN);
 
-    if (not filename.empty()){
-        mtxCalibration.lock();
-            calibration = calibrationRepository->read(filename);
-            screenImage->setCutPoint1(cv::Point((int)calibration.cut[0].x, (int)calibration.cut[0].y));
-            screenImage->setCutPoint2(cv::Point((int)calibration.cut[1].x, (int)calibration.cut[1].y));
-        mtxCalibration.unlock();
+    dialog.set_transient_for(*window);
+    dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+    dialog.add_button("_Open", Gtk::RESPONSE_OK);
+    dialog.set_current_folder(defaultFilesPath + "/data");
 
-        mtxCalibration.lock();
-            ColorRange range(calibration.colorsRange, ColorType::Orange );
-        mtxCalibration.unlock();
+    auto filter_text = Gtk::FileFilter::create();
+    filter_text->set_name("Text files");
+    filter_text->add_mime_type("text/plain");
+    dialog.add_filter(filter_text);
 
-        mtxPattern.lock();
-            pattern[ObjectType::Ball].id = ObjectType::Ball;
-            pattern[ObjectType::Ball].singleColorType = ColorType::Orange;
-            pattern[ObjectType::Ball].singleColorRange = range;
-        mtxPattern.unlock();
+    switch( dialog.run() ) {
+        case(Gtk::RESPONSE_OK) : {
+            std::string filename = dialog.get_filename();
+
+            mutexCalibration.lock();
+                calibration = calibrationRepository->read(filename);
+                perspectiveMatrix = getPerspectiveMatrix(frame, calibration.cut);
+
+                ColorRange range(calibration.colorsRange, ColorType::Orange );
+            mutexCalibration.unlock();
+
+            mtxPattern.lock();
+                pattern[ObjectType::Ball].id = ObjectType::Ball;
+                pattern[ObjectType::Ball].singleColorType = ColorType::Orange;
+                pattern[ObjectType::Ball].singleColorRange = range;
+            mtxPattern.unlock();
+
+            break;
+        }
+        case(Gtk::RESPONSE_CANCEL) : {
+            break;
+        }
+        default : {
+            break;
+        }
     }
-}
-
-void VisionWindow::onButtonOpenLoadDialog(Gtk::FileChooserDialog* fileChooser) {
-    fileChooser->run();
 }
 
 void VisionWindow::onRadioButtonImage(Gtk::RadioButton *radioButton) {
     if(inputReader) {
-        mtxChangeInput.lock();
+        mutexChangeInput.lock();
             inputReader->stopReceivement();
             inputReader = new ImageFileReader();
             inputReader->setSource(inputReader->getAllPossibleSources().at(0));
             inputReader->initializeReceivement();
-        mtxChangeInput.unlock();
+        mutexChangeInput.unlock();
     }
 }
 
@@ -73,58 +88,46 @@ void VisionWindow::onRadioButtonVideo(Gtk::RadioButton *radioButton) {
 
 void VisionWindow::onRadioButtonCamera(Gtk::RadioButton *radioButton) {
     if(inputReader) {
-        mtxChangeInput.lock();
+        mutexChangeInput.lock();
             inputReader->stopReceivement();
             inputReader = new CameraReader();
             inputReader->setSource(inputReader->getAllPossibleSources().at(0));
             inputReader->initializeReceivement();
-        mtxChangeInput.unlock();
+        mutexChangeInput.unlock();
     }
 }
 
-void VisionWindow::onComboBoxSelectPath(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectPath(Gtk::ComboBoxText *combobox) {
     // std::cout << combobox->get_active_row_number() << std::endl;
 }
 
-void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorTeam(Gtk::ComboBoxText *combobox) {
+    string s = combobox->get_active_text();
     int row = combobox->get_active_row_number();
 
-    mtxCalibration.lock();
+    mutexCalibration.lock();
         ColorRange range(calibration.colorsRange, mainColorList[row] );
-    mtxCalibration.unlock();
+    mutexCalibration.unlock();
 
     mtxPattern.lock();
         pattern[ObjectType::Team].id = ObjectType::Team;
         pattern[ObjectType::Team].singleColorType = mainColorList[row];
         pattern[ObjectType::Team].singleColorRange = range;
 
-        if(pattern[ObjectType::Opponent].singleColorType == mainColorList[row]){
-//            comboBoxColorTeam2->set_active(-1);
-            pattern[ObjectType::Opponent] = ColorPattern();
-        }
-    mtxPattern.unlock();
-}
-
-void VisionWindow::onComboBoxSelectColorOpponent(Gtk::ComboBox *combobox) {
-    int row = combobox->get_active_row_number();
-
-    mtxCalibration.lock();
-        ColorRange range(calibration.colorsRange, mainColorList[row] );
-    mtxCalibration.unlock();
-
-    mtxPattern.lock();
         pattern[ObjectType::Opponent].id = ObjectType::Opponent;
-        pattern[ObjectType::Opponent].singleColorType = mainColorList[row];
-        pattern[ObjectType::Opponent].singleColorRange = range;
-
-        if(pattern[ObjectType::Team].singleColorType == mainColorList[row]){
-//            comboBoxColorTeam1->set_active(-1);
-            pattern[ObjectType::Team] = ColorPattern();
+        if(pattern[ObjectType::Team].singleColorType == mainColorList[0]){
+            pattern[ObjectType::Opponent].singleColorType = mainColorList[1];
+            pattern[ObjectType::Opponent].singleColorRange = ColorRange(calibration.colorsRange, mainColorList[1]);
+        } else {
+            pattern[ObjectType::Opponent].singleColorType = mainColorList[0];
+            pattern[ObjectType::Opponent].singleColorRange = ColorRange(calibration.colorsRange, mainColorList[0]);
         }
+
     mtxPattern.unlock();
+
 }
 
-void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -143,7 +146,7 @@ void VisionWindow::onComboBoxSelectColorPattern1(Gtk::ComboBox *combobox) {
     mtxPattern.unlock();
 }
 
-void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -162,7 +165,7 @@ void VisionWindow::onComboBoxSelectColorPattern2(Gtk::ComboBox *combobox) {
     mtxPattern.unlock();
 }
 
-void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -182,7 +185,7 @@ void VisionWindow::onComboBoxSelectColorPattern3(Gtk::ComboBox *combobox) {
 
 }
 
-void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -202,7 +205,7 @@ void VisionWindow::onComboBoxSelectColorPattern4(Gtk::ComboBox *combobox) {
 
 }
 
-void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBox *combobox) {
+void VisionWindow::onComboBoxSelectColorPattern5(Gtk::ComboBoxText *combobox) {
     int row = combobox->get_active_row_number();
     ObjectType object = objectList[row];
 
@@ -237,36 +240,38 @@ void VisionWindow::updateLabel(int i, std::vector<vss::Robot> blueRobots, std::v
         opponentPositions = blueRobots;
     }
 
-    // update positions label with new positions
+    handleLabel(labelBall, labelPositionBall, ball);
+
+    if (teamPositions.size() == 5) {
+        handleLabel(labelRobot1, labelPositionRobot1, teamPositions[0]);
+        handleLabel(labelRobot2, labelPositionRobot2, teamPositions[1]);
+        handleLabel(labelRobot3, labelPositionRobot3, teamPositions[2]);
+        handleLabel(labelRobot4, labelPositionRobot4, teamPositions[3]);
+        handleLabel(labelRobot5, labelPositionRobot5, teamPositions[4]);
+    }
+
+    if (opponentPositions.size() == 5) {
+        handleLabel(labelOpponent1, labelPositionOpponent1, opponentPositions[0]);
+        handleLabel(labelOpponent2, labelPositionOpponent2, opponentPositions[1]);
+        handleLabel(labelOpponent3, labelPositionOpponent3, opponentPositions[2]);
+        handleLabel(labelOpponent4, labelPositionOpponent4, opponentPositions[3]);
+        handleLabel(labelOpponent5, labelPositionOpponent5, opponentPositions[4]);
+    }
+}
+
+void VisionWindow::handleLabel(Gtk::Label* label, Gtk::Label* labelPosition, vss::Point robot){
+
     stringstream ss;
-    ss << "[ " << ball.x << " x " << ball.y << " ]";
-    labelPositionBall->set_text(ss.str());
 
-    if (not teamPositions.empty()) {
-        ss.str("");
-        ss << "[ " << teamPositions[0].x << " x " << teamPositions[0].y << " ]";
-        labelPositionRobot1->set_text(ss.str());
+    if (isEmpty(robot)) {
+        label->hide();
+        labelPosition->hide();
+    } else {
+        ss << "[ " << int(robot.x) << " x " << int(robot.y)  << " ]";
+        labelPosition->set_text(ss.str());
 
-        ss.str("");
-        ss << "[ " << teamPositions[1].x << " x " << teamPositions[1].y << " ]";
-        labelPositionRobot2->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << teamPositions[2].x << " x " << teamPositions[2].y << " ]";
-        labelPositionRobot3->set_text(ss.str());
+        labelPosition->show();
+        label->show();
     }
 
-    if (not opponentPositions.empty()) {
-        ss.str("");
-        ss << "[ " << opponentPositions[0].x << " x " << opponentPositions[0].y << " ]";
-        labelPositionOpponent1->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << opponentPositions[1].x << " x " << opponentPositions[1].y << " ]";
-        labelPositionOpponent2->set_text(ss.str());
-
-        ss.str("");
-        ss << "[ " << opponentPositions[2].x << " x " << opponentPositions[2].y << " ]";
-        labelPositionOpponent3->set_text(ss.str());
-    }
 }

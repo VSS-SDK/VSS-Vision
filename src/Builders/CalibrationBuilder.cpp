@@ -27,8 +27,6 @@ Calibration CalibrationBuilder::getInstance() {
   if(haveToInitializeCuts)
     calibration->cut = getCuts();
 
-  calibration->shouldCropImage = false;
-
   return calibration;
 }
 
@@ -37,29 +35,29 @@ std::vector<ColorRange> CalibrationBuilder::getColorsRange() {
 
   auto colorRangeAux = new ColorRange();
 
-  colorRangeAux->colorType = ColorType::Red;
-  colorsRange.push_back(colorRangeAux);
+  colorRangeAux->colorType = ColorType::Blue;
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Yellow;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Orange;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Green;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Pink;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Purple;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
+
+  colorRangeAux->colorType = ColorType::Red;
+  colorsRange.emplace_back(colorRangeAux);
 
   colorRangeAux->colorType = ColorType::Brown;
-  colorsRange.push_back(colorRangeAux);
-
-  colorRangeAux->colorType = ColorType::Blue;
-  colorsRange.push_back(colorRangeAux);
+  colorsRange.emplace_back(colorRangeAux);
 
   return colorsRange;
 }
@@ -67,6 +65,8 @@ std::vector<ColorRange> CalibrationBuilder::getColorsRange() {
 std::vector<vss::Point> CalibrationBuilder::getCuts() {
   std::vector<vss::Point> cuts;
 
+  cuts.push_back(vss::Point(0,0));
+  cuts.push_back(vss::Point(0,0));
   cuts.push_back(vss::Point(0,0));
   cuts.push_back(vss::Point(0,0));
 

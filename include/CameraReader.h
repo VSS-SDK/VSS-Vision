@@ -6,11 +6,17 @@
 #define VSS_VISION_CAMERAREADER_H
 
 #include <vector>
-#include <cxcore.h>
+#include <opencv/cxcore.h>
 #include <Interfaces/IInputReader.h>
 #include <opencv/highgui.h>
 #include <opencv2/opencv.hpp>
-//#include <opencv2/videoio.hpp> // VideoCapture
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+
+#include <string>
+#include <iostream>
+#include <sstream>
+
 
 class CameraReader : public IInputReader{
 public:
@@ -23,30 +29,24 @@ public:
     void initializeReceivement() override;
     void stopReceivement() override;
 
-    bool getShouldCloseReader();
-    bool getRunningCapture();
-    int getActualCameraIndex();
-    cv::Mat getActualFrame();
-    std::vector<int> getCamerasIndex();
     cv::VideoCapture getCapture();
     bool isAValidCameraIndex(int);
 
+    void undistortedCoefficients();
+    cv::Mat undistortedFrame(cv::Mat);
     void readCameraCoefficients();
-    void setMapsCalibration();
-    cv::Mat getFrameWithoutDistortion(cv::Mat);
 
 private:
-    bool shouldCloseReader;
-    bool runningCapture;
-    int actualCameraIndex;
-    cv::Mat actualFrame;
-    std::vector<int> camerasIndex;
     cv::VideoCapture capture;
+    int actualCameraIndex;
+    std::vector<int> camerasIndex;
 
     cv::Mat cameraMatrix;
     cv::Mat distortionCoefficients;
     cv::Mat map1;
     cv::Mat map2;
+
+    bool hasCameraCoefficients;
 };
 
 #endif //VSS_VISION_CAMERAREADER_H

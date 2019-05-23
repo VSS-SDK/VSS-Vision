@@ -14,9 +14,11 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
     add_events(Gdk::BUTTON_RELEASE_MASK);
     add_events(Gdk::POINTER_MOTION_MASK);
 
+    clicked_point.resize(4);
+
+    current_point = 0;
+
     cut_mode = false;
-    cut_move = false;
-    cut_move_adjust = false;
 
     cv_image = cv::Mat::zeros(1, 1, CV_64F);
 
@@ -26,29 +28,28 @@ GImage::GImage(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builde
 GImage::~GImage(){
 }
 
-bool GImage::on_expose_event(GdkEventExpose* event) {
+
+bool GImage::on_draw(const Cairo::RefPtr<Cairo::Context>& c) {
 
     try{
         Glib::RefPtr<Gdk::Window> window = get_window();
-
-        Cairo::RefPtr<Cairo::Context> c = window->create_cairo_context();
 
         Glib::RefPtr<Gdk::Pixbuf> pixbuf =  Gdk::Pixbuf::create_from_data( cv_image.data, Gdk::COLORSPACE_RGB, false, 8, cv_image.cols, cv_image.rows, cv_image.step);
         Gdk::Cairo::set_source_pixbuf(c, pixbuf);
         c->paint();
 
         if (cut_mode) {
-            c->move_to(cut_point_1.x , cut_point_1.y);
-            c->line_to(cut_point_2.x , cut_point_1.y);
-            c->line_to(cut_point_2.x , cut_point_2.y);
-            c->line_to(cut_point_1.x , cut_point_2.y);
-            c->close_path();
 
-            std::vector<double> dash = {20.0, 20.0};
-            c->set_dash(dash, 1);
-            c->set_source_rgba(1, 0, 0, 1);
-            c->set_line_width(2.0);
-            c->stroke();
+            for (unsigned int i = 0; i < clicked_point.size(); i++) {
+                if (clicked_point[i].x != 0 and clicked_point[i].y != 0) {
+                    c->save();
+                    c->arc(clicked_point[i].x, clicked_point[i].y, 5.0, 0.0, 2.0 * M_PI);
+                    c->set_source_rgba(1.0, 0.0, 0.0, 1.0);
+                    c->fill_preserve();
+                    c->restore();
+                    c->stroke();
+                }
+            }
         }
 
     } catch(const std::exception& ex) {
@@ -58,62 +59,18 @@ bool GImage::on_expose_event(GdkEventExpose* event) {
     return true;
 }
 
+
 bool GImage::on_button_press_event (GdkEventButton* event){
     if (event->button == 1 && cut_mode) {
-        cut_move_adjust = true;
-    }
+        clicked_point[current_point] = {int(event->x), int(event->y)};
 
-    if (event->button == 3 && cut_mode) {
-        cut_point_1 = {int(event->x), int(event->y)};
-        cut_point_2 = {int(event->x), int(event->y)};
-        cut_move = true;
+        current_point++;
+        if (current_point > 3) current_point = 0;
     }
 
     return true;
 }
 
-bool GImage::on_button_release_event (GdkEventButton* event){
-    if (event->button == 1 && cut_mode) {
-        cut_move_adjust = false;
-    }
-
-    if (event->button == 3 && cut_mode) {
-        cut_move = false;
-    }
-
-    return true;
-}
-
-bool GImage::on_motion_notify_event (GdkEventMotion* event){
-    if (cut_move && cut_mode) {
-        cut_point_2 = {int(event->x) , int(event->y)};
-        queue_draw();
-
-    } else if (cut_move_adjust && cut_mode) {
-
-        int dist1 = abs(int(event->x) - cut_point_1.x);
-        int dist2 = abs(int(event->x) - cut_point_2.x);
-        int dist3 = abs(int(event->y) - cut_point_2.y);
-        int dist4 = abs(int(event->y) - cut_point_1.y);
-
-        if (dist1 < dist2 && dist1 < dist3 && dist1 < dist4){
-            cut_point_1.x = int(event->x);
-        } else if (dist2 < dist1 && dist2 < dist3 && dist2 < dist4){
-            cut_point_2.x = int(event->x);
-        } else if (dist3 < dist1 && dist3 < dist2 && dist3 < dist4){
-            cut_point_2.y = int(event->y);
-        } else if (dist4 < dist1 && dist4 < dist2 && dist4 < dist3){
-            cut_point_1.y = int(event->y);
-        }
-
-        queue_draw();
-    }
-
-    cut_point_1 = checkPointInsideImage(cut_point_1);
-    cut_point_2 = checkPointInsideImage(cut_point_2);
-
-    return true;
-}
 
 void GImage::processImage(cv::Mat image) {
 
@@ -160,27 +117,13 @@ void GImage::setCutMode(bool _cut_mode){
     cut_mode = _cut_mode;
 }
 
-cv::Point GImage::getCutPoint1(){
-    cv::Point aux;
-    aux.x = (cut_point_1.x * width_original_image) / cv_image.cols;
-    aux.y = (cut_point_1.y * height_original_image) / cv_image.rows;
+std::vector<cv::Point> GImage::getPoints(){
+    std::vector<cv::Point> aux(4);
+
+    for (unsigned int i = 0; i < 4; i++) {
+        aux[i].x = (clicked_point[i].x * width_original_image) / cv_image.cols;
+        aux[i].y = (clicked_point[i].y * height_original_image) / cv_image.rows;
+    }
+
     return aux;
-}
-
-cv::Point GImage::getCutPoint2(){
-    cv::Point aux;
-    aux.x = (cut_point_2.x * width_original_image) / cv_image.cols;
-    aux.y = (cut_point_2.y * height_original_image) / cv_image.rows;
-    return aux;
-}
-
-void GImage::setCutPoint1(cv::Point p) {
-    p = checkPointInsideImage(p);
-    cut_point_1 = p;
-
-}
-
-void GImage::setCutPoint2(cv::Point p) {
-    p = checkPointInsideImage(p);
-    cut_point_2 = p;
 }

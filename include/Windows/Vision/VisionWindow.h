@@ -19,12 +19,12 @@
 #include <RobotRecognizer.h>
 #include <PatternRecognizer.h>
 #include <ImageFileReader.h>
-#include <StateSenderAdapter.h>
 
 #include "GImage.h"
 #include "IVisionWindow.h"
 #include "DefaultFilesPath.h"
 #include "opencv2/highgui/highgui.hpp"
+#include "opencv2/core/core.hpp"
 
 #include <Domain/Ball.h>
 #include <Domain/Robot.h>
@@ -41,11 +41,14 @@
 #include <Interfaces/IPatternRecognizer.h>
 #include <Interfaces/ICalibrationRepository.h>
 
+#include <Communications/StateSender.h>
+
 #include <Helpers/FrameHelper.h>
 #include <Helpers/TimeHelper.h>
 #include <Helpers/Math.h>
 
 using namespace std;
+using namespace cv;
 
 class VisionWindow : public IVisionWindow {
 public:
@@ -56,39 +59,41 @@ public:
 
     bool onKeyboard(GdkEventKey *, Gtk::Window *) override;
     void onButtonPlay(Gtk::ToggleButton *) override;
-    void onButtonLoad(Gtk::FileChooserDialog *) override;
-    void onButtonOpenLoadDialog(Gtk::FileChooserDialog *) override;
+    void onButtonOpenLoadDialog() override;
     void onRadioButtonImage(Gtk::RadioButton *) override;
     void onRadioButtonVideo(Gtk::RadioButton *) override;
     void onRadioButtonCamera(Gtk::RadioButton *) override;
-    void onComboBoxSelectPath(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorTeam(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorOpponent(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern1(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern2(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern3(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern4(Gtk::ComboBox *) override;
-    void onComboBoxSelectColorPattern5(Gtk::ComboBox *) override;
+    void onComboBoxSelectPath(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorTeam(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern1(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern2(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern3(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern4(Gtk::ComboBoxText *) override;
+    void onComboBoxSelectColorPattern5(Gtk::ComboBoxText *) override;
 
 private:
+
+    std::vector<string> listOptions;
+
     // Threads
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
     mutable std::mutex mtxGetRobots;
-    mutable std::mutex mtxUpdateFrame;
-    mutable std::mutex mtxChangeInput;
+    mutable std::mutex mutexFrame;
+    mutable std::mutex mutexChangeInput;
     mutable std::mutex mtxPattern;
-    mutable std::mutex mtxCalibration;
-    mutable std::mutex mtxFps;
+    mutable std::mutex mutexCalibration;
+    mutable std::mutex mutexFPS;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
     sigc::connection connection_update_screen;
 
     // Classes
+    vss::IStateSender* stateSender;
+
     IInputReader *inputReader;
-    IStateSenderAdapter* stateSender;
     ICalibrationBuilder *calibrationBuilderFromRepository;
     ICalibrationRepository *calibrationRepository;
 
@@ -102,6 +107,8 @@ private:
     Calibration calibration;
 
     cv::Mat frame;
+    cv::Mat perspectiveMatrix;
+
     TimeHelper timeHelper;
 
     bool playing;
@@ -115,14 +122,13 @@ private:
     Gtk::RadioButton *radioButtonVideo = nullptr;
     Gtk::RadioButton *radioButtonCamera = nullptr;
 
-    Gtk::ComboBox *comboBoxPath = nullptr;
-    Gtk::ComboBox *comboBoxColorTeam1 = nullptr;
-    Gtk::ComboBox *comboBoxColorTeam2 = nullptr;
-    Gtk::ComboBox *comboBoxPattern1 = nullptr;
-    Gtk::ComboBox *comboBoxPattern2 = nullptr;
-    Gtk::ComboBox *comboBoxPattern3 = nullptr;
-    Gtk::ComboBox *comboBoxPattern4 = nullptr;
-    Gtk::ComboBox *comboBoxPattern5 = nullptr;
+    Gtk::ComboBoxText *comboBoxPath = nullptr;
+    Gtk::ComboBoxText *comboBoxColorTeam1 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern1 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern2 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern3 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern4 = nullptr;
+    Gtk::ComboBoxText *comboBoxPattern5 = nullptr;
 
     Gtk::Label *labelPositionBall = nullptr;
     Gtk::Label *labelPositionRobot1 = nullptr;
@@ -130,17 +136,28 @@ private:
     Gtk::Label *labelPositionRobot3 = nullptr;
     Gtk::Label *labelPositionRobot4 = nullptr;
     Gtk::Label *labelPositionRobot5 = nullptr;
+
     Gtk::Label *labelPositionOpponent1 = nullptr;
     Gtk::Label *labelPositionOpponent2 = nullptr;
     Gtk::Label *labelPositionOpponent3 = nullptr;
     Gtk::Label *labelPositionOpponent4 = nullptr;
     Gtk::Label *labelPositionOpponent5 = nullptr;
 
-    Gtk::Button *buttonLoad = nullptr;
-    Gtk::ToggleButton *buttonPlay = nullptr;
+    Gtk::Label *labelBall = nullptr;
+    Gtk::Label *labelRobot1 = nullptr;
+    Gtk::Label *labelRobot2 = nullptr;
+    Gtk::Label *labelRobot3 = nullptr;
+    Gtk::Label *labelRobot4 = nullptr;
+    Gtk::Label *labelRobot5 = nullptr;
+    Gtk::Label *labelOpponent1 = nullptr;
+    Gtk::Label *labelOpponent2 = nullptr;
+    Gtk::Label *labelOpponent3 = nullptr;
+    Gtk::Label *labelOpponent4 = nullptr;
+    Gtk::Label *labelOpponent5 = nullptr;
 
-    // GTKMM - File Chooser Window
-    Gtk::FileChooserDialog *fileChooserDialog = nullptr;
+    TimeHelper time;
+
+    Gtk::ToggleButton *buttonPlay = nullptr;
     Gtk::Button *buttonOpenLoadDialog = nullptr;
 
     // Control method
@@ -153,13 +170,15 @@ private:
     // Update frame
     void processFrame(cv::Mat);
     void receiveNewFrame(cv::Mat);
-    
+
     void updateGtkImage();
     bool emitUpdateGtkImage();
-    
+
     void updateLabel(int, std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
     void send(std::vector<vss::Robot>, std::vector<vss::Robot>, vss::Ball);
     cv::Mat drawRobot(cv::Mat, std::vector<vss::Robot> , std::vector<vss::Robot>, vss::Ball);
-    };
+
+    void handleLabel(Gtk::Label*, Gtk::Label*, vss::Point);
+};
 
 #endif

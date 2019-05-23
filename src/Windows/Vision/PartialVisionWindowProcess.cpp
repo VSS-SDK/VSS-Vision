@@ -8,6 +8,7 @@
 
 #include <Windows/Vision/VisionWindow.h>
 
+
 void VisionWindow::receiveNewFrame(cv::Mat image) {
     processFrame(image.clone());
 
@@ -15,24 +16,21 @@ void VisionWindow::receiveNewFrame(cv::Mat image) {
         send(robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
     mtxGetRobots.unlock();
 
-    mtxFps.lock();
+    mutexFPS.lock();
         timeHelper.calculateFramesPerSecond();
-    mtxFps.unlock();
+    mutexFPS.unlock();
 }
 
 void VisionWindow::send(std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
 
-
-//    for (uint i = 0; i < blueRobots.size(); i++) {
-//        std::cout << blueRobots[i] << std::endl;
-//    }
-
-    mtxUpdateFrame.lock();
+    mutexFrame.lock();
         cv::Mat image = frame.clone();
-    mtxUpdateFrame.unlock();
+    mutexFrame.unlock();
 
-    if(playing)
-        stateSender->sendState(blueRobots, yellowRobots, ball);
+    if(playing) {
+        vss::State state(ball, blueRobots, yellowRobots);
+        stateSender->sendState(state);
+    }
 }
 
 bool VisionWindow::emitUpdateGtkImage(){
@@ -41,33 +39,30 @@ bool VisionWindow::emitUpdateGtkImage(){
 }
 
 void VisionWindow::updateGtkImage() {
-    mtxUpdateFrame.lock();
+    mutexFrame.lock();
         cv::Mat image = frame.clone();
-    mtxUpdateFrame.unlock();
+    mutexFrame.unlock();
 
     screenImage->setImage(image);
 
     mtxGetRobots.lock();
-    mtxFps.lock();
+    mutexFPS.lock();
         updateLabel(timeHelper.getFramesPerSecond(), robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
-    mtxFps.unlock();
+    mutexFPS.unlock();
     mtxGetRobots.unlock();
 }
 
 void VisionWindow::processFrame(cv::Mat image) {
-    mtxCalibration.lock();
+    mutexCalibration.lock();
         Calibration processCalibration = calibration;
-    mtxCalibration.unlock();
+    mutexCalibration.unlock();
     
     mtxPattern.lock();
         std::vector<ColorPattern> processPattern = pattern;
     mtxPattern.unlock();
 
-    // image = changeRotation(image, processCalibration.rotation);
-    
-    if(processCalibration.shouldCropImage){
-        image = cropImage(image, processCalibration.cut[0], processCalibration.cut[1]);
-    }
+    if (not perspectiveMatrix.empty())
+        image = changePerspective(image, perspectiveMatrix);
 
     patternRecognizer->setPatternVector(processPattern);
     patternRecognizer->setRangeVector(processCalibration.colorsRange);
@@ -86,42 +81,28 @@ void VisionWindow::processFrame(cv::Mat image) {
     image = drawRobot(image, robotRecognizer->getBlueRobots(), robotRecognizer->getYellowRobots(), robotRecognizer->getBall());
     mtxGetRobots.unlock();
 
-    mtxUpdateFrame.lock();
+    mutexFrame.lock();
         frame = image.clone();
-    mtxUpdateFrame.unlock();
+    mutexFrame.unlock();
 
     //frame = patternRecognizer->getImage();
 }
 
 cv::Mat VisionWindow::drawRobot(cv::Mat image, std::vector<vss::Robot> blueRobots, std::vector<vss::Robot> yellowRobots, vss::Ball ball) {
 
-    for (auto robot : blueRobots) {
-        cv::RotatedRect r;
-        r.angle = robot.angle;
-        r.size = cv::Point2f(image.cols*0.05, image.cols*0.05);
-        r.center.x = int ((robot.x * image.cols) / 170);
-        r.center.y = int ((robot.y * image.rows) / 130);
+    std::string colorName = toDescription(patternRecognizer->getTeamMainColorPosition().color);
 
-        image = drawRotatedRectangle(image, r);
+    for (auto position : patternRecognizer->getTeamRotatedRect() ) {
+        image = drawRotatedRectangle(image, position,Scalar(255,255,255));
+        insertText(image, colorName,cv::Point2f (position.center.x+15, position.center.y+15), colorRGB(colorName));
     }
 
-    for (auto robot : yellowRobots) {
-        cv::RotatedRect r;
-        r.angle = robot.angle;
-        r.size = cv::Point2f(image.cols*0.05, image.cols*0.05);
-        r.center.x = int ((robot.x * image.cols) / 170);
-        r.center.y = int ((robot.y * image.rows) / 130);
+    colorName = toDescription(patternRecognizer->getOpponentMainColorPosition().color);
 
-        image = drawRotatedRectangle(image, r);
+    for (auto position : patternRecognizer->getOpponentRotatedRect() ) {
+        image = drawRotatedRectangle(image, position, Scalar(255,255,255));
+        insertText(image, colorName,cv::Point2f (position.center.x+15, position.center.y+15), colorRGB(colorName));
     }
-
-    cv::RotatedRect r;
-    r.angle = 0;
-    r.size = cv::Point2f(image.cols*0.02, image.cols*0.02);
-    r.center.x = (ball.x * image.cols) / 170;
-    r.center.y = (ball.y * image.rows) / 130;
-
-    image = drawRotatedRectangle(image, r);
-
+    
     return image;
 }

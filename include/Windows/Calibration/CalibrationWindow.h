@@ -46,7 +46,7 @@ public:
     void onButtonOpenLoadDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
     void onButtonSave(Gtk::FileChooserDialog*, Gtk::Entry*) override;
-    void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*, Gtk::Scale*) override;
+    void onButtonLoad(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
     void onScaleHMAX(Gtk::Scale*) override;
     void onScaleHMIN(Gtk::Scale*) override;
@@ -54,8 +54,6 @@ public:
     void onScaleSMIN(Gtk::Scale*) override;
     void onScaleVMAX(Gtk::Scale*) override;
     void onScaleVMIN(Gtk::Scale*) override;
-
-    void onScaleRotation(Gtk::Scale*) override;
 
     void onRadioButtonImage(Gtk::RadioButton*) override;
     void onRadioButtonVideo(Gtk::RadioButton*) override;
@@ -66,8 +64,8 @@ public:
 
     void onSignalSelectFileInDialog(Gtk::FileChooserDialog*, Gtk::Entry*) override;
 
-    void onComboBoxSelectPath(Gtk::ComboBox*) override;
-    void onComboBoxSelectColor(Gtk::ComboBox*, std::vector<Gtk::Scale*>) override;
+    void onComboBoxSelectPath(Gtk::ComboBoxText*) override;
+    void onComboBoxSelectColor(Gtk::ComboBoxText*, std::vector<Gtk::Scale*>) override;
 
 private:
 
@@ -75,10 +73,10 @@ private:
     std::thread *threadCameraReader;
     std::thread *threadWindowControl;
 
-    mutable std::mutex mtxCalibration;
-    mutable std::mutex mtxChangeInput;
-    mutable std::mutex mtxUpdateFrame;
-    mutable std::mutex mtxFps;
+    mutable std::mutex mutexCalibration;
+    mutable std::mutex mutexChangeInput;
+    mutable std::mutex mutexFrame;
+    mutable std::mutex mutexFPS;
 
     // Comunication between threads
     Glib::Dispatcher dispatcher_update_gtkmm_frame;
@@ -98,10 +96,10 @@ private:
     unsigned int actualColorRangeIndex;
 
     TimeHelper timeHelper;
-    TimeHelper timerOptimization;
 
     // Opencv image
     cv::Mat frame;
+    cv::Mat perspectiveMatrix;
 
     // GTKMM - Calibration Window
     Gtk::Window* window = nullptr;
@@ -112,10 +110,11 @@ private:
     Gtk::RadioButton* radioButtonVideo = nullptr;
     Gtk::RadioButton* radioButtonCamera = nullptr;
 
-    Gtk::ComboBox* comboBoxPath = nullptr;
-    Gtk::ComboBox* comboBoxColor = nullptr;
+    Gtk::ComboBoxText* comboBoxPath = nullptr;
+    Gtk::ComboBoxText* comboBoxColor = nullptr;
 
-    Gtk::Scale* scaleRotation;
+    std::vector<string> listColors;
+
     std::vector<Gtk::Scale*> scaleHSV;
 
     Gtk::Button* buttonSave = nullptr;

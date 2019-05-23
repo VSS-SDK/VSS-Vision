@@ -51,9 +51,9 @@ void CalibrationWindow::cameraThreadWrapper() {
     inputReader->initializeReceivement();
 
     while(shouldReadInput) {
-        mtxChangeInput.lock();
+        mutexChangeInput.lock();
             cv::Mat receivedFrame = inputReader->getFrame();
-        mtxChangeInput.unlock();
+        mutexChangeInput.unlock();
         receiveNewFrame( receivedFrame );
     }
 }
@@ -70,15 +70,17 @@ void CalibrationWindow::initializeWidget(){
 
     radioButtonImage->set_active();
 
-    // show only .txt files
-    auto filterText = fileChooserDialog->get_filter();
-    filterText->set_name("Text files");
-    filterText->add_pattern("*.txt");
-    fileChooserDialog->add_filter(*filterText);
+    listColors = {"Blue", "Yellow", "Orange", "Green", "Pink", "Purple", "Red", "Brown"};
+
+    int sizeListColors = listColors.size();
+
+    for (int i=0; i<sizeListColors; i++){
+        comboBoxColor->append(listColors[i]);
+    }
 
     // define initial folder for file chooser
     fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
-
+    
     window->maximize();
     window->show_all_children();
 }
@@ -109,8 +111,6 @@ void CalibrationWindow::builderWidget(){
         builder->get_widget("hscale_smin", scaleHSV[S_MIN]);
         builder->get_widget("hscale_vmax", scaleHSV[V_MAX]);
         builder->get_widget("hscale_vmin", scaleHSV[V_MIN]);
-
-        builder->get_widget("hscale_rotation", scaleRotation);
 
         builder->get_widget("radiobutton_image", radioButtonImage);
         builder->get_widget("radiobutton_video", radioButtonVideo);
@@ -144,7 +144,8 @@ void CalibrationWindow::setSignals(){
     buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonOpenLoadDialog), fileChooserDialog, entryChooserDialog ));
 
     buttonSave->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonSave), fileChooserDialog, entryChooserDialog ));
-    buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*, Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonLoad), fileChooserDialog, entryChooserDialog, scaleRotation ));
+    buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onButtonLoad), fileChooserDialog, entryChooserDialog));
+
 
     scaleHSV[H_MAX]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleHMAX), scaleHSV[H_MAX]));
     scaleHSV[H_MIN]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleHMIN), scaleHSV[H_MIN]));
@@ -153,7 +154,6 @@ void CalibrationWindow::setSignals(){
     scaleHSV[V_MAX]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleVMAX), scaleHSV[V_MAX]));
     scaleHSV[V_MIN]->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleVMIN), scaleHSV[V_MIN]));
 
-    scaleRotation->signal_value_changed().connect(sigc::bind<Gtk::Scale*>(sigc::mem_fun(this, &ICalibrationWindow::onScaleRotation), scaleRotation));
 
     radioButtonImage->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonImage), radioButtonImage));
     radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton*>(sigc::mem_fun(this, &ICalibrationWindow::onRadioButtonVideo), radioButtonVideo));
@@ -164,6 +164,6 @@ void CalibrationWindow::setSignals(){
 
     fileChooserDialog->signal_selection_changed().connect(sigc::bind<Gtk::FileChooserDialog*, Gtk::Entry*>(sigc::mem_fun(this, &ICalibrationWindow::onSignalSelectFileInDialog), fileChooserDialog, entryChooserDialog ));
 
-    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox*>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectPath), comboBoxPath));
-    comboBoxColor->signal_changed().connect(sigc::bind<Gtk::ComboBox*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectColor), comboBoxColor, scaleHSV));
+    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectPath), comboBoxPath));
+    comboBoxColor->signal_changed().connect(sigc::bind<Gtk::ComboBoxText*, std::vector<Gtk::Scale*>>(sigc::mem_fun(this, &ICalibrationWindow::onComboBoxSelectColor), comboBoxColor, scaleHSV));
 }

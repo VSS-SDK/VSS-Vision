@@ -42,4 +42,11 @@ cmake-build-debug/*
 cmake-build-debug/
 .idea/*
 .vscode/
-
+3.4.2.tar.gz
+opencv-3.4.2
+opencv-3.4.2/
+opencv-3.4.2/*
+third-party
+third-party/
+third-party/*
+*.glade~

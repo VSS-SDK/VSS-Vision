@@ -13,9 +13,9 @@
 void CalibrationWindow::receiveNewFrame(cv::Mat image){
     processFrame(image.clone());
     
-    mtxFps.lock();
+    mutexFPS.lock();
         timeHelper.calculateFramesPerSecond();
-    mtxFps.unlock();
+    mutexFPS.unlock();
 }
 
 bool CalibrationWindow::emitUpdateGtkImage(){
@@ -24,40 +24,37 @@ bool CalibrationWindow::emitUpdateGtkImage(){
 }
 
 void CalibrationWindow::updateGtkImage(){
-    mtxUpdateFrame.lock();
+    mutexFrame.lock();
         cv::Mat image = frame.clone();
-    mtxUpdateFrame.unlock();
+    mutexFrame.unlock();
 
     screenImage->setImage(image);
 
-    mtxFps.lock();
+    mutexFPS.lock();
         updateLabel(timeHelper.getFramesPerSecond());
-    mtxFps.unlock();
+    mutexFPS.unlock();
 }
 
 void CalibrationWindow::processFrame(cv::Mat image) {
-    mtxCalibration.lock();
+    mutexCalibration.lock();
         Calibration _calibration = calibration;
-    mtxCalibration.unlock();
+    mutexCalibration.unlock();
 
-    //image = changeRotation(image, _calibration.rotation);
-
-    if(_calibration.shouldCropImage) {
-        image = cropImage(image, _calibration.cut[0], _calibration.cut[1]);
-    }
+    if (not perspectiveMatrix.empty())
+        image = changePerspective(image, perspectiveMatrix);
 
     colorRecognizer->processImage(image, 3);
 
     if(showBinaryImage){
-       mtxUpdateFrame.lock();
+       mutexFrame.lock();
            frame = colorRecognizer->getBinaryImage().clone();
-       mtxUpdateFrame.unlock();
+       mutexFrame.unlock();
 
    } else {
        image = drawRectangle(image, colorRecognizer->getRectangles());
 
-       mtxUpdateFrame.lock();
+       mutexFrame.lock();
            frame = image.clone();
-       mtxUpdateFrame.unlock();
+       mutexFrame.unlock();
    }
 }

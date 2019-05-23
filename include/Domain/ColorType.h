@@ -4,7 +4,7 @@
 
 #ifndef VSS_VISION_TYPECOLOR_H
 #define VSS_VISION_TYPECOLOR_H
-
+#include <opencv2/core/types.hpp>
 #include "iostream"
 
 enum ColorType {
@@ -21,5 +21,6 @@ enum ColorType {
 
 std::string toDescription(ColorType);
 ColorType toColorType(std::string);
+cv::Scalar colorRGB(std::string colorName);
 
 #endif //VSS_VISION_TYPECOLOR_H

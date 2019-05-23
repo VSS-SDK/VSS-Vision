@@ -4,11 +4,27 @@
 
 #include "FrameHelper.h"
 
-cv::Mat changeRotation(cv::Mat mat, float value) {
+cv::Mat getPerspectiveMatrix(cv::Mat mat, std::vector<vss::Point> points) {
+    cv::Point2f points1[4];
+    points1[0] = cv::Point2f(points[0].x, points[0].y);
+    points1[1] = cv::Point2f(points[1].x, points[1].y);
+    points1[2] = cv::Point2f(points[2].x, points[2].y);
+    points1[3] = cv::Point2f(points[3].x, points[3].y);
+
+    cv::Point2f points2[4];
+    points2[0] = cv::Point2f(0, 0);
+    points2[1] = cv::Point2f(mat.cols, 0);
+    points2[2] = cv::Point2f(0, mat.rows);
+    points2[3] = cv::Point2f(mat.cols, mat.rows);
+
+    return cv::getPerspectiveTransform(points1, points2);
+}
+
+cv::Mat changePerspective(cv::Mat mat, cv::Mat matrix) {
     try {
-        cv::warpAffine(mat, mat, cv::getRotationMatrix2D(cv::Point2f(mat.cols/2, mat.rows/2), value, 1.0), mat.size());
+        cv::warpPerspective(mat, mat, matrix, mat.size());
     } catch (std::exception& e) {
-        std::cout << "Exception change image rotation" << std::endl;
+        std::cout << "Exception change image perspective" << std::endl;
     }
     return mat;
 }
@@ -63,22 +79,26 @@ cv::Mat drawRectangle(cv::Mat mat, cv::Rect rect) {
     }
     return mat;
 }
+cv::Mat insertText(cv::Mat mat, std::string text, cv::Point2f point, cv::Scalar color){
+    cv::putText(mat, text, point, cv::FONT_HERSHEY_PLAIN, 1, color, 1);
+    return mat;
+}
 
-cv::Mat drawRotatedRectangle(cv::Mat mat, std::vector<cv::RotatedRect> rotated) {
+cv::Mat drawRotatedRectangle(cv::Mat mat, std::vector<cv::RotatedRect> rotated, cv::Scalar color ) {
     for (auto rotatedRect : rotated) {
-        drawRotatedRectangle(mat, rotatedRect);
+        drawRotatedRectangle(mat, rotatedRect, color);
     }
     return mat;
 }
 
-cv::Mat drawRotatedRectangle(cv::Mat mat, cv::RotatedRect rotated) {
+cv::Mat drawRotatedRectangle(cv::Mat mat, cv::RotatedRect rotated, cv::Scalar color) {
     try {
 
     cv::Point2f vertices[4];
     rotated.points(vertices);
 
     for (int i = 0; i < 4; i++)
-        line(mat, vertices[i], vertices[(i+1)%4], cv::Scalar(0,255,0), 2);
+        line(mat, vertices[i], vertices[(i+1)%4], color, 2);
 
     } catch (std::exception& e) {
         std::cout << "Exception draw rotated rect" << std::endl;

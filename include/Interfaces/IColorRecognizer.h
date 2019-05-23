@@ -6,7 +6,7 @@
 #define VSS_VISION_ICOLORRECOGNIZER_H
 
 #include <vector>
-#include <cxcore.h>
+#include <opencv/cxcore.h>
 #include <Domain/ColorRange.h>
 
 class IColorRecognizer {

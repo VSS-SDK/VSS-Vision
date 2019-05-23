@@ -16,13 +16,12 @@ VisionWindow::VisionWindow() {
     calibrationRepository = new CalibrationRepository(calibrationBuilderFromRepository);
     calibration = calibrationBuilderFromRepository->getInstance();
 
-    //inputReader = new CameraReader();
     inputReader = new ImageFileReader();
 
     robotRecognizer = new RobotRecognizer();
     patternRecognizer = new PatternRecognizer();
 
-    stateSender = new StateSenderAdapter();
+    stateSender = new vss::StateSender();
     stateSender->createSocket();
 
     playing = true;
@@ -32,9 +31,12 @@ VisionWindow::VisionWindow() {
     
     mainColorList = {ColorType::Blue, ColorType::Yellow};
     objectList = {ObjectType::Robot1, ObjectType::Robot2, ObjectType::Robot3, ObjectType::Robot4, ObjectType::Robot5};
+    listOptions = {"Robot 1", "Robot 2", "Robot 3", "Robot 4", "Robot 5"};
 }
 
-VisionWindow::~VisionWindow() = default;
+VisionWindow::~VisionWindow() {
+    stateSender->closeSocket();
+}
 
 int VisionWindow::run(int argc, char *argv[]) {
 
@@ -55,9 +57,9 @@ void VisionWindow::cameraThreadWrapper() {
     inputReader->initializeReceivement();
 
     while(shouldReadInput) {
-        mtxChangeInput.lock();
+        mutexChangeInput.lock();
             cv::Mat receivedFrame = inputReader->getFrame();
-        mtxChangeInput.unlock();
+        mutexChangeInput.unlock();
 
         receiveNewFrame( receivedFrame );
     }
@@ -73,18 +75,20 @@ void VisionWindow::windowThreadWrapper() {
 
 void VisionWindow::initializeWidget() {
 
+    for (unsigned int i = 0; i < listOptions.size(); i++){
+        comboBoxPattern1->append(to_string(i),listOptions[i]);
+        comboBoxPattern2->append(to_string(i),listOptions[i]);
+        comboBoxPattern3->append(to_string(i),listOptions[i]);
+        comboBoxPattern4->append(to_string(i),listOptions[i]);
+        comboBoxPattern5->append(to_string(i),listOptions[i]);
+    }
+
     radioButtonImage->set_active();
 
+    comboBoxColorTeam1->append("Blue");
+    comboBoxColorTeam1->append("Yellow");
+
     screenImage->setImage(cv::imread(defaultFilesPath + "/mock/images/model.jpg"));
-
-    // show only .txt files
-    auto filterText = fileChooserDialog->get_filter();
-    filterText->set_name("Text files");
-    filterText->add_pattern("*.txt");
-    fileChooserDialog->add_filter(*filterText);
-
-    // define initial folder for file chooser
-    fileChooserDialog->set_current_folder(defaultFilesPath + "/data");
 
     window->maximize();
     window->show_all_children();
@@ -102,10 +106,7 @@ void VisionWindow::builderWidget() {
         builder->get_widget_derived("drawingarea_frame", screenImage);
 
         builder->get_widget("togglebutton_play", buttonPlay);
-        builder->get_widget("button_load_calibration", buttonLoad);
         builder->get_widget("button_load_dialog", buttonOpenLoadDialog);
-
-        builder->get_widget("file_chooser_dialog", fileChooserDialog);
 
         builder->get_widget("radiobutton_image", radioButtonImage);
         builder->get_widget("radiobutton_video", radioButtonVideo);
@@ -113,7 +114,6 @@ void VisionWindow::builderWidget() {
 
         builder->get_widget("combobox_path", comboBoxPath);
         builder->get_widget("combobox_team_1", comboBoxColorTeam1);
-        builder->get_widget("combobox_team_2", comboBoxColorTeam2);
         builder->get_widget("combobox_pattern_1", comboBoxPattern1);
         builder->get_widget("combobox_pattern_2", comboBoxPattern2);
         builder->get_widget("combobox_pattern_3", comboBoxPattern3);
@@ -134,6 +134,19 @@ void VisionWindow::builderWidget() {
         builder->get_widget("label_position_opponent_4", labelPositionOpponent4);
         builder->get_widget("label_position_opponent_5", labelPositionOpponent5);
 
+        builder->get_widget("label_position_ball", labelBall);
+        builder->get_widget("label_position_robot_1_1", labelRobot1);
+        builder->get_widget("label_position_robot_2_2", labelRobot2);
+        builder->get_widget("label_position_robot_3_3", labelRobot3);
+        builder->get_widget("label_position_robot_4_4", labelRobot4);
+        builder->get_widget("label_position_robot_5_5", labelRobot5);
+
+        builder->get_widget("label_position_opponent_1_1", labelOpponent1);
+        builder->get_widget("label_position_opponent_2_2", labelOpponent2);
+        builder->get_widget("label_position_opponent_3_3", labelOpponent3);
+        builder->get_widget("label_position_opponent_4_4", labelOpponent4);
+        builder->get_widget("label_position_opponent_5_5", labelOpponent5);
+
     } catch (const Glib::FileError &ex) {
         std::cerr << "FileError: " << ex.what() << std::endl;
 
@@ -153,19 +166,17 @@ void VisionWindow::setSignals() {
     window->signal_key_press_event().connect(sigc::bind<Gtk::Window *>(sigc::mem_fun(this, &IVisionWindow::onKeyboard), window), false);
 
     buttonPlay->signal_clicked().connect(sigc::bind<Gtk::ToggleButton *>(sigc::mem_fun(this, &IVisionWindow::onButtonPlay), buttonPlay));
-    buttonLoad->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonLoad), fileChooserDialog));
-    buttonOpenLoadDialog->signal_clicked().connect(sigc::bind<Gtk::FileChooserDialog *>(sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog), fileChooserDialog));
+    buttonOpenLoadDialog->signal_clicked().connect(sigc::mem_fun(this, &IVisionWindow::onButtonOpenLoadDialog));
 
     radioButtonImage->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonImage), radioButtonImage));
     radioButtonVideo->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonVideo), radioButtonVideo));
     radioButtonCamera->signal_pressed().connect(sigc::bind<Gtk::RadioButton *>(sigc::mem_fun(this, &IVisionWindow::onRadioButtonCamera), radioButtonCamera));
 
-    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
-    comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam), comboBoxColorTeam1));
-    comboBoxColorTeam2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorOpponent), comboBoxColorTeam2));
-    comboBoxPattern1->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern1), comboBoxPattern1));
-    comboBoxPattern2->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern2), comboBoxPattern2));
-    comboBoxPattern3->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern3), comboBoxPattern3));
-    comboBoxPattern4->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern4), comboBoxPattern4));
-    comboBoxPattern5->signal_changed().connect(sigc::bind<Gtk::ComboBox *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern5), comboBoxPattern5));
+    comboBoxPath->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectPath), comboBoxPath));
+    comboBoxColorTeam1->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorTeam), comboBoxColorTeam1));
+    comboBoxPattern1->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern1), comboBoxPattern1));
+    comboBoxPattern2->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern2), comboBoxPattern2));
+    comboBoxPattern3->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern3), comboBoxPattern3));
+    comboBoxPattern4->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern4), comboBoxPattern4));
+    comboBoxPattern5->signal_changed().connect(sigc::bind<Gtk::ComboBoxText *>(sigc::mem_fun(this, &IVisionWindow::onComboBoxSelectColorPattern5), comboBoxPattern5));
 }
